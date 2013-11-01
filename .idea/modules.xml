@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Bttendance/Bttendance.iml" filepath="$PROJECT_DIR$/Bttendance/Bttendance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Bttendance-Android.iml" filepath="$PROJECT_DIR$/Bttendance-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BttendanceProject.iml" filepath="$PROJECT_DIR$/BttendanceProject.iml" />
+    </modules>
+  </component>
+</project>
+
