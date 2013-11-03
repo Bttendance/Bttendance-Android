@@ -9,7 +9,14 @@
     tools:context=".MainActivity$PlaceholderFragment">
 
     <Button
+        android:id="@+id/blue_on_dialog"
+        android:text="Bluetooth ON Dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
         android:id="@+id/blue_on"
+        android:layout_below="@id/blue_on_dialog"
         android:text="Bluetooth ON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -22,10 +29,23 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/blue_find"
+        android:id="@+id/blue_discover"
         android:layout_below="@id/blue_off"
+        android:text="Bluetooth DISCOVER ABILITY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/blue_find"
+        android:layout_below="@id/blue_discover"
         android:text="Bluetooth FIND"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/blue_list"
+        android:layout_below="@id/blue_find"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"></ListView>
 
 </RelativeLayout>
