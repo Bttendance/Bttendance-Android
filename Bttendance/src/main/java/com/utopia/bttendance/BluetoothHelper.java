@@ -64,4 +64,13 @@ public class BluetoothHelper {
         }
     }
 
+    public static void startLescan(BluetoothAdapter.LeScanCallback callback) {
+        if (!isAvailable())
+            return;
+
+        if (mBluetoothAdapter.isEnabled()) {
+//            mBluetoothAdapter.startLeScan(callback);
+        }
+    }
+
 }

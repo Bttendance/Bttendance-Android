@@ -95,6 +95,8 @@ public class MainActivity extends ActionBarActivity {
             IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
             getActivity().registerReceiver(mReceiver, filter); // Don't forget to unregister during onDestroy
 
+            Toast.makeText(getActivity(), DeviceHelper.getId(getActivity()) + ", " + DeviceHelper.getMacAddress(getActivity()), Toast.LENGTH_SHORT).show();
+
             return rootView;
         }
 
