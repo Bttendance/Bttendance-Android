@@ -1,4 +1,4 @@
-package com.utopia.bttendance;
+package com.utopia.bttendance.helper;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;

@@ -1,25 +1,27 @@
-package com.utopia.bttendance;
+package com.utopia.bttendance.activity;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.utopia.bttendance.R;
+import com.utopia.bttendance.helper.BluetoothHelper;
+import com.utopia.bttendance.helper.DeviceHelper;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -39,12 +41,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("Bttendance", "requestCode : " + requestCode + ", resultCode : " + resultCode);
-        Toast.makeText(getApplicationContext(),"requestCode : " + requestCode + ", resultCode : " + resultCode, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "requestCode : " + requestCode + ", resultCode : " + resultCode, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -65,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment implements View.OnClickListener{
+    public static class PlaceholderFragment extends Fragment implements View.OnClickListener {
 
         ArrayAdapter<String> mAdapter;
 
@@ -116,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     // Add the name and address to an array adapter to show in a ListView
                     Log.e("Bttendance", device.getName() + "\n" + device.getAddress() + "\n" + device.getUuids());
-                    for (int i=0;i<device.getUuids().length;i++)
+                    for (int i = 0; i < device.getUuids().length; i++)
                         Log.e("Bttendance", device.getUuids()[i].getUuid().toString());
                     mAdapter.add(device.getName() + "\n" + device.getAddress() + "\n" + device.getUuids());
                     mAdapter.notifyDataSetChanged();

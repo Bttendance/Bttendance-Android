@@ -1,4 +1,4 @@
-package com.utopia.bttendance;
+package com.utopia.bttendance.helper;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 7..
