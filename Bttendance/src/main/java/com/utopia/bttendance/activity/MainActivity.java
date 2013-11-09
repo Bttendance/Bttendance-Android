@@ -118,9 +118,16 @@ public class MainActivity extends ActionBarActivity {
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     // Add the name and address to an array adapter to show in a ListView
                     Log.e("Bttendance", device.getName() + "\n" + device.getAddress() + "\n" + device.getUuids());
-                    for (int i = 0; i < device.getUuids().length; i++)
-                        Log.e("Bttendance", device.getUuids()[i].getUuid().toString());
-                    mAdapter.add(device.getName() + "\n" + device.getAddress() + "\n" + device.getUuids());
+                    if (device == null) {
+                        Log.e("Bttendance", "device is null");
+                        mAdapter.add("device is null");
+                    } else {
+                        mAdapter.add(device.getName() + "\n" + device.getAddress() + "\n" + device.getUuids());
+                        for (int i = 0; i < device.getUuids().length; i++) {
+                            Log.e("Bttendance", device.getUuids()[i].getUuid().toString());
+                            mAdapter.add(device.getUuids()[i].getUuid().toString());
+                        }
+                    }
                     mAdapter.notifyDataSetChanged();
                 }
             }

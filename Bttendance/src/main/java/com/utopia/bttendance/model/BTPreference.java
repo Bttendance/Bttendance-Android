@@ -31,6 +31,7 @@ public class BTPreference {
         }
     }
 
+    // on Log out
     public static void clearAuth(Context ctx) {
         Editor edit = getInstance(ctx).edit();
         // edit.remove("username");
@@ -59,6 +60,17 @@ public class BTPreference {
 //        edit.putString("auth_json", jsonStr);
 //        edit.commit();
 //    }
+
+    public static String getUUID(Context ctx) {
+        String uuid = getInstance(ctx).getString("uuid", null);
+        if (uuid == null) {
+            uuid = "asdf";
+            Editor edit = getInstance(ctx).edit();
+            edit.putString("uuid", uuid);
+            edit.commit();
+        }
+        return uuid;
+    }
 
     public static void setDefaultLanguage(Context ctx, String code, String name) {
         Editor edit = getInstance(ctx).edit();
