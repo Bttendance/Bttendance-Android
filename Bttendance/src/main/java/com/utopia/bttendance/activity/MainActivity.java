@@ -1,6 +1,8 @@
 package com.utopia.bttendance.activity;
 
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +24,9 @@ import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.helper.DeviceHelper;
+
+import java.io.IOException;
+import java.util.UUID;
 
 public class MainActivity extends SherlockFragmentActivity {
 
@@ -123,9 +128,15 @@ public class MainActivity extends SherlockFragmentActivity {
                         mAdapter.add("device is null");
                     } else {
                         mAdapter.add(device.getName() + "\n" + device.getAddress() + "\n" + device.getUuids());
-                        for (int i = 0; i < device.getUuids().length; i++) {
-                            Log.e("Bttendance", device.getUuids()[i].getUuid().toString());
-                            mAdapter.add(device.getUuids()[i].getUuid().toString());
+
+                        if(device.getUuids()!=null){
+                            for (int i = 0; i < device.getUuids().length; i++) {
+                                Log.e("Bttendance", device.getUuids()[i].getUuid().toString());
+                                mAdapter.add(device.getUuids()[i].getUuid().toString());
+                            }
+                        }else{
+                            Log.e("Bttendance", "uuid is null");
+                            mAdapter.add("device.uuid is null");
                         }
                     }
                     mAdapter.notifyDataSetChanged();
@@ -154,6 +165,7 @@ public class MainActivity extends SherlockFragmentActivity {
                     mAdapter.notifyDataSetChanged();
                     Toast.makeText(getActivity(), "Start Discover", Toast.LENGTH_SHORT).show();
                     BluetoothHelper.startDiscovery();
+                    //BluetoothHelper.startLescan(BluetoothHelper.isAvailable());
                     return;
                 default:
                     return;
