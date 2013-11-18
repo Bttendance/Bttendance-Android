@@ -76,6 +76,8 @@ public class BluetoothHelper {
             return;
 
         if (mBluetoothAdapter.isEnabled()) {
+            if(mBluetoothAdapter.isDiscovering())
+                mBluetoothAdapter.cancelDiscovery();
             mBluetoothAdapter.startDiscovery();
         }
     }
