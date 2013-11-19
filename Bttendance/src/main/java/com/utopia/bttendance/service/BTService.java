@@ -33,4 +33,18 @@ public class BTService {
             }
         });
     }
+
+    public static void signup(User user, final Callback cb) {
+        mBTAPI.signup(user, new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                cb.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                cb.failure(retrofitError);
+            }
+        });
+    }
 }

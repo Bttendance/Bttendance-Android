@@ -20,4 +20,5 @@
 <resources>
     <color name="pressed_bttendance">#33000000</color>
     <color name="bttendance_blue">#33B5E5</color>
+    <color name="transparent_selector">#66CCCCCC</color>
 </resources>

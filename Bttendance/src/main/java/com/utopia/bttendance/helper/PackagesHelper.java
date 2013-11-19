@@ -17,7 +17,6 @@ public class PackagesHelper {
     public static String FANCY = "com.thefancy.app";
     public static String FLIPBOARD = "flipboard.app";
     public static String MUSICOFFPAYED = "asia.utopia.musicoff.payed";
-    public static String VINGLE = "com.vingle.android";
 
     public static boolean isInstalled(Context context, String packageUri) {
         PackageManager pm = context.getPackageManager();

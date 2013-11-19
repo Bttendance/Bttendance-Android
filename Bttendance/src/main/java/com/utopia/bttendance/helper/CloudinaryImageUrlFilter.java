@@ -10,7 +10,6 @@ import java.util.Locale;
 public class CloudinaryImageUrlFilter {
 
     // use cloudanary stuffs.
-    // http://e2.vingle.net/c_limit,q_80,w_320/flultrjnx6pnwa6h57nj.jpg
 
     public static String getOriginalImageUrl(String url) {
 

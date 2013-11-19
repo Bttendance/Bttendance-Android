@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.google.gson.Gson;
+import com.utopia.bttendance.model.json.User;
+
 import java.util.Locale;
 
 /**
@@ -35,31 +38,31 @@ public class BTPreference {
     public static void clearAuth(Context ctx) {
         Editor edit = getInstance(ctx).edit();
         // edit.remove("username");
-        edit.remove("auth_json");
+        edit.remove("user");
         edit.commit();
     }
 
-//    public static AuthJson getAuthJson(Context ctx) {
-//        String jsonStr = getInstance(ctx).getString("auth_json", null);
-//        if (jsonStr == null)
-//            return null;
-//        Gson gson = new Gson();
-//        try {
-//            return gson.fromJson(jsonStr, AuthJson.class);
-//        } catch (Exception e) {
-//            clearAuth(ctx);
-//            return null;
-//        }
-//    }
-//
-//    public static void setAuthJson(Context ctx, AuthJson auth) {
-//        Gson gson = new Gson();
-//        String jsonStr = gson.toJson(auth);
-//
-//        Editor edit = getInstance(ctx).edit();
-//        edit.putString("auth_json", jsonStr);
-//        edit.commit();
-//    }
+    public static User getUser(Context ctx) {
+        String jsonStr = getInstance(ctx).getString("user", null);
+        if (jsonStr == null)
+            return null;
+        Gson gson = new Gson();
+        try {
+            return gson.fromJson(jsonStr, User.class);
+        } catch (Exception e) {
+            clearAuth(ctx);
+            return null;
+        }
+    }
+
+    public static void setUser(Context ctx, User auth) {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(auth);
+
+        Editor edit = getInstance(ctx).edit();
+        edit.putString("user", jsonStr);
+        edit.commit();
+    }
 
     public static String getUUID(Context ctx) {
         String uuid = getInstance(ctx).getString("uuid", null);

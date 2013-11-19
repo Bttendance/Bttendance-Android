@@ -12,8 +12,16 @@ import android.widget.EditText;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.KeyboardHelper;
+import com.utopia.bttendance.model.json.User;
+import com.utopia.bttendance.service.BTService;
+import com.utopia.bttendance.view.BeautiToast;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
@@ -118,7 +126,7 @@ public class SignInActivity extends SherlockFragmentActivity {
 
             @Override
             public void onClick(View v) {
-                trySignIn(true);
+                trySignIn();
             }
         });
 
@@ -147,15 +155,21 @@ public class SignInActivity extends SherlockFragmentActivity {
         }
     }
 
-    protected boolean trySignIn(boolean showError) {
+    protected void trySignIn() {
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
-        return false;
-    }
+        BTService.signin(username, password, new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                BeautiToast.show(getApplicationContext(), user.email);
+                BTDebug.LogInfo(user.email);
+            }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                BTDebug.LogError(retrofitError.getMessage());
+            }
+        });
     }
 
     @Override

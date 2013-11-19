@@ -4,6 +4,7 @@
     <string name="app_name">Bttendance</string>
 
     <string name="username">Username</string>
+    <string name="full_name">Full Name</string>
     <string name="email_address">Email Address</string>
     <string name="password_at_least">"Password (at least 6 characters)"</string>
     <string name="by_creating_an_account_you_agree_to_our_s">"By creating an account, you agree to our %s"</string>
@@ -13,5 +14,6 @@
     <string name="forgot_your_password">"Forgot your password?"</string>
     <string name="sign_in">"Sign In"</string>
     <string name="sign_up">"Sign Up"</string>
+    <string name="create_account">"Create Account"</string>
 
 </resources>

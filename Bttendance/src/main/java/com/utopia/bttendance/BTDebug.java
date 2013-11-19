@@ -13,27 +13,43 @@ public class BTDebug {
     }
 
     public static void LogError(String log) {
-        if (DEBUG)
-            Log.e(TAG, log);
+        if (DEBUG) {
+            if (log != null)
+                Log.e(TAG, log);
+            else
+                Log.e(TAG, "Log is null");
+        }
     }
 
     public static void LogDebug(String log) {
         if (DEBUG)
-            Log.d(TAG, log);
+            if (log != null)
+                Log.d(TAG, log);
+            else
+                Log.d(TAG, "Log is null");
     }
 
     public static void LogDebug(String tag, String log) {
         if (DEBUG)
-            Log.d(tag, log);
+            if (log != null)
+                Log.d(TAG, log);
+            else
+                Log.d(TAG, "Log is null");
     }
 
     public static void LogInfo(String log) {
         if (DEBUG)
-            Log.i(TAG, log);
+            if (log != null)
+                Log.i(TAG, log);
+            else
+                Log.i(TAG, "Log is null");
     }
 
     public static void Toast(Context context, String log) {
         if (DEBUG)
-            Toast.makeText(context, log, Toast.LENGTH_SHORT).show();
+            if (log != null)
+                Toast.makeText(context, log, Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(context, "Log is null", Toast.LENGTH_SHORT).show();
     }
 }
