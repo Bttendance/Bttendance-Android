@@ -128,7 +128,7 @@ public class MainActivity extends SherlockFragmentActivity {
 
                     Log.e("Bttendance", device.getName() + "\n" + device.getAddress() + "\n" );
                     //Log.e("Bttendance", " " + device.getType());
-                    //Log.e("Bttendance", ""+ device.getBluetoothClass().toString());
+                    //Log.e("Bttendance", ""+ device.getBluetoothClass().toJson());
                     //Log.e("Bttendance", ""+ device.getBondState());
                     if (device == null) {
                         Log.e("Bttendance", "device is null");
@@ -138,8 +138,8 @@ public class MainActivity extends SherlockFragmentActivity {
 //
 //                        if(device.getUuids()!=null){
 //                            for (int i = 0; i < device.getUuids().length; i++) {
-//                                Log.e("Bttendance", device.getUuids()[i].getUuid().toString());
-//                                mAdapter.add(device.getUuids()[i].getUuid().toString());
+//                                Log.e("Bttendance", device.getUuids()[i].getUuid().toJson());
+//                                mAdapter.add(device.getUuids()[i].getUuid().toJson());
 //                            }
 //                        }else{
 //                            Log.e("Bttendance", "uuid is null");

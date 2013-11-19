@@ -55,9 +55,9 @@ public class BTPreference {
         }
     }
 
-    public static void setUser(Context ctx, User auth) {
+    public static void setUser(Context ctx, User user) {
         Gson gson = new Gson();
-        String jsonStr = gson.toJson(auth);
+        String jsonStr = gson.toJson(user);
 
         Editor edit = getInstance(ctx).edit();
         edit.putString("user", jsonStr);

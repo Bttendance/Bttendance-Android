@@ -16,8 +16,17 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.helper.KeyboardHelper;
+import com.utopia.bttendance.model.json.*;
+import com.utopia.bttendance.service.BTService;
+import com.utopia.bttendance.view.BeautiToast;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class SignUpActivity extends SherlockFragmentActivity {
 
@@ -265,14 +274,30 @@ public class SignUpActivity extends SherlockFragmentActivity {
         String email = mEmail.getText().toString();
         String password = mPassword.getText().toString();
 
-//        try {
-//            SignHelper.checkValidation(getActivity(), username, email, password);
-//            getVingleService().signUp(username, email, password, mSignUpResponseHandler);
-//            if(mListener != null)
-//                mListener.onSignUpStart();
-//        } catch (SignException e) {
-//            notifyError(e.getErrorTitle(), e.getErrorMessage());
-//        }
+        User user = new User();
+        user.username = username;
+        user.full_name = fullName;
+        user.email = email;
+        user.password = password;
+        user.device_type = "Android";
+        user.device_uuid = BluetoothHelper.getMacAddress();
+
+        BTDebug.LogInfo(user.toJson());
+
+        BTService.signup(user, new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                BeautiToast.show(getApplicationContext(), user.toJson());
+                BTDebug.LogInfo(user.toJson());
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                String error = retrofitError.getBodyAs(com.utopia.bttendance.model.json.Error.class).toString();
+                BeautiToast.show(getApplicationContext(), error);
+                BTDebug.LogError(error);
+            }
+        });
     }
 
     @Override

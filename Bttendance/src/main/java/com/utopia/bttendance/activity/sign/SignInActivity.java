@@ -15,6 +15,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.KeyboardHelper;
+import com.utopia.bttendance.model.json.Error;
 import com.utopia.bttendance.model.json.User;
 import com.utopia.bttendance.service.BTService;
 import com.utopia.bttendance.view.BeautiToast;
@@ -161,13 +162,15 @@ public class SignInActivity extends SherlockFragmentActivity {
         BTService.signin(username, password, new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-                BeautiToast.show(getApplicationContext(), user.email);
-                BTDebug.LogInfo(user.email);
+                BeautiToast.show(getApplicationContext(), user.toJson());
+                BTDebug.LogInfo(user.toJson());
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BTDebug.LogError(retrofitError.getMessage());
+                String error = retrofitError.getBodyAs(com.utopia.bttendance.model.json.Error.class).toString();
+                BeautiToast.show(getApplicationContext(), error);
+                BTDebug.LogError(error);
             }
         });
     }
