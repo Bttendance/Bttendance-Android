@@ -50,7 +50,7 @@ public class BluetoothHelper {
     }
 
     public static void enableDiscoverability(Activity activity) {
-        mBluetoothAdapter.setName(UUIDHelper.getUUID());
+        mBluetoothAdapter.setName(UUIDHelper.getUUID(activity));
         Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVERABILITY_BT_DURATION);
         activity.startActivityForResult(discoverableIntent, REQUEST_ENABLE_DISCOVERABILITY_BT);

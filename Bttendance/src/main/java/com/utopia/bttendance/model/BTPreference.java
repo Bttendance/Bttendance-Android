@@ -27,8 +27,7 @@ public class BTPreference {
                 return mPref;
 
             if (ctx != null) {
-                mPref = ctx.getSharedPreferences("BTRef",
-                        Context.MODE_PRIVATE);
+                mPref = ctx.getSharedPreferences("BTRef", Context.MODE_PRIVATE);
             }
             return mPref;
         }
@@ -65,14 +64,13 @@ public class BTPreference {
     }
 
     public static String getUUID(Context ctx) {
-        String uuid = getInstance(ctx).getString("uuid", null);
-        if (uuid == null) {
-            uuid = "asdf";
-            Editor edit = getInstance(ctx).edit();
-            edit.putString("uuid", uuid);
-            edit.commit();
-        }
-        return uuid;
+        return getInstance(ctx).getString("uuid", null);
+    }
+
+    public static void setUUID(Context ctx, String uuid) {
+        Editor edit = getInstance(ctx).edit();
+        edit.putString("uuid", uuid);
+        edit.commit();
     }
 
     public static void setDefaultLanguage(Context ctx, String code, String name) {

@@ -13,9 +13,12 @@ public class ErrorJson {
     @Override
     public String toString() {
         BTDebug.LogError(error);
-        ValidationErrorJson valError = new Gson().fromJson(error, ValidationErrorJson.class);
-        if (valError.ValidationError != null)
-            return valError.toString();
+        try {
+            ValidationErrorJson valError = new Gson().fromJson(error, ValidationErrorJson.class);
+            if (valError.ValidationError != null)
+                return valError.toString();
+        } catch (Exception e) {}
+
         return error;
     }
 

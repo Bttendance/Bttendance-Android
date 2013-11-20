@@ -20,6 +20,7 @@ import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.helper.KeyboardHelper;
+import com.utopia.bttendance.helper.UUIDHelper;
 import com.utopia.bttendance.model.json.*;
 import com.utopia.bttendance.service.BTService;
 import com.utopia.bttendance.view.BeautiToast;
@@ -280,7 +281,7 @@ public class SignUpActivity extends SherlockFragmentActivity {
         user.email = email;
         user.password = password;
         user.device_type = "Android";
-        user.device_uuid = BluetoothHelper.getMacAddress();
+        user.device_uuid = UUIDHelper.getUUID(this);
 
         BTDebug.LogInfo(user.toJson());
 

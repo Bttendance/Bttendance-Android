@@ -27,8 +27,10 @@ import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.helper.DeviceHelper;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.UUID;
+
 
 public class MainActivity extends SherlockFragmentActivity {
 
@@ -107,6 +109,8 @@ public class MainActivity extends SherlockFragmentActivity {
                     // Get the BluetoothDevice object from the Intent
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     ParcelUuid uuidp = intent.getParcelableExtra(BluetoothDevice.EXTRA_UUID);
+
+                    Field[] fields = device.getClass().getDeclaredFields();
 
                     UUID uuid;
 

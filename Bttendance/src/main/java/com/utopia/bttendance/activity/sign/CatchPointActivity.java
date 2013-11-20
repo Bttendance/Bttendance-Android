@@ -6,7 +6,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.helper.UUIDHelper;
+import com.utopia.bttendance.model.BTPersistent;
+
+import java.util.UUID;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
@@ -25,7 +30,6 @@ public class CatchPointActivity extends SherlockFragmentActivity implements Butt
         mSignUp.setOnClickListener(this);
         mSignIn.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View v) {
