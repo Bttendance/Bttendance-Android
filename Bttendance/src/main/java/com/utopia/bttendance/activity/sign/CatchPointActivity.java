@@ -29,6 +29,7 @@ public class CatchPointActivity extends BTActivity implements Button.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityStack.clear(this);
         setContentView(R.layout.activity_catch_point);
         mSignUp = (Button) findViewById(R.id.sign_up);
         mSignIn = (Button) findViewById(R.id.sign_in);

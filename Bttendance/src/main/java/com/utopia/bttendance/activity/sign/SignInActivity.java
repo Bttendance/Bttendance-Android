@@ -10,12 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.KeyboardHelper;
+import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.ErrorJson;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.service.BTService;
@@ -163,8 +163,10 @@ public class SignInActivity extends BTActivity {
         BTService.signin(username, password, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
-                BeautiToast.show(getApplicationContext(), user.toJson());
                 BTDebug.LogInfo(user.toJson());
+                BTPreference.setUser(SignInActivity.this, user);
+                startActivity(getNextIntent());
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
             @Override

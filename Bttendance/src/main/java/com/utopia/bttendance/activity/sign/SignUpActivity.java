@@ -21,6 +21,7 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.KeyboardHelper;
 import com.utopia.bttendance.helper.UUIDHelper;
+import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.ErrorJson;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.service.BTService;
@@ -289,8 +290,10 @@ public class SignUpActivity extends BTActivity {
         BTService.signup(user, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
-                BeautiToast.show(getApplicationContext(), user.toJson());
                 BTDebug.LogInfo(user.toJson());
+                BTPreference.setUser(SignUpActivity.this, user);
+                startActivity(getNextIntent());
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
             @Override
