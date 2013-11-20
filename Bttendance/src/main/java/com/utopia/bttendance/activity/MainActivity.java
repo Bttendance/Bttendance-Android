@@ -1,8 +1,6 @@
 package com.utopia.bttendance.activity;
 
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,20 +17,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.helper.DeviceHelper;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.UUID;
 
 
-public class MainActivity extends SherlockFragmentActivity {
+public class MainActivity extends BTActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +52,61 @@ public class MainActivity extends SherlockFragmentActivity {
      */
     public static class PlaceholderFragment extends Fragment implements View.OnClickListener {
 
+        // Create a BroadcastReceiver for ACTION_FOUND
+        private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+
+                String action = intent.getAction();
+                // When discovery finds a devicebyte[] intentbyte = intent;
+                if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                    // Get the BluetoothDevice object from the Intent
+                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    ParcelUuid uuidp = intent.getParcelableExtra(BluetoothDevice.EXTRA_UUID);
+
+                    Field[] fields = device.getClass().getDeclaredFields();
+
+                    UUID uuid;
+
+                    String intentlog = intent.toString();
+                    Log.e("Bttendance", intentlog);
+
+                    byte[] intentbyte = null;
+
+                    if (intentbyte != null)
+                        Log.e("Bttendance", intentbyte.toString());
+                    else
+                        Log.e("Bttendance", "intent is null");
+
+                    if (uuidp != null) {
+                        uuid = uuidp.getUuid();
+                        Log.e("Bttendance", uuid.toString());
+                    }
+                    // Add the name and address to an array adapter to show in a ListView
+
+                    Log.e("Bttendance", device.getName() + "\n" + device.getAddress() + "\n");
+                    //Log.e("Bttendance", " " + device.getType());
+                    //Log.e("Bttendance", ""+ device.getBluetoothClass().toJson());
+                    //Log.e("Bttendance", ""+ device.getBondState());
+                    if (device == null) {
+                        Log.e("Bttendance", "device is null");
+                        mAdapter.add("device is null");
+                    } else {
+                        mAdapter.add(device.getName() + "\n" + device.getAddress() + "\n");
+//
+//                        if(device.getUuids()!=null){
+//                            for (int i = 0; i < device.getUuids().length; i++) {
+//                                Log.e("Bttendance", device.getUuids()[i].getUuid().toJson());
+//                                mAdapter.add(device.getUuids()[i].getUuid().toJson());
+//                            }
+//                        }else{
+//                            Log.e("Bttendance", "uuid is null");
+//                            mAdapter.add("device.uuid is null");
+//                        }
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        };
         ArrayAdapter<String> mAdapter;
 
         public PlaceholderFragment() {
@@ -98,62 +146,6 @@ public class MainActivity extends SherlockFragmentActivity {
             super.onDestroyView();
             getActivity().unregisterReceiver(mReceiver);
         }
-
-        // Create a BroadcastReceiver for ACTION_FOUND
-        private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-            public void onReceive(Context context, Intent intent) {
-
-                String action = intent.getAction();
-                // When discovery finds a devicebyte[] intentbyte = intent;
-                if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                    // Get the BluetoothDevice object from the Intent
-                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                    ParcelUuid uuidp = intent.getParcelableExtra(BluetoothDevice.EXTRA_UUID);
-
-                    Field[] fields = device.getClass().getDeclaredFields();
-
-                    UUID uuid;
-
-                    String intentlog =  intent.toString();
-                    Log.e("Bttendance", intentlog);
-
-                    byte[] intentbyte = null;
-
-                    if(intentbyte!=null)
-                        Log.e("Bttendance",intentbyte.toString());
-                    else
-                        Log.e("Bttendance", "intent is null");
-
-                    if(uuidp != null){
-                        uuid = uuidp.getUuid();
-                        Log.e("Bttendance", uuid.toString());
-                    }
-                    // Add the name and address to an array adapter to show in a ListView
-
-                    Log.e("Bttendance", device.getName() + "\n" + device.getAddress() + "\n" );
-                    //Log.e("Bttendance", " " + device.getType());
-                    //Log.e("Bttendance", ""+ device.getBluetoothClass().toJson());
-                    //Log.e("Bttendance", ""+ device.getBondState());
-                    if (device == null) {
-                        Log.e("Bttendance", "device is null");
-                        mAdapter.add("device is null");
-                    } else {
-                        mAdapter.add(device.getName() + "\n" + device.getAddress() + "\n");
-//
-//                        if(device.getUuids()!=null){
-//                            for (int i = 0; i < device.getUuids().length; i++) {
-//                                Log.e("Bttendance", device.getUuids()[i].getUuid().toJson());
-//                                mAdapter.add(device.getUuids()[i].getUuid().toJson());
-//                            }
-//                        }else{
-//                            Log.e("Bttendance", "uuid is null");
-//                            mAdapter.add("device.uuid is null");
-//                        }
-                    }
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        };
 
         @Override
         public void onClick(View v) {

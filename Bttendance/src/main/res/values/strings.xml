@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Bttendance</string>
+    <string name="app_name_capital">BTTENDANCE</string>
 
     <string name="username">Username</string>
     <string name="full_name">Full Name</string>

@@ -36,7 +36,6 @@ public class BTPreference {
     // on Log out
     public static void clearAuth(Context ctx) {
         Editor edit = getInstance(ctx).edit();
-        // edit.remove("username");
         edit.remove("user");
         edit.commit();
     }

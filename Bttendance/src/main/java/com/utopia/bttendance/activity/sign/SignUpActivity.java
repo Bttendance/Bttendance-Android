@@ -18,10 +18,11 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
-import com.utopia.bttendance.helper.BluetoothHelper;
+import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.KeyboardHelper;
 import com.utopia.bttendance.helper.UUIDHelper;
-import com.utopia.bttendance.model.json.*;
+import com.utopia.bttendance.model.json.ErrorJson;
+import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.service.BTService;
 import com.utopia.bttendance.view.BeautiToast;
 
@@ -29,7 +30,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class SignUpActivity extends SherlockFragmentActivity {
+public class SignUpActivity extends BTActivity {
 
     private EditText mFullName = null;
     private EditText mUsername = null;

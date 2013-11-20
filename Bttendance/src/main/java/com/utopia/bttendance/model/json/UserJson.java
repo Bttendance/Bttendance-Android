@@ -6,6 +6,10 @@ import com.google.gson.Gson;
  * Created by TheFinestArtist on 2013. 11. 19..
  */
 public class UserJson {
+
+    public static final String PROFESSOR = "professor";
+    public static final String STUDENT = "student";
+
     public String username;
     public String email;
     public String password;

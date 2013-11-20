@@ -14,6 +14,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.KeyboardHelper;
 import com.utopia.bttendance.model.json.ErrorJson;
 import com.utopia.bttendance.model.json.UserJson;
@@ -28,7 +29,7 @@ import retrofit.client.Response;
  * Created by TheFinestArtist on 2013. 11. 19..
  */
 
-public class SignInActivity extends SherlockFragmentActivity {
+public class SignInActivity extends BTActivity {
 
     private EditText mUsername = null;
     private EditText mPassword = null;
