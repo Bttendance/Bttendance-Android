@@ -274,7 +274,7 @@ public class SignUpActivity extends SherlockFragmentActivity {
         String email = mEmail.getText().toString();
         String password = mPassword.getText().toString();
 
-        User user = new User();
+        UserJson user = new UserJson();
         user.username = username;
         user.full_name = fullName;
         user.email = email;
@@ -284,16 +284,16 @@ public class SignUpActivity extends SherlockFragmentActivity {
 
         BTDebug.LogInfo(user.toJson());
 
-        BTService.signup(user, new Callback<User>() {
+        BTService.signup(user, new Callback<UserJson>() {
             @Override
-            public void success(User user, Response response) {
+            public void success(UserJson user, Response response) {
                 BeautiToast.show(getApplicationContext(), user.toJson());
                 BTDebug.LogInfo(user.toJson());
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                String error = retrofitError.getBodyAs(com.utopia.bttendance.model.json.Error.class).toString();
+                String error = retrofitError.getBodyAs(ErrorJson.class).toString();
                 BeautiToast.show(getApplicationContext(), error);
                 BTDebug.LogError(error);
             }

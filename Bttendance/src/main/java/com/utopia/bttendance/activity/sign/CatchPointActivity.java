@@ -6,14 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
-import com.utopia.bttendance.model.json.User;
-import com.utopia.bttendance.service.BTService;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 19..

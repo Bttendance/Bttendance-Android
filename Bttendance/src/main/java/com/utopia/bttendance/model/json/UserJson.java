@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
  */
-public class User {
+public class UserJson {
     public String username;
     public String email;
     public String password;

@@ -1,6 +1,6 @@
 package com.utopia.bttendance.service;
 
-import com.utopia.bttendance.model.json.User;
+import com.utopia.bttendance.model.json.UserJson;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -21,9 +21,9 @@ public class BTService {
     private static BTAPI mBTAPI = mRestAdapter.create(BTAPI.class);
 
     public static void signin(String username, String password, final Callback cb) {
-        mBTAPI.signin(username, password, new Callback<User>() {
+        mBTAPI.signin(username, password, new Callback<UserJson>() {
             @Override
-            public void success(User user, Response response) {
+            public void success(UserJson user, Response response) {
                 cb.success(user, response);
             }
 
@@ -34,10 +34,10 @@ public class BTService {
         });
     }
 
-    public static void signup(User user, final Callback cb) {
-        mBTAPI.signup(user, new Callback<User>() {
+    public static void signup(UserJson user, final Callback cb) {
+        mBTAPI.signup(user, new Callback<UserJson>() {
             @Override
-            public void success(User user, Response response) {
+            public void success(UserJson user, Response response) {
                 cb.success(user, response);
             }
 

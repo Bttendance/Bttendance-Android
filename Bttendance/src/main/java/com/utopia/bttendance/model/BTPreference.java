@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
-import com.utopia.bttendance.model.json.User;
+import com.utopia.bttendance.model.json.UserJson;
 
 import java.util.Locale;
 
@@ -42,20 +42,20 @@ public class BTPreference {
         edit.commit();
     }
 
-    public static User getUser(Context ctx) {
+    public static UserJson getUser(Context ctx) {
         String jsonStr = getInstance(ctx).getString("user", null);
         if (jsonStr == null)
             return null;
         Gson gson = new Gson();
         try {
-            return gson.fromJson(jsonStr, User.class);
+            return gson.fromJson(jsonStr, UserJson.class);
         } catch (Exception e) {
             clearAuth(ctx);
             return null;
         }
     }
 
-    public static void setUser(Context ctx, User user) {
+    public static void setUser(Context ctx, UserJson user) {
         Gson gson = new Gson();
         String jsonStr = gson.toJson(user);
 
