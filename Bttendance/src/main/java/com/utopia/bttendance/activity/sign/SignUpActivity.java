@@ -287,7 +287,7 @@ public class SignUpActivity extends BTActivity {
 
         BTDebug.LogInfo(user.toJson());
 
-        BTService.signup(user, new Callback<UserJson>() {
+        getBTService().signup(user, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
                 BTDebug.LogInfo(user.toJson());

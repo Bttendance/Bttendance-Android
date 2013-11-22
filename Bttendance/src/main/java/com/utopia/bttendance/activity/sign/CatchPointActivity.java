@@ -5,23 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
-import com.utopia.bttendance.activity.ProfessorActivity;
-import com.utopia.bttendance.activity.StudentActivity;
-import com.utopia.bttendance.helper.UUIDHelper;
-import com.utopia.bttendance.model.BTPersistent;
-import com.utopia.bttendance.model.BTPreference;
-import com.utopia.bttendance.model.json.UserJson;
-
-import java.util.UUID;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
  */
-public class CatchPointActivity extends BTActivity implements Button.OnClickListener{
+public class CatchPointActivity extends BTActivity implements Button.OnClickListener {
 
     Button mSignUp;
     Button mSignIn;

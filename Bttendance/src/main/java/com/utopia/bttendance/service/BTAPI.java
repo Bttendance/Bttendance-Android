@@ -14,8 +14,12 @@ import retrofit.http.Query;
 public interface BTAPI {
 
     @GET("/user/signin")
-    void signin(@Query("username") String username, @Query("password") String password, Callback<UserJson> cb);
+    void signin(@Query("username") String username,
+                @Query("password") String password,
+                @Query("device_uuid") String uuid,
+                Callback<UserJson> cb);
 
     @POST("/user/signup")
-    void signup(@Body UserJson user, Callback<UserJson> cb);
+    void signup(@Body UserJson user,
+                Callback<UserJson> cb);
 }

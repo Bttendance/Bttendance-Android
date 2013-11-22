@@ -19,9 +19,6 @@ public class UUIDHelper {
         String uuidPers = BTPersistent.getUUID(context);
         String uuidPref = BTPreference.getUUID(context);
 
-        BTDebug.LogInfo("uuid Persistent : " + uuidPers);
-        BTDebug.LogInfo("uuid Preference : " + uuidPref);
-
         if (uuidPers == null && uuidPref == null) {
             String uuid = UUID.randomUUID().toString();
             BTPersistent.setUUID(context, uuid);

@@ -15,6 +15,7 @@ import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.KeyboardHelper;
+import com.utopia.bttendance.helper.UUIDHelper;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.ErrorJson;
 import com.utopia.bttendance.model.json.UserJson;
@@ -160,7 +161,8 @@ public class SignInActivity extends BTActivity {
     protected void trySignIn() {
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
-        BTService.signin(username, password, new Callback<UserJson>() {
+        String uuid = UUIDHelper.getUUID(this);
+        getBTService().signin(username, password, uuid, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
                 BTDebug.LogInfo(user.toJson());
