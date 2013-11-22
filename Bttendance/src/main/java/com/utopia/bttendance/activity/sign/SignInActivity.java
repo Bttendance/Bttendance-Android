@@ -131,6 +131,7 @@ public class SignInActivity extends BTActivity {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_point));
                     v.setPressed(false);
+                    trySignIn();
                 }
                 if (event.getX() < 0
                         || event.getX() > v.getWidth()
@@ -142,17 +143,10 @@ public class SignInActivity extends BTActivity {
                 return true;
             }
         });
-        mSignIn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                trySignIn();
-            }
-        });
 
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        String forgot_password = getString(R.string.forgot_your_password);
+        String forgot_password = getString(R.string.forgot_password);
         String forgot_password_html = "<a href=\"http://m.vingle.net/about/terms\">"
                 + forgot_password + "</a>";
         SpannableString SpannableHTML = new SpannableString(Html.fromHtml(forgot_password_html));

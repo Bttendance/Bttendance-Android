@@ -16,11 +16,11 @@ public class UUIDHelper {
     public static String ERROR = "uuid doesn't match error";
 
     public static String getUUID(Context context) {
-        String uuidPers = BTPersistent.getUUID(context);
-        String uuidPref = BTPreference.getUUID(context);
+        String uuidPers = BTPersistent.getUUID(context).replaceAll("\n", "");;
+        String uuidPref = BTPreference.getUUID(context).replaceAll("\n", "");;
 
         if (uuidPers == null && uuidPref == null) {
-            String uuid = UUID.randomUUID().toString();
+            String uuid = UUID.randomUUID().toString().replaceAll("\n", "");;
             BTPersistent.setUUID(context, uuid);
             BTPreference.setUUID(context, uuid);
             return uuid;

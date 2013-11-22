@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.MenuItem;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
@@ -199,6 +201,7 @@ public class SignUpActivity extends BTActivity {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_point));
                     v.setPressed(false);
+                    trySignUp();
                 }
                 if (event.getX() < 0
                         || event.getX() > v.getWidth()
@@ -210,17 +213,11 @@ public class SignUpActivity extends BTActivity {
                 return true;
             }
         });
-        mSignUp.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                trySignUp();
-            }
-        });
 
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
 
-        String string_format = getString(R.string.i_agree_to_the);
+        String string_format = getString(R.string.by_tapping_i_agree_to_the);
         SpannableString SpannableFormat = new SpannableString(string_format);
         builder.append(SpannableFormat);
 
@@ -230,6 +227,9 @@ public class SignUpActivity extends BTActivity {
         SpannableString SpannableHTML = new SpannableString(Html.fromHtml(term_and_condition_html));
         SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_blue_main)), 0, term_and_condition.length(), 0);
         builder.append(SpannableHTML);
+
+        SpannableString SpannableComma = new SpannableString(".");
+        builder.append(SpannableComma);
 
         mTermOfUse = (TextView) findViewById(R.id.term_of_use);
         mTermOfUse.setText(builder, TextView.BufferType.SPANNABLE);
@@ -259,7 +259,7 @@ public class SignUpActivity extends BTActivity {
         if (mPasswordString != null)
             mPassword.setText(mPasswordString);
 
-        mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_blue_main));
+        mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
@@ -288,8 +288,6 @@ public class SignUpActivity extends BTActivity {
         user.password = password;
         user.device_type = "Android";
         user.device_uuid = UUIDHelper.getUUID(this);
-
-        BTDebug.LogInfo(user.toJson());
 
         getBTService().signup(user, new Callback<UserJson>() {
             @Override

@@ -9,6 +9,8 @@ import android.net.NetworkInfo;
 import android.os.Binder;
 import android.os.IBinder;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.model.json.UserJson;
 
@@ -16,6 +18,7 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 9..
@@ -77,7 +80,7 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        mBTAPI.signup(user, new Callback<UserJson>() {
+        mBTAPI.signup(user.username, user.full_name, user.email, user.password, user.device_type, user.device_uuid, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
                 cb.success(user, response);

@@ -8,13 +8,12 @@
     <string name="full_name">Full Name</string>
     <string name="email_address">Email Address</string>
     <string name="password_at_least">"Password (at least 6 characters)"</string>
-    <string name="i_agree_to_the">"I agree to the "</string>
+    <string name="by_tapping_i_agree_to_the">"By tapping \"Sign up\" above, you are agreeing to the "</string>
     <string name="terms_and_conditions">"terms and conditions"</string>
     <string name="username_or_e_mail">"Username or Email Address"</string>
     <string name="password">"Password"</string>
-    <string name="forgot_your_password">"Forgot your password?"</string>
+    <string name="forgot_password">"Forgot password?"</string>
     <string name="sign_in">"Sign In"</string>
     <string name="sign_up">"Sign Up"</string>
-    <string name="create_account">"Create Account"</string>
 
 </resources>

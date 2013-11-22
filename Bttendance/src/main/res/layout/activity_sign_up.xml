@@ -93,7 +93,7 @@
         android:layout_below="@id/password_divider"
         android:layout_marginBottom="10dp"
         android:enabled="false"
-        android:text="@string/create_account" />
+        android:text="@string/sign_up" />
 
     <TextView
         android:id="@+id/term_of_use"
