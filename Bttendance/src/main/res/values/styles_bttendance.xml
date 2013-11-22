@@ -30,16 +30,22 @@
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_bttendance</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bttendance</item>
         <item name="windowContentOverlay">@null</item>
+    </style>
 
-        
+    <style name="Theme.Bttendance.Sign" parent="@style/Theme.Bttendance">
+        <item name="actionBarStyle">@style/ActionBar.Solid.Bttendance.Sign</item>
     </style>
 
     <style name="ActionBar.Solid.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
-        <item name="background">@color/bttendance_blue</item>
+        <item name="background">@color/bttendance_blue_main</item>
         <item name="titleTextStyle">@style/ActionBar.TitleTextStyle</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_bttendance</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_bttendance</item>
         <item name="progressBarStyle">@style/ProgressBar.Bttendance</item>
+    </style>
+
+    <style name="ActionBar.Solid.Bttendance.Sign" parent="@style/ActionBar.Solid.Bttendance">
+        <item name="displayOptions">homeAsUp|showTitle</item>
     </style>
 
     <style name="ActionBar.TitleTextStyle" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Title" >

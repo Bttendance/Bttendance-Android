@@ -84,14 +84,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/password"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:background="@color/grey_hex_cc" />
 
     <Button
         android:id="@+id/signup"
         style="@style/signInUpButton"
         android:layout_below="@id/password_divider"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:enabled="false"
         android:text="@string/create_account" />
 
@@ -108,6 +108,6 @@
         android:singleLine="false"
         android:textColor="@color/grey_hex_99"
         android:textSize="11dp"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
 </RelativeLayout>

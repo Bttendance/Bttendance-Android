@@ -1,12 +1,14 @@
 package com.utopia.bttendance.activity.sign;
 
-import android.content.res.ColorStateList;
-import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ForegroundColorSpan;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -14,17 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
-import com.utopia.bttendance.helper.KeyboardHelper;
 import com.utopia.bttendance.helper.UUIDHelper;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.ErrorJson;
 import com.utopia.bttendance.model.json.UserJson;
-import com.utopia.bttendance.service.BTService;
 import com.utopia.bttendance.view.BeautiToast;
 
 import retrofit.Callback;
@@ -48,7 +47,7 @@ public class SignUpActivity extends BTActivity {
     private int mPasswordCount = 0;
     private Button mSignUp = null;
     private TextView mTermOfUse = null;
-    private String mFullnameString = null;
+    private String mFullNameString = null;
     private String mUsernameString = null;
     private String mEmailString = null;
     private String mPasswordString = null;
@@ -57,11 +56,6 @@ public class SignUpActivity extends BTActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        getSupportActionBar().setTitle(getString(R.string.sign_up));
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         mFullName = (EditText) findViewById(R.id.full_name);
         mUsername = (EditText) findViewById(R.id.username);
@@ -78,7 +72,7 @@ public class SignUpActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mFullNameDiv.setBackgroundColor(getResources().getColor(
-                            R.color.grey_hex_66));
+                            R.color.bttendance_blue_point));
                 } else {
                     mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -108,7 +102,7 @@ public class SignUpActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mUsernameDiv.setBackgroundColor(getResources().getColor(
-                            R.color.grey_hex_66));
+                            R.color.bttendance_blue_point));
                 } else {
                     mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -136,7 +130,7 @@ public class SignUpActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mEmailDiv
-                            .setBackgroundColor(getResources().getColor(R.color.grey_hex_66));
+                            .setBackgroundColor(getResources().getColor(R.color.bttendance_blue_point));
                 } else {
                     mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -164,7 +158,7 @@ public class SignUpActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mPasswordDiv.setBackgroundColor(getResources().getColor(
-                            R.color.grey_hex_66));
+                            R.color.bttendance_blue_point));
                 } else {
                     mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -195,6 +189,27 @@ public class SignUpActivity extends BTActivity {
         mSignUp = (Button) findViewById(R.id.signup);
         mSignUp.setEnabled(false);
         mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_eb));
+        mSignUp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_main));
+                    v.setPressed(true);
+                }
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_point));
+                    v.setPressed(false);
+                }
+                if (event.getX() < 0
+                        || event.getX() > v.getWidth()
+                        || event.getY() < 0
+                        || event.getY() > v.getHeight()) {
+                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_point));
+                    v.setPressed(false);
+                }
+                return true;
+            }
+        });
         mSignUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,33 +217,32 @@ public class SignUpActivity extends BTActivity {
             }
         });
 
-        String string_format = getString(R.string.by_creating_an_account_you_agree_to_our_s);
+
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+
+        String string_format = getString(R.string.i_agree_to_the);
+        SpannableString SpannableFormat = new SpannableString(string_format);
+        builder.append(SpannableFormat);
+
         String term_and_condition = getString(R.string.terms_and_conditions);
         String term_and_condition_html = "<a href=\"http://m.vingle.net/about/terms\">"
                 + term_and_condition + "</a>";
-        String html_string = String.format(string_format, term_and_condition_html);
+        SpannableString SpannableHTML = new SpannableString(Html.fromHtml(term_and_condition_html));
+        SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_blue_main)), 0, term_and_condition.length(), 0);
+        builder.append(SpannableHTML);
 
         mTermOfUse = (TextView) findViewById(R.id.term_of_use);
-        mTermOfUse.setText(Html.fromHtml(html_string));
+        mTermOfUse.setText(builder, TextView.BufferType.SPANNABLE);
         mTermOfUse.setMovementMethod(LinkMovementMethod.getInstance());
-
-        ColorStateList cl = null;
-        try {
-            XmlResourceParser xpp = getResources().getXml(R.color.grey_hex_cc);
-            cl = ColorStateList.createFromXml(getResources(), xpp);
-            mTermOfUse.setLinkTextColor(cl);
-        } catch (Exception e) {
-        }
     }
 
     public void isEnableSignUp() {
         if (mFullNameCount > 0 && mUsernameCount > 0 && mEmailCount > 0 && mPasswordCount > 5) {
             mSignUp.setEnabled(true);
-            mSignUp.setTextColor(getResources().getColor(R.color.bttendance_blue));
+            mSignUp.setTextColor(getResources().getColor(R.color.bttendance_blue_point));
         } else {
             mSignUp.setEnabled(false);
             mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_eb));
-
         }
     }
 
@@ -236,14 +250,8 @@ public class SignUpActivity extends BTActivity {
     public void onResume() {
         super.onResume();
 
-//        Bundle bundle = getArguments();
-//        if (bundle != null) {
-//            mUsername.setText(bundle.getString(BundleKey.EXTRA_USERNAME));
-//            mEmail.setText(bundle.getString(BundleKey.EXTRA_EMAIL));
-//        }
-
-        if (mFullnameString != null)
-            mFullName.setText(mFullnameString);
+        if (mFullNameString != null)
+            mFullName.setText(mFullNameString);
         if (mUsernameString != null)
             mUsername.setText(mUsernameString);
         if (mEmailString != null)
@@ -251,24 +259,20 @@ public class SignUpActivity extends BTActivity {
         if (mPasswordString != null)
             mPassword.setText(mPasswordString);
 
-        mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_blue_main));
         mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
-
-        KeyboardHelper.show(this, mFullName);
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
-        mFullnameString = mFullName.getText().toString();
+        mFullNameString = mFullName.getText().toString();
         mUsernameString = mUsername.getText().toString();
         mEmailString = mEmail.getText().toString();
         mPasswordString = mPassword.getText().toString();
-
-        KeyboardHelper.hide(this, mFullName);
     }
 
     private void trySignUp() {

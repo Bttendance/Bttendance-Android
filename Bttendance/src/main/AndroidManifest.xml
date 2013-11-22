@@ -46,13 +46,17 @@
 
         <activity
             android:name=".activity.sign.SignInActivity"
+            android:label="@string/sign_in"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.Bttendance" />
+            android:theme="@style/Theme.Bttendance.Sign"
+            android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity
             android:name=".activity.sign.SignUpActivity"
+            android:label="@string/sign_up"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.Bttendance" />
+            android:theme="@style/Theme.Bttendance.Sign"
+            android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity
             android:name=".activity.sign.PersionalizeActivity"

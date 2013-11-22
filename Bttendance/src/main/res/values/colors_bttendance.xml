@@ -19,6 +19,8 @@
 
 <resources>
     <color name="pressed_bttendance">#33000000</color>
-    <color name="bttendance_blue">#33B5E5</color>
+    <color name="bttendance_blue_main">#0072B0</color>
+    <color name="bttendance_blue_point">#33B5E5</color>
+    <color name="bttendance_white_background">#F1F1FF</color>
     <color name="transparent_selector">#66CCCCCC</color>
 </resources>
