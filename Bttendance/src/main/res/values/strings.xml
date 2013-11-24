@@ -4,16 +4,19 @@
     <string name="app_name">Bttendance</string>
     <string name="app_name_capital">BTTENDANCE</string>
 
+    <string name="hello_">Hello!</string>
+    <string name="welcome_to_bttendance">Welcome to Bttendance</string>
+
     <string name="username">Username</string>
     <string name="full_name">Full Name</string>
-    <string name="email_address">Email Address</string>
+    <string name="email">Email</string>
+    <string name="password">"Password"</string>
     <string name="password_at_least">"Password (at least 6 characters)"</string>
     <string name="by_tapping_i_agree_to_the">"By tapping \"Sign up\" above, you are agreeing to the "</string>
     <string name="terms_and_conditions">"terms and conditions"</string>
     <string name="username_or_e_mail">"Username or Email Address"</string>
-    <string name="password">"Password"</string>
     <string name="forgot_password">"Forgot password?"</string>
-    <string name="sign_in">"Sign In"</string>
+    <string name="log_in">"Log In"</string>
     <string name="sign_up">"Sign Up"</string>
 
 </resources>

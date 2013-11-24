@@ -104,8 +104,6 @@ public class BTService extends Service {
     private void failureHandle(Callback cb, RetrofitError retrofitError) {
         if (retrofitError.isNetworkError())
             BTDebug.LogError("Network Error");
-        else if (retrofitError.getMessage() == null)
-            BTDebug.LogError("Has no Error Message");
         else
             cb.failure(retrofitError);
     }

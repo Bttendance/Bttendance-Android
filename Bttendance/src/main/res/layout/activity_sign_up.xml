@@ -31,7 +31,7 @@
         style="@style/userInfoEditText"
         android:layout_below="@id/full_name_divider"
         android:layout_marginLeft="8dp"
-        android:hint="@string/email_address"
+        android:hint="@string/email"
         android:inputType="text|textEmailAddress"
         android:singleLine="true" />
 

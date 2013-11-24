@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:background="@color/bttendance_white_background">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/app_name_capital"/>
+        android:background="@drawable/splash"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

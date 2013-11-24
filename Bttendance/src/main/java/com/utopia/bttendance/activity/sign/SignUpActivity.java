@@ -297,9 +297,13 @@ public class SignUpActivity extends BTActivity {
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                String error = retrofitError.getBodyAs(ErrorJson.class).toString();
-                BeautiToast.show(getApplicationContext(), error);
-                BTDebug.LogError(error);
+                try {
+                    String error = retrofitError.getBodyAs(ErrorJson.class).toString();
+                    BeautiToast.show(getApplicationContext(), error);
+                    BTDebug.LogError(error);
+                } catch (Exception e) {
+                    BTDebug.LogError(e.getMessage());
+                }
             }
         });
     }

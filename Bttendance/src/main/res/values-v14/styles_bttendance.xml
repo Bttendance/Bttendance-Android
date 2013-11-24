@@ -30,6 +30,7 @@
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_bttendance</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bttendance</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/bttendance_white_background</item>
     </style>
 
     <style name="Theme.Bttendance.Sign" parent="@style/Theme.Bttendance">

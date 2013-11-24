@@ -4,4 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:thumb="@drawable/scrubber_control_selector_holo_light" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp">
+
+        <SeekBar
+            android:id="@+id/seekbar_std"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:thumb="@drawable/scrubber_control_selector_holo_light" />
+
+        <SeekBar
+            android:id="@+id/seekbar_prof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:progress="100"
+            android:thumb="@drawable/scrubber_control_selector_holo_light" />
+    </LinearLayout>
+
 </RelativeLayout>

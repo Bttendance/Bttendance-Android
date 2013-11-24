@@ -11,7 +11,7 @@ import com.utopia.bttendance.helper.UUIDHelper;
  */
 public class SplashActivity extends BTActivity {
 
-    private static int SPLASH_DURATION = 500;
+    private static int SPLASH_DURATION = 700;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

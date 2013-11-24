@@ -21,8 +21,10 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:theme="@style/Theme.Bttendance">
 
         <service android:name=".service.BTService" />
@@ -31,6 +33,7 @@
             android:name=".activity.SplashActivity"
             android:label="@string/app_name"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,12 +45,14 @@
             android:name=".activity.sign.CatchPointActivity"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock.NoActionBar"></activity>
 
         <activity
             android:name=".activity.sign.SignInActivity"
-            android:label="@string/sign_in"
+            android:label="@string/log_in"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance.Sign"
             android:windowSoftInputMode="stateAlwaysVisible" />
 
@@ -55,6 +60,7 @@
             android:name=".activity.sign.SignUpActivity"
             android:label="@string/sign_up"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance.Sign"
             android:windowSoftInputMode="stateAlwaysVisible" />
 
@@ -62,18 +68,21 @@
             android:name=".activity.sign.PersionalizeActivity"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance" />
 
         <activity
             android:name=".activity.ProfessorActivity"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance" />
 
         <activity
             android:name=".activity.StudentActivity"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance" />
 
     </application>

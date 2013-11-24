@@ -1,29 +1,62 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bttendance_blue_main"
+    android:paddingBottom="23dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:id="@+id/hello"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="38dp"
+        android:gravity="left|top"
+        android:includeFontPadding="false"
+        android:shadowColor="#99666666"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="3"
+        android:text="@string/hello_"
+        android:textColor="@color/bttendance_white_background"
+        android:textSize="65dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="BTTENDANCE"
-        android:textColor="@android:color/white"
-        android:textSize="30dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/hello"
+        android:layout_marginLeft="8dp"
+        android:gravity="left|top"
+        android:includeFontPadding="false"
+        android:shadowColor="#99666666"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="3"
+        android:text="@string/welcome_to_bttendance"
+        android:textColor="@color/bttendance_white_background"
+        android:textSize="22dp" />
 
     <Button
         android:id="@+id/sign_up"
+        style="@style/catchPointButton"
         android:layout_width="120dp"
-        android:layout_height="60dp"
+        android:layout_height="52dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="Sign Up" />
+        android:background="@drawable/catchpoint_sign_up_btn_bg"
+        android:text="@string/sign_up" />
 
     <Button
         android:id="@+id/sign_in"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
+        style="@style/catchPointButton"
+        android:layout_width="92dp"
+        android:layout_height="52dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="Sign In" />
+        android:background="@drawable/catchpoint_log_in_btn_bg"
+        android:text="@string/log_in" />
 </RelativeLayout>
