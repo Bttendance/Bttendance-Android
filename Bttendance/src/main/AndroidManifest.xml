@@ -49,7 +49,7 @@
             android:theme="@style/Theme.Sherlock.NoActionBar"></activity>
 
         <activity
-            android:name=".activity.sign.SignInActivity"
+            android:name=".activity.sign.LogInActivity"
             android:label="@string/log_in"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"

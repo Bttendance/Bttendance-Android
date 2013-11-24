@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="15dp">
 
+    <TextView
+        android:id="@+id/full_name_text"
+        style="@style/userInfoText"
+        android:layout_alignParentTop="true"
+        android:singleLine="true"
+        android:text="@string/full_name" />
+
     <EditText
         android:id="@+id/full_name"
         style="@style/userInfoEditText"
+        android:layout_alignLeft="@+id/username"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="8dp"
-        android:hint="@string/full_name"
-        android:inputType="text"
-        android:singleLine="true" />
+        android:layout_toRightOf="@id/full_name_text"
+        android:inputType="text" />
 
     <View
         android:id="@+id/full_name_divider"
@@ -26,14 +30,20 @@
         android:layout_marginBottom="10dp"
         android:background="@color/grey_hex_cc" />
 
+    <TextView
+        android:id="@+id/email_text"
+        style="@style/userInfoText"
+        android:layout_below="@id/full_name_divider"
+        android:singleLine="true"
+        android:text="@string/email" />
+
     <EditText
         android:id="@+id/email"
         style="@style/userInfoEditText"
+        android:layout_alignLeft="@id/username"
         android:layout_below="@id/full_name_divider"
-        android:layout_marginLeft="8dp"
-        android:hint="@string/email"
-        android:inputType="text|textEmailAddress"
-        android:singleLine="true" />
+        android:layout_toRightOf="@id/email_text"
+        android:inputType="text|textEmailAddress" />
 
     <View
         android:id="@+id/email_divider"
@@ -43,12 +53,19 @@
         android:layout_marginBottom="10dp"
         android:background="@color/grey_hex_cc" />
 
+    <TextView
+        android:id="@+id/username_text"
+        style="@style/userInfoText"
+        android:layout_below="@id/email_divider"
+        android:singleLine="true"
+        android:text="@string/username" />
+
     <EditText
-        android:id="@+id/username"
+        android:id="@id/username"
         style="@style/userInfoEditText"
         android:layout_below="@id/email_divider"
         android:layout_marginLeft="8dp"
-        android:hint="@string/username"
+        android:layout_toRightOf="@id/username_text"
         android:inputType="text" />
 
     <View
@@ -59,25 +76,20 @@
         android:layout_marginBottom="10dp"
         android:background="@color/grey_hex_cc" />
 
-    <EditText
-        android:id="@+id/password_hint"
-        style="@style/userInfoEditText"
+    <TextView
+        android:id="@+id/password_text"
+        style="@style/userInfoText"
         android:layout_below="@id/username_divider"
-        android:layout_marginLeft="8dp"
-        android:clickable="false"
-        android:focusable="false"
-        android:hint="@string/password_at_least"
-        android:inputType="text"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:text="@string/password" />
 
     <EditText
         android:id="@+id/password"
         style="@style/userInfoEditText"
+        android:layout_alignLeft="@id/username"
         android:layout_below="@id/username_divider"
-        android:layout_marginLeft="8dp"
-        android:hint=""
-        android:inputType="textPassword"
-        android:singleLine="true" />
+        android:layout_toRightOf="@id/password_text"
+        android:inputType="textPassword" />
 
     <View
         android:id="@+id/password_divider"

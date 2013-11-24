@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bttendance_blue_main"
+    android:background="@color/bttendance_navy"
     android:paddingBottom="23dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
@@ -21,7 +21,7 @@
         android:shadowDy="3"
         android:shadowRadius="3"
         android:text="@string/hello_"
-        android:textColor="@color/bttendance_white_background"
+        android:textColor="@color/bttendance_white"
         android:textSize="65dp" />
 
     <TextView
@@ -37,7 +37,7 @@
         android:shadowDy="3"
         android:shadowRadius="3"
         android:text="@string/welcome_to_bttendance"
-        android:textColor="@color/bttendance_white_background"
+        android:textColor="@color/bttendance_white"
         android:textSize="22dp" />
 
     <Button

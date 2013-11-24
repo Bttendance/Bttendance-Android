@@ -14,7 +14,7 @@
     <string name="password_at_least">"Password (at least 6 characters)"</string>
     <string name="by_tapping_i_agree_to_the">"By tapping \"Sign up\" above, you are agreeing to the "</string>
     <string name="terms_and_conditions">"terms and conditions"</string>
-    <string name="username_or_e_mail">"Username or Email Address"</string>
+    <string name="or_e_mail">"or Email"</string>
     <string name="forgot_password">"Forgot password?"</string>
     <string name="log_in">"Log In"</string>
     <string name="sign_up">"Sign Up"</string>

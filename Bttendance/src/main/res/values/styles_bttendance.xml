@@ -30,7 +30,7 @@
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_bttendance</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bttendance</item>
         <item name="windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/bttendance_white_background</item>
+        <item name="android:windowBackground">@color/bttendance_white</item>
     </style>
 
     <style name="Theme.Bttendance.Sign" parent="@style/Theme.Bttendance">
@@ -38,11 +38,12 @@
     </style>
 
     <style name="ActionBar.Solid.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
-        <item name="background">@color/bttendance_blue_main</item>
+        <item name="background">@color/bttendance_navy</item>
         <item name="titleTextStyle">@style/ActionBar.TitleTextStyle</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_bttendance</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_bttendance</item>
         <item name="progressBarStyle">@style/ProgressBar.Bttendance</item>
+        <item name="homeAsUpIndicator">@drawable/up_arrow</item>
     </style>
 
     <style name="ActionBar.Solid.Bttendance.Sign" parent="@style/ActionBar.Solid.Bttendance">
@@ -51,7 +52,7 @@
 
     <style name="ActionBar.TitleTextStyle" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Title" >
         <item name="android:textSize">18dp</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@color/bttendance_white</item>
     </style>
 
     <style name="ActionBar.Transparent.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar">

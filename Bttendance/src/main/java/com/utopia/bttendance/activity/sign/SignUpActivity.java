@@ -35,7 +35,6 @@ public class SignUpActivity extends BTActivity {
     private EditText mUsername = null;
     private EditText mEmail = null;
     private EditText mPassword = null;
-    private EditText mPasswordHint = null;
     private View mFullNameDiv = null;
     private View mUsernameDiv = null;
     private View mEmailDiv = null;
@@ -60,7 +59,6 @@ public class SignUpActivity extends BTActivity {
         mUsername = (EditText) findViewById(R.id.username);
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
-        mPasswordHint = (EditText) findViewById(R.id.password_hint);
         mFullNameDiv = findViewById(R.id.full_name_divider);
         mUsernameDiv = findViewById(R.id.username_divider);
         mEmailDiv = findViewById(R.id.email_divider);
@@ -71,7 +69,7 @@ public class SignUpActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mFullNameDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_blue_point));
+                            R.color.bttendance_cyan));
                 } else {
                     mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -101,7 +99,7 @@ public class SignUpActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mUsernameDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_blue_point));
+                            R.color.bttendance_cyan));
                 } else {
                     mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -129,7 +127,7 @@ public class SignUpActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mEmailDiv
-                            .setBackgroundColor(getResources().getColor(R.color.bttendance_blue_point));
+                            .setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
                     mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -157,7 +155,7 @@ public class SignUpActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mPasswordDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_blue_point));
+                            R.color.bttendance_cyan));
                 } else {
                     mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -169,11 +167,6 @@ public class SignUpActivity extends BTActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mPasswordCount = mPassword.getText().toString().length();
                 isEnableSignUp();
-                if (mPasswordCount == 0) {
-                    mPasswordHint.setVisibility(View.VISIBLE);
-                } else {
-                    mPasswordHint.setVisibility(View.INVISIBLE);
-                }
             }
 
             @Override
@@ -187,16 +180,16 @@ public class SignUpActivity extends BTActivity {
 
         mSignUp = (Button) findViewById(R.id.signup);
         mSignUp.setEnabled(false);
-        mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_eb));
+        mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
         mSignUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_main));
+                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_navy));
                     v.setPressed(true);
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_point));
+                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_cyan));
                     v.setPressed(false);
                     trySignUp();
                 }
@@ -204,7 +197,7 @@ public class SignUpActivity extends BTActivity {
                         || event.getX() > v.getWidth()
                         || event.getY() < 0
                         || event.getY() > v.getHeight()) {
-                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_point));
+                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_cyan));
                     v.setPressed(false);
                 }
                 return true;
@@ -219,10 +212,10 @@ public class SignUpActivity extends BTActivity {
         builder.append(SpannableFormat);
 
         String term_and_condition = getString(R.string.terms_and_conditions);
-        String term_and_condition_html = "<a href=\"http://m.vingle.net/about/terms\">"
+        String term_and_condition_html = "<a href=\"http://www.bttendance.com/terms\">"
                 + term_and_condition + "</a>";
         SpannableString SpannableHTML = new SpannableString(Html.fromHtml(term_and_condition_html));
-        SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_blue_main)), 0, term_and_condition.length(), 0);
+        SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, term_and_condition.length(), 0);
         builder.append(SpannableHTML);
 
         SpannableString SpannableComma = new SpannableString(".");
@@ -236,10 +229,10 @@ public class SignUpActivity extends BTActivity {
     public void isEnableSignUp() {
         if (mFullNameCount > 0 && mUsernameCount > 0 && mEmailCount > 0 && mPasswordCount > 5) {
             mSignUp.setEnabled(true);
-            mSignUp.setTextColor(getResources().getColor(R.color.bttendance_blue_point));
+            mSignUp.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
             mSignUp.setEnabled(false);
-            mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_eb));
+            mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
         }
     }
 

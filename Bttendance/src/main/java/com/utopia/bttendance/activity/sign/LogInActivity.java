@@ -32,14 +32,13 @@ import retrofit.client.Response;
  * Created by TheFinestArtist on 2013. 11. 19..
  */
 
-public class SignInActivity extends BTActivity {
+public class LogInActivity extends BTActivity {
 
     private EditText mUsername = null;
     private EditText mPassword = null;
-    private EditText mPasswordHint = null;
     private View mUsernameDiv = null;
     private View mPasswordDiv = null;
-    private Button mSignIn = null;
+    private Button mLogIn = null;
     private TextView mForgetPwd = null;
     private int mUsernameCount = 0;
     private int mPasswordCount = 0;
@@ -49,11 +48,10 @@ public class SignInActivity extends BTActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_log_in);
 
         mUsername = (EditText) findViewById(R.id.username);
         mPassword = (EditText) findViewById(R.id.password);
-        mPasswordHint = (EditText) findViewById(R.id.password_hint);
         mUsernameDiv = findViewById(R.id.username_divider);
         mPasswordDiv = findViewById(R.id.password_divider);
 
@@ -62,7 +60,7 @@ public class SignInActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mUsernameDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_blue_point));
+                            R.color.bttendance_cyan));
                 } else {
                     mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -90,7 +88,7 @@ public class SignInActivity extends BTActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mPasswordDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_blue_point));
+                            R.color.bttendance_cyan));
                 } else {
                     mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }
@@ -102,11 +100,6 @@ public class SignInActivity extends BTActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mPasswordCount = mPassword.getText().toString().length();
                 isEnableSignIn();
-                if (mPasswordCount == 0) {
-                    mPasswordHint.setVisibility(View.VISIBLE);
-                } else {
-                    mPasswordHint.setVisibility(View.INVISIBLE);
-                }
             }
 
             @Override
@@ -118,18 +111,18 @@ public class SignInActivity extends BTActivity {
             }
         });
 
-        mSignIn = (Button) findViewById(R.id.signin);
-        mSignIn.setEnabled(false);
-        mSignIn.setTextColor(getResources().getColor(R.color.grey_hex_eb));
-        mSignIn.setOnTouchListener(new View.OnTouchListener() {
+        mLogIn = (Button) findViewById(R.id.login);
+        mLogIn.setEnabled(false);
+        mLogIn.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+        mLogIn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_main));
+                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_navy));
                     v.setPressed(true);
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_point));
+                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_cyan));
                     v.setPressed(false);
                     trySignIn();
                 }
@@ -137,20 +130,19 @@ public class SignInActivity extends BTActivity {
                         || event.getX() > v.getWidth()
                         || event.getY() < 0
                         || event.getY() > v.getHeight()) {
-                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_blue_point));
+                    ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_cyan));
                     v.setPressed(false);
                 }
                 return true;
             }
         });
 
-
         SpannableStringBuilder builder = new SpannableStringBuilder();
         String forgot_password = getString(R.string.forgot_password);
-        String forgot_password_html = "<a href=\"http://m.vingle.net/about/terms\">"
+        String forgot_password_html = "<a href=\"http://www.bttendance.com/password_forgot\">"
                 + forgot_password + "</a>";
         SpannableString SpannableHTML = new SpannableString(Html.fromHtml(forgot_password_html));
-        SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_blue_main)), 0, forgot_password.length(), 0);
+        SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, forgot_password.length(), 0);
         builder.append(SpannableHTML);
 
         mForgetPwd = (TextView) findViewById(R.id.forget_pwd);
@@ -161,12 +153,11 @@ public class SignInActivity extends BTActivity {
     public void isEnableSignIn() {
 
         if (mUsernameCount > 0 && mPasswordCount > 5) {
-            mSignIn.setEnabled(true);
-            mSignIn.setTextColor(getResources().getColor(R.color.bttendance_blue_point));
+            mLogIn.setEnabled(true);
+            mLogIn.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
-            mSignIn.setEnabled(false);
-            mSignIn.setTextColor(getResources().getColor(R.color.grey_hex_eb));
-
+            mLogIn.setEnabled(false);
+            mLogIn.setTextColor(getResources().getColor(R.color.grey_hex_cc));
         }
     }
 
@@ -178,7 +169,7 @@ public class SignInActivity extends BTActivity {
             @Override
             public void success(UserJson user, Response response) {
                 BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(SignInActivity.this, user);
+                BTPreference.setUser(LogInActivity.this, user);
                 startActivity(getNextIntent());
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
