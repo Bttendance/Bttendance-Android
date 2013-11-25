@@ -10,6 +10,7 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.utopia.bttendance.BTDebug;
+import com.utopia.bttendance.model.json.ErrorsJson;
 import com.utopia.bttendance.model.json.UserJson;
 
 import retrofit.Callback;
@@ -104,8 +105,15 @@ public class BTService extends Service {
     private void failureHandle(Callback cb, RetrofitError retrofitError) {
         if (retrofitError.isNetworkError())
             BTDebug.LogError("Network Error");
-        else
-            cb.failure(retrofitError);
+        else {
+            try {
+                String error = retrofitError.getBodyAs(ErrorsJson.class).toString();
+                BTDebug.LogError(error);
+            } catch (Exception e) {
+                BTDebug.LogError(e.getMessage());
+            }
+        }
+        cb.failure(retrofitError);
     }
 
     /**

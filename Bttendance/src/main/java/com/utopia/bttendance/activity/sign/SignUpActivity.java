@@ -21,7 +21,7 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.UUIDHelper;
 import com.utopia.bttendance.model.BTPreference;
-import com.utopia.bttendance.model.json.ErrorJson;
+import com.utopia.bttendance.model.json.ErrorsJson;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.view.BeautiToast;
 
@@ -253,6 +253,8 @@ public class SignUpActivity extends BTActivity {
         mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+
+        isEnableSignUp();
     }
 
     @Override
@@ -290,13 +292,6 @@ public class SignUpActivity extends BTActivity {
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                try {
-                    String error = retrofitError.getBodyAs(ErrorJson.class).toString();
-                    BeautiToast.show(getApplicationContext(), error);
-                    BTDebug.LogError(error);
-                } catch (Exception e) {
-                    BTDebug.LogError(e.getMessage());
-                }
             }
         });
     }
