@@ -76,16 +76,14 @@ public class BTActivity extends SherlockFragmentActivity {
     public Intent getNextIntent() {
         UserJson user = BTPreference.getUser(this);
         Intent intent;
-        if (user == null || user.username == null || user.password == null) {
+        if (user == null || user.username == null || user.password == null || user.type == null) {
+            BTPreference.clearAuth(this);
             intent = new Intent(this, CatchPointActivity.class);
-        } else if (user.type == null) {
-            intent = new Intent(this, PersionalizeActivity.class);
         } else if (UserJson.PROFESSOR.equals(user.type)) {
             intent = new Intent(this, ProfessorActivity.class);
         } else if (UserJson.STUDENT.equals(user.type)) {
             intent = new Intent(this, StudentActivity.class);
         } else {
-            BTDebug.LogError("User Type Error : " + user.type);
             BTPreference.clearAuth(this);
             intent = new Intent(this, CatchPointActivity.class);
         }

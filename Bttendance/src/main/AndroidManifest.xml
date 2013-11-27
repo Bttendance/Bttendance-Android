@@ -69,7 +69,22 @@
             android:clearTaskOnLaunch="true"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance" />
+            android:theme="@style/Theme.Sherlock.NoActionBar" />
+
+        <activity
+            android:name=".activity.sign.ProfessorSerial"
+            android:clearTaskOnLaunch="true"
+            android:label="@string/serial"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bttendance.Sign" />
+
+        <activity
+            android:name=".activity.sign.StudentConfirm"
+            android:clearTaskOnLaunch="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Sherlock.NoActionBar" />
 
         <activity
             android:name=".activity.ProfessorActivity"

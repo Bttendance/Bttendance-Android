@@ -31,9 +31,9 @@ public class CatchPointActivity extends BTActivity implements Button.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_up:
-                Intent intent_up = new Intent(CatchPointActivity.this, SignUpActivity.class);
+                Intent intent_up = new Intent(CatchPointActivity.this, PersionalizeActivity.class);
                 startActivity(intent_up);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             case R.id.sign_in:
                 Intent intent_in = new Intent(CatchPointActivity.this, LogInActivity.class);

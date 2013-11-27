@@ -2,35 +2,158 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/transparent_white_hex_6">
 
-    <SeekBar
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:thumb="@drawable/scrubber_control_selector_holo_light" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:paddingBottom="30dp">
-
-        <SeekBar
-            android:id="@+id/seekbar_std"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:thumb="@drawable/scrubber_control_selector_holo_light" />
-
-        <SeekBar
+        <com.utopia.bttendance.view.SeekBar_
             android:id="@+id/seekbar_prof"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginRight="110dp"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/transparent_thumb" />
+
+        <com.utopia.bttendance.view.SeekBar_
+            android:id="@+id/seekbar_std"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="110dp"
             android:progress="100"
-            android:thumb="@drawable/scrubber_control_selector_holo_light" />
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/transparent_thumb" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="29dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="93dp"
+        android:background="@drawable/red_shadow_background" />
+
+    <RelativeLayout
+        android:id="@+id/prof_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/professor"
+            android:textColor="@color/bttendance_white"
+            android:textSize="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="\u003E\u003E"
+            android:textColor="@color/bttendance_white"
+            android:textSize="24dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/std_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/student"
+            android:textColor="@color/bttendance_white"
+            android:textSize="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="\u003C\u003C"
+            android:textColor="@color/bttendance_white"
+            android:textSize="24dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/drop_shadow_background" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/who"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="38dp"
+            android:gravity="left|top"
+            android:includeFontPadding="false"
+            android:shadowColor="#99666666"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="3"
+            android:text="@string/who_are_you"
+            android:textColor="@color/bttendance_white"
+            android:textSize="45dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/who"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:gravity="left|top"
+            android:includeFontPadding="false"
+            android:shadowColor="#99666666"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="3"
+            android:text="@string/please_choose_carefully"
+            android:textColor="@color/bttendance_white"
+            android:textSize="22dp" />
+    </RelativeLayout>
 
 </RelativeLayout>

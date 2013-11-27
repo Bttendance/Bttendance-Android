@@ -18,5 +18,13 @@
     <string name="forgot_password">"Forgot password?"</string>
     <string name="log_in">"Log In"</string>
     <string name="sign_up">"Sign Up"</string>
+    <string name="serial">"Enter Serial"</string>
+    <string name="who_are_you">"Who are you?"</string>
+    <string name="please_choose_carefully">"Please choose carefully"</string>
+    <string name="professor">"Professor"</string>
+    <string name="student">"Student"</string>
+    <string name="i_am_a_student_proceed">"I am a student, proceed"</string>
+    <string name="cancel">"Cancel"</string>
+    <string name="are_you_student">"Are You Student?"</string>
 
 </resources>

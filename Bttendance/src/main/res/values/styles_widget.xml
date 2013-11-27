@@ -34,6 +34,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="studentConfirmButton" parent="android:Widget.Button">
+        <item name="android:textColor">@color/bttendance_white</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingLeft">15dp</item>
+    </style>
+
     <style name="signInUpButton" parent="android:Widget.Button">
         <item name="android:background">@drawable/sign_btn_bg</item>
         <item name="android:layout_height">36dp</item>

@@ -76,12 +76,12 @@ public class ScreenHelper {
                 actionBarHeight = TypedValue.complexToDimensionPixelSize(tva.data, context
                         .getResources()
                         .getDisplayMetrics());
-//        } else if (context.getTheme().resolveAttribute(com.actionbarsherlock.R.attr.actionBarSize,
-//                tva,
-//                true)) {
-//            actionBarHeight = TypedValue.complexToDimensionPixelSize(tva.data, context
-//                    .getResources()
-//                    .getDisplayMetrics());
+        } else if (context.getTheme().resolveAttribute(com.actionbarsherlock.R.attr.actionBarSize,
+                tva,
+                true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tva.data, context
+                    .getResources()
+                    .getDisplayMetrics());
         }
         return actionBarHeight;
     }
