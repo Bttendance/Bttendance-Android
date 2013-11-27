@@ -12,6 +12,8 @@ import android.os.IBinder;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.model.json.ErrorsJson;
 import com.utopia.bttendance.model.json.UserJson;
+import com.utopia.bttendance.model.json.ValidationJson;
+import com.utopia.bttendance.view.BeautiToast;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -78,10 +80,30 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        mBTAPI.signup(user.username, user.full_name, user.email, user.password, user.device_type, user.device_uuid, new Callback<UserJson>() {
+        mBTAPI.signup(user.username, user.full_name, user.email, user.password, user.device_type, user.device_uuid, user.type, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
                 cb.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void serialValidate(String serial, final Callback<ValidationJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.serialValidate(serial, new Callback<ValidationJson>() {
+            @Override
+            public void success(ValidationJson validation, Response response) {
+                if (response != null && response.getStatus() == 202)
+                    cb.success(validation, response);
+                else
+                    cb.failure(null);
             }
 
             @Override
@@ -107,8 +129,9 @@ public class BTService extends Service {
             BTDebug.LogError("Network Error");
         else {
             try {
-                String error = retrofitError.getBodyAs(ErrorsJson.class).toString();
-                BTDebug.LogError(error);
+                ErrorsJson errors = (ErrorsJson) retrofitError.getBodyAs(ErrorsJson.class);
+                BTDebug.LogError(errors.getMessage());
+                BeautiToast.show(getApplicationContext(), errors.getToast());
             } catch (Exception e) {
                 BTDebug.LogError(e.getMessage());
             }

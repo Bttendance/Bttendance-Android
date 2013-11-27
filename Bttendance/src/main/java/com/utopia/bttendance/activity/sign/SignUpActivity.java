@@ -20,10 +20,10 @@ import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.UUIDHelper;
+import com.utopia.bttendance.model.BTEnum;
+import com.utopia.bttendance.model.BTExtra;
 import com.utopia.bttendance.model.BTPreference;
-import com.utopia.bttendance.model.json.ErrorsJson;
 import com.utopia.bttendance.model.json.UserJson;
-import com.utopia.bttendance.view.BeautiToast;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -280,6 +280,19 @@ public class SignUpActivity extends BTActivity {
         user.password = password;
         user.device_type = "Android";
         user.device_uuid = UUIDHelper.getUUID(this);
+
+        if (getIntent() == null || getIntent().getSerializableExtra(BTExtra.EXTRA_TYPE) == null)
+            return;
+        switch ((BTEnum.Type) getIntent().getSerializableExtra(BTExtra.EXTRA_TYPE)) {
+            case STUDENT:
+                user.type = "student";
+                break;
+            case PROFESSOR:
+                user.type = "professor";
+                break;
+            default:
+                return;
+        }
 
         getBTService().signup(user, new Callback<UserJson>() {
             @Override

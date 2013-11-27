@@ -26,5 +26,12 @@
     <string name="i_am_a_student_proceed">"I am a student, proceed"</string>
     <string name="cancel">"Cancel"</string>
     <string name="are_you_student">"Are You Student?"</string>
+    <string name="enter_serial">"Enter Serial"</string>
+    <string name="serial">"Serial"</string>
+    <string name="enter">"Enter"</string>
+    <string name="request_serial">"Request Serial"</string>
+    <string name="please_press_back_button_again_to_exit_">"Please press Back button again to exit."</string>
+    <string name="validated">"Validated"</string>
+    <string name="wrong_serial">"Wrong Serial"</string>
 
 </resources>

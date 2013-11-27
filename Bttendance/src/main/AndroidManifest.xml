@@ -74,10 +74,11 @@
         <activity
             android:name=".activity.sign.ProfessorSerial"
             android:clearTaskOnLaunch="true"
-            android:label="@string/serial"
+            android:label="@string/enter_serial"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign" />
+            android:theme="@style/Theme.Bttendance.Sign"
+            android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity
             android:name=".activity.sign.StudentConfirm"

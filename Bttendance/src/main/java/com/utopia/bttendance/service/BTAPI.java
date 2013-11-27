@@ -1,6 +1,7 @@
 package com.utopia.bttendance.service;
 
 import com.utopia.bttendance.model.json.UserJson;
+import com.utopia.bttendance.model.json.ValidationJson;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -25,8 +26,13 @@ public interface BTAPI {
                 @Query("full_name") String fullName,
                 @Query("email") String email,
                 @Query("password") String password,
-                @Query("device_type") String type,
-                @Query("device_uuid") String uuid,
+                @Query("device_type") String deviceType,
+                @Query("device_uuid") String deviceUUID,
+                @Query("type") String type,
                 Callback<UserJson> cb);
+
+    @GET("/serial/validate")
+    void serialValidate(@Query("serial") String serial,
+                        Callback<ValidationJson> cb);
 
 }

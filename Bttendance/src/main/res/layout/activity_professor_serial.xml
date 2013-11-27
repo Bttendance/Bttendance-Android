@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="25dp">
+
+    <TextView
+        android:id="@+id/serial_text"
+        style="@style/userInfoText"
+        android:layout_alignParentTop="true"
+        android:singleLine="true"
+        android:text="@string/serial" />
+
+    <EditText
+        android:id="@+id/serial"
+        style="@style/userInfoEditText"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/serial_text"
+        android:inputType="textPassword"
+        android:singleLine="true" />
+
+    <View
+        android:id="@+id/serial_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/serial"
+        android:background="@color/grey_hex_cc" />
+
+    <Button
+        android:id="@+id/enter"
+        style="@style/signInUpButton"
+        android:layout_below="@id/serial_divider"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:text="@string/enter" />
+
+    <TextView
+        android:id="@+id/req_serial"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_below="@id/enter"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:linksClickable="true"
+        android:maxLines="3"
+        android:singleLine="false"
+        android:textColor="@color/grey_hex_99"
+        android:textSize="11dp"
+        android:textStyle="normal" />
+
+</RelativeLayout>
