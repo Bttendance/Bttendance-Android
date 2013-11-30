@@ -46,7 +46,7 @@
             android:clearTaskOnLaunch="true"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock.NoActionBar"></activity>
+            android:theme="@style/Theme.Sherlock.NoActionBar"/>
 
         <activity
             android:name=".activity.sign.SignInActivity"

@@ -115,6 +115,12 @@ public interface BTAPI {
                     @Query("course_id") int courseID,
                     Callback<PostJson> cb);
 
+    @POST("/post/checks")
+    void postChecks(@Query("username") String username,
+                    @Query("password") String password,
+                    @Query("post_id") int postID,
+                    Callback<UserJson[]> cb);
+
     @GET("/serial/validate")
     void serialValidate(@Query("serial") String serial,
                         Callback<ValidationJson> cb);

@@ -300,6 +300,23 @@ public class BTService extends Service {
         });
     }
 
+    public void postChecks(String username, String password, int postID, final Callback<UserJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.postChecks(username, password, postID, new Callback<UserJson[]>() {
+            @Override
+            public void success(UserJson[] users, Response response) {
+                cb.success(users, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
     public void serialValidate(String serial, final Callback<ValidationJson> cb) {
         if (!isConnected())
             return;
