@@ -38,7 +38,7 @@ public class CatchPointActivity extends BTActivity implements Button.OnClickList
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             case R.id.sign_in:
-                Intent intent_in = new Intent(CatchPointActivity.this, LogInActivity.class);
+                Intent intent_in = new Intent(CatchPointActivity.this, SignInActivity.class);
                 startActivity(intent_in);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
                 break;

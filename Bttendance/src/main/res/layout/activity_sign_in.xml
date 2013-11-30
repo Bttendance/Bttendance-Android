@@ -58,7 +58,7 @@
         android:background="@color/grey_hex_cc" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/signin"
         style="@style/signInUpButton"
         android:layout_below="@id/password_divider"
         android:layout_marginTop="20dp"
@@ -70,7 +70,7 @@
         android:id="@+id/forget_pwd"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_below="@id/login"
+        android:layout_below="@id/signin"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:includeFontPadding="false"

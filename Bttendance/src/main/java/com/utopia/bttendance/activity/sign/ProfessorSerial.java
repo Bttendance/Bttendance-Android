@@ -21,6 +21,7 @@ import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.model.BTEnum;
 import com.utopia.bttendance.model.BTExtra;
 import com.utopia.bttendance.model.json.ValidationJson;
+import com.utopia.bttendance.service.BTUrl;
 import com.utopia.bttendance.view.BeautiToast;
 
 import retrofit.Callback;
@@ -103,7 +104,7 @@ public class ProfessorSerial extends BTActivity {
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
         String forgot_password = getString(R.string.request_serial);
-        String forgot_password_html = "<a href=\"http://www.bttendance.com/request_serial\">"
+        String forgot_password_html = "<a href=\"" + BTUrl.REQUEST_SERIAL + "\">"
                 + forgot_password + "</a>";
         SpannableString SpannableHTML = new SpannableString(Html.fromHtml(forgot_password_html));
         SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, forgot_password.length(), 0);

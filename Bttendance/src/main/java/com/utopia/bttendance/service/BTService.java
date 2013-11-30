@@ -10,7 +10,10 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.utopia.bttendance.BTDebug;
+import com.utopia.bttendance.model.json.CourseJson;
 import com.utopia.bttendance.model.json.ErrorsJson;
+import com.utopia.bttendance.model.json.PostJson;
+import com.utopia.bttendance.model.json.SchoolJson;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.model.json.ValidationJson;
 import com.utopia.bttendance.view.BeautiToast;
@@ -59,7 +62,7 @@ public class BTService extends Service {
         return mBinder;
     }
 
-    public void signin(String username, String password, String uuid, final Callback cb) {
+    public void signin(String username, String password, String uuid, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
@@ -76,7 +79,7 @@ public class BTService extends Service {
         });
     }
 
-    public void signup(UserJson user, final Callback cb) {
+    public void signup(UserJson user, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
@@ -84,6 +87,210 @@ public class BTService extends Service {
             @Override
             public void success(UserJson user, Response response) {
                 cb.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void updateProfileImage(String username, String password, String deviceUUID, String profileImage, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.updateProfileImage(username, password, deviceUUID, profileImage, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson user, Response response) {
+                cb.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void updateEmail(String username, String password, String deviceUUID, String email, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.updateEmail(username, password, deviceUUID, email, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson user, Response response) {
+                cb.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void updateFullName(String username, String password, String deviceUUID, String fullName, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.updateFullName(username, password, deviceUUID, fullName, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson user, Response response) {
+                cb.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void joinSchool(String username, String password, int schoolID, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.joinSchool(username, password, schoolID, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson user, Response response) {
+                cb.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void joinCourse(String username, String password, int courseID, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.joinCourse(username, password, courseID, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson user, Response response) {
+                cb.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void schools(String username, String password, final Callback<SchoolJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.schools(username, password, new Callback<SchoolJson[]>() {
+            @Override
+            public void success(SchoolJson[] schools, Response response) {
+                cb.success(schools, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void courses(String username, String password, final Callback<CourseJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.courses(username, password, new Callback<CourseJson[]>() {
+            @Override
+            public void success(CourseJson[] courses, Response response) {
+                cb.success(courses, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void feed(String username, String password, int page, final Callback<PostJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.feed(username, password, page, new Callback<PostJson[]>() {
+            @Override
+            public void success(PostJson[] posts, Response response) {
+                cb.success(posts, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void schoolCreate(String username, String password, String name, String website, final Callback<SchoolJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.schoolCreate(username, password, name, website, new Callback<SchoolJson>() {
+            @Override
+            public void success(SchoolJson school, Response response) {
+                cb.success(school, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void courseCreate(String username, String password, String name, int schoolID, final Callback<CourseJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.courseCreate(username, password, name, schoolID, new Callback<CourseJson>() {
+            @Override
+            public void success(CourseJson course, Response response) {
+                cb.success(course, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void courseFeed(String username, String password, int courseID, int page, final Callback<PostJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.courseFeed(username, password, courseID, page, new Callback<PostJson[]>() {
+            @Override
+            public void success(PostJson[] posts, Response response) {
+                cb.success(posts, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void postCreate(String username, String password, String title, String message, int courseID, final Callback<PostJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.postCreate(username, password, title, message, courseID, new Callback<PostJson>() {
+            @Override
+            public void success(PostJson post, Response response) {
+                cb.success(post, response);
             }
 
             @Override
@@ -131,7 +338,8 @@ public class BTService extends Service {
             try {
                 ErrorsJson errors = (ErrorsJson) retrofitError.getBodyAs(ErrorsJson.class);
                 BTDebug.LogError(errors.getMessage());
-                BeautiToast.show(getApplicationContext(), errors.getToast());
+                if (errors.getToast() != null)
+                    BeautiToast.show(getApplicationContext(), errors.getToast());
             } catch (Exception e) {
                 BTDebug.LogError(e.getMessage());
             }

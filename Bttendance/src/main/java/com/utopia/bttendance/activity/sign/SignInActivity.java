@@ -20,9 +20,8 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.UUIDHelper;
 import com.utopia.bttendance.model.BTPreference;
-import com.utopia.bttendance.model.json.ErrorsJson;
 import com.utopia.bttendance.model.json.UserJson;
-import com.utopia.bttendance.view.BeautiToast;
+import com.utopia.bttendance.service.BTUrl;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -32,13 +31,13 @@ import retrofit.client.Response;
  * Created by TheFinestArtist on 2013. 11. 19..
  */
 
-public class LogInActivity extends BTActivity {
+public class SignInActivity extends BTActivity {
 
     private EditText mUsername = null;
     private EditText mPassword = null;
     private View mUsernameDiv = null;
     private View mPasswordDiv = null;
-    private Button mLogIn = null;
+    private Button mSignIn = null;
     private TextView mForgetPwd = null;
     private int mUsernameCount = 0;
     private int mPasswordCount = 0;
@@ -48,7 +47,7 @@ public class LogInActivity extends BTActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.activity_sign_in);
 
         mUsername = (EditText) findViewById(R.id.username);
         mPassword = (EditText) findViewById(R.id.password);
@@ -111,10 +110,10 @@ public class LogInActivity extends BTActivity {
             }
         });
 
-        mLogIn = (Button) findViewById(R.id.login);
-        mLogIn.setEnabled(false);
-        mLogIn.setTextColor(getResources().getColor(R.color.grey_hex_cc));
-        mLogIn.setOnTouchListener(new View.OnTouchListener() {
+        mSignIn = (Button) findViewById(R.id.signin);
+        mSignIn.setEnabled(false);
+        mSignIn.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+        mSignIn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -139,7 +138,7 @@ public class LogInActivity extends BTActivity {
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
         String forgot_password = getString(R.string.forgot_password);
-        String forgot_password_html = "<a href=\"http://www.bttendance.com/password_forgot\">"
+        String forgot_password_html = "<a href=\"" + BTUrl.FORGOT_PASSWORD + "\">"
                 + forgot_password + "</a>";
         SpannableString SpannableHTML = new SpannableString(Html.fromHtml(forgot_password_html));
         SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, forgot_password.length(), 0);
@@ -153,11 +152,11 @@ public class LogInActivity extends BTActivity {
     public void isEnableSignIn() {
 
         if (mUsernameCount > 0 && mPasswordCount > 5) {
-            mLogIn.setEnabled(true);
-            mLogIn.setTextColor(getResources().getColor(R.color.bttendance_cyan));
+            mSignIn.setEnabled(true);
+            mSignIn.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
-            mLogIn.setEnabled(false);
-            mLogIn.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+            mSignIn.setEnabled(false);
+            mSignIn.setTextColor(getResources().getColor(R.color.grey_hex_cc));
         }
     }
 
@@ -169,7 +168,7 @@ public class LogInActivity extends BTActivity {
             @Override
             public void success(UserJson user, Response response) {
                 BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(LogInActivity.this, user);
+                BTPreference.setUser(SignInActivity.this, user);
                 startActivity(getNextIntent());
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }

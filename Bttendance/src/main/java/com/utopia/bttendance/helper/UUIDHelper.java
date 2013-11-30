@@ -43,8 +43,9 @@ public class UUIDHelper {
         }
     }
 
-    public static void setUUID(Context context) {
-        String uuid = UUID.randomUUID().toString();
+    public static void setUUID(Context context, String uuid) {
+        if (uuid == null)
+            uuid = UUID.randomUUID().toString();
         BTPersistent.setUUID(context, uuid);
         BTPreference.setUUID(context, uuid);
     }

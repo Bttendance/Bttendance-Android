@@ -24,6 +24,9 @@ import com.utopia.bttendance.model.BTEnum;
 import com.utopia.bttendance.model.BTExtra;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.UserJson;
+import com.utopia.bttendance.service.BTAPI;
+import com.utopia.bttendance.service.BTUrl;
+import com.utopia.bttendance.view.BeautiToast;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -49,11 +52,35 @@ public class SignUpActivity extends BTActivity {
     private String mUsernameString = null;
     private String mEmailString = null;
     private String mPasswordString = null;
+    private BTEnum.Type mType = BTEnum.Type.NULL;
+
+    private void typeError() {
+        BeautiToast.show(this, getString(R.string.user_type_error_occurred));
+        onBackPressed();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        if (getIntent() != null)
+            mType = (BTEnum.Type) getIntent().getSerializableExtra(BTExtra.EXTRA_TYPE);
+
+        if (mType == null)
+            typeError();
+
+        switch (mType) {
+            case PROFESSOR:
+                getSupportActionBar().setTitle(getString(R.string.sign_up) + " - " + getString(R.string.professor));
+                break;
+            case STUDENT:
+                getSupportActionBar().setTitle(getString(R.string.sign_up) + " - " + getString(R.string.student));
+                break;
+            default:
+                typeError();
+                break;
+        }
 
         mFullName = (EditText) findViewById(R.id.full_name);
         mUsername = (EditText) findViewById(R.id.username);
@@ -212,7 +239,7 @@ public class SignUpActivity extends BTActivity {
         builder.append(SpannableFormat);
 
         String term_and_condition = getString(R.string.terms_and_conditions);
-        String term_and_condition_html = "<a href=\"http://www.bttendance.com/terms\">"
+        String term_and_condition_html = "<a href=\"" + BTUrl.TERMS + "\">"
                 + term_and_condition + "</a>";
         SpannableString SpannableHTML = new SpannableString(Html.fromHtml(term_and_condition_html));
         SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, term_and_condition.length(), 0);
@@ -278,19 +305,18 @@ public class SignUpActivity extends BTActivity {
         user.full_name = fullName;
         user.email = email;
         user.password = password;
-        user.device_type = "Android";
+        user.device_type = BTAPI.ANDROID;
         user.device_uuid = UUIDHelper.getUUID(this);
 
-        if (getIntent() == null || getIntent().getSerializableExtra(BTExtra.EXTRA_TYPE) == null)
-            return;
-        switch ((BTEnum.Type) getIntent().getSerializableExtra(BTExtra.EXTRA_TYPE)) {
-            case STUDENT:
-                user.type = "student";
-                break;
+        switch (mType) {
             case PROFESSOR:
-                user.type = "professor";
+                user.type = BTAPI.PROFESSOR;
+                break;
+            case STUDENT:
+                user.type = BTAPI.STUDENT;
                 break;
             default:
+                typeError();
                 return;
         }
 

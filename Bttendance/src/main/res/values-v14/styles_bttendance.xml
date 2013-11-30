@@ -30,12 +30,13 @@
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_bttendance</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bttendance</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/bttendance_white</item>
+        <item name="android:windowBackground">@color/bttendance_grey</item>
         <item name="android:homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_dark</item>
     </style>
 
     <style name="Theme.Bttendance.Sign" parent="@style/Theme.Bttendance">
         <item name="android:actionBarStyle">@style/ActionBar.Solid.Bttendance.Sign</item>
+        <item name="android:windowBackground">@color/bttendance_white</item>
     </style>
 
     <style name="ActionBar.Solid.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
@@ -44,6 +45,7 @@
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_bttendance</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_bttendance</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Bttendance</item>
+        <item name="android:displayOptions">disableHome|showTitle</item>
     </style>
 
     <style name="ActionBar.Solid.Bttendance.Sign" parent="@style/ActionBar.Solid.Bttendance">
