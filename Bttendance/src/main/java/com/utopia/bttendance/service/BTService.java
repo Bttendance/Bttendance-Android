@@ -10,6 +10,7 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.utopia.bttendance.BTDebug;
+import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
 import com.utopia.bttendance.model.json.ErrorsJson;
 import com.utopia.bttendance.model.json.PostJson;
@@ -222,6 +223,8 @@ public class BTService extends Service {
         mBTAPI.feed(username, password, page, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
+                for (PostJson post : posts)
+                    BTTable.PostTable.append(post.getId(), post);
                 cb.success(posts, response);
             }
 

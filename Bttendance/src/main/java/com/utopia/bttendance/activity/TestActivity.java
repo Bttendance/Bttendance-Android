@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
 import java.util.UUID;
 
 
-public class MainActivity extends BTActivity {
+public class TestActivity extends BTActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

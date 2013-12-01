@@ -17,7 +17,6 @@ public class SplashActivity extends BTActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUIDHelper.getUUID(this);
-        UUIDHelper.setUUID(this, "550e8400-e29b-41d4-a716-446655440000");
         setContentView(R.layout.activity_splash);
         new Handler().postDelayed(new Runnable() {
             @Override

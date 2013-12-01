@@ -34,5 +34,8 @@
     <string name="validated">"Validated"</string>
     <string name="wrong_serial">"Wrong Serial"</string>
     <string name="user_type_error_occurred">"User Type Error Occurred"</string>
+    <string name="feed">"Feed"</string>
+    <string name="courses">"Courses"</string>
+    <string name="profile">"Profile"</string>
 
 </resources>

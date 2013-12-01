@@ -7,9 +7,7 @@ import com.google.gson.Gson;
  */
 public class UserJson {
 
-    public static final String PROFESSOR = "professor";
-    public static final String STUDENT = "student";
-
+    public int id;
     public String username;
     public String email;
     public String password;

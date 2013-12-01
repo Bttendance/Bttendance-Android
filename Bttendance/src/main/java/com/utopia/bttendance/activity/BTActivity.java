@@ -11,11 +11,11 @@ import android.os.IBinder;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
-import com.utopia.bttendance.Event.BTEventDispatcher;
+import com.utopia.bttendance.event.BTEventDispatcher;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
-import com.utopia.bttendance.activity.sign.PersionalizeActivity;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.UserJson;
+import com.utopia.bttendance.service.BTAPI;
 import com.utopia.bttendance.service.BTService;
 
 import java.util.Stack;
@@ -79,9 +79,9 @@ public class BTActivity extends SherlockFragmentActivity {
         if (user == null || user.username == null || user.password == null || user.type == null) {
             BTPreference.clearAuth(this);
             intent = new Intent(this, CatchPointActivity.class);
-        } else if (UserJson.PROFESSOR.equals(user.type)) {
+        } else if (BTAPI.PROFESSOR.equals(user.type)) {
             intent = new Intent(this, ProfessorActivity.class);
-        } else if (UserJson.STUDENT.equals(user.type)) {
+        } else if (BTAPI.STUDENT.equals(user.type)) {
             intent = new Intent(this, StudentActivity.class);
         } else {
             BTPreference.clearAuth(this);
