@@ -8,11 +8,11 @@
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bttendance_grey"
+        android:cacheColorHint="@color/bttendance_grey"
         android:divider="@null"
-        android:scrollbars="none"
         android:dividerHeight="0dp"
         android:listSelector="@color/bttendance_grey"
-        android:cacheColorHint="@color/bttendance_grey"
-        android:background="@color/bttendance_grey"/>
+        android:scrollbars="none" />
 
 </RelativeLayout>

@@ -12,9 +12,9 @@ import android.util.TypedValue;
  */
 public class DipPixelHelper {
 
-    public static int getPixel(Context context, int dip) {
+    public static float getPixel(Context context, int dip) {
         Resources r = context.getResources();
         float pix = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
-        return (int) pix;
+        return pix;
     }
 }

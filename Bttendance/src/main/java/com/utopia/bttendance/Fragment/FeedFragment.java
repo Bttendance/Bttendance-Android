@@ -10,6 +10,7 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.PostJson;
 import com.utopia.bttendance.model.json.UserJson;
+import com.utopia.bttendance.view.Bttendance;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -21,11 +22,13 @@ import retrofit.client.Response;
 public class FeedFragment extends BTFragment {
 
     ListView mListView;
+    Bttendance mBttendance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, null);
         mListView = (ListView) view.findViewById(android.R.id.list);
+        mBttendance.setBttendance(Bttendance.STATE.STARTED, 100);
         return view;
     }
 

@@ -14,9 +14,9 @@
         android:id="@+id/bttendance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
         app:type="Small" />
 
     <TextView
@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="81dp"
-        android:layout_marginRight="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="81dp"
         android:layout_marginTop="18dp"
         android:textStyle="bold" />
 
@@ -38,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="81dp"
-        android:layout_marginRight="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="81dp"
         android:layout_marginTop="38dp"
         android:background="@null" />
 

@@ -38,12 +38,12 @@
     <!--10% — 1A-->
     <!--5% — 0D-->
     <!--0% — 00-->
-    <color name="pressed_bttendance">#33000000</color>
     <color name="bttendance_navy">#0072B0</color>
     <color name="bttendance_cyan">#33B5E5</color>
     <color name="bttendance_white">#F1F1FF</color>
     <color name="bttendance_grey">#E9E9F7</color>
     <color name="bttendance_silver">#6D6D7B</color>
     <color name="bttendance_black">#191927</color>
-    <color name="transparent_selector">#66CCCCCC</color>
+    <color name="bttendance_tab_selector">#3333B5E5</color>
+    <color name="bttendance_item_selected">#4D33B5E5</color>
 </resources>

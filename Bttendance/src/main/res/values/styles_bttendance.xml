@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- File created by the Android Action Bar Style Generator
+<?xml version="1.0" encoding="utf-8"?><!-- File created by the Android Action Bar Style Generator
 
      Copyright (C) 2011 The Android Open Source Project
      Copyright (C) 2012 readyState Software Ltd
@@ -52,8 +51,8 @@
         <item name="displayOptions">homeAsUp|showTitle</item>
     </style>
 
-    <style name="ActionBar.TitleTextStyle" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Title" >
-        <item name="android:textSize">18dp</item>
+    <style name="ActionBar.TitleTextStyle" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Title">
+        <item name="android:textSize">19sp</item>
         <item name="android:textColor">@color/bttendance_white</item>
     </style>
 
@@ -61,11 +60,11 @@
         <item name="background">@drawable/ab_transparent_bttendance</item>
         <item name="progressBarStyle">@style/ProgressBar.Bttendance</item>
     </style>
-	
-    <style name="PopupMenu.Bttendance" parent="@style/Widget.Sherlock.Light.ListPopupWindow">	
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_bttendance</item>	
+
+    <style name="PopupMenu.Bttendance" parent="@style/Widget.Sherlock.Light.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_bttendance</item>
     </style>
-	
+
     <style name="DropDownListView.Bttendance" parent="@style/Widget.Sherlock.Light.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_bttendance</item>
     </style>
@@ -73,21 +72,21 @@
     <style name="ActionBarTabStyle.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_bttendance</item>
     </style>
-	
+
     <style name="DropDownNav.Bttendance" parent="@style/Widget.Sherlock.Light.Spinner.DropDown.ActionBar">
         <item name="android:background">@drawable/spinner_background_ab_bttendance</item>
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_bttendance</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_bttendance</item>
     </style>
-    
+
     <style name="ProgressBar.Bttendance" parent="@style/Widget.Sherlock.Light.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_bttendance</item>
     </style>
-    
+
     <style name="ActionButton.CloseMode.Bttendance" parent="@style/Widget.Sherlock.Light.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_bttendance</item>
     </style>
-    
+
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
     <style name="Theme.Bttendance.Widget" parent="@style/Theme.Sherlock">
         <item name="popupMenuStyle">@style/PopupMenu.Bttendance</item>
