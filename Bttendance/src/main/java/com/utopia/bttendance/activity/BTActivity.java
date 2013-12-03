@@ -9,10 +9,12 @@ import android.os.Handler;
 import android.os.IBinder;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
-import com.utopia.bttendance.event.BTEventDispatcher;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
+import com.utopia.bttendance.event.BTEventDispatcher;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.service.BTAPI;
@@ -25,6 +27,7 @@ import java.util.Stack;
  */
 public class BTActivity extends SherlockFragmentActivity {
 
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     protected ServiceConnection mBTConnect = new ServiceConnection() {
 
         @Override
@@ -39,6 +42,7 @@ public class BTActivity extends SherlockFragmentActivity {
             mService = ((BTService.LocalBinder) service).getService();
         }
     };
+    private boolean checkPlayService = false;
     private BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
 
@@ -50,6 +54,8 @@ public class BTActivity extends SherlockFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityStack.add(this);
+        if (checkPlayService)
+            checkPlayServices();
         mEventDispatcher = new BTEventDispatcher();
         BTService.bind(this, mBTConnect);
     }
@@ -73,6 +79,18 @@ public class BTActivity extends SherlockFragmentActivity {
         BTEventBus.getInstance().unregister(mEventDispatcher);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (checkPlayService)
+            checkPlayServices();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     public Intent getNextIntent() {
         UserJson user = BTPreference.getUser(this);
         Intent intent;
@@ -90,6 +108,21 @@ public class BTActivity extends SherlockFragmentActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         return intent;
+    }
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                BTDebug.LogInfo("This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     public static class ActivityStack extends Application {

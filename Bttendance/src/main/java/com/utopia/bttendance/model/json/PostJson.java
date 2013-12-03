@@ -17,4 +17,12 @@ public class PostJson {
         return id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
 }

@@ -174,6 +174,8 @@ public class Bttendance extends View {
             public void onAnimationRepeat(Animation animation) {
             }
         });
+
+        mState = STATE.CHECKED;
     }
 
     @Override

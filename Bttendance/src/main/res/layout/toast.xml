@@ -3,7 +3,7 @@
     android:id="@+id/toast_message"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_round_rect"
+    android:background="@drawable/bg_round_navy_rect"
     android:clickable="false"
     android:focusable="false"
     android:gravity="center"
@@ -12,5 +12,5 @@
     android:paddingRight="13dp"
     android:paddingTop="7dp"
     android:lineSpacingExtra="5dp"
-    android:textColor="@android:color/white"
+    android:textColor="@color/bttendance_white"
     android:textSize="15sp" />

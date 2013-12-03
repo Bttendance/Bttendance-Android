@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.adapter.FeedAdapter;
+import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTPreference;
+import com.utopia.bttendance.model.cursor.PostCursor;
 import com.utopia.bttendance.model.json.PostJson;
 import com.utopia.bttendance.model.json.UserJson;
-import com.utopia.bttendance.view.Bttendance;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -22,13 +25,18 @@ import retrofit.client.Response;
 public class FeedFragment extends BTFragment {
 
     ListView mListView;
-    Bttendance mBttendance;
+    FeedAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, null);
         mListView = (ListView) view.findViewById(android.R.id.list);
-        mBttendance.setBttendance(Bttendance.STATE.STARTED, 100);
+        View padding = new View(getActivity());
+        padding.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 7));
+        mListView.addHeaderView(padding);
+        mListView.addFooterView(padding);
+        mAdapter = new FeedAdapter(getActivity(), null);
+        mListView.setAdapter(mAdapter);
         return view;
     }
 
@@ -46,7 +54,8 @@ public class FeedFragment extends BTFragment {
         getBTService().feed(user.username, user.password, 0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
-
+                BTDebug.LogInfo("Success");
+                mAdapter.swapCursor(new PostCursor());
             }
 
             @Override

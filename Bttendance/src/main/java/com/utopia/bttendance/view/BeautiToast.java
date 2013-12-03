@@ -24,10 +24,6 @@ public class BeautiToast {
         showToast(context, message, Toast.LENGTH_SHORT);
     }
 
-    public static void showLong(Context context, String message) {
-        showToast(context, message, Toast.LENGTH_LONG);
-    }
-
     private static void showToast(final Context context, final String message, final int duration) {
 
         if (context == null)
@@ -56,4 +52,5 @@ public class BeautiToast {
             new Handler(context.getMainLooper()).post(showToast);
         }
     }
+
 }//end of class

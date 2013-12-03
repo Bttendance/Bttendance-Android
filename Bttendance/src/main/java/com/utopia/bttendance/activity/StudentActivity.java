@@ -1,11 +1,13 @@
 package com.utopia.bttendance.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.BTPagerAdapter;
+import com.utopia.bttendance.view.BeautiToast;
 import com.utopia.bttendance.view.PagerSlidingTabStrip;
 
 /**
@@ -62,6 +64,29 @@ public class StudentActivity extends BTActivity {
             case 2:
                 getSupportActionBar().setTitle(getString(R.string.profile));
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        tryToFinish();
+    }
+
+    private boolean mFinishApplication = false;
+    private static Handler mUIHandler = new Handler();
+
+    private void tryToFinish() {
+        if (mFinishApplication) {
+            finish();
+        } else {
+            BeautiToast.show(this, getString(R.string.please_press_back_button_again_to_exit_));
+            mFinishApplication = true;
+            mUIHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mFinishApplication = false;
+                }
+            }, 3000);
         }
     }
 }
