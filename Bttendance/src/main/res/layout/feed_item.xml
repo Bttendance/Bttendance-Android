@@ -6,16 +6,16 @@
     android:layout_height="wrap_content"
     android:background="@null"
     android:minHeight="88dp"
+    android:paddingBottom="7dp"
     android:paddingLeft="11dp"
     android:paddingRight="11dp"
-    android:paddingTop="7dp"
-    android:paddingBottom="7dp">
+    android:paddingTop="7dp">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="88dp"
-        android:background="@drawable/bttendance_item_background" />
+        android:background="@drawable/bttendance_item_background"
+        android:minHeight="88dp" />
 
     <com.utopia.bttendance.view.Bttendance
         android:id="@+id/bttendance"

@@ -7,6 +7,14 @@ import com.google.gson.Gson;
  */
 public class CourseJson {
 
+    public String name;
+    public String number;
+    public boolean onGoing;
+    public int school;
+    public int professor;
+    public int[] students;
+    public int[] posts;
+
     public String toJson() {
         return new Gson().toJson(this);
     }

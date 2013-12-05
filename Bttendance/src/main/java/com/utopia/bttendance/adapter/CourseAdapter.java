@@ -10,33 +10,34 @@ import android.widget.TextView;
 
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.model.BTTable;
+import com.utopia.bttendance.model.json.CourseJson;
 import com.utopia.bttendance.model.json.PostJson;
-import com.utopia.bttendance.view.Bttendance;
+import com.utopia.bttendance.model.json.UserJson;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
  */
-public class FeedAdapter extends CursorAdapter {
+public class CourseAdapter extends CursorAdapter {
 
-    public FeedAdapter(Context context, Cursor c) {
+    public CourseAdapter(Context context, Cursor c) {
         super(context, c, false);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.feed_item, parent, false);
+        return inflater.inflate(R.layout.course_item, parent, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        ((Bttendance)view.findViewById(R.id.bttendance)).setBttendance(Bttendance.STATE.STARTED, 100);
+//        ((Bttendance)view.findViewById(R.id.bttendance)).setBttendance(Bttendance.STATE.STARTED, 100);
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
         int id = cursor.getInt(0);
-        PostJson post = BTTable.PostTable.get(id);
-        title.setText(post.title);
-        message.setText(post.message);
+        CourseJson course = BTTable.CourseTable.get(id);
+        title.setText(course.number + " " + course.name);
+//        message.setText(post.message);
     }
 
     @Override
