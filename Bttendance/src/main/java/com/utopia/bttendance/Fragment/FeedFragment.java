@@ -54,7 +54,6 @@ public class FeedFragment extends BTFragment {
         getBTService().feed(user.username, user.password, 0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
-                BTDebug.LogInfo("Success");
                 mAdapter.swapCursor(new PostCursor());
             }
 

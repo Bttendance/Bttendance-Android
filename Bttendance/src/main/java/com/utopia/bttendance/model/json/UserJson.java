@@ -14,6 +14,7 @@ public class UserJson {
     public String type;
     public String device_type;
     public String device_uuid;
+    public String notification_key;
     public String full_name;
 
     public String toJson() {

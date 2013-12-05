@@ -37,6 +37,13 @@ public interface BTAPI {
                 @Query("type") String type,
                 Callback<UserJson> cb);
 
+    @PUT("/user/update/notification_key")
+    void updateNotificationKey(@Query("username") String username,
+                            @Query("password") String password,
+                            @Query("device_uuid") String deviceUUID,
+                            @Query("notification_key") String notificationKey,
+                            Callback<UserJson> cb);
+
     @PUT("/user/update/profile_image")
     void updateProfileImage(@Query("username") String username,
                             @Query("password") String password,
@@ -124,5 +131,9 @@ public interface BTAPI {
     @GET("/serial/validate")
     void serialValidate(@Query("serial") String serial,
                         Callback<ValidationJson> cb);
+
+    @GET("/user/notification")
+    void sendNotification(@Query("username") String username,
+                        Callback<UserJson> cb);
 
 }

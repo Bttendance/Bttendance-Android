@@ -127,11 +127,14 @@ public class ProfessorSerial extends BTActivity {
     }
 
     protected void serialValidate() {
+        if (getBTService() == null)
+            return;
+
         String serial = mSerial.getText().toString();
         getBTService().serialValidate(serial, new Callback<ValidationJson>() {
             @Override
             public void success(ValidationJson validation, Response response) {
-                if (validation != null && validation.getValidate()) {
+                if (validation != null && validation.validate) {
                     BeautiToast.show(getApplicationContext(), getString(R.string.validated));
                     Intent intent = new Intent(ProfessorSerial.this, SignUpActivity.class);
                     intent.putExtra(BTExtra.EXTRA_TYPE, BTEnum.Type.PROFESSOR);

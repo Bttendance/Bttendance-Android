@@ -295,6 +295,9 @@ public class SignUpActivity extends BTActivity {
     }
 
     private void trySignUp() {
+        if (getBTService() == null)
+            return;
+
         String fullName = mFullName.getText().toString();
         String username = mUsername.getText().toString();
         String email = mEmail.getText().toString();
@@ -323,8 +326,6 @@ public class SignUpActivity extends BTActivity {
         getBTService().signup(user, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(SignUpActivity.this, user);
                 startActivity(getNextIntent());
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }

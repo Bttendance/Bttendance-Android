@@ -33,8 +33,8 @@ public class FeedAdapter extends CursorAdapter {
         TextView message = (TextView) view.findViewById(R.id.message);
         int id = cursor.getInt(0);
         PostJson post = BTTable.PostTable.get(id);
-        title.setText(post.getTitle());
-        message.setText(post.getMessage());
+        title.setText(post.title);
+        message.setText(post.message);
     }
 
     @Override

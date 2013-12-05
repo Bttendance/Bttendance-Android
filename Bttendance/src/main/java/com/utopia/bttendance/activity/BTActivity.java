@@ -15,6 +15,7 @@ import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
 import com.utopia.bttendance.event.BTEventDispatcher;
+import com.utopia.bttendance.model.BTNotification;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.service.BTAPI;
@@ -32,19 +33,25 @@ public class BTActivity extends SherlockFragmentActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            BTDebug.LogDebug("Service Disconnected");
             mService = null;
+            onServieDisconnected();
         }
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            BTDebug.LogDebug("Service Connected");
             mService = ((BTService.LocalBinder) service).getService();
+            onServieConnected();
         }
     };
-    private boolean checkPlayService = false;
     private BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
+
+    protected void onServieConnected() {
+        checkPlayServices();
+    }
+
+    protected void onServieDisconnected() {
+    }
 
     public BTService getBTService() {
         return mService;
@@ -54,8 +61,6 @@ public class BTActivity extends SherlockFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityStack.add(this);
-        if (checkPlayService)
-            checkPlayServices();
         mEventDispatcher = new BTEventDispatcher();
         BTService.bind(this, mBTConnect);
     }
@@ -82,8 +87,6 @@ public class BTActivity extends SherlockFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (checkPlayService)
-            checkPlayServices();
     }
 
     @Override
@@ -110,19 +113,26 @@ public class BTActivity extends SherlockFragmentActivity {
         return intent;
     }
 
-    private boolean checkPlayServices() {
+    private void checkPlayServices() {
+        if (!(this instanceof ProfessorActivity || this instanceof StudentActivity))
+            return;
+
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
-                BTDebug.LogInfo("This device is not supported.");
+                BTDebug.LogError("This device is not supported.");
                 finish();
             }
-            return false;
+        } else {
+            String regId = BTNotification.getRegistrationId(this);
+            UserJson user = BTPreference.getUser(this);
+            if (regId == null)
+                BTNotification.registerInBackground(this);
+            else if (!regId.equals(user.notification_key))
+                BTNotification.sendRegistrationIdToBackend(this, regId);
         }
-        return true;
     }
 
     public static class ActivityStack extends Application {

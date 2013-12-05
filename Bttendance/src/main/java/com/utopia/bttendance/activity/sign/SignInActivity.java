@@ -161,14 +161,15 @@ public class SignInActivity extends BTActivity {
     }
 
     protected void trySignIn() {
+        if (getBTService() == null)
+            return;
+
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
         String uuid = UUIDHelper.getUUID(this);
         getBTService().signin(username, password, uuid, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(SignInActivity.this, user);
                 startActivity(getNextIntent());
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }

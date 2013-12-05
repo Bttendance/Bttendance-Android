@@ -18,10 +18,9 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
-        android:name="com.example.gcm.permission.C2D_MESSAGE"
+        android:name="com.utopia.bttendance.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
-
+    <uses-permission android:name="com.utopia.bttendance.permission.C2D_MESSAGE" />
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -109,15 +108,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance" />
 
-        <!--<receiver-->
-            <!--android:name="com.google.android."-->
-            <!--android:permission="com.google.android.c2dm.permission.SEND">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
-                <!--<category android:name="com.example.gcm" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-        <!--<service android:name=".GcmIntentService" />-->
+        <receiver
+            android:name=".service.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.utopia.bttendance" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".service.GcmIntentService" />
 
         <meta-data
             android:name="com.google.android.gms.version"
