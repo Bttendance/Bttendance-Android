@@ -37,5 +37,6 @@
     <string name="feed">"Feed"</string>
     <string name="courses">"Courses"</string>
     <string name="profile">"Profile"</string>
+    <string name="prof_">"Prof.\u0020"</string>
 
 </resources>

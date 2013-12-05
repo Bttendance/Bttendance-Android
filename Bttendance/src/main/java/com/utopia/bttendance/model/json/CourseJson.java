@@ -14,6 +14,8 @@ public class CourseJson {
     public int professor;
     public int[] students;
     public int[] posts;
+    public String professor_name;
+    public String school_name;
 
     public String toJson() {
         return new Gson().toJson(this);

@@ -286,11 +286,11 @@ public class BTService extends Service {
         });
     }
 
-    public void courseCreate(String username, String password, String name, int schoolID, final Callback<CourseJson> cb) {
+    public void courseCreate(String username, String password, String name, String number, int schoolID, final Callback<CourseJson> cb) {
         if (!isConnected())
             return;
 
-        mBTAPI.courseCreate(username, password, name, schoolID, new Callback<CourseJson>() {
+        mBTAPI.courseCreate(username, password, name, number, schoolID, new Callback<CourseJson>() {
             @Override
             public void success(CourseJson course, Response response) {
                 cb.success(course, response);
@@ -320,11 +320,11 @@ public class BTService extends Service {
         });
     }
 
-    public void postCreate(String username, String password, String title, String message, int courseID, final Callback<PostJson> cb) {
+    public void postCreate(String username, String password, String type, String title, String message, int courseID, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
-        mBTAPI.postCreate(username, password, title, message, courseID, new Callback<PostJson>() {
+        mBTAPI.postCreate(username, password, type, title, message, courseID, new Callback<PostJson>() {
             @Override
             public void success(PostJson post, Response response) {
                 cb.success(post, response);
@@ -337,11 +337,28 @@ public class BTService extends Service {
         });
     }
 
-    public void postChecks(String username, String password, int postID, final Callback<UserJson[]> cb) {
+    public void postCheck(String username, String password, int courseID, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
-        mBTAPI.postChecks(username, password, postID, new Callback<UserJson[]>() {
+        mBTAPI.postCheck(username, password, courseID, new Callback<PostJson>() {
+            @Override
+            public void success(PostJson post, Response response) {
+                cb.success(post, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void postStudentList(String username, String password, int postID, final Callback<UserJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.postStudentList(username, password, postID, new Callback<UserJson[]>() {
             @Override
             public void success(UserJson[] users, Response response) {
                 cb.success(users, response);

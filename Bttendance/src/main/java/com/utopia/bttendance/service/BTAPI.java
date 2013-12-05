@@ -104,6 +104,7 @@ public interface BTAPI {
     void courseCreate(@Query("username") String username,
                       @Query("password") String password,
                       @Query("name") String name,
+                      @Query("number") String number,
                       @Query("school_id") int schoolID,
                       Callback<CourseJson> cb);
 
@@ -117,16 +118,23 @@ public interface BTAPI {
     @POST("/post/create")
     void postCreate(@Query("username") String username,
                     @Query("password") String password,
+                    @Query("type") String type,
                     @Query("title") String title,
                     @Query("message") String message,
                     @Query("course_id") int courseID,
                     Callback<PostJson> cb);
 
-    @POST("/post/checks")
-    void postChecks(@Query("username") String username,
+    @POST("/post/check")
+    void postCheck(@Query("username") String username,
                     @Query("password") String password,
-                    @Query("post_id") int postID,
-                    Callback<UserJson[]> cb);
+                    @Query("course_id") int courseID,
+                    Callback<PostJson> cb);
+
+    @POST("/post/student/list")
+    void postStudentList(@Query("username") String username,
+                         @Query("password") String password,
+                         @Query("post_id") int postID,
+                         Callback<UserJson[]> cb);
 
     @GET("/serial/validate")
     void serialValidate(@Query("serial") String serial,

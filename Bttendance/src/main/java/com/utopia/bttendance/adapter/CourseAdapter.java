@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
-import com.utopia.bttendance.model.json.PostJson;
-import com.utopia.bttendance.model.json.UserJson;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
@@ -37,7 +35,7 @@ public class CourseAdapter extends CursorAdapter {
         int id = cursor.getInt(0);
         CourseJson course = BTTable.CourseTable.get(id);
         title.setText(course.number + " " + course.name);
-//        message.setText(post.message);
+        message.setText(context.getString(R.string.prof_) + course.professor_name + "\n" + course.school_name);
     }
 
     @Override

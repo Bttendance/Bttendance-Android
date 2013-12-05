@@ -14,6 +14,10 @@ public class PostJson {
     public int author;
     public int course;
     public int[] checks;
+    public String author_name;
+    public String course_name;
+    public String course_number;
+    public String school_name;
 
     public String toJson() {
         return new Gson().toJson(this);
