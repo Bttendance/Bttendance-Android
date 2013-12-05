@@ -5,6 +5,30 @@
     android:layout_height="match_parent"
     android:background="@color/transparent_white_hex_6">
 
+    <ViewSwitcher
+        android:id="@+id/switcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:inAnimation="@anim/fade_in_slow"
+        android:outAnimation="@anim/fade_out_slow">
+
+        <ImageView
+            android:id="@+id/prof_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/prof0" />
+
+        <ImageView
+            android:id="@+id/std_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/student0" />
+    </ViewSwitcher>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -39,60 +63,128 @@
         android:background="@drawable/red_shadow_background" />
 
     <RelativeLayout
+        android:id="@+id/under_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/text_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/prof_text_under"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/professor"
+                android:textColor="@color/bttendance_white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/prof_text_under"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="\u003E\u003E"
+                android:textColor="@color/bttendance_white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/std_text_under"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/student"
+                android:textColor="@color/bttendance_white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/std_text_under"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="\u003C\u003C"
+                android:textColor="@color/bttendance_white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/prof_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
         <TextView
+            android:id="@+id/prof_text_prof"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="@string/professor"
             android:textColor="@color/bttendance_white"
-            android:textSize="24dp" />
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:layout_below="@id/prof_text_prof"
+            android:layout_marginLeft="5dp"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="\u003E\u003E"
             android:textColor="@color/bttendance_white"
-            android:textSize="24dp" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/std_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
         <TextView
+            android:id="@+id/std_text_std"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="@string/student"
             android:textColor="@color/bttendance_white"
-            android:textSize="24dp" />
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_below="@id/std_text_std"
+            android:layout_marginRight="5dp"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="\u003C\u003C"
             android:textColor="@color/bttendance_white"
-            android:textSize="24dp" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

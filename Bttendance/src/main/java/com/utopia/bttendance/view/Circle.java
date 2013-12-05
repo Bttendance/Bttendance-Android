@@ -14,7 +14,8 @@ import com.utopia.bttendance.model.BTEnum;
  * Created by TheFinestArtist on 2013. 11. 25..
  */
 public class Circle extends View {
-    private static final int INIT_ALPHA = 128;
+    private static final int INIT_ALPHA = 200;
+    private static final int FIN_ALPHA = 250;
     private static final int INIT_RADIUS = 220;
     Paint paint;
     float mX, mY, mMulti, mDense;
@@ -89,7 +90,7 @@ public class Circle extends View {
         switch (mType) {
             case PROFESSOR:
                 mMulti = 1.0f + ((float) progress) / 20.0f;
-                alpha = progress == 0 ? 128 : 255;
+                alpha = progress == 0 ? INIT_ALPHA : FIN_ALPHA;
                 mX = x - mInitX;
                 if (mX > mCenterX)
                     mX = mCenterX;
@@ -98,7 +99,7 @@ public class Circle extends View {
             case STUDENT:
             default:
                 mMulti = 1.0f + (100.0f - ((float) progress)) / 20.0f;
-                alpha = progress == 100 ? 128 : 255;
+                alpha = progress == 100 ? INIT_ALPHA : FIN_ALPHA;
                 mX = x + mInitX;
                 if (mX < mCenterX)
                     mX = mCenterX;

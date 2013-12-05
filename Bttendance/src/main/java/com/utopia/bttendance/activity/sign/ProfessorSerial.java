@@ -39,7 +39,6 @@ public class ProfessorSerial extends BTActivity {
     private Button mEnter = null;
     private TextView mReqSerial = null;
     private int mSerialCount = 0;
-    private String mSerialString = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,20 +153,8 @@ public class ProfessorSerial extends BTActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-        if (mSerialString != null)
-            mSerial.setText(mSerialString);
-
         mSerialDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
-
         isEnableSignIn();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        mSerialString = mSerial.getText().toString();
     }
 
     @Override

@@ -5,11 +5,17 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.ViewSwitcher;
 
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
+import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.helper.ScreenHelper;
 import com.utopia.bttendance.model.BTEnum;
 import com.utopia.bttendance.view.Circle;
@@ -24,7 +30,7 @@ public class PersionalizeActivity extends BTActivity {
     private static final int PROGRESS_CHANGE_MAX = 30;
     private static final int PROGRESS_CHANGE_DURATION = 6;
     private static final int PROGRESS_CHANGE = 3;
-    private static final int SPEED_TO_GO = 15;
+    private static final int SPEED_TO_GO = 14;
     SeekBar_ mSeekBarStd;
     int progressStd = 100;
     int progressStdStart = 100;
@@ -33,7 +39,6 @@ public class PersionalizeActivity extends BTActivity {
     boolean isProgressStdSpeedToGo = false;
     Thread threadStd;
     Circle mStdCircle;
-    RelativeLayout mStdLayout;
     SeekBar_ mSeekBarProf;
     int progressProf = 0;
     int progressProfStart = 0;
@@ -42,10 +47,14 @@ public class PersionalizeActivity extends BTActivity {
     boolean isProgressProfSpeedToGo = false;
     Thread threadProf;
     Circle mProfCircle;
-    RelativeLayout mProfLayout;
     int statusBarHeight;
     int actionBarHeight;
     BTEnum.Type mType = BTEnum.Type.NULL;
+    RelativeLayout mUnderLayout;
+    RelativeLayout mTextLayout;
+    RelativeLayout mProfLayout;
+    RelativeLayout mStdLayout;
+    ViewSwitcher mViewSwitcher;
 
     private void initCircle(Circle circle, SeekBar seekBar) {
         if (((SeekBar_) seekBar).getSeekBarThumb() == null)
@@ -57,6 +66,13 @@ public class PersionalizeActivity extends BTActivity {
         int x = location[0] + thumbRect.centerX();
         int y = location[1];
         circle.initView(x, y, seekBar.getProgress());
+    }
+
+    private void initText() {
+        int paddingBottom = (int) (DipPixelHelper.getPixel(this, 50) + mSeekBarProf.getHeight() / 2);
+        mProfLayout.setPadding(0, 0, 0, paddingBottom);
+        mStdLayout.setPadding(0, 0, 0, paddingBottom);
+        mTextLayout.setPadding(0, 0, 0, paddingBottom);
     }
 
     private void updateCircle(Circle circle, SeekBar seekBar) {
@@ -115,8 +131,34 @@ public class PersionalizeActivity extends BTActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personalize);
 
-        mStdLayout = (RelativeLayout) findViewById(R.id.std_layout);
+        mViewSwitcher = (ViewSwitcher) findViewById(R.id.switcher);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(6000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (mViewSwitcher.getDisplayedChild() == 0) {
+                                    mViewSwitcher.showNext();
+                                } else {
+                                    mViewSwitcher.showPrevious();
+                                }
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        mUnderLayout = (RelativeLayout) findViewById(R.id.under_layout);
+        mTextLayout = (RelativeLayout) findViewById(R.id.text_layout);
         mProfLayout = (RelativeLayout) findViewById(R.id.prof_layout);
+        mStdLayout = (RelativeLayout) findViewById(R.id.std_layout);
 
         mSeekBarStd = (SeekBar_) findViewById(R.id.seekbar_std);
         mSeekBarStd.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -132,7 +174,7 @@ public class PersionalizeActivity extends BTActivity {
                     }
                     if (progressStd - seekBar.getProgress() > SPEED_TO_GO)
                         isProgressStdSpeedToGo = true;
-                    if (progressStd - seekBar.getProgress() < 0)
+                    if (seekBar.getProgress() - progressStd > 0)
                         isProgressStdSpeedToGo = false;
                     progressStd = progress;
                     updateCircle(mStdCircle, seekBar);
@@ -143,6 +185,7 @@ public class PersionalizeActivity extends BTActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                mProfLayout.setVisibility(View.INVISIBLE);
                 if (threadStd != null) {
                     threadStd.interrupt();
                     threadStd = null;
@@ -158,8 +201,9 @@ public class PersionalizeActivity extends BTActivity {
 
             @Override
             public void onStopTrackingTouch(final SeekBar seekBar) {
+                mProfLayout.setVisibility(View.VISIBLE);
                 int progress = seekBar.getProgress();
-                if (isProgressStdSpeedToGo || progress > PROGRESS_TO_GO) {
+                if (isProgressStdSpeedToGo || progress < 100 - PROGRESS_TO_GO) {
                     threadStd = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -234,6 +278,11 @@ public class PersionalizeActivity extends BTActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                mStdLayout.setVisibility(View.INVISIBLE);
+                if (threadProf != null) {
+                    threadProf.interrupt();
+                    threadProf = null;
+                }
                 progressProfStart = seekBar.getProgress();
                 isProgressProfChanging = false;
                 isProgressProfChangingStarted = false;
@@ -245,6 +294,7 @@ public class PersionalizeActivity extends BTActivity {
 
             @Override
             public void onStopTrackingTouch(final SeekBar seekBar) {
+                mStdLayout.setVisibility(View.VISIBLE);
                 int progress = seekBar.getProgress();
                 if (isProgressProfSpeedToGo || progress > PROGRESS_TO_GO) {
                     if (threadProf != null) {
@@ -304,10 +354,10 @@ public class PersionalizeActivity extends BTActivity {
         actionBarHeight = ScreenHelper.getABHeight(this);
 
         mStdCircle = new Circle(this, BTEnum.Type.STUDENT);
-        mProfLayout.addView(mStdCircle, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mUnderLayout.addView(mStdCircle, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mProfCircle = new Circle(this, BTEnum.Type.PROFESSOR);
-        mStdLayout.addView(mProfCircle, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mUnderLayout.addView(mProfCircle, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         new Thread(new Runnable() {
             @Override
@@ -319,7 +369,11 @@ public class PersionalizeActivity extends BTActivity {
                         mSeekBarStd.getLocationOnScreen(location1);
                         int[] location2 = new int[2];
                         mSeekBarProf.getLocationOnScreen(location2);
-                        if (location1[1] * location2[1] > 0)
+                        if (location1[1] > 0
+                                && location2[1] > 0
+                                && mProfLayout.getHeight() > 0
+                                && mStdLayout.getHeight() > 0
+                                && mTextLayout.getHeight() > 0)
                             break;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -330,6 +384,7 @@ public class PersionalizeActivity extends BTActivity {
                     public void run() {
                         initCircle(mProfCircle, mSeekBarProf);
                         initCircle(mStdCircle, mSeekBarStd);
+                        initText();
                     }
                 });
             }
