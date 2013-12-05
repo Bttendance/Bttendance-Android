@@ -337,11 +337,28 @@ public class BTService extends Service {
         });
     }
 
-    public void postCheck(String username, String password, int courseID, final Callback<PostJson> cb) {
+    public void postAttendanceStart(String username, String password, int courseID, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
-        mBTAPI.postCheck(username, password, courseID, new Callback<PostJson>() {
+        mBTAPI.postAttendanceStart(username, password, courseID, new Callback<PostJson>() {
+            @Override
+            public void success(PostJson post, Response response) {
+                cb.success(post, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void postAttendanceCheck(String username, String password, int courseID, final Callback<PostJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.postAttendanceCheck(username, password, courseID, new Callback<PostJson>() {
             @Override
             public void success(PostJson post, Response response) {
                 cb.success(post, response);

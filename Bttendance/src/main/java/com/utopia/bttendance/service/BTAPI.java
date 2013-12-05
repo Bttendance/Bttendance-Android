@@ -124,11 +124,17 @@ public interface BTAPI {
                     @Query("course_id") int courseID,
                     Callback<PostJson> cb);
 
-    @POST("/post/check")
-    void postCheck(@Query("username") String username,
-                    @Query("password") String password,
-                    @Query("course_id") int courseID,
-                    Callback<PostJson> cb);
+    @POST("/post/attendance/start")
+    void postAttendanceStart(@Query("username") String username,
+                             @Query("password") String password,
+                             @Query("course_id") int courseID,
+                             Callback<PostJson> cb);
+
+    @PUT("/post/attendance/check")
+    void postAttendanceCheck(@Query("username") String username,
+                             @Query("password") String password,
+                             @Query("course_id") int courseID,
+                             Callback<PostJson> cb);
 
     @POST("/post/student/list")
     void postStudentList(@Query("username") String username,
