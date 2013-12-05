@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.PostJson;
+import com.utopia.bttendance.view.Bttendance;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
@@ -29,6 +30,7 @@ public class FeedAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+//        ((Bttendance)view.findViewById(R.id.bttendance)).setBttendance(Bttendance.STATE.STARTED, 100);
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
         int id = cursor.getInt(0);

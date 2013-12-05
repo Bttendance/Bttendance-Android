@@ -5,10 +5,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.ViewSwitcher;
@@ -201,7 +197,6 @@ public class PersionalizeActivity extends BTActivity {
 
             @Override
             public void onStopTrackingTouch(final SeekBar seekBar) {
-                mProfLayout.setVisibility(View.VISIBLE);
                 int progress = seekBar.getProgress();
                 if (isProgressStdSpeedToGo || progress < 100 - PROGRESS_TO_GO) {
                     threadStd = new Thread(new Runnable() {
@@ -245,6 +240,12 @@ public class PersionalizeActivity extends BTActivity {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProfLayout.setVisibility(View.VISIBLE);
+                                    }
+                                });
                             }
                         }
                     });
@@ -294,7 +295,6 @@ public class PersionalizeActivity extends BTActivity {
 
             @Override
             public void onStopTrackingTouch(final SeekBar seekBar) {
-                mStdLayout.setVisibility(View.VISIBLE);
                 int progress = seekBar.getProgress();
                 if (isProgressProfSpeedToGo || progress > PROGRESS_TO_GO) {
                     if (threadProf != null) {
@@ -342,6 +342,12 @@ public class PersionalizeActivity extends BTActivity {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mStdLayout.setVisibility(View.VISIBLE);
+                                    }
+                                });
                             }
                         }
                     });
@@ -398,6 +404,8 @@ public class PersionalizeActivity extends BTActivity {
         mSeekBarStd.setProgress(100);
         updateCircle(mStdCircle, mSeekBarStd);
         updateCircle(mProfCircle, mSeekBarProf);
+        mProfLayout.setVisibility(View.VISIBLE);
+        mStdLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
