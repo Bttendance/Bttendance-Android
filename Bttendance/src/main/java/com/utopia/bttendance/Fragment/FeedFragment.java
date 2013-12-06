@@ -11,6 +11,7 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.FeedAdapter;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTPreference;
+import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.PostCursor;
 import com.utopia.bttendance.model.json.PostJson;
 import com.utopia.bttendance.model.json.UserJson;
@@ -54,7 +55,7 @@ public class FeedFragment extends BTFragment {
         getBTService().feed(user.username, user.password, 0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
-                mAdapter.swapCursor(new PostCursor());
+                mAdapter.swapCursor(new PostCursor(BTTable.FILTER_TOTAL_POST));
             }
 
             @Override

@@ -146,8 +146,4 @@ public interface BTAPI {
     void serialValidate(@Query("serial") String serial,
                         Callback<ValidationJson> cb);
 
-    @GET("/user/notification")
-    void sendNotification(@Query("username") String username,
-                        Callback<UserJson> cb);
-
 }

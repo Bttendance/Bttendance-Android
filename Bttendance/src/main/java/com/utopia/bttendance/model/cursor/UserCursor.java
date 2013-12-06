@@ -12,15 +12,15 @@ import java.util.ArrayList;
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
  */
-public class PostCursor extends MatrixCursor {
+public class UserCursor extends MatrixCursor {
 
     private final static String[] COLUMNS = {
             "_id"
     };
 
-    public PostCursor(String filter) {
+    public UserCursor(String filter) {
         super(COLUMNS);
-        ArrayList<PostJson> table = BTTable.getPosts(filter);
+        ArrayList<UserJson> table = BTTable.getUsers(filter);
         for (int i = 0; i < table.size(); i++)
             addRow(new Object[]{table.get(i)});
     }

@@ -11,6 +11,7 @@ import com.utopia.bttendance.adapter.CourseAdapter;
 import com.utopia.bttendance.adapter.FeedAdapter;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTPreference;
+import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.CourseCursor;
 import com.utopia.bttendance.model.cursor.PostCursor;
 import com.utopia.bttendance.model.json.CourseJson;
@@ -56,7 +57,7 @@ public class CourseListFragment extends BTFragment {
         getBTService().courses(user.username, user.password, new Callback<CourseJson[]>() {
             @Override
             public void success(CourseJson[] courses, Response response) {
-                mAdapter.swapCursor(new CourseCursor());
+                mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));
             }
 
             @Override

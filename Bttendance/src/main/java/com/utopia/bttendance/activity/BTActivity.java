@@ -98,14 +98,14 @@ public class BTActivity extends SherlockFragmentActivity {
         UserJson user = BTPreference.getUser(this);
         Intent intent;
         if (user == null || user.username == null || user.password == null || user.type == null) {
-            BTPreference.clearAuth(this);
+            BTPreference.clearUser(this);
             intent = new Intent(this, CatchPointActivity.class);
         } else if (BTAPI.PROFESSOR.equals(user.type)) {
             intent = new Intent(this, ProfessorActivity.class);
         } else if (BTAPI.STUDENT.equals(user.type)) {
             intent = new Intent(this, StudentActivity.class);
         } else {
-            BTPreference.clearAuth(this);
+            BTPreference.clearUser(this);
             intent = new Intent(this, CatchPointActivity.class);
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

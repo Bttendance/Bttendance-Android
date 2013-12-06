@@ -8,8 +8,6 @@ import android.content.SharedPreferences.Editor;
 import com.google.gson.Gson;
 import com.utopia.bttendance.model.json.UserJson;
 
-import java.util.Locale;
-
 /**
  * Preference Helper
  *
@@ -18,7 +16,6 @@ import java.util.Locale;
 public class BTPreference {
 
     private static SharedPreferences mPref = null;
-    private static SharedPreferences mNotiPref = null;
     private static Object mSingletonLock = new Object();
 
     private static SharedPreferences getInstance(Context ctx) {
@@ -34,7 +31,7 @@ public class BTPreference {
     }
 
     // on Log out
-    public static void clearAuth(Context ctx) {
+    public static void clearUser(Context ctx) {
         Editor edit = getInstance(ctx).edit();
         edit.remove("user");
         edit.commit();
@@ -48,9 +45,23 @@ public class BTPreference {
         try {
             return gson.fromJson(jsonStr, UserJson.class);
         } catch (Exception e) {
-            clearAuth(ctx);
+            clearUser(ctx);
             return null;
         }
+    }
+
+    public static String getUsername(Context ctx) {
+        UserJson user = getUser(ctx);
+        if (user == null)
+            return null;
+        return user.username;
+    }
+
+    public static String getUserType(Context ctx) {
+        UserJson user = getUser(ctx);
+        if (user == null)
+            return null;
+        return user.type;
     }
 
     public static void setUser(Context ctx, UserJson user) {

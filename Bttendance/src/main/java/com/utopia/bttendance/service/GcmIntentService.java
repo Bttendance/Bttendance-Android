@@ -88,11 +88,11 @@ public class GcmIntentService extends IntentService {
             builder.setSmallIcon(R.drawable.ic_status_bar_icon);
         }
 
-        UserJson user = BTPreference.getUser(getApplicationContext());
+        String userType = BTPreference.getUserType(getApplicationContext());
         PendingIntent pending;
-        if (BTAPI.PROFESSOR.equals(user.type))
+        if (BTAPI.PROFESSOR.equals(userType))
             pending = PendingIntent.getActivity(this, 0, new Intent(this, ProfessorActivity.class), 0);
-        else if (BTAPI.STUDENT.equals(user.type))
+        else if (BTAPI.STUDENT.equals(userType))
             pending = PendingIntent.getActivity(this, 0, new Intent(this, StudentActivity.class), 0);
         else
             pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), 0);

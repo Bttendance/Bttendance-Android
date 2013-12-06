@@ -223,6 +223,8 @@ public class BTService extends Service {
         mBTAPI.schools(username, password, new Callback<SchoolJson[]>() {
             @Override
             public void success(SchoolJson[] schools, Response response) {
+                for (SchoolJson school : schools)
+                    BTTable.SchoolTable.append(school.id, school);
                 cb.success(schools, response);
             }
 
@@ -259,6 +261,8 @@ public class BTService extends Service {
             public void success(PostJson[] posts, Response response) {
                 for (PostJson post : posts)
                     BTTable.PostTable.append(post.id, post);
+                for (PostJson post : posts)
+                    BTTable.getPosts(BTTable.FILTER_TOTAL_POST).add(post.id, post);
                 cb.success(posts, response);
             }
 
@@ -303,13 +307,17 @@ public class BTService extends Service {
         });
     }
 
-    public void courseFeed(String username, String password, int courseID, int page, final Callback<PostJson[]> cb) {
+    public void courseFeed(String username, String password, final int courseID, int page, final Callback<PostJson[]> cb) {
         if (!isConnected())
             return;
 
         mBTAPI.courseFeed(username, password, courseID, page, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
+                for (PostJson post : posts)
+                    BTTable.PostTable.append(post.id, post);
+                for (PostJson post : posts)
+                    BTTable.getPosts(BTTable.getCourseIdFilter(courseID)).add(post.id, post);
                 cb.success(posts, response);
             }
 
@@ -371,13 +379,19 @@ public class BTService extends Service {
         });
     }
 
-    public void postStudentList(String username, String password, int postID, final Callback<UserJson[]> cb) {
+    public void postStudentList(String username, String password, final int postID, final Callback<UserJson[]> cb) {
         if (!isConnected())
             return;
 
         mBTAPI.postStudentList(username, password, postID, new Callback<UserJson[]>() {
             @Override
             public void success(UserJson[] users, Response response) {
+                for (UserJson user : users)
+                    BTTable.UserTable.append(user.id, user);
+                PostJson post = BTTable.PostTable.get(postID);
+                if (post != null)
+                    for (UserJson user : users)
+                        BTTable.getUsers(BTTable.getCourseIdFilter(post.course)).add(user.id, user);
                 cb.success(users, response);
             }
 
@@ -397,26 +411,6 @@ public class BTService extends Service {
             public void success(ValidationJson validation, Response response) {
                 if (response != null && response.getStatus() == 202)
                     cb.success(validation, response);
-                else
-                    cb.failure(null);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void sendNotification(String username, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        mBTAPI.sendNotification(username, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                if (response != null && response.getStatus() == 202)
-                    cb.success(user, response);
                 else
                     cb.failure(null);
             }

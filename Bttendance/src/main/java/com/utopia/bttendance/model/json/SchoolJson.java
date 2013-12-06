@@ -7,6 +7,13 @@ import com.google.gson.Gson;
  */
 public class SchoolJson {
 
+    public int id;
+    public String name;
+    public String logo_image;
+    public String website;
+    public int[] courses;
+    public int creator;
+
     public String toJson() {
         return new Gson().toJson(this);
     }

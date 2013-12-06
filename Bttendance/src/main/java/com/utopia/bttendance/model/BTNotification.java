@@ -81,7 +81,7 @@ public class BTNotification {
         activity.getBTService().updateNotificationKey(user.username, user.password, user.device_uuid, regid, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
-                BTDebug.LogInfo("Success : " + userJson);
+                BTDebug.LogInfo("Update NotificationKey Success : " + userJson);
             }
 
             @Override
