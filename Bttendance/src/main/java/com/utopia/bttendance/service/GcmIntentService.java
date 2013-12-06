@@ -2,6 +2,7 @@ package com.utopia.bttendance.service;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,6 +14,11 @@ import android.support.v4.app.NotificationCompat;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.activity.ProfessorActivity;
+import com.utopia.bttendance.activity.StudentActivity;
+import com.utopia.bttendance.activity.sign.CatchPointActivity;
+import com.utopia.bttendance.model.BTPreference;
+import com.utopia.bttendance.model.json.UserJson;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 4..
@@ -70,6 +76,7 @@ public class GcmIntentService extends IntentService {
         builder.setTicker(message);
         builder.setContentText(message);
         builder.setContentTitle(title);
+        builder.setAutoCancel(true);
         builder.setOnlyAlertOnce(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -81,6 +88,16 @@ public class GcmIntentService extends IntentService {
             builder.setSmallIcon(R.drawable.ic_status_bar_icon);
         }
 
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        PendingIntent pending;
+        if (BTAPI.PROFESSOR.equals(user.type))
+            pending = PendingIntent.getActivity(this, 0, new Intent(this, ProfessorActivity.class), 0);
+        else if (BTAPI.STUDENT.equals(user.type))
+            pending = PendingIntent.getActivity(this, 0, new Intent(this, StudentActivity.class), 0);
+        else
+            pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), 0);
+
+        builder.setContentIntent(pending);
         nm.notify(NOTIFICATION_ID, builder.build());
     }
 }
