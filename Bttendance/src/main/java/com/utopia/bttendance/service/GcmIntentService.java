@@ -1,29 +1,26 @@
 package com.utopia.bttendance.service;
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
-import com.utopia.bttendance.activity.ProfessorActivity;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 4..
  */
 public class GcmIntentService extends IntentService {
     public static final int NOTIFICATION_ID = 1;
-    private NotificationManager mNotificationManager;
+    public static final String TITLE = "title";
+    public static final String MESSAGE = "message";
 
     public GcmIntentService() {
         super("GcmIntentService");
@@ -44,29 +41,14 @@ public class GcmIntentService extends IntentService {
              * any message types you're not interested in, or that you don't
              * recognize.
              */
-            if (GoogleCloudMessaging.
-                    MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification("Send error: " + extras.toString());
-            } else if (GoogleCloudMessaging.
-                    MESSAGE_TYPE_DELETED.equals(messageType)) {
-                sendNotification("Deleted messages on server: " +
-                        extras.toString());
+            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
+                BTDebug.LogError("Notification Send error: " + extras.toString());
+            } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
+                BTDebug.LogError("Notification Deleted messages on server: " + extras.toString());
                 // If it's a regular GCM message, do some work.
-            } else if (GoogleCloudMessaging.
-                    MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-                // This loop represents the service doing some work.
-                for (int i = 0; i < 5; i++) {
-                    BTDebug.LogInfo("Working... " + (i + 1)
-                            + "/5 @ " + SystemClock.elapsedRealtime());
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                    }
-                }
-                BTDebug.LogInfo("Completed work @ " + SystemClock.elapsedRealtime());
-                // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
-                BTDebug.LogInfo("Received: " + extras.toString());
+            } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
+                BTDebug.LogInfo("Notification Received: " + extras.toString());
+                sendNotification(extras.getString(TITLE), extras.getString(MESSAGE));
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
@@ -76,81 +58,29 @@ public class GcmIntentService extends IntentService {
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String msg) {
-        mNotificationManager = (NotificationManager)
-                this.getSystemService(Context.NOTIFICATION_SERVICE);
+    private void sendNotification(String title, String message) {
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, ProfessorActivity.class), 0);
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_status_bar_icon)
-                        .setContentTitle("GCM Notification")
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(msg))
-                        .setContentText(msg);
+        builder.setVibrate(new long[]{
+                0, 200, 200, 200
+        });
 
-        mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-    }
-
-    private void pushNotification(String countStr, String titleStr, String contentStr,
-                                  PendingIntent pending, String vibrate) {
-
-        NotificationManager nm = (NotificationManager)
-                getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new
-                NotificationCompat.Builder(this);
-
-        String content;
-        String title;
-        int notification_count = 0;
-        try {
-            notification_count = Integer.parseInt(countStr);
-        } catch (Exception e) {
-        }
-        boolean v = false;
-        try {
-            v = Boolean.parseBoolean(vibrate);
-        } catch (Exception e) {
-        }
-
-        switch (notification_count) {
-            case 0:
-                content = contentStr;
-                title = titleStr;
-                if (v)
-                    builder.setVibrate(new long[]{
-                            0, 200, 200, 200
-                    });
-                break;
-            case 1:
-                content = titleStr + " " + contentStr;
-                title = countStr + " new notification";
-                break;
-            default:
-                content = titleStr + " " + contentStr;
-                title = countStr + " new notifications";
-        }
-
-        builder.setTicker(content);
-        builder.setContentText(content);
+        builder.setTicker(message);
+        builder.setContentText(message);
         builder.setContentTitle(title);
-        builder.setNumber(notification_count);
         builder.setOnlyAlertOnce(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            builder.setSmallIcon(R.drawable.ic_status_bar_icon);
+            builder.setSmallIcon(R.drawable.ic_status_bar_ver2);
             Drawable drawable = getResources().getDrawable(R.drawable.icon);
             if (drawable instanceof BitmapDrawable)
                 builder.setLargeIcon(((BitmapDrawable) drawable).getBitmap());
         } else {
-            builder.setSmallIcon(R.drawable.ic_status_bar_ver2);
+            builder.setSmallIcon(R.drawable.ic_status_bar_icon);
         }
 
-        builder.setContentIntent(pending);
-        Notification n = builder.build();
-        nm.notify(NOTIFICATION_ID, n);
+        nm.notify(NOTIFICATION_ID, builder.build());
     }
 }

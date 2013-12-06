@@ -20,16 +20,5 @@ public class ProfessorActivity extends BTActivity {
         super.onCreate(savedInstanceState);
         ActivityStack.clear(this);
         UserJson user = BTPreference.getUser(getApplicationContext());
-        getBTService().sendNotification(user.username, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson userJson, Response response) {
-                BeautiToast.show(getApplicationContext(), "success");
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                BeautiToast.show(getApplicationContext(), "fail");
-            }
-        });
     }
 }

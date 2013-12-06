@@ -59,7 +59,6 @@ public class FeedFragment extends BTFragment {
 
             @Override
             public void failure(RetrofitError retrofitError) {
-
             }
         });
     }
