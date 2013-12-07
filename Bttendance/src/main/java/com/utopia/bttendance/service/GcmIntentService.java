@@ -17,8 +17,8 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.ProfessorActivity;
 import com.utopia.bttendance.activity.StudentActivity;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
+import com.utopia.bttendance.model.BTEnum;
 import com.utopia.bttendance.model.BTPreference;
-import com.utopia.bttendance.model.json.UserJson;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 4..
@@ -88,14 +88,18 @@ public class GcmIntentService extends IntentService {
             builder.setSmallIcon(R.drawable.ic_status_bar_icon);
         }
 
-        String userType = BTPreference.getUserType(getApplicationContext());
+        BTEnum.Type type = BTPreference.getUserType(getApplicationContext());
         PendingIntent pending;
-        if (BTAPI.PROFESSOR.equals(userType))
-            pending = PendingIntent.getActivity(this, 0, new Intent(this, ProfessorActivity.class), 0);
-        else if (BTAPI.STUDENT.equals(userType))
-            pending = PendingIntent.getActivity(this, 0, new Intent(this, StudentActivity.class), 0);
-        else
-            pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), 0);
+        switch (type) {
+            case PROFESSOR:
+                pending = PendingIntent.getActivity(this, 0, new Intent(this, ProfessorActivity.class), 0);
+                break;
+            case STUDENT:
+                pending = PendingIntent.getActivity(this, 0, new Intent(this, StudentActivity.class), 0);
+                break;
+            default:
+                pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), 0);
+        }
 
         builder.setContentIntent(pending);
         nm.notify(NOTIFICATION_ID, builder.build());

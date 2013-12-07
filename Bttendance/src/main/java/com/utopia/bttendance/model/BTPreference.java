@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
 import com.utopia.bttendance.model.json.UserJson;
+import com.utopia.bttendance.service.BTAPI;
 
 /**
  * Preference Helper
@@ -17,6 +18,9 @@ public class BTPreference {
 
     private static SharedPreferences mPref = null;
     private static Object mSingletonLock = new Object();
+
+    private BTPreference() {
+    }
 
     private static SharedPreferences getInstance(Context ctx) {
         synchronized (mSingletonLock) {
@@ -50,11 +54,15 @@ public class BTPreference {
         }
     }
 
-    public static String getUserType(Context ctx) {
+    public static BTEnum.Type getUserType(Context ctx) {
         UserJson user = getUser(ctx);
         if (user == null)
-            return null;
-        return user.type;
+            return BTEnum.Type.NULL;
+        if (BTAPI.PROFESSOR.equals(user.type))
+            return BTEnum.Type.PROFESSOR;
+        else if (BTAPI.STUDENT.equals(user.type))
+            return BTEnum.Type.STUDENT;
+        return BTEnum.Type.NULL;
     }
 
     public static void setUser(Context ctx, UserJson user) {
@@ -65,7 +73,7 @@ public class BTPreference {
         edit.putString("user", jsonStr);
         edit.commit();
 
-        BTDatabase.setUsername(ctx, user.username);
+//        BTDatabase.setUsername(ctx, user.username);
     }
 
     public static String getUUID(Context ctx) {
@@ -76,9 +84,6 @@ public class BTPreference {
         Editor edit = getInstance(ctx).edit();
         edit.putString("uuid", uuid);
         edit.commit();
-    }
-
-    private BTPreference() {
     }
 
 }// end of class

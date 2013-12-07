@@ -3,6 +3,7 @@ package com.utopia.bttendance.activity;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.UUIDHelper;
 

@@ -21,6 +21,7 @@ import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.service.BTAPI;
 import com.utopia.bttendance.service.BTService;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -43,14 +44,27 @@ public class BTActivity extends SherlockFragmentActivity {
             onServieConnected();
         }
     };
+    ArrayList<OnServiceConnectListener> mListeners = new ArrayList<OnServiceConnectListener>();
     private BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
 
+    public void addOnServiceConnectListener(OnServiceConnectListener listener) {
+        mListeners.add(listener);
+    }
+
+    public void removeOnServiceConnectListener(OnServiceConnectListener listener) {
+        mListeners.remove(listener);
+    }
+
     protected void onServieConnected() {
         checkPlayServices();
+        for (OnServiceConnectListener listener : mListeners)
+            listener.onServieConnected();
     }
 
     protected void onServieDisconnected() {
+        for (OnServiceConnectListener listener : mListeners)
+            listener.onServieDisconnected();
     }
 
     public BTService getBTService() {
@@ -133,6 +147,12 @@ public class BTActivity extends SherlockFragmentActivity {
             else if (!regId.equals(user.notification_key))
                 BTNotification.sendRegistrationIdToBackend(this, regId);
         }
+    }
+
+    public interface OnServiceConnectListener {
+        void onServieConnected();
+
+        void onServieDisconnected();
     }
 
     public static class ActivityStack extends Application {

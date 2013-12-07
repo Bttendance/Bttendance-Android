@@ -20,8 +20,8 @@ public class PostCursor extends MatrixCursor {
 
     public PostCursor(String filter) {
         super(COLUMNS);
-        ArrayList<PostJson> table = BTTable.getPosts(filter);
+        SparseArray<PostJson> table = BTTable.getPosts(filter);
         for (int i = 0; i < table.size(); i++)
-            addRow(new Object[]{table.get(i)});
+            addRow(new Object[]{table.keyAt(i)});
     }
 }

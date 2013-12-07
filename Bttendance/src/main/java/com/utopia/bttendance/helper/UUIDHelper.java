@@ -38,14 +38,14 @@ public class UUIDHelper {
         } else if (!uuidDB.equals(uuidPref)) {
             return ERROR;
         } else {
-            return null;
+            return resetUUID(context);
         }
     }
 
-    public static void setUUID(Context context, String uuid) {
-        if (uuid == null)
-            uuid = UUID.randomUUID().toString();
+    public static String resetUUID(Context context) {
+        String uuid = UUID.randomUUID().toString();
         BTDatabase.setUUID(context, uuid);
         BTPreference.setUUID(context, uuid);
+        return uuid;
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.CourseAdapter;
 import com.utopia.bttendance.adapter.FeedAdapter;
@@ -44,8 +45,8 @@ public class CourseListFragment extends BTFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onServieConnected() {
+        super.onServieConnected();
         getCourseList();
     }
 

@@ -20,8 +20,8 @@ public class UserCursor extends MatrixCursor {
 
     public UserCursor(String filter) {
         super(COLUMNS);
-        ArrayList<UserJson> table = BTTable.getUsers(filter);
+        SparseArray<UserJson> table = BTTable.getUsers(filter);
         for (int i = 0; i < table.size(); i++)
-            addRow(new Object[]{table.get(i)});
+            addRow(new Object[]{table.keyAt(i)});
     }
 }

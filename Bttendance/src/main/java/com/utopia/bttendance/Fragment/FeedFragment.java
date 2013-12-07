@@ -42,8 +42,8 @@ public class FeedFragment extends BTFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onServieConnected() {
+        super.onServieConnected();
         getFeed();
     }
 

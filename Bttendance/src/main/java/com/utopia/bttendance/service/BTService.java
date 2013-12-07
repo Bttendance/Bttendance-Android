@@ -245,7 +245,7 @@ public class BTService extends Service {
                 for (CourseJson course : courses)
                     BTTable.CourseTable.append(course.id, course);
                 for (CourseJson course : courses)
-                    BTTable.getCourses(BTTable.FILTER_MY_COURSE).add(course.id, course);
+                    BTTable.getCourses(BTTable.FILTER_MY_COURSE).append(course.id, course);
                 cb.success(courses, response);
             }
 
@@ -266,7 +266,7 @@ public class BTService extends Service {
                 for (PostJson post : posts)
                     BTTable.PostTable.append(post.id, post);
                 for (PostJson post : posts)
-                    BTTable.getPosts(BTTable.FILTER_TOTAL_POST).add(post.id, post);
+                    BTTable.getPosts(BTTable.FILTER_TOTAL_POST).append(post.id, post);
                 cb.success(posts, response);
             }
 
@@ -321,7 +321,7 @@ public class BTService extends Service {
                 for (PostJson post : posts)
                     BTTable.PostTable.append(post.id, post);
                 for (PostJson post : posts)
-                    BTTable.getPosts(BTTable.getCourseIdFilter(courseID)).add(post.id, post);
+                    BTTable.getPosts(BTTable.getCourseIdFilter(courseID)).append(post.id, post);
                 cb.success(posts, response);
             }
 
@@ -395,7 +395,7 @@ public class BTService extends Service {
                 PostJson post = BTTable.PostTable.get(postID);
                 if (post != null)
                     for (UserJson user : users)
-                        BTTable.getUsers(BTTable.getCourseIdFilter(post.course)).add(user.id, user);
+                        BTTable.getUsers(BTTable.getCourseIdFilter(post.course)).append(user.id, user);
                 cb.success(users, response);
             }
 
@@ -438,6 +438,7 @@ public class BTService extends Service {
     }
 
     private void failureHandle(Callback cb, RetrofitError retrofitError) {
+        BTDebug.LogError("Error : " + retrofitError.getMessage());
         if (retrofitError.isNetworkError())
             BTDebug.LogError("Network Error");
         else {

@@ -32,34 +32,34 @@ public class BTTable {
     // key: post_id, value: post
     public static SparseArray<PostJson> PostTable = new SparseArray<PostJson>();
     // key: "course_id"
-    private static HashMap<String, ArrayList<UserJson>> mUser = new HashMap<String, ArrayList<UserJson>>();
+    private static HashMap<String, SparseArray<UserJson>> mUser = new HashMap<String, SparseArray<UserJson>>();
     // filter: "my_course", "joinable_course"
-    private static HashMap<String, ArrayList<CourseJson>> mCourse = new HashMap<String, ArrayList<CourseJson>>();
+    private static HashMap<String, SparseArray<CourseJson>> mCourse = new HashMap<String, SparseArray<CourseJson>>();
     // filter: "total_post", "course_id"
-    private static HashMap<String, ArrayList<PostJson>> mPost = new HashMap<String, ArrayList<PostJson>>();
+    private static HashMap<String, SparseArray<PostJson>> mPost = new HashMap<String, SparseArray<PostJson>>();
 
-    public static synchronized ArrayList<UserJson> getUsers(String filter) {
-        ArrayList<UserJson> users = mUser.get(filter);
+    public static synchronized SparseArray<UserJson> getUsers(String filter) {
+        SparseArray<UserJson> users = mUser.get(filter);
         if (users == null) {
-            users = new ArrayList<UserJson>();
+            users = new SparseArray<UserJson>();
             mUser.put(filter, users);
         }
         return users;
     }
 
-    public static synchronized ArrayList<CourseJson> getCourses(String filter) {
-        ArrayList<CourseJson> courses = mCourse.get(filter);
+    public static synchronized SparseArray<CourseJson> getCourses(String filter) {
+        SparseArray<CourseJson> courses = mCourse.get(filter);
         if (courses == null) {
-            courses = new ArrayList<CourseJson>();
+            courses = new SparseArray<CourseJson>();
             mCourse.put(filter, courses);
         }
         return courses;
     }
 
-    public static synchronized ArrayList<PostJson> getPosts(String filter) {
-        ArrayList<PostJson> posts = mPost.get(filter);
+    public static synchronized SparseArray<PostJson> getPosts(String filter) {
+        SparseArray<PostJson> posts = mPost.get(filter);
         if (posts == null) {
-            posts = new ArrayList<PostJson>();
+            posts = new SparseArray<PostJson>();
             mPost.put(filter, posts);
         }
         return posts;

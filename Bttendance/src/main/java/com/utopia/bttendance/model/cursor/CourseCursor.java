@@ -21,8 +21,8 @@ public class CourseCursor extends MatrixCursor {
 
     public CourseCursor(String filter) {
         super(COLUMNS);
-        ArrayList<CourseJson> table = BTTable.getCourses(filter);
+        SparseArray<CourseJson> table = BTTable.getCourses(filter);
         for (int i = 0; i < table.size(); i++)
-            addRow(new Object[]{table.get(i)});
+            addRow(new Object[]{table.keyAt(i)});
     }
 }

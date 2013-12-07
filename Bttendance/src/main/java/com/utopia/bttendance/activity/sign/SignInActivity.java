@@ -149,10 +149,10 @@ public class SignInActivity extends BTActivity {
         mForgetPwd.setText(builder, TextView.BufferType.SPANNABLE);
         mForgetPwd.setMovementMethod(LinkMovementMethod.getInstance());
 
-        if (BTDatabase.getUsername(this) != null) {
-            mUsername.setText(BTDatabase.getUsername(this));
-            mUsername.setClickable(false);
-        }
+//        if (BTDatabase.getUsername(this) != null) {
+//            mUsername.setText(BTDatabase.getUsername(this));
+//            mUsername.setClickable(false);
+//        }
     }
 
     public void isEnableSignIn() {
