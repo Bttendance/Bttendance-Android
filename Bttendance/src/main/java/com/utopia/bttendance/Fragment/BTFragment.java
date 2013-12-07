@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.squareup.otto.BTEventBus;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.service.BTService;
 
@@ -18,8 +19,10 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         super.onCreate(savedInstanceState);
         Activity activity = getActivity();
         if (activity != null && activity instanceof BTActivity) {
-            ((BTActivity) activity).addOnServiceConnectListener(this);
+            ((BTActivity)activity).addOnServiceConnectListener(this);
         }
+        if (getBTService() != null)
+            onServieConnected();
     }
 
     @Override
@@ -27,7 +30,7 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         super.onDestroy();
         Activity activity = getActivity();
         if (activity != null && activity instanceof BTActivity) {
-            ((BTActivity) activity).removeOnServiceConnectListener(this);
+            ((BTActivity)activity).removeOnServiceConnectListener(this);
         }
     }
 

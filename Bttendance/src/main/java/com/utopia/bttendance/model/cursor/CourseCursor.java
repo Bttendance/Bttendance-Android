@@ -3,12 +3,8 @@ package com.utopia.bttendance.model.cursor;
 import android.database.MatrixCursor;
 import android.util.SparseArray;
 
-import com.utopia.bttendance.adapter.CourseAdapter;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
-import com.utopia.bttendance.model.json.PostJson;
-
-import java.util.ArrayList;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..

@@ -8,6 +8,7 @@ import android.util.TypedValue;
 
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.BTPagerAdapter;
+import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.view.BeautiToast;
 import com.utopia.bttendance.view.PagerSlidingTabStrip;
 
@@ -33,8 +34,9 @@ public class StudentActivity extends BTActivity {
         mPagerAdapter = new BTPagerAdapter(getSupportFragmentManager(), getApplicationContext());
         mViewPager.setAdapter(mPagerAdapter);
 
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+        int pageMargin = (int) DipPixelHelper.getPixel(this, 4);
         mViewPager.setPageMargin(pageMargin);
+        mViewPager.setOffscreenPageLimit(3);
         mTabs.setViewPager(mViewPager);
         mTabs.setIconTabSelected(0);
         mViewPager.setCurrentItem(0);

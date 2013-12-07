@@ -10,15 +10,17 @@ import android.widget.TextView;
 
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
+import com.utopia.bttendance.view.Bttendance;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
  */
-public class CourseAdapter extends CursorAdapter {
+public class CourseListAdapter extends CursorAdapter implements View.OnClickListener{
 
-    public CourseAdapter(Context context, Cursor c) {
+    public CourseListAdapter(Context context, Cursor c) {
         super(context, c, false);
     }
 
@@ -30,7 +32,17 @@ public class CourseAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-//        ((Bttendance)view.findViewById(R.id.bttendance)).setBttendance(Bttendance.STATE.STARTED, 100);
+        View bttendance = view.findViewById(R.id.bttendance);
+        switch (BTPreference.getUserType(context)) {
+            case PROFESSOR:
+                bttendance.setClickable(true);
+                bttendance.setOnClickListener(this);
+                break;
+            case STUDENT:
+            default:
+                bttendance.setClickable(false);
+                break;
+        }
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
         int id = cursor.getInt(0);
@@ -47,5 +59,16 @@ public class CourseAdapter extends CursorAdapter {
 
         int id = cursor.getInt(0);
         return id;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bttendance:
+                
+                break;
+            default:
+                break;
+        }
     }
 }

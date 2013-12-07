@@ -8,15 +8,12 @@ import android.widget.ListView;
 
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
-import com.utopia.bttendance.adapter.CourseAdapter;
-import com.utopia.bttendance.adapter.FeedAdapter;
+import com.utopia.bttendance.adapter.CourseListAdapter;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.CourseCursor;
-import com.utopia.bttendance.model.cursor.PostCursor;
 import com.utopia.bttendance.model.json.CourseJson;
-import com.utopia.bttendance.model.json.PostJson;
 import com.utopia.bttendance.model.json.UserJson;
 
 import retrofit.Callback;
@@ -29,7 +26,7 @@ import retrofit.client.Response;
 public class CourseListFragment extends BTFragment {
 
     ListView mListView;
-    CourseAdapter mAdapter;
+    CourseListAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +36,7 @@ public class CourseListFragment extends BTFragment {
         padding.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 7));
         mListView.addHeaderView(padding);
         mListView.addFooterView(padding);
-        mAdapter = new CourseAdapter(getActivity(), null);
+        mAdapter = new CourseListAdapter(getActivity(), null);
         mListView.setAdapter(mAdapter);
         return view;
     }
