@@ -2,6 +2,7 @@ package com.utopia.bttendance.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 
@@ -71,7 +72,11 @@ public class StudentActivity extends BTActivity {
 
     @Override
     public void onBackPressed() {
-        tryToFinish();
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            super.onBackPressed();
+        } else
+            tryToFinish();
     }
 
     private void tryToFinish() {

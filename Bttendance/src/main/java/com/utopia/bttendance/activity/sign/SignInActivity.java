@@ -19,6 +19,7 @@ import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.UUIDHelper;
+import com.utopia.bttendance.model.BTDatabase;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.service.BTUrl;
@@ -147,6 +148,11 @@ public class SignInActivity extends BTActivity {
         mForgetPwd = (TextView) findViewById(R.id.forget_pwd);
         mForgetPwd.setText(builder, TextView.BufferType.SPANNABLE);
         mForgetPwd.setMovementMethod(LinkMovementMethod.getInstance());
+
+        if (BTDatabase.getUsername(this) != null) {
+            mUsername.setText(BTDatabase.getUsername(this));
+            mUsername.setClickable(false);
+        }
     }
 
     public void isEnableSignIn() {

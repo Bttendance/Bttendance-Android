@@ -7,6 +7,7 @@ import com.google.gson.Gson;
  */
 public class CourseJson {
 
+    public int id;
     public String name;
     public String number;
     public boolean onGoing;

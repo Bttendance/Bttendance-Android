@@ -50,13 +50,6 @@ public class BTPreference {
         }
     }
 
-    public static String getUsername(Context ctx) {
-        UserJson user = getUser(ctx);
-        if (user == null)
-            return null;
-        return user.username;
-    }
-
     public static String getUserType(Context ctx) {
         UserJson user = getUser(ctx);
         if (user == null)
@@ -71,6 +64,8 @@ public class BTPreference {
         Editor edit = getInstance(ctx).edit();
         edit.putString("user", jsonStr);
         edit.commit();
+
+        BTDatabase.setUsername(ctx, user.username);
     }
 
     public static String getUUID(Context ctx) {
