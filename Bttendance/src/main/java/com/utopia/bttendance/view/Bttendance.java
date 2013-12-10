@@ -270,7 +270,7 @@ public class Bttendance extends View {
                             return mFailBackground;
                     case INACTIVE:
                         if (mInactiveBackground == null)
-                            return mInactiveBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_inactive_gray_large);
+                            return mInactiveBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_inactive_grey_large);
                         else
                             return mInactiveBackground;
                     case STARTED:
@@ -293,7 +293,7 @@ public class Bttendance extends View {
                             return mFailBackground;
                     case INACTIVE:
                         if (mInactiveBackground == null)
-                            return mInactiveBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_inactive_gray_small);
+                            return mInactiveBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_inactive_grey_small);
                         else
                             return mInactiveBackground;
                     case STARTED:

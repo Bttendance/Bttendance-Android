@@ -1,13 +1,19 @@
 package com.utopia.bttendance.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.CourseListAdapter;
+import com.utopia.bttendance.event.AddCourseEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.CourseCursor;
@@ -29,10 +35,21 @@ public class CourseListFragment extends BTFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course_list, null);
         mListView = (ListView) view.findViewById(android.R.id.list);
-        View padding = new View(getActivity());
-        padding.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 7));
-        mListView.addHeaderView(padding);
-        mListView.addFooterView(padding);
+
+        View header = new View(getActivity());
+        header.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 7));
+        mListView.addHeaderView(header);
+
+        LayoutInflater  mInflater = (LayoutInflater) getActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        View footer = mInflater.inflate(R.layout.course_add, null);
+        footer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BTEventBus.getInstance().post(new AddCourseEvent());
+            }
+        });
+        mListView.addFooterView(footer);
+
         mAdapter = new CourseListAdapter(getActivity(), null);
         mListView.setAdapter(mAdapter);
         return view;

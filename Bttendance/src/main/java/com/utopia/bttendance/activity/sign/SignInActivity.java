@@ -18,6 +18,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
+import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.helper.UUIDHelper;
 import com.utopia.bttendance.model.BTDatabase;
 import com.utopia.bttendance.model.BTPreference;
@@ -172,7 +173,7 @@ public class SignInActivity extends BTActivity {
 
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
-        String uuid = UUIDHelper.getUUID(this);
+        String uuid = BluetoothHelper.getMacAddress();
         getBTService().signin(username, password, uuid, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {

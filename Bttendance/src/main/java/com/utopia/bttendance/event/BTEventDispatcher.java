@@ -1,12 +1,16 @@
 package com.utopia.bttendance.event;
 
 import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
 
 import com.squareup.otto.Subscribe;
+import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
+import com.utopia.bttendance.fragment.BTFragment;
+import com.utopia.bttendance.fragment.CreateCourseFragment;
+import com.utopia.bttendance.fragment.JoinCourseFragment;
 import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.model.BTPreference;
-import com.utopia.bttendance.model.json.UserJson;
 
 import java.lang.ref.WeakReference;
 
@@ -63,6 +67,38 @@ public class BTEventDispatcher {
         };
 
         act.setOnBluetoothDiscoveryListener(listener);
+    }
+
+    @Subscribe
+    public void onAddCourse(AddCourseEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        switch (BTPreference.getUserType(act)) {
+            case PROFESSOR:
+                addFragment(new CreateCourseFragment());
+                break;
+            case STUDENT:
+                addFragment(new JoinCourseFragment());
+                break;
+        }
+    }
+
+    private void addFragment(BTFragment frag) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right);
+        ft.add(R.id.content, frag, ((Object) frag).getClass().getSimpleName());
+        ft.addToBackStack(((Object) frag).getClass().getSimpleName());
+        ft.commit();
     }
 
 }

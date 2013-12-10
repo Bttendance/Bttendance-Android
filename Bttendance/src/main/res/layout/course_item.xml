@@ -14,7 +14,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bttendance_item_background"
+        android:background="@drawable/bt_list_item_background"
         android:minHeight="88dp" />
 
     <com.utopia.bttendance.view.Bttendance

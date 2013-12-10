@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.fragment.CourseListFragment;
 import com.utopia.bttendance.view.BeautiToast;
@@ -30,9 +32,20 @@ public class ProfessorActivity extends BTActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(getString(R.string.app_name));
+        return true;
+    }
+
+    @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
+            invalidateOptionsMenu();
             super.onBackPressed();
         } else
             tryToFinish();

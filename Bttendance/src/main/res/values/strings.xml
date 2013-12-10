@@ -38,5 +38,9 @@
     <string name="courses">"Courses"</string>
     <string name="profile">"Profile"</string>
     <string name="prof_">"Prof.\u0020"</string>
+    <string name="title">"Title"</string>
+    <string name="number">"Number"</string>
+    <string name="school">"School"</string>
+    <string name="create_course">"Create Course"</string>
 
 </resources>

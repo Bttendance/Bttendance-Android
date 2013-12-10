@@ -19,6 +19,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
+import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.helper.UUIDHelper;
 import com.utopia.bttendance.model.BTEnum;
 import com.utopia.bttendance.model.BTExtra;
@@ -309,7 +310,7 @@ public class SignUpActivity extends BTActivity {
         user.email = email;
         user.password = password;
         user.device_type = BTAPI.ANDROID;
-        user.device_uuid = UUIDHelper.getUUID(this);
+        user.device_uuid = BluetoothHelper.getMacAddress();
 
         switch (mType) {
             case PROFESSOR:
