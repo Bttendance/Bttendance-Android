@@ -1,11 +1,13 @@
 package com.utopia.bttendance.activity;
 
 import android.app.Application;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -15,6 +17,7 @@ import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
 import com.utopia.bttendance.event.BTEventDispatcher;
+import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.model.BTNotification;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.UserJson;
@@ -30,6 +33,18 @@ import java.util.Stack;
 public class BTActivity extends SherlockFragmentActivity {
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private static BTActivity mActivity;
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                if (device != null)
+                    if (mBluetoothListener != null)
+                        mBluetoothListener.onBluetoothDiscovered(device.getAddress());
+            }
+        }
+    };
     protected ServiceConnection mBTConnect = new ServiceConnection() {
 
         @Override
@@ -44,26 +59,31 @@ public class BTActivity extends SherlockFragmentActivity {
             onServieConnected();
         }
     };
-    ArrayList<OnServiceConnectListener> mListeners = new ArrayList<OnServiceConnectListener>();
+    ArrayList<OnServiceConnectListener> mServiceListeners = new ArrayList<OnServiceConnectListener>();
+    OnBluetoothDiscoveryListener mBluetoothListener;
     private BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
 
     public void addOnServiceConnectListener(OnServiceConnectListener listener) {
-        mListeners.add(listener);
+        mServiceListeners.add(listener);
     }
 
     public void removeOnServiceConnectListener(OnServiceConnectListener listener) {
-        mListeners.remove(listener);
+        mServiceListeners.remove(listener);
+    }
+
+    public void setOnBluetoothDiscoveryListener(OnBluetoothDiscoveryListener listener) {
+        mBluetoothListener = listener;
     }
 
     protected void onServieConnected() {
         checkPlayServices();
-        for (OnServiceConnectListener listener : mListeners)
+        for (OnServiceConnectListener listener : mServiceListeners)
             listener.onServieConnected();
     }
 
     protected void onServieDisconnected() {
-        for (OnServiceConnectListener listener : mListeners)
+        for (OnServiceConnectListener listener : mServiceListeners)
             listener.onServieDisconnected();
     }
 
@@ -74,8 +94,9 @@ public class BTActivity extends SherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityStack.add(this);
-        mEventDispatcher = new BTEventDispatcher();
+        mActivity = this;
+        ActivityStack.add(mActivity);
+        mEventDispatcher = new BTEventDispatcher(this);
         BTService.bind(this, mBTConnect);
     }
 
@@ -149,10 +170,33 @@ public class BTActivity extends SherlockFragmentActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (BluetoothHelper.REQUEST_ENABLE_DISCOVERABILITY_BT == requestCode && BluetoothHelper.DISCOVERABILITY_BT_DURATION == resultCode) {
+            if (mBluetoothListener != null)
+                mBluetoothListener.onBluetoothDiscoveryEnabled();
+        }
+
+        if (BluetoothHelper.REQUEST_ENABLE_DISCOVERABILITY_BT == requestCode && RESULT_CANCELED == resultCode) {
+            if (mBluetoothListener != null)
+                mBluetoothListener.onBluetoothDiscoveryCanceled();
+        }
+    }
+
     public interface OnServiceConnectListener {
         void onServieConnected();
 
         void onServieDisconnected();
+    }
+
+    public interface OnBluetoothDiscoveryListener {
+        void onBluetoothDiscoveryEnabled();
+
+        void onBluetoothDiscovered(String address);
+
+        void onBluetoothDiscoveryCanceled();
     }
 
     public static class ActivityStack extends Application {
@@ -162,15 +206,7 @@ public class BTActivity extends SherlockFragmentActivity {
         public static void clear(SherlockFragmentActivity activity) {
             for (final SherlockFragmentActivity act : classes) {
                 if (act != null && act != activity) {
-                    if (act instanceof SplashActivity) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                act.finish();
-                            }
-                        }, 1000);
-                    } else
-                        act.finish();
+                    act.finish();
                 }
             }
         }

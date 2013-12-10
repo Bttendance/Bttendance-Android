@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.utopia.bttendance.BTDebug;
+
 /**
  * Created by TheFinestArtist on 2013. 12. 7..
  */

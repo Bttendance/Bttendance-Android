@@ -133,7 +133,10 @@ public interface BTAPI {
     @PUT("/post/attendance/check")
     void postAttendanceCheck(@Query("username") String username,
                              @Query("password") String password,
-                             @Query("course_id") int courseID,
+                             @Query("post_id") int postID,
+                             @Query("longitude") String longitude,
+                             @Query("latitude") String latitude,
+                             @Query("uuid_list") String[] uuidList,
                              Callback<PostJson> cb);
 
     @POST("/post/student/list")

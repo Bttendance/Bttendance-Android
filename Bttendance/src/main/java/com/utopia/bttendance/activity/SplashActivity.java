@@ -6,6 +6,8 @@ import android.os.Handler;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.UUIDHelper;
+import com.utopia.bttendance.model.BTDatabase;
+import com.utopia.bttendance.model.BTPreference;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 20..
@@ -17,7 +19,6 @@ public class SplashActivity extends BTActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUIDHelper.getUUID(this);
         setContentView(R.layout.activity_splash);
         new Handler().postDelayed(new Runnable() {
             @Override

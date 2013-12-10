@@ -6,15 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.CourseListAdapter;
 import com.utopia.bttendance.helper.DipPixelHelper;
-import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.CourseCursor;
 import com.utopia.bttendance.model.json.CourseJson;
-import com.utopia.bttendance.model.json.UserJson;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -51,8 +48,7 @@ public class CourseListFragment extends BTFragment {
         if (getBTService() == null)
             return;
 
-        UserJson user = BTPreference.getUser(getActivity());
-        getBTService().courses(user.username, user.password, new Callback<CourseJson[]>() {
+        getBTService().courses(new Callback<CourseJson[]>() {
             @Override
             public void success(CourseJson[] courses, Response response) {
                 mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));

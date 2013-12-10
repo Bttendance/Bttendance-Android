@@ -77,8 +77,7 @@ public class BTNotification {
         if (activity == null || activity.getBTService() == null)
             return;
 
-        UserJson user = BTPreference.getUser(activity);
-        activity.getBTService().updateNotificationKey(user.username, user.password, user.device_uuid, regid, new Callback<UserJson>() {
+        activity.getBTService().updateNotificationKey(regid, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
                 BTDebug.LogInfo("Update NotificationKey Success : " + userJson);

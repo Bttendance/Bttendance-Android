@@ -40,6 +40,7 @@
         <activity
             android:name=".activity.SplashActivity"
             android:label="@string/app_name"
+            android:launchMode="singleInstance"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock.NoActionBar">
@@ -98,14 +99,12 @@
         <activity
             android:name=".activity.ProfessorActivity"
             android:clearTaskOnLaunch="true"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance" />
 
         <activity
             android:name=".activity.StudentActivity"
             android:clearTaskOnLaunch="true"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance" />
 

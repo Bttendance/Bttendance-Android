@@ -18,6 +18,7 @@ public class PostJson {
     public String course_name;
     public String course_number;
     public String school_name;
+    public String createdAt;
 
     public String toJson() {
         return new Gson().toJson(this);

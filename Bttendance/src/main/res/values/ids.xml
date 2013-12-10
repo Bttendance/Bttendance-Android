@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="course_id" type="id"/>
+    <item name="course_name" type="id"/>
+    <item name="user_id" type="id"/>
+    <item name="post_id" type="id"/>
+    <item name="post_title" type="id"/>
+    <item name="post_message" type="id"/>
+    <item name="username" type="id"/>
+    <item name="user_id" type="id"/>
+    <item name="image_url" type="id"/>
+</resources>

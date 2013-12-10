@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.event.CheckStartEvent;
+import com.utopia.bttendance.model.BTExtra;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
@@ -32,9 +35,12 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        int course_id = cursor.getInt(0);
         View bttendance = view.findViewById(R.id.bttendance);
+        CourseJson course = BTTable.CourseTable.get(course_id);
         switch (BTPreference.getUserType(context)) {
             case PROFESSOR:
+                bttendance.setTag(R.id.course_id, course_id);
                 bttendance.setClickable(true);
                 bttendance.setOnClickListener(this);
                 break;
@@ -45,8 +51,6 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
         }
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
-        int id = cursor.getInt(0);
-        CourseJson course = BTTable.CourseTable.get(id);
         title.setText(course.number + " " + course.name);
         message.setText(context.getString(R.string.prof_) + course.professor_name + "\n" + course.school_name);
     }
@@ -65,7 +69,7 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bttendance:
-                
+                BTEventBus.getInstance().post(new CheckStartEvent((Integer) v.getTag(R.id.course_id)));
                 break;
             default:
                 break;

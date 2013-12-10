@@ -2,6 +2,7 @@ package com.utopia.bttendance.helper;
 
 import android.content.Context;
 
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.model.BTDatabase;
 import com.utopia.bttendance.model.BTPreference;
 
@@ -25,10 +26,7 @@ public class UUIDHelper {
             uuidDB = uuidDB.replaceAll("\n", "");
 
         if (uuidPref == null && uuidDB == null) {
-            String uuid = UUID.randomUUID().toString().replaceAll("\n", "");
-            BTPreference.setUUID(context, uuid);
-            BTDatabase.setUUID(context, uuid);
-            return uuid;
+            return resetUUID(context);
         } else if (uuidDB == null) {
             BTDatabase.setUUID(context, uuidPref);
             return uuidPref;
@@ -38,7 +36,7 @@ public class UUIDHelper {
         } else if (!uuidDB.equals(uuidPref)) {
             return ERROR;
         } else {
-            return resetUUID(context);
+            return uuidDB;
         }
     }
 
