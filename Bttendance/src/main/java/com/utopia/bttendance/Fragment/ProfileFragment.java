@@ -14,7 +14,7 @@ public class ProfileFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, null);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
         return view;
     }
 }

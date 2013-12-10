@@ -2,10 +2,10 @@ package com.utopia.bttendance.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.utopia.bttendance.R;
@@ -30,7 +30,7 @@ public class FeedAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        ((Bttendance)view.findViewById(R.id.bttendance)).setBttendance(Bttendance.STATE.STARTED, 100);
+        ((Bttendance) view.findViewById(R.id.bttendance)).setBttendance(Bttendance.STATE.STARTED, 100);
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
         int id = cursor.getInt(0);

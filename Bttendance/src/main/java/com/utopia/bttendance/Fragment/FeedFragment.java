@@ -27,7 +27,7 @@ public class FeedFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_feed, null);
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
         View padding = new View(getActivity());
         padding.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 7));

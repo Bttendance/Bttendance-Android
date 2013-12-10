@@ -24,7 +24,7 @@ public class JoinCourseFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_join_course, null);
+        View view = inflater.inflate(R.layout.fragment_join_course, container, false);
         return view;
     }
 

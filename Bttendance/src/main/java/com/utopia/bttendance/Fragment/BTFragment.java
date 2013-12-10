@@ -53,6 +53,10 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         return null;
     }
 
+    public void onFragmentResume() {
+
+    }
+
     @Override
     public void onServieConnected() {
 

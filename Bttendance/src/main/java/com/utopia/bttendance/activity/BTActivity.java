@@ -9,14 +9,17 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.FragmentManager;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
+import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
 import com.utopia.bttendance.event.BTEventDispatcher;
+import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.model.BTNotification;
 import com.utopia.bttendance.model.BTPreference;
@@ -98,6 +101,17 @@ public class BTActivity extends SherlockFragmentActivity {
         ActivityStack.add(mActivity);
         mEventDispatcher = new BTEventDispatcher(this);
         BTService.bind(this, mBTConnect);
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                FragmentManager manager = getSupportFragmentManager();
+                if (manager != null) {
+                    BTFragment frag = (BTFragment) manager.findFragmentById(R.id.content);
+                    if (frag != null)
+                        frag.onFragmentResume();
+                }
+            }
+        });
     }
 
     @Override

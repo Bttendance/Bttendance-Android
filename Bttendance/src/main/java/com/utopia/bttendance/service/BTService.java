@@ -325,6 +325,8 @@ public class BTService extends Service {
         mBTAPI.courseCreate(user.username, user.password, name, number, schoolID, new Callback<CourseJson>() {
             @Override
             public void success(CourseJson course, Response response) {
+                BTTable.CourseTable.append(course.id, course);
+                BTTable.getCourses(BTTable.FILTER_MY_COURSE).append(course.id, course);
                 if (cb != null)
                     cb.success(course, response);
             }
