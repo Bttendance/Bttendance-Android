@@ -9,7 +9,12 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.fragment.CourseListFragment;
+import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.view.BeautiToast;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 20..
@@ -39,6 +44,20 @@ public class ProfessorActivity extends BTActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(getString(R.string.app_name));
         return true;
+    }
+
+    @Override
+    protected void onServieConnected() {
+        super.onServieConnected();
+        getBTService().joinSchool(1, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson userJson, Response response) {
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+            }
+        });
     }
 
     @Override
