@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.BTPagerAdapter;
+import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.view.BeautiToast;
@@ -108,6 +108,9 @@ public class StudentActivity extends BTActivity {
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
             invalidateOptionsMenu();
+            for (int i = 0; i < mPagerAdapter.getCount(); i++)
+                if (mPagerAdapter.getItem(i) instanceof BTFragment)
+                    ((BTFragment) mPagerAdapter.getItem(i)).onFragmentResume();
             super.onBackPressed();
         } else
             tryToFinish();

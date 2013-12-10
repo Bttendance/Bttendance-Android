@@ -18,10 +18,16 @@ import com.utopia.bttendance.view.PagerSlidingTabStrip;
 public class BTPagerAdapter extends FragmentStatePagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
 
     private Context mContext;
+    private FeedFragment mFeedFragment;
+    private CourseListFragment mCourseListFragment;
+    private ProfileFragment mProfileFragment;
 
     public BTPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         mContext = context;
+        mFeedFragment = new FeedFragment();
+        mCourseListFragment = new CourseListFragment();
+        mProfileFragment = new ProfileFragment();
     }
 
     @Override
@@ -29,11 +35,11 @@ public class BTPagerAdapter extends FragmentStatePagerAdapter implements PagerSl
 
         switch (position) {
             case 0:
-                return new FeedFragment();
+                return mFeedFragment;
             case 1:
-                return new CourseListFragment();
+                return mCourseListFragment;
             case 2:
-                return new ProfileFragment();
+                return mProfileFragment;
             default:
                 return new BTFragment();
         }
