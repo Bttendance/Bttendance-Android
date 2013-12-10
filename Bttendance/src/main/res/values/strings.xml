@@ -42,5 +42,6 @@
     <string name="number">"Number"</string>
     <string name="school">"School"</string>
     <string name="create_course">"Create Course"</string>
+    <string name="join_course">"Join Course"</string>
 
 </resources>
