@@ -39,10 +39,10 @@ public interface BTAPI {
 
     @PUT("/user/update/notification_key")
     void updateNotificationKey(@Query("username") String username,
-                            @Query("password") String password,
-                            @Query("device_uuid") String deviceUUID,
-                            @Query("notification_key") String notificationKey,
-                            Callback<UserJson> cb);
+                               @Query("password") String password,
+                               @Query("device_uuid") String deviceUUID,
+                               @Query("notification_key") String notificationKey,
+                               Callback<UserJson> cb);
 
     @PUT("/user/update/profile_image")
     void updateProfileImage(@Query("username") String username,
@@ -86,6 +86,11 @@ public interface BTAPI {
     void courses(@Query("username") String username,
                  @Query("password") String password,
                  Callback<CourseJson[]> cb);
+
+    @GET("/user/joinable/courses")
+    void joinableCourses(@Query("username") String username,
+                         @Query("password") String password,
+                         Callback<CourseJson[]> cb);
 
     @GET("/user/feed")
     void feed(@Query("username") String username,

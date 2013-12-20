@@ -19,7 +19,7 @@
         android:layout_alignLeft="@+id/username"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/full_name_text"
-        android:inputType="text" />
+        android:inputType="text|textPersonName" />
 
     <View
         android:id="@+id/full_name_divider"
@@ -65,7 +65,7 @@
         android:layout_below="@id/email_divider"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/username_text"
-        android:inputType="text" />
+        android:inputType="text|textEmailAddress" />
 
     <View
         android:id="@+id/username_divider"

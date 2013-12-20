@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
+    <com.utopia.bttendance.view.IndexableListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bttendance_grey"
         android:cacheColorHint="@color/bttendance_grey"
-        android:divider="@null"
+        android:divider="@color/bttendance_grey"
+        android:dividerHeight="1dp"
         android:listSelector="@color/bttendance_grey"
         android:scrollbars="none" />
 

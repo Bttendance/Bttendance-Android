@@ -275,6 +275,29 @@ public class BTService extends Service {
         });
     }
 
+    public void joinableCourses(final Callback<CourseJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.joinableCourses(user.username, user.password, new Callback<CourseJson[]>() {
+            @Override
+            public void success(CourseJson[] courses, Response response) {
+                for (CourseJson course : courses)
+                    BTTable.CourseTable.append(course.id, course);
+                for (CourseJson course : courses)
+                    BTTable.getCourses(BTTable.FILTER_JOINABLE_COURSE).append(course.id, course);
+                if (cb != null)
+                    cb.success(courses, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
     public void feed(int page, final Callback<PostJson[]> cb) {
         if (!isConnected())
             return;

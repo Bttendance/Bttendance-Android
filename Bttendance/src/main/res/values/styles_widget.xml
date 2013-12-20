@@ -11,7 +11,7 @@
         <item name="android:textColorHint">@color/grey_hex_cc</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">@color/grey_hex_33</item>
-        <item name="android:inputType">text|textPersonName</item>
+        <item name="android:inputType">text|textEmailAddress</item>
         <item name="android:singleLine">true</item>
         <item name="android:textSize">15sp</item>
     </style>

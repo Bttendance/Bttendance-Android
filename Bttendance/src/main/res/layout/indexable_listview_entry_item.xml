@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@color/bttendance_white"
+    android:paddingBottom="5dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="13dp"
+    android:paddingTop="5dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/add_btn"
+        android:gravity="center_vertical|left"
+        android:singleLine="true"
+        android:text="ID409 Integrated Design"
+        android:textColor="@color/bttendance_silver"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/title"
+        android:layout_toLeftOf="@id/add_btn"
+        android:gravity="center_vertical|left"
+        android:singleLine="true"
+        android:text="Prof. Bae Sang Min"
+        android:textColor="@color/bttendance_silver"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@id/add_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/ic_bttendance_circle_cyan_small" />
+
+</RelativeLayout>

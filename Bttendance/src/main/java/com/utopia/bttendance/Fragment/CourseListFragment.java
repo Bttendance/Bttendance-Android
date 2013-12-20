@@ -76,15 +76,8 @@ public class CourseListFragment extends BTFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        BTDebug.LogError("onResume");
-    }
-
-    @Override
     public void onFragmentResume() {
         super.onFragmentResume();
-        BTDebug.LogError("onFragmentResume");
         mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));
     }
 }
