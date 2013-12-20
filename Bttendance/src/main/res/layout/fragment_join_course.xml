@@ -2,9 +2,11 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true">
 
-    <com.utopia.bttendance.view.IndexableListView
+    <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,7 +14,9 @@
         android:cacheColorHint="@color/bttendance_grey"
         android:divider="@color/bttendance_grey"
         android:dividerHeight="1dp"
-        android:listSelector="@color/bttendance_grey"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:listSelector="@android:color/transparent"
         android:scrollbars="none" />
 
 </RelativeLayout>

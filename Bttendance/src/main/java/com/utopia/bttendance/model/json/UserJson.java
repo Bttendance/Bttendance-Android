@@ -1,13 +1,10 @@
 package com.utopia.bttendance.model.json;
 
-import com.google.gson.Gson;
-
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
  */
-public class UserJson {
+public class UserJson extends BTJson {
 
-    public int id;
     public String username;
     public String email;
     public String password;
@@ -17,7 +14,4 @@ public class UserJson {
     public String notification_key;
     public String full_name;
 
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
 }

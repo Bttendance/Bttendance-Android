@@ -1,13 +1,10 @@
 package com.utopia.bttendance.model.json;
 
-import com.google.gson.Gson;
-
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
  */
-public class PostJson {
+public class PostJson extends BTJson {
 
-    public int id;
     public String title;
     public String message;
     public boolean on_going;
@@ -19,8 +16,5 @@ public class PostJson {
     public String course_number;
     public String school_name;
     public String createdAt;
-
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
+    
 }

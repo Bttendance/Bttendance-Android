@@ -9,24 +9,22 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.StringMatcher;
-import com.utopia.bttendance.model.BTKey;
 
 import java.util.ArrayList;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 11..
  */
-public class IndexableListAdapter extends ArrayAdapter<IndexableListAdapter.Item> implements SectionIndexer, View.OnClickListener {
+public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements SectionIndexer, View.OnClickListener {
 
     private Context mContext;
     private ArrayList<Item> mItems;
     private LayoutInflater mLayoutInflater;
     private String mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public IndexableListAdapter(Context context) {
+    public BTListAdapter(Context context) {
         super(context, 0);
         mContext = context;
         mItems = new ArrayList<Item>();
@@ -43,14 +41,11 @@ public class IndexableListAdapter extends ArrayAdapter<IndexableListAdapter.Item
         Item i = mItems.get(position);
         if (i != null) {
             if (i.isSection()) {
-                v = mLayoutInflater.inflate(R.layout.indexable_listview_section_item, null);
-                v.setClickable(false);
-                v.setLongClickable(false);
-                v.setFocusable(false);
+                v = mLayoutInflater.inflate(R.layout.listview_section_item, null);
                 TextView title = (TextView) v.findViewById(R.id.title);
                 title.setText(i.getTitle());
             } else {
-                v = mLayoutInflater.inflate(R.layout.indexable_listview_entry_item, null);
+                v = mLayoutInflater.inflate(R.layout.listview_entry_item, null);
                 TextView title = (TextView) v.findViewById(R.id.title);
                 TextView message = (TextView) v.findViewById(R.id.message);
                 ImageView image = (ImageView) v.findViewById(R.id.add_btn);
@@ -92,11 +87,11 @@ public class IndexableListAdapter extends ArrayAdapter<IndexableListAdapter.Item
             for (int j = 0; j < getCount(); j++) {
                 if (i == 0) {
                     for (int k = 0; k <= 9; k++) {
-                        if (StringMatcher.match(String.valueOf(((Item) getItem(j)).getTitle().charAt(0)), String.valueOf(k)))
+                        if (StringMatcher.match(String.valueOf((getItem(j)).getTitle().charAt(0)), String.valueOf(k)))
                             return j;
                     }
                 } else {
-                    if (StringMatcher.match(String.valueOf(((Item) getItem(j)).getTitle().charAt(0)), String.valueOf(mSections.charAt(i))))
+                    if (StringMatcher.match(String.valueOf((getItem(j)).getTitle().charAt(0)), String.valueOf(mSections.charAt(i))))
                         return j;
                 }
             }
@@ -114,7 +109,7 @@ public class IndexableListAdapter extends ArrayAdapter<IndexableListAdapter.Item
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_btn:
-                BTDebug.LogError("Button Clicked");
+                v.getTag(R.id.json);
                 break;
         }
     }
