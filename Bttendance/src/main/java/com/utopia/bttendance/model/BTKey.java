@@ -1,9 +1,11 @@
 package com.utopia.bttendance.model;
 
 /**
- * Created by TheFinestArtist on 2013. 11. 27..
+ * Created by TheFinestArtist on 2013. 11. 26..
  */
-public class BTExtra {
+public class BTKey {
+
+    public enum Type {PROFESSOR, STUDENT, NULL}
 
     public final static String EXTRA_TYPE = "type";
     public final static String EXTRA_COURSE_ID = "course_id";

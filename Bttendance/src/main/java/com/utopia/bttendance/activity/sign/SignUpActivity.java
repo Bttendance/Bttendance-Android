@@ -16,14 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.MenuItem;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.BluetoothHelper;
-import com.utopia.bttendance.helper.UUIDHelper;
-import com.utopia.bttendance.model.BTEnum;
-import com.utopia.bttendance.model.BTExtra;
-import com.utopia.bttendance.model.BTPreference;
+import com.utopia.bttendance.model.BTKey;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.service.BTAPI;
 import com.utopia.bttendance.service.BTUrl;
@@ -53,7 +49,7 @@ public class SignUpActivity extends BTActivity {
     private String mUsernameString = null;
     private String mEmailString = null;
     private String mPasswordString = null;
-    private BTEnum.Type mType = BTEnum.Type.NULL;
+    private BTKey.Type mType = BTKey.Type.NULL;
 
     private void typeError() {
         BeautiToast.show(this, getString(R.string.user_type_error_occurred));
@@ -66,7 +62,7 @@ public class SignUpActivity extends BTActivity {
         setContentView(R.layout.activity_sign_up);
 
         if (getIntent() != null)
-            mType = (BTEnum.Type) getIntent().getSerializableExtra(BTExtra.EXTRA_TYPE);
+            mType = (BTKey.Type) getIntent().getSerializableExtra(BTKey.EXTRA_TYPE);
 
         if (mType == null)
             typeError();

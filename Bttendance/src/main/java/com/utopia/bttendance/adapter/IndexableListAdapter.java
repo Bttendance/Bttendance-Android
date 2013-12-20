@@ -9,15 +9,17 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.StringMatcher;
+import com.utopia.bttendance.model.BTKey;
 
 import java.util.ArrayList;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 11..
  */
-public class IndexableListAdapter extends ArrayAdapter<IndexableListAdapter.Item> implements SectionIndexer {
+public class IndexableListAdapter extends ArrayAdapter<IndexableListAdapter.Item> implements SectionIndexer, View.OnClickListener {
 
     private Context mContext;
     private ArrayList<Item> mItems;
@@ -56,6 +58,8 @@ public class IndexableListAdapter extends ArrayAdapter<IndexableListAdapter.Item
                     image.setImageResource(R.drawable.ic_bttendance_check_cyan_small);
                 else
                     image.setImageResource(R.drawable.ic_bttendance_circle_cyan_small);
+                image.setTag(R.id.json, i.getJson());
+                image.setOnClickListener(this);
                 title.setText(i.getTitle());
                 message.setText(i.getMessage());
             }
@@ -73,6 +77,7 @@ public class IndexableListAdapter extends ArrayAdapter<IndexableListAdapter.Item
         return mItems.size();
     }
 
+    // SectionIndexer
     @Override
     public Object[] getSections() {
         String[] sections = new String[mSections.length()];
@@ -102,6 +107,16 @@ public class IndexableListAdapter extends ArrayAdapter<IndexableListAdapter.Item
     @Override
     public int getSectionForPosition(int position) {
         return 0;
+    }
+
+    // OnClickListener
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.add_btn:
+                BTDebug.LogError("Button Clicked");
+                break;
+        }
     }
 
     public static class Item {

@@ -54,15 +54,15 @@ public class BTPreference {
         }
     }
 
-    public static BTEnum.Type getUserType(Context ctx) {
+    public static BTKey.Type getUserType(Context ctx) {
         UserJson user = getUser(ctx);
         if (user == null)
-            return BTEnum.Type.NULL;
+            return BTKey.Type.NULL;
         if (BTAPI.PROFESSOR.equals(user.type))
-            return BTEnum.Type.PROFESSOR;
+            return BTKey.Type.PROFESSOR;
         else if (BTAPI.STUDENT.equals(user.type))
-            return BTEnum.Type.STUDENT;
-        return BTEnum.Type.NULL;
+            return BTKey.Type.STUDENT;
+        return BTKey.Type.NULL;
     }
 
     public static void setUser(Context ctx, UserJson user) {

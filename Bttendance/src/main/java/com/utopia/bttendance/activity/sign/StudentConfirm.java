@@ -7,8 +7,7 @@ import android.widget.Button;
 
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
-import com.utopia.bttendance.model.BTEnum;
-import com.utopia.bttendance.model.BTExtra;
+import com.utopia.bttendance.model.BTKey;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 27..
@@ -29,7 +28,7 @@ public class StudentConfirm extends BTActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StudentConfirm.this, SignUpActivity.class);
-                intent.putExtra(BTExtra.EXTRA_TYPE, BTEnum.Type.STUDENT);
+                intent.putExtra(BTKey.EXTRA_TYPE, BTKey.Type.STUDENT);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
             }

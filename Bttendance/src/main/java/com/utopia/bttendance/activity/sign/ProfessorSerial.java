@@ -18,8 +18,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.MenuItem;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
-import com.utopia.bttendance.model.BTEnum;
-import com.utopia.bttendance.model.BTExtra;
+import com.utopia.bttendance.model.BTKey;
 import com.utopia.bttendance.model.json.ValidationJson;
 import com.utopia.bttendance.service.BTUrl;
 import com.utopia.bttendance.view.BeautiToast;
@@ -136,7 +135,7 @@ public class ProfessorSerial extends BTActivity {
                 if (validation != null && validation.validate) {
                     BeautiToast.show(getApplicationContext(), getString(R.string.validated));
                     Intent intent = new Intent(ProfessorSerial.this, SignUpActivity.class);
-                    intent.putExtra(BTExtra.EXTRA_TYPE, BTEnum.Type.PROFESSOR);
+                    intent.putExtra(BTKey.EXTRA_TYPE, BTKey.Type.PROFESSOR);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
                 } else

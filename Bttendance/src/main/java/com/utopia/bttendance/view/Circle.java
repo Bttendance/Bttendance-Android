@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.ScreenHelper;
-import com.utopia.bttendance.model.BTEnum;
+import com.utopia.bttendance.model.BTKey;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 25..
@@ -19,12 +19,12 @@ public class Circle extends View {
     private static final int INIT_RADIUS = 220;
     Paint paint;
     float mX, mY, mMulti, mDense;
-    BTEnum.Type mType;
+    BTKey.Type mType;
     boolean initialized = false;
     float mInitX;
     float mCenterX, mCenterY, mMaxRadius;
 
-    public Circle(Context context, BTEnum.Type type) {
+    public Circle(Context context, BTKey.Type type) {
         super(context);
         mType = type;
         switch (type) {

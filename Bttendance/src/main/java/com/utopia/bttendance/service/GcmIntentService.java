@@ -17,7 +17,7 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.ProfessorActivity;
 import com.utopia.bttendance.activity.StudentActivity;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
-import com.utopia.bttendance.model.BTEnum;
+import com.utopia.bttendance.model.BTKey;
 import com.utopia.bttendance.model.BTPreference;
 
 /**
@@ -88,7 +88,7 @@ public class GcmIntentService extends IntentService {
             builder.setSmallIcon(R.drawable.ic_status_bar_icon);
         }
 
-        BTEnum.Type type = BTPreference.getUserType(getApplicationContext());
+        BTKey.Type type = BTPreference.getUserType(getApplicationContext());
         PendingIntent pending;
         switch (type) {
             case PROFESSOR:

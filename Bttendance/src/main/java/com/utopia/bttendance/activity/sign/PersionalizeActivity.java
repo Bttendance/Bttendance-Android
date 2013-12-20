@@ -13,7 +13,7 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.helper.ScreenHelper;
-import com.utopia.bttendance.model.BTEnum;
+import com.utopia.bttendance.model.BTKey;
 import com.utopia.bttendance.view.Circle;
 import com.utopia.bttendance.view.SeekBar_;
 
@@ -45,7 +45,7 @@ public class PersionalizeActivity extends BTActivity {
     Circle mProfCircle;
     int statusBarHeight;
     int actionBarHeight;
-    BTEnum.Type mType = BTEnum.Type.NULL;
+    BTKey.Type mType = BTKey.Type.NULL;
     RelativeLayout mUnderLayout;
     RelativeLayout mTextLayout;
     RelativeLayout mProfLayout;
@@ -83,16 +83,16 @@ public class PersionalizeActivity extends BTActivity {
         circle.updateView(x, y, seekBar.getProgress());
     }
 
-    private void nextActivity(BTEnum.Type type) {
+    private void nextActivity(BTKey.Type type) {
         switch (type) {
             case PROFESSOR:
-                mType = BTEnum.Type.PROFESSOR;
+                mType = BTKey.Type.PROFESSOR;
                 Intent intent_prof = new Intent(PersionalizeActivity.this, ProfessorSerial.class);
                 startActivity(intent_prof);
                 break;
             case STUDENT:
             default:
-                mType = BTEnum.Type.STUDENT;
+                mType = BTKey.Type.STUDENT;
                 Intent intent_std = new Intent(PersionalizeActivity.this, StudentConfirm.class);
                 startActivity(intent_std);
                 break;
@@ -215,7 +215,7 @@ public class PersionalizeActivity extends BTActivity {
                                     e.printStackTrace();
                                 }
                             }
-                            nextActivity(BTEnum.Type.STUDENT);
+                            nextActivity(BTKey.Type.STUDENT);
                             isProgressStdSpeedToGo = false;
                         }
                     });
@@ -317,7 +317,7 @@ public class PersionalizeActivity extends BTActivity {
                                     e.printStackTrace();
                                 }
                             }
-                            nextActivity(BTEnum.Type.PROFESSOR);
+                            nextActivity(BTKey.Type.PROFESSOR);
                             isProgressProfSpeedToGo = false;
                         }
                     });
@@ -359,10 +359,10 @@ public class PersionalizeActivity extends BTActivity {
         statusBarHeight = ScreenHelper.getSBHeight(this);
         actionBarHeight = ScreenHelper.getABHeight(this);
 
-        mStdCircle = new Circle(this, BTEnum.Type.STUDENT);
+        mStdCircle = new Circle(this, BTKey.Type.STUDENT);
         mUnderLayout.addView(mStdCircle, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        mProfCircle = new Circle(this, BTEnum.Type.PROFESSOR);
+        mProfCircle = new Circle(this, BTKey.Type.PROFESSOR);
         mUnderLayout.addView(mProfCircle, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         new Thread(new Runnable() {
@@ -411,7 +411,7 @@ public class PersionalizeActivity extends BTActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        mType = BTEnum.Type.NULL;
+        mType = BTKey.Type.NULL;
     }
 
 }
