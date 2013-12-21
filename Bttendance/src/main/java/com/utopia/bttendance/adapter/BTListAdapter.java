@@ -9,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.event.JoinEvent;
 import com.utopia.bttendance.helper.StringMatcher;
+import com.utopia.bttendance.model.json.BTJson;
 
 import java.util.ArrayList;
 
@@ -109,7 +112,8 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_btn:
-                v.getTag(R.id.json);
+                BTJson json = (BTJson) v.getTag(R.id.json);
+                BTEventBus.getInstance().post(new JoinEvent(json));
                 break;
         }
     }

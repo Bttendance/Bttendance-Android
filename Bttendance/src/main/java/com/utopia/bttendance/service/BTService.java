@@ -210,7 +210,7 @@ public class BTService extends Service {
         });
     }
 
-    public void joinCourse(int courseID, final Callback<UserJson> cb) {
+    public void joinCourse(final int courseID, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
@@ -220,6 +220,9 @@ public class BTService extends Service {
             public void success(UserJson user, Response response) {
                 BTDebug.LogInfo(user.toJson());
                 BTPreference.setUser(getApplicationContext(), user);
+                CourseJson course = BTTable.CourseTable.get(courseID);
+                if (course != null)
+                    BTTable.getCourses(BTTable.FILTER_MY_COURSE).append(course.id, course);
                 if (cb != null)
                     cb.success(user, response);
             }

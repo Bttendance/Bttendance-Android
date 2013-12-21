@@ -5,16 +5,18 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.squareup.otto.Subscribe;
 import com.utopia.bttendance.R;
-import com.utopia.bttendance.adapter.IndexableListAdapter;
+import com.utopia.bttendance.adapter.BTListAdapter;
+import com.utopia.bttendance.event.JoinableCoursesUpdateEvent;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
-import com.utopia.bttendance.view.IndexableListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,8 +31,8 @@ import retrofit.client.Response;
  */
 public class JoinCourseFragment extends BTFragment {
 
-    IndexableListAdapter mAdapter;
-    private IndexableListView mListView;
+    BTListAdapter mAdapter;
+    private ListView mListView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,43 @@ public class JoinCourseFragment extends BTFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_join_course, container, false);
-        mListView = (IndexableListView) view.findViewById(android.R.id.list);
-        mAdapter = new IndexableListAdapter(getActivity());
+        mListView = (ListView) view.findViewById(android.R.id.list);
+        mAdapter = new BTListAdapter(getActivity());
         mListView.setAdapter(mAdapter);
-        mListView.setFastScrollEnabled(true);
+//        mListView.setFastScrollEnabled(true);
         return view;
+    }
+
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+        swapItems();
+    }
+
+    @Subscribe
+    public void onJoinableCourseUpdate(JoinableCoursesUpdateEvent event) {
+        swapItems();
+    }
+
+    private void swapItems() {
+        ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
+        SparseArray<CourseJson> joinableCourses = BTTable.getCourses(BTTable.FILTER_JOINABLE_COURSE);
+        SparseArray<CourseJson> myCourses = BTTable.getCourses(BTTable.FILTER_MY_COURSE);
+        for (int i = 0; i < joinableCourses.size(); i++) {
+            CourseJson course = joinableCourses.valueAt(i);
+            boolean joined = myCourses.get(course.id) != null;
+            String title = course.number + " " + course.name;
+            String message = getString(R.string.prof_) + course.professor_name;
+            items.add(new BTListAdapter.Item(false, joined, title, message, course));
+        }
+        Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+            @Override
+            public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+                return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+            }
+        });
+        mAdapter.setItems(items);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -54,24 +88,7 @@ public class JoinCourseFragment extends BTFragment {
         getBTService().joinableCourses(new Callback<CourseJson[]>() {
             @Override
             public void success(CourseJson[] courseJsons, Response response) {
-                ArrayList<IndexableListAdapter.Item> items = new ArrayList<IndexableListAdapter.Item>();
-                SparseArray<CourseJson> joinableCourses = BTTable.getCourses(BTTable.FILTER_JOINABLE_COURSE);
-                SparseArray<CourseJson> myCourses = BTTable.getCourses(BTTable.FILTER_MY_COURSE);
-                for (int i = 0; i < joinableCourses.size(); i++) {
-                    CourseJson course = joinableCourses.valueAt(i);
-                    boolean joined = myCourses.get(course.id) != null;
-                    String title = course.number + " " + course.name;
-                    String message = getString(R.string.prof_) + course.professor_name;
-                    items.add(new IndexableListAdapter.Item(false, joined, title, message, course));
-                }
-                Collections.sort(items, new Comparator<IndexableListAdapter.Item>() {
-                    @Override
-                    public int compare(IndexableListAdapter.Item lhs, IndexableListAdapter.Item rhs) {
-                        return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
-                    }
-                });
-                mAdapter.setItems(items);
-                mAdapter.notifyDataSetChanged();
+                swapItems();
             }
 
             @Override

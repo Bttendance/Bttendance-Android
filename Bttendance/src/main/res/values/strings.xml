@@ -36,6 +36,7 @@
     <string name="user_type_error_occurred">"User Type Error Occurred"</string>
     <string name="feed">"Feed"</string>
     <string name="courses">"Courses"</string>
+    <string name="course">"Course"</string>
     <string name="profile">"Profile"</string>
     <string name="prof_">"Prof.\u0020"</string>
     <string name="title">"Title"</string>
@@ -43,5 +44,9 @@
     <string name="school">"School"</string>
     <string name="create_course">"Create Course"</string>
     <string name="join_course">"Join Course"</string>
+    <string name="confrim">"Confirm"</string>
+    <string name="cancel">"Cancel"</string>
+    <string name="ok">"OK"</string>
+    <string name="on_the_anvil">"On the anvil"</string>
 
 </resources>
