@@ -14,7 +14,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.squareup.otto.Subscribe;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.BTListAdapter;
-import com.utopia.bttendance.event.JoinableCoursesUpdateEvent;
+import com.utopia.bttendance.event.MyCoursesUpdateEvent;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
 
@@ -38,6 +38,7 @@ public class JoinCourseFragment extends BTFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        showLoading();
     }
 
     @Override
@@ -57,11 +58,14 @@ public class JoinCourseFragment extends BTFragment {
     }
 
     @Subscribe
-    public void onJoinableCourseUpdate(JoinableCoursesUpdateEvent event) {
+    public void onMyCourseUpdate(MyCoursesUpdateEvent event) {
         swapItems();
     }
 
     private void swapItems() {
+        if (!this.isAdded())
+            return;
+
         ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
         SparseArray<CourseJson> joinableCourses = BTTable.getCourses(BTTable.FILTER_JOINABLE_COURSE);
         SparseArray<CourseJson> myCourses = BTTable.getCourses(BTTable.FILTER_MY_COURSE);
@@ -80,6 +84,7 @@ public class JoinCourseFragment extends BTFragment {
         });
         mAdapter.setItems(items);
         mAdapter.notifyDataSetChanged();
+        hideLoading();
     }
 
     @Override
@@ -93,7 +98,6 @@ public class JoinCourseFragment extends BTFragment {
 
             @Override
             public void failure(RetrofitError retrofitError) {
-
             }
         });
     }

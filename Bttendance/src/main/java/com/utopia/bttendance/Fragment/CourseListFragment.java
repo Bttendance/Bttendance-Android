@@ -67,6 +67,7 @@ public class CourseListFragment extends BTFragment {
             @Override
             public void success(CourseJson[] courses, Response response) {
                 mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));
+                hideLoading();
             }
 
             @Override
@@ -78,6 +79,18 @@ public class CourseListFragment extends BTFragment {
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
+        showLoading();
         mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        hideLoading();
     }
 }

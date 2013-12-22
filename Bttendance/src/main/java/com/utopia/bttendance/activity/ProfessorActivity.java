@@ -43,7 +43,7 @@ public class ProfessorActivity extends BTActivity {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(getString(R.string.app_name));
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

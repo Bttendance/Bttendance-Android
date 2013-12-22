@@ -13,6 +13,7 @@
         app:shouldExpand="true"
         app:textAllCaps2="true"
         app:underlineColor="@android:color/transparent"
+        app:underlineHeight="1dp"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/bttendance_white"

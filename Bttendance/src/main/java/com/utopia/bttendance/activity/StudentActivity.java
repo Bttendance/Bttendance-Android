@@ -57,6 +57,7 @@ public class StudentActivity extends BTActivity {
             @Override
             public void onPageSelected(int i) {
                 updateActionBar(i);
+                fragmentResume(i);
             }
 
             @Override
@@ -77,6 +78,11 @@ public class StudentActivity extends BTActivity {
                 getSupportActionBar().setTitle(getString(R.string.profile));
                 break;
         }
+    }
+
+    private void fragmentResume(int position) {
+        if (mPagerAdapter != null)
+            ((BTFragment) mPagerAdapter.getItem(position)).onFragmentResume();
     }
 
     @Override
@@ -100,13 +106,15 @@ public class StudentActivity extends BTActivity {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(getString(R.string.app_name));
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 0) {
+        if (fm.getBackStackEntryCount() > 1) {
+            super.onBackPressed();
+        } else if (fm.getBackStackEntryCount() == 1) {
             invalidateOptionsMenu();
             for (int i = 0; i < mPagerAdapter.getCount(); i++)
                 if (mPagerAdapter.getItem(i) instanceof BTFragment)

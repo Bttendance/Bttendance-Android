@@ -72,8 +72,6 @@ public class BTPreference {
         Editor edit = getInstance(ctx).edit();
         edit.putString("user", jsonStr);
         edit.commit();
-
-//        BTDatabase.setUsername(ctx, user.username);
     }
 
     public static String getUUID(Context ctx) {

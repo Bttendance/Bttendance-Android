@@ -15,7 +15,6 @@ import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.BTJson;
 import com.utopia.bttendance.model.json.CourseJson;
-import com.utopia.bttendance.model.json.SchoolJson;
 import com.utopia.bttendance.model.json.UserJson;
 
 import java.lang.ref.WeakReference;
@@ -65,7 +64,6 @@ public class BTEventDispatcher {
 
             @Override
             public void onBluetoothDiscovered(String address) {
-
             }
 
             @Override
@@ -127,7 +125,7 @@ public class BTEventDispatcher {
                         act.getBTService().joinCourse(json.id, new Callback<UserJson>() {
                             @Override
                             public void success(UserJson userJson, Response response) {
-                                BTEventBus.getInstance().post(new JoinableCoursesUpdateEvent());
+                                BTEventBus.getInstance().post(new MyCoursesUpdateEvent());
                             }
 
                             @Override

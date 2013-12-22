@@ -12,6 +12,9 @@ import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.otto.BTEventBus;
@@ -228,5 +231,24 @@ public class BTActivity extends SherlockFragmentActivity {
         public static void add(SherlockFragmentActivity activity) {
             classes.push(activity);
         }
+    }
+
+    public void showLoading() {
+        if (mRefresh != null)
+            mRefresh.setActionView(R.layout.loading_menu);
+    }
+
+    public void hideLoading() {
+        if (mRefresh != null)
+            mRefresh.setActionView(null);
+    }
+
+    private MenuItem mRefresh;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.options_menu, menu);
+        mRefresh = menu.findItem(R.id.refresh_option_item);
+        return super.onCreateOptionsMenu(menu);
     }
 }

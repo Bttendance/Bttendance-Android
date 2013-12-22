@@ -53,6 +53,11 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         return null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     public void onFragmentResume() {
 
     }
@@ -65,5 +70,17 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
     @Override
     public void onServieDisconnected() {
 
+    }
+
+    public void showLoading() {
+        Activity act = getActivity();
+        if (act != null && act instanceof BTActivity)
+            ((BTActivity) act).showLoading();
+    }
+
+    public void hideLoading() {
+        Activity act = getActivity();
+        if (act != null && act instanceof BTActivity)
+            ((BTActivity) act).hideLoading();
     }
 }
