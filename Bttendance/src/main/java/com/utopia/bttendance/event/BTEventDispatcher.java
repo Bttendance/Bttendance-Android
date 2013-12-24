@@ -1,10 +1,12 @@
 package com.utopia.bttendance.event;
 
+import android.location.Location;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.fragment.BTDialogFragment;
@@ -15,7 +17,9 @@ import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.BTJson;
 import com.utopia.bttendance.model.json.CourseJson;
+import com.utopia.bttendance.model.json.PostJson;
 import com.utopia.bttendance.model.json.UserJson;
+import com.utopia.bttendance.view.BeautiToast;
 
 import java.lang.ref.WeakReference;
 
@@ -46,35 +50,70 @@ public class BTEventDispatcher {
         if (act == null)
             return;
 
-        BluetoothHelper.enableWithUI();
-        BluetoothHelper.enableDiscoverability(act);
-        BluetoothHelper.startDiscovery();
+        String title = act.getString(R.string.attendance_check);
+        String message = act.getString(R.string.do_you_wish_to_start_attendance_check);
 
-        final BTActivity.OnBluetoothDiscoveryListener listener = new BTActivity.OnBluetoothDiscoveryListener() {
+        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
+        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
-            public void onBluetoothDiscoveryEnabled() {
-                act.getBTService().postAttendanceStart(event.getCourseId(), null);
+            public void onConfirmed() {
+                final PostJson[] post = {null};
+                final BTActivity.OnBluetoothDiscoveryListener listener = new BTActivity.OnBluetoothDiscoveryListener() {
+                    @Override
+                    public void onBluetoothDiscoveryEnabled() {
+                        act.getBTService().postAttendanceStart(event.getCourseId(), new Callback<PostJson>() {
+                            @Override
+                            public void success(PostJson postJson, Response response) {
+                                post[0] = postJson;
+                                BluetoothHelper.startDiscovery();
+                            }
+
+                            @Override
+                            public void failure(RetrofitError retrofitError) {
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onBluetoothDiscovered(String address) {
+                        BTDebug.LogInfo("Address Found : " + address);
+                        if (post[0] != null)
+                            act.getBTService().postAttendanceCheck(post[0].id, new Location(""), address, new Callback<PostJson>() {
+                                @Override
+                                public void success(PostJson postJson, Response response) {
+                                    BTDebug.LogInfo(postJson.toJson());
+                                }
+
+                                @Override
+                                public void failure(RetrofitError retrofitError) {
+                                }
+                            });
+                    }
+
+                    @Override
+                    public void onBluetoothDiscoveryCanceled() {
+                        BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
+                    }
+                };
+
+                act.addOnBluetoothDiscoveryListener(listener);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        act.setOnBluetoothDiscoveryListener(null);
+                        act.removeOnBluetoothDiscoveryListener(listener);
                     }
-                }, BluetoothHelper.DISCOVERABILITY_BT_DURATION);
-            }
+                }, BluetoothHelper.DISCOVERABILITY_BT_DURATION * 1000);
 
-            @Override
-            public void onBluetoothDiscovered(String address) {
-            }
-
-            @Override
-            public void onBluetoothDiscoveryCanceled() {
                 BluetoothHelper.enableWithUI();
                 BluetoothHelper.enableDiscoverability(act);
-                BluetoothHelper.startDiscovery();
             }
-        };
 
-        act.setOnBluetoothDiscoveryListener(listener);
+            @Override
+            public void onCanceled() {
+                BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
+            }
+        });
+        showDialog(dialog);
     }
 
     @Subscribe
@@ -107,9 +146,9 @@ public class BTEventDispatcher {
         switch (json.getType()) {
             case Course:
                 title = act.getString(R.string.join_course);
-                CourseJson course =  (CourseJson) json;
+                CourseJson course = (CourseJson) json;
                 message = course.number + " " + course.name + "\n"
-                        + act.getString(R.string.prof_) +  course.professor_name + "\n"
+                        + act.getString(R.string.prof_) + course.professor_name + "\n"
                         + course.school_name;
                 break;
             case School:
@@ -136,6 +175,11 @@ public class BTEventDispatcher {
                     case School:
                         break;
                 }
+            }
+
+            @Override
+            public void onCanceled() {
+
             }
         });
         showDialog(dialog);
