@@ -18,6 +18,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     OnConfirmListener mConfrimListener;
     String mTitle;
     String mMessage;
+    boolean mConfirmed = false;
 
     public BTDialogFragment(DialogType type, String title, String message) {
         mType = type;
@@ -61,12 +62,20 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirm:
+                mConfirmed = true;
                 if (mConfrimListener != null)
                     mConfrimListener.onConfirmed();
             case R.id.cancel:
                 getActivity().onBackPressed();
                 break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mConfrimListener != null && !mConfirmed)
+            mConfrimListener.onCanceled();
     }
 
     // Confirm => "cancel" & "confirm"
@@ -77,5 +86,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
 
     public interface OnConfirmListener {
         void onConfirmed();
+
+        void onCanceled();
     }
 }

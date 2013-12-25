@@ -133,7 +133,7 @@ public interface BTAPI {
     void postAttendanceStart(@Query("username") String username,
                              @Query("password") String password,
                              @Query("course_id") int courseID,
-                             Callback<PostJson> cb);
+                             Callback<CourseJson> cb);
 
     @PUT("/post/attendance/check")
     void postAttendanceCheck(@Query("username") String username,
@@ -141,7 +141,7 @@ public interface BTAPI {
                              @Query("post_id") int postID,
                              @Query("longitude") String longitude,
                              @Query("latitude") String latitude,
-                             @Query("uuid_list") String[] uuidList,
+                             @Query("uuid") String uuid,
                              Callback<PostJson> cb);
 
     @POST("/post/student/list")

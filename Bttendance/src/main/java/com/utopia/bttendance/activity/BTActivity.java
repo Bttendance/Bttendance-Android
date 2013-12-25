@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -13,7 +14,6 @@ import android.support.v4.app.FragmentManager;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -45,9 +45,9 @@ public class BTActivity extends SherlockFragmentActivity {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                if (device != null)
-                    if (mBluetoothListener != null)
-                        mBluetoothListener.onBluetoothDiscovered(device.getAddress());
+                for (OnBluetoothDiscoveryListener listener : mBluetoothListeners)
+                    if (listener != null)
+                        listener.onBluetoothDiscovered(device.getAddress());
             }
         }
     };
@@ -66,9 +66,10 @@ public class BTActivity extends SherlockFragmentActivity {
         }
     };
     ArrayList<OnServiceConnectListener> mServiceListeners = new ArrayList<OnServiceConnectListener>();
-    OnBluetoothDiscoveryListener mBluetoothListener;
+    ArrayList<OnBluetoothDiscoveryListener> mBluetoothListeners = new ArrayList<OnBluetoothDiscoveryListener>();
     private BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
+    private MenuItem mRefresh;
 
     public void addOnServiceConnectListener(OnServiceConnectListener listener) {
         mServiceListeners.add(listener);
@@ -78,19 +79,25 @@ public class BTActivity extends SherlockFragmentActivity {
         mServiceListeners.remove(listener);
     }
 
-    public void setOnBluetoothDiscoveryListener(OnBluetoothDiscoveryListener listener) {
-        mBluetoothListener = listener;
+    public void addOnBluetoothDiscoveryListener(OnBluetoothDiscoveryListener listener) {
+        mBluetoothListeners.add(listener);
+    }
+
+    public void removeOnBluetoothDiscoveryListener(OnBluetoothDiscoveryListener listener) {
+        mBluetoothListeners.remove(listener);
     }
 
     protected void onServieConnected() {
         checkPlayServices();
         for (OnServiceConnectListener listener : mServiceListeners)
-            listener.onServieConnected();
+            if (listener != null)
+                listener.onServieConnected();
     }
 
     protected void onServieDisconnected() {
         for (OnServiceConnectListener listener : mServiceListeners)
-            listener.onServieDisconnected();
+            if (listener != null)
+                listener.onServieDisconnected();
     }
 
     public BTService getBTService() {
@@ -115,6 +122,9 @@ public class BTActivity extends SherlockFragmentActivity {
                 }
             }
         });
+
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(mReceiver, filter);
     }
 
     @Override
@@ -122,6 +132,7 @@ public class BTActivity extends SherlockFragmentActivity {
         super.onDestroy();
         if (mBTConnect != null && mService != null)
             BTService.unbind(this, mBTConnect);
+        unregisterReceiver(mReceiver);
     }
 
     @Override
@@ -174,7 +185,7 @@ public class BTActivity extends SherlockFragmentActivity {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
                 GooglePlayServicesUtil.getErrorDialog(resultCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
-                BTDebug.LogError("This device is not supported.");
+                BTDebug.LogError("This device doesn't support play service.");
                 finish();
             }
         } else {
@@ -192,14 +203,33 @@ public class BTActivity extends SherlockFragmentActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (BluetoothHelper.REQUEST_ENABLE_DISCOVERABILITY_BT == requestCode && BluetoothHelper.DISCOVERABILITY_BT_DURATION == resultCode) {
-            if (mBluetoothListener != null)
-                mBluetoothListener.onBluetoothDiscoveryEnabled();
+            for (OnBluetoothDiscoveryListener listener : mBluetoothListeners)
+                if (listener != null)
+                    listener.onBluetoothDiscoveryEnabled();
         }
 
         if (BluetoothHelper.REQUEST_ENABLE_DISCOVERABILITY_BT == requestCode && RESULT_CANCELED == resultCode) {
-            if (mBluetoothListener != null)
-                mBluetoothListener.onBluetoothDiscoveryCanceled();
+            for (OnBluetoothDiscoveryListener listener : mBluetoothListeners)
+                if (listener != null)
+                    listener.onBluetoothDiscoveryCanceled();
         }
+    }
+
+    public void showLoading() {
+        if (mRefresh != null)
+            mRefresh.setActionView(R.layout.loading_menu);
+    }
+
+    public void hideLoading() {
+        if (mRefresh != null)
+            mRefresh.setActionView(null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.options_menu, menu);
+        mRefresh = menu.findItem(R.id.refresh_option_item);
+        return super.onCreateOptionsMenu(menu);
     }
 
     public interface OnServiceConnectListener {
@@ -231,24 +261,5 @@ public class BTActivity extends SherlockFragmentActivity {
         public static void add(SherlockFragmentActivity activity) {
             classes.push(activity);
         }
-    }
-
-    public void showLoading() {
-        if (mRefresh != null)
-            mRefresh.setActionView(R.layout.loading_menu);
-    }
-
-    public void hideLoading() {
-        if (mRefresh != null)
-            mRefresh.setActionView(null);
-    }
-
-    private MenuItem mRefresh;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.options_menu, menu);
-        mRefresh = menu.findItem(R.id.refresh_option_item);
-        return super.onCreateOptionsMenu(menu);
     }
 }

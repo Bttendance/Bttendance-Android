@@ -57,14 +57,14 @@ public class BTEventDispatcher {
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
             public void onConfirmed() {
-                final PostJson[] post = {null};
+                final CourseJson[] course = {};
                 final BTActivity.OnBluetoothDiscoveryListener listener = new BTActivity.OnBluetoothDiscoveryListener() {
                     @Override
                     public void onBluetoothDiscoveryEnabled() {
-                        act.getBTService().postAttendanceStart(event.getCourseId(), new Callback<PostJson>() {
+                        act.getBTService().postAttendanceStart(event.getCourseId(), new Callback<CourseJson>() {
                             @Override
-                            public void success(PostJson postJson, Response response) {
-                                post[0] = postJson;
+                            public void success(CourseJson courseJson, Response response) {
+                                course[0] = courseJson;
                                 BluetoothHelper.startDiscovery();
                             }
 
@@ -76,9 +76,9 @@ public class BTEventDispatcher {
 
                     @Override
                     public void onBluetoothDiscovered(String address) {
-                        BTDebug.LogInfo("Address Found : " + address);
-                        if (post[0] != null)
-                            act.getBTService().postAttendanceCheck(post[0].id, new Location(""), address, new Callback<PostJson>() {
+                        if (course[0] != null) {
+                            int[] posts = course[0].posts;
+                            act.getBTService().postAttendanceCheck(posts[posts.length-1], new Location(""), address, new Callback<PostJson>() {
                                 @Override
                                 public void success(PostJson postJson, Response response) {
                                     BTDebug.LogInfo(postJson.toJson());
@@ -88,6 +88,7 @@ public class BTEventDispatcher {
                                 public void failure(RetrofitError retrofitError) {
                                 }
                             });
+                        }
                     }
 
                     @Override

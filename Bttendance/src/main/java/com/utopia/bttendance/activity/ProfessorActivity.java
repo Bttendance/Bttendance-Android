@@ -7,8 +7,10 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.fragment.CourseListFragment;
+import com.utopia.bttendance.helper.DateHelper;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.view.BeautiToast;
 

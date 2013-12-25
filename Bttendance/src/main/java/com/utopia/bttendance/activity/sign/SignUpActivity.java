@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.MenuItem;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.helper.BluetoothHelper;
@@ -306,6 +307,7 @@ public class SignUpActivity extends BTActivity {
         user.email = email;
         user.password = password;
         user.device_type = BTAPI.ANDROID;
+        BTDebug.LogInfo("UUID : " + BluetoothHelper.getMacAddress());
         user.device_uuid = BluetoothHelper.getMacAddress();
 
         switch (mType) {

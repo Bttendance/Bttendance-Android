@@ -406,16 +406,17 @@ public class BTService extends Service {
         });
     }
 
-    public void postAttendanceStart(int courseID, final Callback<PostJson> cb) {
+    public void postAttendanceStart(int courseID, final Callback<CourseJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.postAttendanceStart(user.username, user.password, courseID, new Callback<PostJson>() {
+        mBTAPI.postAttendanceStart(user.username, user.password, courseID, new Callback<CourseJson>() {
             @Override
-            public void success(PostJson post, Response response) {
+            public void success(CourseJson course, Response response) {
+                BTTable.CourseTable.append(course.id, course);
                 if (cb != null)
-                    cb.success(post, response);
+                    cb.success(course, response);
             }
 
             @Override
@@ -425,7 +426,7 @@ public class BTService extends Service {
         });
     }
 
-    public void postAttendanceCheck(int postID, Location location, String[] uuidList, final Callback<PostJson> cb) {
+    public void postAttendanceCheck(int postID, Location location, String uuid, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
@@ -433,7 +434,7 @@ public class BTService extends Service {
         String longitude = "" + location.getLongitude();
         String latitude = "" + location.getLatitude();
 
-        mBTAPI.postAttendanceCheck(user.username, user.password, postID, longitude, latitude, uuidList, new Callback<PostJson>() {
+        mBTAPI.postAttendanceCheck(user.username, user.password, postID, longitude, latitude, uuid, new Callback<PostJson>() {
             @Override
             public void success(PostJson post, Response response) {
                 if (cb != null)
@@ -505,13 +506,15 @@ public class BTService extends Service {
     }
 
     private void failureHandle(Callback cb, RetrofitError retrofitError) {
-        BTDebug.LogError("Error : " + retrofitError.getMessage());
+        if (retrofitError == null)
+            return;
+
         if (retrofitError.isNetworkError())
             BTDebug.LogError("Network Error");
         else {
             try {
                 ErrorsJson errors = (ErrorsJson) retrofitError.getBodyAs(ErrorsJson.class);
-                BTDebug.LogError(errors.message);
+                BTDebug.LogError(retrofitError.getResponse().getStatus() + " : " +errors.message);
                 if (errors.toast != null)
                     BeautiToast.show(getApplicationContext(), errors.toast);
             } catch (Exception e) {
@@ -530,6 +533,5 @@ public class BTService extends Service {
         public BTService getService() {
             return BTService.this;
         }
-
     }
 }

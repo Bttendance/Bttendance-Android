@@ -1,6 +1,9 @@
 package com.utopia.bttendance.model.json;
 
 import com.google.gson.Gson;
+import com.utopia.bttendance.helper.DateHelper;
+
+import java.util.Date;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 20..
@@ -8,6 +11,16 @@ import com.google.gson.Gson;
 public class BTJson {
 
     public int id;
+    public String createdAt;
+    public String updatedAt;
+
+    public Date getCreatedDate() {
+        return DateHelper.getDate(createdAt);
+    }
+
+    public Date getUpdatedDate() {
+        return DateHelper.getDate(updatedAt);
+    }
 
     public String toJson() {
         return new Gson().toJson(this);

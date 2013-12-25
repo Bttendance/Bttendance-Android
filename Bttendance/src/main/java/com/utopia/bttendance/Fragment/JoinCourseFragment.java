@@ -38,7 +38,6 @@ public class JoinCourseFragment extends BTFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        showLoading();
     }
 
     @Override
@@ -84,7 +83,6 @@ public class JoinCourseFragment extends BTFragment {
         });
         mAdapter.setItems(items);
         mAdapter.notifyDataSetChanged();
-        hideLoading();
     }
 
     @Override

@@ -10,22 +10,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FormatHelper {
+public class DateHelper {
 
-    private static SimpleDateFormat date_format = new SimpleDateFormat(
-            "yyyy-MM-dd HH:mm:ss Z");
+    private static SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.z");
 
-    private FormatHelper() {
+    private DateHelper() {
     }
 
-    public static String getTimeAgoString(Context context, String time_str) {
+    public static String getTimeAgoString(Context context, String timeStr) {
 
-        if (time_str == null || time_str.length() == 0)
+        if (timeStr == null || timeStr.length() == 0)
             return "";
 
         Date date;
         try {
-            date = date_format.parse(time_str);
+            date = date_format.parse(timeStr);
             CharSequence time_ago_str = DateUtils.getRelativeDateTimeString(
                     context, date.getTime(), DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.WEEK_IN_MILLIS, 0);
@@ -54,23 +53,27 @@ public class FormatHelper {
     }
 
     public static String getCurrentTimeString() {
-        return (String) DateFormat.format("yyyy-MM-dd hh:mm:ss z", System.currentTimeMillis());
+        return (String) DateFormat.format("yyyy-MM-dd'T'HH:mm:ss.z", System.currentTimeMillis());
     }
 
-    public static long getTime(String time_str) {
+    public static String getString(Date date) {
+        return date_format.format(date);
+    }
+
+    public static long getTime(String timeStr) {
         Date date;
         try {
-            date = date_format.parse(time_str);
+            date = date_format.parse(timeStr);
             return date.getTime();
         } catch (ParseException e) {
             return 0;
         }
     }
 
-    public static Date getDate(String time_str) {
+    public static Date getDate(String timeStr) {
         Date date;
         try {
-            date = date_format.parse(time_str);
+            date = date_format.parse(timeStr);
             return date;
         } catch (ParseException e) {
             return null;

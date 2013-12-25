@@ -14,6 +14,7 @@ import com.utopia.bttendance.event.CheckStartEvent;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
+import com.utopia.bttendance.view.Bttendance;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
@@ -33,7 +34,7 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         int course_id = cursor.getInt(0);
-        View bttendance = view.findViewById(R.id.bttendance);
+        Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
         CourseJson course = BTTable.CourseTable.get(course_id);
         switch (BTPreference.getUserType(context)) {
             case PROFESSOR:
@@ -43,6 +44,7 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
                 break;
             case STUDENT:
             default:
+                bttendance.setTag(R.id.course_id, course_id);
                 bttendance.setClickable(false);
                 break;
         }

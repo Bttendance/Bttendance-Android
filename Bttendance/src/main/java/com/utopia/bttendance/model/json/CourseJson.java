@@ -14,4 +14,5 @@ public class CourseJson extends BTJson {
     public int[] posts;
     public String professor_name;
     public String school_name;
+    public String attdCheckedAt;
 }
