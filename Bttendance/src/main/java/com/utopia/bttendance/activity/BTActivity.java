@@ -147,16 +147,6 @@ public class BTActivity extends SherlockFragmentActivity {
         BTEventBus.getInstance().unregister(mEventDispatcher);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
     public Intent getNextIntent() {
         UserJson user = BTPreference.getUser(this);
         Intent intent;

@@ -7,8 +7,10 @@ import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
+import com.squareup.otto.Subscribe;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.BTPagerAdapter;
+import com.utopia.bttendance.event.AttendanceStartedEvent;
 import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.json.UserJson;

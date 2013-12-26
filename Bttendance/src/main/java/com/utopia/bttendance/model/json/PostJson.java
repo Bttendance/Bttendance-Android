@@ -5,6 +5,7 @@ package com.utopia.bttendance.model.json;
  */
 public class PostJson extends BTJson {
 
+    public String type;
     public String title;
     public String message;
     public boolean on_going;
@@ -15,6 +16,5 @@ public class PostJson extends BTJson {
     public String course_name;
     public String course_number;
     public String school_name;
-    public String createdAt;
     
 }

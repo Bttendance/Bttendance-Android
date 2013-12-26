@@ -9,6 +9,7 @@ import com.squareup.otto.Subscribe;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
+import com.utopia.bttendance.activity.StudentActivity;
 import com.utopia.bttendance.fragment.BTDialogFragment;
 import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.fragment.CreateCourseFragment;
@@ -45,7 +46,7 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onCheckStart(final CheckStartEvent event) {
+    public void onAttendanceStart(final AttendanceStartEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
@@ -57,7 +58,7 @@ public class BTEventDispatcher {
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
             public void onConfirmed() {
-                final CourseJson[] course = {};
+                final CourseJson[] course = {null};
                 final BTActivity.OnBluetoothDiscoveryListener listener = new BTActivity.OnBluetoothDiscoveryListener() {
                     @Override
                     public void onBluetoothDiscoveryEnabled() {
@@ -112,6 +113,53 @@ public class BTEventDispatcher {
             @Override
             public void onCanceled() {
                 BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
+            }
+        });
+        showDialog(dialog);
+    }
+
+    @Subscribe
+    public void onAttendanceStarted(AttendanceStartedEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null || !(act instanceof StudentActivity))
+            return;
+
+        String title = act.getString(R.string.attendance_check);
+        String message = act.getString(R.string.turn_on_your_bluetooth_settings);
+
+        final BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
+        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+            @Override
+            public void onConfirmed() {
+            }
+
+            @Override
+            public void onCanceled() {
+                final BTActivity.OnBluetoothDiscoveryListener listener = new BTActivity.OnBluetoothDiscoveryListener() {
+                    @Override
+                    public void onBluetoothDiscoveryEnabled() {
+                    }
+
+                    @Override
+                    public void onBluetoothDiscovered(String address) {
+                    }
+
+                    @Override
+                    public void onBluetoothDiscoveryCanceled() {
+                        showDialog(dialog);
+                    }
+                };
+
+                act.addOnBluetoothDiscoveryListener(listener);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        act.removeOnBluetoothDiscoveryListener(listener);
+                    }
+                }, BluetoothHelper.DISCOVERABILITY_BT_DURATION * 1000);
+
+                BluetoothHelper.enableWithUI();
+                BluetoothHelper.enableDiscoverability(act);
             }
         });
         showDialog(dialog);

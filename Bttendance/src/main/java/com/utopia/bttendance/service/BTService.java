@@ -514,11 +514,11 @@ public class BTService extends Service {
         else {
             try {
                 ErrorsJson errors = (ErrorsJson) retrofitError.getBodyAs(ErrorsJson.class);
-                BTDebug.LogError(retrofitError.getResponse().getStatus() + " : " +errors.message);
+                BTDebug.LogError(retrofitError.getResponse().getStatus() + " : " + errors.message);
                 if (errors.toast != null)
                     BeautiToast.show(getApplicationContext(), errors.toast);
             } catch (Exception e) {
-                BTDebug.LogError(e.getMessage());
+                BTDebug.LogError(e.getMessage() + " : " + retrofitError.getMessage());
             }
         }
         if (cb != null)

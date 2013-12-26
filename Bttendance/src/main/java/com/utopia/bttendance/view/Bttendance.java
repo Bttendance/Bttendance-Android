@@ -14,6 +14,7 @@ import android.view.animation.Transformation;
 
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.helper.DipPixelHelper;
+import com.utopia.bttendance.model.BTPreference;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -23,7 +24,8 @@ public class Bttendance extends View {
     /**
      * Duration
      */
-    private static final int PROGRESS_DURATION = 60000;
+    public static final int PROGRESS_DURATION_PROF = 300000;
+    public static final int PROGRESS_DURATION_STD = 180000;
     private static final int BLINK_DURATION = 1000;
     /**
      * Dimension
@@ -157,23 +159,6 @@ public class Bttendance extends View {
 
         mScaleTransformation = new Transformation();
         mScale = new AlphaAnimation(1f, 0f);
-        mScale.setDuration(PROGRESS_DURATION);
-        mScale.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                mProgress = 100;
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                endBttendance(STATE.FAIL);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-
         mState = STATE.CHECKED;
     }
 
@@ -320,7 +305,9 @@ public class Bttendance extends View {
             case INACTIVE:
             case CHECKED:
                 endBttendance(state);
+                break;
             case CHECKING:
+                startBttendance(progress);
             default:
                 break;
         }
@@ -332,6 +319,32 @@ public class Bttendance extends View {
         mState = STATE.CHECKING;
         mFadeOut.start();
         mFadeOut.getTransformation(System.currentTimeMillis(), mAlphaTransformation);
+        mScale = new AlphaAnimation(1f * (float) progress / 100f, 0f);
+        int duration;
+        switch (BTPreference.getUserType(getContext())) {
+            case PROFESSOR:
+                duration = PROGRESS_DURATION_PROF;
+                break;
+            case STUDENT:
+            default:
+                duration = PROGRESS_DURATION_STD;
+                break;
+        }
+        mScale.setDuration(duration * progress / 100);
+        mScale.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                endBttendance(STATE.FAIL);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
         mScale.start();
         mScale.getTransformation(System.currentTimeMillis(), mScaleTransformation);
     }

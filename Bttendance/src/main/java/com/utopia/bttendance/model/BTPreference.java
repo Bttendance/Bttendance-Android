@@ -65,6 +65,13 @@ public class BTPreference {
         return BTKey.Type.NULL;
     }
 
+    public static int getUserId(Context ctx) {
+        UserJson user = getUser(ctx);
+        if (user == null)
+            return -1;
+        return user.id;
+    }
+
     public static void setUser(Context ctx, UserJson user) {
         Gson gson = new Gson();
         String jsonStr = gson.toJson(user);

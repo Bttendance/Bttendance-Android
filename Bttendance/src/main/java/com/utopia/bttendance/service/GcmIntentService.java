@@ -12,11 +12,14 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.ProfessorActivity;
 import com.utopia.bttendance.activity.StudentActivity;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
+import com.utopia.bttendance.event.AttendanceCheckedEvent;
+import com.utopia.bttendance.event.AttendanceStartedEvent;
 import com.utopia.bttendance.model.BTKey;
 import com.utopia.bttendance.model.BTPreference;
 
@@ -24,9 +27,13 @@ import com.utopia.bttendance.model.BTPreference;
  * Created by TheFinestArtist on 2013. 12. 4..
  */
 public class GcmIntentService extends IntentService {
-    public static final int NOTIFICATION_ID = 1;
-    public static final String TITLE = "title";
-    public static final String MESSAGE = "message";
+    private static final int NOTIFICATION_ID = 1;
+    private static final String TITLE = "title";
+    private static final String MESSAGE = "message";
+    private static final String TYPE = "type";
+    private static final String ATTENDANCE_STARTED = "attendance_started";
+    private static final String ATTENDANCE_CHECKED = "attendance_checked";
+    private static final String POST_ID = "post_id";
 
     public GcmIntentService() {
         super("GcmIntentService");
@@ -55,6 +62,11 @@ public class GcmIntentService extends IntentService {
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 BTDebug.LogInfo("Notification Received: " + extras.toString());
                 sendNotification(extras.getString(TITLE), extras.getString(MESSAGE));
+
+                if (ATTENDANCE_STARTED.equals(extras.getString(TYPE)))
+                    BTEventBus.getInstance().post(new AttendanceStartedEvent(extras.getInt(POST_ID)));
+                else if (ATTENDANCE_CHECKED.equals(extras.getString(TYPE)))
+                    BTEventBus.getInstance().post(new AttendanceCheckedEvent(extras.getInt(POST_ID)));
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.

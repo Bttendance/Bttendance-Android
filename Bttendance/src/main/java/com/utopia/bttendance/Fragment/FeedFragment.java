@@ -6,8 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.squareup.otto.Subscribe;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.FeedAdapter;
+import com.utopia.bttendance.event.AttendanceCheckedEvent;
+import com.utopia.bttendance.event.AttendanceStartedEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.PostCursor;
@@ -58,5 +62,15 @@ public class FeedFragment extends BTFragment {
             public void failure(RetrofitError retrofitError) {
             }
         });
+    }
+
+    @Subscribe
+    public void onAttendanceStarted(AttendanceStartedEvent event) {
+        getFeed();
+    }
+
+    @Subscribe
+    public void onAttendanceChecked(AttendanceCheckedEvent event) {
+        getFeed();
     }
 }

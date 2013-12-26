@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.squareup.otto.BTEventBus;
+import com.squareup.otto.Subscribe;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.CourseListAdapter;
 import com.utopia.bttendance.event.AddCourseEvent;
+import com.utopia.bttendance.event.AttendanceCheckedEvent;
+import com.utopia.bttendance.event.AttendanceStartedEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.CourseCursor;
@@ -78,7 +81,8 @@ public class CourseListFragment extends BTFragment {
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
-        mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));
+        if (this.isAdded())
+            mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));
     }
 
     @Override
@@ -89,5 +93,15 @@ public class CourseListFragment extends BTFragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Subscribe
+    public void onAttendanceStarted(AttendanceStartedEvent event) {
+        getCourseList();
+    }
+
+    @Subscribe
+    public void onAttendanceChecked(AttendanceCheckedEvent event) {
+        getCourseList();
     }
 }

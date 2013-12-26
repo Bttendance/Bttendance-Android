@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class DateHelper {
 
-    private static SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.z");
+    private static SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.'000Z'");
 
     private DateHelper() {
     }
@@ -53,7 +53,7 @@ public class DateHelper {
     }
 
     public static String getCurrentTimeString() {
-        return (String) DateFormat.format("yyyy-MM-dd'T'HH:mm:ss.z", System.currentTimeMillis());
+        return (String) DateFormat.format("yyyy-MM-dd'T'HH:mm:ss.'000Z'", System.currentTimeMillis());
     }
 
     public static String getString(Date date) {
