@@ -98,4 +98,6 @@ public class BTTable {
 
         return checking;
     }
+
+    public static int ATTENDANCE_STARTING_COURSE = -1;
 }

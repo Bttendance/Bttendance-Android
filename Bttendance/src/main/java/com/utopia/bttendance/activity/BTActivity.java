@@ -20,7 +20,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.otto.BTEventBus;
-import com.squareup.otto.Subscribe;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
@@ -28,7 +27,6 @@ import com.utopia.bttendance.event.BTCanceledEvent;
 import com.utopia.bttendance.event.BTDiscoveredEvent;
 import com.utopia.bttendance.event.BTEnabledEvent;
 import com.utopia.bttendance.event.BTEventDispatcher;
-import com.utopia.bttendance.event.LoadingEvent;
 import com.utopia.bttendance.event.ShowEnableGPSDialogEvent;
 import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.helper.BluetoothHelper;
@@ -205,20 +203,24 @@ public class BTActivity extends SherlockFragmentActivity {
     /**
      * Loading
      */
-    public void showLoading() {
-        if (mRefresh != null)
-            mRefresh.setActionView(R.layout.loading_menu);
-    }
+    private boolean mShowLoading = false;
+    public void showLoading(boolean showLoading) {
+        mShowLoading = showLoading;
 
-    public void hideLoading() {
-        if (mRefresh != null)
-            mRefresh.setActionView(null);
+        if (mRefresh != null) {
+            if (mShowLoading)
+                mRefresh.setActionView(R.layout.loading_menu);
+            else
+                mRefresh.setActionView(null);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getSupportMenuInflater().inflate(R.menu.options_menu, menu);
         mRefresh = menu.findItem(R.id.refresh_option_item);
+        if (mShowLoading)
+            mRefresh.setActionView(R.layout.loading_menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -238,7 +240,7 @@ public class BTActivity extends SherlockFragmentActivity {
     }
 
     private void initGPS() {
-        if ((this instanceof StudentActivity || this instanceof  ProfessorActivity)
+        if ((this instanceof StudentActivity || this instanceof ProfessorActivity)
                 && !GPSTracker.isGpsEnable(this))
             new Handler().postDelayed(new Runnable() {
                 @Override

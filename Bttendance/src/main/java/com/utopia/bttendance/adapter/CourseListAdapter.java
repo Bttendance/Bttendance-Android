@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.squareup.otto.BTEventBus;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.event.AttdStartEvent;
 import com.utopia.bttendance.helper.DateHelper;
@@ -55,8 +56,10 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
             long time = currentTime - DateHelper.getTime(course.attdCheckedAt);
             int progress = (int) (100 * (Bttendance.PROGRESS_DURATION - time) / Bttendance.PROGRESS_DURATION);
             bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+            BTDebug.LogError("Checking : " + progress);
         } else {
             bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
+            BTDebug.LogError("Checked");
         }
 
         TextView title = (TextView) view.findViewById(R.id.title);

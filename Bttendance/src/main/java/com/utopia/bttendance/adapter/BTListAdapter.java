@@ -53,14 +53,15 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
                 TextView message = (TextView) v.findViewById(R.id.message);
                 ImageView image = (ImageView) v.findViewById(R.id.add_btn);
                 if (i.joined()) {
-                    image.setImageResource(R.drawable.ic_bttendance_check_cyan_small);
+                    image.setImageResource(R.drawable.ic_list_checked);
                     image.setClickable(false);
+                    image.setOnClickListener(null);
                 } else {
-                    image.setImageResource(R.drawable.ic_bttendance_circle_cyan_small);
+                    image.setImageResource(R.drawable.ic_list_add);
                     image.setClickable(true);
+                    image.setOnClickListener(this);
                 }
                 image.setTag(R.id.json, i.getJson());
-                image.setOnClickListener(this);
                 title.setText(i.getTitle());
                 message.setText(i.getMessage());
             }

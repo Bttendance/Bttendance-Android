@@ -40,6 +40,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
-        android:src="@drawable/ic_bttendance_circle_cyan_small" />
+        android:src="@drawable/ic_list_add" />
 
 </RelativeLayout>

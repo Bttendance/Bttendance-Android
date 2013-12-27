@@ -93,11 +93,15 @@ public class DateHelper {
     }
 
     public static String getBTFormatString(String timeStr) {
-        Date date = getDate(timeStr);
-        if (date != null)
+        Date date;
+        try {
+            date_format.setTimeZone(TimeZone.getTimeZone("GMT"));
+            bt_date_format.setTimeZone(TimeZone.getDefault());
+            date = date_format.parse(timeStr);
             return bt_date_format.format(date);
-        return null;
-
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     public static String geFomrattedNumberString(int number) {
