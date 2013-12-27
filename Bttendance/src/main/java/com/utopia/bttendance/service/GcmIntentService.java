@@ -18,8 +18,8 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.ProfessorActivity;
 import com.utopia.bttendance.activity.StudentActivity;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
-import com.utopia.bttendance.event.AttendanceCheckedEvent;
-import com.utopia.bttendance.event.AttendanceStartedEvent;
+import com.utopia.bttendance.event.AttdCheckedEvent;
+import com.utopia.bttendance.event.AttdStartedEvent;
 import com.utopia.bttendance.model.BTKey;
 import com.utopia.bttendance.model.BTPreference;
 
@@ -33,7 +33,6 @@ public class GcmIntentService extends IntentService {
     private static final String TYPE = "type";
     private static final String ATTENDANCE_STARTED = "attendance_started";
     private static final String ATTENDANCE_CHECKED = "attendance_checked";
-    private static final String POST_ID = "post_id";
 
     public GcmIntentService() {
         super("GcmIntentService");
@@ -64,9 +63,9 @@ public class GcmIntentService extends IntentService {
                 sendNotification(extras.getString(TITLE), extras.getString(MESSAGE));
 
                 if (ATTENDANCE_STARTED.equals(extras.getString(TYPE)))
-                    BTEventBus.getInstance().post(new AttendanceStartedEvent(extras.getInt(POST_ID)));
+                    BTEventBus.getInstance().post(new AttdStartedEvent());
                 else if (ATTENDANCE_CHECKED.equals(extras.getString(TYPE)))
-                    BTEventBus.getInstance().post(new AttendanceCheckedEvent(extras.getInt(POST_ID)));
+                    BTEventBus.getInstance().post(new AttdCheckedEvent());
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.

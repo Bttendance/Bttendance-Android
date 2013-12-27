@@ -9,12 +9,24 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateHelper {
 
-    private static SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.'000Z'");
+    public static String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.'000Z'";
+    public static String BT_DATE_FORMAT = "yy/MM/dd HH:mm";
+    private static SimpleDateFormat date_format = new SimpleDateFormat(DATE_FORMAT);
+    private static SimpleDateFormat bt_date_format = new SimpleDateFormat(BT_DATE_FORMAT);
 
     private DateHelper() {
+    }
+
+    public static long getCurrentGMTTimeMillis() {
+        final Date currentTime = new Date();
+        final SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String time = sdf.format(currentTime);
+        return getTime(time);
     }
 
     public static String getTimeAgoString(Context context, String timeStr) {
@@ -53,7 +65,7 @@ public class DateHelper {
     }
 
     public static String getCurrentTimeString() {
-        return (String) DateFormat.format("yyyy-MM-dd'T'HH:mm:ss.'000Z'", System.currentTimeMillis());
+        return (String) DateFormat.format(DATE_FORMAT, System.currentTimeMillis());
     }
 
     public static String getString(Date date) {
@@ -78,6 +90,14 @@ public class DateHelper {
         } catch (ParseException e) {
             return null;
         }
+    }
+
+    public static String getBTFormatString(String timeStr) {
+        Date date = getDate(timeStr);
+        if (date != null)
+            return bt_date_format.format(date);
+        return null;
+
     }
 
     public static String geFomrattedNumberString(int number) {

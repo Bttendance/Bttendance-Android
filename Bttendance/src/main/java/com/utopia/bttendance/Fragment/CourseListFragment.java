@@ -9,12 +9,12 @@ import android.widget.ListView;
 
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.CourseListAdapter;
 import com.utopia.bttendance.event.AddCourseEvent;
-import com.utopia.bttendance.event.AttendanceCheckedEvent;
-import com.utopia.bttendance.event.AttendanceStartedEvent;
+import com.utopia.bttendance.event.AttdCheckedEvent;
+import com.utopia.bttendance.event.AttdStartedEvent;
+import com.utopia.bttendance.event.LoadingEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.CourseCursor;
@@ -66,14 +66,17 @@ public class CourseListFragment extends BTFragment {
         if (getBTService() == null)
             return;
 
+        BTEventBus.getInstance().post(new LoadingEvent(true));
         getBTService().courses(new Callback<CourseJson[]>() {
             @Override
             public void success(CourseJson[] courses, Response response) {
                 mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));
+                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
+                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
         });
     }
@@ -96,12 +99,12 @@ public class CourseListFragment extends BTFragment {
     }
 
     @Subscribe
-    public void onAttendanceStarted(AttendanceStartedEvent event) {
+    public void onAttendanceStarted(AttdStartedEvent event) {
         getCourseList();
     }
 
     @Subscribe
-    public void onAttendanceChecked(AttendanceCheckedEvent event) {
+    public void onAttendanceChecked(AttdCheckedEvent event) {
         getCourseList();
     }
 }

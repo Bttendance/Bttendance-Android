@@ -45,14 +45,12 @@ public class FeedAdapter extends CursorAdapter {
         bttendance.setTag(R.id.post_id, post.id);
         bttendance.setClickable(false);
 
-        int duration = Bttendance.PROGRESS_DURATION_STD;
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        long currentTime = cal.getTimeInMillis() - 9 * 60 * 60 * 1000;
+        long currentTime = DateHelper.getCurrentGMTTimeMillis();
 
-        if (currentTime - DateHelper.getTime(post.createdAt) < duration
+        if (currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION
                 && IntArrayHelper.contains(post.checks, BTPreference.getUserId(context))) {
             long time = currentTime - DateHelper.getTime(post.createdAt);
-            int progress = (int) (100 * (duration - time) / duration);
+            int progress = (int) (100 * (Bttendance.PROGRESS_DURATION - time) / Bttendance.PROGRESS_DURATION);
             bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
         } else {
             bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
@@ -61,7 +59,7 @@ public class FeedAdapter extends CursorAdapter {
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
         title.setText(post.title);
-        message.setText(post.message);
+        message.setText(post.message + "\n" + DateHelper.getBTFormatString(post.createdAt));
     }
 
     @Override

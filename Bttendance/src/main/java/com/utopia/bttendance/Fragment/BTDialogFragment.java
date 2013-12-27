@@ -42,8 +42,8 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
                 confirm.setText(getString(R.string.confrim));
                 break;
             case OK:
-                cancel.setText(getString(R.string.ok));
-                confirm.setVisibility(View.GONE);
+                confirm.setText(getString(R.string.ok));
+                cancel.setVisibility(View.GONE);
                 divider.setVisibility(View.GONE);
                 break;
         }

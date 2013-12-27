@@ -53,4 +53,8 @@
     <string name="do_you_wish_to_start_attendance_check">"Do you wish to start attendance check?"</string>
     <string name="turn_on_your_bluetooth_settings">"Turn on your bluetooth settings"</string>
 
+    <!--GPS Dialog-->
+    <string name="turn_on_gps_title">"Improve location accuracy"</string>
+    <string name="turn_on_gps_message">"Turn on GPS and mobile network location to enhance your \"Bttendance\" experience."</string>
+
 </resources>

@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 
@@ -18,12 +20,19 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.otto.BTEventBus;
+import com.squareup.otto.Subscribe;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
+import com.utopia.bttendance.event.BTCanceledEvent;
+import com.utopia.bttendance.event.BTDiscoveredEvent;
+import com.utopia.bttendance.event.BTEnabledEvent;
 import com.utopia.bttendance.event.BTEventDispatcher;
+import com.utopia.bttendance.event.LoadingEvent;
+import com.utopia.bttendance.event.ShowEnableGPSDialogEvent;
 import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.helper.BluetoothHelper;
+import com.utopia.bttendance.helper.GPSTracker;
 import com.utopia.bttendance.model.BTNotification;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.json.UserJson;
@@ -45,9 +54,7 @@ public class BTActivity extends SherlockFragmentActivity {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                for (OnBluetoothDiscoveryListener listener : mBluetoothListeners)
-                    if (listener != null)
-                        listener.onBluetoothDiscovered(device.getAddress());
+                BTEventBus.getInstance().post(new BTDiscoveredEvent(device.getAddress()));
             }
         }
     };
@@ -66,10 +73,10 @@ public class BTActivity extends SherlockFragmentActivity {
         }
     };
     ArrayList<OnServiceConnectListener> mServiceListeners = new ArrayList<OnServiceConnectListener>();
-    ArrayList<OnBluetoothDiscoveryListener> mBluetoothListeners = new ArrayList<OnBluetoothDiscoveryListener>();
     private BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
     private MenuItem mRefresh;
+    private GPSTracker mGPS;
 
     public void addOnServiceConnectListener(OnServiceConnectListener listener) {
         mServiceListeners.add(listener);
@@ -77,14 +84,6 @@ public class BTActivity extends SherlockFragmentActivity {
 
     public void removeOnServiceConnectListener(OnServiceConnectListener listener) {
         mServiceListeners.remove(listener);
-    }
-
-    public void addOnBluetoothDiscoveryListener(OnBluetoothDiscoveryListener listener) {
-        mBluetoothListeners.add(listener);
-    }
-
-    public void removeOnBluetoothDiscoveryListener(OnBluetoothDiscoveryListener listener) {
-        mBluetoothListeners.remove(listener);
     }
 
     protected void onServieConnected() {
@@ -139,12 +138,14 @@ public class BTActivity extends SherlockFragmentActivity {
     protected void onStart() {
         super.onStart();
         BTEventBus.getInstance().register(mEventDispatcher);
+        mGPS = new GPSTracker(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         BTEventBus.getInstance().unregister(mEventDispatcher);
+        mGPS.stopUsingGPS();
     }
 
     public Intent getNextIntent() {
@@ -193,18 +194,17 @@ public class BTActivity extends SherlockFragmentActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (BluetoothHelper.REQUEST_ENABLE_DISCOVERABILITY_BT == requestCode && BluetoothHelper.DISCOVERABILITY_BT_DURATION == resultCode) {
-            for (OnBluetoothDiscoveryListener listener : mBluetoothListeners)
-                if (listener != null)
-                    listener.onBluetoothDiscoveryEnabled();
+            BTEventBus.getInstance().post(new BTEnabledEvent());
         }
 
         if (BluetoothHelper.REQUEST_ENABLE_DISCOVERABILITY_BT == requestCode && RESULT_CANCELED == resultCode) {
-            for (OnBluetoothDiscoveryListener listener : mBluetoothListeners)
-                if (listener != null)
-                    listener.onBluetoothDiscoveryCanceled();
+            BTEventBus.getInstance().post(new BTCanceledEvent());
         }
     }
 
+    /**
+     * Loading
+     */
     public void showLoading() {
         if (mRefresh != null)
             mRefresh.setActionView(R.layout.loading_menu);
@@ -222,18 +222,36 @@ public class BTActivity extends SherlockFragmentActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Location
+     */
+    public Location getLocation() {
+        if (mGPS != null)
+            return mGPS.getLocation();
+        return null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initGPS();
+    }
+
+    private void initGPS() {
+        if ((this instanceof StudentActivity || this instanceof  ProfessorActivity)
+                && !GPSTracker.isGpsEnable(this))
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    BTEventBus.getInstance().post(new ShowEnableGPSDialogEvent());
+                }
+            }, 3000);
+    }
+
     public interface OnServiceConnectListener {
         void onServieConnected();
 
         void onServieDisconnected();
-    }
-
-    public interface OnBluetoothDiscoveryListener {
-        void onBluetoothDiscoveryEnabled();
-
-        void onBluetoothDiscovered(String address);
-
-        void onBluetoothDiscoveryCanceled();
     }
 
     public static class ActivityStack extends Application {

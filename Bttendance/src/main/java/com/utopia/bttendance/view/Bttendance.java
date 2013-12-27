@@ -12,9 +12,10 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.event.AttdEndEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
-import com.utopia.bttendance.model.BTPreference;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -24,8 +25,7 @@ public class Bttendance extends View {
     /**
      * Duration
      */
-    public static final int PROGRESS_DURATION_PROF = 300000;
-    public static final int PROGRESS_DURATION_STD = 180000;
+    public static final int PROGRESS_DURATION = 300000;
     private static final int BLINK_DURATION = 1000;
     /**
      * Dimension
@@ -299,15 +299,14 @@ public class Bttendance extends View {
         mState = state;
         switch (mState) {
             case STARTED:
-                startBttendance(100);
-                break;
+                mProgress = 100;
+            case CHECKING:
+                startBttendance(mProgress);
             case FAIL:
             case INACTIVE:
             case CHECKED:
                 endBttendance(state);
                 break;
-            case CHECKING:
-                startBttendance(progress);
             default:
                 break;
         }
@@ -320,17 +319,7 @@ public class Bttendance extends View {
         mFadeOut.start();
         mFadeOut.getTransformation(System.currentTimeMillis(), mAlphaTransformation);
         mScale = new AlphaAnimation(1f * (float) progress / 100f, 0f);
-        int duration;
-        switch (BTPreference.getUserType(getContext())) {
-            case PROFESSOR:
-                duration = PROGRESS_DURATION_PROF;
-                break;
-            case STUDENT:
-            default:
-                duration = PROGRESS_DURATION_STD;
-                break;
-        }
-        mScale.setDuration(duration * progress / 100);
+        mScale.setDuration(PROGRESS_DURATION * progress / 100);
         mScale.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -338,7 +327,7 @@ public class Bttendance extends View {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                endBttendance(STATE.FAIL);
+                BTEventBus.getInstance().post(new AttdEndEvent());
             }
 
             @Override

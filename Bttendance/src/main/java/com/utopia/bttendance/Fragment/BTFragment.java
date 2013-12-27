@@ -71,16 +71,4 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
     public void onServieDisconnected() {
 
     }
-
-    public void showLoading() {
-        Activity act = getActivity();
-        if (act != null && act instanceof BTActivity)
-            ((BTActivity) act).showLoading();
-    }
-
-    public void hideLoading() {
-        Activity act = getActivity();
-        if (act != null && act instanceof BTActivity)
-            ((BTActivity) act).hideLoading();
-    }
 }

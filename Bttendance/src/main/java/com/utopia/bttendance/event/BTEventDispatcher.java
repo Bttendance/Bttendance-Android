@@ -15,14 +15,20 @@ import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.fragment.CreateCourseFragment;
 import com.utopia.bttendance.fragment.JoinCourseFragment;
 import com.utopia.bttendance.helper.BluetoothHelper;
+import com.utopia.bttendance.helper.DateHelper;
+import com.utopia.bttendance.helper.GPSTracker;
 import com.utopia.bttendance.model.BTPreference;
+import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.BTJson;
 import com.utopia.bttendance.model.json.CourseJson;
 import com.utopia.bttendance.model.json.PostJson;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.view.BeautiToast;
+import com.utopia.bttendance.view.Bttendance;
 
 import java.lang.ref.WeakReference;
+import java.util.HashSet;
+import java.util.Set;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -45,124 +51,148 @@ public class BTEventDispatcher {
         return mBTActRef.get();
     }
 
+//    @Subscribe
+//    public void onAttendanceStart(final AttdStartEvent event) {
+//        final BTActivity act = getBTActivity();
+//        if (act == null)
+//            return;
+//
+//        String title = act.getString(R.string.attendance_check);
+//        String message = act.getString(R.string.do_you_wish_to_start_attendance_check);
+//
+//        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
+//        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+//            @Override
+//            public void onConfirmed() {
+//                final CourseJson[] course = {null};
+//                final BTActivity.OnBluetoothDiscoveryListener listener = new BTActivity.OnBluetoothDiscoveryListener() {
+//                    @Override
+//                    public void onBluetoothDiscoveryEnabled() {
+//                        act.getBTService().postAttendanceStart(event.getCourseId(), new Callback<CourseJson>() {
+//                            @Override
+//                            public void success(CourseJson courseJson, Response response) {
+//                                course[0] = courseJson;
+//                                BluetoothHelper.startDiscovery();
+//                            }
+//
+//                            @Override
+//                            public void failure(RetrofitError retrofitError) {
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onBluetoothDiscovered(String address) {
+//                        if (course[0] != null) {
+//                            int[] posts = course[0].posts;
+//                            act.getBTService().postAttendanceCheck(posts[posts.length-1], new Location(""), address, new Callback<PostJson>() {
+//                                @Override
+//                                public void success(PostJson postJson, Response response) {
+//                                    BTDebug.LogInfo(postJson.toJson());
+//                                }
+//
+//                                @Override
+//                                public void failure(RetrofitError retrofitError) {
+//                                }
+//                            });
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onBluetoothDiscoveryCanceled() {
+//                        BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
+//                    }
+//                };
+//
+//                act.addOnBluetoothDiscoveryListener(listener);
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        act.removeOnBluetoothDiscoveryListener(listener);
+//                    }
+//                }, BluetoothHelper.DISCOVERABILITY_BT_DURATION * 1000);
+//
+//                BluetoothHelper.enableWithUI();
+//                BluetoothHelper.enableDiscoverability(act);
+//            }
+//
+//            @Override
+//            public void onCanceled() {
+//                BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
+//            }
+//        });
+//        showDialog(dialog);
+//    }
+//
+//    @Subscribe
+//    public void onAttendanceStarted(AttdStartedEvent event) {
+//        final BTActivity act = getBTActivity();
+//        if (act == null || !(act instanceof StudentActivity))
+//            return;
+//
+//        String title = act.getString(R.string.attendance_check);
+//        String message = act.getString(R.string.turn_on_your_bluetooth_settings);
+//
+//        final BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
+//        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+//            @Override
+//            public void onConfirmed() {
+//            }
+//
+//            @Override
+//            public void onCanceled() {
+//                final BTActivity.OnBluetoothDiscoveryListener listener = new BTActivity.OnBluetoothDiscoveryListener() {
+//                    @Override
+//                    public void onBluetoothDiscoveryEnabled() {
+//                    }
+//
+//                    @Override
+//                    public void onBluetoothDiscovered(String address) {
+//                    }
+//
+//                    @Override
+//                    public void onBluetoothDiscoveryCanceled() {
+//                        showDialog(dialog);
+//                    }
+//                };
+//
+//                act.addOnBluetoothDiscoveryListener(listener);
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        act.removeOnBluetoothDiscoveryListener(listener);
+//                    }
+//                }, BluetoothHelper.DISCOVERABILITY_BT_DURATION * 1000);
+//
+//                BluetoothHelper.enableWithUI();
+//                BluetoothHelper.enableDiscoverability(act);
+//            }
+//        });
+//        showDialog(dialog);
+//    }
+
     @Subscribe
-    public void onAttendanceStart(final AttendanceStartEvent event) {
+    public void onShowEnableGPSDialog(ShowEnableGPSDialogEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
 
-        String title = act.getString(R.string.attendance_check);
-        String message = act.getString(R.string.do_you_wish_to_start_attendance_check);
+        String title = act.getString(R.string.turn_on_gps_title);
+        String message = act.getString(R.string.turn_on_gps_message);
 
         BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
             public void onConfirmed() {
-                final CourseJson[] course = {null};
-                final BTActivity.OnBluetoothDiscoveryListener listener = new BTActivity.OnBluetoothDiscoveryListener() {
-                    @Override
-                    public void onBluetoothDiscoveryEnabled() {
-                        act.getBTService().postAttendanceStart(event.getCourseId(), new Callback<CourseJson>() {
-                            @Override
-                            public void success(CourseJson courseJson, Response response) {
-                                course[0] = courseJson;
-                                BluetoothHelper.startDiscovery();
-                            }
-
-                            @Override
-                            public void failure(RetrofitError retrofitError) {
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onBluetoothDiscovered(String address) {
-                        if (course[0] != null) {
-                            int[] posts = course[0].posts;
-                            act.getBTService().postAttendanceCheck(posts[posts.length-1], new Location(""), address, new Callback<PostJson>() {
-                                @Override
-                                public void success(PostJson postJson, Response response) {
-                                    BTDebug.LogInfo(postJson.toJson());
-                                }
-
-                                @Override
-                                public void failure(RetrofitError retrofitError) {
-                                }
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onBluetoothDiscoveryCanceled() {
-                        BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
-                    }
-                };
-
-                act.addOnBluetoothDiscoveryListener(listener);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        act.removeOnBluetoothDiscoveryListener(listener);
-                    }
-                }, BluetoothHelper.DISCOVERABILITY_BT_DURATION * 1000);
-
-                BluetoothHelper.enableWithUI();
-                BluetoothHelper.enableDiscoverability(act);
+                GPSTracker.showLocationSettings(act);
             }
 
             @Override
             public void onCanceled() {
-                BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
             }
         });
         showDialog(dialog);
-    }
 
-    @Subscribe
-    public void onAttendanceStarted(AttendanceStartedEvent event) {
-        final BTActivity act = getBTActivity();
-        if (act == null || !(act instanceof StudentActivity))
-            return;
-
-        String title = act.getString(R.string.attendance_check);
-        String message = act.getString(R.string.turn_on_your_bluetooth_settings);
-
-        final BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
-            @Override
-            public void onConfirmed() {
-            }
-
-            @Override
-            public void onCanceled() {
-                final BTActivity.OnBluetoothDiscoveryListener listener = new BTActivity.OnBluetoothDiscoveryListener() {
-                    @Override
-                    public void onBluetoothDiscoveryEnabled() {
-                    }
-
-                    @Override
-                    public void onBluetoothDiscovered(String address) {
-                    }
-
-                    @Override
-                    public void onBluetoothDiscoveryCanceled() {
-                        showDialog(dialog);
-                    }
-                };
-
-                act.addOnBluetoothDiscoveryListener(listener);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        act.removeOnBluetoothDiscoveryListener(listener);
-                    }
-                }, BluetoothHelper.DISCOVERABILITY_BT_DURATION * 1000);
-
-                BluetoothHelper.enableWithUI();
-                BluetoothHelper.enableDiscoverability(act);
-            }
-        });
-        showDialog(dialog);
     }
 
     @Subscribe
@@ -236,7 +266,7 @@ public class BTEventDispatcher {
 
     private void addFragment(BTFragment frag) {
         final BTActivity act = getBTActivity();
-        if (act == null)
+        if (act == null || act.findViewById(R.id.content) == null)
             return;
 
         FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
@@ -252,7 +282,7 @@ public class BTEventDispatcher {
 
     private void showDialog(BTDialogFragment dialog) {
         final BTActivity act = getBTActivity();
-        if (act == null)
+        if (act == null || act.findViewById(R.id.content) == null)
             return;
 
         FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
@@ -266,4 +296,25 @@ public class BTEventDispatcher {
         ft.commit();
     }
 
+    /**
+     * Loading
+     */
+    private int mLoading = 0;
+
+    @Subscribe
+    public void onLoadingEvent(LoadingEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        if (event.getVisibility())
+            mLoading++;
+        else
+            mLoading--;
+
+        if (mLoading > 0)
+            act.showLoading();
+        else
+            act.hideLoading();
+    }
 }
