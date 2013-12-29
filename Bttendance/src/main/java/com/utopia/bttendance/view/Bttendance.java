@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 import com.squareup.otto.BTEventBus;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.event.AttdEndEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
@@ -25,7 +26,7 @@ public class Bttendance extends View {
     /**
      * Duration
      */
-    public static final int PROGRESS_DURATION = 300000;
+    public static final int PROGRESS_DURATION = 30000;
     private static final int BLINK_DURATION = 1000;
     /**
      * Dimension
@@ -302,6 +303,7 @@ public class Bttendance extends View {
                 mProgress = 100;
             case CHECKING:
                 startBttendance(mProgress);
+                break;
             case FAIL:
             case INACTIVE:
             case CHECKED:

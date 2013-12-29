@@ -50,7 +50,7 @@ public class FeedAdapter extends CursorAdapter {
         if (currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION
                 && IntArrayHelper.contains(post.checks, BTPreference.getUserId(context))) {
             long time = currentTime - DateHelper.getTime(post.createdAt);
-            int progress = (int) (100 * (Bttendance.PROGRESS_DURATION - time) / Bttendance.PROGRESS_DURATION);
+            int progress = (int) ((float)100 * ((float)Bttendance.PROGRESS_DURATION - (float)time) / (float)Bttendance.PROGRESS_DURATION);
             bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
         } else {
             bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);

@@ -265,7 +265,7 @@ public class BTEventDispatcher {
                 R.anim.slide_out_right);
         ft.add(R.id.content, frag, ((Object) frag).getClass().getSimpleName());
         ft.addToBackStack(((Object) frag).getClass().getSimpleName());
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     private void showDialog(BTDialogFragment dialog) {
@@ -281,7 +281,7 @@ public class BTEventDispatcher {
                 R.anim.fade_out_fast);
         ft.add(R.id.content, dialog, ((Object) dialog).getClass().getSimpleName());
         ft.addToBackStack(((Object) dialog).getClass().getSimpleName());
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     @Subscribe

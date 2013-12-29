@@ -1,6 +1,8 @@
 package com.utopia.bttendance.event;
 
 /**
+ * Professor Clicked Bttendance Icon to check attendance
+ *
  * Created by TheFinestArtist on 2013. 12. 8..
  */
 public class AttdStartEvent {

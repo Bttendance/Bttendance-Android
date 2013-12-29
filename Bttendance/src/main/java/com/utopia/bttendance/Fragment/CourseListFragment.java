@@ -9,10 +9,12 @@ import android.widget.ListView;
 
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.CourseListAdapter;
 import com.utopia.bttendance.event.AddCourseEvent;
 import com.utopia.bttendance.event.AttdCheckedEvent;
+import com.utopia.bttendance.event.AttdEndEvent;
 import com.utopia.bttendance.event.AttdStartedEvent;
 import com.utopia.bttendance.event.LoadingEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
@@ -99,12 +101,17 @@ public class CourseListFragment extends BTFragment {
     }
 
     @Subscribe
-    public void onAttendanceStarted(AttdStartedEvent event) {
+    public void onAttdStarted(AttdStartedEvent event) {
         getCourseList();
     }
 
     @Subscribe
-    public void onAttendanceChecked(AttdCheckedEvent event) {
+    public void onAttdChecked(AttdCheckedEvent event) {
+        getCourseList();
+    }
+
+    @Subscribe
+    public void onAttdEndEvent(AttdEndEvent event) {
         getCourseList();
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 
 /**
@@ -32,6 +33,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        BTDebug.LogError("onCreateView : " + getActivity().getSupportFragmentManager().getBackStackEntryCount());
         View view = inflater.inflate(R.layout.alert_dialog, container, false);
         Button cancel = (Button) view.findViewById(R.id.cancel);
         Button confirm = (Button) view.findViewById(R.id.confirm);
@@ -66,6 +68,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
                 if (mConfrimListener != null)
                     mConfrimListener.onConfirmed();
             case R.id.cancel:
+//                getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
                 getActivity().onBackPressed();
                 break;
         }

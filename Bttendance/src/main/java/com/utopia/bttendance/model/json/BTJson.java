@@ -26,6 +26,10 @@ public class BTJson {
         return new Gson().toJson(this);
     }
 
+    public String toString() {
+        return toJson();
+    }
+
     public JsonType getType() {
         if (this instanceof CourseJson)
             return JsonType.Course;

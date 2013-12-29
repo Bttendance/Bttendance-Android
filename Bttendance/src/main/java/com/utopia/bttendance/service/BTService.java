@@ -33,6 +33,18 @@ public class BTService extends Service {
 
     private static final String SERVER_DOMAIN = "http://www.bttendance.com";
     private static RestAdapter mRestAdapter = new RestAdapter.Builder()
+            .setLog(new RestAdapter.Log() {
+                @Override
+                public void log(String log) {
+                    if (log != null) {
+                        if (log.contains("<--- HTTP") || log.contains("---> HTTP"))
+                            BTDebug.LogQueryAPI(log);
+                        else if (log.contains("createdAt"))
+                            BTDebug.LogResponseAPI(log);
+                    }
+                }
+            })
+            .setLogLevel(RestAdapter.LogLevel.FULL)
             .setServer(SERVER_DOMAIN + "/api")
             .build();
     private BTAPI mBTAPI;
