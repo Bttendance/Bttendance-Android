@@ -10,14 +10,15 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 import com.squareup.otto.BTEventBus;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.event.LocationChangedEvent;
 
-public final class GPSTracker implements LocationListener {
+public final class GPSTracker {
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 10 meters
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 20; // 20 second
+    private static final long MIN_TIME_BW_UPDATES = 10 * 1000; // 20 second
     private final Context mContext;
     // flag for GPS status
     public boolean isGPSEnabled = false;
@@ -27,13 +28,56 @@ public final class GPSTracker implements LocationListener {
     boolean isNetworkEnabled = false;
     // flag for GPS status
     boolean canGetLocation = false;
-    Location location; // location
-    double latitude; // latitude
-    double longitude; // longitude
+    Location mLocation; // mLocation
+    double mLatitude; // mLatitude
+    double mLongitude; // mLongitude
+
+    LocationListener mNetworkListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            updateLocation(location);
+            BTDebug.LogError("location : " + mLatitude + " : " + mLongitude);
+            BTEventBus.getInstance().post(new LocationChangedEvent(location));
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+        }
+    };
+
+    LocationListener mGPSListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            updateLocation(location);
+            BTDebug.LogError("location : " + mLatitude + " : " + mLongitude);
+            BTEventBus.getInstance().post(new LocationChangedEvent(location));
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+        }
+    };
 
     public GPSTracker(Context context) {
         this.mContext = context;
-        setTracker();
+        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        updateLocation(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
     }
 
     /**
@@ -60,15 +104,90 @@ public final class GPSTracker implements LocationListener {
     }
 
     /**
-     * Function to get the user's current location
+     * Function to get the user's current mLocation
      *
      * @return
      */
-    private Location setTracker() {
-        try {
-            locationManager = (LocationManager) mContext
-                    .getSystemService(Context.LOCATION_SERVICE);
+    private void setTracker() {
+    }
 
+    private void updateLocation(Location location) {
+        if (location == null)
+            return;
+
+        if (isBetterLocation(location, mLocation)) {
+            mLocation = location;
+            mLatitude = mLocation.getLatitude();
+            mLongitude = mLocation.getLongitude();
+        }
+    }
+
+    private static final int TWO_MINUTES = 1000 * 60 * 2;
+
+    /** Determines whether one Location reading is better than the current Location fix
+     * @param location  The new Location that you want to evaluate
+     * @param currentBestLocation  The current Location fix, to which you want to compare the new one
+     */
+    protected boolean isBetterLocation(Location location, Location currentBestLocation) {
+        if (currentBestLocation == null) {
+            // A new location is always better than no location
+            return true;
+        }
+
+        // Check whether the new location fix is newer or older
+        long timeDelta = location.getTime() - currentBestLocation.getTime();
+        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
+        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
+        boolean isNewer = timeDelta > 0;
+
+        // If it's been more than two minutes since the current location, use the new location
+        // because the user has likely moved
+        if (isSignificantlyNewer) {
+            return true;
+            // If the new location is more than two minutes older, it must be worse
+        } else if (isSignificantlyOlder) {
+            return false;
+        }
+
+        // Check whether the new location fix is more or less accurate
+        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
+        boolean isLessAccurate = accuracyDelta > 0;
+        boolean isMoreAccurate = accuracyDelta < 0;
+        boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+
+        // Check if the old and new location are from the same provider
+        boolean isFromSameProvider = isSameProvider(location.getProvider(),
+                currentBestLocation.getProvider());
+
+        // Determine location quality using a combination of timeliness and accuracy
+        if (isMoreAccurate) {
+            return true;
+        } else if (isNewer && !isLessAccurate) {
+            return true;
+        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+            return true;
+        }
+        return false;
+    }
+
+    /** Checks whether two providers are the same */
+    private boolean isSameProvider(String provider1, String provider2) {
+        if (provider1 == null) {
+            return provider2 == null;
+        }
+        return provider1.equals(provider2);
+    }
+
+    public Location getLocation() {
+        return this.mLocation;
+    }
+
+    /**
+     * Start using GPS listener Calling this function will stop using GPS in your
+     * app
+     */
+    public void startUsingGPS() {
+        try {
             // getting GPS status
             isGPSEnabled = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -77,7 +196,7 @@ public final class GPSTracker implements LocationListener {
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            if (isGPSEnabled == false && isNetworkEnabled == false) {
+            if (!isGPSEnabled && !isNetworkEnabled) {
                 // no network provider is enabled
             } else {
                 this.canGetLocation = true;
@@ -85,44 +204,24 @@ public final class GPSTracker implements LocationListener {
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                    if (locationManager != null) {
-                        location = locationManager
-                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        if (location != null) {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                        }
-                    }
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES, mNetworkListener);
+
+                    updateLocation(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER));
                 }
                 // if GPS Enabled get lat/long using GPS Services
                 if (isGPSEnabled) {
-                    if (location == null) {
-                        locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER,
-                                MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                        if (locationManager != null) {
-                            location = locationManager
-                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            if (location != null) {
-                                latitude = location.getLatitude();
-                                longitude = location.getLongitude();
-                            }
-                        }
-                    }
+                    locationManager.requestLocationUpdates(
+                            LocationManager.GPS_PROVIDER,
+                            MIN_TIME_BW_UPDATES,
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES, mGPSListener);
+
+                    updateLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return location;
-    }
-
-    public Location getLocation() {
-        return this.location;
     }
 
     /**
@@ -131,32 +230,33 @@ public final class GPSTracker implements LocationListener {
      */
     public void stopUsingGPS() {
         if (locationManager != null) {
-            locationManager.removeUpdates(GPSTracker.this);
+            locationManager.removeUpdates(mNetworkListener);
+            locationManager.removeUpdates(mGPSListener);
         }
     }
 
     /**
-     * Function to get latitude
+     * Function to get mLatitude
      */
     public double getLatitude() {
-        if (location != null) {
-            latitude = location.getLatitude();
+        if (mLocation != null) {
+            mLatitude = mLocation.getLatitude();
         }
 
-        // return latitude
-        return latitude;
+        // return mLatitude
+        return mLatitude;
     }
 
     /**
-     * Function to get longitude
+     * Function to get mLongitude
      */
     public double getLongitude() {
-        if (location != null) {
-            longitude = location.getLongitude();
+        if (mLocation != null) {
+            mLongitude = mLocation.getLongitude();
         }
 
-        // return longitude
-        return longitude;
+        // return mLongitude
+        return mLongitude;
     }
 
     /**
@@ -166,26 +266,6 @@ public final class GPSTracker implements LocationListener {
      */
     public boolean canGetLocation() {
         return this.canGetLocation;
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        this.location = location;
-        this.latitude = location.getLatitude();
-        this.longitude = location.getLongitude();
-        BTEventBus.getInstance().post(new LocationChangedEvent(location));
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
 }

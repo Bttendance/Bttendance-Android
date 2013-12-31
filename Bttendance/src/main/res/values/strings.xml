@@ -39,6 +39,7 @@
     <string name="course">"Course"</string>
     <string name="profile">"Profile"</string>
     <string name="prof_">"Prof.\u0020"</string>
+    <string name="email_">"Email\u0020"</string>
     <string name="title">"Title"</string>
     <string name="number">"Number"</string>
     <string name="school">"School"</string>
@@ -52,6 +53,7 @@
     <string name="attendance_check">"Attendance check"</string>
     <string name="do_you_wish_to_start_attendance_check">"Do you wish to start attendance check?"</string>
     <string name="turn_on_your_bluetooth_settings">"Turn on your bluetooth settings"</string>
+    <string name="do_you_want_to_approve_attendance">Do you want to approve %s\'s Attendance?</string>
 
     <!--GPS Dialog-->
     <string name="turn_on_gps_title">"Improve location accuracy"</string>

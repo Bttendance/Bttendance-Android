@@ -5,15 +5,21 @@ import com.utopia.bttendance.model.json.BTJson;
 /**
  * Created by TheFinestArtist on 2013. 12. 20..
  */
-public class JoinEvent {
+public class PlusClickedEvent {
 
     private BTJson mJson;
+    private int mId;
 
-    public JoinEvent(BTJson json) {
+    public PlusClickedEvent(BTJson json, int id) {
         mJson = json;
+        mId = id;
     }
 
     public BTJson getJson() {
         return mJson;
+    }
+
+    public int getId() {
+        return mId;
     }
 }

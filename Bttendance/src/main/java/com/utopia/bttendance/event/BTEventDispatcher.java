@@ -9,6 +9,7 @@ import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.BTActivity;
 import com.utopia.bttendance.activity.ProfessorActivity;
 import com.utopia.bttendance.activity.StudentActivity;
+import com.utopia.bttendance.fragment.AttendanceListFragment;
 import com.utopia.bttendance.fragment.BTDialogFragment;
 import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.fragment.CreateCourseFragment;
@@ -133,7 +134,7 @@ public class BTEventDispatcher {
 
         Set<Integer> ids = BTTable.getCheckingPostIds();
         for (int i : ids) {
-            act.getBTService().postAttendanceCheck(i, act.getLocation(), BluetoothHelper.getMacAddress(), new Callback<PostJson>() {
+            act.getBTService().postAttendanceFoundDevice(i,  event.getMacAddress(), new Callback<PostJson>() {
                 @Override
                 public void success(PostJson postJson, Response response) {
                     BTDebug.LogInfo(postJson.toJson());
@@ -200,7 +201,22 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onJoin(JoinEvent event) {
+    public void onShowAttdList(ShowAttdListEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        switch (BTPreference.getUserType(act)) {
+            case PROFESSOR:
+                addFragment(new AttendanceListFragment(event.getCourseId()));
+                break;
+            case STUDENT:
+                break;
+        }
+    }
+
+    @Subscribe
+    public void onPlusClicked(final PlusClickedEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
@@ -219,6 +235,11 @@ public class BTEventDispatcher {
                         + course.school_name;
                 break;
             case School:
+                break;
+            case User:
+                title = act.getString(R.string.attendance_check);
+                UserJson user = (UserJson) json;
+                message = String.format(act.getString(R.string.do_you_want_to_approve_attendance), user.full_name);
                 break;
         }
 
@@ -240,6 +261,20 @@ public class BTEventDispatcher {
                         });
                         break;
                     case School:
+                        break;
+                    case User:
+                        BTDebug.LogError("postAttendanceCheckManually : " + event.getId() + " : " + json.id);
+                        act.getBTService().postAttendanceCheckManually(event.getId() ,json.id, new Callback<PostJson>() {
+                            @Override
+                            public void success(PostJson postJson, Response response) {
+                                BTEventBus.getInstance().post(new AttdCheckedManuallyEvent());
+                            }
+
+                            @Override
+                            public void failure(RetrofitError retrofitError) {
+
+                            }
+                        });
                         break;
                 }
             }

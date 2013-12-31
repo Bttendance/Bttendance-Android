@@ -26,7 +26,7 @@ public class Bttendance extends View {
     /**
      * Duration
      */
-    public static final int PROGRESS_DURATION = 30000;
+    public static final int PROGRESS_DURATION = 300000;
     private static final int BLINK_DURATION = 1000;
     /**
      * Dimension

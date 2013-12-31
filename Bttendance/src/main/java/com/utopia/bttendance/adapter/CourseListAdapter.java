@@ -12,6 +12,7 @@ import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.event.AttdStartEvent;
+import com.utopia.bttendance.event.ShowAttdListEvent;
 import com.utopia.bttendance.helper.DateHelper;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.BTTable;
@@ -36,20 +37,28 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         int course_id = cursor.getInt(0);
-        Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
         CourseJson course = BTTable.CourseTable.get(course_id);
+
+        Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
+        View selector = view.findViewById(R.id.item_selector);
+
         switch (BTPreference.getUserType(context)) {
             case PROFESSOR:
-                bttendance.setTag(R.id.course_id, course_id);
                 bttendance.setClickable(true);
-                bttendance.setOnClickListener(this);
+                selector.setClickable(true);
                 break;
             case STUDENT:
             default:
-                bttendance.setTag(R.id.course_id, course_id);
                 bttendance.setClickable(false);
+                selector.setClickable(false);
                 break;
         }
+
+        bttendance.setTag(R.id.course_id, course_id);
+        selector.setTag(R.id.course_id, course_id);
+
+        bttendance.setOnClickListener(this);
+        selector.setOnClickListener(this);
 
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
         if (course.attdCheckedAt != null && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION) {
@@ -81,6 +90,11 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
         switch (v.getId()) {
             case R.id.bttendance:
                 BTEventBus.getInstance().post(new AttdStartEvent((Integer) v.getTag(R.id.course_id)));
+                break;
+            case R.id.item_selector:
+                int course_id = (Integer) v.getTag(R.id.course_id);
+                CourseJson course = BTTable.CourseTable.get(course_id);
+                BTEventBus.getInstance().post(new ShowAttdListEvent(course.id));
                 break;
             default:
                 break;

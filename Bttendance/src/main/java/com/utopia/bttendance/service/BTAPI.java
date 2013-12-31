@@ -10,6 +10,7 @@ import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.PUT;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -120,6 +121,16 @@ public interface BTAPI {
                     @Query("page") int page,
                     Callback<PostJson[]> cb);
 
+    @POST("/course/students")
+    void courseStudents(@Query("username") String username,
+                        @Query("password") String password,
+                        @Query("course_id") int courseID,
+                        Callback<UserJson[]> cb);
+
+    @GET("/post/{id}")
+    void post(@Path("id") int postId,
+              Callback<PostJson> cb);
+
     @POST("/post/create")
     void postCreate(@Query("username") String username,
                     @Query("password") String password,
@@ -135,20 +146,27 @@ public interface BTAPI {
                              @Query("course_id") int courseID,
                              Callback<CourseJson> cb);
 
-    @PUT("/post/attendance/check")
-    void postAttendanceCheck(@Query("username") String username,
-                             @Query("password") String password,
-                             @Query("post_id") int postID,
-                             @Query("longitude") String longitude,
-                             @Query("latitude") String latitude,
-                             @Query("uuid") String uuid,
-                             Callback<PostJson> cb);
+    @PUT("/post/attendance/found/device")
+    void postAttendanceFoundDevice(@Query("username") String username,
+                                   @Query("password") String password,
+                                   @Query("post_id") int postID,
+                                   @Query("uuid") String uuid,
+                                   Callback<PostJson> cb);
 
-    @POST("/post/student/list")
-    void postStudentList(@Query("username") String username,
-                         @Query("password") String password,
-                         @Query("post_id") int postID,
-                         Callback<UserJson[]> cb);
+    @PUT("/post/attendance/current/location")
+    void postAttendanceCurrentLocation(@Query("username") String username,
+                                       @Query("password") String password,
+                                       @Query("post_id") int postID,
+                                       @Query("latitude") String latitude,
+                                       @Query("longitude") String longitude,
+                                       Callback<PostJson> cb);
+
+    @PUT("/post/attendance/check/manually")
+    void postAttendanceCheckManually(@Query("username") String username,
+                                     @Query("password") String password,
+                                     @Query("post_id") int postID,
+                                     @Query("user_id") int userId,
+                                     Callback<PostJson> cb);
 
     @GET("/serial/validate")
     void serialValidate(@Query("serial") String serial,

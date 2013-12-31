@@ -137,6 +137,7 @@ public class BTActivity extends SherlockFragmentActivity {
         super.onStart();
         BTEventBus.getInstance().register(mEventDispatcher);
         mGPS = new GPSTracker(this);
+        mGPS.startUsingGPS();
     }
 
     @Override
@@ -205,14 +206,14 @@ public class BTActivity extends SherlockFragmentActivity {
      */
     private boolean mShowLoading = false;
     public void showLoading(boolean showLoading) {
-        mShowLoading = showLoading;
+//        mShowLoading = showLoading;
 
-        if (mRefresh != null) {
-            if (mShowLoading)
-                mRefresh.setActionView(R.layout.loading_menu);
-            else
-                mRefresh.setActionView(null);
-        }
+//        if (mRefresh != null) {
+//            if (mShowLoading)
+//                mRefresh.setActionView(R.layout.loading_menu);
+//            else
+//                mRefresh.setActionView(null);
+//        }
     }
 
     @Override
@@ -236,10 +237,10 @@ public class BTActivity extends SherlockFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initGPS();
+        showGPSDialog();
     }
 
-    private void initGPS() {
+    private void showGPSDialog() {
         if ((this instanceof StudentActivity || this instanceof ProfessorActivity)
                 && !GPSTracker.isGpsEnable(this))
             new Handler().postDelayed(new Runnable() {

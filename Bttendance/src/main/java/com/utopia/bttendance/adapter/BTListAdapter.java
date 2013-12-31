@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.R;
-import com.utopia.bttendance.event.JoinEvent;
+import com.utopia.bttendance.event.PlusClickedEvent;
 import com.utopia.bttendance.helper.StringMatcher;
 import com.utopia.bttendance.model.json.BTJson;
 
@@ -62,6 +62,7 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
                     image.setOnClickListener(this);
                 }
                 image.setTag(R.id.json, i.getJson());
+                image.setTag(R.id.id, i.getId());
                 title.setText(i.getTitle());
                 message.setText(i.getMessage());
             }
@@ -117,7 +118,8 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
         switch (v.getId()) {
             case R.id.add_btn:
                 BTJson json = (BTJson) v.getTag(R.id.json);
-                BTEventBus.getInstance().post(new JoinEvent(json));
+                int id = (Integer) v.getTag(R.id.id);
+                BTEventBus.getInstance().post(new PlusClickedEvent(json, id));
                 break;
         }
     }
@@ -129,13 +131,15 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
         private String mTitle;
         private String mMessage;
         private Object mJson;
+        private int mId;
 
-        public Item(boolean isSection, boolean joined, String title, String message, Object json) {
+        public Item(boolean isSection, boolean joined, String title, String message, Object json, int id) {
             mIsSection = isSection;
             mJoined = joined;
             mTitle = title;
             mMessage = message;
             mJson = json;
+            mId = id;
         }
 
         public boolean isSection() {
@@ -156,6 +160,10 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
 
         public Object getJson() {
             return mJson;
+        }
+
+        public int getId() {
+            return mId;
         }
     }
 }

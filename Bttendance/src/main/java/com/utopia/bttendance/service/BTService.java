@@ -399,6 +399,50 @@ public class BTService extends Service {
         });
     }
 
+    public void courseStudents(final int courseId, final Callback<UserJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.courseStudents(user.username, user.password, courseId, new Callback<UserJson[]>() {
+            @Override
+            public void success(UserJson[] users, Response response) {
+                for (UserJson user : users)
+                    BTTable.UserTable.append(user.id, user);
+                CourseJson course = BTTable.CourseTable.get(courseId);
+                if (course != null)
+                    for (UserJson user : users)
+                        BTTable.getUsers(BTTable.getCourseIdFilter(course.id)).append(user.id, user);
+                if (cb != null)
+                    cb.success(users, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void post(int postId, final Callback<PostJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.post(postId, new Callback<PostJson>() {
+            @Override
+            public void success(PostJson post, Response response) {
+                BTTable.PostTable.append(post.id, post);
+                if (cb != null)
+                    cb.success(post, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+
+            }
+        });
+    }
+
     public void postCreate(String type, String title, String message, int courseID, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
@@ -407,6 +451,7 @@ public class BTService extends Service {
         mBTAPI.postCreate(user.username, user.password, type, title, message, courseID, new Callback<PostJson>() {
             @Override
             public void success(PostJson post, Response response) {
+                BTTable.PostTable.append(post.id, post);
                 if (cb != null)
                     cb.success(post, response);
             }
@@ -438,17 +483,15 @@ public class BTService extends Service {
         });
     }
 
-    public void postAttendanceCheck(int postID, Location location, String uuid, final Callback<PostJson> cb) {
+    public void postAttendanceFoundDevice(int postID, String uuid, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String longitude = "" + location.getLongitude();
-        String latitude = "" + location.getLatitude();
-
-        mBTAPI.postAttendanceCheck(user.username, user.password, postID, longitude, latitude, uuid, new Callback<PostJson>() {
+        mBTAPI.postAttendanceFoundDevice(user.username, user.password, postID, uuid, new Callback<PostJson>() {
             @Override
             public void success(PostJson post, Response response) {
+                BTTable.PostTable.append(post.id, post);
                 if (cb != null)
                     cb.success(post, response);
             }
@@ -460,22 +503,44 @@ public class BTService extends Service {
         });
     }
 
-    public void postStudentList(final int postID, final Callback<UserJson[]> cb) {
+    public void postAttendanceCurrentLocation(int postID, Location location, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.postStudentList(user.username, user.password, postID, new Callback<UserJson[]>() {
+        String latitude = "0";
+        String longitude = "0";
+        if (location != null) {
+            latitude = "" + location.getLatitude();
+            longitude = "" + location.getLongitude();
+        }
+
+        mBTAPI.postAttendanceCurrentLocation(user.username, user.password, postID, latitude, longitude, new Callback<PostJson>() {
             @Override
-            public void success(UserJson[] users, Response response) {
-                for (UserJson user : users)
-                    BTTable.UserTable.append(user.id, user);
-                PostJson post = BTTable.PostTable.get(postID);
-                if (post != null)
-                    for (UserJson user : users)
-                        BTTable.getUsers(BTTable.getCourseIdFilter(post.course)).append(user.id, user);
+            public void success(PostJson post, Response response) {
+                BTTable.PostTable.append(post.id, post);
                 if (cb != null)
-                    cb.success(users, response);
+                    cb.success(post, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void postAttendanceCheckManually(int postID, int userID, final Callback<PostJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.postAttendanceCheckManually(user.username, user.password, postID, userID, new Callback<PostJson>() {
+            @Override
+            public void success(PostJson post, Response response) {
+                BTTable.PostTable.append(post.id, post);
+                if (cb != null)
+                    cb.success(post, response);
             }
 
             @Override

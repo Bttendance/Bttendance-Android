@@ -12,6 +12,7 @@
     android:paddingTop="7dp">
 
     <View
+        android:id="@+id/item_selector"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bt_list_item_background"
@@ -36,6 +37,8 @@
         android:layout_marginLeft="13dp"
         android:layout_marginRight="81dp"
         android:layout_marginTop="18dp"
+        android:clickable="false"
+        android:focusable="false"
         android:textStyle="bold" />
 
     <TextView
@@ -48,6 +51,8 @@
         android:layout_marginLeft="13dp"
         android:layout_marginRight="81dp"
         android:layout_marginTop="38dp"
-        android:background="@null" />
+        android:background="@null"
+        android:clickable="false"
+        android:focusable="false" />
 
 </RelativeLayout>

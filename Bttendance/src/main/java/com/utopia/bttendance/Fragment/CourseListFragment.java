@@ -9,7 +9,6 @@ import android.widget.ListView;
 
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.CourseListAdapter;
 import com.utopia.bttendance.event.AddCourseEvent;

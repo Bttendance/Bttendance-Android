@@ -47,13 +47,17 @@ public class FeedAdapter extends CursorAdapter {
 
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
 
-        if (currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION
-                && IntArrayHelper.contains(post.checks, BTPreference.getUserId(context))) {
+        boolean mTime = currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION;
+        boolean included = IntArrayHelper.contains(post.checks, BTPreference.getUserId(context));
+
+        if (mTime && !included) {
             long time = currentTime - DateHelper.getTime(post.createdAt);
             int progress = (int) ((float)100 * ((float)Bttendance.PROGRESS_DURATION - (float)time) / (float)Bttendance.PROGRESS_DURATION);
             bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
-        } else {
+        } else if (mTime || included) {
             bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
+        } else {
+            bttendance.setBttendance(Bttendance.STATE.FAIL, 0);
         }
 
         TextView title = (TextView) view.findViewById(R.id.title);

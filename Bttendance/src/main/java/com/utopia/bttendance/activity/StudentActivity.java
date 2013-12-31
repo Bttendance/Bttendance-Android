@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.squareup.otto.BTEventBus;
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.BTPagerAdapter;
 import com.utopia.bttendance.event.ShowEnableGPSDialogEvent;
