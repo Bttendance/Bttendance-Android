@@ -13,7 +13,7 @@ public class BluetoothHelper {
 
     public static final int REQUEST_ENABLE_BT = 21;
     public static final int REQUEST_ENABLE_DISCOVERABILITY_BT = 22;
-    public static final int DISCOVERABILITY_BT_DURATION = 600;
+    public static final int DISCOVERABILITY_BT_DURATION = 0;
     public static BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     public static boolean isAvailable() {
@@ -48,6 +48,20 @@ public class BluetoothHelper {
         if (mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.disable();
         }
+    }
+
+    public static boolean isDiscoverable() {
+        if (!isAvailable())
+            return false;
+
+        return mBluetoothAdapter.getScanMode() == BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE;
+    }
+
+    public static int getScanMode() {
+        if (!isAvailable())
+            return -1;
+
+        return mBluetoothAdapter.getScanMode();
     }
 
     public static void enableDiscoverability(Activity activity) {

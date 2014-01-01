@@ -10,15 +10,15 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 import com.squareup.otto.BTEventBus;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.event.LocationChangedEvent;
 
 public final class GPSTracker {
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 10 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 1 meters
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 10 * 1000; // 20 second
+    private static final long MIN_TIME_BW_UPDATES = 20 * 1000; // 10 second
+    private static final int TWO_MINUTES = 1000 * 60 * 2;
     private final Context mContext;
     // flag for GPS status
     public boolean isGPSEnabled = false;
@@ -31,12 +31,10 @@ public final class GPSTracker {
     Location mLocation; // mLocation
     double mLatitude; // mLatitude
     double mLongitude; // mLongitude
-
     LocationListener mNetworkListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
             updateLocation(location);
-            BTDebug.LogError("location : " + mLatitude + " : " + mLongitude);
             BTEventBus.getInstance().post(new LocationChangedEvent(location));
         }
 
@@ -52,12 +50,10 @@ public final class GPSTracker {
         public void onProviderDisabled(String provider) {
         }
     };
-
     LocationListener mGPSListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
             updateLocation(location);
-            BTDebug.LogError("location : " + mLatitude + " : " + mLongitude);
             BTEventBus.getInstance().post(new LocationChangedEvent(location));
         }
 
@@ -122,11 +118,11 @@ public final class GPSTracker {
         }
     }
 
-    private static final int TWO_MINUTES = 1000 * 60 * 2;
-
-    /** Determines whether one Location reading is better than the current Location fix
-     * @param location  The new Location that you want to evaluate
-     * @param currentBestLocation  The current Location fix, to which you want to compare the new one
+    /**
+     * Determines whether one Location reading is better than the current Location fix
+     *
+     * @param location            The new Location that you want to evaluate
+     * @param currentBestLocation The current Location fix, to which you want to compare the new one
      */
     protected boolean isBetterLocation(Location location, Location currentBestLocation) {
         if (currentBestLocation == null) {
@@ -170,7 +166,9 @@ public final class GPSTracker {
         return false;
     }
 
-    /** Checks whether two providers are the same */
+    /**
+     * Checks whether two providers are the same
+     */
     private boolean isSameProvider(String provider1, String provider2) {
         if (provider1 == null) {
             return provider2 == null;

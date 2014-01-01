@@ -321,7 +321,12 @@ public class Bttendance extends View {
         mFadeOut.start();
         mFadeOut.getTransformation(System.currentTimeMillis(), mAlphaTransformation);
         mScale = new AlphaAnimation(1f * (float) progress / 100f, 0f);
-        mScale.setDuration(PROGRESS_DURATION * progress / 100);
+
+        if (progress > 0)
+            mScale.setDuration(PROGRESS_DURATION * progress / 100);
+        else
+            mScale.setDuration(0);
+
         mScale.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

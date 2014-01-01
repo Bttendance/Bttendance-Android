@@ -41,6 +41,8 @@ public class BTTable {
     private static HashMap<String, SparseArray<CourseJson>> mCourse = new HashMap<String, SparseArray<CourseJson>>();
     // filter: "total_post", "course_id"
     private static HashMap<String, SparseArray<PostJson>> mPost = new HashMap<String, SparseArray<PostJson>>();
+    // Found UUID list
+    public static Set<String> UUIDLIST = new HashSet<String>();
 
     public static synchronized SparseArray<UserJson> getUsers(String filter) {
         SparseArray<UserJson> users = mUser.get(filter);

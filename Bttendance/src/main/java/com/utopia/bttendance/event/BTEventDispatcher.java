@@ -67,8 +67,21 @@ public class BTEventDispatcher {
             @Override
             public void onConfirmed() {
                 BTTable.ATTENDANCE_STARTING_COURSE = event.getCourseId();
-                BluetoothHelper.enableWithUI();
-                BluetoothHelper.enableDiscoverability(act);
+                if (!BluetoothHelper.isDiscoverable()) {
+                    BluetoothHelper.enableWithUI();
+                    BluetoothHelper.enableDiscoverability(act);
+                } else {
+                    act.getBTService().postAttendanceStart(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<CourseJson>() {
+                        @Override
+                        public void success(CourseJson courseJson, Response response) {
+                            act.getBTService().attendanceStart();
+                        }
+
+                        @Override
+                        public void failure(RetrofitError retrofitError) {
+                        }
+                    });
+                }
             }
 
             @Override
@@ -76,7 +89,7 @@ public class BTEventDispatcher {
                 BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
             }
         });
-        showDialog(dialog);
+        showDialog(dialog, "start");
     }
 
     // Student attendance started
@@ -86,6 +99,14 @@ public class BTEventDispatcher {
         if (act == null || !(act instanceof StudentActivity))
             return;
 
+        if (act.getSupportFragmentManager().findFragmentByTag("started") != null)
+            return;
+
+        if (BluetoothHelper.isDiscoverable()) {
+            act.getBTService().attendanceStart();
+            return;
+        }
+
         String title = act.getString(R.string.attendance_check);
         String message = act.getString(R.string.turn_on_your_bluetooth_settings);
 
@@ -93,19 +114,49 @@ public class BTEventDispatcher {
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
             public void onConfirmed() {
-                BluetoothHelper.enableWithUI();
-                BluetoothHelper.enableDiscoverability(act);
+                if (!BluetoothHelper.isDiscoverable()) {
+                    BluetoothHelper.enableWithUI();
+                    BluetoothHelper.enableDiscoverability(act);
+                } else {
+                    act.getBTService().attendanceStart();
+                }
             }
 
             @Override
             public void onCanceled() {
             }
         });
-        showDialog(dialog);
+        showDialog(dialog, "started");
+    }
+
+    // Student attendance checked
+    @Subscribe
+    public void onAttendanceChecked(AttdCheckedEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null || !(act instanceof StudentActivity))
+            return;
+
+        if (act.getSupportFragmentManager().findFragmentByTag("checked") != null)
+            return;
+
+        String title = act.getString(R.string.attendance_check);
+        String message = String.format(act.getString(R.string.attendance_has_been_checked), event.getTitle());
+
+        final BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
+        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+            @Override
+            public void onConfirmed() {
+            }
+
+            @Override
+            public void onCanceled() {
+            }
+        });
+        showDialog(dialog, "checked");
     }
 
     @Subscribe
-    public void onBTEnabledEvent(BTEnabledEvent event) {
+    public void onBTEnabled(BTEnabledEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
@@ -114,7 +165,7 @@ public class BTEventDispatcher {
             act.getBTService().postAttendanceStart(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<CourseJson>() {
                 @Override
                 public void success(CourseJson courseJson, Response response) {
-                    BluetoothHelper.startDiscovery();
+                    act.getBTService().attendanceStart();
                 }
 
                 @Override
@@ -122,33 +173,20 @@ public class BTEventDispatcher {
                 }
             });
         } else if (act instanceof StudentActivity) {
-            BluetoothHelper.startDiscovery();
+            act.getBTService().attendanceStart();
         }
     }
 
     @Subscribe
-    public void onBTDiscoveredEvent(BTDiscoveredEvent event) {
+    public void onBTDiscovered(BTDiscoveredEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
-
-        Set<Integer> ids = BTTable.getCheckingPostIds();
-        for (int i : ids) {
-            act.getBTService().postAttendanceFoundDevice(i,  event.getMacAddress(), new Callback<PostJson>() {
-                @Override
-                public void success(PostJson postJson, Response response) {
-                    BTDebug.LogInfo(postJson.toJson());
-                }
-
-                @Override
-                public void failure(RetrofitError retrofitError) {
-                }
-            });
-        }
+        BTTable.UUIDLIST.add(event.getMacAddress());
     }
 
     @Subscribe
-    public void onBTCanceledEvent(BTCanceledEvent event) {
+    public void onBTCanceled(BTCanceledEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
@@ -157,6 +195,28 @@ public class BTEventDispatcher {
             BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
         } else if (act instanceof StudentActivity) {
             onAttendanceStarted(new AttdStartedEvent());
+        }
+    }
+
+    @Subscribe
+    public void onLocationChanged(LocationChangedEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        Set<Integer> ids = BTTable.getCheckingPostIds();
+        for (int i : ids) {
+            act.getBTService().postAttendanceCurrentLocation(i, event.getLocation(), new Callback<PostJson>() {
+                @Override
+                public void success(PostJson postJson, Response response) {
+                    BTDebug.LogInfo(postJson.toJson());
+                }
+
+                @Override
+                public void failure(RetrofitError retrofitError) {
+
+                }
+            });
         }
     }
 
@@ -180,8 +240,7 @@ public class BTEventDispatcher {
             public void onCanceled() {
             }
         });
-        showDialog(dialog);
-
+        showDialog(dialog, "gps");
     }
 
     @Subscribe
@@ -264,7 +323,7 @@ public class BTEventDispatcher {
                         break;
                     case User:
                         BTDebug.LogError("postAttendanceCheckManually : " + event.getId() + " : " + json.id);
-                        act.getBTService().postAttendanceCheckManually(event.getId() ,json.id, new Callback<PostJson>() {
+                        act.getBTService().postAttendanceCheckManually(event.getId(), json.id, new Callback<PostJson>() {
                             @Override
                             public void success(PostJson postJson, Response response) {
                                 BTEventBus.getInstance().post(new AttdCheckedManuallyEvent());
@@ -272,7 +331,6 @@ public class BTEventDispatcher {
 
                             @Override
                             public void failure(RetrofitError retrofitError) {
-
                             }
                         });
                         break;
@@ -284,7 +342,7 @@ public class BTEventDispatcher {
 
             }
         });
-        showDialog(dialog);
+        showDialog(dialog, "plus");
     }
 
     private void addFragment(BTFragment frag) {
@@ -303,7 +361,7 @@ public class BTEventDispatcher {
         ft.commitAllowingStateLoss();
     }
 
-    private void showDialog(BTDialogFragment dialog) {
+    private void showDialog(BTDialogFragment dialog, String name) {
         final BTActivity act = getBTActivity();
         if (act == null || act.findViewById(R.id.content) == null)
             return;
@@ -314,22 +372,8 @@ public class BTEventDispatcher {
                 R.anim.fade_out_fast,
                 R.anim.fade_in_fast,
                 R.anim.fade_out_fast);
-        ft.add(R.id.content, dialog, ((Object) dialog).getClass().getSimpleName());
-        ft.addToBackStack(((Object) dialog).getClass().getSimpleName());
+        ft.add(R.id.content, dialog, name);
+        ft.addToBackStack(name);
         ft.commitAllowingStateLoss();
-    }
-
-    @Subscribe
-    public void onLoadingEvent(LoadingEvent event) {
-        final BTActivity act = getBTActivity();
-        if (act == null)
-            return;
-
-        if (event.getVisibility())
-            mLoading++;
-        else
-            mLoading--;
-
-        act.showLoading(mLoading > 0);
     }
 }

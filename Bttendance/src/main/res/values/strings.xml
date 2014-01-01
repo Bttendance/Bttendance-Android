@@ -50,6 +50,7 @@
     <string name="ok">"OK"</string>
     <string name="on_the_anvil">"On the anvil"</string>
     <string name="attendance_check_has_been_canceled">"Attendance check has been canceled"</string>
+    <string name="attendance_has_been_checked">"%s attendance has been checked"</string>
     <string name="attendance_check">"Attendance check"</string>
     <string name="do_you_wish_to_start_attendance_check">"Do you wish to start attendance check?"</string>
     <string name="turn_on_your_bluetooth_settings">"Turn on your bluetooth settings"</string>

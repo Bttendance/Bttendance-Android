@@ -1,6 +1,7 @@
 package com.utopia.bttendance.service;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -60,12 +61,15 @@ public class GcmIntentService extends IntentService {
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 BTDebug.LogInfo("Notification Received: " + extras.toString());
-                sendNotification(extras.getString(TITLE), extras.getString(MESSAGE));
 
-                if (ATTENDANCE_STARTED.equals(extras.getString(TYPE)))
+                if (ATTENDANCE_STARTED.equals(extras.getString(TYPE))) {
                     BTEventBus.getInstance().post(new AttdStartedEvent());
-                else if (ATTENDANCE_CHECKED.equals(extras.getString(TYPE)))
-                    BTEventBus.getInstance().post(new AttdCheckedEvent());
+                    sendNotification(extras.getString(TITLE), extras.getString(MESSAGE), true);
+                } else if (ATTENDANCE_CHECKED.equals(extras.getString(TYPE))) {
+                    BTEventBus.getInstance().post(new AttdCheckedEvent(extras.getString(TITLE)));
+                    sendNotification(extras.getString(TITLE), extras.getString(MESSAGE), false);
+                } else
+                    sendNotification(extras.getString(TITLE), extras.getString(MESSAGE), true);
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
@@ -75,14 +79,10 @@ public class GcmIntentService extends IntentService {
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String title, String message) {
+    private void sendNotification(String title, String message, boolean alert) {
 
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-
-        builder.setVibrate(new long[]{
-                0, 200, 200, 200
-        });
 
         builder.setTicker(message);
         builder.setContentText(message);
@@ -113,6 +113,13 @@ public class GcmIntentService extends IntentService {
         }
 
         builder.setContentIntent(pending);
-        nm.notify(NOTIFICATION_ID, builder.build());
+
+        Notification noti = builder.build();
+        if (alert) {
+            noti.defaults |= Notification.DEFAULT_VIBRATE;
+            noti.defaults |= Notification.DEFAULT_SOUND;
+            noti.defaults |= Notification.DEFAULT_LIGHTS;
+        }
+        nm.notify(NOTIFICATION_ID, noti);
     }
 }

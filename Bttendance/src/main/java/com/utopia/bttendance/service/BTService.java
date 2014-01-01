@@ -10,7 +10,11 @@ import android.net.NetworkInfo;
 import android.os.Binder;
 import android.os.IBinder;
 
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
+import com.utopia.bttendance.event.LocationChangedEvent;
+import com.utopia.bttendance.helper.BluetoothHelper;
+import com.utopia.bttendance.helper.GPSTracker;
 import com.utopia.bttendance.model.BTPreference;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
@@ -20,6 +24,9 @@ import com.utopia.bttendance.model.json.SchoolJson;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.model.json.ValidationJson;
 import com.utopia.bttendance.view.BeautiToast;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -50,6 +57,8 @@ public class BTService extends Service {
     private BTAPI mBTAPI;
     private ConnectivityManager mConnectivityManager;
     private LocalBinder mBinder = new LocalBinder();
+    private GPSTracker mGPS;
+    private Thread mAttendanceThread;
 
     public static void bind(Context context, ServiceConnection connection) {
         Intent intent = new Intent(context, BTService.class);
@@ -65,6 +74,7 @@ public class BTService extends Service {
         super.onCreate();
         mConnectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         mBTAPI = mRestAdapter.create(BTAPI.class);
+        mGPS = new GPSTracker(this);
     }
 
     @Override
@@ -75,6 +85,57 @@ public class BTService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
+    }
+
+    public void attendanceStart() {
+        if (mGPS != null)
+            mGPS.startUsingGPS();
+
+        BTEventBus.getInstance().post(new LocationChangedEvent(mGPS.getLocation()));
+
+        if (mAttendanceThread != null) {
+            mAttendanceThread.interrupt();
+            mAttendanceThread = null;
+        }
+
+        mAttendanceThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < 30; i++) {
+                        BluetoothHelper.startDiscovery();
+                        Thread.sleep(10000);
+                        if (i % 3 == 0) {
+                            Set<Integer> ids = BTTable.getCheckingPostIds();
+                            for (int id : ids) {
+                                for (String mac : BTTable.UUIDLIST) {
+                                    postAttendanceFoundDevice(id, mac, new Callback<PostJson>() {
+                                        @Override
+                                        public void success(PostJson postJson, Response response) {
+                                            BTDebug.LogInfo(postJson.toJson());
+                                        }
+
+                                        @Override
+                                        public void failure(RetrofitError retrofitError) {
+                                        }
+                                    });
+                                }
+                            }
+                            BTTable.UUIDLIST = new HashSet<String>();
+                        }
+                    }
+                    attendanceStop();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        mAttendanceThread.start();
+    }
+
+    public void attendanceStop() {
+        if (mGPS != null)
+            mGPS.stopUsingGPS();
     }
 
     public void signin(String username, String password, String uuid, final Callback<UserJson> cb) {

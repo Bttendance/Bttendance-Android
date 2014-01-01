@@ -6,14 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.FeedAdapter;
 import com.utopia.bttendance.event.AttdCheckedEvent;
 import com.utopia.bttendance.event.AttdEndEvent;
 import com.utopia.bttendance.event.AttdStartedEvent;
-import com.utopia.bttendance.event.LoadingEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.PostCursor;
@@ -54,17 +52,14 @@ public class FeedFragment extends BTFragment {
         if (getBTService() == null)
             return;
 
-        BTEventBus.getInstance().post(new LoadingEvent(true));
         getBTService().feed(0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
                 mAdapter.swapCursor(new PostCursor(BTTable.FILTER_TOTAL_POST));
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
         });
     }

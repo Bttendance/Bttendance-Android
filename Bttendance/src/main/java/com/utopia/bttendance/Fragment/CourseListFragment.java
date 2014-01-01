@@ -15,7 +15,6 @@ import com.utopia.bttendance.event.AddCourseEvent;
 import com.utopia.bttendance.event.AttdCheckedEvent;
 import com.utopia.bttendance.event.AttdEndEvent;
 import com.utopia.bttendance.event.AttdStartedEvent;
-import com.utopia.bttendance.event.LoadingEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.cursor.CourseCursor;
@@ -67,17 +66,14 @@ public class CourseListFragment extends BTFragment {
         if (getBTService() == null)
             return;
 
-        BTEventBus.getInstance().post(new LoadingEvent(true));
         getBTService().courses(new Callback<CourseJson[]>() {
             @Override
             public void success(CourseJson[] courses, Response response) {
                 mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
         });
     }

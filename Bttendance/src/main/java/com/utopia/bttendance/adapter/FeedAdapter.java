@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.event.AttdStartedEvent;
 import com.utopia.bttendance.helper.DateHelper;
 import com.utopia.bttendance.helper.IntArrayHelper;
 import com.utopia.bttendance.model.BTPreference;
@@ -54,6 +56,7 @@ public class FeedAdapter extends CursorAdapter {
             long time = currentTime - DateHelper.getTime(post.createdAt);
             int progress = (int) ((float)100 * ((float)Bttendance.PROGRESS_DURATION - (float)time) / (float)Bttendance.PROGRESS_DURATION);
             bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+            BTEventBus.getInstance().post(new AttdStartedEvent());
         } else if (mTime || included) {
             bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
         } else {

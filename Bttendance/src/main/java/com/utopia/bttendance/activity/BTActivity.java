@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.otto.BTEventBus;
@@ -74,7 +75,6 @@ public class BTActivity extends SherlockFragmentActivity {
     private BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
     private MenuItem mRefresh;
-    private GPSTracker mGPS;
 
     public void addOnServiceConnectListener(OnServiceConnectListener listener) {
         mServiceListeners.add(listener);
@@ -136,15 +136,16 @@ public class BTActivity extends SherlockFragmentActivity {
     protected void onStart() {
         super.onStart();
         BTEventBus.getInstance().register(mEventDispatcher);
-        mGPS = new GPSTracker(this);
-        mGPS.startUsingGPS();
+        EasyTracker.getInstance().activityStart(this);
+
+        BTDebug.LogError("ScanMode : " + BluetoothHelper.getScanMode());
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         BTEventBus.getInstance().unregister(mEventDispatcher);
-        mGPS.stopUsingGPS();
+        EasyTracker.getInstance().activityStop(this);
     }
 
     public Intent getNextIntent() {
@@ -192,46 +193,20 @@ public class BTActivity extends SherlockFragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (BluetoothHelper.REQUEST_ENABLE_DISCOVERABILITY_BT == requestCode && BluetoothHelper.DISCOVERABILITY_BT_DURATION == resultCode) {
-            BTEventBus.getInstance().post(new BTEnabledEvent());
+        if (BluetoothHelper.REQUEST_ENABLE_DISCOVERABILITY_BT == requestCode) {
+            if (RESULT_CANCELED == resultCode)
+                BTEventBus.getInstance().post(new BTCanceledEvent());
+            else
+                BTEventBus.getInstance().post(new BTEnabledEvent());
         }
-
-        if (BluetoothHelper.REQUEST_ENABLE_DISCOVERABILITY_BT == requestCode && RESULT_CANCELED == resultCode) {
-            BTEventBus.getInstance().post(new BTCanceledEvent());
-        }
-    }
-
-    /**
-     * Loading
-     */
-    private boolean mShowLoading = false;
-    public void showLoading(boolean showLoading) {
-//        mShowLoading = showLoading;
-
-//        if (mRefresh != null) {
-//            if (mShowLoading)
-//                mRefresh.setActionView(R.layout.loading_menu);
-//            else
-//                mRefresh.setActionView(null);
-//        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getSupportMenuInflater().inflate(R.menu.options_menu, menu);
         mRefresh = menu.findItem(R.id.refresh_option_item);
-        if (mShowLoading)
-            mRefresh.setActionView(R.layout.loading_menu);
+//        mRefresh.setActionView(R.layout.loading_menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    /**
-     * Location
-     */
-    public Location getLocation() {
-        if (mGPS != null)
-            return mGPS.getLocation();
-        return null;
     }
 
     @Override
