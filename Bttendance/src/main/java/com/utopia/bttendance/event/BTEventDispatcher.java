@@ -204,20 +204,20 @@ public class BTEventDispatcher {
         if (act == null)
             return;
 
-        Set<Integer> ids = BTTable.getCheckingPostIds();
-        for (int i : ids) {
-            act.getBTService().postAttendanceCurrentLocation(i, event.getLocation(), new Callback<PostJson>() {
-                @Override
-                public void success(PostJson postJson, Response response) {
-                    BTDebug.LogInfo(postJson.toJson());
-                }
-
-                @Override
-                public void failure(RetrofitError retrofitError) {
-
-                }
-            });
-        }
+//        Set<Integer> ids = BTTable.getCheckingPostIds();
+//        for (int i : ids) {
+//            act.getBTService().postAttendanceCurrentLocation(i, event.getLocation(), new Callback<PostJson>() {
+//                @Override
+//                public void success(PostJson postJson, Response response) {
+//                    BTDebug.LogInfo(postJson.toJson());
+//                }
+//
+//                @Override
+//                public void failure(RetrofitError retrofitError) {
+//
+//                }
+//            });
+//        }
     }
 
     @Subscribe

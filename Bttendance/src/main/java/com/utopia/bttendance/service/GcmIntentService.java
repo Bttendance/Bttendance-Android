@@ -88,7 +88,7 @@ public class GcmIntentService extends IntentService {
         builder.setContentText(message);
         builder.setContentTitle(title);
         builder.setAutoCancel(true);
-        builder.setOnlyAlertOnce(true);
+        builder.setOnlyAlertOnce(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             builder.setSmallIcon(R.drawable.ic_status_bar_ver2);

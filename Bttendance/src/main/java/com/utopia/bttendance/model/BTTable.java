@@ -43,6 +43,7 @@ public class BTTable {
     private static HashMap<String, SparseArray<PostJson>> mPost = new HashMap<String, SparseArray<PostJson>>();
     // Found UUID list
     public static Set<String> UUIDLIST = new HashSet<String>();
+    public static Set<String> UUIDLISTSENDED = new HashSet<String>();
 
     public static synchronized SparseArray<UserJson> getUsers(String filter) {
         SparseArray<UserJson> users = mUser.get(filter);
