@@ -25,7 +25,6 @@ import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.model.json.ValidationJson;
 import com.utopia.bttendance.view.BeautiToast;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -106,27 +105,25 @@ public class BTService extends Service {
                     for (int i = 0; i < 30; i++) {
                         BluetoothHelper.startDiscovery();
                         Thread.sleep(10000);
-                        if (i % 3 == 1) {
-                            Set<Integer> ids = BTTable.getCheckingPostIds();
-                            for (int id : ids) {
-                                for (String mac : BTTable.UUIDLIST) {
-                                    if (!BTTable.UUIDLISTSENDED.contains(mac)) {
-                                        postAttendanceFoundDevice(id, mac, new Callback<PostJson>() {
-                                            @Override
-                                            public void success(PostJson postJson, Response response) {
-                                                BTDebug.LogInfo(postJson.toJson());
-                                            }
+                        Set<Integer> ids = BTTable.getCheckingPostIds();
+                        for (int id : ids) {
+                            for (String mac : BTTable.UUIDLIST) {
+                                if (!BTTable.UUIDLISTSENDED.contains(mac)) {
+                                    postAttendanceFoundDevice(id, mac, new Callback<PostJson>() {
+                                        @Override
+                                        public void success(PostJson postJson, Response response) {
+                                            BTDebug.LogInfo(postJson.toJson());
+                                        }
 
-                                            @Override
-                                            public void failure(RetrofitError retrofitError) {
-                                            }
-                                        });
-                                    }
+                                        @Override
+                                        public void failure(RetrofitError retrofitError) {
+                                        }
+                                    });
                                 }
                             }
-                            BTTable.UUIDLISTSENDED.addAll(BTTable.UUIDLIST);
-                            BTTable.UUIDLIST = new HashSet<String>();
                         }
+                        BTTable.UUIDLISTSENDED.addAll(BTTable.UUIDLIST);
+                        BTTable.UUIDLIST = new HashSet<String>();
                     }
                     BTTable.UUIDLISTSENDED = new HashSet<String>();
                     attendanceStop();
