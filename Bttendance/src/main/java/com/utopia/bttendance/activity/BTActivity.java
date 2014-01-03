@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -75,6 +74,7 @@ public class BTActivity extends SherlockFragmentActivity {
     private BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
     private MenuItem mRefresh;
+    private boolean mShowLoading = false;
 
     public void addOnServiceConnectListener(OnServiceConnectListener listener) {
         mServiceListeners.add(listener);
@@ -201,11 +201,27 @@ public class BTActivity extends SherlockFragmentActivity {
         }
     }
 
+    public void showLoading(boolean showLoading) {
+        mShowLoading = showLoading;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mRefresh != null) {
+                    if (mShowLoading)
+                        mRefresh.setActionView(R.layout.loading_menu);
+                    else
+                        mRefresh.setActionView(null);
+                }
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getSupportMenuInflater().inflate(R.menu.options_menu, menu);
         mRefresh = menu.findItem(R.id.refresh_option_item);
-//        mRefresh.setActionView(R.layout.loading_menu);
+        if (mShowLoading)
+            mRefresh.setActionView(R.layout.loading_menu);
         return super.onCreateOptionsMenu(menu);
     }
 

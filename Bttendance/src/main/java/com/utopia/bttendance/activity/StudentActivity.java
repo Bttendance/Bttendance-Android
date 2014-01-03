@@ -7,11 +7,8 @@ import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
-import com.squareup.otto.BTEventBus;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.BTPagerAdapter;
-import com.utopia.bttendance.event.ShowEnableGPSDialogEvent;
 import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.helper.DipPixelHelper;
 import com.utopia.bttendance.model.json.UserJson;
@@ -59,8 +56,9 @@ public class StudentActivity extends BTActivity {
 
             @Override
             public void onPageSelected(int i) {
-                updateActionBar(i);
+                setActionBarTitle(i);
                 fragmentResume(i);
+                mPagerAdapter.setPosition(i);
             }
 
             @Override
@@ -69,7 +67,7 @@ public class StudentActivity extends BTActivity {
         });
     }
 
-    private void updateActionBar(int position) {
+    private void setActionBarTitle(int position) {
         switch (position) {
             case 0:
                 getSupportActionBar().setTitle(getString(R.string.feed));
@@ -108,7 +106,7 @@ public class StudentActivity extends BTActivity {
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getString(R.string.app_name));
+        setActionBarTitle(mPagerAdapter.getPosition());
         return super.onCreateOptionsMenu(menu);
     }
 

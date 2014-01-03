@@ -14,4 +14,5 @@
 
     <item name="json" type="id" />
     <item name="id" type="id" />
+    <item name="checking" type="id" />
 </resources>

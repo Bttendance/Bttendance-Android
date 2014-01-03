@@ -25,7 +25,6 @@ import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.view.BeautiToast;
 
 import java.lang.ref.WeakReference;
-import java.util.Set;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -90,6 +89,29 @@ public class BTEventDispatcher {
             }
         });
         showDialog(dialog, "start");
+    }
+
+    // Professor start attendance
+    @Subscribe
+    public void onAttendanceOnGoing(final AttdOnGoingEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        String title = act.getString(R.string.attendance_check);
+        String message = act.getString(R.string.attendance_checking_is_on_going);
+
+        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
+        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+            @Override
+            public void onConfirmed() {
+            }
+
+            @Override
+            public void onCanceled() {
+            }
+        });
+        showDialog(dialog, "on going");
     }
 
     // Student attendance started
@@ -343,6 +365,20 @@ public class BTEventDispatcher {
             }
         });
         showDialog(dialog, "plus");
+    }
+
+    @Subscribe
+    public void onLoadingEvent(LoadingEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        if (event.getVisibility())
+            mLoading++;
+        else
+            mLoading--;
+
+        act.showLoading(mLoading > 0);
     }
 
     private void addFragment(BTFragment frag) {

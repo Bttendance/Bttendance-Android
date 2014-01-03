@@ -12,6 +12,7 @@ import android.os.IBinder;
 
 import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
+import com.utopia.bttendance.event.AttdEndEvent;
 import com.utopia.bttendance.event.LocationChangedEvent;
 import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.helper.GPSTracker;
@@ -140,6 +141,7 @@ public class BTService extends Service {
         if (mAttendanceThread != null)
             mAttendanceThread.interrupt();
         mAttendanceThread = null;
+        BTEventBus.getInstance().post(new AttdEndEvent());
     }
 
     public void signin(String username, String password, String uuid, final Callback<UserJson> cb) {
@@ -389,7 +391,7 @@ public class BTService extends Service {
                 for (PostJson post : posts)
                     BTTable.PostTable.append(post.id, post);
                 for (PostJson post : posts)
-                    BTTable.getPosts(BTTable.FILTER_TOTAL_POST).append(post.id, post);
+                    BTTable.getPosts(BTTable.FILTER_MY_POST).append(post.id, post);
                 if (cb != null)
                     cb.success(posts, response);
             }

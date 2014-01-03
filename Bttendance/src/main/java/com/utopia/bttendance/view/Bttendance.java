@@ -12,9 +12,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
-import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.R;
-import com.utopia.bttendance.event.AttdEndEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
 
 /**
@@ -48,6 +46,7 @@ public class Bttendance extends View {
     private float mMargin;
     private STATE mState;
     private int mProgress;
+    private STATE mEndState = STATE.FAIL;
     /**
      * Bitmap
      */
@@ -306,6 +305,7 @@ public class Bttendance extends View {
             case FAIL:
             case INACTIVE:
             case CHECKED:
+                mEndState = state;
                 endBttendance(state);
                 break;
             default:
@@ -334,7 +334,10 @@ public class Bttendance extends View {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                BTEventBus.getInstance().post(new AttdEndEvent());
+                mState = mEndState;
+                mProgress = 0;
+                mFadeIn.cancel();
+                mFadeOut.cancel();
             }
 
             @Override
@@ -343,6 +346,10 @@ public class Bttendance extends View {
         });
         mScale.start();
         mScale.getTransformation(System.currentTimeMillis(), mScaleTransformation);
+    }
+
+    public void setEndState(STATE state) {
+        mEndState = state;
     }
 
     private void endBttendance(STATE state) {

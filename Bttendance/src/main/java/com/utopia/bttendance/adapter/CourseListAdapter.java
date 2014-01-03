@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.squareup.otto.BTEventBus;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.event.AttdOnGoingEvent;
 import com.utopia.bttendance.event.AttdStartEvent;
 import com.utopia.bttendance.event.ShowAttdListEvent;
 import com.utopia.bttendance.helper.DateHelper;
@@ -42,31 +42,33 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
         Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
         View selector = view.findViewById(R.id.item_selector);
 
+        bttendance.setOnClickListener(this);
+        selector.setOnClickListener(this);
+
         switch (BTPreference.getUserType(context)) {
             case PROFESSOR:
                 bttendance.setClickable(true);
-                selector.setClickable(true);
+                selector.setVisibility(View.VISIBLE);
                 break;
             case STUDENT:
             default:
                 bttendance.setClickable(false);
-                selector.setClickable(false);
+                selector.setVisibility(View.GONE);
                 break;
         }
 
         bttendance.setTag(R.id.course_id, course_id);
         selector.setTag(R.id.course_id, course_id);
 
-        bttendance.setOnClickListener(this);
-        selector.setOnClickListener(this);
-
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
         if (course.attdCheckedAt != null && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION) {
             long time = currentTime - DateHelper.getTime(course.attdCheckedAt);
-            int progress = (int) ((float)100 * ((float)Bttendance.PROGRESS_DURATION - (float)time) / (float)Bttendance.PROGRESS_DURATION);
+            int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
             bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+            bttendance.setTag(R.id.checking, true);
         } else {
             bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
+            bttendance.setTag(R.id.checking, false);
         }
 
         TextView title = (TextView) view.findViewById(R.id.title);
@@ -89,7 +91,11 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bttendance:
-                BTEventBus.getInstance().post(new AttdStartEvent((Integer) v.getTag(R.id.course_id)));
+                boolean checking = (Boolean) v.getTag(R.id.checking);
+//                if (checking)
+//                    BTEventBus.getInstance().post(new AttdOnGoingEvent());
+//                else
+                    BTEventBus.getInstance().post(new AttdStartEvent((Integer) v.getTag(R.id.course_id)));
                 break;
             case R.id.item_selector:
                 int course_id = (Integer) v.getTag(R.id.course_id);

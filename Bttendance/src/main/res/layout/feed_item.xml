@@ -26,6 +26,12 @@
         android:layout_marginLeft="18dp"
         app:type="Small" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bt_list_item_selector"
+        android:minHeight="88dp" />
+
     <TextView
         android:id="@+id/title"
         style="@style/itemTextView"

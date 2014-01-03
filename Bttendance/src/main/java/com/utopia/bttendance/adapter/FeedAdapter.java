@@ -8,10 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.squareup.otto.BTEventBus;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
-import com.utopia.bttendance.event.AttdStartedEvent;
 import com.utopia.bttendance.helper.DateHelper;
 import com.utopia.bttendance.helper.IntArrayHelper;
 import com.utopia.bttendance.model.BTPreference;
@@ -19,17 +16,13 @@ import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.PostJson;
 import com.utopia.bttendance.view.Bttendance;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.TimeZone;
-
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
  */
 public class FeedAdapter extends CursorAdapter {
 
     public FeedAdapter(Context context, Cursor c) {
-        super(context, c, false);
+        super(context, c, android.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
     }
 
     @Override
@@ -54,9 +47,9 @@ public class FeedAdapter extends CursorAdapter {
 
         if (mTime && !included) {
             long time = currentTime - DateHelper.getTime(post.createdAt);
-            int progress = (int) ((float)100 * ((float)Bttendance.PROGRESS_DURATION - (float)time) / (float)Bttendance.PROGRESS_DURATION);
+            int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
+            bttendance.setEndState(Bttendance.STATE.FAIL);
             bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
-            BTEventBus.getInstance().post(new AttdStartedEvent());
         } else if (mTime || included) {
             bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
         } else {

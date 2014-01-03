@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.gson.Gson;
 import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
@@ -23,6 +24,11 @@ import com.utopia.bttendance.event.AttdCheckedEvent;
 import com.utopia.bttendance.event.AttdStartedEvent;
 import com.utopia.bttendance.model.BTKey;
 import com.utopia.bttendance.model.BTPreference;
+import com.utopia.bttendance.model.BTTable;
+import com.utopia.bttendance.model.json.CourseJson;
+import com.utopia.bttendance.model.json.PostJson;
+
+import java.util.HashSet;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 4..
@@ -32,6 +38,8 @@ public class GcmIntentService extends IntentService {
     private static final String TITLE = "title";
     private static final String MESSAGE = "message";
     private static final String TYPE = "type";
+    private static final String POST = "post";
+    private static final String COURSE = "course";
     private static final String ATTENDANCE_STARTED = "attendance_started";
     private static final String ATTENDANCE_CHECKED = "attendance_checked";
 
@@ -62,6 +70,10 @@ public class GcmIntentService extends IntentService {
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 BTDebug.LogInfo("Notification Received: " + extras.toString());
 
+                updateTable(extras);
+                BTTable.UUIDLIST = new HashSet<String>();
+                BTTable.UUIDLISTSENDED = new HashSet<String>();
+
                 if (ATTENDANCE_STARTED.equals(extras.getString(TYPE))) {
                     BTEventBus.getInstance().post(new AttdStartedEvent());
                     sendNotification(extras.getString(TITLE), extras.getString(MESSAGE), true);
@@ -74,6 +86,27 @@ public class GcmIntentService extends IntentService {
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
         GcmBroadcastReceiver.completeWakefulIntent(intent);
+    }
+
+    private void updateTable(Bundle extras) {
+
+        String postJson = extras.getString(POST);
+        String courseJson = extras.getString(COURSE);
+
+        Gson gson = new Gson();
+        PostJson post = gson.fromJson(postJson, PostJson.class);
+        CourseJson course = gson.fromJson(courseJson, CourseJson.class);
+
+        if (post != null) {
+            BTTable.PostTable.append(post.id, post);
+            BTTable.getPosts(BTTable.FILTER_MY_POST).append(post.id, post);
+        }
+
+        if (course != null) {
+            BTTable.CourseTable.append(course.id, course);
+            BTTable.getCourses(BTTable.FILTER_MY_COURSE).append(course.id, course);
+        }
+
     }
 
     // Put the message into a notification and post it.

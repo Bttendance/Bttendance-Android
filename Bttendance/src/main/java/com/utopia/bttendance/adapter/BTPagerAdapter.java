@@ -21,6 +21,7 @@ public class BTPagerAdapter extends FragmentStatePagerAdapter implements PagerSl
     private FeedFragment mFeedFragment;
     private CourseListFragment mCourseListFragment;
     private ProfileFragment mProfileFragment;
+    private int mCurrentPosition;
 
     public BTPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -28,6 +29,7 @@ public class BTPagerAdapter extends FragmentStatePagerAdapter implements PagerSl
         mFeedFragment = new FeedFragment();
         mCourseListFragment = new CourseListFragment();
         mProfileFragment = new ProfileFragment();
+        mCurrentPosition = 0;
     }
 
     @Override
@@ -79,5 +81,13 @@ public class BTPagerAdapter extends FragmentStatePagerAdapter implements PagerSl
                 return R.drawable.ic_tab_courses;
         }
 
+    }
+
+    public int getPosition() {
+        return mCurrentPosition;
+    }
+
+    public void setPosition(int i) {
+        mCurrentPosition = i;
     }
 }

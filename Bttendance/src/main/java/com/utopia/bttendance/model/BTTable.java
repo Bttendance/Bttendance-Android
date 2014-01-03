@@ -20,7 +20,7 @@ public class BTTable {
 
     public static String FILTER_MY_COURSE = "my_course";
     public static String FILTER_JOINABLE_COURSE = "joinable_course";
-    public static String FILTER_TOTAL_POST = "total_post";
+    public static String FILTER_MY_POST = "my_post";
     private static String FILTER_COURSE_ID = "course_id";
 
     public static String getCourseIdFilter(int course_id) {
@@ -70,6 +70,10 @@ public class BTTable {
             mPost.put(filter, posts);
         }
         return posts;
+    }
+
+    public long getAttdChekingTimeLeft() {
+        return 0;
     }
 
     public static Set<Integer> getCheckingPostIds() {
