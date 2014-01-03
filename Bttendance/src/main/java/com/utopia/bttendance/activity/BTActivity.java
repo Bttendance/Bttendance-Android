@@ -212,7 +212,7 @@ public class BTActivity extends SherlockFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        showGPSDialog();
+//        showGPSDialog();
     }
 
     private void showGPSDialog() {

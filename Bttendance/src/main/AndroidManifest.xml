@@ -53,6 +53,7 @@
         <activity
             android:name=".activity.sign.CatchPointActivity"
             android:clearTaskOnLaunch="true"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock.NoActionBar" />
 
@@ -93,12 +94,14 @@
         <activity
             android:name=".activity.ProfessorActivity"
             android:clearTaskOnLaunch="true"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance" />
 
         <activity
             android:name=".activity.StudentActivity"
             android:clearTaskOnLaunch="true"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance" />
 

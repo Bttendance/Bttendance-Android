@@ -103,13 +103,13 @@ public class GcmIntentService extends IntentService {
         PendingIntent pending;
         switch (type) {
             case PROFESSOR:
-                pending = PendingIntent.getActivity(this, 0, new Intent(this, ProfessorActivity.class), 0);
+                pending = PendingIntent.getActivity(this, 0, new Intent(this, ProfessorActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
                 break;
             case STUDENT:
-                pending = PendingIntent.getActivity(this, 0, new Intent(this, StudentActivity.class), 0);
+                pending = PendingIntent.getActivity(this, 0, new Intent(this, StudentActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
                 break;
             default:
-                pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), 0);
+                pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
         builder.setContentIntent(pending);

@@ -13,7 +13,6 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 import com.squareup.otto.BTEventBus;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.event.AttdEndEvent;
 import com.utopia.bttendance.helper.DipPixelHelper;
@@ -322,8 +321,9 @@ public class Bttendance extends View {
         mFadeOut.getTransformation(System.currentTimeMillis(), mAlphaTransformation);
         mScale = new AlphaAnimation(1f * (float) progress / 100f, 0f);
 
-        if (progress > 0)
-            mScale.setDuration(PROGRESS_DURATION * progress / 100);
+        int duration = PROGRESS_DURATION * progress / 100;
+        if (duration >= 0)
+            mScale.setDuration(duration);
         else
             mScale.setDuration(0);
 

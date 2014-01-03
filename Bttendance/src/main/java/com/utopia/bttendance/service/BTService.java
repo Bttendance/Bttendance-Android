@@ -88,15 +88,14 @@ public class BTService extends Service {
     }
 
     public void attendanceStart() {
-        if (mGPS != null)
-            mGPS.startUsingGPS();
+//        if (mGPS != null)
+//            mGPS.startUsingGPS();
 
         BTEventBus.getInstance().post(new LocationChangedEvent(mGPS.getLocation()));
 
-        if (mAttendanceThread != null) {
+        if (mAttendanceThread != null)
             mAttendanceThread.interrupt();
-            mAttendanceThread = null;
-        }
+        mAttendanceThread = null;
 
         mAttendanceThread = new Thread(new Runnable() {
             @Override
@@ -136,8 +135,11 @@ public class BTService extends Service {
     }
 
     public void attendanceStop() {
-        if (mGPS != null)
-            mGPS.stopUsingGPS();
+//        if (mGPS != null)
+//            mGPS.stopUsingGPS();
+        if (mAttendanceThread != null)
+            mAttendanceThread.interrupt();
+        mAttendanceThread = null;
     }
 
     public void signin(String username, String password, String uuid, final Callback<UserJson> cb) {
