@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.R;
-import com.utopia.bttendance.event.AttdOnGoingEvent;
+import com.utopia.bttendance.event.AttdInProgressEvent;
 import com.utopia.bttendance.event.AttdStartEvent;
 import com.utopia.bttendance.event.ShowAttdListEvent;
 import com.utopia.bttendance.helper.DateHelper;
@@ -92,9 +92,9 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
         switch (v.getId()) {
             case R.id.bttendance:
                 boolean checking = (Boolean) v.getTag(R.id.checking);
-//                if (checking)
-//                    BTEventBus.getInstance().post(new AttdOnGoingEvent());
-//                else
+                if (checking)
+                    BTEventBus.getInstance().post(new AttdInProgressEvent());
+                else
                     BTEventBus.getInstance().post(new AttdStartEvent((Integer) v.getTag(R.id.course_id)));
                 break;
             case R.id.item_selector:

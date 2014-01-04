@@ -58,7 +58,27 @@ android.support.v4.app.BackStackRecord:
     779:779:public int getTransition()
     783:783:public int getTransitionStyle()
     787:787:public boolean isEmpty()
-android.support.v4.app.DialogFragment
+android.support.v4.app.DialogFragment:
+    public static final int STYLE_NORMAL
+    public static final int STYLE_NO_TITLE
+    public static final int STYLE_NO_FRAME
+    public static final int STYLE_NO_INPUT
+    private static final java.lang.String SAVED_DIALOG_STATE_TAG
+    private static final java.lang.String SAVED_STYLE
+    private static final java.lang.String SAVED_THEME
+    private static final java.lang.String SAVED_CANCELABLE
+    private static final java.lang.String SAVED_SHOWS_DIALOG
+    private static final java.lang.String SAVED_BACK_STACK_ID
+    102:109:public void setStyle(int,int)
+    123:128:public void show(android.support.v4.app.FragmentManager,java.lang.String)
+    140:145:public int show(android.support.v4.app.FragmentTransaction,java.lang.String)
+    155:156:public void dismiss()
+    165:166:public void dismissAllowingStateLoss()
+    195:195:public android.app.Dialog getDialog()
+    212:214:public void setCancelable(boolean)
+    220:220:public boolean isCancelable()
+    241:242:public void setShowsDialog(boolean)
+    248:248:public boolean getShowsDialog()
 android.support.v4.app.Fragment:
     static final int INITIALIZING
     static final int CREATED
@@ -69,14 +89,11 @@ android.support.v4.app.Fragment:
     511:511:public final int getId()
     518:518:public final java.lang.String getTag()
     529:533:public void setArguments(android.os.Bundle)
-    540:540:public final android.os.Bundle getArguments()
     571:573:public void setTargetFragment(android.support.v4.app.Fragment,int)
     579:579:public final android.support.v4.app.Fragment getTargetFragment()
     586:586:public final int getTargetRequestCode()
     613:613:public final java.lang.CharSequence getText(int)
-    623:623:public final java.lang.String getString(int)
     636:636:public final varargs java.lang.String getString(int,java.lang.Object[])
-    650:650:public final android.support.v4.app.FragmentManager getFragmentManager()
     658:670:public final android.support.v4.app.FragmentManager getChildFragmentManager()
     678:678:public final android.support.v4.app.Fragment getParentFragment()
     703:703:public final boolean isRemoving()
@@ -87,7 +104,6 @@ android.support.v4.app.Fragment:
     753:753:public final boolean isMenuVisible()
     781:786:public void setRetainInstance(boolean)
     789:789:public final boolean getRetainInstance()
-    800:806:public void setHasOptionsMenu(boolean)
     852:852:public boolean getUserVisibleHint()
     859:867:public android.support.v4.app.LoaderManager getLoaderManager()
     875:879:public void startActivity(android.content.Intent)
@@ -116,7 +132,6 @@ android.support.v4.app.FragmentManager:
     public abstract boolean popBackStackImmediate()
     public abstract void popBackStack(java.lang.String,int)
     public abstract boolean popBackStackImmediate(java.lang.String,int)
-    public abstract void popBackStack(int,int)
     public abstract boolean popBackStackImmediate(int,int)
     public abstract android.support.v4.app.FragmentManager$BackStackEntry getBackStackEntryAt(int)
     public abstract void removeOnBackStackChangedListener(android.support.v4.app.FragmentManager$OnBackStackChangedListener)
@@ -140,7 +155,6 @@ android.support.v4.app.FragmentManagerImpl:
     477:482:public void popBackStack()
     493:498:public void popBackStack(java.lang.String,int)
     502:504:public boolean popBackStackImmediate(java.lang.String,int)
-    509:517:public void popBackStack(int,int)
     521:526:public boolean popBackStackImmediate(int,int)
     536:536:public android.support.v4.app.FragmentManager$BackStackEntry getBackStackEntryAt(int)
     549:552:public void removeOnBackStackChangedListener(android.support.v4.app.FragmentManager$OnBackStackChangedListener)
@@ -148,16 +162,12 @@ android.support.v4.app.FragmentManagerImpl:
     1330:1338:public android.support.v4.app.Fragment findFragmentByWho(java.lang.String)
 android.support.v4.app.FragmentManagerImpl$2
 android.support.v4.app.FragmentManagerImpl$3
-android.support.v4.app.FragmentManagerImpl$4
 android.support.v4.app.FragmentPagerAdapter
 android.support.v4.app.FragmentStatePagerAdapter:
     private static final java.lang.String TAG
     private static final boolean DEBUG
 android.support.v4.app.FragmentTabHost:
     private android.widget.FrameLayout mRealTabContent
-    130:132:public FragmentTabHost(android.content.Context)
-    135:137:public FragmentTabHost(android.content.Context,android.util.AttributeSet)
-    140:146:private void initFragmentTabHost(android.content.Context,android.util.AttributeSet)
     151:174:private void ensureHierarchy(android.content.Context)
     188:193:public void setup(android.content.Context,android.support.v4.app.FragmentManager)
     196:209:public void setup(android.content.Context,android.support.v4.app.FragmentManager,int)
@@ -191,9 +201,18 @@ android.support.v4.app.FragmentTransaction:
     public abstract android.support.v4.app.FragmentTransaction setBreadCrumbTitle(java.lang.CharSequence)
     public abstract android.support.v4.app.FragmentTransaction setBreadCrumbShortTitle(int)
     public abstract android.support.v4.app.FragmentTransaction setBreadCrumbShortTitle(java.lang.CharSequence)
-android.support.v4.app.ListFragment
-android.support.v4.app.ListFragment$1
-android.support.v4.app.ListFragment$2
+android.support.v4.app.ListFragment:
+    static final int INTERNAL_EMPTY_ID
+    static final int INTERNAL_PROGRESS_CONTAINER_ID
+    static final int INTERNAL_LIST_CONTAINER_ID
+    198:200:public void setSelection(int)
+    206:207:public int getSelectedItemPosition()
+    214:215:public long getSelectedItemId()
+    222:223:public android.widget.ListView getListView()
+    232:241:public void setEmptyText(java.lang.CharSequence)
+    258:259:public void setListShown(boolean)
+    266:267:public void setListShownNoAnimation(boolean)
+    319:319:public android.widget.ListAdapter getListAdapter()
 android.support.v4.app.LoaderManager:
     public abstract android.support.v4.content.Loader initLoader(int,android.os.Bundle,android.support.v4.app.LoaderManager$LoaderCallbacks)
     public abstract android.support.v4.content.Loader restartLoader(int,android.os.Bundle,android.support.v4.app.LoaderManager$LoaderCallbacks)
@@ -255,6 +274,7 @@ android.support.v4.app.NotificationCompat$Builder:
     405:407:public android.support.v4.app.NotificationCompat$Builder setTicker(java.lang.CharSequence,android.widget.RemoteViews)
     422:424:public android.support.v4.app.NotificationCompat$Builder setSound(android.net.Uri)
     434:436:public android.support.v4.app.NotificationCompat$Builder setSound(android.net.Uri,int)
+    446:447:public android.support.v4.app.NotificationCompat$Builder setVibrate(long[])
     456:462:public android.support.v4.app.NotificationCompat$Builder setLights(int,int,int)
     477:478:public android.support.v4.app.NotificationCompat$Builder setOngoing(boolean)
     512:516:public android.support.v4.app.NotificationCompat$Builder setDefaults(int)
@@ -303,9 +323,19 @@ android.support.v4.content.ContextCompatHoneycomb
 android.support.v4.content.ContextCompatJellybean
 android.support.v4.content.ContextCompatKitKat
 android.support.v4.content.CursorLoader
-android.support.v4.content.FileProvider
-android.support.v4.content.FileProvider$PathStrategy
-android.support.v4.content.FileProvider$SimplePathStrategy
+android.support.v4.content.FileProvider:
+    private static final java.lang.String META_DATA_FILE_PROVIDER_PATHS
+    private static final java.lang.String TAG_ROOT_PATH
+    private static final java.lang.String TAG_FILES_PATH
+    private static final java.lang.String TAG_CACHE_PATH
+    private static final java.lang.String TAG_EXTERNAL
+    private static final java.lang.String ATTR_NAME
+    private static final java.lang.String ATTR_PATH
+    376:377:public static android.net.Uri getUriForFile(android.content.Context,java.lang.String,java.io.File)
+android.support.v4.content.FileProvider$PathStrategy:
+    public abstract android.net.Uri getUriForFile(java.io.File)
+android.support.v4.content.FileProvider$SimplePathStrategy:
+    662:692:public android.net.Uri getUriForFile(java.io.File)
 android.support.v4.content.IntentCompat
 android.support.v4.content.IntentCompat$IntentCompatImpl
 android.support.v4.content.IntentCompat$IntentCompatImplBase
@@ -563,17 +593,23 @@ android.support.v4.view.PagerAdapter:
     public static final int POSITION_UNCHANGED
     public static final int POSITION_NONE
     276:277:public void notifyDataSetChanged()
-android.support.v4.view.PagerTabStrip
-android.support.v4.view.PagerTabStrip$1
-android.support.v4.view.PagerTabStrip$2
-android.support.v4.view.PagerTitleStrip
-android.support.v4.view.PagerTitleStrip$1
-android.support.v4.view.PagerTitleStrip$PageListener
-android.support.v4.view.PagerTitleStrip$PagerTitleStripImpl
-android.support.v4.view.PagerTitleStrip$PagerTitleStripImplBase
-android.support.v4.view.PagerTitleStrip$PagerTitleStripImplIcs
-android.support.v4.view.PagerTitleStripIcs
-android.support.v4.view.PagerTitleStripIcs$SingleLineAllCapsTransform
+android.support.v4.view.PagerTabStrip:
+    private static final java.lang.String TAG
+    private static final int INDICATOR_HEIGHT
+    private static final int MIN_PADDING_BOTTOM
+    private static final int TAB_PADDING
+    private static final int TAB_SPACING
+    private static final int MIN_TEXT_SPACING
+    private static final int FULL_UNDERLINE_HEIGHT
+    private static final int MIN_STRIP_HEIGHT
+android.support.v4.view.PagerTitleStrip:
+    private static final java.lang.String TAG
+    private static final float SIDE_ALPHA
+    private static final int TEXT_SPACING
+android.support.v4.view.PagerTitleStripIcs:
+    26:31:PagerTitleStripIcs()
+android.support.v4.view.PagerTitleStripIcs$SingleLineAllCapsTransform:
+    private static final java.lang.String TAG
 android.support.v4.view.ScaleGestureDetectorCompat
 android.support.v4.view.ScaleGestureDetectorCompat$1
 android.support.v4.view.ScaleGestureDetectorCompat$BaseScaleGestureDetectorImpl
@@ -622,7 +658,6 @@ android.support.v4.view.ViewCompat:
     984:984:public static int getLabelFor(android.view.View)
     995:996:public static void setLabelFor(android.view.View,int)
     1063:1064:public static void setLayoutDirection(android.view.View,int)
-    1075:1075:public static android.view.ViewParent getParentForAccessibility(android.view.View)
     1105:1105:public static int resolveSizeAndState(int,int,int)
     1119:1119:public static int getMeasuredWidthAndState(android.view.View)
     1133:1133:public static int getMeasuredHeightAndState(android.view.View)
@@ -644,7 +679,6 @@ android.support.v4.view.ViewCompat$BaseViewCompatImpl:
     303:303:public int getLabelFor(android.view.View)
     307:307:public void setLabelFor(android.view.View,int)
     320:320:public void setLayoutDirection(android.view.View,int)
-    324:324:public android.view.ViewParent getParentForAccessibility(android.view.View)
     337:337:public int resolveSizeAndState(int,int,int)
     342:342:public int getMeasuredWidthAndState(android.view.View)
     347:347:public int getMeasuredHeightAndState(android.view.View)
@@ -670,7 +704,6 @@ android.support.v4.view.ViewCompat$JBViewCompatImpl:
     477:478:public void postOnAnimationDelayed(android.view.View,java.lang.Runnable,long)
     489:489:public boolean performAccessibilityAction(android.view.View,int,android.os.Bundle)
     493:497:public android.support.v4.view.accessibility.AccessibilityNodeProviderCompat getAccessibilityNodeProvider(android.view.View)
-    502:502:public android.view.ViewParent getParentForAccessibility(android.view.View)
 android.support.v4.view.ViewCompat$JbMr1ViewCompatImpl:
     510:510:public int getLabelFor(android.view.View)
     515:516:public void setLabelFor(android.view.View,int)
@@ -693,7 +726,6 @@ android.support.v4.view.ViewCompat$ViewCompatImpl:
     public abstract int getLabelFor(android.view.View)
     public abstract void setLabelFor(android.view.View,int)
     public abstract void setLayoutDirection(android.view.View,int)
-    public abstract android.view.ViewParent getParentForAccessibility(android.view.View)
     public abstract int resolveSizeAndState(int,int,int)
     public abstract int getMeasuredWidthAndState(android.view.View)
     public abstract int getMeasuredHeightAndState(android.view.View)
@@ -725,7 +757,6 @@ android.support.v4.view.ViewCompatJB:
     50:51:public static void postOnAnimationDelayed(android.view.View,java.lang.Runnable,long)
     62:62:public static boolean performAccessibilityAction(android.view.View,int,android.os.Bundle)
     66:66:public static java.lang.Object getAccessibilityNodeProvider(android.view.View)
-    70:70:public static android.view.ViewParent getParentForAccessibility(android.view.View)
 android.support.v4.view.ViewCompatJellybeanMr1:
     25:25:ViewCompatJellybeanMr1()
     28:28:public static int getLabelFor(android.view.View)
@@ -736,13 +767,28 @@ android.support.v4.view.ViewConfigurationCompat:
     25:46:public ViewConfigurationCompat()
 android.support.v4.view.ViewConfigurationCompatFroyo:
     24:24:ViewConfigurationCompatFroyo()
-android.support.v4.view.ViewGroupCompat
-android.support.v4.view.ViewGroupCompat$ViewGroupCompatHCImpl
-android.support.v4.view.ViewGroupCompat$ViewGroupCompatIcsImpl
-android.support.v4.view.ViewGroupCompat$ViewGroupCompatImpl
-android.support.v4.view.ViewGroupCompat$ViewGroupCompatJellybeanMR2Impl
-android.support.v4.view.ViewGroupCompat$ViewGroupCompatStubImpl
-android.support.v4.view.ViewGroupCompatHC
+android.support.v4.view.ViewGroupCompat:
+    public static final int LAYOUT_MODE_CLIP_BOUNDS
+    public static final int LAYOUT_MODE_OPTICAL_BOUNDS
+    120:122:private ViewGroupCompat()
+    141:141:public static boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent)
+    177:177:public static int getLayoutMode(android.view.ViewGroup)
+    190:191:public static void setLayoutMode(android.view.ViewGroup,int)
+android.support.v4.view.ViewGroupCompat$ViewGroupCompatIcsImpl:
+    87:87:public boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent)
+android.support.v4.view.ViewGroupCompat$ViewGroupCompatImpl:
+    public abstract boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent)
+    public abstract int getLayoutMode(android.view.ViewGroup)
+    public abstract void setLayoutMode(android.view.ViewGroup,int)
+android.support.v4.view.ViewGroupCompat$ViewGroupCompatJellybeanMR2Impl:
+    94:94:public int getLayoutMode(android.view.ViewGroup)
+    99:100:public void setLayoutMode(android.view.ViewGroup,int)
+android.support.v4.view.ViewGroupCompat$ViewGroupCompatStubImpl:
+    58:58:public boolean onRequestSendAccessibilityEvent(android.view.ViewGroup,android.view.View,android.view.accessibility.AccessibilityEvent)
+    67:67:public int getLayoutMode(android.view.ViewGroup)
+    73:73:public void setLayoutMode(android.view.ViewGroup,int)
+android.support.v4.view.ViewGroupCompatHC:
+    23:24:private ViewGroupCompatHC()
 android.support.v4.view.ViewGroupCompatIcs
 android.support.v4.view.ViewGroupCompatJellybeanMR2
 android.support.v4.view.ViewPager:
@@ -765,7 +811,6 @@ android.support.v4.view.ViewPager:
     public static final int SCROLL_STATE_DRAGGING
     public static final int SCROLL_STATE_SETTLING
     608:620:public void setPageTransformer(boolean,android.support.v4.view.ViewPager$PageTransformer)
-    654:656:android.support.v4.view.ViewPager$OnPageChangeListener setInternalPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener)
     778:779:void smoothScrollTo(int,int)
     2273:2289:public boolean beginFakeDrag()
     2299:2320:public void endFakeDrag()
@@ -823,119 +868,61 @@ android.support.v4.view.accessibility.AccessibilityNodeInfoCompat:
     public static final int MOVEMENT_GRANULARITY_LINE
     public static final int MOVEMENT_GRANULARITY_PARAGRAPH
     public static final int MOVEMENT_GRANULARITY_PAGE
-    1068:1071:static android.support.v4.view.accessibility.AccessibilityNodeInfoCompat wrapNonNullInstance(java.lang.Object)
     1099:1099:public static android.support.v4.view.accessibility.AccessibilityNodeInfoCompat obtain(android.view.View)
     1113:1113:public static android.support.v4.view.accessibility.AccessibilityNodeInfoCompat obtain(android.view.View,int)
     1123:1123:public static android.support.v4.view.accessibility.AccessibilityNodeInfoCompat obtain()
-    1134:1134:public static android.support.v4.view.accessibility.AccessibilityNodeInfoCompat obtain(android.support.v4.view.accessibility.AccessibilityNodeInfoCompat)
-    1143:1144:public void setSource(android.view.View)
     1166:1167:public void setSource(android.view.View,int)
     1181:1181:public android.support.v4.view.accessibility.AccessibilityNodeInfoCompat findFocus(int)
     1199:1199:public android.support.v4.view.accessibility.AccessibilityNodeInfoCompat focusSearch(int)
     1208:1208:public int getWindowId()
     1217:1217:public int getChildCount()
     1234:1234:public android.support.v4.view.accessibility.AccessibilityNodeInfoCompat getChild(int)
-    1249:1250:public void addChild(android.view.View)
     1267:1268:public void addChild(android.view.View,int)
     1311:1311:public boolean performAction(int)
     1328:1328:public boolean performAction(int,android.os.Bundle)
-    1344:1345:public void setMovementGranularities(int)
-    1353:1353:public int getMovementGranularities()
     1370:1377:public java.util.List findAccessibilityNodeInfosByText(java.lang.String)
     1391:1391:public android.support.v4.view.accessibility.AccessibilityNodeInfoCompat getParent()
-    1406:1407:public void setParent(android.view.View)
     1429:1430:public void setParent(android.view.View,int)
-    1453:1454:public void setBoundsInParent(android.graphics.Rect)
-    1477:1478:public void setBoundsInScreen(android.graphics.Rect)
     1501:1502:public void setCheckable(boolean)
     1525:1526:public void setChecked(boolean)
-    1549:1550:public void setFocusable(boolean)
-    1573:1574:public void setFocused(boolean)
-    1582:1582:public boolean isVisibleToUser()
-    1598:1599:public void setVisibleToUser(boolean)
-    1607:1607:public boolean isAccessibilityFocused()
-    1623:1624:public void setAccessibilityFocused(boolean)
-    1647:1648:public void setSelected(boolean)
-    1671:1672:public void setClickable(boolean)
-    1695:1696:public void setLongClickable(boolean)
-    1719:1720:public void setEnabled(boolean)
     1743:1744:public void setPassword(boolean)
-    1791:1792:public void setPackageName(java.lang.CharSequence)
     1839:1840:public void setText(java.lang.CharSequence)
-    1863:1864:public void setContentDescription(java.lang.CharSequence)
-    1874:1875:public void recycle()
     1889:1890:public void setViewIdResourceName(java.lang.String)
     1927:1927:public int getLiveRegion()
     1943:1944:public void setLiveRegion(int)
 android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityNodeInfoIcsImpl:
     429:429:public java.lang.Object obtain()
     434:434:public java.lang.Object obtain(android.view.View)
-    439:439:public java.lang.Object obtain(java.lang.Object)
-    449:450:public void addChild(java.lang.Object,android.view.View)
     454:454:public java.util.List findAccessibilityNodeInfosByText(java.lang.Object,java.lang.String)
     474:474:public java.lang.Object getChild(java.lang.Object,int)
     479:479:public int getChildCount(java.lang.Object)
     499:499:public java.lang.Object getParent(java.lang.Object)
     509:509:public int getWindowId(java.lang.Object)
     564:564:public boolean performAction(java.lang.Object,int)
-    569:570:public void setBoundsInParent(java.lang.Object,android.graphics.Rect)
-    574:575:public void setBoundsInScreen(java.lang.Object,android.graphics.Rect)
     579:580:public void setCheckable(java.lang.Object,boolean)
     584:585:public void setChecked(java.lang.Object,boolean)
-    594:595:public void setClickable(java.lang.Object,boolean)
-    599:600:public void setContentDescription(java.lang.Object,java.lang.CharSequence)
-    604:605:public void setEnabled(java.lang.Object,boolean)
-    609:610:public void setFocusable(java.lang.Object,boolean)
-    614:615:public void setFocused(java.lang.Object,boolean)
-    619:620:public void setLongClickable(java.lang.Object,boolean)
-    624:625:public void setPackageName(java.lang.Object,java.lang.CharSequence)
-    629:630:public void setParent(java.lang.Object,android.view.View)
     634:635:public void setPassword(java.lang.Object,boolean)
-    644:645:public void setSelected(java.lang.Object,boolean)
-    649:650:public void setSource(java.lang.Object,android.view.View)
     654:655:public void setText(java.lang.Object,java.lang.CharSequence)
-    659:660:public void recycle(java.lang.Object)
 android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityNodeInfoImpl:
     public abstract java.lang.Object obtain()
     public abstract java.lang.Object obtain(android.view.View)
-    public abstract java.lang.Object obtain(java.lang.Object)
     public abstract java.lang.Object obtain(android.view.View,int)
-    public abstract void setSource(java.lang.Object,android.view.View)
     public abstract void setSource(java.lang.Object,android.view.View,int)
     public abstract java.lang.Object findFocus(java.lang.Object,int)
     public abstract java.lang.Object focusSearch(java.lang.Object,int)
     public abstract int getWindowId(java.lang.Object)
     public abstract int getChildCount(java.lang.Object)
     public abstract java.lang.Object getChild(java.lang.Object,int)
-    public abstract void addChild(java.lang.Object,android.view.View)
     public abstract void addChild(java.lang.Object,android.view.View,int)
     public abstract boolean performAction(java.lang.Object,int)
     public abstract boolean performAction(java.lang.Object,int,android.os.Bundle)
-    public abstract void setMovementGranularities(java.lang.Object,int)
-    public abstract int getMovementGranularities(java.lang.Object)
     public abstract java.util.List findAccessibilityNodeInfosByText(java.lang.Object,java.lang.String)
     public abstract java.lang.Object getParent(java.lang.Object)
     public abstract void setParent(java.lang.Object,android.view.View,int)
-    public abstract void setParent(java.lang.Object,android.view.View)
-    public abstract void setBoundsInParent(java.lang.Object,android.graphics.Rect)
-    public abstract void setBoundsInScreen(java.lang.Object,android.graphics.Rect)
     public abstract void setCheckable(java.lang.Object,boolean)
     public abstract void setChecked(java.lang.Object,boolean)
-    public abstract void setFocusable(java.lang.Object,boolean)
-    public abstract void setFocused(java.lang.Object,boolean)
-    public abstract boolean isVisibleToUser(java.lang.Object)
-    public abstract void setVisibleToUser(java.lang.Object,boolean)
-    public abstract boolean isAccessibilityFocused(java.lang.Object)
-    public abstract void setAccessibilityFocused(java.lang.Object,boolean)
-    public abstract void setSelected(java.lang.Object,boolean)
-    public abstract void setClickable(java.lang.Object,boolean)
-    public abstract void setLongClickable(java.lang.Object,boolean)
-    public abstract void setEnabled(java.lang.Object,boolean)
     public abstract void setPassword(java.lang.Object,boolean)
-    public abstract void setPackageName(java.lang.Object,java.lang.CharSequence)
     public abstract void setText(java.lang.Object,java.lang.CharSequence)
-    public abstract void setContentDescription(java.lang.Object,java.lang.CharSequence)
-    public abstract void recycle(java.lang.Object)
     public abstract void setViewIdResourceName(java.lang.Object,java.lang.String)
     public abstract int getLiveRegion(java.lang.Object)
     public abstract void setLiveRegion(java.lang.Object,int)
@@ -945,13 +932,7 @@ android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityN
     676:676:public java.lang.Object focusSearch(java.lang.Object,int)
     681:682:public void addChild(java.lang.Object,android.view.View,int)
     686:687:public void setSource(java.lang.Object,android.view.View,int)
-    691:691:public boolean isVisibleToUser(java.lang.Object)
-    696:697:public void setVisibleToUser(java.lang.Object,boolean)
-    701:701:public boolean isAccessibilityFocused(java.lang.Object)
-    706:707:public void setAccessibilityFocused(java.lang.Object,boolean)
     711:711:public boolean performAction(java.lang.Object,int,android.os.Bundle)
-    716:717:public void setMovementGranularities(java.lang.Object,int)
-    721:721:public int getMovementGranularities(java.lang.Object)
     726:727:public void setParent(java.lang.Object,android.view.View,int)
 android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityNodeInfoJellybeanMr2Impl:
     739:740:public void setViewIdResourceName(java.lang.Object,java.lang.String)
@@ -962,42 +943,21 @@ android.support.v4.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityN
     107:107:public java.lang.Object obtain()
     112:112:public java.lang.Object obtain(android.view.View)
     117:117:public java.lang.Object obtain(android.view.View,int)
-    122:122:public java.lang.Object obtain(java.lang.Object)
-    133:133:public void addChild(java.lang.Object,android.view.View)
     138:138:public void addChild(java.lang.Object,android.view.View,int)
     142:142:public java.util.List findAccessibilityNodeInfosByText(java.lang.Object,java.lang.String)
     162:162:public java.lang.Object getChild(java.lang.Object,int)
     167:167:public int getChildCount(java.lang.Object)
     187:187:public java.lang.Object getParent(java.lang.Object)
     197:197:public int getWindowId(java.lang.Object)
-    232:232:public boolean isVisibleToUser(java.lang.Object)
-    237:237:public boolean isAccessibilityFocused(java.lang.Object)
     262:262:public boolean performAction(java.lang.Object,int)
     267:267:public boolean performAction(java.lang.Object,int,android.os.Bundle)
-    273:273:public void setMovementGranularities(java.lang.Object,int)
-    277:277:public int getMovementGranularities(java.lang.Object)
-    283:283:public void setBoundsInParent(java.lang.Object,android.graphics.Rect)
-    288:288:public void setBoundsInScreen(java.lang.Object,android.graphics.Rect)
     293:293:public void setCheckable(java.lang.Object,boolean)
     298:298:public void setChecked(java.lang.Object,boolean)
-    308:308:public void setClickable(java.lang.Object,boolean)
-    313:313:public void setContentDescription(java.lang.Object,java.lang.CharSequence)
-    318:318:public void setEnabled(java.lang.Object,boolean)
-    323:323:public void setFocusable(java.lang.Object,boolean)
-    328:328:public void setFocused(java.lang.Object,boolean)
-    333:333:public void setVisibleToUser(java.lang.Object,boolean)
-    338:338:public void setAccessibilityFocused(java.lang.Object,boolean)
-    343:343:public void setLongClickable(java.lang.Object,boolean)
-    348:348:public void setPackageName(java.lang.Object,java.lang.CharSequence)
-    353:353:public void setParent(java.lang.Object,android.view.View)
     358:358:public void setPassword(java.lang.Object,boolean)
-    368:368:public void setSelected(java.lang.Object,boolean)
-    373:373:public void setSource(java.lang.Object,android.view.View)
     378:378:public void setSource(java.lang.Object,android.view.View,int)
     382:382:public java.lang.Object findFocus(java.lang.Object,int)
     387:387:public java.lang.Object focusSearch(java.lang.Object,int)
     393:393:public void setText(java.lang.Object,java.lang.CharSequence)
-    398:398:public void recycle(java.lang.Object)
     403:403:public void setParent(java.lang.Object,android.view.View,int)
     413:413:public void setViewIdResourceName(java.lang.Object,java.lang.String)
     417:417:public int getLiveRegion(java.lang.Object)
@@ -1006,32 +966,25 @@ android.support.v4.view.accessibility.AccessibilityNodeInfoCompatIcs:
     28:28:AccessibilityNodeInfoCompatIcs()
     31:31:public static java.lang.Object obtain()
     35:35:public static java.lang.Object obtain(android.view.View)
-    39:39:public static java.lang.Object obtain(java.lang.Object)
-    47:48:public static void addChild(java.lang.Object,android.view.View)
     52:53:public static java.util.List findAccessibilityNodeInfosByText(java.lang.Object,java.lang.String)
     69:69:public static java.lang.Object getChild(java.lang.Object,int)
     73:73:public static int getChildCount(java.lang.Object)
     89:89:public static java.lang.Object getParent(java.lang.Object)
     97:97:public static int getWindowId(java.lang.Object)
     141:141:public static boolean performAction(java.lang.Object,int)
-    145:146:public static void setBoundsInParent(java.lang.Object,android.graphics.Rect)
-    149:150:public static void setBoundsInScreen(java.lang.Object,android.graphics.Rect)
     153:154:public static void setCheckable(java.lang.Object,boolean)
     157:158:public static void setChecked(java.lang.Object,boolean)
-    165:166:public static void setClickable(java.lang.Object,boolean)
-    169:170:public static void setContentDescription(java.lang.Object,java.lang.CharSequence)
-    173:174:public static void setEnabled(java.lang.Object,boolean)
-    177:178:public static void setFocusable(java.lang.Object,boolean)
-    181:182:public static void setFocused(java.lang.Object,boolean)
-    185:186:public static void setLongClickable(java.lang.Object,boolean)
-    189:190:public static void setPackageName(java.lang.Object,java.lang.CharSequence)
-    193:194:public static void setParent(java.lang.Object,android.view.View)
     197:198:public static void setPassword(java.lang.Object,boolean)
-    205:206:public static void setSelected(java.lang.Object,boolean)
-    209:210:public static void setSource(java.lang.Object,android.view.View)
     213:214:public static void setText(java.lang.Object,java.lang.CharSequence)
-    217:218:public static void recycle(java.lang.Object)
-android.support.v4.view.accessibility.AccessibilityNodeInfoCompatJellyBean
+android.support.v4.view.accessibility.AccessibilityNodeInfoCompatJellyBean:
+    26:26:AccessibilityNodeInfoCompatJellyBean()
+    29:30:public static void addChild(java.lang.Object,android.view.View,int)
+    33:34:public static void setSource(java.lang.Object,android.view.View,int)
+    45:45:public static boolean performAction(java.lang.Object,int,android.os.Bundle)
+    57:57:public static java.lang.Object obtain(android.view.View,int)
+    61:61:public static java.lang.Object findFocus(java.lang.Object,int)
+    65:65:public static java.lang.Object focusSearch(java.lang.Object,int)
+    69:70:public static void setParent(java.lang.Object,android.view.View,int)
 android.support.v4.view.accessibility.AccessibilityNodeInfoCompatJellybeanMr2:
     21:21:AccessibilityNodeInfoCompatJellybeanMr2()
     24:25:public static void setViewIdResourceName(java.lang.Object,java.lang.String)
@@ -1255,14 +1208,15 @@ android.support.v4.widget.AutoScrollHelper
 android.support.v4.widget.AutoScrollHelper$1
 android.support.v4.widget.AutoScrollHelper$ClampedScroller
 android.support.v4.widget.AutoScrollHelper$ScrollAnimationRunnable
-android.support.v4.widget.ContentLoadingProgressBar
-android.support.v4.widget.ContentLoadingProgressBar$1
-android.support.v4.widget.ContentLoadingProgressBar$2
+android.support.v4.widget.ContentLoadingProgressBar:
+    private static final int MIN_SHOW_TIME
+    private static final int MIN_DELAY
+    95:112:public void hide()
+    120:127:public void show()
 android.support.v4.widget.CursorAdapter:
     public static final int FLAG_AUTO_REQUERY
     public static final int FLAG_REGISTER_CONTENT_OBSERVER
     121:123:public CursorAdapter(android.content.Context,android.database.Cursor)
-    150:152:public CursorAdapter(android.content.Context,android.database.Cursor,int)
     160:161:protected void init(android.content.Context,android.database.Cursor,boolean)
     420:420:public android.widget.FilterQueryProvider getFilterQueryProvider()
     436:437:public void setFilterQueryProvider(android.widget.FilterQueryProvider)
@@ -1281,9 +1235,6 @@ android.support.v4.widget.DrawerLayout:
     private static final boolean ALLOW_EDGE_LOCK
     private static final boolean CHILDREN_DISALLOW_INTERCEPT
     private static final float TOUCH_SLOP_SENSITIVITY
-    217:218:public DrawerLayout(android.content.Context)
-    221:222:public DrawerLayout(android.content.Context,android.util.AttributeSet)
-    225:249:public DrawerLayout(android.content.Context,android.util.AttributeSet,int)
     265:275:public void setDrawerShadow(android.graphics.drawable.Drawable,int)
     285:286:public void setDrawerShadow(int,int)
     394:400:public void setDrawerLockMode(int,android.view.View)
@@ -1294,17 +1245,9 @@ android.support.v4.widget.DrawerLayout:
     1103:1106:public boolean isDrawerOpen(android.view.View)
     1119:1123:public boolean isDrawerOpen(int)
     1150:1154:public boolean isDrawerVisible(int)
-    1209:1220:void cancelChildViewTouch()
-android.support.v4.widget.DrawerLayout$AccessibilityDelegate
 android.support.v4.widget.DrawerLayout$LayoutParams:
     1509:1511:public DrawerLayout$LayoutParams(int,int,int)
 android.support.v4.widget.DrawerLayout$SimpleDrawerListener
-android.support.v4.widget.DrawerLayout$ViewDragCallback:
-    1333:1335:public DrawerLayout$ViewDragCallback(android.support.v4.widget.DrawerLayout,int)
-    1338:1339:public void setDragger(android.support.v4.widget.ViewDragHelper)
-    1418:1440:private void peekDrawer()
-    1323:1323:static synthetic void access$000(android.support.v4.widget.DrawerLayout$ViewDragCallback)
-android.support.v4.widget.DrawerLayout$ViewDragCallback$1
 android.support.v4.widget.EdgeEffectCompat:
     204:204:public boolean onAbsorb(int)
 android.support.v4.widget.EdgeEffectCompat$BaseEdgeEffectImpl:
@@ -1337,8 +1280,6 @@ android.support.v4.widget.ResourceCursorAdapter:
     129:130:public void setDropDownViewResource(int)
 android.support.v4.widget.ScrollerCompat:
     251:251:public static android.support.v4.widget.ScrollerCompat create(android.content.Context)
-    255:255:public static android.support.v4.widget.ScrollerCompat create(android.content.Context,android.view.animation.Interpolator)
-    258:260:ScrollerCompat(android.content.Context,android.view.animation.Interpolator)
     314:314:public float getCurrVelocity()
     341:342:public void startScroll(int,int,int,int)
     382:383:public void fling(int,int,int,int,int,int,int,int)
@@ -1347,7 +1288,6 @@ android.support.v4.widget.ScrollerCompat:
     454:455:public void notifyVerticalEdgeReached(int,int,int)
     471:471:public boolean isOverScrolled()
 android.support.v4.widget.ScrollerCompat$ScrollerCompatImpl:
-    public abstract java.lang.Object createScroller(android.content.Context,android.view.animation.Interpolator)
     public abstract float getCurrVelocity(java.lang.Object)
     public abstract void startScroll(java.lang.Object,int,int,int,int)
     public abstract void fling(java.lang.Object,int,int,int,int,int,int,int,int)
@@ -1356,7 +1296,6 @@ android.support.v4.widget.ScrollerCompat$ScrollerCompatImpl:
     public abstract void notifyVerticalEdgeReached(java.lang.Object,int,int,int)
     public abstract boolean isOverScrolled(java.lang.Object)
 android.support.v4.widget.ScrollerCompat$ScrollerCompatImplBase:
-    58:58:public java.lang.Object createScroller(android.content.Context,android.view.animation.Interpolator)
     79:79:public float getCurrVelocity(java.lang.Object)
     89:90:public void startScroll(java.lang.Object,int,int,int,int)
     101:102:public void fling(java.lang.Object,int,int,int,int,int,int,int,int)
@@ -1365,7 +1304,6 @@ android.support.v4.widget.ScrollerCompat$ScrollerCompatImplBase:
     124:124:public void notifyVerticalEdgeReached(java.lang.Object,int,int,int)
     129:129:public boolean isOverScrolled(java.lang.Object)
 android.support.v4.widget.ScrollerCompat$ScrollerCompatImplGingerbread:
-    146:146:public java.lang.Object createScroller(android.content.Context,android.view.animation.Interpolator)
     166:166:public float getCurrVelocity(java.lang.Object)
     176:177:public void startScroll(java.lang.Object,int,int,int,int)
     188:190:public void fling(java.lang.Object,int,int,int,int,int,int,int,int)
@@ -1377,7 +1315,6 @@ android.support.v4.widget.ScrollerCompat$ScrollerCompatImplIcs:
     234:234:public float getCurrVelocity(java.lang.Object)
 android.support.v4.widget.ScrollerCompatGingerbread:
     24:24:ScrollerCompatGingerbread()
-    26:26:public static java.lang.Object createScroller(android.content.Context,android.view.animation.Interpolator)
     47:48:public static void startScroll(java.lang.Object,int,int,int,int)
     57:58:public static void fling(java.lang.Object,int,int,int,int,int,int,int,int)
     62:64:public static void fling(java.lang.Object,int,int,int,int,int,int,int,int,int,int)
@@ -1399,8 +1336,11 @@ android.support.v4.widget.SearchViewCompatHoneycomb$1
 android.support.v4.widget.SearchViewCompatHoneycomb$2
 android.support.v4.widget.SearchViewCompatHoneycomb$OnCloseListenerCompatBridge
 android.support.v4.widget.SearchViewCompatHoneycomb$OnQueryTextListenerCompatBridge
-android.support.v4.widget.SearchViewCompatIcs
-android.support.v4.widget.SearchViewCompatIcs$MySearchView
+android.support.v4.widget.SearchViewCompatIcs:
+    26:28:SearchViewCompatIcs()
+    43:43:public static android.view.View newSearchView(android.content.Context)
+    47:48:public static void setImeOptions(android.view.View,int)
+    51:52:public static void setInputType(android.view.View,int)
 android.support.v4.widget.SimpleCursorAdapter
 android.support.v4.widget.SimpleCursorAdapter$CursorToStringConverter
 android.support.v4.widget.SimpleCursorAdapter$ViewBinder
@@ -1409,33 +1349,13 @@ android.support.v4.widget.SlidingPaneLayout:
     private static final int DEFAULT_OVERHANG_SIZE
     private static final int DEFAULT_FADE_COLOR
     private static final int MIN_FLING_VELOCITY
-    244:245:public SlidingPaneLayout(android.content.Context)
-    248:249:public SlidingPaneLayout(android.content.Context,android.util.AttributeSet)
-    252:267:public SlidingPaneLayout(android.content.Context,android.util.AttributeSet,int)
-    328:331:void dispatchOnPanelSlide(android.view.View)
-    334:338:void dispatchOnPanelOpened(android.view.View)
-    341:345:void dispatchOnPanelClosed(android.view.View)
     848:849:public void smoothSlideOpen()
     866:867:public void smoothSlideClosed()
     895:895:public boolean canSlide()
-    909:922:private void onPanelDragged(int)
     1103:1122:protected boolean canScroll(android.view.View,boolean,int,int,int)
-    88:88:static synthetic boolean access$100(android.support.v4.widget.SlidingPaneLayout)
-    88:88:static synthetic android.support.v4.widget.ViewDragHelper access$200(android.support.v4.widget.SlidingPaneLayout)
-    88:88:static synthetic float access$300(android.support.v4.widget.SlidingPaneLayout)
-    88:88:static synthetic android.view.View access$400(android.support.v4.widget.SlidingPaneLayout)
-    88:88:static synthetic boolean access$502(android.support.v4.widget.SlidingPaneLayout,boolean)
-    88:88:static synthetic void access$600(android.support.v4.widget.SlidingPaneLayout,int)
-    88:88:static synthetic int access$700(android.support.v4.widget.SlidingPaneLayout)
-android.support.v4.widget.SlidingPaneLayout$AccessibilityDelegate
-android.support.v4.widget.SlidingPaneLayout$DragHelperCallback
 android.support.v4.widget.SlidingPaneLayout$LayoutParams:
     1277:1278:public SlidingPaneLayout$LayoutParams(int,int)
     1289:1291:public SlidingPaneLayout$LayoutParams(android.support.v4.widget.SlidingPaneLayout$LayoutParams)
-android.support.v4.widget.SlidingPaneLayout$PanelSlideListener:
-    public abstract void onPanelSlide(android.view.View,float)
-    public abstract void onPanelOpened(android.view.View)
-    public abstract void onPanelClosed(android.view.View)
 android.support.v4.widget.SlidingPaneLayout$SimplePanelSlideListener
 android.support.v4.widget.ViewDragHelper:
     private static final java.lang.String TAG
@@ -1454,20 +1374,12 @@ android.support.v4.widget.ViewDragHelper:
     private static final int EDGE_SIZE
     private static final int BASE_SETTLE_DURATION
     private static final int MAX_SETTLE_DURATION
-    347:347:public static android.support.v4.widget.ViewDragHelper create(android.view.ViewGroup,android.support.v4.widget.ViewDragHelper$Callback)
-    360:362:public static android.support.v4.widget.ViewDragHelper create(android.view.ViewGroup,float,android.support.v4.widget.ViewDragHelper$Callback)
-    373:392:private ViewDragHelper(android.content.Context,android.view.ViewGroup,android.support.v4.widget.ViewDragHelper$Callback)
-    401:402:public void setMinVelocity(float)
     412:412:public float getMinVelocity()
-    437:438:public void setEdgeTrackingEnabled(int)
     483:483:public int getActivePointerId()
     690:701:public void flingCapturedView(int,int,int,int)
     908:927:protected boolean canScroll(android.view.View,boolean,int,int,int,int)
     1331:1337:public boolean isEdgeTouched(int)
     1351:1351:public boolean isEdgeTouched(int,int)
-android.support.v4.widget.ViewDragHelper$2
-android.support.v4.widget.ViewDragHelper$Callback:
-    148:148:public ViewDragHelper$Callback()
 com.actionbarsherlock.ActionBarSherlock:
     protected static final java.lang.String TAG
     public static final boolean DEBUG
@@ -1590,11 +1502,46 @@ com.actionbarsherlock.app.ActionBar$Tab:
     public abstract com.actionbarsherlock.app.ActionBar$Tab setContentDescription(int)
     public abstract com.actionbarsherlock.app.ActionBar$Tab setContentDescription(java.lang.CharSequence)
 com.actionbarsherlock.app.ActionBar$TabListener
-com.actionbarsherlock.app.SherlockActivity
-com.actionbarsherlock.app.SherlockDialogFragment
-com.actionbarsherlock.app.SherlockExpandableListActivity
-com.actionbarsherlock.app.SherlockFragment:
+com.actionbarsherlock.app.SherlockActivity:
+    37:37:public com.actionbarsherlock.app.ActionBar getSupportActionBar()
+    41:41:public com.actionbarsherlock.view.ActionMode startActionMode(com.actionbarsherlock.view.ActionMode$Callback)
+    45:45:public void onActionModeStarted(com.actionbarsherlock.view.ActionMode)
+    48:48:public void onActionModeFinished(com.actionbarsherlock.view.ActionMode)
+    136:136:public com.actionbarsherlock.view.MenuInflater getSupportMenuInflater()
+    144:145:public void supportInvalidateOptionsMenu()
+    183:186:public boolean onCreatePanelMenu(int,com.actionbarsherlock.view.Menu)
+    190:190:public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu)
+    195:198:public boolean onPreparePanel(int,android.view.View,com.actionbarsherlock.view.Menu)
+    202:202:public boolean onPrepareOptionsMenu(com.actionbarsherlock.view.Menu)
+    207:210:public boolean onMenuItemSelected(int,com.actionbarsherlock.view.MenuItem)
+    214:214:public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
+    243:244:public void requestWindowFeature(long)
+    258:259:public void setSupportProgress(int)
+    262:263:public void setSupportProgressBarIndeterminate(boolean)
+    266:267:public void setSupportProgressBarIndeterminateVisibility(boolean)
+    270:271:public void setSupportProgressBarVisibility(boolean)
+    274:275:public void setSupportSecondaryProgress(int)
+com.actionbarsherlock.app.SherlockDialogFragment:
     19:19:public com.actionbarsherlock.app.SherlockFragmentActivity getSherlockActivity()
+com.actionbarsherlock.app.SherlockExpandableListActivity:
+    37:37:public com.actionbarsherlock.app.ActionBar getSupportActionBar()
+    41:41:public com.actionbarsherlock.view.ActionMode startActionMode(com.actionbarsherlock.view.ActionMode$Callback)
+    45:45:public void onActionModeStarted(com.actionbarsherlock.view.ActionMode)
+    48:48:public void onActionModeFinished(com.actionbarsherlock.view.ActionMode)
+    125:125:public com.actionbarsherlock.view.MenuInflater getSupportMenuInflater()
+    133:134:public void supportInvalidateOptionsMenu()
+    172:175:public boolean onCreatePanelMenu(int,com.actionbarsherlock.view.Menu)
+    179:179:public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu)
+    184:187:public boolean onPreparePanel(int,android.view.View,com.actionbarsherlock.view.Menu)
+    191:191:public boolean onPrepareOptionsMenu(com.actionbarsherlock.view.Menu)
+    196:199:public boolean onMenuItemSelected(int,com.actionbarsherlock.view.MenuItem)
+    203:203:public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
+    232:233:public void requestWindowFeature(long)
+    247:248:public void setSupportProgress(int)
+    251:252:public void setSupportProgressBarIndeterminate(boolean)
+    255:256:public void setSupportProgressBarIndeterminateVisibility(boolean)
+    259:260:public void setSupportProgressBarVisibility(boolean)
+    263:264:public void setSupportSecondaryProgress(int)
 com.actionbarsherlock.app.SherlockFragmentActivity:
     private static final java.lang.String TAG
     46:46:public com.actionbarsherlock.view.ActionMode startActionMode(com.actionbarsherlock.view.ActionMode$Callback)
@@ -1606,9 +1553,46 @@ com.actionbarsherlock.app.SherlockFragmentActivity:
     298:299:public void setSupportProgressBarIndeterminateVisibility(boolean)
     302:303:public void setSupportProgressBarVisibility(boolean)
     306:307:public void setSupportSecondaryProgress(int)
-com.actionbarsherlock.app.SherlockListActivity
-com.actionbarsherlock.app.SherlockListFragment
-com.actionbarsherlock.app.SherlockPreferenceActivity
+com.actionbarsherlock.app.SherlockListActivity:
+    37:37:public com.actionbarsherlock.app.ActionBar getSupportActionBar()
+    41:41:public com.actionbarsherlock.view.ActionMode startActionMode(com.actionbarsherlock.view.ActionMode$Callback)
+    45:45:public void onActionModeStarted(com.actionbarsherlock.view.ActionMode)
+    48:48:public void onActionModeFinished(com.actionbarsherlock.view.ActionMode)
+    136:136:public com.actionbarsherlock.view.MenuInflater getSupportMenuInflater()
+    144:145:public void supportInvalidateOptionsMenu()
+    183:186:public boolean onCreatePanelMenu(int,com.actionbarsherlock.view.Menu)
+    190:190:public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu)
+    195:198:public boolean onPreparePanel(int,android.view.View,com.actionbarsherlock.view.Menu)
+    202:202:public boolean onPrepareOptionsMenu(com.actionbarsherlock.view.Menu)
+    207:210:public boolean onMenuItemSelected(int,com.actionbarsherlock.view.MenuItem)
+    214:214:public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
+    243:244:public void requestWindowFeature(long)
+    258:259:public void setSupportProgress(int)
+    262:263:public void setSupportProgressBarIndeterminate(boolean)
+    266:267:public void setSupportProgressBarIndeterminateVisibility(boolean)
+    270:271:public void setSupportProgressBarVisibility(boolean)
+    274:275:public void setSupportSecondaryProgress(int)
+com.actionbarsherlock.app.SherlockListFragment:
+    19:19:public com.actionbarsherlock.app.SherlockFragmentActivity getSherlockActivity()
+com.actionbarsherlock.app.SherlockPreferenceActivity:
+    37:37:public com.actionbarsherlock.app.ActionBar getSupportActionBar()
+    41:41:public com.actionbarsherlock.view.ActionMode startActionMode(com.actionbarsherlock.view.ActionMode$Callback)
+    45:45:public void onActionModeStarted(com.actionbarsherlock.view.ActionMode)
+    48:48:public void onActionModeFinished(com.actionbarsherlock.view.ActionMode)
+    136:136:public com.actionbarsherlock.view.MenuInflater getSupportMenuInflater()
+    144:145:public void supportInvalidateOptionsMenu()
+    183:186:public boolean onCreatePanelMenu(int,com.actionbarsherlock.view.Menu)
+    190:190:public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu)
+    195:198:public boolean onPreparePanel(int,android.view.View,com.actionbarsherlock.view.Menu)
+    202:202:public boolean onPrepareOptionsMenu(com.actionbarsherlock.view.Menu)
+    207:210:public boolean onMenuItemSelected(int,com.actionbarsherlock.view.MenuItem)
+    214:214:public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
+    243:244:public void requestWindowFeature(long)
+    258:259:public void setSupportProgress(int)
+    262:263:public void setSupportProgressBarIndeterminate(boolean)
+    266:267:public void setSupportProgressBarIndeterminateVisibility(boolean)
+    270:271:public void setSupportProgressBarVisibility(boolean)
+    274:275:public void setSupportSecondaryProgress(int)
 com.actionbarsherlock.internal.ActionBarSherlockCompat:
     protected static final int DEFAULT_FEATURES
     private static final java.lang.String PANELS_TAG
@@ -1893,8 +1877,6 @@ com.actionbarsherlock.internal.nineoldandroids.view.animation.AnimatorProxy:
     87:91:public void setScrollX(int)
     93:97:public int getScrollY()
     100:104:public void setScrollY(int)
-com.actionbarsherlock.internal.nineoldandroids.widget.NineHorizontalScrollView:
-    11:13:public NineHorizontalScrollView(android.content.Context)
 com.actionbarsherlock.internal.view.StandaloneActionMode
 com.actionbarsherlock.internal.view.menu.ActionMenu
 com.actionbarsherlock.internal.view.menu.ActionMenuItem:
@@ -2116,11 +2098,8 @@ com.actionbarsherlock.internal.widget.CapitalizingButton:
     private static final int R_styleable_TextAppearance_textAllCaps
 com.actionbarsherlock.internal.widget.CapitalizingTextView:
     private static final int R_styleable_TextView_textAllCaps
-    23:24:public CapitalizingTextView(android.content.Context,android.util.AttributeSet)
 com.actionbarsherlock.internal.widget.IcsAbsSpinner:
     private android.graphics.Rect mTouchFrame
-    59:61:public IcsAbsSpinner(android.content.Context)
-    64:65:public IcsAbsSpinner(android.content.Context,android.util.AttributeSet)
     280:283:public void setSelection(int,boolean)
     301:308:void setSelectionInt(int,boolean)
     abstract void layout(int,boolean)
@@ -2133,8 +2112,6 @@ com.actionbarsherlock.internal.widget.IcsAdapterView:
     static final int SYNC_MAX_DURATION_MILLIS
     public static final int INVALID_POSITION
     public static final long INVALID_ROW_ID
-    228:229:public IcsAdapterView(android.content.Context)
-    232:233:public IcsAdapterView(android.content.Context,android.util.AttributeSet)
     267:276:public boolean performItemClick(android.view.View,int,long)
     568:588:public int getPositionForView(android.view.View)
     729:730:public java.lang.Object getItemAtPosition(int)
@@ -2177,16 +2154,12 @@ com.actionbarsherlock.internal.widget.IcsProgressBar:
     private static final int ProgressBar_minHeight
     private static final int ProgressBar_interpolator
     private static final int ProgressBar_animationResolution
-    265:266:public IcsProgressBar(android.content.Context)
-    269:270:public IcsProgressBar(android.content.Context,android.util.AttributeSet)
-    273:274:public IcsProgressBar(android.content.Context,android.util.AttributeSet,int)
     457:457:public synchronized boolean isIndeterminate()
     818:819:public final synchronized void incrementProgressBy(int)
     829:830:public final synchronized void incrementSecondaryProgressBy(int)
 com.actionbarsherlock.internal.widget.IcsSpinner:
     private static final int MAX_ITEMS_MEASURED
     public static final int MODE_DROPDOWN
-    82:83:public IcsSpinner(android.content.Context,android.util.AttributeSet)
 com.actionbarsherlock.internal.widget.IcsToast:
     public static final int LENGTH_LONG
     public static final int LENGTH_SHORT
@@ -2201,18 +2174,15 @@ com.actionbarsherlock.internal.widget.PopupWindowCompat:
     100:102:public PopupWindowCompat(android.view.View,int,int,boolean)
     105:107:public PopupWindowCompat(android.view.View,int,int)
 com.actionbarsherlock.internal.widget.ScrollingTabContainerView:
-    protected com.actionbarsherlock.internal.nineoldandroids.animation.Animator mVisibilityAnim
-    protected final com.actionbarsherlock.internal.widget.ScrollingTabContainerView$VisibilityAnimListener mVisAnimListener
     private static final int FADE_DURATION
-    69:82:public ScrollingTabContainerView(android.content.Context)
-    189:194:private com.actionbarsherlock.internal.widget.IcsLinearLayout createTabLayout()
     219:240:public void animateToVisibility(int)
     295:307:public void addTab(com.actionbarsherlock.app.ActionBar$Tab,boolean)
     310:322:public void addTab(com.actionbarsherlock.app.ActionBar$Tab,int,boolean)
     325:332:public void updateTab(int)
     335:342:public void removeTabAt(int)
     345:352:public void removeAllTabs()
-com.actionbarsherlock.internal.widget.ScrollingTabContainerView$VisibilityAnimListener
+com.actionbarsherlock.internal.widget.ScrollingTabContainerView$VisibilityAnimListener:
+    518:519:public com.actionbarsherlock.internal.widget.ScrollingTabContainerView$VisibilityAnimListener withFinalVisibility(int)
 com.actionbarsherlock.internal.widget.TabsLinearLayout:
     private static final int LinearLayout_measureWithLargestChild
 com.actionbarsherlock.view.ActionMode:
@@ -2352,82 +2322,10 @@ com.actionbarsherlock.widget.SearchView:
     private static final boolean DBG
     private static final java.lang.String LOG_TAG
     private static final java.lang.String IME_OPTION_NO_MICROPHONE
-    private android.view.View mSearchPlate
-    private android.view.View mDropDownAnchor
-    private java.lang.CharSequence mOldQueryText
-    private java.lang.CharSequence mUserQuery
-    private final android.view.View$OnClickListener mOnClickListener
-    android.view.View$OnKeyListener mTextKeyListener
-    private final android.widget.TextView$OnEditorActionListener mOnEditorActionListener
-    private final android.widget.AdapterView$OnItemClickListener mOnItemClickListener
-    private final android.widget.AdapterView$OnItemSelectedListener mOnItemSelectedListener
-    private android.text.TextWatcher mTextWatcher
-    252:253:public SearchView(android.content.Context)
-    256:357:public SearchView(android.content.Context,android.util.AttributeSet)
     534:544:public void setQuery(java.lang.CharSequence,boolean)
     605:605:public boolean isIconfiedByDefault()
     655:655:public boolean isSubmitButtonEnabled()
     685:685:public boolean isQueryRefinementEnabled()
-    840:844:private void updateFocusedState()
-    976:1033:private boolean onSuggestionsKey(android.view.View,int,android.view.KeyEvent)
-    1168:1179:private void onTextChanged(java.lang.CharSequence)
-    1182:1193:private void onSubmitQuery()
-    1196:1197:private void dismissSuggestions()
-    1230:1249:private void onVoiceClicked()
-    1306:1320:private void adjustDropDownSizeAndPosition()
-    1323:1330:private boolean onItemClicked(int,int,java.lang.String)
-    1334:1339:private boolean onItemSelected(int)
-    1376:1396:private void rewriteQueryFromSuggestion(int)
-    1409:1419:private boolean launchSuggestion(int,int,java.lang.String)
-    1426:1436:private void launchIntent(android.content.Intent)
-    1448:1451:private void launchQuerySearch(int,java.lang.String,java.lang.String)
-    1469:1492:private android.content.Intent createIntent(java.lang.String,android.net.Uri,java.lang.String,java.lang.String,int,java.lang.String)
-    1499:1503:private android.content.Intent createVoiceWebSearchIntent(android.content.Intent,android.app.SearchableInfo)
-    1514:1565:private android.content.Intent createVoiceAppSearchIntent(android.content.Intent,android.app.SearchableInfo)
-    1584:1620:private android.content.Intent createIntentFromSuggestion(android.database.Cursor,int,java.lang.String)
-    1792:1799:private static void showSoftInputUnchecked(android.view.View,android.view.inputmethod.InputMethodManager,int)
-    103:103:static synthetic void access$000(android.view.View,android.view.inputmethod.InputMethodManager,int)
-    103:103:static synthetic void access$100(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic android.support.v4.widget.CursorAdapter access$200(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic android.view.View$OnFocusChangeListener access$300(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic void access$400(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic android.view.View access$500(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic void access$600(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic android.widget.ImageView access$700(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic void access$800(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic android.view.View access$900(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic void access$1000(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic android.view.View access$1100(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic void access$1200(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic com.actionbarsherlock.widget.SearchView$SearchAutoComplete access$1300(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic void access$1400(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic android.app.SearchableInfo access$1500(com.actionbarsherlock.widget.SearchView)
-    103:103:static synthetic boolean access$1600(com.actionbarsherlock.widget.SearchView,android.view.View,int,android.view.KeyEvent)
-    103:103:static synthetic void access$1800(com.actionbarsherlock.widget.SearchView,int,java.lang.String,java.lang.String)
-    103:103:static synthetic boolean access$1900(com.actionbarsherlock.widget.SearchView,int,int,java.lang.String)
-    103:103:static synthetic boolean access$2000(com.actionbarsherlock.widget.SearchView,int)
-    103:103:static synthetic void access$2100(com.actionbarsherlock.widget.SearchView,java.lang.CharSequence)
-com.actionbarsherlock.widget.SearchView$1
-com.actionbarsherlock.widget.SearchView$10
-com.actionbarsherlock.widget.SearchView$11
-com.actionbarsherlock.widget.SearchView$12
-com.actionbarsherlock.widget.SearchView$2
-com.actionbarsherlock.widget.SearchView$3
-com.actionbarsherlock.widget.SearchView$4
-com.actionbarsherlock.widget.SearchView$5
-com.actionbarsherlock.widget.SearchView$6
-com.actionbarsherlock.widget.SearchView$7
-com.actionbarsherlock.widget.SearchView$8
-com.actionbarsherlock.widget.SearchView$9
-com.actionbarsherlock.widget.SearchView$OnQueryTextListener:
-    public abstract boolean onQueryTextSubmit(java.lang.String)
-    public abstract boolean onQueryTextChange(java.lang.String)
-com.actionbarsherlock.widget.SearchView$OnSuggestionListener:
-    public abstract boolean onSuggestionSelect(int)
-    public abstract boolean onSuggestionClick(int)
-com.actionbarsherlock.widget.SearchView$SearchAutoComplete:
-    1696:1696:private boolean isEmpty()
-    1662:1662:static synthetic boolean access$1700(com.actionbarsherlock.widget.SearchView$SearchAutoComplete)
 com.actionbarsherlock.widget.ShareActionProvider
 com.actionbarsherlock.widget.ShareActionProvider$1
 com.actionbarsherlock.widget.ShareActionProvider$OnShareTargetSelectedListener
@@ -2445,25 +2343,52 @@ com.actionbarsherlock.widget.SuggestionsAdapter:
     250:252:public void close()
     690:701:private android.graphics.drawable.Drawable getActivityIconWithCache(android.content.ComponentName)
     712:729:private android.graphics.drawable.Drawable getActivityIcon(android.content.ComponentName)
-com.google.ads.AdRequest
+com.google.ads.AdRequest:
+    public static final java.lang.String VERSION
+    public static final java.lang.String LOGTAG
 com.google.ads.AdRequest$ErrorCode
-com.google.ads.AdRequest$Gender
-com.google.ads.AdSize
+com.google.ads.AdSize:
+    public static final int FULL_WIDTH
+    public static final int AUTO_HEIGHT
+    public static final int LANDSCAPE_AD_HEIGHT
+    public static final int PORTRAIT_AD_HEIGHT
+    public static final int LARGE_AD_HEIGHT
+    public AdSize(int,int)
+    public int getWidth()
+    public int getHeight()
+    public boolean isFullWidth()
+    public boolean isAutoHeight()
+    public boolean isCustomAdSize()
+    public int getWidthInPixels(android.content.Context)
+    public int getHeightInPixels(android.content.Context)
+    public boolean isSizeAppropriate(int,int)
+    public varargs com.google.ads.AdSize findBestSize(com.google.ads.AdSize[])
 com.google.ads.mediation.EmptyNetworkExtras
-com.google.ads.mediation.MediationAdRequest
-com.google.ads.mediation.MediationAdapter
-com.google.ads.mediation.MediationBannerAdapter
-com.google.ads.mediation.MediationBannerListener
-com.google.ads.mediation.MediationInterstitialAdapter
-com.google.ads.mediation.MediationInterstitialListener
-com.google.ads.mediation.MediationServerParameters
-com.google.ads.mediation.MediationServerParameters$MappingException
-com.google.ads.mediation.MediationServerParameters$Parameter
-com.google.ads.mediation.NetworkExtras
+com.google.ads.mediation.MediationAdRequest:
+    public java.lang.Integer getAgeInYears()
+    public java.util.Date getBirthday()
+    public com.google.ads.AdRequest$Gender getGender()
+    public java.util.Set getKeywords()
+    public android.location.Location getLocation()
+    public boolean isTesting()
+com.google.ads.mediation.MediationBannerListener:
+    public abstract void onReceivedAd(com.google.ads.mediation.MediationBannerAdapter)
+    public abstract void onFailedToReceiveAd(com.google.ads.mediation.MediationBannerAdapter,com.google.ads.AdRequest$ErrorCode)
+    public abstract void onPresentScreen(com.google.ads.mediation.MediationBannerAdapter)
+    public abstract void onDismissScreen(com.google.ads.mediation.MediationBannerAdapter)
+    public abstract void onLeaveApplication(com.google.ads.mediation.MediationBannerAdapter)
+    public abstract void onClick(com.google.ads.mediation.MediationBannerAdapter)
+com.google.ads.mediation.MediationInterstitialListener:
+    public abstract void onReceivedAd(com.google.ads.mediation.MediationInterstitialAdapter)
+    public abstract void onFailedToReceiveAd(com.google.ads.mediation.MediationInterstitialAdapter,com.google.ads.AdRequest$ErrorCode)
+    public abstract void onPresentScreen(com.google.ads.mediation.MediationInterstitialAdapter)
+    public abstract void onDismissScreen(com.google.ads.mediation.MediationInterstitialAdapter)
+    public abstract void onLeaveApplication(com.google.ads.mediation.MediationInterstitialAdapter)
 com.google.ads.mediation.admob.AdMobAdapter
 com.google.ads.mediation.admob.AdMobAdapter$a
 com.google.ads.mediation.admob.AdMobAdapter$b
-com.google.ads.mediation.admob.AdMobServerParameters
+com.google.ads.mediation.admob.AdMobServerParameters:
+    public java.lang.String adUnitId
 com.google.ads.mediation.customevent.CustomEvent
 com.google.ads.mediation.customevent.CustomEventAdapter
 com.google.ads.mediation.customevent.CustomEventAdapter$a
@@ -2474,26 +2399,286 @@ com.google.ads.mediation.customevent.CustomEventInterstitial
 com.google.ads.mediation.customevent.CustomEventInterstitialListener
 com.google.ads.mediation.customevent.CustomEventListener
 com.google.ads.mediation.customevent.CustomEventServerParameters
+com.google.analytics.tracking.android.AdHitIdGenerator:
+    24:26:AdHitIdGenerator(boolean)
+com.google.analytics.tracking.android.AdMobInfo:
+    47:47:java.util.Map getJoinIds()
+    58:59:void setAdHitId(int)
+    62:62:int getAdHitId()
+com.google.analytics.tracking.android.AdMobInfo$AdMobKey
+com.google.analytics.tracking.android.AnalyticsConstants
+com.google.analytics.tracking.android.AnalyticsGmsCoreClient:
+    public static final int BIND_FAILED
+    public static final int REMOTE_EXECUTION_FAILED
+    private static final java.lang.String SERVICE_DESCRIPTOR
+    static final java.lang.String SERVICE_ACTION
+    private static final int BIND_ADJUST_WITH_ACTIVITY
+    public static final java.lang.String KEY_APP_PACKAGE_NAME
+com.google.analytics.tracking.android.AnalyticsStore:
+    public abstract void setDispatch(boolean)
+    public abstract void close()
+com.google.analytics.tracking.android.AnalyticsThread:
+    public abstract void setAppOptOut(boolean)
+com.google.analytics.tracking.android.CampaignTrackingReceiver:
+    static final java.lang.String INSTALL_ACTION
+    static final java.lang.String CAMPAIGN_KEY
+com.google.analytics.tracking.android.CampaignTrackingService:
+    16:17:public CampaignTrackingService(java.lang.String)
+com.google.analytics.tracking.android.EasyTracker:
+    static final int NUM_MILLISECONDS_TO_WAIT_FOR_OPEN_ACTIVITY
+    125:129:public static com.google.analytics.tracking.android.Tracker getTracker()
+    291:292:void setUncaughtExceptionHandler(java.lang.Thread$UncaughtExceptionHandler)
+    400:403:public void dispatch()
+    437:438:static void clearTracker()
+    442:443:void setClock(com.google.analytics.tracking.android.Clock)
+    447:447:int getActivitiesActive()
+com.google.analytics.tracking.android.EasyTracker$NoopTracker:
+    private java.lang.String mAppId
+    private java.lang.String mAppInstallerId
+    private boolean mIsUseSecure
+    private com.google.analytics.tracking.android.ExceptionParser mExceptionParser
+    478:478:public void setAppScreen(java.lang.String)
+    482:482:public void sendView()
+    490:490:public void sendEvent(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+    494:494:public void sendTransaction(com.google.analytics.tracking.android.Transaction)
+    502:502:public void sendException(java.lang.String,java.lang.Throwable,boolean)
+    507:507:public void sendTiming(java.lang.String,long,java.lang.String,java.lang.String)
+    511:511:public void sendSocial(java.lang.String,java.lang.String,java.lang.String)
+    515:515:public void close()
+    519:519:public void send(java.lang.String,java.util.Map)
+    523:523:public java.lang.String get(java.lang.String)
+    528:528:public void set(java.lang.String,java.lang.String)
+    532:532:public java.lang.String getTrackingId()
+    542:542:public boolean isAnonymizeIpEnabled()
+    552:552:public double getSampleRate()
+    557:558:public void setUseSecure(boolean)
+    562:562:public boolean isUseSecure()
+    567:567:public void setReferrer(java.lang.String)
+    571:571:public void setCampaign(java.lang.String)
+    575:576:public void setAppId(java.lang.String)
+    580:580:public java.lang.String getAppId()
+    585:586:public void setAppInstallerId(java.lang.String)
+    590:590:public java.lang.String getAppInstallerId()
+    595:596:public void setExceptionParser(com.google.analytics.tracking.android.ExceptionParser)
+    600:600:public com.google.analytics.tracking.android.ExceptionParser getExceptionParser()
+    606:606:public java.util.Map constructEvent(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+    611:611:public java.util.Map constructTransaction(com.google.analytics.tracking.android.Transaction)
+    623:623:public java.util.Map constructRawException(java.lang.String,java.lang.Throwable,boolean)
+    629:629:public java.util.Map constructTiming(java.lang.String,long,java.lang.String,java.lang.String)
+    634:634:public java.util.Map constructSocial(java.lang.String,java.lang.String,java.lang.String)
+    639:639:public void setCustomDimension(int,java.lang.String)
+    643:643:public void setCustomMetric(int,java.lang.Long)
+    648:648:public void setCustomDimensionsAndMetrics(java.util.Map,java.util.Map)
+com.google.analytics.tracking.android.ExceptionReporter:
+    static final java.lang.String DEFAULT_DESCRIPTION
+    64:64:public com.google.analytics.tracking.android.ExceptionParser getExceptionParser()
+    68:69:public void setExceptionParser(com.google.analytics.tracking.android.ExceptionParser)
+com.google.analytics.tracking.android.FutureApis:
+    17:18:private FutureApis()
+com.google.analytics.tracking.android.GAServiceManager:
+    private static final int MSG_KEY
+    84:89:GAServiceManager(android.content.Context,com.google.analytics.tracking.android.AnalyticsThread,com.google.analytics.tracking.android.AnalyticsStore,boolean)
+    147:147:com.google.analytics.tracking.android.AnalyticsStoreStateListener getListener()
+com.google.analytics.tracking.android.GAServiceProxy:
+    private static final int MAX_TRIES
+    private static final long SERVICE_CONNECTION_TIMEOUT
+    private static final long RECONNECT_WAIT_TIME
+    private static final long FAILED_CONNECT_WAIT_TIME
+    89:90:void setClock(com.google.analytics.tracking.android.Clock)
+    170:175:void createService(com.google.analytics.tracking.android.AnalyticsClient)
+    182:183:public void setIdleTimeout(long)
+com.google.analytics.tracking.android.GAThread:
+    private static final java.lang.String CLIENT_VERSION
+    private static final int MAX_SAMPLE_RATE
+    private static final int SAMPLE_RATE_MULTIPLIER
+    private static final int SAMPLE_RATE_MODULO
+    static final java.lang.String API_VERSION
+    84:92:GAThread(android.content.Context,com.google.analytics.tracking.android.ServiceProxy)
+    275:300:public void setAppOptOut(boolean)
+    547:549:void close()
+    553:553:boolean isDisabled()
+    36:36:static synthetic android.content.Context access$1100(com.google.analytics.tracking.android.GAThread)
+    36:36:static synthetic boolean access$102(com.google.analytics.tracking.android.GAThread,boolean)
+com.google.analytics.tracking.android.GAThread$3
+com.google.analytics.tracking.android.GAUsage:
+    private static final java.lang.String BASE_64_CHARS
+    100:100:static com.google.analytics.tracking.android.GAUsage getPrivateInstance()
+com.google.analytics.tracking.android.GoogleAnalytics:
+    105:107:static com.google.analytics.tracking.android.GoogleAnalytics getInstance()
+    119:125:static com.google.analytics.tracking.android.GoogleAnalytics getNewInstance(android.content.Context,com.google.analytics.tracking.android.AnalyticsThread)
+    133:136:static void clearInstance()
+    154:155:public boolean isDebugEnabled()
+    189:192:public com.google.analytics.tracking.android.Tracker getDefaultTracker()
+    199:203:public void setDefaultTracker(com.google.analytics.tracking.android.Tracker)
+    207:213:public void closeTracker(com.google.analytics.tracking.android.Tracker)
+    240:240:void close()
+    246:246:java.lang.String getTrackingIdForAds()
+    253:256:java.lang.String getClientIdForAds()
+    276:279:public void setAppOptOut(boolean)
+    283:283:java.lang.Boolean getAppOptOut()
+    297:303:public void requestAppOptOut(com.google.analytics.tracking.android.GoogleAnalytics$AppOptOutCallback)
+com.google.analytics.tracking.android.HitBuilder:
+    15:15:HitBuilder()
+com.google.analytics.tracking.android.Log:
+    static final java.lang.String LOG_TAG
+    22:23:private Log()
+    87:90:public static int eDebug(java.lang.String)
+com.google.analytics.tracking.android.MetaModel$MetaInfo:
+    102:102:java.lang.String getUrlParam()
+com.google.analytics.tracking.android.MetaModelInitializer:
+    29:30:private MetaModelInitializer()
+com.google.analytics.tracking.android.ModelFields
+com.google.analytics.tracking.android.NoopDispatcher
+com.google.analytics.tracking.android.ParameterLoader:
+    public abstract boolean isBooleanKeyPresent(java.lang.String)
+com.google.analytics.tracking.android.ParameterLoaderImpl:
+    78:78:public boolean isBooleanKeyPresent(java.lang.String)
+com.google.analytics.tracking.android.PersistentAnalyticsStore:
+    static final java.lang.String BACKEND_LIBRARY_VERSION
+    static final java.lang.String HIT_ID
+    static final java.lang.String HIT_STRING
+    static final java.lang.String HIT_TIME
+    static final java.lang.String HIT_URL
+    static final java.lang.String HIT_APP_ID
+    static final java.lang.String HITS_TABLE
+    private static final java.lang.String DATABASE_FILENAME
+    128:129:public void setClock(com.google.analytics.tracking.android.Clock)
+    133:133:public com.google.analytics.tracking.android.PersistentAnalyticsStore$AnalyticsDatabaseHelper getDbHelper()
+    152:155:public void setDispatch(boolean)
+    159:160:void setDispatcher(com.google.analytics.tracking.android.Dispatcher)
+    401:402:void setLastDeleteStaleHitsTime(long)
+    511:516:public void close()
+    520:520:com.google.analytics.tracking.android.PersistentAnalyticsStore$AnalyticsDatabaseHelper getHelper()
+com.google.analytics.tracking.android.PersistentAnalyticsStore$AnalyticsDatabaseHelper:
+    553:553:boolean isBadDatabase()
+    557:558:void setBadDatabase(boolean)
+com.google.analytics.tracking.android.ServiceProxy:
+    public abstract void clearHits()
+com.google.analytics.tracking.android.SimpleNetworkDispatcher:
+    private static final java.lang.String USER_AGENT_TEMPLATE
+com.google.analytics.tracking.android.Tracker:
+    private volatile com.google.analytics.tracking.android.ExceptionParser mExceptionParser
+    static final long TIME_PER_TOKEN_MILLIS
+    static final long MAX_TOKENS
+    148:151:public void setAppScreen(java.lang.String)
+    158:159:public void trackView()
+    164:170:public void sendView()
+    177:178:public void trackView(java.lang.String)
+    200:201:public void trackEvent(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+    213:218:public void sendEvent(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+    225:226:public void trackTransaction(com.google.analytics.tracking.android.Transaction)
+    232:241:public void sendTransaction(com.google.analytics.tracking.android.Transaction)
+    248:249:public void trackException(java.lang.String,boolean)
+    271:272:public void trackException(java.lang.String,java.lang.Throwable,boolean)
+    284:303:public void sendException(java.lang.String,java.lang.Throwable,boolean)
+    310:311:public void trackTiming(java.lang.String,long,java.lang.String,java.lang.String)
+    322:328:public void sendTiming(java.lang.String,long,java.lang.String,java.lang.String)
+    335:336:public void trackSocial(java.lang.String,java.lang.String,java.lang.String)
+    345:350:public void sendSocial(java.lang.String,java.lang.String,java.lang.String)
+    356:358:public void close()
+    369:372:public void send(java.lang.String,java.util.Map)
+    393:394:public java.lang.String get(java.lang.String)
+    402:404:public void set(java.lang.String,java.lang.String)
+    410:411:public java.lang.String getTrackingId()
+    433:434:public boolean isAnonymizeIpEnabled()
+    463:464:public double getSampleRate()
+    474:476:public void setUseSecure(boolean)
+    482:483:public boolean isUseSecure()
+    493:495:public void setReferrer(java.lang.String)
+    523:525:public void setCampaign(java.lang.String)
+    535:537:public void setAppId(java.lang.String)
+    540:541:public java.lang.String getAppId()
+    551:553:public void setAppInstallerId(java.lang.String)
+    556:557:public java.lang.String getAppInstallerId()
+    564:566:public void setExceptionParser(com.google.analytics.tracking.android.ExceptionParser)
+    572:573:public com.google.analytics.tracking.android.ExceptionParser getExceptionParser()
+    583:588:public void setCustomDimension(int,java.lang.String)
+    598:607:public void setCustomMetric(int,java.lang.Long)
+    618:628:public void setCustomDimensionsAndMetrics(java.util.Map,java.util.Map)
+    636:645:public java.util.Map constructEvent(java.lang.String,java.lang.String,java.lang.String,java.lang.Long)
+    649:649:private static java.lang.String microsToCurrencyString(long)
+    657:667:public java.util.Map constructTransaction(com.google.analytics.tracking.android.Transaction)
+    671:681:private java.util.Map constructItem(com.google.analytics.tracking.android.Transaction$Item,com.google.analytics.tracking.android.Transaction)
+    703:715:public java.util.Map constructRawException(java.lang.String,java.lang.Throwable,boolean)
+    723:730:public java.util.Map constructTiming(java.lang.String,long,java.lang.String,java.lang.String)
+    737:743:public java.util.Map constructSocial(java.lang.String,java.lang.String,java.lang.String)
+    748:749:void setLastTrackTime(long)
+    753:754:void setTokens(long)
+    787:788:public void setThrottlingEnabled(boolean)
+com.google.analytics.tracking.android.Tracker$SimpleModel:
+    807:811:public synchronized java.lang.String get(java.lang.String)
+com.google.analytics.tracking.android.TrackerHandler:
+    public abstract void closeTracker(com.google.analytics.tracking.android.Tracker)
+com.google.analytics.tracking.android.Transaction
+com.google.analytics.tracking.android.Transaction$1
+com.google.analytics.tracking.android.Transaction$Builder
+com.google.analytics.tracking.android.Transaction$Item
+com.google.analytics.tracking.android.Transaction$Item$Builder
+com.google.analytics.tracking.android.Utils:
+    18:18:Utils()
+    51:57:public static long safeParseLong(java.lang.String)
+    153:159:static java.lang.String hexEncode(byte[])
+    182:182:static java.lang.String getSlottedModelField(java.lang.String,int)
 com.google.android.gms.BuildConfig
 com.google.android.gms.Manifest
 com.google.android.gms.Manifest$permission
 com.google.android.gms.R:
     9:110:public R()
 com.google.android.gms.R$attr
-com.google.android.gms.R$color
-com.google.android.gms.R$drawable
+com.google.android.gms.R$color:
+    28:28:public R$color()
+com.google.android.gms.R$drawable:
+    42:42:public R$drawable()
 com.google.android.gms.R$id
 com.google.android.gms.R$integer
 com.google.android.gms.R$string:
     82:82:public R$string()
-com.google.android.gms.R$styleable
-com.google.android.gms.ads.AdActivity
-com.google.android.gms.ads.AdListener
-com.google.android.gms.ads.AdRequest
+com.google.android.gms.R$styleable:
+    110:110:public R$styleable()
+com.google.android.gms.ads.AdActivity:
+    public static final java.lang.String CLASS_NAME
+    public static final java.lang.String SIMPLE_CLASS_NAME
+com.google.android.gms.ads.AdListener:
+    public AdListener()
+com.google.android.gms.ads.AdRequest:
+    public static final int ERROR_CODE_INTERNAL_ERROR
+    public static final int ERROR_CODE_INVALID_REQUEST
+    public static final int ERROR_CODE_NETWORK_ERROR
+    public static final int ERROR_CODE_NO_FILL
+    public static final int GENDER_UNKNOWN
+    public static final int GENDER_MALE
+    public static final int GENDER_FEMALE
+    private final java.util.Date d
+    private final int dI
+    private final java.util.Set f
+    private final java.util.Map dJ
+    private final int dK
+    private final java.util.Set dL
+    private AdRequest(com.google.android.gms.ads.AdRequest$Builder)
+    public java.util.Date getBirthday()
+    public int getGender()
+    public java.util.Set getKeywords()
+    public com.google.android.gms.ads.mediation.NetworkExtras getNetworkExtras(java.lang.Class)
+    public boolean isTestDevice(android.content.Context)
+    java.util.Map v()
+    public int w()
+    synthetic AdRequest(com.google.android.gms.ads.AdRequest$Builder,com.google.android.gms.ads.AdRequest$1)
 com.google.android.gms.ads.AdRequest$1
 com.google.android.gms.ads.AdRequest$Builder
-com.google.android.gms.ads.AdSize
-com.google.android.gms.ads.AdView
+com.google.android.gms.ads.AdSize:
+    public static final int FULL_WIDTH
+    public static final int AUTO_HEIGHT
+    public boolean isAutoHeight()
+    public boolean isFullWidth()
+com.google.android.gms.ads.AdView:
+    private com.google.android.gms.ads.a dW
+    public void destroy()
+    public void loadAd(com.google.android.gms.ads.AdRequest)
+    public void pause()
+    public void resume()
+    private void x()
+    private void c(java.lang.String)
+    private void d(java.lang.String)
 com.google.android.gms.ads.InterstitialAd
 com.google.android.gms.ads.a
 com.google.android.gms.ads.identifier.AdvertisingIdClient
@@ -2501,6 +2686,18 @@ com.google.android.gms.ads.identifier.AdvertisingIdClient$Info
 com.google.android.gms.ads.mediation.NetworkExtras
 com.google.android.gms.ads.mediation.admob.AdMobExtras
 com.google.android.gms.ads.mediation.customevent.CustomEventExtras
+com.google.android.gms.analytics.internal.Command:
+    public static final java.lang.String APPEND_VERSION
+    public static final java.lang.String APPEND_QUEUE_TIME
+    public static final java.lang.String APPEND_CACHE_BUSTER
+com.google.android.gms.analytics.internal.IAnalyticsService$Stub:
+    private static final java.lang.String DESCRIPTOR
+    static final int TRANSACTION_sendHit
+    static final int TRANSACTION_clearHits
+    17:19:public IAnalyticsService$Stub()
+    37:37:public android.os.IBinder asBinder()
+com.google.android.gms.analytics.internal.IAnalyticsService$Stub$Proxy:
+    87:87:public java.lang.String getInterfaceDescriptor()
 com.google.android.gms.appstate.AppState
 com.google.android.gms.appstate.AppStateBuffer
 com.google.android.gms.appstate.AppStateClient
@@ -2526,7 +2723,6 @@ com.google.android.gms.common.ConnectionResult
 com.google.android.gms.common.GooglePlayServicesClient
 com.google.android.gms.common.GooglePlayServicesClient$ConnectionCallbacks
 com.google.android.gms.common.GooglePlayServicesClient$OnConnectionFailedListener
-com.google.android.gms.common.GooglePlayServicesNotAvailableException
 com.google.android.gms.common.GooglePlayServicesRepairableException
 com.google.android.gms.common.GooglePlayServicesUtil:
     public static final int GOOGLE_PLAY_SERVICES_VERSION_CODE
@@ -2539,9 +2735,13 @@ com.google.android.gms.common.GooglePlayServicesUtil:
     public static android.app.Dialog getErrorDialog(int,android.app.Activity,int,android.content.DialogInterface$OnCancelListener)
     public static java.lang.String getOpenSourceSoftwareLicenseInfo(android.content.Context)
     public static android.content.res.Resources getRemoteResource(android.content.Context)
-    public static android.content.Context getRemoteContext(android.content.Context)
 com.google.android.gms.common.Scopes
-com.google.android.gms.common.SignInButton
+com.google.android.gms.common.SignInButton:
+    public static final int SIZE_STANDARD
+    public static final int SIZE_WIDE
+    public static final int SIZE_ICON_ONLY
+    public static final int COLOR_DARK
+    public static final int COLOR_LIGHT
 com.google.android.gms.common.UserRecoverableException
 com.google.android.gms.common.a
 com.google.android.gms.common.annotation.KeepName
@@ -2606,18 +2806,7 @@ com.google.android.gms.common.images.a:
     void r(android.content.Context)
 com.google.android.gms.common.internal.safeparcel.SafeParcelable:
     public static final java.lang.String NULL
-com.google.android.gms.dynamic.LifecycleDelegate
-com.google.android.gms.dynamic.a
-com.google.android.gms.dynamic.a$1
-com.google.android.gms.dynamic.a$2
-com.google.android.gms.dynamic.a$3
-com.google.android.gms.dynamic.a$4
-com.google.android.gms.dynamic.a$5
-com.google.android.gms.dynamic.a$6
-com.google.android.gms.dynamic.a$a
-com.google.android.gms.dynamic.d
-com.google.android.gms.dynamic.e
-com.google.android.gms.dynamic.e$a
+com.google.android.gms.common.util.VisibleForTesting
 com.google.android.gms.games.Game:
     public abstract void getDisplayName(android.database.CharArrayBuffer)
     public abstract void getDescription(android.database.CharArrayBuffer)
@@ -2764,11 +2953,19 @@ com.google.android.gms.gcm.GoogleCloudMessaging:
     private void cj()
     synchronized void ck()
 com.google.android.gms.internal.a
-com.google.android.gms.internal.aa
-com.google.android.gms.internal.ab
-com.google.android.gms.internal.ab$a
+com.google.android.gms.internal.ab$a:
+    public static com.google.android.gms.internal.ab e(android.os.IBinder)
 com.google.android.gms.internal.ab$a$a
-com.google.android.gms.internal.ac
+com.google.android.gms.internal.ac:
+    public abstract com.google.android.gms.dynamic.b z()
+    public abstract void destroy()
+    public abstract boolean isReady()
+    public abstract boolean a(com.google.android.gms.internal.v)
+    public abstract void pause()
+    public abstract void resume()
+    public abstract void a(com.google.android.gms.internal.ae)
+    public abstract void showInterstitial()
+    public abstract void stopLoading()
 com.google.android.gms.internal.ac$a
 com.google.android.gms.internal.ac$a$a
 com.google.android.gms.internal.ad
@@ -2777,20 +2974,6 @@ com.google.android.gms.internal.ad$a$a
 com.google.android.gms.internal.ae
 com.google.android.gms.internal.ae$a
 com.google.android.gms.internal.ae$a$a
-com.google.android.gms.internal.af
-com.google.android.gms.internal.ag:
-    public abstract void a(java.lang.String,java.lang.String)
-com.google.android.gms.internal.ah
-com.google.android.gms.internal.ah$1
-com.google.android.gms.internal.ah$2
-com.google.android.gms.internal.ah$3
-com.google.android.gms.internal.ah$4
-com.google.android.gms.internal.ah$5
-com.google.android.gms.internal.ah$6
-com.google.android.gms.internal.ah$7
-com.google.android.gms.internal.ai
-com.google.android.gms.internal.aj
-com.google.android.gms.internal.ak
 com.google.android.gms.internal.al
 com.google.android.gms.internal.am
 com.google.android.gms.internal.an
@@ -2804,17 +2987,16 @@ com.google.android.gms.internal.as$1
 com.google.android.gms.internal.at
 com.google.android.gms.internal.at$a
 com.google.android.gms.internal.au
-com.google.android.gms.internal.av
-com.google.android.gms.internal.aw
-com.google.android.gms.internal.aw$a
+com.google.android.gms.internal.av:
+    public void c(java.util.Map)
+com.google.android.gms.internal.aw$a:
+    public static com.google.android.gms.internal.aw i(android.os.IBinder)
 com.google.android.gms.internal.aw$a$a
-com.google.android.gms.internal.ax
-com.google.android.gms.internal.ax$a
+com.google.android.gms.internal.ax$a:
+    public static com.google.android.gms.internal.ax j(android.os.IBinder)
 com.google.android.gms.internal.ax$a$a
-com.google.android.gms.internal.ay
-com.google.android.gms.internal.ay$a
-com.google.android.gms.internal.ay$a$a
-com.google.android.gms.internal.az
+com.google.android.gms.internal.ay$a:
+    public ay$a()
 com.google.android.gms.internal.b
 com.google.android.gms.internal.b$1
 com.google.android.gms.internal.b$a
@@ -2830,7 +3012,19 @@ com.google.android.gms.internal.b$j
 com.google.android.gms.internal.b$k
 com.google.android.gms.internal.b$l
 com.google.android.gms.internal.b$m
-com.google.android.gms.internal.ba
+com.google.android.gms.internal.ba:
+    public void onClick(com.google.ads.mediation.MediationBannerAdapter)
+    public void onDismissScreen(com.google.ads.mediation.MediationBannerAdapter)
+    public void onFailedToReceiveAd(com.google.ads.mediation.MediationBannerAdapter,com.google.ads.AdRequest$ErrorCode)
+    public void onLeaveApplication(com.google.ads.mediation.MediationBannerAdapter)
+    public void onPresentScreen(com.google.ads.mediation.MediationBannerAdapter)
+    public void onReceivedAd(com.google.ads.mediation.MediationBannerAdapter)
+    public void onDismissScreen(com.google.ads.mediation.MediationInterstitialAdapter)
+    public void onFailedToReceiveAd(com.google.ads.mediation.MediationInterstitialAdapter,com.google.ads.AdRequest$ErrorCode)
+    public void onLeaveApplication(com.google.ads.mediation.MediationInterstitialAdapter)
+    public void onPresentScreen(com.google.ads.mediation.MediationInterstitialAdapter)
+    public void onReceivedAd(com.google.ads.mediation.MediationInterstitialAdapter)
+    static synthetic com.google.android.gms.internal.ay a(com.google.android.gms.internal.ba)
 com.google.android.gms.internal.ba$1
 com.google.android.gms.internal.ba$10
 com.google.android.gms.internal.ba$11
@@ -2842,40 +3036,13 @@ com.google.android.gms.internal.ba$6
 com.google.android.gms.internal.ba$7
 com.google.android.gms.internal.ba$8
 com.google.android.gms.internal.ba$9
-com.google.android.gms.internal.bb
+com.google.android.gms.internal.bb:
+    public static int a(com.google.ads.AdRequest$Gender)
+    public static int a(com.google.ads.AdRequest$ErrorCode)
+    public static final com.google.ads.AdRequest$ErrorCode f(int)
 com.google.android.gms.internal.bb$1
-com.google.android.gms.internal.bc
-com.google.android.gms.internal.be:
-    public be(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
-com.google.android.gms.internal.bf
-com.google.android.gms.internal.bf$1
-com.google.android.gms.internal.bf$a
-com.google.android.gms.internal.bf$b
 com.google.android.gms.internal.bh:
-    public static void a(android.content.Intent,com.google.android.gms.internal.bh)
-    public static com.google.android.gms.internal.bh a(android.content.Intent)
     public bh(com.google.android.gms.internal.q,com.google.android.gms.internal.bi,com.google.android.gms.internal.bl,com.google.android.gms.internal.cq,int,com.google.android.gms.internal.co)
-    public bh(com.google.android.gms.internal.q,com.google.android.gms.internal.bi,com.google.android.gms.internal.bl,com.google.android.gms.internal.cq,boolean,int,com.google.android.gms.internal.co)
-    public bh(com.google.android.gms.internal.q,com.google.android.gms.internal.bi,com.google.android.gms.internal.ag,com.google.android.gms.internal.bl,com.google.android.gms.internal.cq,boolean,int,java.lang.String,com.google.android.gms.internal.co)
-    public bh(com.google.android.gms.internal.q,com.google.android.gms.internal.bi,com.google.android.gms.internal.ag,com.google.android.gms.internal.bl,com.google.android.gms.internal.cq,boolean,int,java.lang.String,java.lang.String,com.google.android.gms.internal.co)
-    public bh(com.google.android.gms.internal.be,com.google.android.gms.internal.q,com.google.android.gms.internal.bi,com.google.android.gms.internal.bl,com.google.android.gms.internal.co)
-com.google.android.gms.internal.bi:
-    public abstract void B()
-    public abstract void C()
-com.google.android.gms.internal.bj
-com.google.android.gms.internal.bj$a
-com.google.android.gms.internal.bj$a$1
-com.google.android.gms.internal.bk
-com.google.android.gms.internal.bl:
-    public abstract void A()
-com.google.android.gms.internal.bm
-com.google.android.gms.internal.bm$a
-com.google.android.gms.internal.bn
-com.google.android.gms.internal.bn$a
-com.google.android.gms.internal.bn$a$a
-com.google.android.gms.internal.bo
-com.google.android.gms.internal.bo$a
-com.google.android.gms.internal.bo$a$a
 com.google.android.gms.internal.bp
 com.google.android.gms.internal.bp$a
 com.google.android.gms.internal.bq
@@ -2910,61 +3077,31 @@ com.google.android.gms.internal.cc
 com.google.android.gms.internal.cd
 com.google.android.gms.internal.ce
 com.google.android.gms.internal.cf
-com.google.android.gms.internal.cg
-com.google.android.gms.internal.cg$1
-com.google.android.gms.internal.ch
-com.google.android.gms.internal.ch$1
-com.google.android.gms.internal.ch$2
-com.google.android.gms.internal.ci
-com.google.android.gms.internal.ci$1
+com.google.android.gms.internal.cg:
+    public final void cancel()
+    public abstract void onStop()
+com.google.android.gms.internal.ci:
+    public static boolean h(android.content.Context)
+    public static boolean a(android.content.pm.PackageManager,java.lang.String,java.lang.String)
+    public static boolean am()
+    public static void a(android.content.Context,java.lang.String,java.util.List)
+    public static void i(android.content.Context)
+    public static java.lang.String j(java.lang.String)
+    static synthetic boolean h(boolean)
 com.google.android.gms.internal.ci$a
-com.google.android.gms.internal.cj
-com.google.android.gms.internal.ck
-com.google.android.gms.internal.cl
-com.google.android.gms.internal.cm
+com.google.android.gms.internal.cl:
+    public void onStop()
+com.google.android.gms.internal.cm:
+    public static java.lang.String l(android.content.Context)
+    public static boolean aq()
 com.google.android.gms.internal.cn:
     public static void a(java.lang.String,java.lang.Throwable)
-    public static void n(java.lang.String)
-    public static void o(java.lang.String)
-    public static void p(java.lang.String)
-    public static void b(java.lang.String,java.lang.Throwable)
 com.google.android.gms.internal.co:
     public co(int,int,boolean)
 com.google.android.gms.internal.cq:
-    private final com.google.android.gms.internal.cr hT
-    private final com.google.android.gms.internal.co hV
-    private com.google.android.gms.internal.bf hW
-    private boolean hY
-    public static com.google.android.gms.internal.cq a(android.content.Context,com.google.android.gms.internal.x,boolean,boolean,com.google.android.gms.internal.h,com.google.android.gms.internal.co)
-    private cq(android.content.MutableContextWrapper,com.google.android.gms.internal.x,boolean,boolean,com.google.android.gms.internal.h,com.google.android.gms.internal.co)
-    public void a(java.lang.String,java.util.Map)
-    public void as()
-    public void at()
-    public com.google.android.gms.internal.bf au()
-    public com.google.android.gms.internal.x av()
-    public com.google.android.gms.internal.cr aw()
-    public com.google.android.gms.internal.h ax()
-    public com.google.android.gms.internal.co ay()
-    public boolean az()
     public void a(android.content.Context,com.google.android.gms.internal.x)
-    public void a(com.google.android.gms.internal.bf)
-    public void i(boolean)
-    private void aA()
-    private void aB()
-    private void aC()
-com.google.android.gms.internal.cr
-com.google.android.gms.internal.cr$1
-com.google.android.gms.internal.cr$a
-com.google.android.gms.internal.cs
-com.google.android.gms.internal.cs$1
-com.google.android.gms.internal.cs$2
-com.google.android.gms.internal.cs$3
-com.google.android.gms.internal.cs$4
-com.google.android.gms.internal.cs$5
-com.google.android.gms.internal.cs$6
-com.google.android.gms.internal.cs$7
-com.google.android.gms.internal.ct
-com.google.android.gms.internal.cu
+com.google.android.gms.internal.cr:
+    public final void reset()
 com.google.android.gms.internal.cv
 com.google.android.gms.internal.cw
 com.google.android.gms.internal.cw$a
@@ -2981,10 +3118,6 @@ com.google.android.gms.internal.cx$a$a
 com.google.android.gms.internal.cy
 com.google.android.gms.internal.cy$a
 com.google.android.gms.internal.cy$a$a
-com.google.android.gms.internal.d:
-    public abstract java.lang.String a(android.content.Context)
-    public abstract java.lang.String a(android.content.Context,java.lang.String)
-    public abstract void a(int,int,int)
 com.google.android.gms.internal.db:
     public static void a(boolean,java.lang.Object)
 com.google.android.gms.internal.de
@@ -3004,16 +3137,10 @@ com.google.android.gms.internal.di$a$a
 com.google.android.gms.internal.dj
 com.google.android.gms.internal.dj$a
 com.google.android.gms.internal.dj$a$a
-com.google.android.gms.internal.dk
-com.google.android.gms.internal.dk$a
-com.google.android.gms.internal.dk$a$a
 com.google.android.gms.internal.dm:
     public static void m(boolean)
     public static void w(java.lang.String)
     public static void x(java.lang.String)
-com.google.android.gms.internal.dn
-com.google.android.gms.internal.do
-com.google.android.gms.internal.dp
 com.google.android.gms.internal.dq:
     private int lp
     public dq(int)
@@ -3133,12 +3260,6 @@ com.google.android.gms.internal.fg
 com.google.android.gms.internal.fh
 com.google.android.gms.internal.fh$a
 com.google.android.gms.internal.fh$a$a
-com.google.android.gms.internal.fi
-com.google.android.gms.internal.fi$a
-com.google.android.gms.internal.fi$a$a
-com.google.android.gms.internal.fj
-com.google.android.gms.internal.fj$a
-com.google.android.gms.internal.fj$a$a
 com.google.android.gms.internal.fk
 com.google.android.gms.internal.fk$a
 com.google.android.gms.internal.fk$a$a
@@ -3149,8 +3270,6 @@ com.google.android.gms.internal.fl$c
 com.google.android.gms.internal.fl$d
 com.google.android.gms.internal.fl$e
 com.google.android.gms.internal.fl$f
-com.google.android.gms.internal.fm
-com.google.android.gms.internal.fm$a
 com.google.android.gms.internal.fn:
     fn(java.lang.String,java.lang.String[],java.lang.String[],java.lang.String[],java.lang.String,java.lang.String,java.lang.String,java.lang.String)
 com.google.android.gms.internal.fo
@@ -3343,15 +3462,8 @@ com.google.android.gms.internal.gm
 com.google.android.gms.internal.h:
     private java.lang.String dw
     private java.lang.String dx
-    private java.lang.String[] dy
     private final com.google.android.gms.internal.c dA
     public h(com.google.android.gms.internal.d)
-    public boolean a(android.net.Uri)
-    public com.google.android.gms.internal.d g()
-    public android.net.Uri a(android.net.Uri,android.content.Context)
-    private android.net.Uri a(android.net.Uri,java.lang.String,java.lang.String)
-    private android.net.Uri a(android.net.Uri,android.content.Context,java.lang.String,boolean)
-com.google.android.gms.internal.i
 com.google.android.gms.internal.j
 com.google.android.gms.internal.k
 com.google.android.gms.internal.l
@@ -3364,21 +3476,13 @@ com.google.android.gms.internal.o$a$a
 com.google.android.gms.internal.p
 com.google.android.gms.internal.p$a
 com.google.android.gms.internal.p$a$a
-com.google.android.gms.internal.q:
-    public abstract void y()
 com.google.android.gms.internal.r
 com.google.android.gms.internal.r$a
 com.google.android.gms.internal.s
 com.google.android.gms.internal.s$1
-com.google.android.gms.internal.t
 com.google.android.gms.internal.u
 com.google.android.gms.internal.v:
     public v(android.content.Context,com.google.android.gms.ads.AdRequest)
-com.google.android.gms.internal.x:
-    public static int a(android.util.DisplayMetrics)
-    public static int b(android.util.DisplayMetrics)
-    private static int c(android.util.DisplayMetrics)
-    public x(android.content.Context,com.google.android.gms.ads.AdSize)
 com.google.android.gms.internal.z
 com.google.android.gms.location.ActivityRecognitionClient
 com.google.android.gms.location.ActivityRecognitionResult:
@@ -3440,8 +3544,70 @@ com.google.android.gms.location.a
 com.google.android.gms.location.a$a
 com.google.android.gms.location.a$a$a
 com.google.android.gms.maps.CameraUpdate
-com.google.android.gms.maps.CameraUpdateFactory
-com.google.android.gms.maps.GoogleMap
+com.google.android.gms.maps.CameraUpdateFactory:
+    private CameraUpdateFactory()
+    private static com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate ct()
+    public static com.google.android.gms.maps.CameraUpdate zoomIn()
+    public static com.google.android.gms.maps.CameraUpdate zoomOut()
+    public static com.google.android.gms.maps.CameraUpdate scrollBy(float,float)
+    public static com.google.android.gms.maps.CameraUpdate zoomTo(float)
+    public static com.google.android.gms.maps.CameraUpdate zoomBy(float)
+    public static com.google.android.gms.maps.CameraUpdate zoomBy(float,android.graphics.Point)
+    public static com.google.android.gms.maps.CameraUpdate newCameraPosition(com.google.android.gms.maps.model.CameraPosition)
+    public static com.google.android.gms.maps.CameraUpdate newLatLng(com.google.android.gms.maps.model.LatLng)
+    public static com.google.android.gms.maps.CameraUpdate newLatLngZoom(com.google.android.gms.maps.model.LatLng,float)
+    public static com.google.android.gms.maps.CameraUpdate newLatLngBounds(com.google.android.gms.maps.model.LatLngBounds,int)
+    public static com.google.android.gms.maps.CameraUpdate newLatLngBounds(com.google.android.gms.maps.model.LatLngBounds,int,int,int)
+com.google.android.gms.maps.GoogleMap:
+    public static final int MAP_TYPE_NONE
+    public static final int MAP_TYPE_NORMAL
+    public static final int MAP_TYPE_SATELLITE
+    public static final int MAP_TYPE_TERRAIN
+    public static final int MAP_TYPE_HYBRID
+    private com.google.android.gms.maps.UiSettings pg
+    com.google.android.gms.maps.internal.IGoogleMapDelegate cu()
+    public final com.google.android.gms.maps.model.CameraPosition getCameraPosition()
+    public final float getMaxZoomLevel()
+    public final float getMinZoomLevel()
+    public final void moveCamera(com.google.android.gms.maps.CameraUpdate)
+    public final void animateCamera(com.google.android.gms.maps.CameraUpdate)
+    public final void animateCamera(com.google.android.gms.maps.CameraUpdate,com.google.android.gms.maps.GoogleMap$CancelableCallback)
+    public final void animateCamera(com.google.android.gms.maps.CameraUpdate,int,com.google.android.gms.maps.GoogleMap$CancelableCallback)
+    public final void stopAnimation()
+    public final com.google.android.gms.maps.model.Polyline addPolyline(com.google.android.gms.maps.model.PolylineOptions)
+    public final com.google.android.gms.maps.model.Polygon addPolygon(com.google.android.gms.maps.model.PolygonOptions)
+    public final com.google.android.gms.maps.model.Circle addCircle(com.google.android.gms.maps.model.CircleOptions)
+    public final com.google.android.gms.maps.model.Marker addMarker(com.google.android.gms.maps.model.MarkerOptions)
+    public final com.google.android.gms.maps.model.GroundOverlay addGroundOverlay(com.google.android.gms.maps.model.GroundOverlayOptions)
+    public final com.google.android.gms.maps.model.TileOverlay addTileOverlay(com.google.android.gms.maps.model.TileOverlayOptions)
+    public final void clear()
+    public final int getMapType()
+    public final void setMapType(int)
+    public final boolean isTrafficEnabled()
+    public final void setTrafficEnabled(boolean)
+    public final boolean isIndoorEnabled()
+    public final boolean setIndoorEnabled(boolean)
+    public final boolean isBuildingsEnabled()
+    public final void setBuildingsEnabled(boolean)
+    public final boolean isMyLocationEnabled()
+    public final void setMyLocationEnabled(boolean)
+    public final android.location.Location getMyLocation()
+    public final void setLocationSource(com.google.android.gms.maps.LocationSource)
+    public final com.google.android.gms.maps.UiSettings getUiSettings()
+    public final com.google.android.gms.maps.Projection getProjection()
+    public final void setOnCameraChangeListener(com.google.android.gms.maps.GoogleMap$OnCameraChangeListener)
+    public final void setOnMapClickListener(com.google.android.gms.maps.GoogleMap$OnMapClickListener)
+    public final void setOnMapLongClickListener(com.google.android.gms.maps.GoogleMap$OnMapLongClickListener)
+    public final void setOnMarkerClickListener(com.google.android.gms.maps.GoogleMap$OnMarkerClickListener)
+    public final void setOnMarkerDragListener(com.google.android.gms.maps.GoogleMap$OnMarkerDragListener)
+    public final void setOnInfoWindowClickListener(com.google.android.gms.maps.GoogleMap$OnInfoWindowClickListener)
+    public final void setInfoWindowAdapter(com.google.android.gms.maps.GoogleMap$InfoWindowAdapter)
+    public final void setOnMyLocationChangeListener(com.google.android.gms.maps.GoogleMap$OnMyLocationChangeListener)
+    public final void setOnMyLocationButtonClickListener(com.google.android.gms.maps.GoogleMap$OnMyLocationButtonClickListener)
+    public void setOnMapLoadedCallback(com.google.android.gms.maps.GoogleMap$OnMapLoadedCallback)
+    public final void snapshot(com.google.android.gms.maps.GoogleMap$SnapshotReadyCallback)
+    public final void snapshot(com.google.android.gms.maps.GoogleMap$SnapshotReadyCallback,android.graphics.Bitmap)
+    public final void setPadding(int,int,int,int)
 com.google.android.gms.maps.GoogleMap$1
 com.google.android.gms.maps.GoogleMap$1$1
 com.google.android.gms.maps.GoogleMap$10
@@ -3469,16 +3635,6 @@ com.google.android.gms.maps.GoogleMap$OnMyLocationChangeListener
 com.google.android.gms.maps.GoogleMap$SnapshotReadyCallback
 com.google.android.gms.maps.GoogleMap$a
 com.google.android.gms.maps.GoogleMapOptions:
-    public com.google.android.gms.maps.GoogleMapOptions zOrderOnTop(boolean)
-    public com.google.android.gms.maps.GoogleMapOptions useViewLifecycleInFragment(boolean)
-    public com.google.android.gms.maps.GoogleMapOptions mapType(int)
-    public com.google.android.gms.maps.GoogleMapOptions camera(com.google.android.gms.maps.model.CameraPosition)
-    public com.google.android.gms.maps.GoogleMapOptions zoomControlsEnabled(boolean)
-    public com.google.android.gms.maps.GoogleMapOptions compassEnabled(boolean)
-    public com.google.android.gms.maps.GoogleMapOptions scrollGesturesEnabled(boolean)
-    public com.google.android.gms.maps.GoogleMapOptions zoomGesturesEnabled(boolean)
-    public com.google.android.gms.maps.GoogleMapOptions tiltGesturesEnabled(boolean)
-    public com.google.android.gms.maps.GoogleMapOptions rotateGesturesEnabled(boolean)
     public java.lang.Boolean getZOrderOnTop()
     public java.lang.Boolean getUseViewLifecycleInFragment()
     public java.lang.Boolean getZoomControlsEnabled()
@@ -3487,96 +3643,90 @@ com.google.android.gms.maps.GoogleMapOptions:
     public java.lang.Boolean getZoomGesturesEnabled()
     public java.lang.Boolean getTiltGesturesEnabled()
     public java.lang.Boolean getRotateGesturesEnabled()
-    public static com.google.android.gms.maps.GoogleMapOptions createFromAttributes(android.content.Context,android.util.AttributeSet)
 com.google.android.gms.maps.GoogleMapOptionsCreator:
     public static final int CONTENT_DESCRIPTION
 com.google.android.gms.maps.LocationSource
 com.google.android.gms.maps.LocationSource$OnLocationChangedListener
-com.google.android.gms.maps.MapFragment
-com.google.android.gms.maps.MapFragment$a
-com.google.android.gms.maps.MapFragment$b
-com.google.android.gms.maps.MapView
-com.google.android.gms.maps.MapView$a
-com.google.android.gms.maps.MapView$b
-com.google.android.gms.maps.MapsInitializer
+com.google.android.gms.maps.MapFragment:
+    private com.google.android.gms.maps.GoogleMap pI
+    public static com.google.android.gms.maps.MapFragment newInstance()
+    public static com.google.android.gms.maps.MapFragment newInstance(com.google.android.gms.maps.GoogleMapOptions)
+    protected com.google.android.gms.maps.internal.IMapFragmentDelegate cD()
+    public final com.google.android.gms.maps.GoogleMap getMap()
+com.google.android.gms.maps.MapFragment$a:
+    public com.google.android.gms.maps.internal.IMapFragmentDelegate cD()
+com.google.android.gms.maps.MapView:
+    public MapView(android.content.Context,com.google.android.gms.maps.GoogleMapOptions)
+    public final void onCreate(android.os.Bundle)
+    public final void onResume()
+    public final void onPause()
+    public final void onDestroy()
+    public final void onLowMemory()
+    public final void onSaveInstanceState(android.os.Bundle)
+com.google.android.gms.maps.MapsInitializer:
+    private MapsInitializer()
 com.google.android.gms.maps.Projection
-com.google.android.gms.maps.SupportMapFragment
-com.google.android.gms.maps.SupportMapFragment$a
-com.google.android.gms.maps.SupportMapFragment$b
+com.google.android.gms.maps.SupportMapFragment:
+    private com.google.android.gms.maps.GoogleMap pI
+    public static com.google.android.gms.maps.SupportMapFragment newInstance()
+    public static com.google.android.gms.maps.SupportMapFragment newInstance(com.google.android.gms.maps.GoogleMapOptions)
+    protected com.google.android.gms.maps.internal.IMapFragmentDelegate cD()
+    public final com.google.android.gms.maps.GoogleMap getMap()
+    public void setArguments(android.os.Bundle)
+com.google.android.gms.maps.SupportMapFragment$a:
+    public com.google.android.gms.maps.internal.IMapFragmentDelegate cD()
 com.google.android.gms.maps.UiSettings
-com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate
-com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate$a
-com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate$a$a
-com.google.android.gms.maps.internal.IGoogleMapDelegate
-com.google.android.gms.maps.internal.IGoogleMapDelegate$a
-com.google.android.gms.maps.internal.IGoogleMapDelegate$a$a
-com.google.android.gms.maps.internal.ILocationSourceDelegate
-com.google.android.gms.maps.internal.ILocationSourceDelegate$a
-com.google.android.gms.maps.internal.ILocationSourceDelegate$a$a
-com.google.android.gms.maps.internal.IMapFragmentDelegate
-com.google.android.gms.maps.internal.IMapFragmentDelegate$a
-com.google.android.gms.maps.internal.IMapFragmentDelegate$a$a
-com.google.android.gms.maps.internal.IMapViewDelegate
-com.google.android.gms.maps.internal.IMapViewDelegate$a
-com.google.android.gms.maps.internal.IMapViewDelegate$a$a
-com.google.android.gms.maps.internal.IProjectionDelegate
-com.google.android.gms.maps.internal.IProjectionDelegate$a
-com.google.android.gms.maps.internal.IProjectionDelegate$a$a
-com.google.android.gms.maps.internal.IUiSettingsDelegate
-com.google.android.gms.maps.internal.IUiSettingsDelegate$a
-com.google.android.gms.maps.internal.IUiSettingsDelegate$a$a
-com.google.android.gms.maps.internal.b
-com.google.android.gms.maps.internal.b$a
-com.google.android.gms.maps.internal.b$a$a
-com.google.android.gms.maps.internal.c
-com.google.android.gms.maps.internal.c$a
-com.google.android.gms.maps.internal.c$a$a
-com.google.android.gms.maps.internal.d
-com.google.android.gms.maps.internal.d$a
-com.google.android.gms.maps.internal.d$a$a
-com.google.android.gms.maps.internal.e
-com.google.android.gms.maps.internal.e$a
-com.google.android.gms.maps.internal.e$a$a
-com.google.android.gms.maps.internal.f
-com.google.android.gms.maps.internal.f$a
-com.google.android.gms.maps.internal.f$a$a
-com.google.android.gms.maps.internal.g
-com.google.android.gms.maps.internal.g$a
-com.google.android.gms.maps.internal.g$a$a
-com.google.android.gms.maps.internal.h
-com.google.android.gms.maps.internal.h$a
-com.google.android.gms.maps.internal.h$a$a
-com.google.android.gms.maps.internal.i
-com.google.android.gms.maps.internal.i$a
-com.google.android.gms.maps.internal.i$a$a
-com.google.android.gms.maps.internal.j
-com.google.android.gms.maps.internal.j$a
-com.google.android.gms.maps.internal.j$a$a
-com.google.android.gms.maps.internal.k
-com.google.android.gms.maps.internal.k$a
-com.google.android.gms.maps.internal.k$a$a
-com.google.android.gms.maps.internal.l
-com.google.android.gms.maps.internal.l$a
-com.google.android.gms.maps.internal.l$a$a
-com.google.android.gms.maps.internal.m
-com.google.android.gms.maps.internal.m$a
-com.google.android.gms.maps.internal.m$a$a
-com.google.android.gms.maps.internal.n
-com.google.android.gms.maps.internal.n$a
-com.google.android.gms.maps.internal.n$a$a
-com.google.android.gms.maps.internal.o
-com.google.android.gms.maps.internal.o$a
-com.google.android.gms.maps.internal.o$a$a
-com.google.android.gms.maps.internal.p
-com.google.android.gms.maps.internal.q
-com.google.android.gms.maps.model.BitmapDescriptorFactory
+com.google.android.gms.maps.internal.ILocationSourceDelegate$a:
+    public ILocationSourceDelegate$a()
+com.google.android.gms.maps.internal.b$a:
+    public b$a()
+com.google.android.gms.maps.internal.d$a:
+    public d$a()
+com.google.android.gms.maps.internal.e$a:
+    public e$a()
+com.google.android.gms.maps.internal.f$a:
+    public f$a()
+com.google.android.gms.maps.internal.h$a:
+    public h$a()
+com.google.android.gms.maps.internal.i$a:
+    public i$a()
+com.google.android.gms.maps.internal.j$a:
+    public j$a()
+com.google.android.gms.maps.internal.k$a:
+    public k$a()
+com.google.android.gms.maps.internal.l$a:
+    public l$a()
+com.google.android.gms.maps.internal.m$a:
+    public m$a()
+com.google.android.gms.maps.internal.n$a:
+    public n$a()
+com.google.android.gms.maps.internal.o$a:
+    public o$a()
+com.google.android.gms.maps.model.BitmapDescriptorFactory:
+    public static final float HUE_RED
+    public static final float HUE_ORANGE
+    public static final float HUE_YELLOW
+    public static final float HUE_GREEN
+    public static final float HUE_CYAN
+    public static final float HUE_AZURE
+    public static final float HUE_BLUE
+    public static final float HUE_VIOLET
+    public static final float HUE_MAGENTA
+    public static final float HUE_ROSE
+    private BitmapDescriptorFactory()
+    private static com.google.android.gms.maps.model.internal.a cL()
+    public static com.google.android.gms.maps.model.BitmapDescriptor fromResource(int)
+    public static com.google.android.gms.maps.model.BitmapDescriptor fromAsset(java.lang.String)
+    public static com.google.android.gms.maps.model.BitmapDescriptor fromFile(java.lang.String)
+    public static com.google.android.gms.maps.model.BitmapDescriptor fromPath(java.lang.String)
+    public static com.google.android.gms.maps.model.BitmapDescriptor defaultMarker()
+    public static com.google.android.gms.maps.model.BitmapDescriptor defaultMarker(float)
+    public static com.google.android.gms.maps.model.BitmapDescriptor fromBitmap(android.graphics.Bitmap)
 com.google.android.gms.maps.model.CameraPosition:
-    public CameraPosition(com.google.android.gms.maps.model.LatLng,float,float,float)
     public static final com.google.android.gms.maps.model.CameraPosition fromLatLngZoom(com.google.android.gms.maps.model.LatLng,float)
-    public static com.google.android.gms.maps.model.CameraPosition$Builder builder()
     public static com.google.android.gms.maps.model.CameraPosition$Builder builder(com.google.android.gms.maps.model.CameraPosition)
-    public static com.google.android.gms.maps.model.CameraPosition createFromAttributes(android.content.Context,android.util.AttributeSet)
-com.google.android.gms.maps.model.CameraPosition$Builder
+com.google.android.gms.maps.model.CameraPosition$Builder:
+    public CameraPosition$Builder(com.google.android.gms.maps.model.CameraPosition)
 com.google.android.gms.maps.model.CameraPositionCreator:
     public static final int CONTENT_DESCRIPTION
 com.google.android.gms.maps.model.Circle
@@ -3606,8 +3756,6 @@ com.google.android.gms.maps.model.GroundOverlayOptions:
     public com.google.android.gms.maps.model.BitmapDescriptor getImage()
 com.google.android.gms.maps.model.GroundOverlayOptionsCreator:
     public static final int CONTENT_DESCRIPTION
-com.google.android.gms.maps.model.LatLng:
-    public LatLng(double,double)
 com.google.android.gms.maps.model.LatLngBounds:
     public LatLngBounds(com.google.android.gms.maps.model.LatLng,com.google.android.gms.maps.model.LatLng)
     public static com.google.android.gms.maps.model.LatLngBounds$Builder builder()
@@ -3668,7 +3816,6 @@ com.google.android.gms.maps.model.PolylineOptions:
     public com.google.android.gms.maps.model.PolylineOptions geodesic(boolean)
 com.google.android.gms.maps.model.PolylineOptionsCreator:
     public static final int CONTENT_DESCRIPTION
-com.google.android.gms.maps.model.RuntimeRemoteException
 com.google.android.gms.maps.model.TileCreator:
     public static final int CONTENT_DESCRIPTION
 com.google.android.gms.maps.model.TileOverlay
@@ -3689,27 +3836,6 @@ com.google.android.gms.maps.model.VisibleRegion:
     public VisibleRegion(com.google.android.gms.maps.model.LatLng,com.google.android.gms.maps.model.LatLng,com.google.android.gms.maps.model.LatLng,com.google.android.gms.maps.model.LatLng,com.google.android.gms.maps.model.LatLngBounds)
 com.google.android.gms.maps.model.VisibleRegionCreator:
     public static final int CONTENT_DESCRIPTION
-com.google.android.gms.maps.model.internal.IPolylineDelegate
-com.google.android.gms.maps.model.internal.IPolylineDelegate$a
-com.google.android.gms.maps.model.internal.IPolylineDelegate$a$a
-com.google.android.gms.maps.model.internal.a
-com.google.android.gms.maps.model.internal.a$a
-com.google.android.gms.maps.model.internal.a$a$a
-com.google.android.gms.maps.model.internal.b
-com.google.android.gms.maps.model.internal.b$a
-com.google.android.gms.maps.model.internal.b$a$a
-com.google.android.gms.maps.model.internal.c
-com.google.android.gms.maps.model.internal.c$a
-com.google.android.gms.maps.model.internal.c$a$a
-com.google.android.gms.maps.model.internal.d
-com.google.android.gms.maps.model.internal.d$a
-com.google.android.gms.maps.model.internal.d$a$a
-com.google.android.gms.maps.model.internal.e
-com.google.android.gms.maps.model.internal.e$a
-com.google.android.gms.maps.model.internal.e$a$a
-com.google.android.gms.maps.model.internal.f
-com.google.android.gms.maps.model.internal.f$a
-com.google.android.gms.maps.model.internal.f$a$a
 com.google.android.gms.maps.model.internal.g$a:
     public g$a()
 com.google.android.gms.panorama.PanoramaClient
@@ -3721,16 +3847,23 @@ com.google.android.gms.plus.PlusClient$OnAccessRevokedListener
 com.google.android.gms.plus.PlusClient$OnMomentsLoadedListener
 com.google.android.gms.plus.PlusClient$OnPeopleLoadedListener
 com.google.android.gms.plus.PlusClient$OrderBy
-com.google.android.gms.plus.PlusOneButton
-com.google.android.gms.plus.PlusOneButton$DefaultOnPlusOneClickListener
-com.google.android.gms.plus.PlusOneButton$OnPlusOneClickListener
-com.google.android.gms.plus.PlusOneButtonWithPopup
-com.google.android.gms.plus.PlusOneDummyView
-com.google.android.gms.plus.PlusOneDummyView$1
-com.google.android.gms.plus.PlusOneDummyView$a
-com.google.android.gms.plus.PlusOneDummyView$b
-com.google.android.gms.plus.PlusOneDummyView$c
-com.google.android.gms.plus.PlusOneDummyView$d
+com.google.android.gms.plus.PlusOneButton:
+    public static final int SIZE_SMALL
+    public static final int SIZE_MEDIUM
+    public static final int SIZE_TALL
+    public static final int SIZE_STANDARD
+    public static final int ANNOTATION_NONE
+    public static final int ANNOTATION_BUBBLE
+    public static final int ANNOTATION_INLINE
+    public static final int DEFAULT_ACTIVITY_REQUEST_CODE
+    public void initialize(java.lang.String,int)
+    public void initialize(java.lang.String,com.google.android.gms.plus.PlusOneButton$OnPlusOneClickListener)
+com.google.android.gms.plus.PlusOneButtonWithPopup:
+    public void initialize(java.lang.String,java.lang.String)
+    public void cancelClick()
+    public void reinitialize()
+com.google.android.gms.plus.PlusOneDummyView:
+    public static final java.lang.String TAG
 com.google.android.gms.plus.PlusShare
 com.google.android.gms.plus.PlusShare$Builder
 com.google.android.gms.plus.model.moments.ItemScope:
@@ -4002,7 +4135,6 @@ com.google.android.gms.wallet.Cart:
     public java.util.ArrayList getLineItems()
 com.google.android.gms.wallet.Cart$1
 com.google.android.gms.wallet.Cart$Builder
-com.google.android.gms.wallet.EnableWalletOptimizationReceiver
 com.google.android.gms.wallet.FullWallet:
     public java.lang.String getGoogleTransactionId()
     public java.lang.String getMerchantTransactionId()
@@ -4634,9 +4766,9 @@ com.utopia.bttendance.BTDebug:
     public static final java.lang.String TAG
     public static final java.lang.String TAG_API
     13:14:private BTDebug()
-    27:31:public static void LogDebug(java.lang.String)
-    43:47:public static void LogVerbose(java.lang.String)
-    67:71:public static void Toast(android.content.Context,java.lang.String)
+    31:31:public static void LogDebug(java.lang.String)
+    47:47:public static void LogVerbose(java.lang.String)
+    71:71:public static void Toast(android.content.Context,java.lang.String)
 com.utopia.bttendance.BuildConfig
 com.utopia.bttendance.Manifest
 com.utopia.bttendance.Manifest$permission
@@ -4655,39 +4787,50 @@ com.utopia.bttendance.R$menu
 com.utopia.bttendance.R$string
 com.utopia.bttendance.R$style
 com.utopia.bttendance.R$styleable:
-    2349:2349:public R$styleable()
+    2362:2362:public R$styleable()
 com.utopia.bttendance.activity.BTActivity:
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST
-com.utopia.bttendance.activity.BTActivity$ActivityStack:
-    231:231:public BTActivity$ActivityStack()
+    209:221:public void showLoading(boolean)
+    239:247:private void showGPSDialog()
+    48:48:static synthetic com.actionbarsherlock.view.MenuItem access$100(com.utopia.bttendance.activity.BTActivity)
+    48:48:static synthetic boolean access$200(com.utopia.bttendance.activity.BTActivity)
+com.utopia.bttendance.activity.BTActivity$4
+com.utopia.bttendance.activity.BTActivity$5
 com.utopia.bttendance.activity.sign.PersionalizeActivity:
     private static final int PROGRESS_TO_GO
     private static final int PROGRESS_CHANGE_MAX
     private static final int PROGRESS_CHANGE_DURATION
     private static final int PROGRESS_CHANGE
     private static final int SPEED_TO_GO
-com.utopia.bttendance.adapter.BTListAdapter
-com.utopia.bttendance.adapter.BTListAdapter$Item
+com.utopia.bttendance.event.AttdCheckedEvent:
+    18:18:public java.lang.String getTitle()
 com.utopia.bttendance.event.AttdCheckedManuallyEvent
+com.utopia.bttendance.event.AttdEndEvent
 com.utopia.bttendance.event.AttdStartEvent:
     17:17:public int getCourseId()
+com.utopia.bttendance.event.AttdStartedEvent:
+    18:18:public boolean onGoingCheck()
 com.utopia.bttendance.event.BTDiscoveredEvent:
     16:16:public java.lang.String getMacAddress()
 com.utopia.bttendance.event.BTEventDispatcher:
-    50:52:private com.utopia.bttendance.activity.BTActivity getBTActivity()
-    58:80:public void onAttendanceStart(com.utopia.bttendance.event.AttdStartEvent)
-    85:105:public void onAttendanceStarted(com.utopia.bttendance.event.AttdStartedEvent)
-    109:127:public void onBTEnabled(com.utopia.bttendance.event.BTEnabledEvent)
-    131:148:public void onBTDiscovered(com.utopia.bttendance.event.BTDiscoveredEvent)
-    152:161:public void onBTCanceled(com.utopia.bttendance.event.BTCanceledEvent)
-    165:183:public void onLocationChanged(com.utopia.bttendance.event.LocationChangedEvent)
-    187:207:public void onShowEnableGPSDialog(com.utopia.bttendance.event.ShowEnableGPSDialogEvent)
-    211:223:public void onAddCourse(com.utopia.bttendance.event.AddCourseEvent)
-    227:238:public void onShowAttdList(com.utopia.bttendance.event.ShowAttdListEvent)
-    242:309:public void onPlusClicked(com.utopia.bttendance.event.PlusClickedEvent)
-    312:325:private void addFragment(com.utopia.bttendance.fragment.BTFragment)
-    328:341:private void showDialog(com.utopia.bttendance.fragment.BTDialogFragment)
+    49:51:private com.utopia.bttendance.activity.BTActivity getBTActivity()
+    57:92:public void onAttendanceStart(com.utopia.bttendance.event.AttdStartEvent)
+    97:118:public void onAttendanceInProgress(com.utopia.bttendance.event.AttdInProgressEvent)
+    123:157:public void onAttendanceStarted(com.utopia.bttendance.event.AttdStartedEvent)
+    162:183:public void onAttendanceChecked(com.utopia.bttendance.event.AttdCheckedEvent)
+    187:208:public void onBTEnabled(com.utopia.bttendance.event.BTEnabledEvent)
+    212:217:public void onBTDiscovered(com.utopia.bttendance.event.BTDiscoveredEvent)
+    221:230:public void onBTCanceled(com.utopia.bttendance.event.BTCanceledEvent)
+    234:252:public void onLocationChanged(com.utopia.bttendance.event.LocationChangedEvent)
+    256:275:public void onShowEnableGPSDialog(com.utopia.bttendance.event.ShowEnableGPSDialogEvent)
+    279:291:public void onAddCourse(com.utopia.bttendance.event.AddCourseEvent)
+    295:306:public void onShowAttdList(com.utopia.bttendance.event.ShowAttdListEvent)
+    310:377:public void onPlusClicked(com.utopia.bttendance.event.PlusClickedEvent)
+    381:391:public void onLoadingEvent(com.utopia.bttendance.event.LoadingEvent)
+    394:407:private void addFragment(com.utopia.bttendance.fragment.BTFragment)
+    410:423:private void showDialog(com.utopia.bttendance.fragment.BTDialogFragment,java.lang.String)
 com.utopia.bttendance.event.BTEventDispatcher$1
+com.utopia.bttendance.event.BTEventDispatcher$1$1
 com.utopia.bttendance.event.BTEventDispatcher$2
 com.utopia.bttendance.event.BTEventDispatcher$3
 com.utopia.bttendance.event.BTEventDispatcher$4
@@ -4697,42 +4840,32 @@ com.utopia.bttendance.event.BTEventDispatcher$7
 com.utopia.bttendance.event.BTEventDispatcher$7$1
 com.utopia.bttendance.event.BTEventDispatcher$7$2
 com.utopia.bttendance.event.BTEventDispatcher$8
+com.utopia.bttendance.event.LoadingEvent:
+    19:19:public boolean getVisibility()
 com.utopia.bttendance.event.LocationChangedEvent:
     17:17:public android.location.Location getLocation()
 com.utopia.bttendance.event.MyCoursesUpdateEvent
-com.utopia.bttendance.event.PlusClickedEvent
+com.utopia.bttendance.event.PlusClickedEvent:
+    19:19:public com.utopia.bttendance.model.json.BTJson getJson()
+    23:23:public int getId()
 com.utopia.bttendance.event.ShowAttdListEvent:
     15:15:public int getCourseId()
-com.utopia.bttendance.fragment.AttendanceListFragment
-com.utopia.bttendance.fragment.AttendanceListFragment$1
-com.utopia.bttendance.fragment.AttendanceListFragment$2
-com.utopia.bttendance.fragment.AttendanceListFragment$3
-com.utopia.bttendance.fragment.BTDialogFragment
-com.utopia.bttendance.fragment.BTDialogFragment$1
-com.utopia.bttendance.fragment.BTDialogFragment$DialogType
-com.utopia.bttendance.fragment.BTDialogFragment$OnConfirmListener
-com.utopia.bttendance.fragment.CourseFragment
+com.utopia.bttendance.event.ShowEnableGPSDialogEvent
+com.utopia.bttendance.fragment.AttendanceListFragment:
+    42:44:public AttendanceListFragment(int)
+    70:72:public void onAttdCheckedManually(com.utopia.bttendance.event.AttdCheckedManuallyEvent)
+com.utopia.bttendance.fragment.BTDialogFragment:
+    24:28:public BTDialogFragment(com.utopia.bttendance.fragment.BTDialogFragment$DialogType,java.lang.String,java.lang.String)
+    31:32:public void setOnConfirmListener(com.utopia.bttendance.fragment.BTDialogFragment$OnConfirmListener)
 com.utopia.bttendance.fragment.CourseListFragment:
-    100:101:public void onAttdStarted(com.utopia.bttendance.event.AttdStartedEvent)
-    105:106:public void onAttdChecked(com.utopia.bttendance.event.AttdCheckedEvent)
-    110:111:public void onAttdEndEvent(com.utopia.bttendance.event.AttdEndEvent)
-com.utopia.bttendance.fragment.CreateCourseFragment
-com.utopia.bttendance.fragment.CreateCourseFragment$1
-com.utopia.bttendance.fragment.CreateCourseFragment$2
-com.utopia.bttendance.fragment.CreateCourseFragment$3
-com.utopia.bttendance.fragment.CreateCourseFragment$4
-com.utopia.bttendance.fragment.CreateCourseFragment$5
-com.utopia.bttendance.fragment.CreateCourseFragment$6
-com.utopia.bttendance.fragment.CreateCourseFragment$7
-com.utopia.bttendance.fragment.CreateCourseFragment$8
+    104:105:public void onAttdStarted(com.utopia.bttendance.event.AttdStartedEvent)
+    109:110:public void onAttdEndEvent(com.utopia.bttendance.event.AttdEndEvent)
 com.utopia.bttendance.fragment.FeedFragment:
-    69:70:public void onAttdStarted(com.utopia.bttendance.event.AttdStartedEvent)
-    74:75:public void onAttdChecked(com.utopia.bttendance.event.AttdCheckedEvent)
-    79:80:public void onAttdEnd(com.utopia.bttendance.event.AttdEndEvent)
-com.utopia.bttendance.fragment.JoinCourseFragment
-com.utopia.bttendance.fragment.JoinCourseFragment$1
-com.utopia.bttendance.fragment.JoinCourseFragment$2
-com.utopia.bttendance.fragment.JoinSchoolFragment
+    74:75:public void onAttdStarted(com.utopia.bttendance.event.AttdStartedEvent)
+    79:80:public void onAttdChecked(com.utopia.bttendance.event.AttdCheckedEvent)
+    90:91:public void onAttdEnd(com.utopia.bttendance.event.AttdEndEvent)
+com.utopia.bttendance.fragment.JoinCourseFragment:
+    61:62:public void onMyCourseUpdate(com.utopia.bttendance.event.MyCoursesUpdateEvent)
 com.utopia.bttendance.helper.BitmapHelper
 com.utopia.bttendance.helper.BluetoothHelper:
     public static final int REQUEST_ENABLE_BT
@@ -4742,19 +4875,14 @@ com.utopia.bttendance.helper.BluetoothHelper:
     26:33:public static void enable(android.app.Activity)
     36:42:public static void enableWithUI()
     45:51:public static void disableWithUI()
-    54:57:public static void enableDiscoverability(android.app.Activity)
-    60:68:public static void startDiscovery()
+    54:57:public static boolean isDiscoverable()
+    68:71:public static void enableDiscoverability(android.app.Activity)
+    74:82:public static void startDiscovery()
 com.utopia.bttendance.helper.CloudinaryHelper
 com.utopia.bttendance.helper.CloudinaryImageUrlFilter
 com.utopia.bttendance.helper.DateHelper:
-    21:22:private DateHelper()
-    34:49:public static java.lang.String getTimeAgoString(android.content.Context,java.lang.String)
-    54:64:public static java.lang.CharSequence getTimeAgoString(android.content.Context,long)
-    68:68:public static java.lang.String getCurrentTimeString()
-    72:72:public static java.lang.String getString(java.util.Date)
-    88:91:public static java.util.Date getDate(java.lang.String)
-    108:108:public static java.lang.String geFomrattedNumberString(int)
-    112:112:public static java.lang.String getFormattedCollectionTitle(java.lang.String)
+    16:17:private DateHelper()
+    84:88:public static java.util.Date getDate(java.lang.String)
 com.utopia.bttendance.helper.DeviceHelper
 com.utopia.bttendance.helper.DipPixelHelper:
     13:13:public DipPixelHelper()
@@ -4763,6 +4891,7 @@ com.utopia.bttendance.helper.GPSTracker:
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES
     private static final long MIN_TIME_BW_UPDATES
     private static final int TWO_MINUTES
+    84:87:public static boolean isGpsEnable(android.content.Context)
     91:94:public static boolean isNetworkEnable(android.content.Context)
     98:100:public static void showLocationSettings(android.content.Context)
     108:108:private void setTracker()
@@ -4774,15 +4903,21 @@ com.utopia.bttendance.helper.GPSTracker:
     266:266:public boolean canGetLocation()
 com.utopia.bttendance.helper.IntArrayHelper:
     6:6:public IntArrayHelper()
-com.utopia.bttendance.helper.KeyboardHelper
-com.utopia.bttendance.helper.KeyboardHelper$1
+com.utopia.bttendance.helper.KeyboardHelper:
+    9:9:public KeyboardHelper()
+    24:27:public static void showByUser(android.content.Context,android.view.View)
+    36:39:public static void hideByUser(android.content.Context,android.view.View)
 com.utopia.bttendance.helper.LanguageHelper
 com.utopia.bttendance.helper.LocationHelper
 com.utopia.bttendance.helper.PackagesHelper
 com.utopia.bttendance.helper.ScreenHelper:
     27:27:public ScreenHelper()
     91:91:public static int getContentHeight(android.content.Context)
-com.utopia.bttendance.helper.StringMatcher
+com.utopia.bttendance.helper.StringMatcher:
+    private static final char KOREAN_UNICODE_START
+    private static final char KOREAN_UNICODE_END
+    private static final char KOREAN_UNIT
+    19:19:public StringMatcher()
 com.utopia.bttendance.helper.UUIDHelper
 com.utopia.bttendance.model.BTDatabase
 com.utopia.bttendance.model.BTDatabase$BTSQLiteHelper
@@ -4802,12 +4937,15 @@ com.utopia.bttendance.model.BTPreference:
     22:23:private BTPreference()
     85:85:public static java.lang.String getUUID(android.content.Context)
     89:92:public static void setUUID(android.content.Context,java.lang.String)
-com.utopia.bttendance.model.BTProvider
 com.utopia.bttendance.model.BTTable:
-    19:19:public BTTable()
-    27:27:public static java.lang.String getCourseIdFilter(int)
-    46:51:public static synchronized android.util.SparseArray getUsers(java.lang.String)
-    73:99:public static java.util.Set getCheckingPostIds()
+    20:20:public BTTable()
+    77:78:public static synchronized void UUIDLIST_add(java.lang.String)
+    81:81:public static synchronized java.util.Set UUIDLIST()
+    89:89:public static synchronized java.util.Set UUIDLISTSENDED()
+    93:94:public static synchronized void UUIDLISTSENDED_addAll(java.util.Set)
+    101:101:public static synchronized boolean UUIDLISTSENDED_contains(java.lang.String)
+    105:106:public static synchronized void UUIDLISTSENDED_remove(java.lang.String)
+    109:135:public static synchronized long getAttdChekingLeftTime()
 com.utopia.bttendance.model.cursor.SchoolCursor
 com.utopia.bttendance.model.cursor.UserCursor
 com.utopia.bttendance.model.json.BTJson:
@@ -4821,7 +4959,6 @@ com.utopia.bttendance.model.json.CourseJson:
     public int school
     public int professor
     public int[] students
-    public int[] posts
 com.utopia.bttendance.model.json.ErrorsJson:
     public java.lang.String alert
     public java.lang.String uuid
@@ -4844,12 +4981,8 @@ com.utopia.bttendance.service.BTAPI:
     public abstract void updateFullName(java.lang.String,java.lang.String,java.lang.String,java.lang.String,retrofit.Callback)
     public abstract void joinCourse(java.lang.String,java.lang.String,int,retrofit.Callback)
     public abstract void schools(java.lang.String,java.lang.String,retrofit.Callback)
-    public abstract void joinableCourses(java.lang.String,java.lang.String,retrofit.Callback)
     public abstract void schoolCreate(java.lang.String,java.lang.String,java.lang.String,java.lang.String,retrofit.Callback)
-    public abstract void courseCreate(java.lang.String,java.lang.String,java.lang.String,java.lang.String,int,retrofit.Callback)
     public abstract void courseFeed(java.lang.String,java.lang.String,int,int,retrofit.Callback)
-    public abstract void courseStudents(java.lang.String,java.lang.String,int,retrofit.Callback)
-    public abstract void post(int,retrofit.Callback)
     public abstract void postCreate(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,int,retrofit.Callback)
     public abstract void postAttendanceStart(java.lang.String,java.lang.String,int,retrofit.Callback)
     public abstract void postAttendanceFoundDevice(java.lang.String,java.lang.String,int,java.lang.String,retrofit.Callback)
@@ -4858,33 +4991,26 @@ com.utopia.bttendance.service.BTAPI:
 com.utopia.bttendance.service.BTService:
     private static final java.lang.String SERVER_DOMAIN
     private java.lang.Thread mAttendanceThread
-    86:108:public void attendanceStart()
-    111:113:public void attendanceStop()
-    177:195:public void updateProfileImage(java.lang.String,retrofit.Callback)
-    198:216:public void updateEmail(java.lang.String,retrofit.Callback)
-    219:237:public void updateFullName(java.lang.String,retrofit.Callback)
-    261:282:public void joinCourse(int,retrofit.Callback)
-    285:303:public void schools(retrofit.Callback)
-    329:349:public void joinableCourses(retrofit.Callback)
-    375:391:public void schoolCreate(java.lang.String,java.lang.String,retrofit.Callback)
-    394:412:public void courseCreate(java.lang.String,java.lang.String,int,retrofit.Callback)
-    415:435:public void courseFeed(int,int,retrofit.Callback)
-    438:460:public void courseStudents(int,retrofit.Callback)
-    463:479:public void post(int,retrofit.Callback)
-    482:499:public void postCreate(java.lang.String,java.lang.String,java.lang.String,int,retrofit.Callback)
-    502:519:public void postAttendanceStart(int,retrofit.Callback)
-    522:539:public void postAttendanceFoundDevice(int,java.lang.String,retrofit.Callback)
-    542:566:public void postAttendanceCurrentLocation(int,android.location.Location,retrofit.Callback)
-    569:586:public void postAttendanceCheckManually(int,int,retrofit.Callback)
+    95:142:public void attendanceStart()
+    147:151:public void attendanceStop()
+    215:233:public void updateProfileImage(java.lang.String,retrofit.Callback)
+    236:254:public void updateEmail(java.lang.String,retrofit.Callback)
+    257:275:public void updateFullName(java.lang.String,retrofit.Callback)
+    299:320:public void joinCourse(int,retrofit.Callback)
+    323:341:public void schools(retrofit.Callback)
+    413:429:public void schoolCreate(java.lang.String,java.lang.String,retrofit.Callback)
+    453:473:public void courseFeed(int,int,retrofit.Callback)
+    520:537:public void postCreate(java.lang.String,java.lang.String,java.lang.String,int,retrofit.Callback)
+    540:557:public void postAttendanceStart(int,retrofit.Callback)
+    560:579:public void postAttendanceFoundDevice(int,java.lang.String,retrofit.Callback)
+    582:606:public void postAttendanceCurrentLocation(int,android.location.Location,retrofit.Callback)
+    609:626:public void postAttendanceCheckManually(int,int,retrofit.Callback)
 com.utopia.bttendance.service.BTService$10
 com.utopia.bttendance.service.BTService$11
-com.utopia.bttendance.service.BTService$13
 com.utopia.bttendance.service.BTService$15
-com.utopia.bttendance.service.BTService$16
 com.utopia.bttendance.service.BTService$17
-com.utopia.bttendance.service.BTService$18
-com.utopia.bttendance.service.BTService$19
 com.utopia.bttendance.service.BTService$2
+com.utopia.bttendance.service.BTService$2$1
 com.utopia.bttendance.service.BTService$20
 com.utopia.bttendance.service.BTService$21
 com.utopia.bttendance.service.BTService$22
@@ -4899,6 +5025,8 @@ com.utopia.bttendance.service.GcmIntentService:
     private static final java.lang.String TITLE
     private static final java.lang.String MESSAGE
     private static final java.lang.String TYPE
+    private static final java.lang.String POST
+    private static final java.lang.String COURSE
     private static final java.lang.String ATTENDANCE_STARTED
     private static final java.lang.String ATTENDANCE_CHECKED
 com.utopia.bttendance.view.BeautiLoading
@@ -4918,10 +5046,11 @@ com.utopia.bttendance.view.Circle:
     private static final int INIT_ALPHA
     private static final int FIN_ALPHA
     private static final int INIT_RADIUS
-com.utopia.bttendance.view.IndexScroller
-com.utopia.bttendance.view.IndexScroller$1
-com.utopia.bttendance.view.IndexableListView
-com.utopia.bttendance.view.IndexableListView$1
+com.utopia.bttendance.view.IndexScroller:
+    private static final int STATE_HIDDEN
+    private static final int STATE_SHOWING
+    private static final int STATE_SHOWN
+    private static final int STATE_HIDING
 com.utopia.bttendance.view.PagerSlidingTabStrip:
     470:470:public boolean isTextAllCaps()
     501:504:public void setTypeface(android.graphics.Typeface,int)

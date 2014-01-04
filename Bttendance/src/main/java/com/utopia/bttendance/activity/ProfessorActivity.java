@@ -7,10 +7,15 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.event.AttdStartedEvent;
 import com.utopia.bttendance.fragment.CourseListFragment;
 import com.utopia.bttendance.helper.DateHelper;
+import com.utopia.bttendance.model.BTTable;
+import com.utopia.bttendance.model.json.CourseJson;
+import com.utopia.bttendance.model.json.PostJson;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.view.BeautiToast;
 
@@ -54,6 +59,19 @@ public class ProfessorActivity extends BTActivity {
         getBTService().joinSchool(1, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+            }
+        });
+
+        //Check whether on going Attendance exists
+        getBTService().courses(new Callback<CourseJson[]>() {
+            @Override
+            public void success(CourseJson[] courseJsons, Response response) {
+                if (BTTable.getCheckingPostIds().size() > 0)
+                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
             }
 
             @Override

@@ -23,7 +23,7 @@ public class Bttendance extends View {
     /**
      * Duration
      */
-    public static final int PROGRESS_DURATION = 300000;
+    public static final int PROGRESS_DURATION = 180000;
     private static final int BLINK_DURATION = 1000;
     /**
      * Dimension
@@ -46,7 +46,7 @@ public class Bttendance extends View {
     private float mMargin;
     private STATE mState;
     private int mProgress;
-    private STATE mEndState = STATE.FAIL;
+    private STATE mEndState = STATE.CHECKED;
     /**
      * Bitmap
      */
@@ -334,10 +334,12 @@ public class Bttendance extends View {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mState = mEndState;
-                mProgress = 0;
-                mFadeIn.cancel();
-                mFadeOut.cancel();
+                if (System.currentTimeMillis() > animation.getStartTime() + animation.getDuration()) {
+                    mState = mEndState;
+                    mProgress = 0;
+                    mFadeIn.cancel();
+                    mFadeOut.cancel();
+                }
             }
 
             @Override

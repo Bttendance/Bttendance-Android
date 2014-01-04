@@ -93,13 +93,16 @@ public class BTEventDispatcher {
 
     // Professor start attendance
     @Subscribe
-    public void onAttendanceOnGoing(final AttdOnGoingEvent event) {
+    public void onAttendanceInProgress(final AttdInProgressEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
 
+        if (act.getSupportFragmentManager().findFragmentByTag("in progress") != null)
+            return;
+
         String title = act.getString(R.string.attendance_check);
-        String message = act.getString(R.string.attendance_checking_is_on_going);
+        String message = act.getString(R.string.attendance_checking_is_in_progress);
 
         BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
@@ -111,14 +114,14 @@ public class BTEventDispatcher {
             public void onCanceled() {
             }
         });
-        showDialog(dialog, "on going");
+        showDialog(dialog, "in progress");
     }
 
-    // Student attendance started
+    // Student Professor attendance started
     @Subscribe
     public void onAttendanceStarted(AttdStartedEvent event) {
         final BTActivity act = getBTActivity();
-        if (act == null || !(act instanceof StudentActivity))
+        if (act == null)
             return;
 
         if (act.getSupportFragmentManager().findFragmentByTag("started") != null)
@@ -126,6 +129,8 @@ public class BTEventDispatcher {
 
         if (BluetoothHelper.isDiscoverable()) {
             act.getBTService().attendanceStart();
+            if (event.onGoingCheck())
+                onAttendanceInProgress(new AttdInProgressEvent());
             return;
         }
 
@@ -184,16 +189,19 @@ public class BTEventDispatcher {
             return;
 
         if (act instanceof ProfessorActivity) {
-            act.getBTService().postAttendanceStart(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<CourseJson>() {
-                @Override
-                public void success(CourseJson courseJson, Response response) {
-                    act.getBTService().attendanceStart();
-                }
+            if (BTTable.ATTENDANCE_STARTING_COURSE != -1) {
+                act.getBTService().postAttendanceStart(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<CourseJson>() {
+                    @Override
+                    public void success(CourseJson courseJson, Response response) {
+                        act.getBTService().attendanceStart();
+                    }
 
-                @Override
-                public void failure(RetrofitError retrofitError) {
-                }
-            });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                    }
+                });
+            } else
+                act.getBTService().attendanceStart();
         } else if (act instanceof StudentActivity) {
             act.getBTService().attendanceStart();
         }
@@ -204,7 +212,8 @@ public class BTEventDispatcher {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
-        BTTable.UUIDLIST.add(event.getMacAddress());
+
+        BTTable.UUIDLIST_add(event.getMacAddress());
     }
 
     @Subscribe
@@ -216,7 +225,7 @@ public class BTEventDispatcher {
         if (act instanceof ProfessorActivity) {
             BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
         } else if (act instanceof StudentActivity) {
-            onAttendanceStarted(new AttdStartedEvent());
+            onAttendanceStarted(new AttdStartedEvent(false));
         }
     }
 

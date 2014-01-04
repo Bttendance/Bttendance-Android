@@ -7,10 +7,14 @@ import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.BTPagerAdapter;
+import com.utopia.bttendance.event.AttdStartedEvent;
 import com.utopia.bttendance.fragment.BTFragment;
 import com.utopia.bttendance.helper.DipPixelHelper;
+import com.utopia.bttendance.model.BTTable;
+import com.utopia.bttendance.model.json.PostJson;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.view.BeautiToast;
 import com.utopia.bttendance.view.PagerSlidingTabStrip;
@@ -92,6 +96,19 @@ public class StudentActivity extends BTActivity {
         getBTService().joinSchool(1, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+            }
+        });
+
+        //Check whether on going Attendance exists
+        getBTService().feed(0, new Callback<PostJson[]>() {
+            @Override
+            public void success(PostJson[] postJsons, Response response) {
+                if (BTTable.getCheckingPostIds().size() > 0)
+                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
             }
 
             @Override

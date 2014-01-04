@@ -102,17 +102,23 @@ public class BTService extends Service {
             @Override
             public void run() {
                 try {
-                    for (int i = 0; i < 30; i++) {
+                    BTDebug.LogError("TimeLeft : " + BTTable.getAttdChekingLeftTime());
+                    for (int i = 0; i < (int) (BTTable.getAttdChekingLeftTime() / 10000); i++) {
                         BluetoothHelper.startDiscovery();
                         Thread.sleep(10000);
                         Set<Integer> ids = BTTable.getCheckingPostIds();
+                        Set<String> list = new HashSet<String>();
+                        for (String mac : BTTable.UUIDLIST())
+                            list.add(mac);
+
                         for (int id : ids) {
-                            for (String mac : BTTable.UUIDLIST) {
-                                if (!BTTable.UUIDLISTSENDED.contains(mac)) {
+                            for (String mac : list) {
+                                if (!BTTable.UUIDLISTSENDED_contains(mac)) {
                                     postAttendanceFoundDevice(id, mac, new Callback<PostJson>() {
                                         @Override
-                                        public void success(PostJson postJson, Response response) {
-                                            BTDebug.LogInfo(postJson.toJson());
+                                        public void success(PostJson post, Response response) {
+                                            if (post != null)
+                                                BTDebug.LogInfo(post.toJson());
                                         }
 
                                         @Override
@@ -122,10 +128,10 @@ public class BTService extends Service {
                                 }
                             }
                         }
-                        BTTable.UUIDLISTSENDED.addAll(BTTable.UUIDLIST);
-                        BTTable.UUIDLIST = new HashSet<String>();
+                        BTTable.UUIDLISTSENDED_addAll(list);
+                        BTTable.UUIDLIST_refresh();
                     }
-                    BTTable.UUIDLISTSENDED = new HashSet<String>();
+                    BTTable.UUIDLISTSENDED_refresh();
                     attendanceStop();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -550,7 +556,7 @@ public class BTService extends Service {
         });
     }
 
-    public void postAttendanceFoundDevice(int postID, String uuid, final Callback<PostJson> cb) {
+    public void postAttendanceFoundDevice(int postID, final String uuid, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
@@ -558,7 +564,8 @@ public class BTService extends Service {
         mBTAPI.postAttendanceFoundDevice(user.username, user.password, postID, uuid, new Callback<PostJson>() {
             @Override
             public void success(PostJson post, Response response) {
-                BTTable.PostTable.append(post.id, post);
+                if (post != null)
+                    BTTable.PostTable.append(post.id, post);
                 if (cb != null)
                     cb.success(post, response);
             }
@@ -566,6 +573,7 @@ public class BTService extends Service {
             @Override
             public void failure(RetrofitError retrofitError) {
                 failureHandle(cb, retrofitError);
+                BTTable.UUIDLISTSENDED_remove(uuid);
             }
         });
     }

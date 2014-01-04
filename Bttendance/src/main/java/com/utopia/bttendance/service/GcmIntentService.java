@@ -28,8 +28,6 @@ import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.CourseJson;
 import com.utopia.bttendance.model.json.PostJson;
 
-import java.util.HashSet;
-
 /**
  * Created by TheFinestArtist on 2013. 12. 4..
  */
@@ -71,11 +69,11 @@ public class GcmIntentService extends IntentService {
                 BTDebug.LogInfo("Notification Received: " + extras.toString());
 
                 updateTable(extras);
-                BTTable.UUIDLIST = new HashSet<String>();
-                BTTable.UUIDLISTSENDED = new HashSet<String>();
+                BTTable.UUIDLIST_refresh();
+                BTTable.UUIDLISTSENDED_refresh();
 
                 if (ATTENDANCE_STARTED.equals(extras.getString(TYPE))) {
-                    BTEventBus.getInstance().post(new AttdStartedEvent());
+                    BTEventBus.getInstance().post(new AttdStartedEvent(false));
                     sendNotification(extras.getString(TITLE), extras.getString(MESSAGE), true);
                 } else if (ATTENDANCE_CHECKED.equals(extras.getString(TYPE))) {
                     BTEventBus.getInstance().post(new AttdCheckedEvent(extras.getString(TITLE)));

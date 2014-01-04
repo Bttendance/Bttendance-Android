@@ -1,16 +1,13 @@
 package com.utopia.bttendance.fragment;
 
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
-import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.adapter.FeedAdapter;
 import com.utopia.bttendance.event.AttdCheckedEvent;
@@ -44,7 +41,6 @@ public class FeedFragment extends BTFragment {
         mListView.addFooterView(padding);
         mAdapter = new FeedAdapter(getActivity(), null);
         mListView.setAdapter(mAdapter);
-//        getLoaderManager().initLoader(0, null, getActivity());
         return view;
     }
 

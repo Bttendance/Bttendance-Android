@@ -2,6 +2,7 @@ package com.utopia.bttendance.model;
 
 import android.util.SparseArray;
 
+import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.helper.DateHelper;
 import com.utopia.bttendance.model.json.CourseJson;
 import com.utopia.bttendance.model.json.PostJson;
@@ -42,8 +43,8 @@ public class BTTable {
     // filter: "total_post", "course_id"
     private static HashMap<String, SparseArray<PostJson>> mPost = new HashMap<String, SparseArray<PostJson>>();
     // Found UUID list
-    public static Set<String> UUIDLIST = new HashSet<String>();
-    public static Set<String> UUIDLISTSENDED = new HashSet<String>();
+    private static Set<String> UUIDLIST = new HashSet<String>();
+    private static Set<String> UUIDLISTSENDED = new HashSet<String>();
 
     public static synchronized SparseArray<UserJson> getUsers(String filter) {
         SparseArray<UserJson> users = mUser.get(filter);
@@ -72,11 +73,69 @@ public class BTTable {
         return posts;
     }
 
-    public long getAttdChekingTimeLeft() {
-        return 0;
+    public static synchronized void UUIDLIST_add(String mac) {
+        UUIDLIST.add(mac);
     }
 
-    public static Set<Integer> getCheckingPostIds() {
+    public static synchronized Set<String> UUIDLIST() {
+        return UUIDLIST;
+    }
+
+    public static synchronized void UUIDLIST_refresh() {
+        UUIDLIST = new HashSet<String>();
+    }
+
+    public static synchronized Set<String> UUIDLISTSENDED() {
+        return UUIDLISTSENDED;
+    }
+
+    public static synchronized void UUIDLISTSENDED_addAll(Set<String> list) {
+        UUIDLISTSENDED.addAll(list);
+    }
+
+    public static synchronized void UUIDLISTSENDED_refresh() {
+        UUIDLISTSENDED = new HashSet<String>();
+    }
+
+    public static synchronized boolean UUIDLISTSENDED_contains(String mac) {
+        return BTTable.UUIDLISTSENDED.contains(mac);
+    }
+
+    public static synchronized void UUIDLISTSENDED_remove(String mac) {
+        BTTable.UUIDLISTSENDED.remove(mac);
+    }
+
+    public static synchronized long getAttdChekingLeftTime() {
+        long leftTime = 0;
+        long currentTime = DateHelper.getCurrentGMTTimeMillis();
+
+        for(int i = 0; i < BTTable.PostTable.size(); i++) {
+            int key = BTTable.PostTable.keyAt(i);
+            PostJson post = BTTable.PostTable.get(key);
+            if (post.createdAt != null
+                    && currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION
+                    && leftTime < Bttendance.PROGRESS_DURATION - (currentTime - DateHelper.getTime(post.createdAt))) {
+                leftTime = Bttendance.PROGRESS_DURATION - (currentTime - DateHelper.getTime(post.createdAt));
+            }
+        }
+
+        for(int i = 0; i < BTTable.CourseTable.size(); i++) {
+            int key = BTTable.CourseTable.keyAt(i);
+            CourseJson course = BTTable.CourseTable.get(key);
+            if (course.attdCheckedAt != null
+                    && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION
+                    && leftTime < Bttendance.PROGRESS_DURATION - (currentTime - DateHelper.getTime(course.attdCheckedAt))) {
+                leftTime = Bttendance.PROGRESS_DURATION - (currentTime - DateHelper.getTime(course.attdCheckedAt));
+            }
+        }
+
+        if (leftTime > Bttendance.PROGRESS_DURATION + 10000)
+            return 0;
+
+        return leftTime;
+    }
+
+    public static synchronized Set<Integer> getCheckingPostIds() {
         Set<Integer> checking = new HashSet<Integer>();
 
         for(int i = 0; i < BTTable.PostTable.size(); i++) {

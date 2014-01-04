@@ -23,6 +23,7 @@ import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.BTDebug;
 import com.utopia.bttendance.R;
 import com.utopia.bttendance.activity.sign.CatchPointActivity;
+import com.utopia.bttendance.event.AttdStartedEvent;
 import com.utopia.bttendance.event.BTCanceledEvent;
 import com.utopia.bttendance.event.BTDiscoveredEvent;
 import com.utopia.bttendance.event.BTEnabledEvent;
@@ -33,6 +34,7 @@ import com.utopia.bttendance.helper.BluetoothHelper;
 import com.utopia.bttendance.helper.GPSTracker;
 import com.utopia.bttendance.model.BTNotification;
 import com.utopia.bttendance.model.BTPreference;
+import com.utopia.bttendance.model.BTTable;
 import com.utopia.bttendance.model.json.UserJson;
 import com.utopia.bttendance.service.BTAPI;
 import com.utopia.bttendance.service.BTService;
@@ -138,7 +140,9 @@ public class BTActivity extends SherlockFragmentActivity {
         BTEventBus.getInstance().register(mEventDispatcher);
         EasyTracker.getInstance().activityStart(this);
 
-        BTDebug.LogError("ScanMode : " + BluetoothHelper.getScanMode());
+        BTDebug.LogError("ScanMode : " + BluetoothHelper.getScanMode() + " onGoing : " + BTTable.getCheckingPostIds().size());
+        if (BTTable.getCheckingPostIds().size() > 0)
+            BTEventBus.getInstance().post(new AttdStartedEvent(true));
     }
 
     @Override

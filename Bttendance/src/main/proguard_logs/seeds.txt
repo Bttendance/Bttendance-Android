@@ -1,19 +1,31 @@
 android.support.v4.app.BackStackState
 android.support.v4.app.BackStackState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.DialogFragment
 android.support.v4.app.Fragment$SavedState
 android.support.v4.app.Fragment$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentActivity
 android.support.v4.app.FragmentActivity: FragmentActivity()
 android.support.v4.app.FragmentManagerState
 android.support.v4.app.FragmentManagerState: android.os.Parcelable$Creator CREATOR
 android.support.v4.app.FragmentState
 android.support.v4.app.FragmentState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentTabHost
+android.support.v4.app.FragmentTabHost: FragmentTabHost(android.content.Context)
+android.support.v4.app.FragmentTabHost: FragmentTabHost(android.content.Context,android.util.AttributeSet)
 android.support.v4.app.FragmentTabHost: void setOnTabChangedListener(android.widget.TabHost$OnTabChangeListener)
 android.support.v4.app.FragmentTabHost$SavedState
 android.support.v4.app.FragmentTabHost$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.ListFragment
+android.support.v4.app.Watson
 android.support.v4.app.Watson: Watson()
+android.support.v4.content.FileProvider
 android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status[] values()
 android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status valueOf(java.lang.String)
+android.support.v4.content.WakefulBroadcastReceiver
 android.support.v4.content.WakefulBroadcastReceiver: WakefulBroadcastReceiver()
+android.support.v4.view.PagerTabStrip
+android.support.v4.view.PagerTabStrip: PagerTabStrip(android.content.Context)
+android.support.v4.view.PagerTabStrip: PagerTabStrip(android.content.Context,android.util.AttributeSet)
 android.support.v4.view.PagerTabStrip: void setTabIndicatorColor(int)
 android.support.v4.view.PagerTabStrip: void setTabIndicatorColorResource(int)
 android.support.v4.view.PagerTabStrip: int getTabIndicatorColor()
@@ -24,7 +36,10 @@ android.support.v4.view.PagerTabStrip: void setBackgroundResource(int)
 android.support.v4.view.PagerTabStrip: void setDrawFullUnderline(boolean)
 android.support.v4.view.PagerTabStrip: boolean getDrawFullUnderline()
 android.support.v4.view.PagerTabStrip: int getMinHeight()
+android.support.v4.view.PagerTitleStrip
 android.support.v4.view.PagerTitleStrip: void setSingleLineAllCaps(android.widget.TextView)
+android.support.v4.view.PagerTitleStrip: PagerTitleStrip(android.content.Context)
+android.support.v4.view.PagerTitleStrip: PagerTitleStrip(android.content.Context,android.util.AttributeSet)
 android.support.v4.view.PagerTitleStrip: void setTextSpacing(int)
 android.support.v4.view.PagerTitleStrip: int getTextSpacing()
 android.support.v4.view.PagerTitleStrip: void setNonPrimaryAlpha(float)
@@ -52,11 +67,24 @@ android.support.v4.view.ViewPager: void setPageMarginDrawable(int)
 android.support.v4.view.ViewPager: void setScrollingCacheEnabled(boolean)
 android.support.v4.view.ViewPager$SavedState
 android.support.v4.view.ViewPager$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.ContentLoadingProgressBar
+android.support.v4.widget.ContentLoadingProgressBar: ContentLoadingProgressBar(android.content.Context)
+android.support.v4.widget.ContentLoadingProgressBar: ContentLoadingProgressBar(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.DrawerLayout
+android.support.v4.widget.DrawerLayout: DrawerLayout(android.content.Context)
+android.support.v4.widget.DrawerLayout: DrawerLayout(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.DrawerLayout: DrawerLayout(android.content.Context,android.util.AttributeSet,int)
 android.support.v4.widget.DrawerLayout: void setScrimColor(int)
 android.support.v4.widget.DrawerLayout: void setDrawerListener(android.support.v4.widget.DrawerLayout$DrawerListener)
 android.support.v4.widget.DrawerLayout: void setDrawerLockMode(int)
 android.support.v4.widget.DrawerLayout$SavedState
 android.support.v4.widget.DrawerLayout$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.widget.SearchViewCompatIcs$MySearchView
+android.support.v4.widget.SearchViewCompatIcs$MySearchView: SearchViewCompatIcs$MySearchView(android.content.Context)
+android.support.v4.widget.SlidingPaneLayout
+android.support.v4.widget.SlidingPaneLayout: SlidingPaneLayout(android.content.Context)
+android.support.v4.widget.SlidingPaneLayout: SlidingPaneLayout(android.content.Context,android.util.AttributeSet)
+android.support.v4.widget.SlidingPaneLayout: SlidingPaneLayout(android.content.Context,android.util.AttributeSet,int)
 android.support.v4.widget.SlidingPaneLayout: void setParallaxDistance(int)
 android.support.v4.widget.SlidingPaneLayout: int getParallaxDistance()
 android.support.v4.widget.SlidingPaneLayout: void setSliderFadeColor(int)
@@ -636,12 +664,21 @@ com.actionbarsherlock.R$styleable: int SherlockTheme_windowNoTitle
 com.actionbarsherlock.R$styleable: int SherlockTheme_windowSplitActionBar
 com.actionbarsherlock.R$styleable: int[] SherlockView
 com.actionbarsherlock.R$styleable: int SherlockView_android_focusable
+com.actionbarsherlock.app.SherlockActivity
 com.actionbarsherlock.app.SherlockActivity: void setContentView(android.view.View)
+com.actionbarsherlock.app.SherlockDialogFragment
+com.actionbarsherlock.app.SherlockExpandableListActivity
 com.actionbarsherlock.app.SherlockExpandableListActivity: void setContentView(android.view.View)
+com.actionbarsherlock.app.SherlockFragment
+com.actionbarsherlock.app.SherlockFragmentActivity
 com.actionbarsherlock.app.SherlockFragmentActivity: SherlockFragmentActivity()
 com.actionbarsherlock.app.SherlockFragmentActivity: void setContentView(android.view.View)
+com.actionbarsherlock.app.SherlockListActivity
 com.actionbarsherlock.app.SherlockListActivity: void setContentView(android.view.View)
+com.actionbarsherlock.app.SherlockListFragment
+com.actionbarsherlock.app.SherlockPreferenceActivity
 com.actionbarsherlock.app.SherlockPreferenceActivity: void setContentView(android.view.View)
+com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup
 com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup: NineViewGroup(android.content.Context)
 com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup: NineViewGroup(android.content.Context,android.util.AttributeSet)
 com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup: NineViewGroup(android.content.Context,android.util.AttributeSet,int)
@@ -659,6 +696,8 @@ com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout: float get
 com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout: void setAlpha(float)
 com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout: float getTranslationY()
 com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout: void setTranslationY(float)
+com.actionbarsherlock.internal.nineoldandroids.widget.NineHorizontalScrollView
+com.actionbarsherlock.internal.nineoldandroids.widget.NineHorizontalScrollView: NineHorizontalScrollView(android.content.Context)
 com.actionbarsherlock.internal.nineoldandroids.widget.NineHorizontalScrollView: void setVisibility(int)
 com.actionbarsherlock.internal.nineoldandroids.widget.NineHorizontalScrollView: float getAlpha()
 com.actionbarsherlock.internal.nineoldandroids.widget.NineHorizontalScrollView: void setAlpha(float)
@@ -699,6 +738,7 @@ com.actionbarsherlock.internal.view.menu.ListMenuItemView: void setCheckable(boo
 com.actionbarsherlock.internal.view.menu.ListMenuItemView: void setChecked(boolean)
 com.actionbarsherlock.internal.view.menu.ListMenuItemView: void setIcon(android.graphics.drawable.Drawable)
 com.actionbarsherlock.internal.view.menu.ListMenuItemView: android.view.LayoutInflater getInflater()
+com.actionbarsherlock.internal.widget.AbsActionBarView
 com.actionbarsherlock.internal.widget.AbsActionBarView: AbsActionBarView(android.content.Context)
 com.actionbarsherlock.internal.widget.AbsActionBarView: AbsActionBarView(android.content.Context,android.util.AttributeSet)
 com.actionbarsherlock.internal.widget.AbsActionBarView: AbsActionBarView(android.content.Context,android.util.AttributeSet,int)
@@ -769,7 +809,15 @@ com.actionbarsherlock.internal.widget.ActionBarView$SavedState: android.os.Parce
 com.actionbarsherlock.internal.widget.CapitalizingButton
 com.actionbarsherlock.internal.widget.CapitalizingButton: CapitalizingButton(android.content.Context,android.util.AttributeSet)
 com.actionbarsherlock.internal.widget.CapitalizingButton: void setTextCompat(java.lang.CharSequence)
+com.actionbarsherlock.internal.widget.CapitalizingTextView
+com.actionbarsherlock.internal.widget.CapitalizingTextView: CapitalizingTextView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.CapitalizingTextView: CapitalizingTextView(android.content.Context,android.util.AttributeSet,int)
 com.actionbarsherlock.internal.widget.CapitalizingTextView: void setTextCompat(java.lang.CharSequence)
+com.actionbarsherlock.internal.widget.CollapsibleActionViewWrapper
+com.actionbarsherlock.internal.widget.IcsAbsSpinner
+com.actionbarsherlock.internal.widget.IcsAbsSpinner: IcsAbsSpinner(android.content.Context)
+com.actionbarsherlock.internal.widget.IcsAbsSpinner: IcsAbsSpinner(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsAbsSpinner: IcsAbsSpinner(android.content.Context,android.util.AttributeSet,int)
 com.actionbarsherlock.internal.widget.IcsAbsSpinner: void setAdapter(android.widget.SpinnerAdapter)
 com.actionbarsherlock.internal.widget.IcsAbsSpinner: void setSelection(int)
 com.actionbarsherlock.internal.widget.IcsAbsSpinner: android.view.View getSelectedView()
@@ -779,6 +827,10 @@ com.actionbarsherlock.internal.widget.IcsAbsSpinner: void setAdapter(android.wid
 com.actionbarsherlock.internal.widget.IcsAbsSpinner: android.widget.Adapter getAdapter()
 com.actionbarsherlock.internal.widget.IcsAbsSpinner$SavedState
 com.actionbarsherlock.internal.widget.IcsAbsSpinner$SavedState: android.os.Parcelable$Creator CREATOR
+com.actionbarsherlock.internal.widget.IcsAdapterView
+com.actionbarsherlock.internal.widget.IcsAdapterView: IcsAdapterView(android.content.Context)
+com.actionbarsherlock.internal.widget.IcsAdapterView: IcsAdapterView(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsAdapterView: IcsAdapterView(android.content.Context,android.util.AttributeSet,int)
 com.actionbarsherlock.internal.widget.IcsAdapterView: void setOnItemClickListener(android.widget.AdapterView$OnItemClickListener)
 com.actionbarsherlock.internal.widget.IcsAdapterView: android.widget.AdapterView$OnItemClickListener getOnItemClickListener()
 com.actionbarsherlock.internal.widget.IcsAdapterView: void setOnItemLongClickListener(com.actionbarsherlock.internal.widget.IcsAdapterView$OnItemLongClickListener)
@@ -810,6 +862,10 @@ com.actionbarsherlock.internal.widget.IcsLinearLayout: void setDividerDrawable(a
 com.actionbarsherlock.internal.widget.IcsLinearLayout: void setDividerPadding(int)
 com.actionbarsherlock.internal.widget.IcsLinearLayout: int getDividerPadding()
 com.actionbarsherlock.internal.widget.IcsLinearLayout: int getDividerWidth()
+com.actionbarsherlock.internal.widget.IcsProgressBar
+com.actionbarsherlock.internal.widget.IcsProgressBar: IcsProgressBar(android.content.Context)
+com.actionbarsherlock.internal.widget.IcsProgressBar: IcsProgressBar(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsProgressBar: IcsProgressBar(android.content.Context,android.util.AttributeSet,int)
 com.actionbarsherlock.internal.widget.IcsProgressBar: android.graphics.drawable.shapes.Shape getDrawableShape()
 com.actionbarsherlock.internal.widget.IcsProgressBar: void setIndeterminate(boolean)
 com.actionbarsherlock.internal.widget.IcsProgressBar: android.graphics.drawable.Drawable getIndeterminateDrawable()
@@ -828,6 +884,9 @@ com.actionbarsherlock.internal.widget.IcsProgressBar: android.view.animation.Int
 com.actionbarsherlock.internal.widget.IcsProgressBar: void setVisibility(int)
 com.actionbarsherlock.internal.widget.IcsProgressBar$SavedState
 com.actionbarsherlock.internal.widget.IcsProgressBar$SavedState: android.os.Parcelable$Creator CREATOR
+com.actionbarsherlock.internal.widget.IcsSpinner
+com.actionbarsherlock.internal.widget.IcsSpinner: IcsSpinner(android.content.Context,android.util.AttributeSet)
+com.actionbarsherlock.internal.widget.IcsSpinner: IcsSpinner(android.content.Context,android.util.AttributeSet,int)
 com.actionbarsherlock.internal.widget.IcsSpinner: void setEnabled(boolean)
 com.actionbarsherlock.internal.widget.IcsSpinner: void setGravity(int)
 com.actionbarsherlock.internal.widget.IcsSpinner: void setAdapter(android.widget.SpinnerAdapter)
@@ -838,6 +897,8 @@ com.actionbarsherlock.internal.widget.IcsSpinner: void setPrompt(java.lang.CharS
 com.actionbarsherlock.internal.widget.IcsSpinner: void setPromptId(int)
 com.actionbarsherlock.internal.widget.IcsSpinner: java.lang.CharSequence getPrompt()
 com.actionbarsherlock.internal.widget.IcsSpinner: void setAdapter(android.widget.Adapter)
+com.actionbarsherlock.internal.widget.ScrollingTabContainerView
+com.actionbarsherlock.internal.widget.ScrollingTabContainerView: ScrollingTabContainerView(android.content.Context)
 com.actionbarsherlock.internal.widget.ScrollingTabContainerView: void setAllowCollapse(boolean)
 com.actionbarsherlock.internal.widget.ScrollingTabContainerView: void setTabSelected(int)
 com.actionbarsherlock.internal.widget.ScrollingTabContainerView: void setContentHeight(int)
@@ -847,6 +908,9 @@ com.actionbarsherlock.internal.widget.ScrollingTabContainerView$TabView: com.act
 com.actionbarsherlock.internal.widget.TabsLinearLayout
 com.actionbarsherlock.internal.widget.TabsLinearLayout: TabsLinearLayout(android.content.Context,android.util.AttributeSet)
 com.actionbarsherlock.internal.widget.TabsLinearLayout: void setMeasureWithLargestChildEnabled(boolean)
+com.actionbarsherlock.widget.SearchView
+com.actionbarsherlock.widget.SearchView: SearchView(android.content.Context)
+com.actionbarsherlock.widget.SearchView: SearchView(android.content.Context,android.util.AttributeSet)
 com.actionbarsherlock.widget.SearchView: void setSearchableInfo(android.app.SearchableInfo)
 com.actionbarsherlock.widget.SearchView: void setAppSearchData(android.os.Bundle)
 com.actionbarsherlock.widget.SearchView: void setImeOptions(int)
@@ -883,6 +947,14 @@ com.google.ads.AdRequest$ErrorCode: com.google.ads.AdRequest$ErrorCode[] values(
 com.google.ads.AdRequest$ErrorCode: com.google.ads.AdRequest$ErrorCode valueOf(java.lang.String)
 com.google.ads.AdRequest$Gender: com.google.ads.AdRequest$Gender[] values()
 com.google.ads.AdRequest$Gender: com.google.ads.AdRequest$Gender valueOf(java.lang.String)
+com.google.analytics.tracking.android.AdMobInfo$AdMobKey: com.google.analytics.tracking.android.AdMobInfo$AdMobKey[] values()
+com.google.analytics.tracking.android.AdMobInfo$AdMobKey: com.google.analytics.tracking.android.AdMobInfo$AdMobKey valueOf(java.lang.String)
+com.google.analytics.tracking.android.CampaignTrackingReceiver
+com.google.analytics.tracking.android.CampaignTrackingService
+com.google.analytics.tracking.android.GAServiceProxy$ConnectState: com.google.analytics.tracking.android.GAServiceProxy$ConnectState[] values()
+com.google.analytics.tracking.android.GAServiceProxy$ConnectState: com.google.analytics.tracking.android.GAServiceProxy$ConnectState valueOf(java.lang.String)
+com.google.analytics.tracking.android.GAUsage$Field: com.google.analytics.tracking.android.GAUsage$Field[] values()
+com.google.analytics.tracking.android.GAUsage$Field: com.google.analytics.tracking.android.GAUsage$Field valueOf(java.lang.String)
 com.google.android.gms.R$attr: int adSize
 com.google.android.gms.R$attr: int adUnitId
 com.google.android.gms.R$attr: int cameraBearing
@@ -989,13 +1061,24 @@ com.google.android.gms.R$styleable: int MapAttrs_uiZoomControls
 com.google.android.gms.R$styleable: int MapAttrs_uiZoomGestures
 com.google.android.gms.R$styleable: int MapAttrs_useViewLifecycle
 com.google.android.gms.R$styleable: int MapAttrs_zOrderOnTop
+com.google.android.gms.ads.AdActivity
+com.google.android.gms.ads.AdView
+com.google.android.gms.ads.AdView: AdView(android.content.Context)
+com.google.android.gms.ads.AdView: AdView(android.content.Context,android.util.AttributeSet)
+com.google.android.gms.ads.AdView: AdView(android.content.Context,android.util.AttributeSet,int)
 com.google.android.gms.ads.AdView: com.google.android.gms.ads.AdListener getAdListener()
 com.google.android.gms.ads.AdView: com.google.android.gms.ads.AdSize getAdSize()
 com.google.android.gms.ads.AdView: java.lang.String getAdUnitId()
 com.google.android.gms.ads.AdView: void setAdListener(com.google.android.gms.ads.AdListener)
 com.google.android.gms.ads.AdView: void setAdSize(com.google.android.gms.ads.AdSize)
 com.google.android.gms.ads.AdView: void setAdUnitId(java.lang.String)
+com.google.android.gms.analytics.internal.Command
+com.google.android.gms.analytics.internal.Command: android.os.Parcelable$Creator CREATOR
 com.google.android.gms.auth.RecoveryDecision
+com.google.android.gms.common.SignInButton
+com.google.android.gms.common.SignInButton: SignInButton(android.content.Context)
+com.google.android.gms.common.SignInButton: SignInButton(android.content.Context,android.util.AttributeSet)
+com.google.android.gms.common.SignInButton: SignInButton(android.content.Context,android.util.AttributeSet,int)
 com.google.android.gms.common.SignInButton: void setSize(int)
 com.google.android.gms.common.SignInButton: void setColorScheme(int)
 com.google.android.gms.common.SignInButton: void setOnClickListener(android.view.View$OnClickListener)
@@ -1027,11 +1110,18 @@ com.google.android.gms.games.multiplayer.realtime.RoomEntity: android.os.Parcela
 com.google.android.gms.games.multiplayer.realtime.c
 com.google.android.gms.internal.be
 com.google.android.gms.internal.bh
+com.google.android.gms.internal.bj
+com.google.android.gms.internal.bk
 com.google.android.gms.internal.bu
 com.google.android.gms.internal.bw
 com.google.android.gms.internal.co
+com.google.android.gms.internal.cq
 com.google.android.gms.internal.cq: void setContext(android.content.Context)
+com.google.android.gms.internal.da
 com.google.android.gms.internal.dd
+com.google.android.gms.internal.do
+com.google.android.gms.internal.do: do(android.content.Context)
+com.google.android.gms.internal.do: do(android.content.Context,android.util.AttributeSet)
 com.google.android.gms.internal.dr
 com.google.android.gms.internal.dt
 com.google.android.gms.internal.dt$a
@@ -1061,7 +1151,13 @@ com.google.android.gms.location.ActivityRecognitionResult
 com.google.android.gms.location.DetectedActivity
 com.google.android.gms.location.LocationRequest
 com.google.android.gms.maps.GoogleMapOptions
+com.google.android.gms.maps.MapFragment
+com.google.android.gms.maps.MapView
+com.google.android.gms.maps.MapView: MapView(android.content.Context)
+com.google.android.gms.maps.MapView: MapView(android.content.Context,android.util.AttributeSet)
+com.google.android.gms.maps.MapView: MapView(android.content.Context,android.util.AttributeSet,int)
 com.google.android.gms.maps.MapView: com.google.android.gms.maps.GoogleMap getMap()
+com.google.android.gms.maps.SupportMapFragment
 com.google.android.gms.maps.model.CameraPosition
 com.google.android.gms.maps.model.CircleOptions
 com.google.android.gms.maps.model.GroundOverlayOptions
@@ -1073,17 +1169,25 @@ com.google.android.gms.maps.model.PolylineOptions
 com.google.android.gms.maps.model.Tile
 com.google.android.gms.maps.model.TileOverlayOptions
 com.google.android.gms.maps.model.VisibleRegion
+com.google.android.gms.plus.PlusOneButton
+com.google.android.gms.plus.PlusOneButton: PlusOneButton(android.content.Context)
+com.google.android.gms.plus.PlusOneButton: PlusOneButton(android.content.Context,android.util.AttributeSet)
 com.google.android.gms.plus.PlusOneButton: void setOnPlusOneClickListener(com.google.android.gms.plus.PlusOneButton$OnPlusOneClickListener)
 com.google.android.gms.plus.PlusOneButton: void setAnnotation(int)
 com.google.android.gms.plus.PlusOneButton: void setSize(int)
+com.google.android.gms.plus.PlusOneButtonWithPopup
+com.google.android.gms.plus.PlusOneButtonWithPopup: PlusOneButtonWithPopup(android.content.Context)
+com.google.android.gms.plus.PlusOneButtonWithPopup: PlusOneButtonWithPopup(android.content.Context,android.util.AttributeSet)
 com.google.android.gms.plus.PlusOneButtonWithPopup: void setOnClickListener(android.view.View$OnClickListener)
 com.google.android.gms.plus.PlusOneButtonWithPopup: void setAnnotation(int)
 com.google.android.gms.plus.PlusOneButtonWithPopup: void setSize(int)
 com.google.android.gms.plus.PlusOneButtonWithPopup: android.app.PendingIntent getResolution()
+com.google.android.gms.plus.PlusOneDummyView
 com.google.android.gms.wallet.Address
 com.google.android.gms.wallet.Address: android.os.Parcelable$Creator CREATOR
 com.google.android.gms.wallet.Cart
 com.google.android.gms.wallet.Cart: android.os.Parcelable$Creator CREATOR
+com.google.android.gms.wallet.EnableWalletOptimizationReceiver
 com.google.android.gms.wallet.FullWallet
 com.google.android.gms.wallet.FullWallet: android.os.Parcelable$Creator CREATOR
 com.google.android.gms.wallet.FullWalletRequest
@@ -1266,6 +1370,8 @@ com.utopia.bttendance.R$bool: int abs__config_actionMenuItemAllCaps
 com.utopia.bttendance.R$bool: int abs__config_allowActionMenuItemTextWithIcon
 com.utopia.bttendance.R$bool: int abs__config_showMenuShortcutsWhenKeyboardPresent
 com.utopia.bttendance.R$bool: int abs__split_action_bar_is_narrow
+com.utopia.bttendance.R$bool: int ga_autoActivityTracking
+com.utopia.bttendance.R$bool: int ga_reportUncaughtExceptions
 com.utopia.bttendance.R$color: int Color_AliceBlue
 com.utopia.bttendance.R$color: int Color_AntiqueWhite
 com.utopia.bttendance.R$color: int Color_Aqua
@@ -1918,6 +2024,7 @@ com.utopia.bttendance.R$drawable: int background_tab
 com.utopia.bttendance.R$drawable: int bg_round_navy_rect
 com.utopia.bttendance.R$drawable: int bt_add_item_background
 com.utopia.bttendance.R$drawable: int bt_list_item_background
+com.utopia.bttendance.R$drawable: int bt_list_item_selector
 com.utopia.bttendance.R$drawable: int bt_white_bg
 com.utopia.bttendance.R$drawable: int btn_cab_done_bttendance
 com.utopia.bttendance.R$drawable: int btn_cab_done_default_bttendance
@@ -2054,6 +2161,7 @@ com.utopia.bttendance.R$id: int abs__up
 com.utopia.bttendance.R$id: int add_btn
 com.utopia.bttendance.R$id: int bttendance
 com.utopia.bttendance.R$id: int cancel
+com.utopia.bttendance.R$id: int checking
 com.utopia.bttendance.R$id: int confirm
 com.utopia.bttendance.R$id: int container
 com.utopia.bttendance.R$id: int content
@@ -2199,6 +2307,8 @@ com.utopia.bttendance.R$string: int app_name_capital
 com.utopia.bttendance.R$string: int are_you_student
 com.utopia.bttendance.R$string: int attendance_check
 com.utopia.bttendance.R$string: int attendance_check_has_been_canceled
+com.utopia.bttendance.R$string: int attendance_checking_is_in_progress
+com.utopia.bttendance.R$string: int attendance_has_been_checked
 com.utopia.bttendance.R$string: int auth_client_needs_enabling_title
 com.utopia.bttendance.R$string: int auth_client_needs_installation_title
 com.utopia.bttendance.R$string: int auth_client_needs_update_title
@@ -2240,6 +2350,7 @@ com.utopia.bttendance.R$string: int enter_serial
 com.utopia.bttendance.R$string: int feed
 com.utopia.bttendance.R$string: int forgot_password
 com.utopia.bttendance.R$string: int full_name
+com.utopia.bttendance.R$string: int ga_trackingId
 com.utopia.bttendance.R$string: int google_api_key
 com.utopia.bttendance.R$string: int hello_
 com.utopia.bttendance.R$string: int i_am_a_student_proceed
@@ -2566,7 +2677,9 @@ com.utopia.bttendance.R$styleable: int SherlockTheme_windowNoTitle
 com.utopia.bttendance.R$styleable: int SherlockTheme_windowSplitActionBar
 com.utopia.bttendance.R$styleable: int[] SherlockView
 com.utopia.bttendance.R$styleable: int SherlockView_android_focusable
+com.utopia.bttendance.activity.BTActivity
 com.utopia.bttendance.activity.BTActivity: BTActivity()
+com.utopia.bttendance.activity.BTActivity$ActivityStack
 com.utopia.bttendance.activity.ProfessorActivity
 com.utopia.bttendance.activity.ProfessorActivity: ProfessorActivity()
 com.utopia.bttendance.activity.SplashActivity
@@ -2586,10 +2699,21 @@ com.utopia.bttendance.activity.sign.SignUpActivity
 com.utopia.bttendance.activity.sign.SignUpActivity: SignUpActivity()
 com.utopia.bttendance.activity.sign.StudentConfirm
 com.utopia.bttendance.activity.sign.StudentConfirm: StudentConfirm()
+com.utopia.bttendance.fragment.AttendanceListFragment
+com.utopia.bttendance.fragment.BTDialogFragment
 com.utopia.bttendance.fragment.BTDialogFragment$DialogType: com.utopia.bttendance.fragment.BTDialogFragment$DialogType[] values()
 com.utopia.bttendance.fragment.BTDialogFragment$DialogType: com.utopia.bttendance.fragment.BTDialogFragment$DialogType valueOf(java.lang.String)
+com.utopia.bttendance.fragment.BTFragment
+com.utopia.bttendance.fragment.CourseFragment
+com.utopia.bttendance.fragment.CourseListFragment
+com.utopia.bttendance.fragment.CreateCourseFragment
+com.utopia.bttendance.fragment.FeedFragment
+com.utopia.bttendance.fragment.JoinCourseFragment
+com.utopia.bttendance.fragment.JoinSchoolFragment
+com.utopia.bttendance.fragment.ProfileFragment
 com.utopia.bttendance.model.BTKey$Type: com.utopia.bttendance.model.BTKey$Type[] values()
 com.utopia.bttendance.model.BTKey$Type: com.utopia.bttendance.model.BTKey$Type valueOf(java.lang.String)
+com.utopia.bttendance.model.BTProvider
 com.utopia.bttendance.model.json.BTJson$JsonType: com.utopia.bttendance.model.json.BTJson$JsonType[] values()
 com.utopia.bttendance.model.json.BTJson$JsonType: com.utopia.bttendance.model.json.BTJson$JsonType valueOf(java.lang.String)
 com.utopia.bttendance.service.BTService
@@ -2607,8 +2731,14 @@ com.utopia.bttendance.view.Bttendance: Bttendance(android.content.Context,androi
 com.utopia.bttendance.view.Bttendance: Bttendance(android.content.Context,android.util.AttributeSet,int)
 com.utopia.bttendance.view.Bttendance: android.graphics.Bitmap getCheckBitmap()
 com.utopia.bttendance.view.Bttendance: android.graphics.Bitmap getBackgroundBitmap()
+com.utopia.bttendance.view.Bttendance: void setEndState(com.utopia.bttendance.view.Bttendance$STATE)
 com.utopia.bttendance.view.Bttendance$STATE: com.utopia.bttendance.view.Bttendance$STATE[] values()
 com.utopia.bttendance.view.Bttendance$STATE: com.utopia.bttendance.view.Bttendance$STATE valueOf(java.lang.String)
+com.utopia.bttendance.view.Circle
+com.utopia.bttendance.view.IndexableListView
+com.utopia.bttendance.view.IndexableListView: IndexableListView(android.content.Context)
+com.utopia.bttendance.view.IndexableListView: IndexableListView(android.content.Context,android.util.AttributeSet)
+com.utopia.bttendance.view.IndexableListView: IndexableListView(android.content.Context,android.util.AttributeSet,int)
 com.utopia.bttendance.view.IndexableListView: void setFastScrollEnabled(boolean)
 com.utopia.bttendance.view.IndexableListView: void setAdapter(android.widget.ListAdapter)
 com.utopia.bttendance.view.IndexableListView: void setAdapter(android.widget.Adapter)
