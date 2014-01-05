@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.otto.BTEventBus;
 import com.utopia.bttendance.R;
+import com.utopia.bttendance.event.AttdStartedEvent;
 import com.utopia.bttendance.helper.DateHelper;
 import com.utopia.bttendance.helper.IntArrayHelper;
 import com.utopia.bttendance.model.BTPreference;
@@ -19,7 +21,7 @@ import com.utopia.bttendance.view.Bttendance;
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
  */
-public class FeedAdapter extends CursorAdapter {
+public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
 
     public FeedAdapter(Context context, Cursor c) {
         super(context, c, android.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
@@ -38,7 +40,7 @@ public class FeedAdapter extends CursorAdapter {
 
         Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
         bttendance.setTag(R.id.post_id, post.id);
-        bttendance.setClickable(false);
+        bttendance.setOnClickListener(this);
 
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
 
@@ -50,10 +52,16 @@ public class FeedAdapter extends CursorAdapter {
             int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
             bttendance.setEndState(Bttendance.STATE.FAIL);
             bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+            bttendance.setClickable(true);
+            bttendance.setTag(R.id.checking, true);
         } else if (mTime || included) {
             bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
+            bttendance.setClickable(false);
+            bttendance.setTag(R.id.checking, false);
         } else {
             bttendance.setBttendance(Bttendance.STATE.FAIL, 0);
+            bttendance.setClickable(false);
+            bttendance.setTag(R.id.checking, false);
         }
 
         TextView title = (TextView) view.findViewById(R.id.title);
@@ -70,5 +78,18 @@ public class FeedAdapter extends CursorAdapter {
 
         int id = cursor.getInt(0);
         return id;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bttendance:
+                boolean checking = (Boolean) v.getTag(R.id.checking);
+                if (checking)
+                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -52,7 +52,7 @@
     <string name="attendance_check_has_been_canceled">"Attendance check has been canceled"</string>
     <string name="attendance_has_been_checked">"%s attendance has been checked"</string>
     <string name="attendance_check">"Attendance check"</string>
-    <string name="do_you_wish_to_start_attendance_check">"Do you wish to start attendance check?"</string>
+    <string name="do_you_want_to_start_attendance_check">"Do you want to start attendance check?"</string>
     <string name="attendance_checking_is_in_progress">"Attendance checking is in progress"</string>
     <string name="turn_on_your_bluetooth_settings">"Turn on your bluetooth settings"</string>
     <string name="do_you_want_to_approve_attendance">Do you want to approve %s\'s Attendance?</string>

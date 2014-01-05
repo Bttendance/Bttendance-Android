@@ -59,7 +59,7 @@ public class BTEventDispatcher {
             return;
 
         String title = act.getString(R.string.attendance_check);
-        String message = act.getString(R.string.do_you_wish_to_start_attendance_check);
+        String message = act.getString(R.string.do_you_want_to_start_attendance_check);
 
         BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
