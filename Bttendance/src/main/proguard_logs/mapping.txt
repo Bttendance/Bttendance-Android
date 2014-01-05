@@ -23818,11 +23818,11 @@ com.utopia.bttendance.fragment.AttendanceListFragment -> com.utopia.bttendance.f
     54:59:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     64:66:void onFragmentResume() -> onFragmentResume
     70:72:void onAttdCheckedManually(com.utopia.bttendance.event.AttdCheckedManuallyEvent) -> onAttdCheckedManually
-    76:99:void requestCall() -> l
-    102:120:void swapItems() -> m
-    124:126:void onServieConnected() -> onServieConnected
-    130:134:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
-    138:144:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
+    76:102:void requestCall() -> l
+    105:123:void swapItems() -> m
+    127:129:void onServieConnected() -> onServieConnected
+    133:137:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
+    141:147:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
     34:34:com.utopia.bttendance.model.json.UserJson[] access$002(com.utopia.bttendance.fragment.AttendanceListFragment,com.utopia.bttendance.model.json.UserJson[]) -> a
     34:34:void access$100(com.utopia.bttendance.fragment.AttendanceListFragment) -> a
     34:34:com.utopia.bttendance.model.json.PostJson access$202(com.utopia.bttendance.fragment.AttendanceListFragment,com.utopia.bttendance.model.json.PostJson) -> a
@@ -23833,13 +23833,13 @@ com.utopia.bttendance.fragment.AttendanceListFragment$1 -> anj:
     76:76:void success(java.lang.Object,retrofit.client.Response) -> success
 com.utopia.bttendance.fragment.AttendanceListFragment$2 -> ank:
     com.utopia.bttendance.fragment.AttendanceListFragment this$0 -> a
-    91:93:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
-    97:97:void failure(retrofit.RetrofitError) -> failure
-    88:88:void success(java.lang.Object,retrofit.client.Response) -> success
+    94:96:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    100:100:void failure(retrofit.RetrofitError) -> failure
+    91:91:void success(java.lang.Object,retrofit.client.Response) -> success
 com.utopia.bttendance.fragment.AttendanceListFragment$3 -> anl:
     com.utopia.bttendance.fragment.AttendanceListFragment this$0 -> a
-    115:115:int compare(com.utopia.bttendance.adapter.BTListAdapter$Item,com.utopia.bttendance.adapter.BTListAdapter$Item) -> a
-    112:112:int compare(java.lang.Object,java.lang.Object) -> compare
+    118:118:int compare(com.utopia.bttendance.adapter.BTListAdapter$Item,com.utopia.bttendance.adapter.BTListAdapter$Item) -> a
+    115:115:int compare(java.lang.Object,java.lang.Object) -> compare
 com.utopia.bttendance.fragment.BTDialogFragment -> com.utopia.bttendance.fragment.BTDialogFragment:
     com.utopia.bttendance.fragment.BTDialogFragment$DialogType mType -> a
     com.utopia.bttendance.fragment.BTDialogFragment$OnConfirmListener mConfrimListener -> b

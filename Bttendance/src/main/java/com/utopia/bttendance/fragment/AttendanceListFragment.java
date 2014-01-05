@@ -85,6 +85,9 @@ public class AttendanceListFragment extends BTFragment {
             }
         });
 
+        if (mCourse.posts.length == 0)
+            return;
+
         getBTService().post(mCourse.posts[mCourse.posts.length - 1], new Callback<PostJson>() {
             @Override
             public void success(PostJson postJson, Response response) {
