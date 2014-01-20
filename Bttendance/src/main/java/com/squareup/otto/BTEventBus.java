@@ -3,7 +3,7 @@ package com.squareup.otto;
 
 import android.os.Handler;
 
-import com.utopia.bttendance.BTDebug;
+import com.bttendance.BTDebug;
 
 public class BTEventBus extends Bus {
 

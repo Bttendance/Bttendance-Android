@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.utopia.bttendance.view.PagerSlidingTabStrip
+    <com.bttendance.view.PagerSlidingTabStrip
         android:id="@+id/tabs"
         app:dividerColor="@android:color/transparent"
         app:indicatorColor="@color/bttendance_cyan"

@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.utopia.bttendance.view.SeekBar_
+        <com.bttendance.view.SeekBar_
             android:id="@+id/seekbar_prof"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/transparent_thumb" />
 
-        <com.utopia.bttendance.view.SeekBar_
+        <com.bttendance.view.SeekBar_
             android:id="@+id/seekbar_std"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -21768,7 +21768,7 @@ com.squareup.picasso.Utils$PicassoThread -> aku:
     217:219:void run() -> run
 com.squareup.picasso.Utils$PicassoThreadFactory -> akv:
     207:207:java.lang.Thread newThread(java.lang.Runnable) -> newThread
-com.utopia.bttendance.BTDebug -> com.utopia.bttendance.BTDebug:
+com.bttendance.BTDebug -> com.bttendance.BTDebug:
     boolean DEBUG -> DEBUG
     java.lang.String TAG -> TAG
     java.lang.String TAG_API -> TAG_API
@@ -21779,13 +21779,13 @@ com.utopia.bttendance.BTDebug -> com.utopia.bttendance.BTDebug:
     55:55:void LogQueryAPI(java.lang.String) -> LogQueryAPI
     63:63:void LogResponseAPI(java.lang.String) -> LogResponseAPI
     71:71:void Toast(android.content.Context,java.lang.String) -> Toast
-com.utopia.bttendance.BuildConfig -> com.utopia.bttendance.BuildConfig:
+com.bttendance.BuildConfig -> com.bttendance.BuildConfig:
     boolean DEBUG -> DEBUG
-com.utopia.bttendance.Manifest -> com.utopia.bttendance.Manifest:
-com.utopia.bttendance.Manifest$permission -> com.utopia.bttendance.Manifest$permission:
+com.bttendance.Manifest -> com.bttendance.Manifest:
+com.bttendance.Manifest$permission -> com.bttendance.Manifest$permission:
     java.lang.String C2D_MESSAGE -> C2D_MESSAGE
-com.utopia.bttendance.R -> com.utopia.bttendance.R:
-com.utopia.bttendance.R$anim -> com.utopia.bttendance.R$anim:
+com.bttendance.R -> com.bttendance.R:
+com.bttendance.R$anim -> com.bttendance.R$anim:
     int fade_in -> fade_in
     int fade_in_fast -> fade_in_fast
     int fade_in_slow -> fade_in_slow
@@ -21802,7 +21802,7 @@ com.utopia.bttendance.R$anim -> com.utopia.bttendance.R$anim:
     int slide_out_right -> slide_out_right
     int slide_out_up -> slide_out_up
     int splash_out -> splash_out
-com.utopia.bttendance.R$attr -> com.utopia.bttendance.R$attr:
+com.bttendance.R$attr -> com.bttendance.R$attr:
     int actionBarDivider -> actionBarDivider
     int actionBarItemBackground -> actionBarItemBackground
     int actionBarSize -> actionBarSize
@@ -21931,7 +21931,7 @@ com.utopia.bttendance.R$attr -> com.utopia.bttendance.R$attr:
     int windowNoTitle -> windowNoTitle
     int windowSplitActionBar -> windowSplitActionBar
     int zOrderOnTop -> zOrderOnTop
-com.utopia.bttendance.R$bool -> com.utopia.bttendance.R$bool:
+com.bttendance.R$bool -> com.bttendance.R$bool:
     int abs__action_bar_embed_tabs -> abs__action_bar_embed_tabs
     int abs__action_bar_expanded_action_views_exclusive -> abs__action_bar_expanded_action_views_exclusive
     int abs__config_actionMenuItemAllCaps -> abs__config_actionMenuItemAllCaps
@@ -21940,7 +21940,7 @@ com.utopia.bttendance.R$bool -> com.utopia.bttendance.R$bool:
     int abs__split_action_bar_is_narrow -> abs__split_action_bar_is_narrow
     int ga_autoActivityTracking -> ga_autoActivityTracking
     int ga_reportUncaughtExceptions -> ga_reportUncaughtExceptions
-com.utopia.bttendance.R$color -> com.utopia.bttendance.R$color:
+com.bttendance.R$color -> com.bttendance.R$color:
     int Color_AliceBlue -> Color_AliceBlue
     int Color_AntiqueWhite -> Color_AntiqueWhite
     int Color_Aqua -> Color_Aqua
@@ -22453,7 +22453,7 @@ com.utopia.bttendance.R$color -> com.utopia.bttendance.R$color:
     int transparent_white_percent_85 -> transparent_white_percent_85
     int transparent_white_percent_90 -> transparent_white_percent_90
     int transparent_white_percent_95 -> transparent_white_percent_95
-com.utopia.bttendance.R$dimen -> com.utopia.bttendance.R$dimen:
+com.bttendance.R$dimen -> com.bttendance.R$dimen:
     int abs__action_bar_default_height -> abs__action_bar_default_height
     int abs__action_bar_icon_vertical_padding -> abs__action_bar_icon_vertical_padding
     int abs__action_bar_subtitle_bottom_margin -> abs__action_bar_subtitle_bottom_margin
@@ -22471,7 +22471,7 @@ com.utopia.bttendance.R$dimen -> com.utopia.bttendance.R$dimen:
     int abs__search_view_text_min_width -> abs__search_view_text_min_width
     int activity_horizontal_margin -> activity_horizontal_margin
     int activity_vertical_margin -> activity_vertical_margin
-com.utopia.bttendance.R$drawable -> com.utopia.bttendance.R$drawable:
+com.bttendance.R$drawable -> com.bttendance.R$drawable:
     int ab_background_textured_bttendance -> ab_background_textured_bttendance
     int ab_bottom_solid_bttendance -> ab_bottom_solid_bttendance
     int ab_solid_bttendance -> ab_solid_bttendance
@@ -22688,7 +22688,7 @@ com.utopia.bttendance.R$drawable -> com.utopia.bttendance.R$drawable:
     int tab_unselected_focused_bttendance -> tab_unselected_focused_bttendance
     int tab_unselected_pressed_bttendance -> tab_unselected_pressed_bttendance
     int transparent_thumb -> transparent_thumb
-com.utopia.bttendance.R$id -> com.utopia.bttendance.R$id:
+com.bttendance.R$id -> com.bttendance.R$id:
     int Big -> Big
     int Small -> Small
     int abs__action_bar -> abs__action_bar
@@ -22808,10 +22808,10 @@ com.utopia.bttendance.R$id -> com.utopia.bttendance.R$id:
     int username_text -> username_text
     int who -> who
     int wrap_content -> wrap_content
-com.utopia.bttendance.R$integer -> com.utopia.bttendance.R$integer:
+com.bttendance.R$integer -> com.bttendance.R$integer:
     int abs__max_action_buttons -> abs__max_action_buttons
     int google_play_services_version -> google_play_services_version
-com.utopia.bttendance.R$layout -> com.utopia.bttendance.R$layout:
+com.bttendance.R$layout -> com.bttendance.R$layout:
     int abs__action_bar_home -> abs__action_bar_home
     int abs__action_bar_tab -> abs__action_bar_tab
     int abs__action_bar_tab_bar_view -> abs__action_bar_tab_bar_view
@@ -22862,9 +22862,9 @@ com.utopia.bttendance.R$layout -> com.utopia.bttendance.R$layout:
     int sherlock_spinner_dropdown_item -> sherlock_spinner_dropdown_item
     int sherlock_spinner_item -> sherlock_spinner_item
     int toast -> toast
-com.utopia.bttendance.R$menu -> com.utopia.bttendance.R$menu:
+com.bttendance.R$menu -> com.bttendance.R$menu:
     int options_menu -> options_menu
-com.utopia.bttendance.R$string -> com.utopia.bttendance.R$string:
+com.bttendance.R$string -> com.bttendance.R$string:
     int abs__action_bar_home_description -> abs__action_bar_home_description
     int abs__action_bar_up_description -> abs__action_bar_up_description
     int abs__action_menu_overflow_description -> abs__action_menu_overflow_description
@@ -22959,7 +22959,7 @@ com.utopia.bttendance.R$string -> com.utopia.bttendance.R$string:
     int welcome_to_bttendance -> welcome_to_bttendance
     int who_are_you -> who_are_you
     int wrong_serial -> wrong_serial
-com.utopia.bttendance.R$style -> com.utopia.bttendance.R$style:
+com.bttendance.R$style -> com.bttendance.R$style:
     int ActionBar_Solid_Bttendance -> ActionBar_Solid_Bttendance
     int ActionBar_Solid_Bttendance_Sign -> ActionBar_Solid_Bttendance_Sign
     int ActionBar_TitleTextStyle -> ActionBar_TitleTextStyle
@@ -23068,7 +23068,7 @@ com.utopia.bttendance.R$style -> com.utopia.bttendance.R$style:
     int studentConfirmButton -> studentConfirmButton
     int userInfoEditText -> userInfoEditText
     int userInfoText -> userInfoText
-com.utopia.bttendance.R$styleable -> com.utopia.bttendance.R$styleable:
+com.bttendance.R$styleable -> com.bttendance.R$styleable:
     int[] AdsAttrs -> AdsAttrs
     int AdsAttrs_adSize -> AdsAttrs_adSize
     int AdsAttrs_adUnitId -> AdsAttrs_adUnitId
@@ -23255,20 +23255,20 @@ com.utopia.bttendance.R$styleable -> com.utopia.bttendance.R$styleable:
     int SherlockTheme_windowSplitActionBar -> SherlockTheme_windowSplitActionBar
     int[] SherlockView -> SherlockView
     int SherlockView_android_focusable -> SherlockView_android_focusable
-com.utopia.bttendance.activity.BTActivity -> com.utopia.bttendance.activity.BTActivity:
-    com.utopia.bttendance.activity.BTActivity mActivity -> o
+com.bttendance.activity.BTActivity -> com.bttendance.activity.BTActivity:
+    com.bttendance.activity.BTActivity mActivity -> o
     android.content.BroadcastReceiver mReceiver -> p
     android.content.ServiceConnection mBTConnect -> mBTConnect
     java.util.ArrayList mServiceListeners -> n
-    com.utopia.bttendance.event.BTEventDispatcher mEventDispatcher -> q
-    com.utopia.bttendance.service.BTService mService -> r
+    com.bttendance.event.BTEventDispatcher mEventDispatcher -> q
+    com.bttendance.service.BTService mService -> r
     com.actionbarsherlock.view.MenuItem mRefresh -> s
     boolean mShowLoading -> t
-    82:83:void addOnServiceConnectListener(com.utopia.bttendance.activity.BTActivity$OnServiceConnectListener) -> addOnServiceConnectListener
-    86:87:void removeOnServiceConnectListener(com.utopia.bttendance.activity.BTActivity$OnServiceConnectListener) -> removeOnServiceConnectListener
+    82:83:void addOnServiceConnectListener(com.bttendance.activity.BTActivity$OnServiceConnectListener) -> addOnServiceConnectListener
+    86:87:void removeOnServiceConnectListener(com.bttendance.activity.BTActivity$OnServiceConnectListener) -> removeOnServiceConnectListener
     90:94:void onServieConnected() -> onServieConnected
     97:100:void onServieDisconnected() -> onServieDisconnected
-    103:103:com.utopia.bttendance.service.BTService getBTService() -> getBTService
+    103:103:com.bttendance.service.BTService getBTService() -> getBTService
     108:127:void onCreate(android.os.Bundle) -> onCreate
     131:135:void onDestroy() -> onDestroy
     139:146:void onStart() -> onStart
@@ -23279,30 +23279,30 @@ com.utopia.bttendance.activity.BTActivity -> com.utopia.bttendance.activity.BTAc
     209:221:void showLoading(boolean) -> showLoading
     225:229:boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu) -> onCreateOptionsMenu
     234:236:void onResume() -> onResume
-    48:48:com.utopia.bttendance.service.BTService access$002(com.utopia.bttendance.activity.BTActivity,com.utopia.bttendance.service.BTService) -> a
-    48:48:com.actionbarsherlock.view.MenuItem access$100(com.utopia.bttendance.activity.BTActivity) -> a
-    48:48:boolean access$200(com.utopia.bttendance.activity.BTActivity) -> b
-com.utopia.bttendance.activity.BTActivity$1 -> akw:
-    com.utopia.bttendance.activity.BTActivity this$0 -> a
+    48:48:com.bttendance.service.BTService access$002(com.bttendance.activity.BTActivity,com.bttendance.service.BTService) -> a
+    48:48:com.actionbarsherlock.view.MenuItem access$100(com.bttendance.activity.BTActivity) -> a
+    48:48:boolean access$200(com.bttendance.activity.BTActivity) -> b
+com.bttendance.activity.BTActivity$1 -> akw:
+    com.bttendance.activity.BTActivity this$0 -> a
     54:59:void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.utopia.bttendance.activity.BTActivity$2 -> akx:
-    com.utopia.bttendance.activity.BTActivity this$0 -> a
+com.bttendance.activity.BTActivity$2 -> akx:
+    com.bttendance.activity.BTActivity this$0 -> a
     65:67:void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
     71:73:void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
-com.utopia.bttendance.activity.BTActivity$3 -> aky:
-    com.utopia.bttendance.activity.BTActivity this$0 -> a
+com.bttendance.activity.BTActivity$3 -> aky:
+    com.bttendance.activity.BTActivity this$0 -> a
     116:122:void onBackStackChanged() -> onBackStackChanged
-com.utopia.bttendance.activity.BTActivity$4 -> akz:
-    com.utopia.bttendance.activity.BTActivity this$0 -> a
+com.bttendance.activity.BTActivity$4 -> akz:
+    com.bttendance.activity.BTActivity this$0 -> a
     213:219:void run() -> run
-com.utopia.bttendance.activity.BTActivity$ActivityStack -> com.utopia.bttendance.activity.BTActivity$ActivityStack:
+com.bttendance.activity.BTActivity$ActivityStack -> com.bttendance.activity.BTActivity$ActivityStack:
     java.util.Stack classes -> a
     260:265:void clear(com.actionbarsherlock.app.SherlockFragmentActivity) -> clear
     268:269:void add(com.actionbarsherlock.app.SherlockFragmentActivity) -> add
-com.utopia.bttendance.activity.BTActivity$OnServiceConnectListener -> com.utopia.bttendance.activity.BTActivity$OnServiceConnectListener:
+com.bttendance.activity.BTActivity$OnServiceConnectListener -> com.bttendance.activity.BTActivity$OnServiceConnectListener:
     void onServieConnected() -> onServieConnected
     void onServieDisconnected() -> onServieDisconnected
-com.utopia.bttendance.activity.ProfessorActivity -> com.utopia.bttendance.activity.ProfessorActivity:
+com.bttendance.activity.ProfessorActivity -> com.bttendance.activity.ProfessorActivity:
     android.os.Handler mUIHandler -> o
     boolean mFinishApplication -> p
     36:44:void onCreate(android.os.Bundle) -> onCreate
@@ -23310,33 +23310,33 @@ com.utopia.bttendance.activity.ProfessorActivity -> com.utopia.bttendance.activi
     58:81:void onServieConnected() -> onServieConnected
     85:91:void onBackPressed() -> onBackPressed
     94:106:void tryToFinish() -> b
-    29:29:boolean access$002(com.utopia.bttendance.activity.ProfessorActivity,boolean) -> a
-com.utopia.bttendance.activity.ProfessorActivity$1 -> ala:
-    com.utopia.bttendance.activity.ProfessorActivity this$0 -> a
-    62:62:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    29:29:boolean access$002(com.bttendance.activity.ProfessorActivity,boolean) -> a
+com.bttendance.activity.ProfessorActivity$1 -> ala:
+    com.bttendance.activity.ProfessorActivity this$0 -> a
+    62:62:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     66:66:void failure(retrofit.RetrofitError) -> failure
     59:59:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.activity.ProfessorActivity$2 -> alb:
-    com.utopia.bttendance.activity.ProfessorActivity this$0 -> a
-    73:75:void success(com.utopia.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
+com.bttendance.activity.ProfessorActivity$2 -> alb:
+    com.bttendance.activity.ProfessorActivity this$0 -> a
+    73:75:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
     79:79:void failure(retrofit.RetrofitError) -> failure
     70:70:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.activity.ProfessorActivity$3 -> alc:
-    com.utopia.bttendance.activity.ProfessorActivity this$0 -> a
+com.bttendance.activity.ProfessorActivity$3 -> alc:
+    com.bttendance.activity.ProfessorActivity this$0 -> a
     102:103:void run() -> run
-com.utopia.bttendance.activity.SplashActivity -> com.utopia.bttendance.activity.SplashActivity:
+com.bttendance.activity.SplashActivity -> com.bttendance.activity.SplashActivity:
     int SPLASH_DURATION -> o
     21:29:void onCreate(android.os.Bundle) -> onCreate
     32:34:void nextActivity() -> b
-    15:15:void access$000(com.utopia.bttendance.activity.SplashActivity) -> a
-com.utopia.bttendance.activity.SplashActivity$1 -> ald:
-    com.utopia.bttendance.activity.SplashActivity this$0 -> a
+    15:15:void access$000(com.bttendance.activity.SplashActivity) -> a
+com.bttendance.activity.SplashActivity$1 -> ald:
+    com.bttendance.activity.SplashActivity this$0 -> a
     26:27:void run() -> run
-com.utopia.bttendance.activity.StudentActivity -> com.utopia.bttendance.activity.StudentActivity:
+com.bttendance.activity.StudentActivity -> com.bttendance.activity.StudentActivity:
     android.os.Handler mUIHandler -> q
-    com.utopia.bttendance.adapter.BTPagerAdapter mPagerAdapter -> o
+    com.bttendance.adapter.BTPagerAdapter mPagerAdapter -> o
     android.support.v4.view.ViewPager mViewPager -> p
-    com.utopia.bttendance.view.PagerSlidingTabStrip mTabs -> r
+    com.bttendance.view.PagerSlidingTabStrip mTabs -> r
     boolean mFinishApplication -> s
     39:72:void onCreate(android.os.Bundle) -> onCreate
     75:86:void setActionBarTitle(int) -> a
@@ -23345,28 +23345,28 @@ com.utopia.bttendance.activity.StudentActivity -> com.utopia.bttendance.activity
     122:127:boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu) -> onCreateOptionsMenu
     132:143:void onBackPressed() -> onBackPressed
     146:158:void tryToFinish() -> b
-    29:29:void access$000(com.utopia.bttendance.activity.StudentActivity,int) -> a
-    29:29:void access$100(com.utopia.bttendance.activity.StudentActivity,int) -> b
-    29:29:boolean access$202(com.utopia.bttendance.activity.StudentActivity,boolean) -> a
-com.utopia.bttendance.activity.StudentActivity$1 -> ale:
-    com.utopia.bttendance.activity.StudentActivity this$0 -> a
+    29:29:void access$000(com.bttendance.activity.StudentActivity,int) -> a
+    29:29:void access$100(com.bttendance.activity.StudentActivity,int) -> b
+    29:29:boolean access$202(com.bttendance.activity.StudentActivity,boolean) -> a
+com.bttendance.activity.StudentActivity$1 -> ale:
+    com.bttendance.activity.StudentActivity this$0 -> a
     59:59:void onPageScrolled(int,float,int) -> onPageScrolled
     63:66:void onPageSelected(int) -> onPageSelected
     70:70:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
-com.utopia.bttendance.activity.StudentActivity$2 -> alf:
-    com.utopia.bttendance.activity.StudentActivity this$0 -> a
-    99:99:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+com.bttendance.activity.StudentActivity$2 -> alf:
+    com.bttendance.activity.StudentActivity this$0 -> a
+    99:99:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     103:103:void failure(retrofit.RetrofitError) -> failure
     96:96:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.activity.StudentActivity$3 -> alg:
-    com.utopia.bttendance.activity.StudentActivity this$0 -> a
-    110:112:void success(com.utopia.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
+com.bttendance.activity.StudentActivity$3 -> alg:
+    com.bttendance.activity.StudentActivity this$0 -> a
+    110:112:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
     116:116:void failure(retrofit.RetrofitError) -> failure
     107:107:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.activity.StudentActivity$4 -> alh:
-    com.utopia.bttendance.activity.StudentActivity this$0 -> a
+com.bttendance.activity.StudentActivity$4 -> alh:
+    com.bttendance.activity.StudentActivity this$0 -> a
     154:155:void run() -> run
-com.utopia.bttendance.activity.sign.CatchPointActivity -> com.utopia.bttendance.activity.sign.CatchPointActivity:
+com.bttendance.activity.sign.CatchPointActivity -> com.bttendance.activity.sign.CatchPointActivity:
     android.widget.Button mSignUp -> o
     android.widget.Button mSignIn -> p
     boolean mFinishApplication -> q
@@ -23375,108 +23375,108 @@ com.utopia.bttendance.activity.sign.CatchPointActivity -> com.utopia.bttendance.
     34:48:void onClick(android.view.View) -> onClick
     52:53:void onBackPressed() -> onBackPressed
     59:71:void tryToFinish() -> b
-    16:16:boolean access$002(com.utopia.bttendance.activity.sign.CatchPointActivity,boolean) -> a
-com.utopia.bttendance.activity.sign.CatchPointActivity$1 -> ali:
-    com.utopia.bttendance.activity.sign.CatchPointActivity this$0 -> a
+    16:16:boolean access$002(com.bttendance.activity.sign.CatchPointActivity,boolean) -> a
+com.bttendance.activity.sign.CatchPointActivity$1 -> ali:
+    com.bttendance.activity.sign.CatchPointActivity this$0 -> a
     67:68:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity -> com.utopia.bttendance.activity.sign.PersionalizeActivity:
-    com.utopia.bttendance.view.SeekBar_ mSeekBarStd -> o
+com.bttendance.activity.sign.PersionalizeActivity -> com.bttendance.activity.sign.PersionalizeActivity:
+    com.bttendance.view.SeekBar_ mSeekBarStd -> o
     int progressStd -> p
     int progressStdStart -> q
     boolean isProgressStdChanging -> r
     boolean isProgressStdChangingStarted -> s
     boolean isProgressStdSpeedToGo -> t
     java.lang.Thread threadStd -> u
-    com.utopia.bttendance.view.Circle mStdCircle -> v
-    com.utopia.bttendance.view.SeekBar_ mSeekBarProf -> w
+    com.bttendance.view.Circle mStdCircle -> v
+    com.bttendance.view.SeekBar_ mSeekBarProf -> w
     int progressProf -> x
     int progressProfStart -> y
     boolean isProgressProfChanging -> z
     boolean isProgressProfChangingStarted -> A
     boolean isProgressProfSpeedToGo -> B
     java.lang.Thread threadProf -> C
-    com.utopia.bttendance.view.Circle mProfCircle -> D
+    com.bttendance.view.Circle mProfCircle -> D
     int statusBarHeight -> E
     int actionBarHeight -> F
-    com.utopia.bttendance.model.BTKey$Type mType -> G
+    com.bttendance.model.BTKey$Type mType -> G
     android.widget.RelativeLayout mUnderLayout -> H
     android.widget.RelativeLayout mTextLayout -> I
     android.widget.RelativeLayout mProfLayout -> J
     android.widget.RelativeLayout mStdLayout -> K
     android.widget.ViewSwitcher mViewSwitcher -> L
-    56:65:void initCircle(com.utopia.bttendance.view.Circle,android.widget.SeekBar) -> a
+    56:65:void initCircle(com.bttendance.view.Circle,android.widget.SeekBar) -> a
     68:72:void initText() -> b
-    75:84:void updateCircle(com.utopia.bttendance.view.Circle,android.widget.SeekBar) -> b
-    87:100:void nextActivity(com.utopia.bttendance.model.BTKey$Type) -> a
+    75:84:void updateCircle(com.bttendance.view.Circle,android.widget.SeekBar) -> b
+    87:100:void nextActivity(com.bttendance.model.BTKey$Type) -> a
     104:115:void onPause() -> onPause
     118:123:void sendViewToBack(android.view.View) -> a
     127:398:void onCreate(android.os.Bundle) -> onCreate
     402:409:void onResume() -> onResume
     413:415:void onBackPressed() -> onBackPressed
-    23:23:void access$000(com.utopia.bttendance.activity.sign.PersionalizeActivity,com.utopia.bttendance.view.Circle,android.widget.SeekBar) -> a
-    23:23:void access$100(com.utopia.bttendance.activity.sign.PersionalizeActivity,android.view.View) -> a
-    23:23:void access$200(com.utopia.bttendance.activity.sign.PersionalizeActivity,com.utopia.bttendance.model.BTKey$Type) -> a
-    23:23:void access$300(com.utopia.bttendance.activity.sign.PersionalizeActivity,com.utopia.bttendance.view.Circle,android.widget.SeekBar) -> b
-    23:23:void access$400(com.utopia.bttendance.activity.sign.PersionalizeActivity) -> a
-com.utopia.bttendance.activity.sign.PersionalizeActivity$1 -> alj:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity this$0 -> a
+    23:23:void access$000(com.bttendance.activity.sign.PersionalizeActivity,com.bttendance.view.Circle,android.widget.SeekBar) -> a
+    23:23:void access$100(com.bttendance.activity.sign.PersionalizeActivity,android.view.View) -> a
+    23:23:void access$200(com.bttendance.activity.sign.PersionalizeActivity,com.bttendance.model.BTKey$Type) -> a
+    23:23:void access$300(com.bttendance.activity.sign.PersionalizeActivity,com.bttendance.view.Circle,android.widget.SeekBar) -> b
+    23:23:void access$400(com.bttendance.activity.sign.PersionalizeActivity) -> a
+com.bttendance.activity.sign.PersionalizeActivity$1 -> alj:
+    com.bttendance.activity.sign.PersionalizeActivity this$0 -> a
     136:149:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$1$1 -> alk:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$1 this$1 -> a
+com.bttendance.activity.sign.PersionalizeActivity$1$1 -> alk:
+    com.bttendance.activity.sign.PersionalizeActivity$1 this$1 -> a
     140:145:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$2 -> all:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity this$0 -> a
+com.bttendance.activity.sign.PersionalizeActivity$2 -> all:
+    com.bttendance.activity.sign.PersionalizeActivity this$0 -> a
     163:180:void onProgressChanged(android.widget.SeekBar,int,boolean) -> onProgressChanged
     184:196:void onStartTrackingTouch(android.widget.SeekBar) -> onStartTrackingTouch
     200:254:void onStopTrackingTouch(android.widget.SeekBar) -> onStopTrackingTouch
-com.utopia.bttendance.activity.sign.PersionalizeActivity$2$1 -> alm:
+com.bttendance.activity.sign.PersionalizeActivity$2$1 -> alm:
     android.widget.SeekBar val$seekBar -> a
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$2 this$1 -> b
+    com.bttendance.activity.sign.PersionalizeActivity$2 this$1 -> b
     205:220:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$2$1$1 -> aln:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$2$1 this$2 -> a
+com.bttendance.activity.sign.PersionalizeActivity$2$1$1 -> aln:
+    com.bttendance.activity.sign.PersionalizeActivity$2$1 this$2 -> a
     211:212:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$2$2 -> alo:
+com.bttendance.activity.sign.PersionalizeActivity$2$2 -> alo:
     android.widget.SeekBar val$seekBar -> a
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$2 this$1 -> b
+    com.bttendance.activity.sign.PersionalizeActivity$2 this$1 -> b
     231:250:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$2$2$1 -> alp:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$2$2 this$2 -> a
+com.bttendance.activity.sign.PersionalizeActivity$2$2$1 -> alp:
+    com.bttendance.activity.sign.PersionalizeActivity$2$2 this$2 -> a
     237:238:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$2$2$2 -> alq:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$2$2 this$2 -> a
+com.bttendance.activity.sign.PersionalizeActivity$2$2$2 -> alq:
+    com.bttendance.activity.sign.PersionalizeActivity$2$2 this$2 -> a
     246:247:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$3 -> alr:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity this$0 -> a
+com.bttendance.activity.sign.PersionalizeActivity$3 -> alr:
+    com.bttendance.activity.sign.PersionalizeActivity this$0 -> a
     261:278:void onProgressChanged(android.widget.SeekBar,int,boolean) -> onProgressChanged
     282:294:void onStartTrackingTouch(android.widget.SeekBar) -> onStartTrackingTouch
     298:356:void onStopTrackingTouch(android.widget.SeekBar) -> onStopTrackingTouch
-com.utopia.bttendance.activity.sign.PersionalizeActivity$3$1 -> als:
+com.bttendance.activity.sign.PersionalizeActivity$3$1 -> als:
     android.widget.SeekBar val$seekBar -> a
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$3 this$1 -> b
+    com.bttendance.activity.sign.PersionalizeActivity$3 this$1 -> b
     307:322:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$3$1$1 -> alt:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$3$1 this$2 -> a
+com.bttendance.activity.sign.PersionalizeActivity$3$1$1 -> alt:
+    com.bttendance.activity.sign.PersionalizeActivity$3$1 this$2 -> a
     313:314:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$3$2 -> alu:
+com.bttendance.activity.sign.PersionalizeActivity$3$2 -> alu:
     android.widget.SeekBar val$seekBar -> a
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$3 this$1 -> b
+    com.bttendance.activity.sign.PersionalizeActivity$3 this$1 -> b
     333:352:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$3$2$1 -> alv:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$3$2 this$2 -> a
+com.bttendance.activity.sign.PersionalizeActivity$3$2$1 -> alv:
+    com.bttendance.activity.sign.PersionalizeActivity$3$2 this$2 -> a
     339:340:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$3$2$2 -> alw:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$3$2 this$2 -> a
+com.bttendance.activity.sign.PersionalizeActivity$3$2$2 -> alw:
+    com.bttendance.activity.sign.PersionalizeActivity$3$2 this$2 -> a
     348:349:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$4 -> alx:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity this$0 -> a
+com.bttendance.activity.sign.PersionalizeActivity$4 -> alx:
+    com.bttendance.activity.sign.PersionalizeActivity this$0 -> a
     373:396:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$4$1 -> aly:
-    com.utopia.bttendance.activity.sign.PersionalizeActivity$4 this$1 -> a
+com.bttendance.activity.sign.PersionalizeActivity$4$1 -> aly:
+    com.bttendance.activity.sign.PersionalizeActivity$4 this$1 -> a
     391:394:void run() -> run
-com.utopia.bttendance.activity.sign.PersionalizeActivity$5 -> alz:
+com.bttendance.activity.sign.PersionalizeActivity$5 -> alz:
     int[] $SwitchMap$com$utopia$bttendance$model$BTKey$Type -> a
-com.utopia.bttendance.activity.sign.ProfessorSerial -> com.utopia.bttendance.activity.sign.ProfessorSerial:
+com.bttendance.activity.sign.ProfessorSerial -> com.bttendance.activity.sign.ProfessorSerial:
     android.widget.EditText mSerial -> o
     android.view.View mSerialDiv -> p
     android.widget.Button mEnter -> q
@@ -23488,26 +23488,26 @@ com.utopia.bttendance.activity.sign.ProfessorSerial -> com.utopia.bttendance.act
     154:157:void onResume() -> onResume
     161:165:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
     170:172:void onBackPressed() -> onBackPressed
-    33:33:android.view.View access$000(com.utopia.bttendance.activity.sign.ProfessorSerial) -> a
-    33:33:int access$102(com.utopia.bttendance.activity.sign.ProfessorSerial,int) -> a
-    33:33:android.widget.EditText access$200(com.utopia.bttendance.activity.sign.ProfessorSerial) -> b
-com.utopia.bttendance.activity.sign.ProfessorSerial$1 -> ama:
-    com.utopia.bttendance.activity.sign.ProfessorSerial this$0 -> a
+    33:33:android.view.View access$000(com.bttendance.activity.sign.ProfessorSerial) -> a
+    33:33:int access$102(com.bttendance.activity.sign.ProfessorSerial,int) -> a
+    33:33:android.widget.EditText access$200(com.bttendance.activity.sign.ProfessorSerial) -> b
+com.bttendance.activity.sign.ProfessorSerial$1 -> ama:
+    com.bttendance.activity.sign.ProfessorSerial this$0 -> a
     53:58:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.activity.sign.ProfessorSerial$2 -> amb:
-    com.utopia.bttendance.activity.sign.ProfessorSerial this$0 -> a
+com.bttendance.activity.sign.ProfessorSerial$2 -> amb:
+    com.bttendance.activity.sign.ProfessorSerial this$0 -> a
     64:66:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     70:70:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     74:74:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.activity.sign.ProfessorSerial$3 -> amc:
-    com.utopia.bttendance.activity.sign.ProfessorSerial this$0 -> a
+com.bttendance.activity.sign.ProfessorSerial$3 -> amc:
+    com.bttendance.activity.sign.ProfessorSerial this$0 -> a
     83:99:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.utopia.bttendance.activity.sign.ProfessorSerial$4 -> amd:
-    com.utopia.bttendance.activity.sign.ProfessorSerial this$0 -> a
-    135:143:void success(com.utopia.bttendance.model.json.ValidationJson,retrofit.client.Response) -> a
+com.bttendance.activity.sign.ProfessorSerial$4 -> amd:
+    com.bttendance.activity.sign.ProfessorSerial this$0 -> a
+    135:143:void success(com.bttendance.model.json.ValidationJson,retrofit.client.Response) -> a
     148:148:void failure(retrofit.RetrofitError) -> failure
     132:132:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.activity.sign.SignInActivity -> com.utopia.bttendance.activity.sign.SignInActivity:
+com.bttendance.activity.sign.SignInActivity -> com.bttendance.activity.sign.SignInActivity:
     android.widget.EditText mUsername -> o
     android.widget.EditText mPassword -> p
     android.view.View mUsernameDiv -> q
@@ -23525,37 +23525,37 @@ com.utopia.bttendance.activity.sign.SignInActivity -> com.utopia.bttendance.acti
     207:211:void onPause() -> onPause
     215:219:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
     224:226:void onBackPressed() -> onBackPressed
-    36:36:android.view.View access$000(com.utopia.bttendance.activity.sign.SignInActivity) -> a
-    36:36:int access$102(com.utopia.bttendance.activity.sign.SignInActivity,int) -> a
-    36:36:android.widget.EditText access$200(com.utopia.bttendance.activity.sign.SignInActivity) -> b
-    36:36:android.view.View access$300(com.utopia.bttendance.activity.sign.SignInActivity) -> c
-    36:36:int access$402(com.utopia.bttendance.activity.sign.SignInActivity,int) -> b
-    36:36:android.widget.EditText access$500(com.utopia.bttendance.activity.sign.SignInActivity) -> d
-com.utopia.bttendance.activity.sign.SignInActivity$1 -> ame:
-    com.utopia.bttendance.activity.sign.SignInActivity this$0 -> a
+    36:36:android.view.View access$000(com.bttendance.activity.sign.SignInActivity) -> a
+    36:36:int access$102(com.bttendance.activity.sign.SignInActivity,int) -> a
+    36:36:android.widget.EditText access$200(com.bttendance.activity.sign.SignInActivity) -> b
+    36:36:android.view.View access$300(com.bttendance.activity.sign.SignInActivity) -> c
+    36:36:int access$402(com.bttendance.activity.sign.SignInActivity,int) -> b
+    36:36:android.widget.EditText access$500(com.bttendance.activity.sign.SignInActivity) -> d
+com.bttendance.activity.sign.SignInActivity$1 -> ame:
+    com.bttendance.activity.sign.SignInActivity this$0 -> a
     62:68:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.activity.sign.SignInActivity$2 -> amf:
-    com.utopia.bttendance.activity.sign.SignInActivity this$0 -> a
+com.bttendance.activity.sign.SignInActivity$2 -> amf:
+    com.bttendance.activity.sign.SignInActivity this$0 -> a
     74:76:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     80:80:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     84:84:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.activity.sign.SignInActivity$3 -> amg:
-    com.utopia.bttendance.activity.sign.SignInActivity this$0 -> a
+com.bttendance.activity.sign.SignInActivity$3 -> amg:
+    com.bttendance.activity.sign.SignInActivity this$0 -> a
     90:96:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.activity.sign.SignInActivity$4 -> amh:
-    com.utopia.bttendance.activity.sign.SignInActivity this$0 -> a
+com.bttendance.activity.sign.SignInActivity$4 -> amh:
+    com.bttendance.activity.sign.SignInActivity this$0 -> a
     102:104:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     108:108:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     112:112:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.activity.sign.SignInActivity$5 -> ami:
-    com.utopia.bttendance.activity.sign.SignInActivity this$0 -> a
+com.bttendance.activity.sign.SignInActivity$5 -> ami:
+    com.bttendance.activity.sign.SignInActivity this$0 -> a
     121:137:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.utopia.bttendance.activity.sign.SignInActivity$6 -> amj:
-    com.utopia.bttendance.activity.sign.SignInActivity this$0 -> a
-    180:182:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+com.bttendance.activity.sign.SignInActivity$6 -> amj:
+    com.bttendance.activity.sign.SignInActivity this$0 -> a
+    180:182:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     186:186:void failure(retrofit.RetrofitError) -> failure
     177:177:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.activity.sign.SignUpActivity -> com.utopia.bttendance.activity.sign.SignUpActivity:
+com.bttendance.activity.sign.SignUpActivity -> com.bttendance.activity.sign.SignUpActivity:
     android.widget.EditText mFullName -> o
     android.widget.EditText mUsername -> p
     android.widget.EditText mEmail -> q
@@ -23574,7 +23574,7 @@ com.utopia.bttendance.activity.sign.SignUpActivity -> com.utopia.bttendance.acti
     java.lang.String mUsernameString -> D
     java.lang.String mEmailString -> E
     java.lang.String mPasswordString -> F
-    com.utopia.bttendance.model.BTKey$Type mType -> G
+    com.bttendance.model.BTKey$Type mType -> G
     56:58:void typeError() -> b
     62:252:void onCreate(android.os.Bundle) -> onCreate
     255:262:void isEnableSignUp() -> isEnableSignUp
@@ -23583,87 +23583,87 @@ com.utopia.bttendance.activity.sign.SignUpActivity -> com.utopia.bttendance.acti
     296:336:void trySignUp() -> c
     340:344:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
     349:351:void onBackPressed() -> onBackPressed
-    33:33:android.view.View access$000(com.utopia.bttendance.activity.sign.SignUpActivity) -> a
-    33:33:int access$102(com.utopia.bttendance.activity.sign.SignUpActivity,int) -> a
-    33:33:android.widget.EditText access$200(com.utopia.bttendance.activity.sign.SignUpActivity) -> b
-    33:33:android.view.View access$300(com.utopia.bttendance.activity.sign.SignUpActivity) -> c
-    33:33:int access$402(com.utopia.bttendance.activity.sign.SignUpActivity,int) -> b
-    33:33:android.widget.EditText access$500(com.utopia.bttendance.activity.sign.SignUpActivity) -> d
-    33:33:android.view.View access$600(com.utopia.bttendance.activity.sign.SignUpActivity) -> e
-    33:33:int access$702(com.utopia.bttendance.activity.sign.SignUpActivity,int) -> c
-    33:33:android.widget.EditText access$800(com.utopia.bttendance.activity.sign.SignUpActivity) -> f
-    33:33:android.view.View access$900(com.utopia.bttendance.activity.sign.SignUpActivity) -> g
-    33:33:int access$1002(com.utopia.bttendance.activity.sign.SignUpActivity,int) -> d
-    33:33:android.widget.EditText access$1100(com.utopia.bttendance.activity.sign.SignUpActivity) -> h
-    33:33:void access$1200(com.utopia.bttendance.activity.sign.SignUpActivity) -> i
-com.utopia.bttendance.activity.sign.SignUpActivity$1 -> amk:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
+    33:33:android.view.View access$000(com.bttendance.activity.sign.SignUpActivity) -> a
+    33:33:int access$102(com.bttendance.activity.sign.SignUpActivity,int) -> a
+    33:33:android.widget.EditText access$200(com.bttendance.activity.sign.SignUpActivity) -> b
+    33:33:android.view.View access$300(com.bttendance.activity.sign.SignUpActivity) -> c
+    33:33:int access$402(com.bttendance.activity.sign.SignUpActivity,int) -> b
+    33:33:android.widget.EditText access$500(com.bttendance.activity.sign.SignUpActivity) -> d
+    33:33:android.view.View access$600(com.bttendance.activity.sign.SignUpActivity) -> e
+    33:33:int access$702(com.bttendance.activity.sign.SignUpActivity,int) -> c
+    33:33:android.widget.EditText access$800(com.bttendance.activity.sign.SignUpActivity) -> f
+    33:33:android.view.View access$900(com.bttendance.activity.sign.SignUpActivity) -> g
+    33:33:int access$1002(com.bttendance.activity.sign.SignUpActivity,int) -> d
+    33:33:android.widget.EditText access$1100(com.bttendance.activity.sign.SignUpActivity) -> h
+    33:33:void access$1200(com.bttendance.activity.sign.SignUpActivity) -> i
+com.bttendance.activity.sign.SignUpActivity$1 -> amk:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
     95:101:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.activity.sign.SignUpActivity$10 -> aml:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
-    328:330:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+com.bttendance.activity.sign.SignUpActivity$10 -> aml:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
+    328:330:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     334:334:void failure(retrofit.RetrofitError) -> failure
     325:325:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.activity.sign.SignUpActivity$11 -> amm:
+com.bttendance.activity.sign.SignUpActivity$11 -> amm:
     int[] $SwitchMap$com$utopia$bttendance$model$BTKey$Type -> a
-com.utopia.bttendance.activity.sign.SignUpActivity$2 -> amn:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
+com.bttendance.activity.sign.SignUpActivity$2 -> amn:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
     107:109:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     114:114:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     119:119:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.activity.sign.SignUpActivity$3 -> amo:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
+com.bttendance.activity.sign.SignUpActivity$3 -> amo:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
     125:131:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.activity.sign.SignUpActivity$4 -> amp:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
+com.bttendance.activity.sign.SignUpActivity$4 -> amp:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
     137:139:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     143:143:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     147:147:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.activity.sign.SignUpActivity$5 -> amq:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
+com.bttendance.activity.sign.SignUpActivity$5 -> amq:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
     153:159:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.activity.sign.SignUpActivity$6 -> amr:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
+com.bttendance.activity.sign.SignUpActivity$6 -> amr:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
     165:167:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     171:171:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     175:175:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.activity.sign.SignUpActivity$7 -> ams:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
+com.bttendance.activity.sign.SignUpActivity$7 -> ams:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
     181:187:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.activity.sign.SignUpActivity$8 -> amt:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
+com.bttendance.activity.sign.SignUpActivity$8 -> amt:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
     193:195:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     199:199:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     203:203:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.activity.sign.SignUpActivity$9 -> amu:
-    com.utopia.bttendance.activity.sign.SignUpActivity this$0 -> a
+com.bttendance.activity.sign.SignUpActivity$9 -> amu:
+    com.bttendance.activity.sign.SignUpActivity this$0 -> a
     212:228:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.utopia.bttendance.activity.sign.StudentConfirm -> com.utopia.bttendance.activity.sign.StudentConfirm:
+com.bttendance.activity.sign.StudentConfirm -> com.bttendance.activity.sign.StudentConfirm:
     android.widget.Button mConfirm -> o
     android.widget.Button mCancel -> p
     22:43:void onCreate(android.os.Bundle) -> onCreate
     47:49:void onBackPressed() -> onBackPressed
-com.utopia.bttendance.activity.sign.StudentConfirm$1 -> amv:
-    com.utopia.bttendance.activity.sign.StudentConfirm this$0 -> a
+com.bttendance.activity.sign.StudentConfirm$1 -> amv:
+    com.bttendance.activity.sign.StudentConfirm this$0 -> a
     30:34:void onClick(android.view.View) -> onClick
-com.utopia.bttendance.activity.sign.StudentConfirm$2 -> amw:
-    com.utopia.bttendance.activity.sign.StudentConfirm this$0 -> a
+com.bttendance.activity.sign.StudentConfirm$2 -> amw:
+    com.bttendance.activity.sign.StudentConfirm this$0 -> a
     40:41:void onClick(android.view.View) -> onClick
-com.utopia.bttendance.adapter.BTListAdapter -> com.utopia.bttendance.adapter.BTListAdapter:
+com.bttendance.adapter.BTListAdapter -> com.bttendance.adapter.BTListAdapter:
     android.content.Context mContext -> a
     java.util.ArrayList mItems -> b
     android.view.LayoutInflater mLayoutInflater -> c
     java.lang.String mSections -> d
     38:39:void setItems(java.util.ArrayList) -> setItems
     43:70:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-    75:75:com.utopia.bttendance.adapter.BTListAdapter$Item getItem(int) -> getItem
+    75:75:com.bttendance.adapter.BTListAdapter$Item getItem(int) -> getItem
     80:80:int getCount() -> getCount
     86:89:java.lang.Object[] getSections() -> getSections
     94:107:int getPositionForSection(int) -> getPositionForSection
     112:112:int getSectionForPosition(int) -> getSectionForPosition
     118:125:void onClick(android.view.View) -> onClick
     23:23:java.lang.Object getItem(int) -> getItem
-com.utopia.bttendance.adapter.BTListAdapter$Item -> com.utopia.bttendance.adapter.BTListAdapter$Item:
+com.bttendance.adapter.BTListAdapter$Item -> com.bttendance.adapter.BTListAdapter$Item:
     boolean mIsSection -> a
     boolean mJoined -> b
     java.lang.String mTitle -> c
@@ -23676,11 +23676,11 @@ com.utopia.bttendance.adapter.BTListAdapter$Item -> com.utopia.bttendance.adapte
     158:158:java.lang.String getMessage() -> getMessage
     162:162:java.lang.Object getJson() -> getJson
     166:166:int getId() -> getId
-com.utopia.bttendance.adapter.BTPagerAdapter -> com.utopia.bttendance.adapter.BTPagerAdapter:
+com.bttendance.adapter.BTPagerAdapter -> com.bttendance.adapter.BTPagerAdapter:
     android.content.Context mContext -> a
-    com.utopia.bttendance.fragment.FeedFragment mFeedFragment -> b
-    com.utopia.bttendance.fragment.CourseListFragment mCourseListFragment -> c
-    com.utopia.bttendance.fragment.ProfileFragment mProfileFragment -> d
+    com.bttendance.fragment.FeedFragment mFeedFragment -> b
+    com.bttendance.fragment.CourseListFragment mCourseListFragment -> c
+    com.bttendance.fragment.ProfileFragment mProfileFragment -> d
     int mCurrentPosition -> e
     38:46:android.support.v4.app.Fragment getItem(int) -> getItem
     52:52:int getCount() -> getCount
@@ -23688,214 +23688,214 @@ com.utopia.bttendance.adapter.BTPagerAdapter -> com.utopia.bttendance.adapter.BT
     73:81:int getPageIconResId(int) -> getPageIconResId
     87:87:int getPosition() -> getPosition
     91:92:void setPosition(int) -> setPosition
-com.utopia.bttendance.adapter.CourseListAdapter -> com.utopia.bttendance.adapter.CourseListAdapter:
+com.bttendance.adapter.CourseListAdapter -> com.bttendance.adapter.CourseListAdapter:
     33:34:android.view.View newView(android.content.Context,android.database.Cursor,android.view.ViewGroup) -> newView
     39:78:void bindView(android.view.View,android.content.Context,android.database.Cursor) -> bindView
     82:87:long getItemId(int) -> getItemId
     92:108:void onClick(android.view.View) -> onClick
-com.utopia.bttendance.adapter.CourseListAdapter$1 -> amx:
+com.bttendance.adapter.CourseListAdapter$1 -> amx:
     int[] $SwitchMap$com$utopia$bttendance$model$BTKey$Type -> a
-com.utopia.bttendance.adapter.FeedAdapter -> com.utopia.bttendance.adapter.FeedAdapter:
+com.bttendance.adapter.FeedAdapter -> com.bttendance.adapter.FeedAdapter:
     32:33:android.view.View newView(android.content.Context,android.database.Cursor,android.view.ViewGroup) -> newView
     38:71:void bindView(android.view.View,android.content.Context,android.database.Cursor) -> bindView
     75:80:long getItemId(int) -> getItemId
     85:94:void onClick(android.view.View) -> onClick
-com.utopia.bttendance.event.AddCourseEvent -> com.utopia.bttendance.event.AddCourseEvent:
-com.utopia.bttendance.event.AttdCheckedEvent -> com.utopia.bttendance.event.AttdCheckedEvent:
+com.bttendance.event.AddCourseEvent -> com.bttendance.event.AddCourseEvent:
+com.bttendance.event.AttdCheckedEvent -> com.bttendance.event.AttdCheckedEvent:
     java.lang.String mTitle -> a
     18:18:java.lang.String getTitle() -> getTitle
-com.utopia.bttendance.event.AttdCheckedManuallyEvent -> com.utopia.bttendance.event.AttdCheckedManuallyEvent:
-com.utopia.bttendance.event.AttdEndEvent -> com.utopia.bttendance.event.AttdEndEvent:
-com.utopia.bttendance.event.AttdInProgressEvent -> com.utopia.bttendance.event.AttdInProgressEvent:
-com.utopia.bttendance.event.AttdStartEvent -> com.utopia.bttendance.event.AttdStartEvent:
+com.bttendance.event.AttdCheckedManuallyEvent -> com.bttendance.event.AttdCheckedManuallyEvent:
+com.bttendance.event.AttdEndEvent -> com.bttendance.event.AttdEndEvent:
+com.bttendance.event.AttdInProgressEvent -> com.bttendance.event.AttdInProgressEvent:
+com.bttendance.event.AttdStartEvent -> com.bttendance.event.AttdStartEvent:
     int mCourseId -> a
     17:17:int getCourseId() -> getCourseId
-com.utopia.bttendance.event.AttdStartedEvent -> com.utopia.bttendance.event.AttdStartedEvent:
+com.bttendance.event.AttdStartedEvent -> com.bttendance.event.AttdStartedEvent:
     boolean mOnGoingCheck -> a
     18:18:boolean onGoingCheck() -> onGoingCheck
-com.utopia.bttendance.event.BTCanceledEvent -> com.utopia.bttendance.event.BTCanceledEvent:
-com.utopia.bttendance.event.BTDiscoveredEvent -> com.utopia.bttendance.event.BTDiscoveredEvent:
+com.bttendance.event.BTCanceledEvent -> com.bttendance.event.BTCanceledEvent:
+com.bttendance.event.BTDiscoveredEvent -> com.bttendance.event.BTDiscoveredEvent:
     java.lang.String mMacAddress -> a
     16:16:java.lang.String getMacAddress() -> getMacAddress
-com.utopia.bttendance.event.BTEnabledEvent -> com.utopia.bttendance.event.BTEnabledEvent:
-com.utopia.bttendance.event.BTEventDispatcher -> com.utopia.bttendance.event.BTEventDispatcher:
+com.bttendance.event.BTEnabledEvent -> com.bttendance.event.BTEnabledEvent:
+com.bttendance.event.BTEventDispatcher -> com.bttendance.event.BTEventDispatcher:
     java.lang.ref.WeakReference mBTActRef -> a
     int mLoading -> b
-    49:51:com.utopia.bttendance.activity.BTActivity getBTActivity() -> a
-    57:92:void onAttendanceStart(com.utopia.bttendance.event.AttdStartEvent) -> onAttendanceStart
-    97:118:void onAttendanceInProgress(com.utopia.bttendance.event.AttdInProgressEvent) -> onAttendanceInProgress
-    123:157:void onAttendanceStarted(com.utopia.bttendance.event.AttdStartedEvent) -> onAttendanceStarted
-    162:183:void onAttendanceChecked(com.utopia.bttendance.event.AttdCheckedEvent) -> onAttendanceChecked
-    187:208:void onBTEnabled(com.utopia.bttendance.event.BTEnabledEvent) -> onBTEnabled
-    212:217:void onBTDiscovered(com.utopia.bttendance.event.BTDiscoveredEvent) -> onBTDiscovered
-    221:230:void onBTCanceled(com.utopia.bttendance.event.BTCanceledEvent) -> onBTCanceled
-    234:252:void onLocationChanged(com.utopia.bttendance.event.LocationChangedEvent) -> onLocationChanged
-    256:275:void onShowEnableGPSDialog(com.utopia.bttendance.event.ShowEnableGPSDialogEvent) -> onShowEnableGPSDialog
-    279:291:void onAddCourse(com.utopia.bttendance.event.AddCourseEvent) -> onAddCourse
-    295:306:void onShowAttdList(com.utopia.bttendance.event.ShowAttdListEvent) -> onShowAttdList
-    310:377:void onPlusClicked(com.utopia.bttendance.event.PlusClickedEvent) -> onPlusClicked
-    381:391:void onLoadingEvent(com.utopia.bttendance.event.LoadingEvent) -> onLoadingEvent
-    394:407:void addFragment(com.utopia.bttendance.fragment.BTFragment) -> a
-    410:423:void showDialog(com.utopia.bttendance.fragment.BTDialogFragment,java.lang.String) -> a
-com.utopia.bttendance.event.BTEventDispatcher$1 -> amy:
-    com.utopia.bttendance.event.AttdStartEvent val$event -> a
-    com.utopia.bttendance.activity.BTActivity val$act -> b
-    com.utopia.bttendance.event.BTEventDispatcher this$0 -> c
+    49:51:com.bttendance.activity.BTActivity getBTActivity() -> a
+    57:92:void onAttendanceStart(com.bttendance.event.AttdStartEvent) -> onAttendanceStart
+    97:118:void onAttendanceInProgress(com.bttendance.event.AttdInProgressEvent) -> onAttendanceInProgress
+    123:157:void onAttendanceStarted(com.bttendance.event.AttdStartedEvent) -> onAttendanceStarted
+    162:183:void onAttendanceChecked(com.bttendance.event.AttdCheckedEvent) -> onAttendanceChecked
+    187:208:void onBTEnabled(com.bttendance.event.BTEnabledEvent) -> onBTEnabled
+    212:217:void onBTDiscovered(com.bttendance.event.BTDiscoveredEvent) -> onBTDiscovered
+    221:230:void onBTCanceled(com.bttendance.event.BTCanceledEvent) -> onBTCanceled
+    234:252:void onLocationChanged(com.bttendance.event.LocationChangedEvent) -> onLocationChanged
+    256:275:void onShowEnableGPSDialog(com.bttendance.event.ShowEnableGPSDialogEvent) -> onShowEnableGPSDialog
+    279:291:void onAddCourse(com.bttendance.event.AddCourseEvent) -> onAddCourse
+    295:306:void onShowAttdList(com.bttendance.event.ShowAttdListEvent) -> onShowAttdList
+    310:377:void onPlusClicked(com.bttendance.event.PlusClickedEvent) -> onPlusClicked
+    381:391:void onLoadingEvent(com.bttendance.event.LoadingEvent) -> onLoadingEvent
+    394:407:void addFragment(com.bttendance.fragment.BTFragment) -> a
+    410:423:void showDialog(com.bttendance.fragment.BTDialogFragment,java.lang.String) -> a
+com.bttendance.event.BTEventDispatcher$1 -> amy:
+    com.bttendance.event.AttdStartEvent val$event -> a
+    com.bttendance.activity.BTActivity val$act -> b
+    com.bttendance.event.BTEventDispatcher this$0 -> c
     68:84:void onConfirmed() -> onConfirmed
     88:89:void onCanceled() -> onCanceled
-com.utopia.bttendance.event.BTEventDispatcher$1$1 -> amz:
-    com.utopia.bttendance.event.BTEventDispatcher$1 this$1 -> a
-    76:77:void success(com.utopia.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+com.bttendance.event.BTEventDispatcher$1$1 -> amz:
+    com.bttendance.event.BTEventDispatcher$1 this$1 -> a
+    76:77:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
     81:81:void failure(retrofit.RetrofitError) -> failure
     73:73:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.event.BTEventDispatcher$2 -> ana:
-    com.utopia.bttendance.event.BTEventDispatcher this$0 -> a
+com.bttendance.event.BTEventDispatcher$2 -> ana:
+    com.bttendance.event.BTEventDispatcher this$0 -> a
     111:111:void onConfirmed() -> onConfirmed
     115:115:void onCanceled() -> onCanceled
-com.utopia.bttendance.event.BTEventDispatcher$3 -> anb:
-    com.utopia.bttendance.activity.BTActivity val$act -> a
-    com.utopia.bttendance.event.BTEventDispatcher this$0 -> b
+com.bttendance.event.BTEventDispatcher$3 -> anb:
+    com.bttendance.activity.BTActivity val$act -> a
+    com.bttendance.event.BTEventDispatcher this$0 -> b
     144:150:void onConfirmed() -> onConfirmed
     154:154:void onCanceled() -> onCanceled
-com.utopia.bttendance.event.BTEventDispatcher$4 -> anc:
-    com.utopia.bttendance.event.BTEventDispatcher this$0 -> a
+com.bttendance.event.BTEventDispatcher$4 -> anc:
+    com.bttendance.event.BTEventDispatcher this$0 -> a
     176:176:void onConfirmed() -> onConfirmed
     180:180:void onCanceled() -> onCanceled
-com.utopia.bttendance.event.BTEventDispatcher$5 -> and:
-    com.utopia.bttendance.activity.BTActivity val$act -> a
-    com.utopia.bttendance.event.BTEventDispatcher this$0 -> b
-    196:197:void success(com.utopia.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+com.bttendance.event.BTEventDispatcher$5 -> and:
+    com.bttendance.activity.BTActivity val$act -> a
+    com.bttendance.event.BTEventDispatcher this$0 -> b
+    196:197:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
     201:201:void failure(retrofit.RetrofitError) -> failure
     193:193:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.event.BTEventDispatcher$6 -> ane:
-    com.utopia.bttendance.activity.BTActivity val$act -> a
-    com.utopia.bttendance.event.BTEventDispatcher this$0 -> b
+com.bttendance.event.BTEventDispatcher$6 -> ane:
+    com.bttendance.activity.BTActivity val$act -> a
+    com.bttendance.event.BTEventDispatcher this$0 -> b
     267:268:void onConfirmed() -> onConfirmed
     272:272:void onCanceled() -> onCanceled
-com.utopia.bttendance.event.BTEventDispatcher$7 -> anf:
-    com.utopia.bttendance.model.json.BTJson val$json -> a
-    com.utopia.bttendance.activity.BTActivity val$act -> b
-    com.utopia.bttendance.event.PlusClickedEvent val$event -> c
-    com.utopia.bttendance.event.BTEventDispatcher this$0 -> d
+com.bttendance.event.BTEventDispatcher$7 -> anf:
+    com.bttendance.model.json.BTJson val$json -> a
+    com.bttendance.activity.BTActivity val$act -> b
+    com.bttendance.event.PlusClickedEvent val$event -> c
+    com.bttendance.event.BTEventDispatcher this$0 -> d
     340:369:void onConfirmed() -> onConfirmed
     374:374:void onCanceled() -> onCanceled
-com.utopia.bttendance.event.BTEventDispatcher$7$1 -> ang:
-    com.utopia.bttendance.event.BTEventDispatcher$7 this$1 -> a
-    345:346:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+com.bttendance.event.BTEventDispatcher$7$1 -> ang:
+    com.bttendance.event.BTEventDispatcher$7 this$1 -> a
+    345:346:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     350:350:void failure(retrofit.RetrofitError) -> failure
     342:342:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.event.BTEventDispatcher$7$2 -> anh:
-    com.utopia.bttendance.event.BTEventDispatcher$7 this$1 -> a
-    360:361:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+com.bttendance.event.BTEventDispatcher$7$2 -> anh:
+    com.bttendance.event.BTEventDispatcher$7 this$1 -> a
+    360:361:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     365:365:void failure(retrofit.RetrofitError) -> failure
     357:357:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.event.BTEventDispatcher$8 -> ani:
+com.bttendance.event.BTEventDispatcher$8 -> ani:
     int[] $SwitchMap$com$utopia$bttendance$model$BTKey$Type -> a
     int[] $SwitchMap$com$utopia$bttendance$model$json$BTJson$JsonType -> b
-com.utopia.bttendance.event.LoadingEvent -> com.utopia.bttendance.event.LoadingEvent:
+com.bttendance.event.LoadingEvent -> com.bttendance.event.LoadingEvent:
     boolean mVisible -> a
     19:19:boolean getVisibility() -> getVisibility
-com.utopia.bttendance.event.LocationChangedEvent -> com.utopia.bttendance.event.LocationChangedEvent:
+com.bttendance.event.LocationChangedEvent -> com.bttendance.event.LocationChangedEvent:
     android.location.Location mLocation -> a
     17:17:android.location.Location getLocation() -> getLocation
-com.utopia.bttendance.event.MyCoursesUpdateEvent -> com.utopia.bttendance.event.MyCoursesUpdateEvent:
-com.utopia.bttendance.event.PlusClickedEvent -> com.utopia.bttendance.event.PlusClickedEvent:
-    com.utopia.bttendance.model.json.BTJson mJson -> a
+com.bttendance.event.MyCoursesUpdateEvent -> com.bttendance.event.MyCoursesUpdateEvent:
+com.bttendance.event.PlusClickedEvent -> com.bttendance.event.PlusClickedEvent:
+    com.bttendance.model.json.BTJson mJson -> a
     int mId -> b
-    19:19:com.utopia.bttendance.model.json.BTJson getJson() -> getJson
+    19:19:com.bttendance.model.json.BTJson getJson() -> getJson
     23:23:int getId() -> getId
-com.utopia.bttendance.event.ShowAttdListEvent -> com.utopia.bttendance.event.ShowAttdListEvent:
+com.bttendance.event.ShowAttdListEvent -> com.bttendance.event.ShowAttdListEvent:
     int mCourseId -> a
     15:15:int getCourseId() -> getCourseId
-com.utopia.bttendance.event.ShowEnableGPSDialogEvent -> com.utopia.bttendance.event.ShowEnableGPSDialogEvent:
-com.utopia.bttendance.fragment.AttendanceListFragment -> com.utopia.bttendance.fragment.AttendanceListFragment:
-    com.utopia.bttendance.adapter.BTListAdapter mAdapter -> a
+com.bttendance.event.ShowEnableGPSDialogEvent -> com.bttendance.event.ShowEnableGPSDialogEvent:
+com.bttendance.fragment.AttendanceListFragment -> com.bttendance.fragment.AttendanceListFragment:
+    com.bttendance.adapter.BTListAdapter mAdapter -> a
     android.widget.ListView mListView -> b
-    com.utopia.bttendance.model.json.CourseJson mCourse -> c
-    com.utopia.bttendance.model.json.PostJson mPost -> d
-    com.utopia.bttendance.model.json.UserJson[] mUserJsons -> e
+    com.bttendance.model.json.CourseJson mCourse -> c
+    com.bttendance.model.json.PostJson mPost -> d
+    com.bttendance.model.json.UserJson[] mUserJsons -> e
     48:50:void onCreate(android.os.Bundle) -> onCreate
     54:59:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     64:66:void onFragmentResume() -> onFragmentResume
-    70:72:void onAttdCheckedManually(com.utopia.bttendance.event.AttdCheckedManuallyEvent) -> onAttdCheckedManually
+    70:72:void onAttdCheckedManually(com.bttendance.event.AttdCheckedManuallyEvent) -> onAttdCheckedManually
     76:102:void requestCall() -> l
     105:123:void swapItems() -> m
     127:129:void onServieConnected() -> onServieConnected
     133:137:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     141:147:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    34:34:com.utopia.bttendance.model.json.UserJson[] access$002(com.utopia.bttendance.fragment.AttendanceListFragment,com.utopia.bttendance.model.json.UserJson[]) -> a
-    34:34:void access$100(com.utopia.bttendance.fragment.AttendanceListFragment) -> a
-    34:34:com.utopia.bttendance.model.json.PostJson access$202(com.utopia.bttendance.fragment.AttendanceListFragment,com.utopia.bttendance.model.json.PostJson) -> a
-com.utopia.bttendance.fragment.AttendanceListFragment$1 -> anj:
-    com.utopia.bttendance.fragment.AttendanceListFragment this$0 -> a
-    79:81:void success(com.utopia.bttendance.model.json.UserJson[],retrofit.client.Response) -> a
+    34:34:com.bttendance.model.json.UserJson[] access$002(com.bttendance.fragment.AttendanceListFragment,com.bttendance.model.json.UserJson[]) -> a
+    34:34:void access$100(com.bttendance.fragment.AttendanceListFragment) -> a
+    34:34:com.bttendance.model.json.PostJson access$202(com.bttendance.fragment.AttendanceListFragment,com.bttendance.model.json.PostJson) -> a
+com.bttendance.fragment.AttendanceListFragment$1 -> anj:
+    com.bttendance.fragment.AttendanceListFragment this$0 -> a
+    79:81:void success(com.bttendance.model.json.UserJson[],retrofit.client.Response) -> a
     85:85:void failure(retrofit.RetrofitError) -> failure
     76:76:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.fragment.AttendanceListFragment$2 -> ank:
-    com.utopia.bttendance.fragment.AttendanceListFragment this$0 -> a
-    94:96:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+com.bttendance.fragment.AttendanceListFragment$2 -> ank:
+    com.bttendance.fragment.AttendanceListFragment this$0 -> a
+    94:96:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     100:100:void failure(retrofit.RetrofitError) -> failure
     91:91:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.fragment.AttendanceListFragment$3 -> anl:
-    com.utopia.bttendance.fragment.AttendanceListFragment this$0 -> a
-    118:118:int compare(com.utopia.bttendance.adapter.BTListAdapter$Item,com.utopia.bttendance.adapter.BTListAdapter$Item) -> a
+com.bttendance.fragment.AttendanceListFragment$3 -> anl:
+    com.bttendance.fragment.AttendanceListFragment this$0 -> a
+    118:118:int compare(com.bttendance.adapter.BTListAdapter$Item,com.bttendance.adapter.BTListAdapter$Item) -> a
     115:115:int compare(java.lang.Object,java.lang.Object) -> compare
-com.utopia.bttendance.fragment.BTDialogFragment -> com.utopia.bttendance.fragment.BTDialogFragment:
-    com.utopia.bttendance.fragment.BTDialogFragment$DialogType mType -> a
-    com.utopia.bttendance.fragment.BTDialogFragment$OnConfirmListener mConfrimListener -> b
+com.bttendance.fragment.BTDialogFragment -> com.bttendance.fragment.BTDialogFragment:
+    com.bttendance.fragment.BTDialogFragment$DialogType mType -> a
+    com.bttendance.fragment.BTDialogFragment$OnConfirmListener mConfrimListener -> b
     java.lang.String mTitle -> c
     java.lang.String mMessage -> d
     boolean mConfirmed -> e
-    31:32:void setOnConfirmListener(com.utopia.bttendance.fragment.BTDialogFragment$OnConfirmListener) -> setOnConfirmListener
+    31:32:void setOnConfirmListener(com.bttendance.fragment.BTDialogFragment$OnConfirmListener) -> setOnConfirmListener
     36:60:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     65:75:void onClick(android.view.View) -> onClick
     79:82:void onDestroy() -> onDestroy
-com.utopia.bttendance.fragment.BTDialogFragment$1 -> anm:
+com.bttendance.fragment.BTDialogFragment$1 -> anm:
     int[] $SwitchMap$com$utopia$bttendance$fragment$BTDialogFragment$DialogType -> a
-com.utopia.bttendance.fragment.BTDialogFragment$DialogType -> com.utopia.bttendance.fragment.BTDialogFragment$DialogType:
-    com.utopia.bttendance.fragment.BTDialogFragment$DialogType CONFIRM -> CONFIRM
-    com.utopia.bttendance.fragment.BTDialogFragment$DialogType OK -> OK
-    com.utopia.bttendance.fragment.BTDialogFragment$DialogType[] $VALUES -> a
-    86:86:com.utopia.bttendance.fragment.BTDialogFragment$DialogType[] values() -> values
-    86:86:com.utopia.bttendance.fragment.BTDialogFragment$DialogType valueOf(java.lang.String) -> valueOf
-com.utopia.bttendance.fragment.BTDialogFragment$OnConfirmListener -> com.utopia.bttendance.fragment.BTDialogFragment$OnConfirmListener:
+com.bttendance.fragment.BTDialogFragment$DialogType -> com.bttendance.fragment.BTDialogFragment$DialogType:
+    com.bttendance.fragment.BTDialogFragment$DialogType CONFIRM -> CONFIRM
+    com.bttendance.fragment.BTDialogFragment$DialogType OK -> OK
+    com.bttendance.fragment.BTDialogFragment$DialogType[] $VALUES -> a
+    86:86:com.bttendance.fragment.BTDialogFragment$DialogType[] values() -> values
+    86:86:com.bttendance.fragment.BTDialogFragment$DialogType valueOf(java.lang.String) -> valueOf
+com.bttendance.fragment.BTDialogFragment$OnConfirmListener -> com.bttendance.fragment.BTDialogFragment$OnConfirmListener:
     void onConfirmed() -> onConfirmed
     void onCanceled() -> onCanceled
-com.utopia.bttendance.fragment.BTFragment -> com.utopia.bttendance.fragment.BTFragment:
+com.bttendance.fragment.BTFragment -> com.bttendance.fragment.BTFragment:
     19:26:void onCreate(android.os.Bundle) -> onCreate
     30:35:void onDestroy() -> onDestroy
     39:41:void onAttach(android.app.Activity) -> onAttach
     45:47:void onDetach() -> onDetach
-    50:53:com.utopia.bttendance.service.BTService getBTService() -> getBTService
+    50:53:com.bttendance.service.BTService getBTService() -> getBTService
     58:59:void onResume() -> onResume
     63:63:void onFragmentResume() -> onFragmentResume
     68:68:void onServieConnected() -> onServieConnected
     73:73:void onServieDisconnected() -> onServieDisconnected
-com.utopia.bttendance.fragment.CourseFragment -> com.utopia.bttendance.fragment.CourseFragment:
-com.utopia.bttendance.fragment.CourseListFragment -> com.utopia.bttendance.fragment.CourseListFragment:
+com.bttendance.fragment.CourseFragment -> com.bttendance.fragment.CourseFragment:
+com.bttendance.fragment.CourseListFragment -> com.bttendance.fragment.CourseListFragment:
     android.widget.ListView mListView -> a
-    com.utopia.bttendance.adapter.CourseListAdapter mAdapter -> b
+    com.bttendance.adapter.CourseListAdapter mAdapter -> b
     39:58:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     63:65:void onServieConnected() -> onServieConnected
     68:84:void getCourseList() -> getCourseList
     88:90:void onFragmentResume() -> onFragmentResume
     94:95:void onAttach(android.app.Activity) -> onAttach
     99:100:void onDetach() -> onDetach
-    104:105:void onAttdStarted(com.utopia.bttendance.event.AttdStartedEvent) -> onAttdStarted
-    109:110:void onAttdEndEvent(com.utopia.bttendance.event.AttdEndEvent) -> onAttdEndEvent
+    104:105:void onAttdStarted(com.bttendance.event.AttdStartedEvent) -> onAttdStarted
+    109:110:void onAttdEndEvent(com.bttendance.event.AttdEndEvent) -> onAttdEndEvent
     113:121:void swapCursor() -> l
-com.utopia.bttendance.fragment.CourseListFragment$1 -> ann:
-    com.utopia.bttendance.fragment.CourseListFragment this$0 -> a
+com.bttendance.fragment.CourseListFragment$1 -> ann:
+    com.bttendance.fragment.CourseListFragment this$0 -> a
     51:52:void onClick(android.view.View) -> onClick
-com.utopia.bttendance.fragment.CourseListFragment$2 -> ano:
-    com.utopia.bttendance.fragment.CourseListFragment this$0 -> a
-    75:77:void success(com.utopia.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
+com.bttendance.fragment.CourseListFragment$2 -> ano:
+    com.bttendance.fragment.CourseListFragment this$0 -> a
+    75:77:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
     81:82:void failure(retrofit.RetrofitError) -> failure
     72:72:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.fragment.CourseListFragment$3 -> anp:
-    com.utopia.bttendance.fragment.CourseListFragment this$0 -> a
+com.bttendance.fragment.CourseListFragment$3 -> anp:
+    com.bttendance.fragment.CourseListFragment this$0 -> a
     117:118:void run() -> run
-com.utopia.bttendance.fragment.CreateCourseFragment -> com.utopia.bttendance.fragment.CreateCourseFragment:
+com.bttendance.fragment.CreateCourseFragment -> com.bttendance.fragment.CreateCourseFragment:
     android.widget.EditText mFullName -> a
     android.widget.EditText mUsername -> b
     android.widget.EditText mEmail -> c
@@ -23917,92 +23917,92 @@ com.utopia.bttendance.fragment.CreateCourseFragment -> com.utopia.bttendance.fra
     218:236:void trySignUp() -> l
     240:245:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     249:255:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    28:28:android.view.View access$000(com.utopia.bttendance.fragment.CreateCourseFragment) -> a
-    28:28:int access$102(com.utopia.bttendance.fragment.CreateCourseFragment,int) -> a
-    28:28:android.widget.EditText access$200(com.utopia.bttendance.fragment.CreateCourseFragment) -> b
-    28:28:android.view.View access$300(com.utopia.bttendance.fragment.CreateCourseFragment) -> c
-    28:28:int access$402(com.utopia.bttendance.fragment.CreateCourseFragment,int) -> b
-    28:28:android.widget.EditText access$500(com.utopia.bttendance.fragment.CreateCourseFragment) -> d
-    28:28:android.view.View access$600(com.utopia.bttendance.fragment.CreateCourseFragment) -> e
-    28:28:int access$702(com.utopia.bttendance.fragment.CreateCourseFragment,int) -> c
-    28:28:android.widget.EditText access$800(com.utopia.bttendance.fragment.CreateCourseFragment) -> f
-    28:28:void access$900(com.utopia.bttendance.fragment.CreateCourseFragment) -> g
-com.utopia.bttendance.fragment.CreateCourseFragment$1 -> anq:
-    com.utopia.bttendance.fragment.CreateCourseFragment this$0 -> a
+    28:28:android.view.View access$000(com.bttendance.fragment.CreateCourseFragment) -> a
+    28:28:int access$102(com.bttendance.fragment.CreateCourseFragment,int) -> a
+    28:28:android.widget.EditText access$200(com.bttendance.fragment.CreateCourseFragment) -> b
+    28:28:android.view.View access$300(com.bttendance.fragment.CreateCourseFragment) -> c
+    28:28:int access$402(com.bttendance.fragment.CreateCourseFragment,int) -> b
+    28:28:android.widget.EditText access$500(com.bttendance.fragment.CreateCourseFragment) -> d
+    28:28:android.view.View access$600(com.bttendance.fragment.CreateCourseFragment) -> e
+    28:28:int access$702(com.bttendance.fragment.CreateCourseFragment,int) -> c
+    28:28:android.widget.EditText access$800(com.bttendance.fragment.CreateCourseFragment) -> f
+    28:28:void access$900(com.bttendance.fragment.CreateCourseFragment) -> g
+com.bttendance.fragment.CreateCourseFragment$1 -> anq:
+    com.bttendance.fragment.CreateCourseFragment this$0 -> a
     66:72:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.fragment.CreateCourseFragment$2 -> anr:
-    com.utopia.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CreateCourseFragment$2 -> anr:
+    com.bttendance.fragment.CreateCourseFragment this$0 -> a
     78:80:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     85:85:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     90:90:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.fragment.CreateCourseFragment$3 -> ans:
-    com.utopia.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CreateCourseFragment$3 -> ans:
+    com.bttendance.fragment.CreateCourseFragment this$0 -> a
     96:102:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.fragment.CreateCourseFragment$4 -> ant:
-    com.utopia.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CreateCourseFragment$4 -> ant:
+    com.bttendance.fragment.CreateCourseFragment this$0 -> a
     108:110:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     114:114:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     118:118:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.fragment.CreateCourseFragment$5 -> anu:
-    com.utopia.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CreateCourseFragment$5 -> anu:
+    com.bttendance.fragment.CreateCourseFragment this$0 -> a
     124:130:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.utopia.bttendance.fragment.CreateCourseFragment$6 -> anv:
-    com.utopia.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CreateCourseFragment$6 -> anv:
+    com.bttendance.fragment.CreateCourseFragment this$0 -> a
     136:138:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     142:142:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     146:146:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.utopia.bttendance.fragment.CreateCourseFragment$7 -> anw:
-    com.utopia.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CreateCourseFragment$7 -> anw:
+    com.bttendance.fragment.CreateCourseFragment this$0 -> a
     158:174:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.utopia.bttendance.fragment.CreateCourseFragment$8 -> anx:
-    com.utopia.bttendance.fragment.CreateCourseFragment this$0 -> a
-    228:229:void success(com.utopia.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+com.bttendance.fragment.CreateCourseFragment$8 -> anx:
+    com.bttendance.fragment.CreateCourseFragment this$0 -> a
+    228:229:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
     234:234:void failure(retrofit.RetrofitError) -> failure
     225:225:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.fragment.FeedFragment -> com.utopia.bttendance.fragment.FeedFragment:
+com.bttendance.fragment.FeedFragment -> com.bttendance.fragment.FeedFragment:
     android.widget.ListView mListView -> a
-    com.utopia.bttendance.adapter.FeedAdapter mAdapter -> b
+    com.bttendance.adapter.FeedAdapter mAdapter -> b
     36:44:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     49:51:void onServieConnected() -> onServieConnected
     54:70:void getFeed() -> getFeed
-    74:75:void onAttdStarted(com.utopia.bttendance.event.AttdStartedEvent) -> onAttdStarted
-    79:80:void onAttdChecked(com.utopia.bttendance.event.AttdCheckedEvent) -> onAttdChecked
+    74:75:void onAttdStarted(com.bttendance.event.AttdStartedEvent) -> onAttdStarted
+    79:80:void onAttdChecked(com.bttendance.event.AttdCheckedEvent) -> onAttdChecked
     84:86:void onFragmentResume() -> onFragmentResume
-    90:91:void onAttdEnd(com.utopia.bttendance.event.AttdEndEvent) -> onAttdEnd
+    90:91:void onAttdEnd(com.bttendance.event.AttdEndEvent) -> onAttdEnd
     94:102:void swapCursor() -> l
-com.utopia.bttendance.fragment.FeedFragment$1 -> any:
-    com.utopia.bttendance.fragment.FeedFragment this$0 -> a
-    61:63:void success(com.utopia.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
+com.bttendance.fragment.FeedFragment$1 -> any:
+    com.bttendance.fragment.FeedFragment this$0 -> a
+    61:63:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
     67:68:void failure(retrofit.RetrofitError) -> failure
     58:58:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.fragment.FeedFragment$2 -> anz:
-    com.utopia.bttendance.fragment.FeedFragment this$0 -> a
+com.bttendance.fragment.FeedFragment$2 -> anz:
+    com.bttendance.fragment.FeedFragment this$0 -> a
     98:99:void run() -> run
-com.utopia.bttendance.fragment.JoinCourseFragment -> com.utopia.bttendance.fragment.JoinCourseFragment:
-    com.utopia.bttendance.adapter.BTListAdapter mAdapter -> a
+com.bttendance.fragment.JoinCourseFragment -> com.bttendance.fragment.JoinCourseFragment:
+    com.bttendance.adapter.BTListAdapter mAdapter -> a
     android.widget.ListView mListView -> b
     39:41:void onCreate(android.os.Bundle) -> onCreate
     45:50:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     55:57:void onFragmentResume() -> onFragmentResume
-    61:62:void onMyCourseUpdate(com.utopia.bttendance.event.MyCoursesUpdateEvent) -> onMyCourseUpdate
+    61:62:void onMyCourseUpdate(com.bttendance.event.MyCoursesUpdateEvent) -> onMyCourseUpdate
     65:86:void swapItems() -> l
     90:101:void onServieConnected() -> onServieConnected
     105:109:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     113:119:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    32:32:void access$000(com.utopia.bttendance.fragment.JoinCourseFragment) -> a
-com.utopia.bttendance.fragment.JoinCourseFragment$1 -> aoa:
-    com.utopia.bttendance.fragment.JoinCourseFragment this$0 -> a
-    81:81:int compare(com.utopia.bttendance.adapter.BTListAdapter$Item,com.utopia.bttendance.adapter.BTListAdapter$Item) -> a
+    32:32:void access$000(com.bttendance.fragment.JoinCourseFragment) -> a
+com.bttendance.fragment.JoinCourseFragment$1 -> aoa:
+    com.bttendance.fragment.JoinCourseFragment this$0 -> a
+    81:81:int compare(com.bttendance.adapter.BTListAdapter$Item,com.bttendance.adapter.BTListAdapter$Item) -> a
     78:78:int compare(java.lang.Object,java.lang.Object) -> compare
-com.utopia.bttendance.fragment.JoinCourseFragment$2 -> aob:
-    com.utopia.bttendance.fragment.JoinCourseFragment this$0 -> a
-    94:95:void success(com.utopia.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
+com.bttendance.fragment.JoinCourseFragment$2 -> aob:
+    com.bttendance.fragment.JoinCourseFragment this$0 -> a
+    94:95:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
     99:99:void failure(retrofit.RetrofitError) -> failure
     91:91:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.fragment.JoinSchoolFragment -> com.utopia.bttendance.fragment.JoinSchoolFragment:
-com.utopia.bttendance.fragment.ProfileFragment -> com.utopia.bttendance.fragment.ProfileFragment:
+com.bttendance.fragment.JoinSchoolFragment -> com.bttendance.fragment.JoinSchoolFragment:
+com.bttendance.fragment.ProfileFragment -> com.bttendance.fragment.ProfileFragment:
     17:18:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-com.utopia.bttendance.helper.BitmapHelper -> com.utopia.bttendance.helper.BitmapHelper:
+com.bttendance.helper.BitmapHelper -> com.bttendance.helper.BitmapHelper:
     21:44:android.graphics.Bitmap getThumbnail(android.content.Context,android.net.Uri,int) -> getThumbnail
     48:52:int getPowerOfTwoForSampleRatio(double) -> a
     57:81:android.graphics.Bitmap getBitmap(java.lang.String) -> getBitmap
@@ -24010,7 +24010,7 @@ com.utopia.bttendance.helper.BitmapHelper -> com.utopia.bttendance.helper.Bitmap
     118:134:android.graphics.Bitmap cropCenter(android.graphics.Bitmap) -> cropCenter
     138:159:android.graphics.Bitmap centerCrop(android.graphics.Bitmap) -> centerCrop
     164:180:android.graphics.Bitmap rotate(android.graphics.Bitmap,int) -> rotate
-com.utopia.bttendance.helper.BluetoothHelper -> com.utopia.bttendance.helper.BluetoothHelper:
+com.bttendance.helper.BluetoothHelper -> com.bttendance.helper.BluetoothHelper:
     int REQUEST_ENABLE_BT -> REQUEST_ENABLE_BT
     int REQUEST_ENABLE_DISCOVERABILITY_BT -> REQUEST_ENABLE_DISCOVERABILITY_BT
     int DISCOVERABILITY_BT_DURATION -> DISCOVERABILITY_BT_DURATION
@@ -24024,14 +24024,14 @@ com.utopia.bttendance.helper.BluetoothHelper -> com.utopia.bttendance.helper.Blu
     68:71:void enableDiscoverability(android.app.Activity) -> enableDiscoverability
     74:82:void startDiscovery() -> startDiscovery
     85:88:java.lang.String getMacAddress() -> getMacAddress
-com.utopia.bttendance.helper.CloudinaryHelper -> com.utopia.bttendance.helper.CloudinaryHelper:
-com.utopia.bttendance.helper.CloudinaryImageUrlFilter -> com.utopia.bttendance.helper.CloudinaryImageUrlFilter:
+com.bttendance.helper.CloudinaryHelper -> com.bttendance.helper.CloudinaryHelper:
+com.bttendance.helper.CloudinaryImageUrlFilter -> com.bttendance.helper.CloudinaryImageUrlFilter:
     16:29:java.lang.String getOriginalImageUrl(java.lang.String) -> getOriginalImageUrl
     34:52:java.lang.String getImageUrl(java.lang.String,int,int) -> getImageUrl
     58:65:int parseCloudinaryQuality(java.lang.String) -> a
     70:70:java.lang.String generateCloudinaryPath(int,int,int) -> a
     74:81:boolean isCloudninaryImage(android.net.Uri) -> a
-com.utopia.bttendance.helper.DateHelper -> com.utopia.bttendance.helper.DateHelper:
+com.bttendance.helper.DateHelper -> com.bttendance.helper.DateHelper:
     java.lang.String DATE_FORMAT -> DATE_FORMAT
     java.lang.String BT_DATE_FORMAT -> BT_DATE_FORMAT
     java.text.SimpleDateFormat date_format -> a
@@ -24040,17 +24040,17 @@ com.utopia.bttendance.helper.DateHelper -> com.utopia.bttendance.helper.DateHelp
     73:77:long getTime(java.lang.String) -> getTime
     84:88:java.util.Date getDate(java.lang.String) -> getDate
     95:100:java.lang.String getBTFormatString(java.lang.String) -> getBTFormatString
-com.utopia.bttendance.helper.DeviceHelper -> com.utopia.bttendance.helper.DeviceHelper:
+com.bttendance.helper.DeviceHelper -> com.bttendance.helper.DeviceHelper:
     16:21:java.lang.String getDeviceName() -> getDeviceName
     26:27:java.lang.String getId(android.app.Activity) -> getId
     31:33:java.lang.String getMacAddress(android.app.Activity) -> getMacAddress
     37:44:java.lang.String capitalize(java.lang.String) -> a
-com.utopia.bttendance.helper.DipPixelHelper -> com.utopia.bttendance.helper.DipPixelHelper:
+com.bttendance.helper.DipPixelHelper -> com.bttendance.helper.DipPixelHelper:
     16:18:float getPixel(android.content.Context,int) -> getPixel
-com.utopia.bttendance.helper.ExiInterfaceHelper -> com.utopia.bttendance.helper.ExiInterfaceHelper:
+com.bttendance.helper.ExiInterfaceHelper -> com.bttendance.helper.ExiInterfaceHelper:
     15:39:int getCameraPhotoOrientation(android.content.Context,android.net.Uri,java.lang.String) -> getCameraPhotoOrientation
     43:56:int getOrientation(android.content.Context,android.net.Uri) -> getOrientation
-com.utopia.bttendance.helper.GPSTracker -> com.utopia.bttendance.helper.GPSTracker:
+com.bttendance.helper.GPSTracker -> com.bttendance.helper.GPSTracker:
     android.content.Context mContext -> h
     boolean isGPSEnabled -> isGPSEnabled
     android.location.LocationManager locationManager -> locationManager
@@ -24073,36 +24073,36 @@ com.utopia.bttendance.helper.GPSTracker -> com.utopia.bttendance.helper.GPSTrack
     240:245:double getLatitude() -> getLatitude
     252:257:double getLongitude() -> getLongitude
     266:266:boolean canGetLocation() -> canGetLocation
-    15:15:void access$000(com.utopia.bttendance.helper.GPSTracker,android.location.Location) -> a
-com.utopia.bttendance.helper.GPSTracker$1 -> aoc:
-    com.utopia.bttendance.helper.GPSTracker this$0 -> a
+    15:15:void access$000(com.bttendance.helper.GPSTracker,android.location.Location) -> a
+com.bttendance.helper.GPSTracker$1 -> aoc:
+    com.bttendance.helper.GPSTracker this$0 -> a
     37:39:void onLocationChanged(android.location.Location) -> onLocationChanged
     43:43:void onStatusChanged(java.lang.String,int,android.os.Bundle) -> onStatusChanged
     47:47:void onProviderEnabled(java.lang.String) -> onProviderEnabled
     51:51:void onProviderDisabled(java.lang.String) -> onProviderDisabled
-com.utopia.bttendance.helper.GPSTracker$2 -> aod:
-    com.utopia.bttendance.helper.GPSTracker this$0 -> a
+com.bttendance.helper.GPSTracker$2 -> aod:
+    com.bttendance.helper.GPSTracker this$0 -> a
     56:58:void onLocationChanged(android.location.Location) -> onLocationChanged
     62:62:void onStatusChanged(java.lang.String,int,android.os.Bundle) -> onStatusChanged
     66:66:void onProviderEnabled(java.lang.String) -> onProviderEnabled
     70:70:void onProviderDisabled(java.lang.String) -> onProviderDisabled
-com.utopia.bttendance.helper.IntArrayHelper -> com.utopia.bttendance.helper.IntArrayHelper:
+com.bttendance.helper.IntArrayHelper -> com.bttendance.helper.IntArrayHelper:
     9:12:boolean contains(int[],int) -> contains
-com.utopia.bttendance.helper.KeyboardHelper -> com.utopia.bttendance.helper.KeyboardHelper:
+com.bttendance.helper.KeyboardHelper -> com.bttendance.helper.KeyboardHelper:
     12:21:void show(android.content.Context,android.view.View) -> show
     24:27:void showByUser(android.content.Context,android.view.View) -> showByUser
     30:33:void hide(android.content.Context,android.view.View) -> hide
     36:39:void hideByUser(android.content.Context,android.view.View) -> hideByUser
-com.utopia.bttendance.helper.KeyboardHelper$1 -> aoe:
+com.bttendance.helper.KeyboardHelper$1 -> aoe:
     android.content.Context val$context -> a
     android.view.View val$view -> b
     16:19:void run() -> run
-com.utopia.bttendance.helper.LanguageHelper -> com.utopia.bttendance.helper.LanguageHelper:
+com.bttendance.helper.LanguageHelper -> com.bttendance.helper.LanguageHelper:
     12:24:java.lang.String getDefaultLanguageCode() -> getDefaultLanguageCode
     28:28:java.lang.String getDefaultLanguageName() -> getDefaultLanguageName
     32:33:java.lang.String getDefaultTimeZone() -> getDefaultTimeZone
-com.utopia.bttendance.helper.LocationHelper -> com.utopia.bttendance.helper.LocationHelper:
-com.utopia.bttendance.helper.PackagesHelper -> com.utopia.bttendance.helper.PackagesHelper:
+com.bttendance.helper.LocationHelper -> com.bttendance.helper.LocationHelper:
+com.bttendance.helper.PackagesHelper -> com.bttendance.helper.PackagesHelper:
     java.lang.String KAKAOTALK -> KAKAOTALK
     java.lang.String KAKAOSTORY -> KAKAOSTORY
     java.lang.String FACEBOOK -> FACEBOOK
@@ -24115,31 +24115,31 @@ com.utopia.bttendance.helper.PackagesHelper -> com.utopia.bttendance.helper.Pack
     java.lang.String FLIPBOARD -> FLIPBOARD
     java.lang.String MUSICOFFPAYED -> MUSICOFFPAYED
     22:32:boolean isInstalled(android.content.Context,java.lang.String) -> isInstalled
-com.utopia.bttendance.helper.ScreenHelper -> com.utopia.bttendance.helper.ScreenHelper:
+com.bttendance.helper.ScreenHelper -> com.bttendance.helper.ScreenHelper:
     33:40:int getWidth(android.content.Context) -> getWidth
     48:55:int getHeight(android.content.Context) -> getHeight
     60:66:int getSBHeight(android.content.Context) -> getSBHeight
     72:86:int getABHeight(android.content.Context) -> getABHeight
     91:91:int getContentHeight(android.content.Context) -> getContentHeight
-com.utopia.bttendance.helper.StringMatcher -> com.utopia.bttendance.helper.StringMatcher:
+com.bttendance.helper.StringMatcher -> com.bttendance.helper.StringMatcher:
     char[] KOREAN_INITIAL -> a
     28:54:boolean match(java.lang.String,java.lang.String) -> match
     58:60:boolean isKorean(char) -> a
     64:68:boolean isInitialSound(char) -> b
     72:72:char getInitialSound(char) -> c
-com.utopia.bttendance.helper.UUIDHelper -> com.utopia.bttendance.helper.UUIDHelper:
+com.bttendance.helper.UUIDHelper -> com.bttendance.helper.UUIDHelper:
     java.lang.String ERROR -> ERROR
     19:39:java.lang.String getUUID(android.content.Context) -> getUUID
     44:47:java.lang.String resetUUID(android.content.Context) -> resetUUID
-com.utopia.bttendance.model.BTDatabase -> com.utopia.bttendance.model.BTDatabase:
-    com.utopia.bttendance.model.BTDatabase$BTSQLiteHelper mSQLiteHelper -> a
+com.bttendance.model.BTDatabase -> com.bttendance.model.BTDatabase:
+    com.bttendance.model.BTDatabase$BTSQLiteHelper mSQLiteHelper -> a
     java.lang.Object mSingletonLock -> b
-    21:29:com.utopia.bttendance.model.BTDatabase$BTSQLiteHelper getInstance(android.content.Context) -> a
+    21:29:com.bttendance.model.BTDatabase$BTSQLiteHelper getInstance(android.content.Context) -> a
     33:34:void setUUID(android.content.Context,java.lang.String) -> setUUID
     37:37:java.lang.String getUUID(android.content.Context) -> getUUID
     41:42:void setUsername(android.content.Context,java.lang.String) -> setUsername
     45:45:java.lang.String getUsername(android.content.Context) -> getUsername
-com.utopia.bttendance.model.BTDatabase$BTSQLiteHelper -> com.utopia.bttendance.model.BTDatabase$BTSQLiteHelper:
+com.bttendance.model.BTDatabase$BTSQLiteHelper -> com.bttendance.model.BTDatabase$BTSQLiteHelper:
     65:67:void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     71:71:void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
     75:86:java.lang.String getUUID() -> getUUID
@@ -24147,31 +24147,31 @@ com.utopia.bttendance.model.BTDatabase$BTSQLiteHelper -> com.utopia.bttendance.m
     103:108:void updateUsername(java.lang.String) -> updateUsername
     112:123:java.lang.String getUsername() -> getUsername
     127:137:void setUsername(java.lang.String) -> setUsername
-com.utopia.bttendance.model.BTExternal -> com.utopia.bttendance.model.BTExternal:
+com.bttendance.model.BTExternal -> com.bttendance.model.BTExternal:
     25:29:boolean isAvailable() -> isAvailable
     33:33:java.lang.String getUUID() -> getUUID
     37:38:void setUUID(java.lang.String) -> setUUID
     41:74:void writeFile(java.lang.String) -> a
     77:93:java.lang.String readFile() -> a
-com.utopia.bttendance.model.BTKey -> com.utopia.bttendance.model.BTKey:
+com.bttendance.model.BTKey -> com.bttendance.model.BTKey:
     java.lang.String EXTRA_TYPE -> EXTRA_TYPE
     java.lang.String EXTRA_COURSE_ID -> EXTRA_COURSE_ID
     java.lang.String EXTRA_USER_ID -> EXTRA_USER_ID
     java.lang.String EXTRA_POST_ID -> EXTRA_POST_ID
     java.lang.String EXTRA_SCHOOL_ID -> EXTRA_SCHOOL_ID
-com.utopia.bttendance.model.BTKey$Type -> com.utopia.bttendance.model.BTKey$Type:
-    com.utopia.bttendance.model.BTKey$Type PROFESSOR -> PROFESSOR
-    com.utopia.bttendance.model.BTKey$Type STUDENT -> STUDENT
-    com.utopia.bttendance.model.BTKey$Type NULL -> NULL
-    com.utopia.bttendance.model.BTKey$Type[] $VALUES -> a
-    8:8:com.utopia.bttendance.model.BTKey$Type[] values() -> values
-    8:8:com.utopia.bttendance.model.BTKey$Type valueOf(java.lang.String) -> valueOf
-com.utopia.bttendance.model.BTNotification -> com.utopia.bttendance.model.BTNotification:
+com.bttendance.model.BTKey$Type -> com.bttendance.model.BTKey$Type:
+    com.bttendance.model.BTKey$Type PROFESSOR -> PROFESSOR
+    com.bttendance.model.BTKey$Type STUDENT -> STUDENT
+    com.bttendance.model.BTKey$Type NULL -> NULL
+    com.bttendance.model.BTKey$Type[] $VALUES -> a
+    8:8:com.bttendance.model.BTKey$Type[] values() -> values
+    8:8:com.bttendance.model.BTKey$Type valueOf(java.lang.String) -> valueOf
+com.bttendance.model.BTNotification -> com.bttendance.model.BTNotification:
     java.lang.String SENDER_ID -> a
     com.google.android.gms.gcm.GoogleCloudMessaging gcm -> b
     java.lang.String regid -> c
-    43:74:void registerInBackground(com.utopia.bttendance.activity.BTActivity) -> registerInBackground
-    77:91:void sendRegistrationIdToBackend(com.utopia.bttendance.activity.BTActivity,java.lang.String) -> sendRegistrationIdToBackend
+    43:74:void registerInBackground(com.bttendance.activity.BTActivity) -> registerInBackground
+    77:91:void sendRegistrationIdToBackend(com.bttendance.activity.BTActivity,java.lang.String) -> sendRegistrationIdToBackend
     103:118:java.lang.String getRegistrationId(android.content.Context) -> getRegistrationId
     126:133:int getAppVersion(android.content.Context) -> a
     143:143:android.content.SharedPreferences getGCMPreferences(android.content.Context) -> b
@@ -24182,33 +24182,33 @@ com.utopia.bttendance.model.BTNotification -> com.utopia.bttendance.model.BTNoti
     25:25:java.lang.String access$200() -> b
     25:25:java.lang.String access$100() -> c
     25:25:void access$300(android.content.Context,java.lang.String) -> a
-com.utopia.bttendance.model.BTNotification$1 -> aof:
-    com.utopia.bttendance.activity.BTActivity val$activity -> a
+com.bttendance.model.BTNotification$1 -> aof:
+    com.bttendance.activity.BTActivity val$activity -> a
     47:71:java.lang.String doInBackground(java.lang.Void[]) -> a
     43:43:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.utopia.bttendance.model.BTNotification$2 -> aog:
-    83:84:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+com.bttendance.model.BTNotification$2 -> aog:
+    83:84:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     89:89:void failure(retrofit.RetrofitError) -> failure
     80:80:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.model.BTPreference -> com.utopia.bttendance.model.BTPreference:
+com.bttendance.model.BTPreference -> com.bttendance.model.BTPreference:
     android.content.SharedPreferences mPref -> a
     java.lang.Object mSingletonLock -> b
     26:34:android.content.SharedPreferences getInstance(android.content.Context) -> a
     39:42:void clearUser(android.content.Context) -> clearUser
-    45:53:com.utopia.bttendance.model.json.UserJson getUser(android.content.Context) -> getUser
-    58:65:com.utopia.bttendance.model.BTKey$Type getUserType(android.content.Context) -> getUserType
+    45:53:com.bttendance.model.json.UserJson getUser(android.content.Context) -> getUser
+    58:65:com.bttendance.model.BTKey$Type getUserType(android.content.Context) -> getUserType
     69:72:int getUserId(android.content.Context) -> getUserId
-    76:82:void setUser(android.content.Context,com.utopia.bttendance.model.json.UserJson) -> setUser
+    76:82:void setUser(android.content.Context,com.bttendance.model.json.UserJson) -> setUser
     85:85:java.lang.String getUUID(android.content.Context) -> getUUID
     89:92:void setUUID(android.content.Context,java.lang.String) -> setUUID
-com.utopia.bttendance.model.BTProvider -> com.utopia.bttendance.model.BTProvider:
+com.bttendance.model.BTProvider -> com.bttendance.model.BTProvider:
     15:15:boolean onCreate() -> onCreate
     20:20:android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String) -> query
     25:25:java.lang.String getType(android.net.Uri) -> getType
     30:30:android.net.Uri insert(android.net.Uri,android.content.ContentValues) -> insert
     35:35:int delete(android.net.Uri,java.lang.String,java.lang.String[]) -> delete
     40:40:int update(android.net.Uri,android.content.ContentValues,java.lang.String,java.lang.String[]) -> update
-com.utopia.bttendance.model.BTTable -> com.utopia.bttendance.model.BTTable:
+com.bttendance.model.BTTable -> com.bttendance.model.BTTable:
     java.lang.String FILTER_MY_COURSE -> FILTER_MY_COURSE
     java.lang.String FILTER_JOINABLE_COURSE -> FILTER_JOINABLE_COURSE
     java.lang.String FILTER_MY_POST -> FILTER_MY_POST
@@ -24237,15 +24237,15 @@ com.utopia.bttendance.model.BTTable -> com.utopia.bttendance.model.BTTable:
     105:106:void UUIDLISTSENDED_remove(java.lang.String) -> UUIDLISTSENDED_remove
     109:135:long getAttdChekingLeftTime() -> getAttdChekingLeftTime
     139:165:java.util.Set getCheckingPostIds() -> getCheckingPostIds
-com.utopia.bttendance.model.cursor.CourseCursor -> com.utopia.bttendance.model.cursor.CourseCursor:
+com.bttendance.model.cursor.CourseCursor -> com.bttendance.model.cursor.CourseCursor:
     java.lang.String[] COLUMNS -> a
-com.utopia.bttendance.model.cursor.PostCursor -> com.utopia.bttendance.model.cursor.PostCursor:
+com.bttendance.model.cursor.PostCursor -> com.bttendance.model.cursor.PostCursor:
     java.lang.String[] COLUMNS -> a
-com.utopia.bttendance.model.cursor.SchoolCursor -> com.utopia.bttendance.model.cursor.SchoolCursor:
+com.bttendance.model.cursor.SchoolCursor -> com.bttendance.model.cursor.SchoolCursor:
     java.lang.String[] COLUMNS -> a
-com.utopia.bttendance.model.cursor.UserCursor -> com.utopia.bttendance.model.cursor.UserCursor:
+com.bttendance.model.cursor.UserCursor -> com.bttendance.model.cursor.UserCursor:
     java.lang.String[] COLUMNS -> a
-com.utopia.bttendance.model.json.BTJson -> com.utopia.bttendance.model.json.BTJson:
+com.bttendance.model.json.BTJson -> com.bttendance.model.json.BTJson:
     int id -> id
     java.lang.String createdAt -> createdAt
     java.lang.String updatedAt -> updatedAt
@@ -24253,19 +24253,19 @@ com.utopia.bttendance.model.json.BTJson -> com.utopia.bttendance.model.json.BTJs
     22:22:java.util.Date getUpdatedDate() -> getUpdatedDate
     26:26:java.lang.String toJson() -> toJson
     30:30:java.lang.String toString() -> toString
-    34:47:com.utopia.bttendance.model.json.BTJson$JsonType getType() -> getType
-com.utopia.bttendance.model.json.BTJson$JsonType -> com.utopia.bttendance.model.json.BTJson$JsonType:
-    com.utopia.bttendance.model.json.BTJson$JsonType Course -> Course
-    com.utopia.bttendance.model.json.BTJson$JsonType Errors -> Errors
-    com.utopia.bttendance.model.json.BTJson$JsonType Post -> Post
-    com.utopia.bttendance.model.json.BTJson$JsonType School -> School
-    com.utopia.bttendance.model.json.BTJson$JsonType User -> User
-    com.utopia.bttendance.model.json.BTJson$JsonType Validation -> Validation
-    com.utopia.bttendance.model.json.BTJson$JsonType Null -> Null
-    com.utopia.bttendance.model.json.BTJson$JsonType[] $VALUES -> a
-    50:50:com.utopia.bttendance.model.json.BTJson$JsonType[] values() -> values
-    50:50:com.utopia.bttendance.model.json.BTJson$JsonType valueOf(java.lang.String) -> valueOf
-com.utopia.bttendance.model.json.CourseJson -> com.utopia.bttendance.model.json.CourseJson:
+    34:47:com.bttendance.model.json.BTJson$JsonType getType() -> getType
+com.bttendance.model.json.BTJson$JsonType -> com.bttendance.model.json.BTJson$JsonType:
+    com.bttendance.model.json.BTJson$JsonType Course -> Course
+    com.bttendance.model.json.BTJson$JsonType Errors -> Errors
+    com.bttendance.model.json.BTJson$JsonType Post -> Post
+    com.bttendance.model.json.BTJson$JsonType School -> School
+    com.bttendance.model.json.BTJson$JsonType User -> User
+    com.bttendance.model.json.BTJson$JsonType Validation -> Validation
+    com.bttendance.model.json.BTJson$JsonType Null -> Null
+    com.bttendance.model.json.BTJson$JsonType[] $VALUES -> a
+    50:50:com.bttendance.model.json.BTJson$JsonType[] values() -> values
+    50:50:com.bttendance.model.json.BTJson$JsonType valueOf(java.lang.String) -> valueOf
+com.bttendance.model.json.CourseJson -> com.bttendance.model.json.CourseJson:
     java.lang.String name -> name
     java.lang.String number -> number
     boolean onGoing -> onGoing
@@ -24276,12 +24276,12 @@ com.utopia.bttendance.model.json.CourseJson -> com.utopia.bttendance.model.json.
     java.lang.String professor_name -> professor_name
     java.lang.String school_name -> school_name
     java.lang.String attdCheckedAt -> attdCheckedAt
-com.utopia.bttendance.model.json.ErrorsJson -> com.utopia.bttendance.model.json.ErrorsJson:
+com.bttendance.model.json.ErrorsJson -> com.bttendance.model.json.ErrorsJson:
     java.lang.String message -> message
     java.lang.String alert -> alert
     java.lang.String toast -> toast
     java.lang.String uuid -> uuid
-com.utopia.bttendance.model.json.PostJson -> com.utopia.bttendance.model.json.PostJson:
+com.bttendance.model.json.PostJson -> com.bttendance.model.json.PostJson:
     java.lang.String type -> type
     java.lang.String title -> title
     java.lang.String message -> message
@@ -24293,13 +24293,13 @@ com.utopia.bttendance.model.json.PostJson -> com.utopia.bttendance.model.json.Po
     java.lang.String course_name -> course_name
     java.lang.String course_number -> course_number
     java.lang.String school_name -> school_name
-com.utopia.bttendance.model.json.SchoolJson -> com.utopia.bttendance.model.json.SchoolJson:
+com.bttendance.model.json.SchoolJson -> com.bttendance.model.json.SchoolJson:
     java.lang.String name -> name
     java.lang.String logo_image -> logo_image
     java.lang.String website -> website
     int[] courses -> courses
     int creator -> creator
-com.utopia.bttendance.model.json.UserJson -> com.utopia.bttendance.model.json.UserJson:
+com.bttendance.model.json.UserJson -> com.bttendance.model.json.UserJson:
     java.lang.String username -> username
     java.lang.String email -> email
     java.lang.String password -> password
@@ -24308,9 +24308,9 @@ com.utopia.bttendance.model.json.UserJson -> com.utopia.bttendance.model.json.Us
     java.lang.String device_uuid -> device_uuid
     java.lang.String notification_key -> notification_key
     java.lang.String full_name -> full_name
-com.utopia.bttendance.model.json.ValidationJson -> com.utopia.bttendance.model.json.ValidationJson:
+com.bttendance.model.json.ValidationJson -> com.bttendance.model.json.ValidationJson:
     boolean validate -> validate
-com.utopia.bttendance.service.BTAPI -> com.utopia.bttendance.service.BTAPI:
+com.bttendance.service.BTAPI -> com.bttendance.service.BTAPI:
     java.lang.String PROFESSOR -> PROFESSOR
     java.lang.String STUDENT -> STUDENT
     java.lang.String ANDROID -> ANDROID
@@ -24337,12 +24337,12 @@ com.utopia.bttendance.service.BTAPI -> com.utopia.bttendance.service.BTAPI:
     void postAttendanceCurrentLocation(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String,retrofit.Callback) -> postAttendanceCurrentLocation
     void postAttendanceCheckManually(java.lang.String,java.lang.String,int,int,retrofit.Callback) -> postAttendanceCheckManually
     void serialValidate(java.lang.String,retrofit.Callback) -> serialValidate
-com.utopia.bttendance.service.BTService -> com.utopia.bttendance.service.BTService:
+com.bttendance.service.BTService -> com.bttendance.service.BTService:
     retrofit.RestAdapter mRestAdapter -> a
-    com.utopia.bttendance.service.BTAPI mBTAPI -> b
+    com.bttendance.service.BTAPI mBTAPI -> b
     android.net.ConnectivityManager mConnectivityManager -> c
-    com.utopia.bttendance.service.BTService$LocalBinder mBinder -> d
-    com.utopia.bttendance.helper.GPSTracker mGPS -> e
+    com.bttendance.service.BTService$LocalBinder mBinder -> d
+    com.bttendance.helper.GPSTracker mGPS -> e
     java.lang.Thread mAttendanceThread -> f
     65:67:void bind(android.content.Context,android.content.ServiceConnection) -> bind
     70:71:void unbind(android.content.Context,android.content.ServiceConnection) -> unbind
@@ -24352,7 +24352,7 @@ com.utopia.bttendance.service.BTService -> com.utopia.bttendance.service.BTServi
     95:142:void attendanceStart() -> attendanceStart
     147:151:void attendanceStop() -> attendanceStop
     154:171:void signin(java.lang.String,java.lang.String,java.lang.String,retrofit.Callback) -> signin
-    174:191:void signup(com.utopia.bttendance.model.json.UserJson,retrofit.Callback) -> signup
+    174:191:void signup(com.bttendance.model.json.UserJson,retrofit.Callback) -> signup
     194:212:void updateNotificationKey(java.lang.String,retrofit.Callback) -> updateNotificationKey
     215:233:void updateProfileImage(java.lang.String,retrofit.Callback) -> updateProfileImage
     236:254:void updateEmail(java.lang.String,retrofit.Callback) -> updateEmail
@@ -24376,204 +24376,204 @@ com.utopia.bttendance.service.BTService -> com.utopia.bttendance.service.BTServi
     629:647:void serialValidate(java.lang.String,retrofit.Callback) -> serialValidate
     650:657:boolean isConnected() -> a
     661:678:void failureHandle(retrofit.Callback,retrofit.RetrofitError) -> a
-    40:40:void access$000(com.utopia.bttendance.service.BTService,retrofit.Callback,retrofit.RetrofitError) -> a
-com.utopia.bttendance.service.BTService$1 -> aoh:
+    40:40:void access$000(com.bttendance.service.BTService,retrofit.Callback,retrofit.RetrofitError) -> a
+com.bttendance.service.BTService$1 -> aoh:
     47:53:void log(java.lang.String) -> log
-com.utopia.bttendance.service.BTService$10 -> aoi:
+com.bttendance.service.BTService$10 -> aoi:
     int val$courseID -> a
     retrofit.Callback val$cb -> b
-    com.utopia.bttendance.service.BTService this$0 -> c
-    306:313:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> c
+    306:313:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     317:318:void failure(retrofit.RetrofitError) -> failure
     303:303:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$11 -> aoj:
+com.bttendance.service.BTService$11 -> aoj:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    330:334:void success(com.utopia.bttendance.model.json.SchoolJson[],retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    330:334:void success(com.bttendance.model.json.SchoolJson[],retrofit.client.Response) -> a
     338:339:void failure(retrofit.RetrofitError) -> failure
     327:327:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$12 -> aok:
+com.bttendance.service.BTService$12 -> aok:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    351:357:void success(com.utopia.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    351:357:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
     361:362:void failure(retrofit.RetrofitError) -> failure
     348:348:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$13 -> aol:
+com.bttendance.service.BTService$13 -> aol:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    374:380:void success(com.utopia.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    374:380:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
     384:385:void failure(retrofit.RetrofitError) -> failure
     371:371:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$14 -> aom:
+com.bttendance.service.BTService$14 -> aom:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    397:403:void success(com.utopia.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    397:403:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
     407:408:void failure(retrofit.RetrofitError) -> failure
     394:394:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$15 -> aon:
+com.bttendance.service.BTService$15 -> aon:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    420:422:void success(com.utopia.bttendance.model.json.SchoolJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    420:422:void success(com.bttendance.model.json.SchoolJson,retrofit.client.Response) -> a
     426:427:void failure(retrofit.RetrofitError) -> failure
     417:417:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$16 -> aoo:
+com.bttendance.service.BTService$16 -> aoo:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    439:443:void success(com.utopia.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    439:443:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
     447:448:void failure(retrofit.RetrofitError) -> failure
     436:436:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$17 -> aop:
+com.bttendance.service.BTService$17 -> aop:
     int val$courseID -> a
     retrofit.Callback val$cb -> b
-    com.utopia.bttendance.service.BTService this$0 -> c
-    460:466:void success(com.utopia.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> c
+    460:466:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
     470:471:void failure(retrofit.RetrofitError) -> failure
     457:457:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$18 -> aoq:
+com.bttendance.service.BTService$18 -> aoq:
     int val$courseId -> a
     retrofit.Callback val$cb -> b
-    com.utopia.bttendance.service.BTService this$0 -> c
-    483:491:void success(com.utopia.bttendance.model.json.UserJson[],retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> c
+    483:491:void success(com.bttendance.model.json.UserJson[],retrofit.client.Response) -> a
     495:496:void failure(retrofit.RetrofitError) -> failure
     480:480:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$19 -> aor:
+com.bttendance.service.BTService$19 -> aor:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    507:510:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    507:510:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     515:515:void failure(retrofit.RetrofitError) -> failure
     504:504:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$2 -> aos:
-    com.utopia.bttendance.service.BTService this$0 -> a
+com.bttendance.service.BTService$2 -> aos:
+    com.bttendance.service.BTService this$0 -> a
     105:139:void run() -> run
-com.utopia.bttendance.service.BTService$2$1 -> aot:
-    com.utopia.bttendance.service.BTService$2 this$1 -> a
-    120:122:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+com.bttendance.service.BTService$2$1 -> aot:
+    com.bttendance.service.BTService$2 this$1 -> a
+    120:122:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     126:126:void failure(retrofit.RetrofitError) -> failure
     117:117:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$20 -> aou:
+com.bttendance.service.BTService$20 -> aou:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    527:530:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    527:530:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     534:535:void failure(retrofit.RetrofitError) -> failure
     524:524:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$21 -> aov:
+com.bttendance.service.BTService$21 -> aov:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    547:550:void success(com.utopia.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    547:550:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
     554:555:void failure(retrofit.RetrofitError) -> failure
     544:544:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$22 -> aow:
+com.bttendance.service.BTService$22 -> aow:
     retrofit.Callback val$cb -> a
     java.lang.String val$uuid -> b
-    com.utopia.bttendance.service.BTService this$0 -> c
-    567:571:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> c
+    567:571:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     575:577:void failure(retrofit.RetrofitError) -> failure
     564:564:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$23 -> aox:
+com.bttendance.service.BTService$23 -> aox:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    596:599:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    596:599:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     603:604:void failure(retrofit.RetrofitError) -> failure
     593:593:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$24 -> aoy:
+com.bttendance.service.BTService$24 -> aoy:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    616:619:void success(com.utopia.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    616:619:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     623:624:void failure(retrofit.RetrofitError) -> failure
     613:613:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$25 -> aoz:
+com.bttendance.service.BTService$25 -> aoz:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    635:640:void success(com.utopia.bttendance.model.json.ValidationJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    635:640:void success(com.bttendance.model.json.ValidationJson,retrofit.client.Response) -> a
     644:645:void failure(retrofit.RetrofitError) -> failure
     632:632:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$3 -> apa:
+com.bttendance.service.BTService$3 -> apa:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    160:164:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    160:164:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     168:169:void failure(retrofit.RetrofitError) -> failure
     157:157:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$4 -> apb:
+com.bttendance.service.BTService$4 -> apb:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    180:184:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    180:184:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     188:189:void failure(retrofit.RetrofitError) -> failure
     177:177:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$5 -> apc:
+com.bttendance.service.BTService$5 -> apc:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    201:205:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    201:205:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     209:210:void failure(retrofit.RetrofitError) -> failure
     198:198:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$6 -> apd:
+com.bttendance.service.BTService$6 -> apd:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    222:226:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    222:226:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     230:231:void failure(retrofit.RetrofitError) -> failure
     219:219:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$7 -> ape:
+com.bttendance.service.BTService$7 -> ape:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    243:247:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    243:247:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     251:252:void failure(retrofit.RetrofitError) -> failure
     240:240:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$8 -> apf:
+com.bttendance.service.BTService$8 -> apf:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    264:268:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    264:268:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     272:273:void failure(retrofit.RetrofitError) -> failure
     261:261:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$9 -> apg:
+com.bttendance.service.BTService$9 -> apg:
     retrofit.Callback val$cb -> a
-    com.utopia.bttendance.service.BTService this$0 -> b
-    285:289:void success(com.utopia.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    com.bttendance.service.BTService this$0 -> b
+    285:289:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     293:294:void failure(retrofit.RetrofitError) -> failure
     282:282:void success(java.lang.Object,retrofit.client.Response) -> success
-com.utopia.bttendance.service.BTService$LocalBinder -> com.utopia.bttendance.service.BTService$LocalBinder:
-    com.utopia.bttendance.service.BTService this$0 -> a
-    686:686:com.utopia.bttendance.service.BTService getService() -> getService
-com.utopia.bttendance.service.BTUrl -> com.utopia.bttendance.service.BTUrl:
+com.bttendance.service.BTService$LocalBinder -> com.bttendance.service.BTService$LocalBinder:
+    com.bttendance.service.BTService this$0 -> a
+    686:686:com.bttendance.service.BTService getService() -> getService
+com.bttendance.service.BTUrl -> com.bttendance.service.BTUrl:
     java.lang.String TERMS -> TERMS
     java.lang.String FORGOT_PASSWORD -> FORGOT_PASSWORD
     java.lang.String REQUEST_SERIAL -> REQUEST_SERIAL
-com.utopia.bttendance.service.GcmBroadcastReceiver -> com.utopia.bttendance.service.GcmBroadcastReceiver:
+com.bttendance.service.GcmBroadcastReceiver -> com.bttendance.service.GcmBroadcastReceiver:
     16:20:void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.utopia.bttendance.service.GcmIntentService -> com.utopia.bttendance.service.GcmIntentService:
+com.bttendance.service.GcmIntentService -> com.bttendance.service.GcmIntentService:
     50:87:void onHandleIntent(android.content.Intent) -> onHandleIntent
     91:108:void updateTable(android.os.Bundle) -> a
     115:155:void sendNotification(java.lang.String,java.lang.String,boolean) -> a
-com.utopia.bttendance.service.GcmIntentService$1 -> aph:
+com.bttendance.service.GcmIntentService$1 -> aph:
     int[] $SwitchMap$com$utopia$bttendance$model$BTKey$Type -> a
-com.utopia.bttendance.view.BeautiLoading -> com.utopia.bttendance.view.BeautiLoading:
+com.bttendance.view.BeautiLoading -> com.bttendance.view.BeautiLoading:
     24:25:void show(android.content.Context,java.lang.String) -> show
     28:29:void showLong(android.content.Context,java.lang.String) -> showLong
     33:58:void showToast(android.content.Context,java.lang.String,int) -> a
-com.utopia.bttendance.view.BeautiLoading$1 -> api:
+com.bttendance.view.BeautiLoading$1 -> api:
     android.content.Context val$context -> a
     java.lang.String val$message -> b
     int val$duration -> c
     41:50:void run() -> run
-com.utopia.bttendance.view.BeautiToast -> com.utopia.bttendance.view.BeautiToast:
+com.bttendance.view.BeautiToast -> com.bttendance.view.BeautiToast:
     24:25:void show(android.content.Context,java.lang.String) -> show
     29:54:void showToast(android.content.Context,java.lang.String,int) -> a
-com.utopia.bttendance.view.BeautiToast$1 -> apj:
+com.bttendance.view.BeautiToast$1 -> apj:
     android.content.Context val$context -> a
     java.lang.String val$message -> b
     int val$duration -> c
     37:46:void run() -> run
-com.utopia.bttendance.view.BoundedLinearLayout -> com.utopia.bttendance.view.BoundedLinearLayout:
+com.bttendance.view.BoundedLinearLayout -> com.bttendance.view.BoundedLinearLayout:
     int mBoundedWidth -> a
     int mBoundedHeight -> b
     35:47:void onMeasure(int,int) -> onMeasure
-com.utopia.bttendance.view.Bttendance -> com.utopia.bttendance.view.Bttendance:
+com.bttendance.view.Bttendance -> com.bttendance.view.Bttendance:
     int PROGRESS_DURATION -> PROGRESS_DURATION
     int mType -> a
     float mSize -> b
     float mRadius -> c
     float mMargin -> d
-    com.utopia.bttendance.view.Bttendance$STATE mState -> e
+    com.bttendance.view.Bttendance$STATE mState -> e
     int mProgress -> f
-    com.utopia.bttendance.view.Bttendance$STATE mEndState -> g
+    com.bttendance.view.Bttendance$STATE mEndState -> g
     android.graphics.Bitmap mFailBackground -> h
     android.graphics.Bitmap mInactiveBackground -> i
     android.graphics.Bitmap mCircleBackground -> j
@@ -24591,51 +24591,51 @@ com.utopia.bttendance.view.Bttendance -> com.utopia.bttendance.view.Bttendance:
     199:200:void onMeasure(int,int) -> onMeasure
     204:240:android.graphics.Bitmap getCheckBitmap() -> getCheckBitmap
     247:291:android.graphics.Bitmap getBackgroundBitmap() -> getBackgroundBitmap
-    297:315:void setBttendance(com.utopia.bttendance.view.Bttendance$STATE,int) -> setBttendance
+    297:315:void setBttendance(com.bttendance.view.Bttendance$STATE,int) -> setBttendance
     318:351:void startBttendance(int) -> a
-    354:355:void setEndState(com.utopia.bttendance.view.Bttendance$STATE) -> setEndState
-    358:363:void endBttendance(com.utopia.bttendance.view.Bttendance$STATE) -> a
+    354:355:void setEndState(com.bttendance.view.Bttendance$STATE) -> setEndState
+    358:363:void endBttendance(com.bttendance.view.Bttendance$STATE) -> a
     367:369:void startAnimation(android.view.animation.Animation) -> startAnimation
-    21:21:int access$000(com.utopia.bttendance.view.Bttendance) -> a
-    21:21:android.view.animation.AlphaAnimation access$100(com.utopia.bttendance.view.Bttendance) -> b
-    21:21:android.view.animation.Transformation access$200(com.utopia.bttendance.view.Bttendance) -> c
-    21:21:android.view.animation.AlphaAnimation access$300(com.utopia.bttendance.view.Bttendance) -> d
-    21:21:com.utopia.bttendance.view.Bttendance$STATE access$402(com.utopia.bttendance.view.Bttendance,com.utopia.bttendance.view.Bttendance$STATE) -> a
-    21:21:com.utopia.bttendance.view.Bttendance$STATE access$500(com.utopia.bttendance.view.Bttendance) -> e
-    21:21:int access$002(com.utopia.bttendance.view.Bttendance,int) -> a
-com.utopia.bttendance.view.Bttendance$1 -> apk:
-    com.utopia.bttendance.view.Bttendance this$0 -> a
+    21:21:int access$000(com.bttendance.view.Bttendance) -> a
+    21:21:android.view.animation.AlphaAnimation access$100(com.bttendance.view.Bttendance) -> b
+    21:21:android.view.animation.Transformation access$200(com.bttendance.view.Bttendance) -> c
+    21:21:android.view.animation.AlphaAnimation access$300(com.bttendance.view.Bttendance) -> d
+    21:21:com.bttendance.view.Bttendance$STATE access$402(com.bttendance.view.Bttendance,com.bttendance.view.Bttendance$STATE) -> a
+    21:21:com.bttendance.view.Bttendance$STATE access$500(com.bttendance.view.Bttendance) -> e
+    21:21:int access$002(com.bttendance.view.Bttendance,int) -> a
+com.bttendance.view.Bttendance$1 -> apk:
+    com.bttendance.view.Bttendance this$0 -> a
     127:127:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     131:135:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
     139:139:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
-com.utopia.bttendance.view.Bttendance$2 -> apl:
-    com.utopia.bttendance.view.Bttendance this$0 -> a
+com.bttendance.view.Bttendance$2 -> apl:
+    com.bttendance.view.Bttendance this$0 -> a
     144:144:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     148:152:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
     156:156:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
-com.utopia.bttendance.view.Bttendance$3 -> apm:
-    com.utopia.bttendance.view.Bttendance this$0 -> a
+com.bttendance.view.Bttendance$3 -> apm:
+    com.bttendance.view.Bttendance this$0 -> a
     333:333:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     337:343:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
     347:347:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
-com.utopia.bttendance.view.Bttendance$4 -> apn:
+com.bttendance.view.Bttendance$4 -> apn:
     int[] $SwitchMap$com$utopia$bttendance$view$Bttendance$STATE -> a
-com.utopia.bttendance.view.Bttendance$STATE -> com.utopia.bttendance.view.Bttendance$STATE:
-    com.utopia.bttendance.view.Bttendance$STATE STARTED -> STARTED
-    com.utopia.bttendance.view.Bttendance$STATE CHECKING -> CHECKING
-    com.utopia.bttendance.view.Bttendance$STATE CHECKED -> CHECKED
-    com.utopia.bttendance.view.Bttendance$STATE FAIL -> FAIL
-    com.utopia.bttendance.view.Bttendance$STATE INACTIVE -> INACTIVE
-    com.utopia.bttendance.view.Bttendance$STATE[] $VALUES -> a
-    371:371:com.utopia.bttendance.view.Bttendance$STATE[] values() -> values
-    371:371:com.utopia.bttendance.view.Bttendance$STATE valueOf(java.lang.String) -> valueOf
-com.utopia.bttendance.view.Circle -> com.utopia.bttendance.view.Circle:
+com.bttendance.view.Bttendance$STATE -> com.bttendance.view.Bttendance$STATE:
+    com.bttendance.view.Bttendance$STATE STARTED -> STARTED
+    com.bttendance.view.Bttendance$STATE CHECKING -> CHECKING
+    com.bttendance.view.Bttendance$STATE CHECKED -> CHECKED
+    com.bttendance.view.Bttendance$STATE FAIL -> FAIL
+    com.bttendance.view.Bttendance$STATE INACTIVE -> INACTIVE
+    com.bttendance.view.Bttendance$STATE[] $VALUES -> a
+    371:371:com.bttendance.view.Bttendance$STATE[] values() -> values
+    371:371:com.bttendance.view.Bttendance$STATE valueOf(java.lang.String) -> valueOf
+com.bttendance.view.Circle -> com.bttendance.view.Circle:
     android.graphics.Paint paint -> a
     float mX -> b
     float mY -> c
     float mMulti -> d
     float mDense -> e
-    com.utopia.bttendance.model.BTKey$Type mType -> f
+    com.bttendance.model.BTKey$Type mType -> f
     boolean initialized -> g
     float mInitX -> h
     float mCenterX -> i
@@ -24644,9 +24644,9 @@ com.utopia.bttendance.view.Circle -> com.utopia.bttendance.view.Circle:
     63:69:void onDraw(android.graphics.Canvas) -> onDraw
     72:83:void initView(float,float,int) -> initView
     86:111:void updateView(float,float,int) -> updateView
-com.utopia.bttendance.view.Circle$1 -> apo:
+com.bttendance.view.Circle$1 -> apo:
     int[] $SwitchMap$com$utopia$bttendance$model$BTKey$Type -> a
-com.utopia.bttendance.view.IndexScroller -> com.utopia.bttendance.view.IndexScroller:
+com.bttendance.view.IndexScroller -> com.bttendance.view.IndexScroller:
     android.content.Context mContext -> a
     float mIndexbarWidth -> b
     float mIndexbarMargin -> c
@@ -24674,20 +24674,20 @@ com.utopia.bttendance.view.IndexScroller -> com.utopia.bttendance.view.IndexScro
     218:218:boolean contains(float,float) -> a
     222:228:int getSectionByPoint(float) -> a
     232:234:void fade(long) -> a
-    34:34:int access$000(com.utopia.bttendance.view.IndexScroller) -> a
-    34:34:float access$118(com.utopia.bttendance.view.IndexScroller,double) -> a
-    34:34:float access$100(com.utopia.bttendance.view.IndexScroller) -> b
-    34:34:float access$102(com.utopia.bttendance.view.IndexScroller,float) -> a
-    34:34:void access$200(com.utopia.bttendance.view.IndexScroller,int) -> a
-    34:34:android.widget.ListView access$300(com.utopia.bttendance.view.IndexScroller) -> c
-    34:34:void access$400(com.utopia.bttendance.view.IndexScroller,long) -> a
-    34:34:float access$126(com.utopia.bttendance.view.IndexScroller,double) -> b
-com.utopia.bttendance.view.IndexScroller$1 -> app:
-    com.utopia.bttendance.view.IndexScroller this$0 -> a
+    34:34:int access$000(com.bttendance.view.IndexScroller) -> a
+    34:34:float access$118(com.bttendance.view.IndexScroller,double) -> a
+    34:34:float access$100(com.bttendance.view.IndexScroller) -> b
+    34:34:float access$102(com.bttendance.view.IndexScroller,float) -> a
+    34:34:void access$200(com.bttendance.view.IndexScroller,int) -> a
+    34:34:android.widget.ListView access$300(com.bttendance.view.IndexScroller) -> c
+    34:34:void access$400(com.bttendance.view.IndexScroller,long) -> a
+    34:34:float access$126(com.bttendance.view.IndexScroller,double) -> b
+com.bttendance.view.IndexScroller$1 -> app:
+    com.bttendance.view.IndexScroller this$0 -> a
     240:270:void handleMessage(android.os.Message) -> handleMessage
-com.utopia.bttendance.view.IndexableListView -> com.utopia.bttendance.view.IndexableListView:
+com.bttendance.view.IndexableListView -> com.bttendance.view.IndexableListView:
     boolean mIsFastScrollEnabled -> a
-    com.utopia.bttendance.view.IndexScroller mScroller -> b
+    com.bttendance.view.IndexScroller mScroller -> b
     android.view.GestureDetector mGestureDetector -> c
     47:47:boolean isFastScrollEnabled() -> isFastScrollEnabled
     52:62:void setFastScrollEnabled(boolean) -> setFastScrollEnabled
@@ -24697,13 +24697,13 @@ com.utopia.bttendance.view.IndexableListView -> com.utopia.bttendance.view.Index
     104:107:void setAdapter(android.widget.ListAdapter) -> setAdapter
     111:114:void onSizeChanged(int,int,int,int) -> onSizeChanged
     27:27:void setAdapter(android.widget.Adapter) -> setAdapter
-    27:27:com.utopia.bttendance.view.IndexScroller access$000(com.utopia.bttendance.view.IndexableListView) -> a
-com.utopia.bttendance.view.IndexableListView$1 -> apq:
-    com.utopia.bttendance.view.IndexableListView this$0 -> a
+    27:27:com.bttendance.view.IndexScroller access$000(com.bttendance.view.IndexableListView) -> a
+com.bttendance.view.IndexableListView$1 -> apq:
+    com.bttendance.view.IndexableListView this$0 -> a
     86:87:boolean onFling(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onFling
-com.utopia.bttendance.view.PagerSlidingTabStrip -> com.utopia.bttendance.view.PagerSlidingTabStrip:
+com.bttendance.view.PagerSlidingTabStrip -> com.bttendance.view.PagerSlidingTabStrip:
     int[] ATTRS -> a
-    com.utopia.bttendance.view.PagerSlidingTabStrip$PageListener pageListener -> b
+    com.bttendance.view.PagerSlidingTabStrip$PageListener pageListener -> b
     android.support.v4.view.ViewPager$OnPageChangeListener delegatePageListener -> delegatePageListener
     android.widget.LinearLayout$LayoutParams defaultTabLayoutParams -> c
     android.widget.LinearLayout$LayoutParams expandedTabLayoutParams -> d
@@ -24777,41 +24777,41 @@ com.utopia.bttendance.view.PagerSlidingTabStrip -> com.utopia.bttendance.view.Pa
     519:521:void setTabPaddingLeftRight(int) -> setTabPaddingLeftRight
     525:529:void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
     533:536:android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
-    47:47:int access$102(com.utopia.bttendance.view.PagerSlidingTabStrip,int) -> a
-    47:47:android.support.v4.view.ViewPager access$200(com.utopia.bttendance.view.PagerSlidingTabStrip) -> a
-    47:47:int access$100(com.utopia.bttendance.view.PagerSlidingTabStrip) -> b
-    47:47:void access$300(com.utopia.bttendance.view.PagerSlidingTabStrip,int,int) -> a
-    47:47:float access$502(com.utopia.bttendance.view.PagerSlidingTabStrip,float) -> a
-    47:47:android.widget.LinearLayout access$600(com.utopia.bttendance.view.PagerSlidingTabStrip) -> c
-    47:47:android.util.SparseArray access$700(com.utopia.bttendance.view.PagerSlidingTabStrip) -> d
-com.utopia.bttendance.view.PagerSlidingTabStrip$1 -> apr:
-    com.utopia.bttendance.view.PagerSlidingTabStrip this$0 -> a
+    47:47:int access$102(com.bttendance.view.PagerSlidingTabStrip,int) -> a
+    47:47:android.support.v4.view.ViewPager access$200(com.bttendance.view.PagerSlidingTabStrip) -> a
+    47:47:int access$100(com.bttendance.view.PagerSlidingTabStrip) -> b
+    47:47:void access$300(com.bttendance.view.PagerSlidingTabStrip,int,int) -> a
+    47:47:float access$502(com.bttendance.view.PagerSlidingTabStrip,float) -> a
+    47:47:android.widget.LinearLayout access$600(com.bttendance.view.PagerSlidingTabStrip) -> c
+    47:47:android.util.SparseArray access$700(com.bttendance.view.PagerSlidingTabStrip) -> d
+com.bttendance.view.PagerSlidingTabStrip$1 -> apr:
+    com.bttendance.view.PagerSlidingTabStrip this$0 -> a
     202:210:void onGlobalLayout() -> onGlobalLayout
-com.utopia.bttendance.view.PagerSlidingTabStrip$2 -> aps:
+com.bttendance.view.PagerSlidingTabStrip$2 -> aps:
     int val$position -> a
-    com.utopia.bttendance.view.PagerSlidingTabStrip this$0 -> b
+    com.bttendance.view.PagerSlidingTabStrip this$0 -> b
     226:227:void onClick(android.view.View) -> onClick
-com.utopia.bttendance.view.PagerSlidingTabStrip$3 -> apt:
+com.bttendance.view.PagerSlidingTabStrip$3 -> apt:
     int val$position -> a
-    com.utopia.bttendance.view.PagerSlidingTabStrip this$0 -> b
+    com.bttendance.view.PagerSlidingTabStrip this$0 -> b
     243:244:void onClick(android.view.View) -> onClick
-com.utopia.bttendance.view.PagerSlidingTabStrip$IconTabProvider -> com.utopia.bttendance.view.PagerSlidingTabStrip$IconTabProvider:
+com.bttendance.view.PagerSlidingTabStrip$IconTabProvider -> com.bttendance.view.PagerSlidingTabStrip$IconTabProvider:
     int getPageIconResId(int) -> getPageIconResId
-com.utopia.bttendance.view.PagerSlidingTabStrip$PageListener -> apu:
-    com.utopia.bttendance.view.PagerSlidingTabStrip this$0 -> a
+com.bttendance.view.PagerSlidingTabStrip$PageListener -> apu:
+    com.bttendance.view.PagerSlidingTabStrip this$0 -> a
     578:588:void onPageScrolled(int,float,int) -> onPageScrolled
     592:599:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
     603:618:void onPageSelected(int) -> onPageSelected
-com.utopia.bttendance.view.PagerSlidingTabStrip$SavedState -> com.utopia.bttendance.view.PagerSlidingTabStrip$SavedState:
+com.bttendance.view.PagerSlidingTabStrip$SavedState -> com.bttendance.view.PagerSlidingTabStrip$SavedState:
     android.os.Parcelable$Creator CREATOR -> CREATOR
     int currentPosition -> a
     568:570:void writeToParcel(android.os.Parcel,int) -> writeToParcel
-com.utopia.bttendance.view.PagerSlidingTabStrip$SavedState$1 -> apv:
-    547:547:com.utopia.bttendance.view.PagerSlidingTabStrip$SavedState createFromParcel(android.os.Parcel) -> a
-    552:552:com.utopia.bttendance.view.PagerSlidingTabStrip$SavedState[] newArray(int) -> a
+com.bttendance.view.PagerSlidingTabStrip$SavedState$1 -> apv:
+    547:547:com.bttendance.view.PagerSlidingTabStrip$SavedState createFromParcel(android.os.Parcel) -> a
+    552:552:com.bttendance.view.PagerSlidingTabStrip$SavedState[] newArray(int) -> a
     544:544:java.lang.Object[] newArray(int) -> newArray
     544:544:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-com.utopia.bttendance.view.SeekBar_ -> com.utopia.bttendance.view.SeekBar_:
+com.bttendance.view.SeekBar_ -> com.bttendance.view.SeekBar_:
     android.graphics.drawable.Drawable mThumb -> a
     28:30:void setThumb(android.graphics.drawable.Drawable) -> setThumb
     33:33:android.graphics.drawable.Drawable getSeekBarThumb() -> getSeekBarThumb
