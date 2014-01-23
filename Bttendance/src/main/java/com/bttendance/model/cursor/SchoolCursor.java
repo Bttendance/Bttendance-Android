@@ -4,6 +4,7 @@ import android.database.MatrixCursor;
 import android.util.SparseArray;
 
 import com.bttendance.model.BTTable;
+import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
 
 /**
@@ -15,10 +16,10 @@ public class SchoolCursor extends MatrixCursor {
             "_id"
     };
 
-    public SchoolCursor() {
+    public SchoolCursor(String filter) {
         super(COLUMNS);
-        SparseArray<SchoolJson> table = BTTable.SchoolTable;
-        for (int i = 0; i < table.size(); i++)
+        SparseArray<SchoolJson> table = BTTable.getSchools(filter);
+        for (int i = table.size() - 1; i >= 0; i--)
             addRow(new Object[]{table.keyAt(i)});
     }
 }

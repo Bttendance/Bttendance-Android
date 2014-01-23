@@ -45,6 +45,7 @@
     <string name="school">"School"</string>
     <string name="create_course">"Create Course"</string>
     <string name="join_course">"Join Course"</string>
+    <string name="join_school">"Join School"</string>
     <string name="confrim">"Confirm"</string>
     <string name="cancel">"Cancel"</string>
     <string name="ok">"OK"</string>
@@ -60,5 +61,13 @@
     <!--GPS Dialog-->
     <string name="turn_on_gps_title">"Improve location accuracy"</string>
     <string name="turn_on_gps_message">"Turn on GPS and mobile network location to enhance your \"Bttendance\" experience."</string>
+
+
+    <string name="edit_cap">EDIT</string>
+    <string name="account_type">Account Type</string>
+    <string name="name">Name</string>
+    <string name="mail">Mail</string>
+    <string name="save">Save</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>

@@ -12,4 +12,7 @@ public class BTKey {
     public final static String EXTRA_USER_ID = "user_id";
     public final static String EXTRA_POST_ID = "post_id";
     public final static String EXTRA_SCHOOL_ID = "school_id";
+
+    public final static String EXTRA_TITLE = "title";
+    public final static String EXTRA_MESSAGE = "message";
 }

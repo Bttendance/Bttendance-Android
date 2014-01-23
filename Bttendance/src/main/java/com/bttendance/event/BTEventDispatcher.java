@@ -1,10 +1,14 @@
 package com.bttendance.event;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
+import com.bttendance.fragment.JoinSchoolFragment;
+import com.bttendance.fragment.ProfileEditFragment;
+import com.bttendance.model.BTKey;
+import com.bttendance.model.json.SchoolJson;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.activity.ProfessorActivity;
@@ -291,6 +295,30 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
+    public void onJoinSchool(JoinSchoolEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        addFragment(new JoinSchoolFragment());
+    }
+
+    @Subscribe
+    public void onUpdateProfile(UpdateProfileEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        BTFragment fragment = new ProfileEditFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(BTKey.EXTRA_TITLE, event.getTitle());
+        bundle.putString(BTKey.EXTRA_MESSAGE, event.getMessage());
+        bundle.putSerializable(BTKey.EXTRA_TYPE, event.getType());
+        fragment.setArguments(bundle);
+        addFragment(fragment);
+    }
+
+    @Subscribe
     public void onShowAttdList(ShowAttdListEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
@@ -325,6 +353,10 @@ public class BTEventDispatcher {
                         + course.school_name;
                 break;
             case School:
+                title = act.getString(R.string.join_school);
+                SchoolJson school = (SchoolJson) json;
+                message = school.name + "\n"
+                        + school.website;
                 break;
             case User:
                 title = act.getString(R.string.attendance_check);
@@ -351,9 +383,18 @@ public class BTEventDispatcher {
                         });
                         break;
                     case School:
+                        act.getBTService().joinSchool(json.id, new Callback<UserJson>() {
+                            @Override
+                            public void success(UserJson userJson, Response response) {
+                                BTEventBus.getInstance().post(new MySchoolsUpdateEvent());
+                            }
+
+                            @Override
+                            public void failure(RetrofitError retrofitError) {
+                            }
+                        });
                         break;
                     case User:
-                        BTDebug.LogError("postAttendanceCheckManually : " + event.getId() + " : " + json.id);
                         act.getBTService().postAttendanceCheckManually(event.getId(), json.id, new Callback<PostJson>() {
                             @Override
                             public void success(PostJson postJson, Response response) {
@@ -370,7 +411,6 @@ public class BTEventDispatcher {
 
             @Override
             public void onCanceled() {
-
             }
         });
         showDialog(dialog, "plus");

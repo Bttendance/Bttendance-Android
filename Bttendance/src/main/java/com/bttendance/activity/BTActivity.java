@@ -9,13 +9,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.ParcelUuid;
 import android.support.v4.app.FragmentManager;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.bttendance.helper.SerializerHelper;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -39,7 +42,9 @@ import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTAPI;
 import com.bttendance.service.BTService;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -54,7 +59,8 @@ public class BTActivity extends SherlockFragmentActivity {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                BTEventBus.getInstance().post(new BTDiscoveredEvent(device.getAddress()));
+                if (device != null)
+                    BTEventBus.getInstance().post(new BTDiscoveredEvent(device.getAddress()));
             }
         }
     };

@@ -99,6 +99,9 @@ public interface BTAPI {
               @Query("page") int page,
               Callback<PostJson[]> cb);
 
+    @GET("/school")
+    void joinableSchools(Callback<SchoolJson[]> cb);
+
     @POST("/school/create")
     void schoolCreate(@Query("username") String username,
                       @Query("password") String password,

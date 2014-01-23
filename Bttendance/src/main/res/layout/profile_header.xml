@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bttendance_grey"
+    android:paddingBottom="6dp">
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="22dp"
+        android:background="@color/bttendance_cyan" />
+
+    <Button
+        android:id="@+id/profile_image_edit"
+        android:layout_width="110dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="108dp"
+        android:background="@color/transparent_black_percent_30"
+        android:gravity="center"
+        android:text="@string/edit_cap"
+        android:textColor="@color/transparent_white_percent_70"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="22dp"
+        android:layout_toRightOf="@id/profile_image"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/account_type"
+        android:textColor="@color/bttendance_black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/account_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="42dp"
+        android:layout_toRightOf="@id/profile_image"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/bttendance_black"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="72dp"
+        android:layout_toRightOf="@id/profile_image"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/username"
+        android:textColor="@color/bttendance_black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="92dp"
+        android:layout_toRightOf="@id/profile_image"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/bttendance_black"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/profile_image"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="57dp"
+        android:text="@string/name"
+        android:textColor="@color/bttendance_navy"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/profile_image"
+        android:layout_marginLeft="88dp"
+        android:layout_marginTop="57dp"
+        android:textColor="@color/bttendance_black"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/name_edit"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/profile_image"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="58dp"
+        android:background="@drawable/ic_content_edit"
+        android:padding="5dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/name"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/grey_hex_cc" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/profile_image"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="97dp"
+        android:text="@string/mail"
+        android:textColor="@color/bttendance_navy"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/profile_image"
+        android:layout_marginLeft="88dp"
+        android:layout_marginTop="97dp"
+        android:textColor="@color/bttendance_black"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/mail_edit"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/profile_image"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="98dp"
+        android:background="@drawable/ic_content_edit"
+        android:padding="5dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/mail"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/grey_hex_cc" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/profile_image"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="137dp"
+        android:text="@string/school"
+        android:textColor="@color/bttendance_navy"
+        android:textSize="15sp" />
+
+</RelativeLayout>

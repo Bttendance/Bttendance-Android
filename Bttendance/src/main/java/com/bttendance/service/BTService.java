@@ -10,7 +10,6 @@ import android.net.NetworkInfo;
 import android.os.Binder;
 import android.os.IBinder;
 
-import com.squareup.otto.BTEventBus;
 import com.bttendance.BTDebug;
 import com.bttendance.event.AttdEndEvent;
 import com.bttendance.event.LocationChangedEvent;
@@ -25,6 +24,7 @@ import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.ValidationJson;
 import com.bttendance.view.BeautiToast;
+import com.squareup.otto.BTEventBus;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -329,6 +329,8 @@ public class BTService extends Service {
             public void success(SchoolJson[] schools, Response response) {
                 for (SchoolJson school : schools)
                     BTTable.SchoolTable.append(school.id, school);
+                for (SchoolJson school : schools)
+                    BTTable.getSchools(BTTable.FILTER_MY_SCHOOL).append(school.id, school);
                 if (cb != null)
                     cb.success(schools, response);
             }
@@ -400,6 +402,28 @@ public class BTService extends Service {
                     BTTable.getPosts(BTTable.FILTER_MY_POST).append(post.id, post);
                 if (cb != null)
                     cb.success(posts, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void joinableSchools(final Callback<SchoolJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.joinableSchools(new Callback<SchoolJson[]>() {
+            @Override
+            public void success(SchoolJson[] schools, Response response) {
+                for (SchoolJson school : schools)
+                    BTTable.SchoolTable.append(school.id, school);
+                for (SchoolJson school : schools)
+                    BTTable.getSchools(BTTable.FILTER_JOINABLE_SCHOOL).append(school.id, school);
+                if (cb != null)
+                    cb.success(schools, response);
             }
 
             @Override

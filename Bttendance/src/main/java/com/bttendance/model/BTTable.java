@@ -20,6 +20,8 @@ public class BTTable {
 
     public static String FILTER_MY_COURSE = "my_course";
     public static String FILTER_JOINABLE_COURSE = "joinable_course";
+    public static String FILTER_MY_SCHOOL = "my_school";
+    public static String FILTER_JOINABLE_SCHOOL = "joinable_school";
     public static String FILTER_MY_POST = "my_post";
     private static String FILTER_COURSE_ID = "course_id";
 
@@ -41,6 +43,8 @@ public class BTTable {
     private static HashMap<String, SparseArray<CourseJson>> mCourse = new HashMap<String, SparseArray<CourseJson>>();
     // filter: "total_post", "course_id"
     private static HashMap<String, SparseArray<PostJson>> mPost = new HashMap<String, SparseArray<PostJson>>();
+    // filter: "my_school"
+    private static HashMap<String, SparseArray<SchoolJson>> mSchool = new HashMap<String, SparseArray<SchoolJson>>();
     // Found UUID list
     private static Set<String> UUIDLIST = new HashSet<String>();
     private static Set<String> UUIDLISTSENDED = new HashSet<String>();
@@ -70,6 +74,15 @@ public class BTTable {
             mPost.put(filter, posts);
         }
         return posts;
+    }
+
+    public static synchronized SparseArray<SchoolJson> getSchools(String filter) {
+        SparseArray<SchoolJson> schools = mSchool.get(filter);
+        if (schools == null) {
+            schools = new SparseArray<SchoolJson>();
+            mSchool.put(filter, schools);
+        }
+        return schools;
     }
 
     public static synchronized void UUIDLIST_add(String mac) {
