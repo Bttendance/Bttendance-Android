@@ -3,6 +3,8 @@ package com.bttendance.event;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
+import com.bttendance.fragment.CourseFragment;
+import com.bttendance.fragment.GradeFragment;
 import com.bttendance.fragment.JoinSchoolFragment;
 import com.bttendance.fragment.ProfileEditFragment;
 import com.bttendance.model.BTKey;
@@ -13,7 +15,7 @@ import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.activity.ProfessorActivity;
 import com.bttendance.activity.StudentActivity;
-import com.bttendance.fragment.AttendanceListFragment;
+import com.bttendance.fragment.PostAttendanceFragment;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.CreateCourseFragment;
@@ -319,18 +321,39 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onShowAttdList(ShowAttdListEvent event) {
+    public void onShowCourse(ShowCourseEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        BTFragment fragment = new CourseFragment(event.getCourseId());
+        addFragment(fragment);
+    }
+
+    @Subscribe
+    public void onShowPostAttd(ShowPostAttdEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
 
         switch (BTPreference.getUserType(act)) {
             case PROFESSOR:
-                addFragment(new AttendanceListFragment(event.getCourseId()));
-                break;
-            case STUDENT:
+                addFragment(new PostAttendanceFragment(event.getCourseId()));
                 break;
         }
+    }
+
+    @Subscribe
+    public void onShowGrade(ShowGradeEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+//        switch (BTPreference.getUserType(act)) {
+//            case PROFESSOR:
+                addFragment(new GradeFragment(event.getCourseId()));
+//                break;
+//        }
     }
 
     @Subscribe

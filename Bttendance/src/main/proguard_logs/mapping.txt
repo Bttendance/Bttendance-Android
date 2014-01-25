@@ -23732,7 +23732,7 @@ com.bttendance.event.BTEventDispatcher -> com.bttendance.event.BTEventDispatcher
     234:252:void onLocationChanged(com.bttendance.event.LocationChangedEvent) -> onLocationChanged
     256:275:void onShowEnableGPSDialog(com.bttendance.event.ShowEnableGPSDialogEvent) -> onShowEnableGPSDialog
     279:291:void onAddCourse(com.bttendance.event.AddCourseEvent) -> onAddCourse
-    295:306:void onShowAttdList(com.bttendance.event.ShowAttdListEvent) -> onShowAttdList
+    295:306:void onShowAttdList(com.bttendance.event.ShowPostAttdEvent) -> onShowAttdList
     310:377:void onPlusClicked(com.bttendance.event.PlusClickedEvent) -> onPlusClicked
     381:391:void onLoadingEvent(com.bttendance.event.LoadingEvent) -> onLoadingEvent
     394:407:void addFragment(com.bttendance.fragment.BTFragment) -> a
@@ -23804,11 +23804,11 @@ com.bttendance.event.PlusClickedEvent -> com.bttendance.event.PlusClickedEvent:
     int mId -> b
     19:19:com.bttendance.model.json.BTJson getJson() -> getJson
     23:23:int getId() -> getId
-com.bttendance.event.ShowAttdListEvent -> com.bttendance.event.ShowAttdListEvent:
+com.bttendance.event.ShowPostAttdEvent -> com.bttendance.event.ShowPostAttdEvent:
     int mCourseId -> a
     15:15:int getCourseId() -> getCourseId
 com.bttendance.event.ShowEnableGPSDialogEvent -> com.bttendance.event.ShowEnableGPSDialogEvent:
-com.bttendance.fragment.AttendanceListFragment -> com.bttendance.fragment.AttendanceListFragment:
+com.bttendance.fragment.PostAttendanceFragment -> com.bttendance.fragment.PostAttendanceFragment:
     com.bttendance.adapter.BTListAdapter mAdapter -> a
     android.widget.ListView mListView -> b
     com.bttendance.model.json.CourseJson mCourse -> c
@@ -23823,21 +23823,21 @@ com.bttendance.fragment.AttendanceListFragment -> com.bttendance.fragment.Attend
     127:129:void onServieConnected() -> onServieConnected
     133:137:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     141:147:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    34:34:com.bttendance.model.json.UserJson[] access$002(com.bttendance.fragment.AttendanceListFragment,com.bttendance.model.json.UserJson[]) -> a
-    34:34:void access$100(com.bttendance.fragment.AttendanceListFragment) -> a
-    34:34:com.bttendance.model.json.PostJson access$202(com.bttendance.fragment.AttendanceListFragment,com.bttendance.model.json.PostJson) -> a
-com.bttendance.fragment.AttendanceListFragment$1 -> anj:
-    com.bttendance.fragment.AttendanceListFragment this$0 -> a
+    34:34:com.bttendance.model.json.UserJson[] access$002(com.bttendance.fragment.PostAttendanceFragment,com.bttendance.model.json.UserJson[]) -> a
+    34:34:void access$100(com.bttendance.fragment.PostAttendanceFragment) -> a
+    34:34:com.bttendance.model.json.PostJson access$202(com.bttendance.fragment.PostAttendanceFragment,com.bttendance.model.json.PostJson) -> a
+com.bttendance.fragment.PostAttendanceFragment$1 -> anj:
+    com.bttendance.fragment.PostAttendanceFragment this$0 -> a
     79:81:void success(com.bttendance.model.json.UserJson[],retrofit.client.Response) -> a
     85:85:void failure(retrofit.RetrofitError) -> failure
     76:76:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.fragment.AttendanceListFragment$2 -> ank:
-    com.bttendance.fragment.AttendanceListFragment this$0 -> a
+com.bttendance.fragment.PostAttendanceFragment$2 -> ank:
+    com.bttendance.fragment.PostAttendanceFragment this$0 -> a
     94:96:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     100:100:void failure(retrofit.RetrofitError) -> failure
     91:91:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.fragment.AttendanceListFragment$3 -> anl:
-    com.bttendance.fragment.AttendanceListFragment this$0 -> a
+com.bttendance.fragment.PostAttendanceFragment$3 -> anl:
+    com.bttendance.fragment.PostAttendanceFragment this$0 -> a
     118:118:int compare(com.bttendance.adapter.BTListAdapter$Item,com.bttendance.adapter.BTListAdapter$Item) -> a
     115:115:int compare(java.lang.Object,java.lang.Object) -> compare
 com.bttendance.fragment.BTDialogFragment -> com.bttendance.fragment.BTDialogFragment:

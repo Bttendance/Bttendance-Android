@@ -42,4 +42,30 @@
         android:layout_marginLeft="8dp"
         android:src="@drawable/ic_list_add" />
 
+    <TextView
+        android:id="@+id/grade"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:textColor="@color/bttendance_cyan"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/grade_total"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="1dp"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:textColor="@color/bttendance_white"
+        android:textSize="8sp"
+        android:visibility="gone" />
+
 </RelativeLayout>

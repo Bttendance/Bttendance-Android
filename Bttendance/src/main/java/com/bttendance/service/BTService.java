@@ -19,6 +19,7 @@ import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.ErrorsJson;
+import com.bttendance.model.json.GradeJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
@@ -512,6 +513,25 @@ public class BTService extends Service {
                         BTTable.getUsers(BTTable.getCourseIdFilter(course.id)).append(user.id, user);
                 if (cb != null)
                     cb.success(users, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void courseGrades(final int courseId, final Callback<GradeJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.courseGrades(user.username, user.password, courseId, new Callback<GradeJson[]>() {
+            @Override
+            public void success(GradeJson[] grades, Response response) {
+                if (cb != null)
+                    cb.success(grades, response);
             }
 
             @Override

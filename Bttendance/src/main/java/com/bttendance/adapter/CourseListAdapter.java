@@ -8,16 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.squareup.otto.BTEventBus;
 import com.bttendance.R;
 import com.bttendance.event.AttdInProgressEvent;
 import com.bttendance.event.AttdStartEvent;
-import com.bttendance.event.ShowAttdListEvent;
+import com.bttendance.event.ShowCourseEvent;
 import com.bttendance.helper.DateHelper;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.view.Bttendance;
+import com.squareup.otto.BTEventBus;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
@@ -45,17 +44,8 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
         bttendance.setOnClickListener(this);
         selector.setOnClickListener(this);
 
-        switch (BTPreference.getUserType(context)) {
-            case PROFESSOR:
-                bttendance.setClickable(true);
-                selector.setVisibility(View.VISIBLE);
-                break;
-            case STUDENT:
-            default:
-                bttendance.setClickable(false);
-                selector.setVisibility(View.GONE);
-                break;
-        }
+        bttendance.setClickable(true);
+        selector.setVisibility(View.VISIBLE);
 
         bttendance.setTag(R.id.course_id, course_id);
         selector.setTag(R.id.course_id, course_id);
@@ -100,7 +90,7 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
             case R.id.item_selector:
                 int course_id = (Integer) v.getTag(R.id.course_id);
                 CourseJson course = BTTable.CourseTable.get(course_id);
-                BTEventBus.getInstance().post(new ShowAttdListEvent(course.id));
+                BTEventBus.getInstance().post(new ShowCourseEvent(course.id));
                 break;
             default:
                 break;

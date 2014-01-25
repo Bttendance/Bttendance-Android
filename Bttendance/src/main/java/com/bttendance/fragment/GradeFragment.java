@@ -1,6 +1,7 @@
 package com.bttendance.fragment;
 
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,16 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.squareup.otto.Subscribe;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
 import com.bttendance.event.AttdCheckedManuallyEvent;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.GradeJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJson;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,17 +31,17 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * Created by TheFinestArtist on 2013. 12. 30..
+ * Created by TheFinestArtist on 2014. 1. 25..
  */
-public class AttendanceListFragment extends BTFragment {
+public class GradeFragment extends BTFragment {
 
     BTListAdapter mAdapter;
     private ListView mListView;
     private CourseJson mCourse;
-    private PostJson mPost;
     private UserJson[] mUserJsons;
+    public static SparseArray<GradeJson> GradeTable = new SparseArray<GradeJson>();
 
-    public AttendanceListFragment(int courseId) {
+    public GradeFragment(int courseId) {
         mCourse = BTTable.CourseTable.get(courseId);
     }
 
@@ -51,7 +53,7 @@ public class AttendanceListFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_attendance_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_grade, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
         mAdapter = new BTListAdapter(getActivity());
         mListView.setAdapter(mAdapter);
@@ -63,12 +65,6 @@ public class AttendanceListFragment extends BTFragment {
     public void onFragmentResume() {
         super.onFragmentResume();
         requestCall();
-    }
-
-    @Subscribe
-    public void onAttdCheckedManually(AttdCheckedManuallyEvent event) {
-        mPost = BTTable.PostTable.get(mPost.id);
-        swapItems();
     }
 
     private void requestCall() {
@@ -85,18 +81,17 @@ public class AttendanceListFragment extends BTFragment {
             }
         });
 
-        if (mCourse.posts.length == 0)
-            return;
-
-        getBTService().post(mCourse.posts[mCourse.posts.length - 1], new Callback<PostJson>() {
+        getBTService().courseGrades(mCourse.id, new Callback<GradeJson[]>() {
             @Override
-            public void success(PostJson postJson, Response response) {
-                mPost = postJson;
+            public void success(GradeJson[] gradeJsons, Response response) {
+                for (GradeJson grade: gradeJsons)
+                    GradeTable.append(grade.id, grade);
                 swapItems();
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
+
             }
         });
     }
@@ -107,10 +102,10 @@ public class AttendanceListFragment extends BTFragment {
 
         ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
         for (UserJson user : mUserJsons) {
-            boolean joined = mPost != null && IntArrayHelper.contains(mPost.checks, user.id);
             String title = user.username + " - " + user.full_name;
             String message = getString(R.string.email_) + user.email;
-            items.add(new BTListAdapter.Item(false, joined, title, message, user, mPost == null? -1: mPost.id));
+            GradeJson grade = GradeTable.get(user.id);
+            items.add(new BTListAdapter.Item(false, false, title, message, grade == null? new GradeJson(): grade, grade == null? -1: grade.id));
         }
         Collections.sort(items, new Comparator<BTListAdapter.Item>() {
             @Override
@@ -132,7 +127,7 @@ public class AttendanceListFragment extends BTFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(mCourse.name);
+        actionBar.setTitle(getString(R.string.grade));
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 

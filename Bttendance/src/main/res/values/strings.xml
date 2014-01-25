@@ -69,5 +69,8 @@
     <string name="mail">Mail</string>
     <string name="save">Save</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="notice">Notice</string>
+    <string name="grade">Grade</string>
+    <string name="ta">TA</string>
 
 </resources>

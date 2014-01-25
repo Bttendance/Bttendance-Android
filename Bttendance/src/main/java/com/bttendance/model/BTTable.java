@@ -23,10 +23,10 @@ public class BTTable {
     public static String FILTER_MY_SCHOOL = "my_school";
     public static String FILTER_JOINABLE_SCHOOL = "joinable_school";
     public static String FILTER_MY_POST = "my_post";
-    private static String FILTER_COURSE_ID = "course_id";
+    private static String FILTER_COURSE = "course_";
 
     public static String getCourseIdFilter(int course_id) {
-        return FILTER_COURSE_ID + course_id;
+        return FILTER_COURSE + course_id;
     }
 
     // key: post_id, value: post

@@ -1,6 +1,7 @@
 package com.bttendance.service;
 
 import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.GradeJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
@@ -129,6 +130,12 @@ public interface BTAPI {
                         @Query("password") String password,
                         @Query("course_id") int courseID,
                         Callback<UserJson[]> cb);
+
+    @POST("/course/grades")
+    void courseGrades(@Query("username") String username,
+                        @Query("password") String password,
+                        @Query("course_id") int courseID,
+                        Callback<GradeJson[]> cb);
 
     @GET("/post/{id}")
     void post(@Path("id") int postId,

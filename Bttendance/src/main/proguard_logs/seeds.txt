@@ -13548,7 +13548,7 @@ com.bttendance.event.BTEventDispatcher: void onBTCanceled(com.bttendance.event.B
 com.bttendance.event.BTEventDispatcher: void onLocationChanged(com.bttendance.event.LocationChangedEvent)
 com.bttendance.event.BTEventDispatcher: void onShowEnableGPSDialog(com.bttendance.event.ShowEnableGPSDialogEvent)
 com.bttendance.event.BTEventDispatcher: void onAddCourse(com.bttendance.event.AddCourseEvent)
-com.bttendance.event.BTEventDispatcher: void onShowAttdList(com.bttendance.event.ShowAttdListEvent)
+com.bttendance.event.BTEventDispatcher: void onShowAttdList(com.bttendance.event.ShowPostAttdEvent)
 com.bttendance.event.BTEventDispatcher: void onPlusClicked(com.bttendance.event.PlusClickedEvent)
 com.bttendance.event.BTEventDispatcher: void onLoadingEvent(com.bttendance.event.LoadingEvent)
 com.bttendance.event.LoadingEvent
@@ -13563,20 +13563,20 @@ com.bttendance.event.PlusClickedEvent
 com.bttendance.event.PlusClickedEvent: PlusClickedEvent(com.bttendance.model.json.BTJson,int)
 com.bttendance.event.PlusClickedEvent: com.bttendance.model.json.BTJson getJson()
 com.bttendance.event.PlusClickedEvent: int getId()
-com.bttendance.event.ShowAttdListEvent
-com.bttendance.event.ShowAttdListEvent: ShowAttdListEvent(int)
-com.bttendance.event.ShowAttdListEvent: int getCourseId()
+com.bttendance.event.ShowPostAttdEvent
+com.bttendance.event.ShowPostAttdEvent: ShowAttdListEvent(int)
+com.bttendance.event.ShowPostAttdEvent: int getCourseId()
 com.bttendance.event.ShowEnableGPSDialogEvent
 com.bttendance.event.ShowEnableGPSDialogEvent: ShowEnableGPSDialogEvent()
-com.bttendance.fragment.AttendanceListFragment
-com.bttendance.fragment.AttendanceListFragment: AttendanceListFragment(int)
-com.bttendance.fragment.AttendanceListFragment: void onCreate(android.os.Bundle)
-com.bttendance.fragment.AttendanceListFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
-com.bttendance.fragment.AttendanceListFragment: void onFragmentResume()
-com.bttendance.fragment.AttendanceListFragment: void onAttdCheckedManually(com.bttendance.event.AttdCheckedManuallyEvent)
-com.bttendance.fragment.AttendanceListFragment: void onServieConnected()
-com.bttendance.fragment.AttendanceListFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
-com.bttendance.fragment.AttendanceListFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
+com.bttendance.fragment.PostAttendanceFragment
+com.bttendance.fragment.PostAttendanceFragment: AttendanceListFragment(int)
+com.bttendance.fragment.PostAttendanceFragment: void onCreate(android.os.Bundle)
+com.bttendance.fragment.PostAttendanceFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
+com.bttendance.fragment.PostAttendanceFragment: void onFragmentResume()
+com.bttendance.fragment.PostAttendanceFragment: void onAttdCheckedManually(com.bttendance.event.AttdCheckedManuallyEvent)
+com.bttendance.fragment.PostAttendanceFragment: void onServieConnected()
+com.bttendance.fragment.PostAttendanceFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
+com.bttendance.fragment.PostAttendanceFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
 com.bttendance.fragment.BTDialogFragment
 com.bttendance.fragment.BTDialogFragment: BTDialogFragment(com.bttendance.fragment.BTDialogFragment$DialogType,java.lang.String,java.lang.String)
 com.bttendance.fragment.BTDialogFragment: void setOnConfirmListener(com.bttendance.fragment.BTDialogFragment$OnConfirmListener)

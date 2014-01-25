@@ -28,7 +28,7 @@ public class Bttendance extends View {
     /**
      * Dimension
      */
-    private static final int BIG_SIZE = 135; //in dp
+    private static final int BIG_SIZE = 105; //in dp
     private static final int SMALL_SIZE = 52; //in dp
     private static final int BIG_WHEEL_RADIUS = 65; //in dp (135)
     private static final int SMALL_WHEEL_RADIUS = 24; //in dp (52)
@@ -254,7 +254,7 @@ public class Bttendance extends View {
                             return mFailBackground;
                     case INACTIVE:
                         if (mInactiveBackground == null)
-                            return mInactiveBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_inactive_grey_large);
+                            return mInactiveBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_inactive_gray_large);
                         else
                             return mInactiveBackground;
                     case STARTED:
