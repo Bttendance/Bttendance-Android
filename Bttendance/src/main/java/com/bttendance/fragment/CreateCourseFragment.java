@@ -51,7 +51,6 @@ public class CreateCourseFragment extends BTFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_course, container, false);
 
-
         mFullName = (EditText) view.findViewById(R.id.full_name);
         mUsername = (EditText) view.findViewById(R.id.username);
         mEmail = (EditText) view.findViewById(R.id.email);

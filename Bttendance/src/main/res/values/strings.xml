@@ -72,5 +72,9 @@
     <string name="notice">Notice</string>
     <string name="grade">Grade</string>
     <string name="ta">TA</string>
+    <string name="create_notice">Create Notice</string>
+    <string name="post">Post</string>
+    <string name="what_should_they_know">What should they know?</string>
+    <string name="to_">To. %s</string>
 
 </resources>

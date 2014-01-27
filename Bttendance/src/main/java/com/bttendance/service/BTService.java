@@ -34,6 +34,8 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.http.PUT;
+import retrofit.http.Query;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 9..
@@ -655,6 +657,26 @@ public class BTService extends Service {
 
         UserJson user = BTPreference.getUser(getApplicationContext());
         mBTAPI.postAttendanceCheckManually(user.username, user.password, postID, userID, new Callback<PostJson>() {
+            @Override
+            public void success(PostJson post, Response response) {
+                BTTable.PostTable.append(post.id, post);
+                if (cb != null)
+                    cb.success(post, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void postCreateNotice(int courseID, String message, final Callback<PostJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.postCreateNotice(user.username, user.password, courseID, message, new Callback<PostJson>() {
             @Override
             public void success(PostJson post, Response response) {
                 BTTable.PostTable.append(post.id, post);

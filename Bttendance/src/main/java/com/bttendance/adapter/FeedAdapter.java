@@ -39,8 +39,15 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         PostJson post = BTTable.PostTable.get(id);
 
         Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
-        bttendance.setTag(R.id.post_id, post.id);
-        bttendance.setOnClickListener(this);
+        if ("attendance".equals(post.type)) {
+            bttendance.setTag(R.id.post_id, post.id);
+            bttendance.setOnClickListener(this);
+            bttendance.setVisibility(View.VISIBLE);
+            view.findViewById(R.id.notice).setVisibility(View.GONE);
+        } else {
+            bttendance.setVisibility(View.GONE);
+            view.findViewById(R.id.notice).setVisibility(View.VISIBLE);
+        }
 
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
 

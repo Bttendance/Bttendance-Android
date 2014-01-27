@@ -18,6 +18,7 @@ import com.bttendance.event.AttdCheckedEvent;
 import com.bttendance.event.AttdEndEvent;
 import com.bttendance.event.AttdStartedEvent;
 import com.bttendance.event.LoadingEvent;
+import com.bttendance.event.ShowCreateNoticeEvent;
 import com.bttendance.event.ShowGradeEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTKey;
@@ -162,6 +163,7 @@ public class CourseFragment extends BTFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.notice_bt:
+                BTEventBus.getInstance().post(new ShowCreateNoticeEvent(mCourse.id));
                 break;
             case R.id.grade_bt:
                 BTEventBus.getInstance().post(new ShowGradeEvent(mCourse.id));

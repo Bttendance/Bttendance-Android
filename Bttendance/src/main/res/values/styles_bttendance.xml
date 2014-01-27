@@ -31,6 +31,7 @@
         <item name="windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/bttendance_grey</item>
         <item name="homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_dark</item>
+        <item name="actionMenuTextColor">@color/bttendance_white</item>
     </style>
 
     <style name="Theme.Bttendance.Sign" parent="@style/Theme.Bttendance">

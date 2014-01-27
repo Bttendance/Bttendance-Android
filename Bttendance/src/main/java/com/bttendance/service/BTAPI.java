@@ -178,6 +178,13 @@ public interface BTAPI {
                                      @Query("user_id") int userId,
                                      Callback<PostJson> cb);
 
+    @PUT("/post/create/notice")
+    void postCreateNotice(@Query("username") String username,
+                                     @Query("password") String password,
+                                     @Query("course_id") int courseID,
+                                     @Query("message") String message,
+                                     Callback<PostJson> cb);
+
     @GET("/serial/validate")
     void serialValidate(@Query("serial") String serial,
                         Callback<ValidationJson> cb);

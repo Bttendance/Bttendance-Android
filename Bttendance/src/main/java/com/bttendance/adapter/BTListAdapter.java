@@ -9,12 +9,12 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.bttendance.model.json.GradeJson;
-import com.squareup.otto.BTEventBus;
 import com.bttendance.R;
 import com.bttendance.event.PlusClickedEvent;
 import com.bttendance.helper.StringMatcher;
 import com.bttendance.model.json.BTJson;
+import com.bttendance.model.json.GradeJson;
+import com.squareup.otto.BTEventBus;
 
 import java.util.ArrayList;
 
@@ -57,7 +57,7 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
                     image.setImageResource(R.drawable.ic_list_checked);
                     image.setClickable(false);
                     image.setOnClickListener(null);
-                } else if(i.getJson() != null && i.getJson() instanceof GradeJson) {
+                } else if (i.getJson() != null && i.getJson() instanceof GradeJson) {
                     image.setImageResource(R.drawable.ic_grade);
                     image.setClickable(false);
                     image.setOnClickListener(null);
@@ -65,9 +65,14 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
                     TextView gradeTotal = (TextView) v.findViewById(R.id.grade_total);
                     grade.setVisibility(View.VISIBLE);
                     gradeTotal.setVisibility(View.VISIBLE);
-                    String[] gradeStrings = ((GradeJson) i.getJson()).grade.split("/");
-                    grade.setText(gradeStrings[0]);
-                    gradeTotal.setText(gradeStrings[1]);
+                    if (((GradeJson) i.getJson()).grade == null) {
+                        grade.setText("0");
+                        gradeTotal.setText("0");
+                    } else {
+                        String[] gradeStrings = ((GradeJson) i.getJson()).grade.split("/");
+                        grade.setText(gradeStrings[0]);
+                        gradeTotal.setText(gradeStrings[1]);
+                    }
                 } else {
                     image.setImageResource(R.drawable.ic_list_add);
                     image.setClickable(true);

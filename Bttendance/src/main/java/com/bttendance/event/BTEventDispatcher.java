@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
 import com.bttendance.fragment.CourseFragment;
+import com.bttendance.fragment.CreateNoticeFragment;
 import com.bttendance.fragment.GradeFragment;
 import com.bttendance.fragment.JoinSchoolFragment;
 import com.bttendance.fragment.ProfileEditFragment;
@@ -354,6 +355,20 @@ public class BTEventDispatcher {
                 addFragment(new GradeFragment(event.getCourseId()));
 //                break;
 //        }
+    }
+
+    @Subscribe
+    public void onShowCreateNotice(ShowCreateNoticeEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+//        switch (BTPreference.getUserType(act)) {
+//            case PROFESSOR:
+        addFragment(new CreateNoticeFragment(event.getCourseId()));
+//                break;
+//        }
+
     }
 
     @Subscribe

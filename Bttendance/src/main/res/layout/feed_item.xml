@@ -27,6 +27,16 @@
         app:type="Small" />
 
     <View
+        android:id="@+id/notice"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="18dp"
+        android:background="@drawable/ic_notice"
+        android:visibility="gone" />
+
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bt_list_item_selector"
