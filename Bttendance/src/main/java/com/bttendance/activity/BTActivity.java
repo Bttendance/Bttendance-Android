@@ -9,16 +9,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.ParcelUuid;
 import android.support.v4.app.FragmentManager;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.bttendance.helper.SerializerHelper;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -26,12 +23,12 @@ import com.squareup.otto.BTEventBus;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
-import com.bttendance.event.AttdStartedEvent;
-import com.bttendance.event.BTCanceledEvent;
-import com.bttendance.event.BTDiscoveredEvent;
-import com.bttendance.event.BTEnabledEvent;
+import com.bttendance.event.attendance.AttdStartedEvent;
+import com.bttendance.event.bluetooth.BTCanceledEvent;
+import com.bttendance.event.bluetooth.BTDiscoveredEvent;
+import com.bttendance.event.bluetooth.BTEnabledEvent;
 import com.bttendance.event.BTEventDispatcher;
-import com.bttendance.event.ShowEnableGPSDialogEvent;
+import com.bttendance.event.fragment.ShowEnableGPSDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.GPSTracker;
@@ -39,12 +36,9 @@ import com.bttendance.model.BTNotification;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.service.BTAPI;
 import com.bttendance.service.BTService;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -161,16 +155,11 @@ public class BTActivity extends SherlockFragmentActivity {
     public Intent getNextIntent() {
         UserJson user = BTPreference.getUser(this);
         Intent intent;
-        if (user == null || user.username == null || user.password == null || user.type == null) {
+        if (user == null || user.username == null || user.password == null) {
             BTPreference.clearUser(this);
             intent = new Intent(this, CatchPointActivity.class);
-        } else if (BTAPI.PROFESSOR.equals(user.type)) {
-            intent = new Intent(this, ProfessorActivity.class);
-        } else if (BTAPI.STUDENT.equals(user.type)) {
-            intent = new Intent(this, StudentActivity.class);
         } else {
-            BTPreference.clearUser(this);
-            intent = new Intent(this, CatchPointActivity.class);
+            intent = new Intent(this, MainActivity.class);
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -178,7 +167,7 @@ public class BTActivity extends SherlockFragmentActivity {
     }
 
     private void checkPlayServices() {
-        if (!(this instanceof ProfessorActivity || this instanceof StudentActivity))
+        if (!(this instanceof MainActivity))
             return;
 
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
@@ -242,8 +231,7 @@ public class BTActivity extends SherlockFragmentActivity {
     }
 
     private void showGPSDialog() {
-        if ((this instanceof StudentActivity || this instanceof ProfessorActivity)
-                && !GPSTracker.isGpsEnable(this))
+        if (this instanceof MainActivity && !GPSTracker.isGpsEnable(this))
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

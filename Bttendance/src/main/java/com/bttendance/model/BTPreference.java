@@ -54,17 +54,6 @@ public class BTPreference {
         }
     }
 
-    public static BTKey.Type getUserType(Context ctx) {
-        UserJson user = getUser(ctx);
-        if (user == null)
-            return BTKey.Type.NULL;
-        if (BTAPI.PROFESSOR.equals(user.type))
-            return BTKey.Type.PROFESSOR;
-        else if (BTAPI.STUDENT.equals(user.type))
-            return BTKey.Type.STUDENT;
-        return BTKey.Type.NULL;
-    }
-
     public static int getUserId(Context ctx) {
         UserJson user = getUser(ctx);
         if (user == null)

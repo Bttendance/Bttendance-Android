@@ -22,4 +22,10 @@ public class SchoolCursor extends MatrixCursor {
         for (int i = table.size() - 1; i >= 0; i--)
             addRow(new Object[]{table.keyAt(i)});
     }
+
+    public SchoolCursor(SparseArray<SchoolJson> table) {
+        super(COLUMNS);
+        for (int i = table.size() - 1; i >= 0; i--)
+            addRow(new Object[]{table.keyAt(i)});
+    }
 }

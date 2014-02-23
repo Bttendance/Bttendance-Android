@@ -9,15 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bttendance.R;
-import com.bttendance.event.AttdStartedEvent;
-import com.bttendance.helper.DateHelper;
-import com.bttendance.helper.IntArrayHelper;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
-import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
-import com.bttendance.view.Bttendance;
-import com.squareup.otto.BTEventBus;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..

@@ -3,12 +3,7 @@ package com.bttendance.activity.sign;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ForegroundColorSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +14,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.model.BTKey;
-import com.bttendance.model.json.ValidationJson;
-import com.bttendance.service.BTUrl;
+import com.bttendance.model.json.SchoolJson;
 import com.bttendance.view.BeautiToast;
 
 import retrofit.Callback;
@@ -100,17 +94,17 @@ public class ProfessorSerial extends BTActivity {
             }
         });
 
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        String forgot_password = getString(R.string.request_serial);
-        String forgot_password_html = "<a href=\"" + BTUrl.REQUEST_SERIAL + "\">"
-                + forgot_password + "</a>";
-        SpannableString SpannableHTML = new SpannableString(Html.fromHtml(forgot_password_html));
-        SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, forgot_password.length(), 0);
-        builder.append(SpannableHTML);
+//        SpannableStringBuilder builder = new SpannableStringBuilder();
+//        String forgot_password = getString(R.string.request_serial);
+//        String forgot_password_html = "<a href=\"" + BTUrl.REQUEST_SERIAL + "\">"
+//                + forgot_password + "</a>";
+//        SpannableString SpannableHTML = new SpannableString(Html.fromHtml(forgot_password_html));
+//        SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, forgot_password.length(), 0);
+//        builder.append(SpannableHTML);
 
-        mReqSerial = (TextView) findViewById(R.id.req_serial);
-        mReqSerial.setText(builder, TextView.BufferType.SPANNABLE);
-        mReqSerial.setMovementMethod(LinkMovementMethod.getInstance());
+//        mReqSerial = (TextView) findViewById(R.id.req_serial);
+//        mReqSerial.setText(builder, TextView.BufferType.SPANNABLE);
+//        mReqSerial.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public void isEnableSignIn() {
@@ -129,15 +123,15 @@ public class ProfessorSerial extends BTActivity {
             return;
 
         String serial = mSerial.getText().toString();
-        getBTService().serialValidate(serial, new Callback<ValidationJson>() {
+        getBTService().serialValidate(serial, new Callback<SchoolJson>() {
             @Override
-            public void success(ValidationJson validation, Response response) {
-                if (validation != null && validation.validate) {
+            public void success(SchoolJson school, Response response) {
+                if (school != null) {
                     BeautiToast.show(getApplicationContext(), getString(R.string.validated));
-                    Intent intent = new Intent(ProfessorSerial.this, SignUpActivity.class);
-                    intent.putExtra(BTKey.EXTRA_TYPE, BTKey.Type.PROFESSOR);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
+//                    Intent intent = new Intent(ProfessorSerial.this, SignUpActivity.class);
+//                    intent.putExtra(BTKey.EXTRA_TYPE, BTKey.Type.PROFESSOR);
+//                    startActivity(intent);
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
                 } else
                     BeautiToast.show(getApplicationContext(), getString(R.string.wrong_serial));
             }

@@ -1,7 +1,6 @@
 package com.bttendance.fragment;
 
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +12,12 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.MySchoolsUpdateEvent;
-import com.bttendance.model.BTTable;
-import com.bttendance.model.json.SchoolJson;
+import com.bttendance.event.update.MySchoolsUpdateEvent;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -66,15 +59,15 @@ public class JoinSchoolFragment extends BTFragment {
             return;
 
         ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
-        SparseArray<SchoolJson> joinableSchools = BTTable.getSchools(BTTable.FILTER_JOINABLE_SCHOOL);
-        SparseArray<SchoolJson> mySchools = BTTable.getSchools(BTTable.FILTER_MY_SCHOOL);
-        for (int i = 0; i < joinableSchools.size(); i++) {
-            SchoolJson school = joinableSchools.valueAt(i);
-            boolean joined = mySchools.get(school.id) != null;
-            String title = school.name;
-            String message = school.website;
-            items.add(new BTListAdapter.Item(false, joined, title, message, school, -1));
-        }
+//        SparseArray<SchoolJson> joinableSchools = BTTable.getSchools(BTTable.FILTER_JOINABLE_SCHOOL);
+//        SparseArray<SchoolJson> mySchools = BTTable.getSchools(BTTable.FILTER_MY_SCHOOL);
+//        for (int i = 0; i < joinableSchools.size(); i++) {
+//            SchoolJson school = joinableSchools.valueAt(i);
+//            boolean joined = mySchools.get(school.id) != null;
+//            String title = school.name;
+//            String message = school.website;
+//            items.add(new BTListAdapter.Item(false, joined, title, message, school, -1));
+//        }
         Collections.sort(items, new Comparator<BTListAdapter.Item>() {
             @Override
             public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
@@ -88,16 +81,16 @@ public class JoinSchoolFragment extends BTFragment {
     @Override
     public void onServieConnected() {
         super.onServieConnected();
-        getBTService().joinableSchools(new Callback<SchoolJson[]>() {
-            @Override
-            public void success(SchoolJson[] schoolJsons, Response response) {
-                swapItems();
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-            }
-        });
+//        getBTService().joinableSchools(new Callback<SchoolJson[]>() {
+//            @Override
+//            public void success(SchoolJson[] schoolJsons, Response response) {
+//                swapItems();
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//            }
+//        });
     }
 
     @Override

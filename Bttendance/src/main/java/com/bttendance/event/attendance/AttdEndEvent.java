@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.attendance;
 
 /**
  * Attendance time has been ended by Bttendance animation duration 5min

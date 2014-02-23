@@ -4,8 +4,8 @@ import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.GradeJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
+import com.bttendance.model.json.SerialJson;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.model.json.ValidationJson;
 
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -19,8 +19,6 @@ import retrofit.http.Query;
  */
 public interface BTAPI {
 
-    public static String PROFESSOR = "professor";
-    public static String STUDENT = "student";
     public static String ANDROID = "android";
 
     @GET("/user/signin")
@@ -29,6 +27,16 @@ public interface BTAPI {
                 @Query("device_uuid") String uuid,
                 Callback<UserJson> cb);
 
+    @GET("/user/auto/signin")
+    void autoSignin(@Query("username") String username,
+                    @Query("password") String password,
+                    @Query("device_uuid") String uuid,
+                    Callback<UserJson> cb);
+
+    @PUT("/user/forgot/password")
+    void forgotPassword(@Query("email") String email,
+                        Callback<UserJson> cb);
+
     @POST("/user/signup")
     void signup(@Query("username") String username,
                 @Query("full_name") String fullName,
@@ -36,7 +44,6 @@ public interface BTAPI {
                 @Query("password") String password,
                 @Query("device_type") String deviceType,
                 @Query("device_uuid") String deviceUUID,
-                @Query("type") String type,
                 Callback<UserJson> cb);
 
     @PUT("/user/update/notification_key")
@@ -67,48 +74,50 @@ public interface BTAPI {
                         @Query("full_name") String fullName,
                         Callback<UserJson> cb);
 
-    @PUT("/user/join/school")
-    void joinSchool(@Query("username") String username,
-                    @Query("password") String password,
-                    @Query("school_id") int schoolID,
-                    Callback<UserJson> cb);
-
-    @PUT("/user/join/course")
-    void joinCourse(@Query("username") String username,
-                    @Query("password") String password,
-                    @Query("course_id") int courseID,
-                    Callback<UserJson> cb);
-
-    @GET("/user/schools")
-    void schools(@Query("username") String username,
-                 @Query("password") String password,
-                 Callback<SchoolJson[]> cb);
-
-    @GET("/user/courses")
-    void courses(@Query("username") String username,
-                 @Query("password") String password,
-                 Callback<CourseJson[]> cb);
-
-    @GET("/user/joinable/courses")
-    void joinableCourses(@Query("username") String username,
-                         @Query("password") String password,
-                         Callback<CourseJson[]> cb);
-
     @GET("/user/feed")
     void feed(@Query("username") String username,
               @Query("password") String password,
               @Query("page") int page,
               Callback<PostJson[]> cb);
 
-    @GET("/school")
-    void joinableSchools(Callback<SchoolJson[]> cb);
+    @GET("/user/courses")
+    void courses(@Query("username") String username,
+                 @Query("password") String password,
+                 Callback<CourseJson[]> cb);
 
-    @POST("/school/create")
-    void schoolCreate(@Query("username") String username,
+    @GET("/user/schools")
+    void schools(@Query("username") String username,
+                 @Query("password") String password,
+                 Callback<SchoolJson[]> cb);
+
+    @PUT("/user/attend/course")
+    void attendCourse(@Query("username") String username,
                       @Query("password") String password,
-                      @Query("name") String name,
-                      @Query("website") String website,
-                      Callback<SchoolJson> cb);
+                      @Query("course_id") int courseID,
+                      Callback<UserJson> cb);
+
+    @PUT("/user/employ/school")
+    void employSchool(@Query("username") String username,
+                      @Query("password") String password,
+                      @Query("school_id") int schoolID,
+                      Callback<UserJson> cb);
+
+    @PUT("/user/enroll/school")
+    void enrollSchool(@Query("username") String username,
+                      @Query("password") String password,
+                      @Query("school_id") int schoolID,
+                      Callback<UserJson> cb);
+
+    @GET("/school/all")
+    void allSchools(@Query("username") String username,
+                    @Query("password") String password,
+                    Callback<SchoolJson[]> cb);
+
+    @GET("/school/courses")
+    void schoolCourses(@Query("username") String username,
+                       @Query("password") String password,
+                       @Query("school_id") int schoolID,
+                       Callback<CourseJson[]> cb);
 
     @POST("/course/create")
     void courseCreate(@Query("username") String username,
@@ -116,6 +125,7 @@ public interface BTAPI {
                       @Query("name") String name,
                       @Query("number") String number,
                       @Query("school_id") int schoolID,
+                      @Query("professor_name") String profName,
                       Callback<CourseJson> cb);
 
     @GET("/course/feed")
@@ -133,12 +143,14 @@ public interface BTAPI {
 
     @POST("/course/grades")
     void courseGrades(@Query("username") String username,
-                        @Query("password") String password,
-                        @Query("course_id") int courseID,
-                        Callback<GradeJson[]> cb);
+                      @Query("password") String password,
+                      @Query("course_id") int courseID,
+                      Callback<GradeJson[]> cb);
 
     @GET("/post/{id}")
-    void post(@Path("id") int postId,
+    void post(@Query("username") String username,
+              @Query("password") String password,
+              @Path("id") int postId,
               Callback<PostJson> cb);
 
     @POST("/post/create")
@@ -163,14 +175,6 @@ public interface BTAPI {
                                    @Query("uuid") String uuid,
                                    Callback<PostJson> cb);
 
-    @PUT("/post/attendance/current/location")
-    void postAttendanceCurrentLocation(@Query("username") String username,
-                                       @Query("password") String password,
-                                       @Query("post_id") int postID,
-                                       @Query("latitude") String latitude,
-                                       @Query("longitude") String longitude,
-                                       Callback<PostJson> cb);
-
     @PUT("/post/attendance/check/manually")
     void postAttendanceCheckManually(@Query("username") String username,
                                      @Query("password") String password,
@@ -178,15 +182,19 @@ public interface BTAPI {
                                      @Query("user_id") int userId,
                                      Callback<PostJson> cb);
 
-    @PUT("/post/create/notice")
+    @POST("/post/create/notice")
     void postCreateNotice(@Query("username") String username,
-                                     @Query("password") String password,
-                                     @Query("course_id") int courseID,
-                                     @Query("message") String message,
-                                     Callback<PostJson> cb);
+                          @Query("password") String password,
+                          @Query("course_id") int courseID,
+                          @Query("message") String message,
+                          Callback<PostJson> cb);
 
     @GET("/serial/validate")
     void serialValidate(@Query("serial") String serial,
-                        Callback<ValidationJson> cb);
+                        Callback<SchoolJson> cb);
+
+    @POST("/serial/request")
+    void serialRequest(@Query("email") String email,
+                       Callback<SerialJson> cb);
 
 }

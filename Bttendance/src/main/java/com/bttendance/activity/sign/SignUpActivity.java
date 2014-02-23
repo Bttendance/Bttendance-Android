@@ -19,12 +19,14 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
+import com.bttendance.event.dialog.ShowEnableBluetoothDialog;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTAPI;
 import com.bttendance.service.BTUrl;
 import com.bttendance.view.BeautiToast;
+import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -50,7 +52,6 @@ public class SignUpActivity extends BTActivity {
     private String mUsernameString = null;
     private String mEmailString = null;
     private String mPasswordString = null;
-    private BTKey.Type mType = BTKey.Type.NULL;
 
     private void typeError() {
         BeautiToast.show(this, getString(R.string.user_type_error_occurred));
@@ -61,24 +62,7 @@ public class SignUpActivity extends BTActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        if (getIntent() != null)
-            mType = (BTKey.Type) getIntent().getSerializableExtra(BTKey.EXTRA_TYPE);
-
-        if (mType == null)
-            typeError();
-
-        switch (mType) {
-            case PROFESSOR:
-                getSupportActionBar().setTitle(getString(R.string.sign_up) + " - " + getString(R.string.professor));
-                break;
-            case STUDENT:
-                getSupportActionBar().setTitle(getString(R.string.sign_up) + " - " + getString(R.string.student));
-                break;
-            default:
-                typeError();
-                break;
-        }
+        getSupportActionBar().setTitle(getString(R.string.sign_up));
 
         mFullName = (EditText) findViewById(R.id.full_name);
         mUsername = (EditText) findViewById(R.id.username);
@@ -216,7 +200,11 @@ public class SignUpActivity extends BTActivity {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_cyan));
                     v.setPressed(false);
-                    trySignUp();
+                    if (BluetoothHelper.getMacAddress() == null) {
+                        BTEventBus.getInstance().post(new ShowEnableBluetoothDialog());
+                    } else {
+                        trySignUp();
+                    }
                 }
                 if (event.getX() < 0
                         || event.getX() > v.getWidth()
@@ -236,12 +224,22 @@ public class SignUpActivity extends BTActivity {
         SpannableString SpannableFormat = new SpannableString(string_format);
         builder.append(SpannableFormat);
 
-        String term_and_condition = getString(R.string.terms_and_conditions);
+        String term_and_condition = getString(R.string.terms_of_service);
         String term_and_condition_html = "<a href=\"" + BTUrl.TERMS + "\">"
                 + term_and_condition + "</a>";
-        SpannableString SpannableHTML = new SpannableString(Html.fromHtml(term_and_condition_html));
-        SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, term_and_condition.length(), 0);
-        builder.append(SpannableHTML);
+        SpannableString SpannableTermHTML = new SpannableString(Html.fromHtml(term_and_condition_html));
+        SpannableTermHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, term_and_condition.length(), 0);
+        builder.append(SpannableTermHTML);
+
+        SpannableString SpannableAnd = new SpannableString(" and ");
+        builder.append(SpannableAnd);
+
+        String privacy_policy = getString(R.string.privacy_policy);
+        String privacy_policy_html = "<a href=\"" + BTUrl.POLICY + "\">"
+                + privacy_policy + "</a>";
+        SpannableString SpannablePrivacyHTML = new SpannableString(Html.fromHtml(privacy_policy_html));
+        SpannablePrivacyHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, privacy_policy.length(), 0);
+        builder.append(SpannablePrivacyHTML);
 
         SpannableString SpannableComma = new SpannableString(".");
         builder.append(SpannableComma);
@@ -307,20 +305,7 @@ public class SignUpActivity extends BTActivity {
         user.email = email;
         user.password = password;
         user.device_type = BTAPI.ANDROID;
-        BTDebug.LogInfo("UUID : " + BluetoothHelper.getMacAddress());
         user.device_uuid = BluetoothHelper.getMacAddress();
-
-        switch (mType) {
-            case PROFESSOR:
-                user.type = BTAPI.PROFESSOR;
-                break;
-            case STUDENT:
-                user.type = BTAPI.STUDENT;
-                break;
-            default:
-                typeError();
-                return;
-        }
 
         getBTService().signup(user, new Callback<UserJson>() {
             @Override

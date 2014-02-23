@@ -1,13 +1,13 @@
-package com.bttendance.event;
+package com.bttendance.event.fragment;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 10..
  */
-public class ShowGradeEvent {
+public class ShowCreateNoticeEvent {
 
     private int mCourseId;
 
-    public ShowGradeEvent(int courseId) {
+    public ShowCreateNoticeEvent(int courseId) {
         mCourseId = courseId;
     }
 

@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.update;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 21..

@@ -10,13 +10,10 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.adapter.ProfileAdapter;
-import com.bttendance.event.AttdCheckedEvent;
-import com.bttendance.event.AttdEndEvent;
-import com.bttendance.event.AttdStartedEvent;
-import com.bttendance.event.JoinSchoolEvent;
+import com.bttendance.event.fragment.ShowJoinSchoolEvent;
 import com.bttendance.event.LoadingEvent;
-import com.bttendance.event.ProfileUpdateEvent;
-import com.bttendance.event.UpdateProfileEvent;
+import com.bttendance.event.fragment.ShowUpdateProfileEvent;
+import com.bttendance.event.update.ProfileUpdateEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
@@ -56,7 +53,7 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
         footer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BTEventBus.getInstance().post(new JoinSchoolEvent());
+                BTEventBus.getInstance().post(new ShowJoinSchoolEvent());
             }
         });
         mListView.addFooterView(footer);
@@ -126,15 +123,15 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
                 break;
             case R.id.name_edit:
                 TextView name = (TextView) header.findViewById(R.id.name);
-                BTEventBus.getInstance().post(new UpdateProfileEvent(getString(R.string.name),
+                BTEventBus.getInstance().post(new ShowUpdateProfileEvent(getString(R.string.name),
                         name.getText().toString(),
-                        UpdateProfileEvent.Type.NAME));
+                        ShowUpdateProfileEvent.Type.NAME));
                 break;
             case R.id.mail_edit:
                 TextView mail = (TextView) header.findViewById(R.id.mail);
-                BTEventBus.getInstance().post(new UpdateProfileEvent(getString(R.string.mail),
+                BTEventBus.getInstance().post(new ShowUpdateProfileEvent(getString(R.string.mail),
                         mail.getText().toString(),
-                        UpdateProfileEvent.Type.MAIL));
+                        ShowUpdateProfileEvent.Type.MAIL));
                 break;
         }
     }
@@ -145,7 +142,7 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
 
         UserJson user = BTPreference.getUser(getActivity());
         TextView account = (TextView) header.findViewById(R.id.account_type);
-        account.setText(user.type);
+//        account.setText(user.type);
         TextView username = (TextView) header.findViewById(R.id.username);
         username.setText(user.username);
         TextView name = (TextView) header.findViewById(R.id.name);

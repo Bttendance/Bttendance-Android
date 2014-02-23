@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bttendance.R;
-import com.bttendance.event.AttdInProgressEvent;
-import com.bttendance.event.AttdStartEvent;
-import com.bttendance.event.ShowCourseEvent;
+import com.bttendance.event.attendance.AttdInProgressEvent;
+import com.bttendance.event.attendance.AttdStartEvent;
+import com.bttendance.event.fragment.ShowCourseEvent;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
@@ -30,7 +30,7 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.course_item, parent, false);
+        return inflater.inflate(R.layout.course_item, null);
     }
 
     @Override

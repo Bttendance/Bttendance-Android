@@ -23332,7 +23332,7 @@ com.bttendance.activity.SplashActivity -> com.bttendance.activity.SplashActivity
 com.bttendance.activity.SplashActivity$1 -> ald:
     com.bttendance.activity.SplashActivity this$0 -> a
     26:27:void run() -> run
-com.bttendance.activity.StudentActivity -> com.bttendance.activity.StudentActivity:
+com.bttendance.activity.MainActivity -> com.bttendance.activity.MainActivity:
     android.os.Handler mUIHandler -> q
     com.bttendance.adapter.BTPagerAdapter mPagerAdapter -> o
     android.support.v4.view.ViewPager mViewPager -> p
@@ -23345,26 +23345,26 @@ com.bttendance.activity.StudentActivity -> com.bttendance.activity.StudentActivi
     122:127:boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu) -> onCreateOptionsMenu
     132:143:void onBackPressed() -> onBackPressed
     146:158:void tryToFinish() -> b
-    29:29:void access$000(com.bttendance.activity.StudentActivity,int) -> a
-    29:29:void access$100(com.bttendance.activity.StudentActivity,int) -> b
-    29:29:boolean access$202(com.bttendance.activity.StudentActivity,boolean) -> a
-com.bttendance.activity.StudentActivity$1 -> ale:
-    com.bttendance.activity.StudentActivity this$0 -> a
+    29:29:void access$000(com.bttendance.activity.MainActivity,int) -> a
+    29:29:void access$100(com.bttendance.activity.MainActivity,int) -> b
+    29:29:boolean access$202(com.bttendance.activity.MainActivity,boolean) -> a
+com.bttendance.activity.MainActivity$1 -> ale:
+    com.bttendance.activity.MainActivity this$0 -> a
     59:59:void onPageScrolled(int,float,int) -> onPageScrolled
     63:66:void onPageSelected(int) -> onPageSelected
     70:70:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
-com.bttendance.activity.StudentActivity$2 -> alf:
-    com.bttendance.activity.StudentActivity this$0 -> a
+com.bttendance.activity.MainActivity$2 -> alf:
+    com.bttendance.activity.MainActivity this$0 -> a
     99:99:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     103:103:void failure(retrofit.RetrofitError) -> failure
     96:96:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.activity.StudentActivity$3 -> alg:
-    com.bttendance.activity.StudentActivity this$0 -> a
+com.bttendance.activity.MainActivity$3 -> alg:
+    com.bttendance.activity.MainActivity this$0 -> a
     110:112:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
     116:116:void failure(retrofit.RetrofitError) -> failure
     107:107:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.activity.StudentActivity$4 -> alh:
-    com.bttendance.activity.StudentActivity this$0 -> a
+com.bttendance.activity.MainActivity$4 -> alh:
+    com.bttendance.activity.MainActivity this$0 -> a
     154:155:void run() -> run
 com.bttendance.activity.sign.CatchPointActivity -> com.bttendance.activity.sign.CatchPointActivity:
     android.widget.Button mSignUp -> o
@@ -23700,45 +23700,45 @@ com.bttendance.adapter.FeedAdapter -> com.bttendance.adapter.FeedAdapter:
     38:71:void bindView(android.view.View,android.content.Context,android.database.Cursor) -> bindView
     75:80:long getItemId(int) -> getItemId
     85:94:void onClick(android.view.View) -> onClick
-com.bttendance.event.AddCourseEvent -> com.bttendance.event.AddCourseEvent:
-com.bttendance.event.AttdCheckedEvent -> com.bttendance.event.AttdCheckedEvent:
+com.bttendance.event.fragment.ShowAddCourseEvent -> com.bttendance.event.fragment.ShowAddCourseEvent:
+com.bttendance.event.attendance.AttdCheckedEvent -> com.bttendance.event.attendance.AttdCheckedEvent:
     java.lang.String mTitle -> a
     18:18:java.lang.String getTitle() -> getTitle
-com.bttendance.event.AttdCheckedManuallyEvent -> com.bttendance.event.AttdCheckedManuallyEvent:
-com.bttendance.event.AttdEndEvent -> com.bttendance.event.AttdEndEvent:
-com.bttendance.event.AttdInProgressEvent -> com.bttendance.event.AttdInProgressEvent:
-com.bttendance.event.AttdStartEvent -> com.bttendance.event.AttdStartEvent:
+com.bttendance.event.attendance.AttdCheckedManuallyEvent -> com.bttendance.event.attendance.AttdCheckedManuallyEvent:
+com.bttendance.event.attendance.AttdEndEvent -> com.bttendance.event.attendance.AttdEndEvent:
+com.bttendance.event.attendance.AttdInProgressEvent -> com.bttendance.event.attendance.AttdInProgressEvent:
+com.bttendance.event.attendance.AttdStartEvent -> com.bttendance.event.attendance.AttdStartEvent:
     int mCourseId -> a
     17:17:int getCourseId() -> getCourseId
-com.bttendance.event.AttdStartedEvent -> com.bttendance.event.AttdStartedEvent:
+com.bttendance.event.attendance.AttdStartedEvent -> com.bttendance.event.attendance.AttdStartedEvent:
     boolean mOnGoingCheck -> a
     18:18:boolean onGoingCheck() -> onGoingCheck
-com.bttendance.event.BTCanceledEvent -> com.bttendance.event.BTCanceledEvent:
-com.bttendance.event.BTDiscoveredEvent -> com.bttendance.event.BTDiscoveredEvent:
+com.bttendance.event.bluetooth.BTCanceledEvent -> com.bttendance.event.bluetooth.BTCanceledEvent:
+com.bttendance.event.bluetooth.BTDiscoveredEvent -> com.bttendance.event.bluetooth.BTDiscoveredEvent:
     java.lang.String mMacAddress -> a
     16:16:java.lang.String getMacAddress() -> getMacAddress
-com.bttendance.event.BTEnabledEvent -> com.bttendance.event.BTEnabledEvent:
+com.bttendance.event.bluetooth.BTEnabledEvent -> com.bttendance.event.bluetooth.BTEnabledEvent:
 com.bttendance.event.BTEventDispatcher -> com.bttendance.event.BTEventDispatcher:
     java.lang.ref.WeakReference mBTActRef -> a
     int mLoading -> b
     49:51:com.bttendance.activity.BTActivity getBTActivity() -> a
-    57:92:void onAttendanceStart(com.bttendance.event.AttdStartEvent) -> onAttendanceStart
-    97:118:void onAttendanceInProgress(com.bttendance.event.AttdInProgressEvent) -> onAttendanceInProgress
-    123:157:void onAttendanceStarted(com.bttendance.event.AttdStartedEvent) -> onAttendanceStarted
-    162:183:void onAttendanceChecked(com.bttendance.event.AttdCheckedEvent) -> onAttendanceChecked
-    187:208:void onBTEnabled(com.bttendance.event.BTEnabledEvent) -> onBTEnabled
-    212:217:void onBTDiscovered(com.bttendance.event.BTDiscoveredEvent) -> onBTDiscovered
-    221:230:void onBTCanceled(com.bttendance.event.BTCanceledEvent) -> onBTCanceled
+    57:92:void onAttendanceStart(com.bttendance.event.attendance.AttdStartEvent) -> onAttendanceStart
+    97:118:void onAttendanceInProgress(com.bttendance.event.attendance.AttdInProgressEvent) -> onAttendanceInProgress
+    123:157:void onAttendanceStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttendanceStarted
+    162:183:void onAttendanceChecked(com.bttendance.event.attendance.AttdCheckedEvent) -> onAttendanceChecked
+    187:208:void onBTEnabled(com.bttendance.event.bluetooth.BTEnabledEvent) -> onBTEnabled
+    212:217:void onBTDiscovered(com.bttendance.event.bluetooth.BTDiscoveredEvent) -> onBTDiscovered
+    221:230:void onBTCanceled(com.bttendance.event.bluetooth.BTCanceledEvent) -> onBTCanceled
     234:252:void onLocationChanged(com.bttendance.event.LocationChangedEvent) -> onLocationChanged
-    256:275:void onShowEnableGPSDialog(com.bttendance.event.ShowEnableGPSDialogEvent) -> onShowEnableGPSDialog
-    279:291:void onAddCourse(com.bttendance.event.AddCourseEvent) -> onAddCourse
-    295:306:void onShowAttdList(com.bttendance.event.ShowPostAttdEvent) -> onShowAttdList
-    310:377:void onPlusClicked(com.bttendance.event.PlusClickedEvent) -> onPlusClicked
+    256:275:void onShowEnableGPSDialog(com.bttendance.event.fragment.ShowEnableGPSDialogEvent) -> onShowEnableGPSDialog
+    279:291:void onAddCourse(com.bttendance.event.fragment.ShowAddCourseEvent) -> onAddCourse
+    295:306:void onShowAttdList(com.bttendance.event.fragment.ShowPostAttdEvent) -> onShowAttdList
+    310:377:void onPlusClicked(com.bttendance.event.button.PlusClickedEvent) -> onPlusClicked
     381:391:void onLoadingEvent(com.bttendance.event.LoadingEvent) -> onLoadingEvent
     394:407:void addFragment(com.bttendance.fragment.BTFragment) -> a
     410:423:void showDialog(com.bttendance.fragment.BTDialogFragment,java.lang.String) -> a
 com.bttendance.event.BTEventDispatcher$1 -> amy:
-    com.bttendance.event.AttdStartEvent val$event -> a
+    com.bttendance.event.attendance.AttdStartEvent val$event -> a
     com.bttendance.activity.BTActivity val$act -> b
     com.bttendance.event.BTEventDispatcher this$0 -> c
     68:84:void onConfirmed() -> onConfirmed
@@ -23775,7 +23775,7 @@ com.bttendance.event.BTEventDispatcher$6 -> ane:
 com.bttendance.event.BTEventDispatcher$7 -> anf:
     com.bttendance.model.json.BTJson val$json -> a
     com.bttendance.activity.BTActivity val$act -> b
-    com.bttendance.event.PlusClickedEvent val$event -> c
+    com.bttendance.event.button.PlusClickedEvent val$event -> c
     com.bttendance.event.BTEventDispatcher this$0 -> d
     340:369:void onConfirmed() -> onConfirmed
     374:374:void onCanceled() -> onCanceled
@@ -23798,16 +23798,16 @@ com.bttendance.event.LoadingEvent -> com.bttendance.event.LoadingEvent:
 com.bttendance.event.LocationChangedEvent -> com.bttendance.event.LocationChangedEvent:
     android.location.Location mLocation -> a
     17:17:android.location.Location getLocation() -> getLocation
-com.bttendance.event.MyCoursesUpdateEvent -> com.bttendance.event.MyCoursesUpdateEvent:
-com.bttendance.event.PlusClickedEvent -> com.bttendance.event.PlusClickedEvent:
+com.bttendance.event.update.MyCoursesUpdateEvent -> com.bttendance.event.update.MyCoursesUpdateEvent:
+com.bttendance.event.button.PlusClickedEvent -> com.bttendance.event.button.PlusClickedEvent:
     com.bttendance.model.json.BTJson mJson -> a
     int mId -> b
     19:19:com.bttendance.model.json.BTJson getJson() -> getJson
     23:23:int getId() -> getId
-com.bttendance.event.ShowPostAttdEvent -> com.bttendance.event.ShowPostAttdEvent:
+com.bttendance.event.fragment.ShowPostAttdEvent -> com.bttendance.event.fragment.ShowPostAttdEvent:
     int mCourseId -> a
     15:15:int getCourseId() -> getCourseId
-com.bttendance.event.ShowEnableGPSDialogEvent -> com.bttendance.event.ShowEnableGPSDialogEvent:
+com.bttendance.event.fragment.ShowEnableGPSDialogEvent -> com.bttendance.event.fragment.ShowEnableGPSDialogEvent:
 com.bttendance.fragment.PostAttendanceFragment -> com.bttendance.fragment.PostAttendanceFragment:
     com.bttendance.adapter.BTListAdapter mAdapter -> a
     android.widget.ListView mListView -> b
@@ -23817,7 +23817,7 @@ com.bttendance.fragment.PostAttendanceFragment -> com.bttendance.fragment.PostAt
     48:50:void onCreate(android.os.Bundle) -> onCreate
     54:59:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     64:66:void onFragmentResume() -> onFragmentResume
-    70:72:void onAttdCheckedManually(com.bttendance.event.AttdCheckedManuallyEvent) -> onAttdCheckedManually
+    70:72:void onAttdCheckedManually(com.bttendance.event.attendance.AttdCheckedManuallyEvent) -> onAttdCheckedManually
     76:102:void requestCall() -> l
     105:123:void swapItems() -> m
     127:129:void onServieConnected() -> onServieConnected
@@ -23881,8 +23881,8 @@ com.bttendance.fragment.CourseListFragment -> com.bttendance.fragment.CourseList
     88:90:void onFragmentResume() -> onFragmentResume
     94:95:void onAttach(android.app.Activity) -> onAttach
     99:100:void onDetach() -> onDetach
-    104:105:void onAttdStarted(com.bttendance.event.AttdStartedEvent) -> onAttdStarted
-    109:110:void onAttdEndEvent(com.bttendance.event.AttdEndEvent) -> onAttdEndEvent
+    104:105:void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttdStarted
+    109:110:void onAttdEndEvent(com.bttendance.event.attendance.AttdEndEvent) -> onAttdEndEvent
     113:121:void swapCursor() -> l
 com.bttendance.fragment.CourseListFragment$1 -> ann:
     com.bttendance.fragment.CourseListFragment this$0 -> a
@@ -23965,10 +23965,10 @@ com.bttendance.fragment.FeedFragment -> com.bttendance.fragment.FeedFragment:
     36:44:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     49:51:void onServieConnected() -> onServieConnected
     54:70:void getFeed() -> getFeed
-    74:75:void onAttdStarted(com.bttendance.event.AttdStartedEvent) -> onAttdStarted
-    79:80:void onAttdChecked(com.bttendance.event.AttdCheckedEvent) -> onAttdChecked
+    74:75:void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttdStarted
+    79:80:void onAttdChecked(com.bttendance.event.attendance.AttdCheckedEvent) -> onAttdChecked
     84:86:void onFragmentResume() -> onFragmentResume
-    90:91:void onAttdEnd(com.bttendance.event.AttdEndEvent) -> onAttdEnd
+    90:91:void onAttdEnd(com.bttendance.event.attendance.AttdEndEvent) -> onAttdEnd
     94:102:void swapCursor() -> l
 com.bttendance.fragment.FeedFragment$1 -> any:
     com.bttendance.fragment.FeedFragment this$0 -> a
@@ -23984,7 +23984,7 @@ com.bttendance.fragment.JoinCourseFragment -> com.bttendance.fragment.JoinCourse
     39:41:void onCreate(android.os.Bundle) -> onCreate
     45:50:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     55:57:void onFragmentResume() -> onFragmentResume
-    61:62:void onMyCourseUpdate(com.bttendance.event.MyCoursesUpdateEvent) -> onMyCourseUpdate
+    61:62:void onMyCourseUpdate(com.bttendance.event.update.MyCoursesUpdateEvent) -> onMyCourseUpdate
     65:86:void swapItems() -> l
     90:101:void onServieConnected() -> onServieConnected
     105:109:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu

@@ -12,25 +12,24 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
+import com.bttendance.activity.MainActivity;
+import com.bttendance.model.json.UserJson;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 import com.squareup.otto.BTEventBus;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
-import com.bttendance.activity.ProfessorActivity;
-import com.bttendance.activity.StudentActivity;
 import com.bttendance.activity.sign.CatchPointActivity;
-import com.bttendance.event.AttdCheckedEvent;
-import com.bttendance.event.AttdStartedEvent;
-import com.bttendance.model.BTKey;
+import com.bttendance.event.attendance.AttdCheckedEvent;
+import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
 
 /**
- * Created by TheFinestArtist on 2013. 12. 4..
- */
+* Created by TheFinestArtist on 2013. 12. 4..
+*/
 public class GcmIntentService extends IntentService {
     private static final int NOTIFICATION_ID = 1;
     private static final String TITLE = "title";
@@ -130,17 +129,13 @@ public class GcmIntentService extends IntentService {
             builder.setSmallIcon(R.drawable.ic_status_bar_icon);
         }
 
-        BTKey.Type type = BTPreference.getUserType(getApplicationContext());
+        UserJson user = BTPreference.getUser(this);
         PendingIntent pending;
-        switch (type) {
-            case PROFESSOR:
-                pending = PendingIntent.getActivity(this, 0, new Intent(this, ProfessorActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-                break;
-            case STUDENT:
-                pending = PendingIntent.getActivity(this, 0, new Intent(this, StudentActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-                break;
-            default:
-                pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        if (user == null || user.username == null || user.password == null) {
+            BTPreference.clearUser(this);
+            pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            pending = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
         builder.setContentIntent(pending);

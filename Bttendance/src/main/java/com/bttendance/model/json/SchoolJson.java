@@ -9,6 +9,8 @@ public class SchoolJson extends BTJson {
     public String logo_image;
     public String website;
     public int[] courses;
-    public int creator;
+    public int[] professors;
+    public int[] students;
+    public int[] serials;
 
 }

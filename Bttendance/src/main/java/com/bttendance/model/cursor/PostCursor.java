@@ -21,4 +21,10 @@ public class PostCursor extends MatrixCursor {
         for (int i = table.size() - 1; i >= 0; i--)
             addRow(new Object[]{table.keyAt(i)});
     }
+
+    public PostCursor(SparseArray<PostJson> table) {
+        super(COLUMNS);
+        for (int i = table.size() - 1; i >= 0; i--)
+            addRow(new Object[]{table.keyAt(i)});
+    }
 }

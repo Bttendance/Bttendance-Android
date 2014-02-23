@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.bttendance.event.fragment.ShowAddCourseEvent;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 import com.bttendance.R;
 import com.bttendance.adapter.CourseListAdapter;
-import com.bttendance.event.AddCourseEvent;
-import com.bttendance.event.AttdEndEvent;
-import com.bttendance.event.AttdStartedEvent;
+import com.bttendance.event.attendance.AttdEndEvent;
+import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.LoadingEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTTable;
@@ -46,7 +46,7 @@ public class CourseListFragment extends BTFragment {
         footer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BTEventBus.getInstance().post(new AddCourseEvent());
+                BTEventBus.getInstance().post(new ShowAddCourseEvent());
             }
         });
         mListView.addFooterView(footer);

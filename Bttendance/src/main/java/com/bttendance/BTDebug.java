@@ -7,6 +7,7 @@ import android.widget.Toast;
 public class BTDebug {
 
     public static final boolean DEBUG = true;
+    public static final boolean GOOGLE_TOAST = true;
     public static final String TAG = "Bttendance";
     public static final String TAG_API = "API";
 
@@ -28,6 +29,14 @@ public class BTDebug {
                 Log.d(TAG, log);
             else
                 Log.d(TAG, "Log is null");
+    }
+
+    public static void LogDebug(String tag, String log) {
+        if (DEBUG)
+            if (log != null)
+                Log.d(tag, log);
+            else
+                Log.d(tag, "Log is null");
     }
 
     public static void LogInfo(String log) {

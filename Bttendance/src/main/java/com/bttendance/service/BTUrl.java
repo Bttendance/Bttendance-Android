@@ -5,6 +5,6 @@ package com.bttendance.service;
  */
 public class BTUrl {
     public final static String TERMS = "http://www.bttendance.com/terms";
-    public final static String FORGOT_PASSWORD = "http://www.bttendance.com/user/password/forgot";
-    public final static String REQUEST_SERIAL = "http://www.bttendance.com/serial/request";
+    public final static String POLICY = "http://www.bttendance.com/policy";
+    public final static String PARTNERSHIP = "http://www.bttendance.com/contact";
 }

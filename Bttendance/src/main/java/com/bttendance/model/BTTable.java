@@ -3,6 +3,7 @@ package com.bttendance.model;
 import android.util.SparseArray;
 
 import com.bttendance.helper.DateHelper;
+import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
@@ -18,16 +19,9 @@ import java.util.Set;
  */
 public class BTTable {
 
-    public static String FILTER_MY_COURSE = "my_course";
-    public static String FILTER_JOINABLE_COURSE = "joinable_course";
     public static String FILTER_MY_SCHOOL = "my_school";
-    public static String FILTER_JOINABLE_SCHOOL = "joinable_school";
+    public static String FILTER_MY_COURSE = "my_course";
     public static String FILTER_MY_POST = "my_post";
-    private static String FILTER_COURSE = "course_";
-
-    public static String getCourseIdFilter(int course_id) {
-        return FILTER_COURSE + course_id;
-    }
 
     // key: post_id, value: post
     public static SparseArray<UserJson> UserTable = new SparseArray<UserJson>();
@@ -37,13 +31,13 @@ public class BTTable {
     public static SparseArray<CourseJson> CourseTable = new SparseArray<CourseJson>();
     // key: post_id, value: post
     public static SparseArray<PostJson> PostTable = new SparseArray<PostJson>();
-    // key: "course_id"
+    // filter: none
     private static HashMap<String, SparseArray<UserJson>> mUser = new HashMap<String, SparseArray<UserJson>>();
-    // filter: "my_course", "joinable_course"
+    // filter: my_course
     private static HashMap<String, SparseArray<CourseJson>> mCourse = new HashMap<String, SparseArray<CourseJson>>();
-    // filter: "total_post", "course_id"
+    // filter: my_post
     private static HashMap<String, SparseArray<PostJson>> mPost = new HashMap<String, SparseArray<PostJson>>();
-    // filter: "my_school"
+    // filter: my_school
     private static HashMap<String, SparseArray<SchoolJson>> mSchool = new HashMap<String, SparseArray<SchoolJson>>();
     // Found UUID list
     private static Set<String> UUIDLIST = new HashSet<String>();
@@ -58,6 +52,14 @@ public class BTTable {
         return users;
     }
 
+    public static synchronized SparseArray<UserJson> getUsersOfCourse(int courseID) {
+        SparseArray<UserJson> users = new SparseArray<UserJson>();
+        for (int i = 0; i < UserTable.size(); i++)
+            if (IntArrayHelper.contains(UserTable.valueAt(i).attending_courses, courseID))
+                users.append(UserTable.keyAt(i), UserTable.valueAt(i));
+        return users;
+    }
+
     public static synchronized SparseArray<CourseJson> getCourses(String filter) {
         SparseArray<CourseJson> courses = mCourse.get(filter);
         if (courses == null) {
@@ -67,12 +69,28 @@ public class BTTable {
         return courses;
     }
 
+    public static synchronized SparseArray<CourseJson> getCoursesOfSchool(int schoolID) {
+        SparseArray<CourseJson> courses = new SparseArray<CourseJson>();
+        for (int i = 0; i < CourseTable.size(); i++)
+            if (CourseTable.keyAt(i) == schoolID)
+                courses.append(CourseTable.keyAt(i), CourseTable.valueAt(i));
+        return courses;
+    }
+
     public static synchronized SparseArray<PostJson> getPosts(String filter) {
         SparseArray<PostJson> posts = mPost.get(filter);
         if (posts == null) {
             posts = new SparseArray<PostJson>();
             mPost.put(filter, posts);
         }
+        return posts;
+    }
+
+    public static synchronized SparseArray<PostJson> getPostsOfCourse(int courseID) {
+        SparseArray<PostJson> posts = new SparseArray<PostJson>();
+        for (int i = 0; i < PostTable.size(); i++)
+            if (PostTable.keyAt(i) == courseID)
+                posts.append(PostTable.keyAt(i), PostTable.valueAt(i));
         return posts;
     }
 

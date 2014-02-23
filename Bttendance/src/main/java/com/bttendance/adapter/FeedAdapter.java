@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.otto.BTEventBus;
 import com.bttendance.R;
-import com.bttendance.event.AttdStartedEvent;
+import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
@@ -30,7 +30,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.feed_item, parent, false);
+        return inflater.inflate(R.layout.feed_item, null);
     }
 
     @Override
@@ -76,6 +76,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         title.setText(post.title);
         message.setText(post.message + "\n" + DateHelper.getBTFormatString(post.createdAt));
     }
+
+
 
     @Override
     public long getItemId(int position) {

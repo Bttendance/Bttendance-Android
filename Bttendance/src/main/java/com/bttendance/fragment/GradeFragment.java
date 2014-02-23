@@ -13,14 +13,10 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.AttdCheckedManuallyEvent;
-import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.GradeJson;
-import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJson;
-import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -68,7 +68,6 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
                 if (mConfrimListener != null)
                     mConfrimListener.onConfirmed();
             case R.id.cancel:
-//                getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
                 getActivity().onBackPressed();
                 break;
         }

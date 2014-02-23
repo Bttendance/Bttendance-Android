@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.fragment;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 10..

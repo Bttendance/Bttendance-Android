@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.attendance;
 
 /**
  * Professor Clicked Bttendance Icon to check attendance

@@ -10,7 +10,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.bttendance.R;
-import com.bttendance.event.PlusClickedEvent;
+import com.bttendance.event.button.PlusClickedEvent;
 import com.bttendance.helper.StringMatcher;
 import com.bttendance.model.json.BTJson;
 import com.bttendance.model.json.GradeJson;

@@ -7,15 +7,16 @@
     <string name="hello_">Hello!</string>
     <string name="welcome_to_bttendance">Welcome to Bttendance</string>
 
-    <string name="username">Username</string>
+    <string name="username">User ID</string>
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
     <string name="password">"Password"</string>
     <string name="password_at_least">"Password (at least 6 characters)"</string>
     <string name="by_tapping_i_agree_to_the">"By tapping \"Sign up\" above, you are agreeing to the "</string>
-    <string name="terms_and_conditions">"terms and conditions"</string>
+    <string name="terms_of_service">"Terms of Service"</string>
+    <string name="privacy_policy">"Privacy Policy"</string>
     <string name="or_e_mail">"or Email"</string>
-    <string name="forgot_password">"Forgot password?"</string>
+    <string name="forgot_password_underline">"<u>Forgot password?</u>"</string>
     <string name="log_in">"Log In"</string>
     <string name="sign_up">"Sign Up"</string>
     <string name="serial">"Enter Serial"</string>
@@ -44,6 +45,8 @@
     <string name="number">"Number"</string>
     <string name="school">"School"</string>
     <string name="create_course">"Create Course"</string>
+    <string name="enter">"Enter"</string>
+    <string name="forgot_password">"Forgot Password"</string>
     <string name="join_course">"Join Course"</string>
     <string name="join_school">"Join School"</string>
     <string name="confrim">"Confirm"</string>
@@ -57,6 +60,10 @@
     <string name="attendance_checking_is_in_progress">"Attendance checking is in progress"</string>
     <string name="turn_on_your_bluetooth_settings">"Turn on your bluetooth settings"</string>
     <string name="do_you_want_to_approve_attendance">Do you want to approve %s\'s Attendance?</string>
+
+    <!--Bluetooth Dialog-->
+    <string name="turn_on_bt_title">"Turn on Bluetooth"</string>
+    <string name="turn_on_bt_message">"Turn on Bluetooth to enhance your \"Bttendance\" experience."</string>
 
     <!--GPS Dialog-->
     <string name="turn_on_gps_title">"Improve location accuracy"</string>
@@ -76,5 +83,8 @@
     <string name="post">Post</string>
     <string name="what_should_they_know">What should they know?</string>
     <string name="to_">To. %s</string>
+    <string name="app_version">0.1</string>
+    <string name="password_has_been_sent">Password has been sent</string>
+    <string name="fail_to_retrieve_password">Fail to retrieve password</string>
 
 </resources>

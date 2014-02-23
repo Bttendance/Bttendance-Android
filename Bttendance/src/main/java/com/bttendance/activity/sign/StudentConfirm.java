@@ -28,7 +28,6 @@ public class StudentConfirm extends BTActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StudentConfirm.this, SignUpActivity.class);
-                intent.putExtra(BTKey.EXTRA_TYPE, BTKey.Type.STUDENT);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
             }

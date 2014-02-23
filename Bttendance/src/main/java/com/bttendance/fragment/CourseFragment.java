@@ -11,23 +11,20 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
-import com.bttendance.event.AttdCheckedEvent;
-import com.bttendance.event.AttdEndEvent;
-import com.bttendance.event.AttdStartedEvent;
+import com.bttendance.event.attendance.AttdCheckedEvent;
+import com.bttendance.event.attendance.AttdEndEvent;
+import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.LoadingEvent;
-import com.bttendance.event.ShowCreateNoticeEvent;
-import com.bttendance.event.ShowGradeEvent;
+import com.bttendance.event.fragment.ShowCreateNoticeEvent;
+import com.bttendance.event.fragment.ShowGradeEvent;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.PostCursor;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.view.Bttendance;
-import com.google.android.gms.internal.br;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
@@ -87,7 +84,7 @@ public class CourseFragment extends BTFragment implements View.OnClickListener {
         getBTService().courseFeed(mCourse.id, 0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
-                mAdapter.swapCursor(new PostCursor(BTTable.getCourseIdFilter(mCourse.id)));
+                mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourse.id)));
                 BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
@@ -133,7 +130,7 @@ public class CourseFragment extends BTFragment implements View.OnClickListener {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mAdapter.swapCursor(new PostCursor(BTTable.getCourseIdFilter(mCourse.id)));
+                    mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourse.id)));
                 }
             });
         }

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bttendance"
     android:versionCode="1"
-    android:versionName="0.1">
+    android:versionName="@string/app_version">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -72,12 +72,6 @@
             android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity
-            android:name="com.bttendance.activity.sign.PersionalizeActivity"
-            android:clearTaskOnLaunch="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock.NoActionBar" />
-
-        <activity
             android:name="com.bttendance.activity.sign.ProfessorSerial"
             android:clearTaskOnLaunch="true"
             android:label="@string/enter_serial"
@@ -92,14 +86,7 @@
             android:theme="@style/Theme.Sherlock.NoActionBar" />
 
         <activity
-            android:name="com.bttendance.activity.ProfessorActivity"
-            android:clearTaskOnLaunch="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance" />
-
-        <activity
-            android:name="com.bttendance.activity.StudentActivity"
+            android:name=".activity.MainActivity"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -118,6 +105,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="933280081941175a775ecfe701fefa562b7f8a01" />
 
     </application>
 

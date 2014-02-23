@@ -14,12 +14,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
+import com.bttendance.event.fragment.ShowForgotPasswordEvent;
 import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTUrl;
+import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -36,7 +43,7 @@ public class SignInActivity extends BTActivity {
     private View mUsernameDiv = null;
     private View mPasswordDiv = null;
     private Button mSignIn = null;
-    private TextView mForgetPwd = null;
+    private Button mForgetPwd = null;
     private int mUsernameCount = 0;
     private int mPasswordCount = 0;
     private String mUsernameString = null;
@@ -134,17 +141,14 @@ public class SignInActivity extends BTActivity {
             }
         });
 
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        String forgot_password = getString(R.string.forgot_password);
-        String forgot_password_html = "<a href=\"" + BTUrl.FORGOT_PASSWORD + "\">"
-                + forgot_password + "</a>";
-        SpannableString SpannableHTML = new SpannableString(Html.fromHtml(forgot_password_html));
-        SpannableHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, forgot_password.length(), 0);
-        builder.append(SpannableHTML);
-
-        mForgetPwd = (TextView) findViewById(R.id.forget_pwd);
-        mForgetPwd.setText(builder, TextView.BufferType.SPANNABLE);
-        mForgetPwd.setMovementMethod(LinkMovementMethod.getInstance());
+        mForgetPwd = (Button) findViewById(R.id.forget_pwd);
+        mForgetPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyboardHelper.hide(SignInActivity.this, mUsername);
+                BTEventBus.getInstance().post(new ShowForgotPasswordEvent());
+            }
+        });
     }
 
     public void isEnableSignIn() {
@@ -196,7 +200,6 @@ public class SignInActivity extends BTActivity {
     @Override
     public void onPause() {
         super.onPause();
-
         mUsernameString = mUsername.getText().toString();
         mPasswordString = mPassword.getText().toString();
     }
@@ -208,6 +211,15 @@ public class SignInActivity extends BTActivity {
                 onBackPressed();
         }
         return (super.onOptionsItemSelected(item));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getString(R.string.log_in));
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        KeyboardHelper.show(this, mUsername);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

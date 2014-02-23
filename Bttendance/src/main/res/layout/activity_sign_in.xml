@@ -1,83 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="25dp" >
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/username_text"
-        style="@style/userInfoText"
-        android:layout_alignParentTop="true"
-        android:text="@string/username"
-        android:singleLine="true" />
-
-    <EditText
-        android:id="@+id/username"
-        style="@style/userInfoEditText"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/username_text"
-        android:layout_marginLeft="8dp"
-        android:hint="@string/or_e_mail"
-        android:inputType="text|textEmailAddress"
-        android:singleLine="true" />
-
-    <View
-        android:id="@+id/username_divider"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/username"
-        android:layout_marginBottom="10dp"
-        android:background="@color/grey_hex_cc" />
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="25dp">
 
-    <TextView
-        android:id="@+id/password_text"
-        style="@style/userInfoText"
-        android:layout_below="@id/username_divider"
-        android:text="@string/password"
-        android:layout_alignRight="@id/username_text"
-        android:layout_alignLeft="@id/username_text"
-        android:singleLine="true" />
+        <TextView
+            android:id="@+id/username_text"
+            style="@style/userInfoText"
+            android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:text="@string/username" />
 
-    <EditText
-        android:id="@+id/password"
-        style="@style/userInfoEditText"
-        android:layout_below="@id/username_divider"
-        android:layout_toRightOf="@id/password_text"
-        android:layout_alignLeft="@id/username"
-        android:inputType="textPassword"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/username"
+            style="@style/userInfoEditText"
+            android:layout_alignLeft="@+id/password"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/username_text"
+            android:hint="@string/or_e_mail"
+            android:inputType="text|textEmailAddress"
+            android:singleLine="true" />
 
-    <View
-        android:id="@+id/password_divider"
+        <View
+            android:id="@+id/username_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/username"
+            android:layout_marginBottom="10dp"
+            android:background="@color/grey_hex_cc" />
+
+        <TextView
+            android:id="@+id/password_text"
+            style="@style/userInfoText"
+            android:layout_below="@id/username_divider"
+            android:singleLine="true"
+            android:text="@string/password" />
+
+        <EditText
+            android:id="@id/password"
+            style="@style/userInfoEditText"
+            android:layout_below="@id/username_divider"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/password_text"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+
+        <View
+            android:id="@+id/password_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/password"
+            android:background="@color/grey_hex_cc" />
+
+        <Button
+            android:id="@+id/signin"
+            style="@style/signInUpButton"
+            android:layout_below="@id/password_divider"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="20dp"
+            android:enabled="false"
+            android:text="@string/log_in" />
+
+        <Button
+            android:id="@+id/forget_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_below="@id/signin"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:linksClickable="true"
+            android:maxLines="3"
+            android:singleLine="false"
+            android:text="@string/forgot_password_underline"
+            android:textColor="@color/bttendance_navy"
+            android:textSize="13sp"
+            android:textStyle="normal" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/password"
-        android:background="@color/grey_hex_cc" />
-
-    <Button
-        android:id="@+id/signin"
-        style="@style/signInUpButton"
-        android:layout_below="@id/password_divider"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:enabled="false"
-        android:text="@string/log_in" />
-
-    <TextView
-        android:id="@+id/forget_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:layout_below="@id/signin"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:linksClickable="true"
-        android:maxLines="3"
-        android:singleLine="false"
-        android:textColor="@color/grey_hex_99"
-        android:textSize="11dp"
-        android:textStyle="normal" />
-
+        android:layout_height="match_parent" />
 </RelativeLayout>

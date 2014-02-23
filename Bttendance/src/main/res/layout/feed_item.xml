@@ -14,8 +14,15 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bt_list_item_background"
-        android:minHeight="88dp" />
+        android:minHeight="88dp"
+        android:background="@drawable/bt_list_item_background" />
+
+    <View
+        android:id="@+id/item_selector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="88dp"
+        android:background="@drawable/bt_list_item_selector" />
 
     <com.bttendance.view.Bttendance
         android:id="@+id/bttendance"
@@ -35,12 +42,6 @@
         android:layout_marginLeft="18dp"
         android:background="@drawable/ic_notice"
         android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bt_list_item_selector"
-        android:minHeight="88dp" />
 
     <TextView
         android:id="@+id/title"
@@ -65,6 +66,7 @@
         android:layout_marginRight="13dp"
         android:layout_marginTop="38dp"
         android:background="@null"
-        android:lineSpacingExtra="1dp" />
+        android:lineSpacingExtra="1dp"
+        android:paddingBottom="10dp" />
 
 </RelativeLayout>

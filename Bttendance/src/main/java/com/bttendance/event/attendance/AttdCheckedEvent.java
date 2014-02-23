@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.attendance;
 
 /**
  * Student has been checked attendance

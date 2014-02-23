@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.bluetooth;
 
 /**
  * Bluetooth Divice has been found

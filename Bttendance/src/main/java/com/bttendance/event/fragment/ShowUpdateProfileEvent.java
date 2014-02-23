@@ -1,15 +1,15 @@
-package com.bttendance.event;
+package com.bttendance.event.fragment;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 10..
  */
-public class UpdateProfileEvent {
+public class ShowUpdateProfileEvent {
 
     private String mTitle;
     private String mMessage;
     private Type mType;
 
-    public UpdateProfileEvent(String title, String message, Type type) {
+    public ShowUpdateProfileEvent(String title, String message, Type type) {
         mTitle = title;
         mMessage = message;
         mType = type;

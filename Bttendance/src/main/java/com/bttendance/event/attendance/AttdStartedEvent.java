@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.attendance;
 
 /**
  * Let Student know that Attendance check has been started.

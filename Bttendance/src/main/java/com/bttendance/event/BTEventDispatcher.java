@@ -3,8 +3,31 @@ package com.bttendance.event;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
+import com.bttendance.BTDebug;
+import com.bttendance.event.attendance.AttdCheckedEvent;
+import com.bttendance.event.attendance.AttdCheckedManuallyEvent;
+import com.bttendance.event.attendance.AttdInProgressEvent;
+import com.bttendance.event.attendance.AttdStartEvent;
+import com.bttendance.event.attendance.AttdStartedEvent;
+import com.bttendance.event.bluetooth.BTCanceledEvent;
+import com.bttendance.event.bluetooth.BTDiscoveredEvent;
+import com.bttendance.event.bluetooth.BTEnabledEvent;
+import com.bttendance.event.button.PlusClickedEvent;
+import com.bttendance.event.dialog.ShowEnableBluetoothDialog;
+import com.bttendance.event.fragment.ShowAddCourseEvent;
+import com.bttendance.event.fragment.ShowForgotPasswordEvent;
+import com.bttendance.event.fragment.ShowJoinSchoolEvent;
+import com.bttendance.event.fragment.ShowCourseEvent;
+import com.bttendance.event.fragment.ShowCreateNoticeEvent;
+import com.bttendance.event.fragment.ShowEnableGPSDialogEvent;
+import com.bttendance.event.fragment.ShowGradeEvent;
+import com.bttendance.event.fragment.ShowPostAttdEvent;
+import com.bttendance.event.fragment.ShowUpdateProfileEvent;
+import com.bttendance.event.update.MyCoursesUpdateEvent;
+import com.bttendance.event.update.MySchoolsUpdateEvent;
 import com.bttendance.fragment.CourseFragment;
 import com.bttendance.fragment.CreateNoticeFragment;
+import com.bttendance.fragment.ForgotPasswordFragment;
 import com.bttendance.fragment.GradeFragment;
 import com.bttendance.fragment.JoinSchoolFragment;
 import com.bttendance.fragment.ProfileEditFragment;
@@ -14,16 +37,12 @@ import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.activity.ProfessorActivity;
-import com.bttendance.activity.StudentActivity;
+import com.bttendance.activity.MainActivity;
 import com.bttendance.fragment.PostAttendanceFragment;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.fragment.CreateCourseFragment;
-import com.bttendance.fragment.JoinCourseFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.GPSTracker;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.BTJson;
 import com.bttendance.model.json.CourseJson;
@@ -167,7 +186,7 @@ public class BTEventDispatcher {
     @Subscribe
     public void onAttendanceChecked(AttdCheckedEvent event) {
         final BTActivity act = getBTActivity();
-        if (act == null || !(act instanceof StudentActivity))
+        if (act == null || !(act instanceof MainActivity))
             return;
 
         if (act.getSupportFragmentManager().findFragmentByTag("checked") != null)
@@ -195,23 +214,23 @@ public class BTEventDispatcher {
         if (act == null)
             return;
 
-        if (act instanceof ProfessorActivity) {
-            if (BTTable.ATTENDANCE_STARTING_COURSE != -1) {
-                act.getBTService().postAttendanceStart(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<CourseJson>() {
-                    @Override
-                    public void success(CourseJson courseJson, Response response) {
-                        act.getBTService().attendanceStart();
-                    }
-
-                    @Override
-                    public void failure(RetrofitError retrofitError) {
-                    }
-                });
-            } else
-                act.getBTService().attendanceStart();
-        } else if (act instanceof StudentActivity) {
-            act.getBTService().attendanceStart();
-        }
+//        if (act instanceof ProfessorActivity) {
+//            if (BTTable.ATTENDANCE_STARTING_COURSE != -1) {
+//                act.getBTService().postAttendanceStart(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<CourseJson>() {
+//                    @Override
+//                    public void success(CourseJson courseJson, Response response) {
+//                        act.getBTService().attendanceStart();
+//                    }
+//
+//                    @Override
+//                    public void failure(RetrofitError retrofitError) {
+//                    }
+//                });
+//            } else
+//                act.getBTService().attendanceStart();
+//        } else if (act instanceof MainActivity) {
+//            act.getBTService().attendanceStart();
+//        }
     }
 
     @Subscribe
@@ -229,11 +248,11 @@ public class BTEventDispatcher {
         if (act == null)
             return;
 
-        if (act instanceof ProfessorActivity) {
-            BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
-        } else if (act instanceof StudentActivity) {
-            onAttendanceStarted(new AttdStartedEvent(false));
-        }
+//        if (act instanceof ProfessorActivity) {
+//            BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
+//        } else if (act instanceof MainActivity) {
+//            onAttendanceStarted(new AttdStartedEvent(false));
+//        }
     }
 
     @Subscribe
@@ -282,23 +301,46 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onAddCourse(AddCourseEvent event) {
+    public void onShowEnableBluetoothDialog(ShowEnableBluetoothDialog event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
 
-        switch (BTPreference.getUserType(act)) {
-            case PROFESSOR:
-                addFragment(new CreateCourseFragment());
-                break;
-            case STUDENT:
-                addFragment(new JoinCourseFragment());
-                break;
-        }
+        String title = act.getString(R.string.turn_on_bt_title);
+        String message = act.getString(R.string.turn_on_bt_message);
+
+        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
+        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+            @Override
+            public void onConfirmed() {
+                BluetoothHelper.enable(act);
+            }
+
+            @Override
+            public void onCanceled() {
+            }
+        });
+        showDialog(dialog, "bt");
     }
 
     @Subscribe
-    public void onJoinSchool(JoinSchoolEvent event) {
+    public void onShowAddCourse(ShowAddCourseEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+//        switch (BTPreference.getUserType(act)) {
+//            case PROFESSOR:
+//                addFragment(new CreateCourseFragment());
+//                break;
+//            case STUDENT:
+//                addFragment(new JoinCourseFragment());
+//                break;
+//        }
+    }
+
+    @Subscribe
+    public void onShowJoinSchool(ShowJoinSchoolEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
@@ -307,7 +349,7 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onUpdateProfile(UpdateProfileEvent event) {
+    public void onShowUpdateProfile(ShowUpdateProfileEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
@@ -337,11 +379,7 @@ public class BTEventDispatcher {
         if (act == null)
             return;
 
-        switch (BTPreference.getUserType(act)) {
-            case PROFESSOR:
-                addFragment(new PostAttendanceFragment(event.getCourseId()));
-                break;
-        }
+        addFragment(new PostAttendanceFragment(event.getCourseId()));
     }
 
     @Subscribe
@@ -350,11 +388,16 @@ public class BTEventDispatcher {
         if (act == null)
             return;
 
-//        switch (BTPreference.getUserType(act)) {
-//            case PROFESSOR:
-                addFragment(new GradeFragment(event.getCourseId()));
-//                break;
-//        }
+        addFragment(new GradeFragment(event.getCourseId()));
+    }
+
+    @Subscribe
+    public void onShowForgotPassword(ShowForgotPasswordEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        addFragment(new ForgotPasswordFragment());
     }
 
     @Subscribe
@@ -363,11 +406,7 @@ public class BTEventDispatcher {
         if (act == null)
             return;
 
-//        switch (BTPreference.getUserType(act)) {
-//            case PROFESSOR:
         addFragment(new CreateNoticeFragment(event.getCourseId()));
-//                break;
-//        }
 
     }
 
@@ -409,7 +448,7 @@ public class BTEventDispatcher {
             public void onConfirmed() {
                 switch (json.getType()) {
                     case Course:
-                        act.getBTService().joinCourse(json.id, new Callback<UserJson>() {
+                        act.getBTService().attendCourse(json.id, new Callback<UserJson>() {
                             @Override
                             public void success(UserJson userJson, Response response) {
                                 BTEventBus.getInstance().post(new MyCoursesUpdateEvent());
@@ -421,7 +460,7 @@ public class BTEventDispatcher {
                         });
                         break;
                     case School:
-                        act.getBTService().joinSchool(json.id, new Callback<UserJson>() {
+                        act.getBTService().employSchool(json.id, new Callback<UserJson>() {
                             @Override
                             public void success(UserJson userJson, Response response) {
                                 BTEventBus.getInstance().post(new MySchoolsUpdateEvent());

@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.button;
 
 import com.bttendance.model.json.BTJson;
 

@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.bluetooth;
 
 /**
  * User Canceled to allow Bluetooth Discovery

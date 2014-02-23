@@ -8,7 +8,6 @@ public class PostJson extends BTJson {
     public String type;
     public String title;
     public String message;
-    public boolean on_going;
     public int author;
     public int course;
     public int[] checks;

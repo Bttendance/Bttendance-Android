@@ -41,11 +41,11 @@ public class BTJson {
             return JsonType.School;
         else if (this instanceof UserJson)
             return JsonType.User;
-        else if (this instanceof ValidationJson)
-            return JsonType.Validation;
+        else if (this instanceof SerialJson)
+            return JsonType.Serial;
 
         return JsonType.Null;
     }
 
-    public enum JsonType {Course, Errors, Post, School, User, Validation, Null}
+    public enum JsonType {Course, Errors, Post, School, User, Serial, Null}
 }

@@ -51,7 +51,7 @@
         android:maxLines="3"
         android:singleLine="false"
         android:textColor="@color/grey_hex_99"
-        android:textSize="11dp"
+        android:textSize="13sp"
         android:textStyle="normal" />
 
 </RelativeLayout>

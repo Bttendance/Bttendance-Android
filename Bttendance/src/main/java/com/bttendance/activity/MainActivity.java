@@ -10,12 +10,11 @@ import com.actionbarsherlock.view.Menu;
 import com.squareup.otto.BTEventBus;
 import com.bttendance.R;
 import com.bttendance.adapter.BTPagerAdapter;
-import com.bttendance.event.AttdStartedEvent;
+import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.PostJson;
-import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.bttendance.view.PagerSlidingTabStrip;
 
@@ -26,7 +25,7 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2013. 11. 20..
  */
-public class StudentActivity extends BTActivity {
+public class MainActivity extends BTActivity {
 
     private static Handler mUIHandler = new Handler();
     BTPagerAdapter mPagerAdapter;
@@ -93,15 +92,6 @@ public class StudentActivity extends BTActivity {
     @Override
     protected void onServieConnected() {
         super.onServieConnected();
-        getBTService().joinSchool(1, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson userJson, Response response) {
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-            }
-        });
 
         //Check whether on going Attendance exists
         getBTService().feed(0, new Callback<PostJson[]>() {
