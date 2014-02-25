@@ -3,7 +3,9 @@ package com.bttendance.event;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
-import com.bttendance.BTDebug;
+import com.bttendance.R;
+import com.bttendance.activity.BTActivity;
+import com.bttendance.activity.MainActivity;
 import com.bttendance.event.attendance.AttdCheckedEvent;
 import com.bttendance.event.attendance.AttdCheckedManuallyEvent;
 import com.bttendance.event.attendance.AttdInProgressEvent;
@@ -15,40 +17,35 @@ import com.bttendance.event.bluetooth.BTEnabledEvent;
 import com.bttendance.event.button.PlusClickedEvent;
 import com.bttendance.event.dialog.ShowEnableBluetoothDialog;
 import com.bttendance.event.fragment.ShowAddCourseEvent;
-import com.bttendance.event.fragment.ShowForgotPasswordEvent;
-import com.bttendance.event.fragment.ShowJoinSchoolEvent;
 import com.bttendance.event.fragment.ShowCourseEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
-import com.bttendance.event.fragment.ShowEnableGPSDialogEvent;
+import com.bttendance.event.fragment.ShowForgotPasswordEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
+import com.bttendance.event.fragment.ShowJoinSchoolEvent;
 import com.bttendance.event.fragment.ShowPostAttdEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
 import com.bttendance.event.update.MyCoursesUpdateEvent;
 import com.bttendance.event.update.MySchoolsUpdateEvent;
+import com.bttendance.fragment.BTDialogFragment;
+import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.CourseFragment;
 import com.bttendance.fragment.CreateNoticeFragment;
 import com.bttendance.fragment.ForgotPasswordFragment;
 import com.bttendance.fragment.GradeFragment;
 import com.bttendance.fragment.JoinSchoolFragment;
-import com.bttendance.fragment.ProfileEditFragment;
-import com.bttendance.model.BTKey;
-import com.bttendance.model.json.SchoolJson;
-import com.squareup.otto.BTEventBus;
-import com.squareup.otto.Subscribe;
-import com.bttendance.R;
-import com.bttendance.activity.BTActivity;
-import com.bttendance.activity.MainActivity;
 import com.bttendance.fragment.PostAttendanceFragment;
-import com.bttendance.fragment.BTDialogFragment;
-import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.ProfileEditFragment;
 import com.bttendance.helper.BluetoothHelper;
-import com.bttendance.helper.GPSTracker;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.BTJson;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
+import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
+import com.squareup.otto.BTEventBus;
+import com.squareup.otto.Subscribe;
 
 import java.lang.ref.WeakReference;
 
@@ -277,28 +274,28 @@ public class BTEventDispatcher {
 //        }
     }
 
-    @Subscribe
-    public void onShowEnableGPSDialog(ShowEnableGPSDialogEvent event) {
-        final BTActivity act = getBTActivity();
-        if (act == null)
-            return;
-
-        String title = act.getString(R.string.turn_on_gps_title);
-        String message = act.getString(R.string.turn_on_gps_message);
-
-        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
-        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
-            @Override
-            public void onConfirmed() {
-                GPSTracker.showLocationSettings(act);
-            }
-
-            @Override
-            public void onCanceled() {
-            }
-        });
-        showDialog(dialog, "gps");
-    }
+//    @Subscribe
+//    public void onShowEnableGPSDialog(ShowEnableGPSDialogEvent event) {
+//        final BTActivity act = getBTActivity();
+//        if (act == null)
+//            return;
+//
+//        String title = act.getString(R.string.turn_on_gps_title);
+//        String message = act.getString(R.string.turn_on_gps_message);
+//
+//        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
+//        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+//            @Override
+//            public void onConfirmed() {
+//                GPSTracker.showLocationSettings(act);
+//            }
+//
+//            @Override
+//            public void onCanceled() {
+//            }
+//        });
+//        showDialog(dialog, "gps");
+//    }
 
     @Subscribe
     public void onShowEnableBluetoothDialog(ShowEnableBluetoothDialog event) {

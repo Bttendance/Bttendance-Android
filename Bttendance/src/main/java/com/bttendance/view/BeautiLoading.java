@@ -37,7 +37,6 @@ public class BeautiLoading {
 
             @Override
             public void run() {
-
                 Toast toast = new Toast(context);
                 View view = LayoutInflater.from(context).inflate(R.layout.toast, null);
                 TextView messageTv = (TextView) view.findViewById(R.id.toast_message);

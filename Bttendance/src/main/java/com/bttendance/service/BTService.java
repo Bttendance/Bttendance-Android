@@ -195,11 +195,7 @@ public class BTService extends Service {
         mBTAPI.forgotPassword(email, new Callback<UserJson>() {
             @Override
             public void success(UserJson validation, Response response) {
-                if (cb != null)
-                    if (response != null && response.getStatus() == 202)
-                        cb.success(validation, response);
-                    else
-                        cb.failure(null);
+                cb.success(validation, response);
             }
 
             @Override
@@ -704,11 +700,7 @@ public class BTService extends Service {
         mBTAPI.serialValidate(serial, new Callback<SchoolJson>() {
             @Override
             public void success(SchoolJson school, Response response) {
-                if (cb != null)
-                    if (response != null && response.getStatus() == 202)
-                        cb.success(school, response);
-                    else
-                        cb.failure(null);
+                cb.success(school, response);
             }
 
             @Override

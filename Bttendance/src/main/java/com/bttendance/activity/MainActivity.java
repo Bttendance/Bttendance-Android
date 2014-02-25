@@ -1,5 +1,6 @@
 package com.bttendance.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
@@ -7,14 +8,13 @@ import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
-import com.squareup.otto.BTEventBus;
+import com.bttendance.activity.sign.CatchPointActivity;
+import com.bttendance.model.BTPreference;
+import com.bttendance.model.json.UserJson;
 import com.bttendance.R;
 import com.bttendance.adapter.BTPagerAdapter;
-import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.model.BTTable;
-import com.bttendance.model.json.PostJson;
 import com.bttendance.view.BeautiToast;
 import com.bttendance.view.PagerSlidingTabStrip;
 
@@ -37,7 +37,7 @@ public class MainActivity extends BTActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityStack.clear(this);
-        setContentView(R.layout.activity_student);
+        setContentView(R.layout.activity_main);
 
         mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -49,7 +49,7 @@ public class MainActivity extends BTActivity {
         mViewPager.setOffscreenPageLimit(3);
         mTabs.setViewPager(mViewPager);
         mTabs.setIconTabSelected(0);
-        mViewPager.setCurrentItem(0);
+        mViewPager.setCurrentItem(1);
         getSupportActionBar().setTitle(getString(R.string.feed));
 
         mTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -94,15 +94,19 @@ public class MainActivity extends BTActivity {
         super.onServieConnected();
 
         //Check whether on going Attendance exists
-        getBTService().feed(0, new Callback<PostJson[]>() {
+        getBTService().autoSignin(new Callback<UserJson>() {
             @Override
-            public void success(PostJson[] postJsons, Response response) {
-                if (BTTable.getCheckingPostIds().size() > 0)
-                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
+            public void success(UserJson userJson, Response response) {
+                BTPreference.setUser(MainActivity.this, userJson);
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
+                if (retrofitError != null && retrofitError.getResponse() != null && retrofitError.getResponse().getStatus() == 401) {
+                    BTPreference.clearUser(MainActivity.this);
+                    Intent intent = new Intent(MainActivity.this, CatchPointActivity.class);
+                    MainActivity.this.startActivity(intent);
+                }
             }
         });
     }

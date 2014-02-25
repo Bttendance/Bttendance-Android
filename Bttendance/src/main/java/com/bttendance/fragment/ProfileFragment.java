@@ -1,6 +1,5 @@
 package com.bttendance.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +9,25 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.adapter.ProfileAdapter;
-import com.bttendance.event.fragment.ShowJoinSchoolEvent;
+import com.bttendance.adapter.kit.InstantCursorAdapter;
+import com.bttendance.adapter.kit.Sectionizer;
+import com.bttendance.adapter.kit.SimpleSectionAdapter;
 import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
 import com.bttendance.event.update.ProfileUpdateEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
+import com.bttendance.model.cursor.MySchoolCursor;
 import com.bttendance.model.cursor.SchoolCursor;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.model.list.SchoolList;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -48,21 +54,13 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
         header.findViewById(R.id.profile_image_edit).setOnClickListener(this);
         refreshHeader();
 
-        LayoutInflater mInflater = (LayoutInflater) getActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View footer = mInflater.inflate(R.layout.school_join, null);
-        footer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BTEventBus.getInstance().post(new ShowJoinSchoolEvent());
-            }
-        });
-        mListView.addFooterView(footer);
-
         View padding = new View(getActivity());
         padding.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 7));
         mListView.addFooterView(padding);
-        mAdapter = new ProfileAdapter(getActivity(), null);
+
+        mAdapter = new ProfileAdapter(getActivity(), new MySchoolCursor(getActivity()));
         mListView.setAdapter(mAdapter);
+
         return view;
     }
 
@@ -80,7 +78,7 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
         getBTService().schools(new Callback<SchoolJson[]>() {
             @Override
             public void success(SchoolJson[] schools, Response response) {
-                mAdapter.swapCursor(new SchoolCursor(BTTable.FILTER_MY_SCHOOL));
+                swapCursor();
                 BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
@@ -107,7 +105,7 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mAdapter.swapCursor(new SchoolCursor(BTTable.FILTER_MY_SCHOOL));
+                    mAdapter.swapCursor(new MySchoolCursor(getActivity()));
                 }
             });
         }
@@ -142,7 +140,13 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
 
         UserJson user = BTPreference.getUser(getActivity());
         TextView account = (TextView) header.findViewById(R.id.account_type);
-//        account.setText(user.type);
+        if (user.employed_schools.length > 0 && user.enrolled_schools.length > 0)
+            account.setText(getString(R.string.professor) + " & " + getString(R.string.student));
+        else if (user.employed_schools.length > 0)
+            account.setText(getString(R.string.professor));
+        else
+            account.setText(getString(R.string.student));
+
         TextView username = (TextView) header.findViewById(R.id.username);
         username.setText(user.username);
         TextView name = (TextView) header.findViewById(R.id.name);

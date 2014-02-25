@@ -71,6 +71,8 @@ public class CourseListFragment extends BTFragment {
             @Override
             public void success(CourseJson[] courses, Response response) {
                 mAdapter.swapCursor(new CourseCursor(BTTable.FILTER_MY_COURSE));
+                if (BTTable.getCheckingPostIds().size() > 0)
+                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
                 BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 

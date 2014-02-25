@@ -9,34 +9,31 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.analytics.tracking.android.EasyTracker;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.squareup.otto.BTEventBus;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
+import com.bttendance.event.BTEventDispatcher;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
 import com.bttendance.event.bluetooth.BTEnabledEvent;
-import com.bttendance.event.BTEventDispatcher;
-import com.bttendance.event.fragment.ShowEnableGPSDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
-import com.bttendance.helper.GPSTracker;
 import com.bttendance.model.BTNotification;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTService;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.squareup.otto.BTEventBus;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -230,15 +227,15 @@ public class BTActivity extends SherlockFragmentActivity {
 //        showGPSDialog();
     }
 
-    private void showGPSDialog() {
-        if (this instanceof MainActivity && !GPSTracker.isGpsEnable(this))
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    BTEventBus.getInstance().post(new ShowEnableGPSDialogEvent());
-                }
-            }, 3000);
-    }
+//    private void showGPSDialog() {
+//        if (this instanceof MainActivity && !GPSTracker.isGpsEnable(this))
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    BTEventBus.getInstance().post(new ShowEnableGPSDialogEvent());
+//                }
+//            }, 3000);
+//    }
 
     public interface OnServiceConnectListener {
         void onServieConnected();
