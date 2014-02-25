@@ -48,7 +48,7 @@
     <string name="enter">"Enter"</string>
     <string name="forgot_password">"Forgot Password"</string>
     <string name="join_course">"Join Course"</string>
-    <string name="join_school">"Join School"</string>
+    <string name="choose_school">"Choose School"</string>
     <string name="confrim">"Confirm"</string>
     <string name="cancel">"Cancel"</string>
     <string name="ok">"OK"</string>
@@ -88,5 +88,6 @@
     <string name="fail_to_retrieve_password">Fail to retrieve password</string>
     <string name="supervising_courses">Supervising Courses</string>
     <string name="attending_courses">Attending Courses</string>
+    <string name="refresh">Refresh</string>
 
 </resources>

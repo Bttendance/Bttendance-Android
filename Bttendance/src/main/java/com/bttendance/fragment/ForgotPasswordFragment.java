@@ -14,7 +14,6 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;

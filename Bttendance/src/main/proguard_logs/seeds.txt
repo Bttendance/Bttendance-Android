@@ -13512,8 +13512,8 @@ com.bttendance.adapter.FeedAdapter: android.view.View newView(android.content.Co
 com.bttendance.adapter.FeedAdapter: void bindView(android.view.View,android.content.Context,android.database.Cursor)
 com.bttendance.adapter.FeedAdapter: long getItemId(int)
 com.bttendance.adapter.FeedAdapter: void onClick(android.view.View)
-com.bttendance.event.fragment.ShowAddCourseEvent
-com.bttendance.event.fragment.ShowAddCourseEvent: AddCourseEvent()
+com.bttendance.event.fragment.ShowSchoolChooseEvent
+com.bttendance.event.fragment.ShowSchoolChooseEvent: AddCourseEvent()
 com.bttendance.event.attendance.AttdCheckedEvent
 com.bttendance.event.attendance.AttdCheckedEvent: AttdCheckedEvent(java.lang.String)
 com.bttendance.event.attendance.AttdCheckedEvent: java.lang.String getTitle()
@@ -13547,7 +13547,7 @@ com.bttendance.event.BTEventDispatcher: void onBTDiscovered(com.bttendance.event
 com.bttendance.event.BTEventDispatcher: void onBTCanceled(com.bttendance.event.bluetooth.BTCanceledEvent)
 com.bttendance.event.BTEventDispatcher: void onLocationChanged(com.bttendance.event.LocationChangedEvent)
 com.bttendance.event.BTEventDispatcher: void onShowEnableGPSDialog(com.bttendance.event.fragment.ShowEnableGPSDialogEvent)
-com.bttendance.event.BTEventDispatcher: void onAddCourse(com.bttendance.event.fragment.ShowAddCourseEvent)
+com.bttendance.event.BTEventDispatcher: void onAddCourse(com.bttendance.event.fragment.ShowSchoolChooseEvent)
 com.bttendance.event.BTEventDispatcher: void onShowAttdList(com.bttendance.event.fragment.ShowPostAttdEvent)
 com.bttendance.event.BTEventDispatcher: void onPlusClicked(com.bttendance.event.button.PlusClickedEvent)
 com.bttendance.event.BTEventDispatcher: void onLoadingEvent(com.bttendance.event.LoadingEvent)
@@ -13602,8 +13602,8 @@ com.bttendance.fragment.BTFragment: void onResume()
 com.bttendance.fragment.BTFragment: void onFragmentResume()
 com.bttendance.fragment.BTFragment: void onServieConnected()
 com.bttendance.fragment.BTFragment: void onServieDisconnected()
-com.bttendance.fragment.CourseFragment
-com.bttendance.fragment.CourseFragment: CourseFragment()
+com.bttendance.fragment.CourseDetailFragment
+com.bttendance.fragment.CourseDetailFragment: CourseFragment()
 com.bttendance.fragment.CourseListFragment
 com.bttendance.fragment.CourseListFragment: CourseListFragment()
 com.bttendance.fragment.CourseListFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
@@ -13614,15 +13614,15 @@ com.bttendance.fragment.CourseListFragment: void onAttach(android.app.Activity)
 com.bttendance.fragment.CourseListFragment: void onDetach()
 com.bttendance.fragment.CourseListFragment: void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent)
 com.bttendance.fragment.CourseListFragment: void onAttdEndEvent(com.bttendance.event.attendance.AttdEndEvent)
-com.bttendance.fragment.CreateCourseFragment
-com.bttendance.fragment.CreateCourseFragment: CreateCourseFragment()
-com.bttendance.fragment.CreateCourseFragment: void onCreate(android.os.Bundle)
-com.bttendance.fragment.CreateCourseFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
-com.bttendance.fragment.CreateCourseFragment: void onResume()
-com.bttendance.fragment.CreateCourseFragment: void onPause()
-com.bttendance.fragment.CreateCourseFragment: void isEnableSignUp()
-com.bttendance.fragment.CreateCourseFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
-com.bttendance.fragment.CreateCourseFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
+com.bttendance.fragment.CourseCreateFragment
+com.bttendance.fragment.CourseCreateFragment: CreateCourseFragment()
+com.bttendance.fragment.CourseCreateFragment: void onCreate(android.os.Bundle)
+com.bttendance.fragment.CourseCreateFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
+com.bttendance.fragment.CourseCreateFragment: void onResume()
+com.bttendance.fragment.CourseCreateFragment: void onPause()
+com.bttendance.fragment.CourseCreateFragment: void isEnableSignUp()
+com.bttendance.fragment.CourseCreateFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
+com.bttendance.fragment.CourseCreateFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
 com.bttendance.fragment.FeedFragment
 com.bttendance.fragment.FeedFragment: FeedFragment()
 com.bttendance.fragment.FeedFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
@@ -13632,17 +13632,17 @@ com.bttendance.fragment.FeedFragment: void onAttdStarted(com.bttendance.event.at
 com.bttendance.fragment.FeedFragment: void onAttdChecked(com.bttendance.event.attendance.AttdCheckedEvent)
 com.bttendance.fragment.FeedFragment: void onFragmentResume()
 com.bttendance.fragment.FeedFragment: void onAttdEnd(com.bttendance.event.attendance.AttdEndEvent)
-com.bttendance.fragment.JoinCourseFragment
-com.bttendance.fragment.JoinCourseFragment: JoinCourseFragment()
-com.bttendance.fragment.JoinCourseFragment: void onCreate(android.os.Bundle)
-com.bttendance.fragment.JoinCourseFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
-com.bttendance.fragment.JoinCourseFragment: void onFragmentResume()
-com.bttendance.fragment.JoinCourseFragment: void onMyCourseUpdate(com.bttendance.event.update.MyCoursesUpdateEvent)
-com.bttendance.fragment.JoinCourseFragment: void onServieConnected()
-com.bttendance.fragment.JoinCourseFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
-com.bttendance.fragment.JoinCourseFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
-com.bttendance.fragment.JoinSchoolFragment
-com.bttendance.fragment.JoinSchoolFragment: JoinSchoolFragment()
+com.bttendance.fragment.CourseAttendFragment
+com.bttendance.fragment.CourseAttendFragment: JoinCourseFragment()
+com.bttendance.fragment.CourseAttendFragment: void onCreate(android.os.Bundle)
+com.bttendance.fragment.CourseAttendFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
+com.bttendance.fragment.CourseAttendFragment: void onFragmentResume()
+com.bttendance.fragment.CourseAttendFragment: void onMyCourseUpdate(com.bttendance.event.update.MyCoursesUpdateEvent)
+com.bttendance.fragment.CourseAttendFragment: void onServieConnected()
+com.bttendance.fragment.CourseAttendFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
+com.bttendance.fragment.CourseAttendFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
+com.bttendance.fragment.SchoolChooseFragment
+com.bttendance.fragment.SchoolChooseFragment: JoinSchoolFragment()
 com.bttendance.fragment.ProfileFragment
 com.bttendance.fragment.ProfileFragment: ProfileFragment()
 com.bttendance.fragment.ProfileFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)

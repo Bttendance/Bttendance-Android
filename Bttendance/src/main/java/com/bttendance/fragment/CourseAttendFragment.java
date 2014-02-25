@@ -22,7 +22,7 @@ import java.util.Comparator;
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class JoinCourseFragment extends BTFragment {
+public class CourseAttendFragment extends BTFragment {
 
     BTListAdapter mAdapter;
     private ListView mListView;
@@ -35,7 +35,7 @@ public class JoinCourseFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_join_course, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_attend, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
         mAdapter = new BTListAdapter(getActivity());
         mListView.setAdapter(mAdapter);

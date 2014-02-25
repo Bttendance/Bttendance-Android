@@ -22,10 +22,15 @@ import java.util.Comparator;
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class JoinSchoolFragment extends BTFragment {
+public class SchoolChooseFragment extends BTFragment {
 
+    private int mAddButtonType;
     BTListAdapter mAdapter;
     private ListView mListView;
+
+    public SchoolChooseFragment(int addButtonType) {
+        mAddButtonType = addButtonType;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,7 @@ public class JoinSchoolFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_join_course, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_attend, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
         mAdapter = new BTListAdapter(getActivity());
         mListView.setAdapter(mAdapter);
@@ -97,7 +102,7 @@ public class JoinSchoolFragment extends BTFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(getString(R.string.join_school));
+        actionBar.setTitle(getString(R.string.choose_school));
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 

@@ -23700,7 +23700,7 @@ com.bttendance.adapter.FeedAdapter -> com.bttendance.adapter.FeedAdapter:
     38:71:void bindView(android.view.View,android.content.Context,android.database.Cursor) -> bindView
     75:80:long getItemId(int) -> getItemId
     85:94:void onClick(android.view.View) -> onClick
-com.bttendance.event.fragment.ShowAddCourseEvent -> com.bttendance.event.fragment.ShowAddCourseEvent:
+com.bttendance.event.fragment.ShowSchoolChooseEvent -> com.bttendance.event.fragment.ShowSchoolChooseEvent:
 com.bttendance.event.attendance.AttdCheckedEvent -> com.bttendance.event.attendance.AttdCheckedEvent:
     java.lang.String mTitle -> a
     18:18:java.lang.String getTitle() -> getTitle
@@ -23731,7 +23731,7 @@ com.bttendance.event.BTEventDispatcher -> com.bttendance.event.BTEventDispatcher
     221:230:void onBTCanceled(com.bttendance.event.bluetooth.BTCanceledEvent) -> onBTCanceled
     234:252:void onLocationChanged(com.bttendance.event.LocationChangedEvent) -> onLocationChanged
     256:275:void onShowEnableGPSDialog(com.bttendance.event.fragment.ShowEnableGPSDialogEvent) -> onShowEnableGPSDialog
-    279:291:void onAddCourse(com.bttendance.event.fragment.ShowAddCourseEvent) -> onAddCourse
+    279:291:void onAddCourse(com.bttendance.event.fragment.ShowSchoolChooseEvent) -> onAddCourse
     295:306:void onShowAttdList(com.bttendance.event.fragment.ShowPostAttdEvent) -> onShowAttdList
     310:377:void onPlusClicked(com.bttendance.event.button.PlusClickedEvent) -> onPlusClicked
     381:391:void onLoadingEvent(com.bttendance.event.LoadingEvent) -> onLoadingEvent
@@ -23871,7 +23871,7 @@ com.bttendance.fragment.BTFragment -> com.bttendance.fragment.BTFragment:
     63:63:void onFragmentResume() -> onFragmentResume
     68:68:void onServieConnected() -> onServieConnected
     73:73:void onServieDisconnected() -> onServieDisconnected
-com.bttendance.fragment.CourseFragment -> com.bttendance.fragment.CourseFragment:
+com.bttendance.fragment.CourseDetailFragment -> com.bttendance.fragment.CourseDetailFragment:
 com.bttendance.fragment.CourseListFragment -> com.bttendance.fragment.CourseListFragment:
     android.widget.ListView mListView -> a
     com.bttendance.adapter.CourseListAdapter mAdapter -> b
@@ -23895,7 +23895,7 @@ com.bttendance.fragment.CourseListFragment$2 -> ano:
 com.bttendance.fragment.CourseListFragment$3 -> anp:
     com.bttendance.fragment.CourseListFragment this$0 -> a
     117:118:void run() -> run
-com.bttendance.fragment.CreateCourseFragment -> com.bttendance.fragment.CreateCourseFragment:
+com.bttendance.fragment.CourseCreateFragment -> com.bttendance.fragment.CourseCreateFragment:
     android.widget.EditText mFullName -> a
     android.widget.EditText mUsername -> b
     android.widget.EditText mEmail -> c
@@ -23917,45 +23917,45 @@ com.bttendance.fragment.CreateCourseFragment -> com.bttendance.fragment.CreateCo
     218:236:void trySignUp() -> l
     240:245:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     249:255:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    28:28:android.view.View access$000(com.bttendance.fragment.CreateCourseFragment) -> a
-    28:28:int access$102(com.bttendance.fragment.CreateCourseFragment,int) -> a
-    28:28:android.widget.EditText access$200(com.bttendance.fragment.CreateCourseFragment) -> b
-    28:28:android.view.View access$300(com.bttendance.fragment.CreateCourseFragment) -> c
-    28:28:int access$402(com.bttendance.fragment.CreateCourseFragment,int) -> b
-    28:28:android.widget.EditText access$500(com.bttendance.fragment.CreateCourseFragment) -> d
-    28:28:android.view.View access$600(com.bttendance.fragment.CreateCourseFragment) -> e
-    28:28:int access$702(com.bttendance.fragment.CreateCourseFragment,int) -> c
-    28:28:android.widget.EditText access$800(com.bttendance.fragment.CreateCourseFragment) -> f
-    28:28:void access$900(com.bttendance.fragment.CreateCourseFragment) -> g
-com.bttendance.fragment.CreateCourseFragment$1 -> anq:
-    com.bttendance.fragment.CreateCourseFragment this$0 -> a
+    28:28:android.view.View access$000(com.bttendance.fragment.CourseCreateFragment) -> a
+    28:28:int access$102(com.bttendance.fragment.CourseCreateFragment,int) -> a
+    28:28:android.widget.EditText access$200(com.bttendance.fragment.CourseCreateFragment) -> b
+    28:28:android.view.View access$300(com.bttendance.fragment.CourseCreateFragment) -> c
+    28:28:int access$402(com.bttendance.fragment.CourseCreateFragment,int) -> b
+    28:28:android.widget.EditText access$500(com.bttendance.fragment.CourseCreateFragment) -> d
+    28:28:android.view.View access$600(com.bttendance.fragment.CourseCreateFragment) -> e
+    28:28:int access$702(com.bttendance.fragment.CourseCreateFragment,int) -> c
+    28:28:android.widget.EditText access$800(com.bttendance.fragment.CourseCreateFragment) -> f
+    28:28:void access$900(com.bttendance.fragment.CourseCreateFragment) -> g
+com.bttendance.fragment.CourseCreateFragment$1 -> anq:
+    com.bttendance.fragment.CourseCreateFragment this$0 -> a
     66:72:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.bttendance.fragment.CreateCourseFragment$2 -> anr:
-    com.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CourseCreateFragment$2 -> anr:
+    com.bttendance.fragment.CourseCreateFragment this$0 -> a
     78:80:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     85:85:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     90:90:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.bttendance.fragment.CreateCourseFragment$3 -> ans:
-    com.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CourseCreateFragment$3 -> ans:
+    com.bttendance.fragment.CourseCreateFragment this$0 -> a
     96:102:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.bttendance.fragment.CreateCourseFragment$4 -> ant:
-    com.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CourseCreateFragment$4 -> ant:
+    com.bttendance.fragment.CourseCreateFragment this$0 -> a
     108:110:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     114:114:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     118:118:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.bttendance.fragment.CreateCourseFragment$5 -> anu:
-    com.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CourseCreateFragment$5 -> anu:
+    com.bttendance.fragment.CourseCreateFragment this$0 -> a
     124:130:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.bttendance.fragment.CreateCourseFragment$6 -> anv:
-    com.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CourseCreateFragment$6 -> anv:
+    com.bttendance.fragment.CourseCreateFragment this$0 -> a
     136:138:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     142:142:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     146:146:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.bttendance.fragment.CreateCourseFragment$7 -> anw:
-    com.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CourseCreateFragment$7 -> anw:
+    com.bttendance.fragment.CourseCreateFragment this$0 -> a
     158:174:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.bttendance.fragment.CreateCourseFragment$8 -> anx:
-    com.bttendance.fragment.CreateCourseFragment this$0 -> a
+com.bttendance.fragment.CourseCreateFragment$8 -> anx:
+    com.bttendance.fragment.CourseCreateFragment this$0 -> a
     228:229:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
     234:234:void failure(retrofit.RetrofitError) -> failure
     225:225:void success(java.lang.Object,retrofit.client.Response) -> success
@@ -23978,7 +23978,7 @@ com.bttendance.fragment.FeedFragment$1 -> any:
 com.bttendance.fragment.FeedFragment$2 -> anz:
     com.bttendance.fragment.FeedFragment this$0 -> a
     98:99:void run() -> run
-com.bttendance.fragment.JoinCourseFragment -> com.bttendance.fragment.JoinCourseFragment:
+com.bttendance.fragment.CourseAttendFragment -> com.bttendance.fragment.CourseAttendFragment:
     com.bttendance.adapter.BTListAdapter mAdapter -> a
     android.widget.ListView mListView -> b
     39:41:void onCreate(android.os.Bundle) -> onCreate
@@ -23989,17 +23989,17 @@ com.bttendance.fragment.JoinCourseFragment -> com.bttendance.fragment.JoinCourse
     90:101:void onServieConnected() -> onServieConnected
     105:109:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     113:119:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    32:32:void access$000(com.bttendance.fragment.JoinCourseFragment) -> a
-com.bttendance.fragment.JoinCourseFragment$1 -> aoa:
-    com.bttendance.fragment.JoinCourseFragment this$0 -> a
+    32:32:void access$000(com.bttendance.fragment.CourseAttendFragment) -> a
+com.bttendance.fragment.CourseAttendFragment$1 -> aoa:
+    com.bttendance.fragment.CourseAttendFragment this$0 -> a
     81:81:int compare(com.bttendance.adapter.BTListAdapter$Item,com.bttendance.adapter.BTListAdapter$Item) -> a
     78:78:int compare(java.lang.Object,java.lang.Object) -> compare
-com.bttendance.fragment.JoinCourseFragment$2 -> aob:
-    com.bttendance.fragment.JoinCourseFragment this$0 -> a
+com.bttendance.fragment.CourseAttendFragment$2 -> aob:
+    com.bttendance.fragment.CourseAttendFragment this$0 -> a
     94:95:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
     99:99:void failure(retrofit.RetrofitError) -> failure
     91:91:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.fragment.JoinSchoolFragment -> com.bttendance.fragment.JoinSchoolFragment:
+com.bttendance.fragment.SchoolChooseFragment -> com.bttendance.fragment.SchoolChooseFragment:
 com.bttendance.fragment.ProfileFragment -> com.bttendance.fragment.ProfileFragment:
     17:18:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
 com.bttendance.helper.BitmapHelper -> com.bttendance.helper.BitmapHelper:

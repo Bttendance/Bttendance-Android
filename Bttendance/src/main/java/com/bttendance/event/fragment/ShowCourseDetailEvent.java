@@ -3,11 +3,11 @@ package com.bttendance.event.fragment;
 /**
  * Created by TheFinestArtist on 2013. 12. 10..
  */
-public class ShowCourseEvent {
+public class ShowCourseDetailEvent {
 
     private int mCourseId;
 
-    public ShowCourseEvent(int courseId) {
+    public ShowCourseDetailEvent(int courseId) {
         mCourseId = courseId;
     }
 

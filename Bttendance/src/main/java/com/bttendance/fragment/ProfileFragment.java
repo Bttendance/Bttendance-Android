@@ -9,25 +9,16 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.adapter.ProfileAdapter;
-import com.bttendance.adapter.kit.InstantCursorAdapter;
-import com.bttendance.adapter.kit.Sectionizer;
-import com.bttendance.adapter.kit.SimpleSectionAdapter;
 import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
 import com.bttendance.event.update.ProfileUpdateEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.MySchoolCursor;
-import com.bttendance.model.cursor.SchoolCursor;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.model.list.SchoolList;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
-
-import java.util.Collections;
-import java.util.Comparator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

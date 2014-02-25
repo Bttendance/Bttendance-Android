@@ -16,25 +16,24 @@ import com.bttendance.event.bluetooth.BTDiscoveredEvent;
 import com.bttendance.event.bluetooth.BTEnabledEvent;
 import com.bttendance.event.button.PlusClickedEvent;
 import com.bttendance.event.dialog.ShowEnableBluetoothDialog;
-import com.bttendance.event.fragment.ShowAddCourseEvent;
-import com.bttendance.event.fragment.ShowCourseEvent;
+import com.bttendance.event.fragment.ShowCourseDetailEvent;
+import com.bttendance.event.fragment.ShowSchoolChooseEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
 import com.bttendance.event.fragment.ShowForgotPasswordEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
-import com.bttendance.event.fragment.ShowJoinSchoolEvent;
 import com.bttendance.event.fragment.ShowPostAttdEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
 import com.bttendance.event.update.MyCoursesUpdateEvent;
 import com.bttendance.event.update.MySchoolsUpdateEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.fragment.CourseFragment;
+import com.bttendance.fragment.CourseDetailFragment;
 import com.bttendance.fragment.CreateNoticeFragment;
 import com.bttendance.fragment.ForgotPasswordFragment;
 import com.bttendance.fragment.GradeFragment;
-import com.bttendance.fragment.JoinSchoolFragment;
 import com.bttendance.fragment.PostAttendanceFragment;
 import com.bttendance.fragment.ProfileEditFragment;
+import com.bttendance.fragment.SchoolChooseFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
@@ -321,28 +320,12 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onShowAddCourse(ShowAddCourseEvent event) {
+    public void onShowSchoolChoose(ShowSchoolChooseEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
 
-//        switch (BTPreference.getUserType(act)) {
-//            case PROFESSOR:
-//                addFragment(new CreateCourseFragment());
-//                break;
-//            case STUDENT:
-//                addFragment(new JoinCourseFragment());
-//                break;
-//        }
-    }
-
-    @Subscribe
-    public void onShowJoinSchool(ShowJoinSchoolEvent event) {
-        final BTActivity act = getBTActivity();
-        if (act == null)
-            return;
-
-        addFragment(new JoinSchoolFragment());
+        addFragment(new SchoolChooseFragment(event.getButtonID()));
     }
 
     @Subscribe
@@ -361,12 +344,12 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onShowCourse(ShowCourseEvent event) {
+    public void onShowCourseDetail(ShowCourseDetailEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
 
-        BTFragment fragment = new CourseFragment(event.getCourseId());
+        BTFragment fragment = new CourseDetailFragment(event.getCourseId());
         addFragment(fragment);
     }
 

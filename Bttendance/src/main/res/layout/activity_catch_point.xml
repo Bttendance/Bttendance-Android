@@ -51,7 +51,7 @@
             android:shadowRadius="3"
             android:text="@string/hello_"
             android:textColor="@color/bttendance_white"
-            android:textSize="65dp" />
+            android:textSize="65sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             android:shadowRadius="3"
             android:text="@string/welcome_to_bttendance"
             android:textColor="@color/bttendance_white"
-            android:textSize="22dp" />
+            android:textSize="22sp" />
 
         <Button
             android:id="@+id/sign_up"

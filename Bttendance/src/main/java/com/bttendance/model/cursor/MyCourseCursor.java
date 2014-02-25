@@ -7,7 +7,6 @@ import android.util.SparseArray;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
-import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 
 /**
@@ -17,7 +16,6 @@ public class MyCourseCursor extends MatrixCursor {
 
     public static final int ADD_BUTTON_CREATE_COURSE = -2;
     public static final int ADD_BUTTON_ATTEND_COURSE = -3;
-
     private final static String[] COLUMNS = {
             "_id"
     };

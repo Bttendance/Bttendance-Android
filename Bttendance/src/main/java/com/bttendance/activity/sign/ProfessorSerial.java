@@ -1,6 +1,5 @@
 package com.bttendance.activity.sign;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.model.BTKey;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.view.BeautiToast;
 

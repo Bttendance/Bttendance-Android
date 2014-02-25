@@ -35,14 +35,14 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class CourseFragment extends BTFragment implements View.OnClickListener {
+public class CourseDetailFragment extends BTFragment implements View.OnClickListener {
 
     ListView mListView;
     FeedAdapter mAdapter;
     CourseJson mCourse;
     View header;
 
-    public CourseFragment(int courseId) {
+    public CourseDetailFragment(int courseId) {
         mCourse = BTTable.CourseTable.get(courseId);
     }
 

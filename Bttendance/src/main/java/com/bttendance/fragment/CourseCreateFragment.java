@@ -16,16 +16,11 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.json.CourseJson;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class CreateCourseFragment extends BTFragment {
+public class CourseCreateFragment extends BTFragment {
 
     private EditText mFullName = null;
     private EditText mUsername = null;
@@ -49,7 +44,7 @@ public class CreateCourseFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_course, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_create, container, false);
 
         mFullName = (EditText) view.findViewById(R.id.full_name);
         mUsername = (EditText) view.findViewById(R.id.username);

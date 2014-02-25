@@ -2,30 +2,21 @@ package com.bttendance.activity.sign;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ForegroundColorSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.fragment.ShowForgotPasswordEvent;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.service.BTUrl;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;

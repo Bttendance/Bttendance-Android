@@ -16,12 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.MenuItem;
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.dialog.ShowEnableBluetoothDialog;
 import com.bttendance.helper.BluetoothHelper;
-import com.bttendance.model.BTKey;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTAPI;
 import com.bttendance.service.BTUrl;

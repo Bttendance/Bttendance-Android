@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.google.gson.Gson;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.service.BTAPI;
+import com.google.gson.Gson;
 
 /**
  * Preference Helper

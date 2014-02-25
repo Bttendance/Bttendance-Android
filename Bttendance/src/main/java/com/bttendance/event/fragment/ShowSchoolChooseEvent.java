@@ -3,10 +3,10 @@ package com.bttendance.event.fragment;
 /**
  * Created by TheFinestArtist on 2013. 12. 10..
  */
-public class ShowAddCourseEvent {
+public class ShowSchoolChooseEvent {
     private int mButtonID;
 
-    public ShowAddCourseEvent(int buttonID) {
+    public ShowSchoolChooseEvent(int buttonID) {
         mButtonID = buttonID;
     }
 

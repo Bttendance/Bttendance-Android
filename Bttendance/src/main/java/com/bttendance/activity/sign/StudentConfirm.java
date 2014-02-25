@@ -7,7 +7,6 @@ import android.widget.Button;
 
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.model.BTKey;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 27..

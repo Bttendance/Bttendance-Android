@@ -8,12 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.attendance.AttdInProgressEvent;
 import com.bttendance.event.attendance.AttdStartEvent;
-import com.bttendance.event.fragment.ShowAddCourseEvent;
-import com.bttendance.event.fragment.ShowCourseEvent;
+import com.bttendance.event.fragment.ShowCourseDetailEvent;
+import com.bttendance.event.fragment.ShowSchoolChooseEvent;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.MyCourseCursor;
@@ -51,12 +50,11 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
             case VIEW_TYPE_ADD:
                 view.findViewById(R.id.course_add_btn).setTag(cursor.getInt(0));
                 view.findViewById(R.id.course_add_btn).setOnClickListener(this);
+                view.findViewById(R.id.course_add_btn).setClickable(true);
                 break;
             case VIEW_TYPE_ITEM:
             default:
                 CourseJson course = BTTable.CourseTable.get(cursor.getInt(0));
-
-                BTDebug.LogError(course.toJson());
 
                 Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
                 View selector = view.findViewById(R.id.item_selector);
@@ -128,10 +126,10 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
             case R.id.item_selector:
                 int course_id = (Integer) v.getTag(R.id.course_id);
                 CourseJson course = BTTable.CourseTable.get(course_id);
-                BTEventBus.getInstance().post(new ShowCourseEvent(course.id));
+                BTEventBus.getInstance().post(new ShowCourseDetailEvent(course.id));
                 break;
             case R.id.course_add_btn:
-                BTEventBus.getInstance().post(new ShowAddCourseEvent((Integer) v.getTag()));
+                BTEventBus.getInstance().post(new ShowSchoolChooseEvent((Integer) v.getTag()));
                 break;
             default:
                 break;

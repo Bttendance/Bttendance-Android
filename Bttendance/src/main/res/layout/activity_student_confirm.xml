@@ -49,7 +49,7 @@
             android:shadowRadius="3"
             android:text="@string/are_you_student"
             android:textColor="@color/bttendance_white"
-            android:textSize="40dp" />
+            android:textSize="40sp" />
 
         <Button
             android:id="@+id/confirm"
