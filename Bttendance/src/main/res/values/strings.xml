@@ -86,5 +86,7 @@
     <string name="app_version">0.1</string>
     <string name="password_has_been_sent">Password has been sent</string>
     <string name="fail_to_retrieve_password">Fail to retrieve password</string>
+    <string name="supervising_courses">Supervising Courses</string>
+    <string name="attending_courses">Attending Courses</string>
 
 </resources>

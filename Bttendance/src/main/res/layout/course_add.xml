@@ -10,7 +10,7 @@
     android:paddingTop="7dp">
 
     <View
-        android:id="@+id/item_selector"
+        android:id="@+id/course_add_btn"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:background="@drawable/bt_add_item_background"

@@ -58,8 +58,9 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
         padding.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 7));
         mListView.addFooterView(padding);
 
-        mAdapter = new ProfileAdapter(getActivity(), new MySchoolCursor(getActivity()));
+        mAdapter = new ProfileAdapter(getActivity(), null);
         mListView.setAdapter(mAdapter);
+        swapCursor();
 
         return view;
     }
