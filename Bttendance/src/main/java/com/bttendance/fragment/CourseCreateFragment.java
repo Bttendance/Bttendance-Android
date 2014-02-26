@@ -14,8 +14,16 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
+import com.bttendance.model.json.CourseJson;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -25,16 +33,20 @@ public class CourseCreateFragment extends BTFragment {
     private int mSchoolID;
     private EditText mFullName = null;
     private EditText mUsername = null;
+    private EditText mName = null;
     private EditText mEmail = null;
     private View mFullNameDiv = null;
     private View mUsernameDiv = null;
+    private View mNameDiv = null;
     private View mEmailDiv = null;
     private int mFullNameCount = 0;
     private int mUsernameCount = 0;
+    private int mNameCount = 0;
     private int mEmailCount = 0;
     private Button mSignUp = null;
     private String mFullNameString = null;
     private String mUsernameString = null;
+    private String mNameString = null;
     private String mEmailString = null;
 
     public CourseCreateFragment(int schoolID) {
@@ -53,9 +65,11 @@ public class CourseCreateFragment extends BTFragment {
 
         mFullName = (EditText) view.findViewById(R.id.full_name);
         mUsername = (EditText) view.findViewById(R.id.username);
+        mName = (EditText) view.findViewById(R.id.name);
         mEmail = (EditText) view.findViewById(R.id.email);
         mFullNameDiv = view.findViewById(R.id.full_name_divider);
         mUsernameDiv = view.findViewById(R.id.username_divider);
+        mNameDiv = view.findViewById(R.id.name_divider);
         mEmailDiv = view.findViewById(R.id.email_divider);
         mSignUp = (Button) view.findViewById(R.id.signup);
 
@@ -117,6 +131,34 @@ public class CourseCreateFragment extends BTFragment {
             }
         });
 
+        mName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    mNameDiv.setBackgroundColor(getResources().getColor(
+                            R.color.bttendance_cyan));
+                } else {
+                    mNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                }
+            }
+        });
+
+        mName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mNameCount = mName.getText().toString().length();
+                isEnableSignUp();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -145,9 +187,11 @@ public class CourseCreateFragment extends BTFragment {
             }
         });
 
-        mUsername.setText("KAIST");
+        mUsername.setText(BTTable.SchoolTable.get(mSchoolID).name);
         mUsername.setClickable(false);
         mUsername.setFocusable(false);
+
+        mName.setText(BTPreference.getUser(getActivity()).full_name);
 
         mSignUp.setEnabled(false);
         mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
@@ -185,11 +229,14 @@ public class CourseCreateFragment extends BTFragment {
             mFullName.setText(mFullNameString);
         if (mUsernameString != null)
             mUsername.setText(mUsernameString);
+        if (mNameString != null)
+            mName.setText(mNameString);
         if (mEmailString != null)
             mEmail.setText(mEmailString);
 
         mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
 
         isEnableSignUp();
@@ -219,19 +266,22 @@ public class CourseCreateFragment extends BTFragment {
 
         String fullName = mFullName.getText().toString();
         String email = mEmail.getText().toString();
-        String username = mUsername.getText().toString();
+        String name = mName.getText().toString();
 
-//        getBTService().courseCreate(fullName, email, 1, new Callback<CourseJson>() {
-//            @Override
-//            public void success(CourseJson courseJson, Response response) {
-//                getActivity().onBackPressed();
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//
-//            }
-//        });
+        getBTService().courseCreate(fullName, email, mSchoolID, name, new Callback<CourseJson>() {
+            @Override
+            public void success(CourseJson courseJson, Response response) {
+
+                int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
+                getActivity().getSupportFragmentManager().popBackStack();
+                while (count-- >= 0)
+                    getActivity().getSupportFragmentManager().popBackStack();
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+            }
+        });
     }
 
     @Override

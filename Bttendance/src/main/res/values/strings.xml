@@ -19,7 +19,7 @@
     <string name="forgot_password_underline">"<u>Forgot password?</u>"</string>
     <string name="log_in">"Log In"</string>
     <string name="sign_up">"Sign Up"</string>
-    <string name="serial">"Enter Serial"</string>
+    <string name="enter_serial">"Enter Serial"</string>
     <string name="who_are_you">"Who are you?"</string>
     <string name="please_choose_carefully">"Please choose carefully"</string>
     <string name="professor">"Professor"</string>
@@ -31,6 +31,7 @@
     <string name="serial">"Serial"</string>
     <string name="enter">"Enter"</string>
     <string name="request_serial">"Request Serial"</string>
+    <string name="request_serial_underline">"<u>Request Serial</u>"</string>
     <string name="please_press_back_button_again_to_exit_">"Please press Back button again to exit."</string>
     <string name="validated">"Validated"</string>
     <string name="wrong_serial">"Wrong Serial"</string>
@@ -93,5 +94,7 @@
     <string name="joinable_schools">Joinable Schools</string>
     <string name="joinable_courses">Joinable Courses</string>
     <string name="enrolled_schools">Enrolled Schools</string>
+    <string name="fail_to_request_serial">Fail to request serial</string>
+    <string name="serial_has_been_sent">Serial has been sent</string>
 
 </resources>

@@ -47,11 +47,8 @@ public class MainActivity extends BTActivity {
         int pageMargin = (int) DipPixelHelper.getPixel(this, 4);
         mViewPager.setPageMargin(pageMargin);
         mViewPager.setOffscreenPageLimit(3);
-        mTabs.setViewPager(mViewPager);
-        mTabs.setIconTabSelected(0);
-        mViewPager.setCurrentItem(1);
-        getSupportActionBar().setTitle(getString(R.string.courses));
 
+        mTabs.setViewPager(mViewPager);
         mTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i2) {
@@ -68,6 +65,9 @@ public class MainActivity extends BTActivity {
             public void onPageScrollStateChanged(int i) {
             }
         });
+
+        mViewPager.setCurrentItem(1);
+        mTabs.setIconTabSelected(1);
     }
 
     private void setActionBarTitle(int position) {

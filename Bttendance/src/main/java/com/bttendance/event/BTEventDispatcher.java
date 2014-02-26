@@ -25,6 +25,7 @@ import com.bttendance.event.fragment.ShowForgotPasswordEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
 import com.bttendance.event.fragment.ShowPostAttdEvent;
 import com.bttendance.event.fragment.ShowSerialEvent;
+import com.bttendance.event.fragment.ShowSerialRequestEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
 import com.bttendance.event.update.MyCoursesUpdateEvent;
 import com.bttendance.event.update.SchoolChooseUpdateEvent;
@@ -39,6 +40,8 @@ import com.bttendance.fragment.GradeFragment;
 import com.bttendance.fragment.PostAttendanceFragment;
 import com.bttendance.fragment.ProfileEditFragment;
 import com.bttendance.fragment.SchoolChooseFragment;
+import com.bttendance.fragment.SerialFragment;
+import com.bttendance.fragment.SerialRequestFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
@@ -352,7 +355,7 @@ public class BTEventDispatcher {
         if (act == null)
             return;
 
-//        addFragment(new CourseCreateFragment(event.getSchoolID()));
+        addFragment(new SerialFragment(event.getSchoolID()));
     }
 
     @Subscribe
@@ -414,6 +417,15 @@ public class BTEventDispatcher {
             return;
 
         addFragment(new ForgotPasswordFragment());
+    }
+
+    @Subscribe
+    public void onShowSerialRequest(ShowSerialRequestEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        addFragment(new SerialRequestFragment());
     }
 
     @Subscribe

@@ -206,6 +206,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
                 }
 
                 currentPosition = pager.getCurrentItem();
+                currentPositionOffset = 0f;
                 scrollToChild(currentPosition, 0);
             }
         });
@@ -362,7 +363,6 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
             lineLeft = (currentPositionOffset * nextTabLeft + (1f - currentPositionOffset) * lineLeft);
             lineRight = (currentPositionOffset * nextTabRight + (1f - currentPositionOffset) * lineRight);
         }
-
         canvas.drawRect(lineLeft, 0, lineRight, indicatorHeight, rectPaint);
 
         // draw underline
