@@ -80,7 +80,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private Typeface tabTypeface = null;
     private int tabTypefaceStyle = Typeface.BOLD;
     private int lastScrollX = 0;
-    private int tabBackgroundResId = R.drawable.background_tab;
+    private int tabBackgroundResId = R.drawable.bt_selector;
     private Locale locale;
     private SparseArray<ImageButton> tabIcons = new SparseArray<ImageButton>();
 

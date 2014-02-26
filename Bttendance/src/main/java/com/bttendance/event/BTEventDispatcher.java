@@ -16,17 +16,22 @@ import com.bttendance.event.bluetooth.BTDiscoveredEvent;
 import com.bttendance.event.bluetooth.BTEnabledEvent;
 import com.bttendance.event.button.PlusClickedEvent;
 import com.bttendance.event.dialog.ShowEnableBluetoothDialog;
+import com.bttendance.event.fragment.ShowCourseAttendEvent;
+import com.bttendance.event.fragment.ShowCourseCreateEvent;
 import com.bttendance.event.fragment.ShowCourseDetailEvent;
 import com.bttendance.event.fragment.ShowSchoolChooseEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
 import com.bttendance.event.fragment.ShowForgotPasswordEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
 import com.bttendance.event.fragment.ShowPostAttdEvent;
+import com.bttendance.event.fragment.ShowSerialEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
 import com.bttendance.event.update.MyCoursesUpdateEvent;
-import com.bttendance.event.update.MySchoolsUpdateEvent;
+import com.bttendance.event.update.SchoolChooseUpdateEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.CourseAttendFragment;
+import com.bttendance.fragment.CourseCreateFragment;
 import com.bttendance.fragment.CourseDetailFragment;
 import com.bttendance.fragment.CreateNoticeFragment;
 import com.bttendance.fragment.ForgotPasswordFragment;
@@ -319,6 +324,10 @@ public class BTEventDispatcher {
         showDialog(dialog, "bt");
     }
 
+    /**
+     * Show Fragment Events
+     */
+
     @Subscribe
     public void onShowSchoolChoose(ShowSchoolChooseEvent event) {
         final BTActivity act = getBTActivity();
@@ -326,6 +335,33 @@ public class BTEventDispatcher {
             return;
 
         addFragment(new SchoolChooseFragment(event.getButtonID()));
+    }
+
+    @Subscribe
+    public void onShowCourseCreate(ShowCourseCreateEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        addFragment(new CourseCreateFragment(event.getSchoolID()));
+    }
+
+    @Subscribe
+    public void onShowSerial(ShowSerialEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+//        addFragment(new CourseCreateFragment(event.getSchoolID()));
+    }
+
+    @Subscribe
+    public void onShowCourseAttendEvent(ShowCourseAttendEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        addFragment(new CourseAttendFragment(event.getSchoolID()));
     }
 
     @Subscribe
@@ -403,14 +439,14 @@ public class BTEventDispatcher {
 
         switch (json.getType()) {
             case Course:
-                title = act.getString(R.string.join_course);
+                title = act.getString(R.string.attend_course);
                 CourseJson course = (CourseJson) json;
                 message = course.number + " " + course.name + "\n"
                         + act.getString(R.string.prof_) + course.professor_name + "\n"
                         + course.school_name;
                 break;
             case School:
-                title = act.getString(R.string.join_school);
+                title = act.getString(R.string.choose_school);
                 SchoolJson school = (SchoolJson) json;
                 message = school.name + "\n"
                         + school.website;
@@ -443,7 +479,7 @@ public class BTEventDispatcher {
                         act.getBTService().employSchool(json.id, new Callback<UserJson>() {
                             @Override
                             public void success(UserJson userJson, Response response) {
-                                BTEventBus.getInstance().post(new MySchoolsUpdateEvent());
+                                BTEventBus.getInstance().post(new SchoolChooseUpdateEvent());
                             }
 
                             @Override

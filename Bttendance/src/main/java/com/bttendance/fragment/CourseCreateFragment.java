@@ -22,6 +22,7 @@ import com.bttendance.helper.KeyboardHelper;
  */
 public class CourseCreateFragment extends BTFragment {
 
+    private int mSchoolID;
     private EditText mFullName = null;
     private EditText mUsername = null;
     private EditText mEmail = null;
@@ -35,6 +36,10 @@ public class CourseCreateFragment extends BTFragment {
     private String mFullNameString = null;
     private String mUsernameString = null;
     private String mEmailString = null;
+
+    public CourseCreateFragment(int schoolID) {
+        mSchoolID = schoolID;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -53,7 +53,7 @@ public class CourseListFragment extends BTFragment {
         mSectionAdapter = new SimpleSectionAdapter<Cursor>(
                 getActivity(),
                 mAdapter,
-                R.layout.course_section,
+                R.layout.simple_section,
                 R.id.section_text,
                 new Sectionizer<Cursor>() {
             @Override

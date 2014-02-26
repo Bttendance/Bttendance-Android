@@ -72,7 +72,7 @@ public class BTTable {
     public static synchronized SparseArray<CourseJson> getCoursesOfSchool(int schoolID) {
         SparseArray<CourseJson> courses = new SparseArray<CourseJson>();
         for (int i = 0; i < CourseTable.size(); i++)
-            if (CourseTable.keyAt(i) == schoolID)
+            if (CourseTable.valueAt(i).school == schoolID)
                 courses.append(CourseTable.keyAt(i), CourseTable.valueAt(i));
         return courses;
     }
@@ -89,7 +89,7 @@ public class BTTable {
     public static synchronized SparseArray<PostJson> getPostsOfCourse(int courseID) {
         SparseArray<PostJson> posts = new SparseArray<PostJson>();
         for (int i = 0; i < PostTable.size(); i++)
-            if (PostTable.keyAt(i) == courseID)
+            if (PostTable.valueAt(i).course == courseID)
                 posts.append(PostTable.keyAt(i), PostTable.valueAt(i));
         return posts;
     }

@@ -4,6 +4,7 @@ import android.database.MatrixCursor;
 import android.util.SparseArray;
 
 import com.bttendance.model.BTTable;
+import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
 
 /**

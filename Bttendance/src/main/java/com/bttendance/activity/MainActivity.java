@@ -50,7 +50,7 @@ public class MainActivity extends BTActivity {
         mTabs.setViewPager(mViewPager);
         mTabs.setIconTabSelected(0);
         mViewPager.setCurrentItem(1);
-        getSupportActionBar().setTitle(getString(R.string.feed));
+        getSupportActionBar().setTitle(getString(R.string.courses));
 
         mTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

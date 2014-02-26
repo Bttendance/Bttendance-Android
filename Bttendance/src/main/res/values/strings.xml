@@ -47,7 +47,7 @@
     <string name="create_course">"Create Course"</string>
     <string name="enter">"Enter"</string>
     <string name="forgot_password">"Forgot Password"</string>
-    <string name="join_course">"Join Course"</string>
+    <string name="attend_course">"Attend Course"</string>
     <string name="choose_school">"Choose School"</string>
     <string name="confrim">"Confirm"</string>
     <string name="cancel">"Cancel"</string>
@@ -89,5 +89,8 @@
     <string name="supervising_courses">Supervising Courses</string>
     <string name="attending_courses">Attending Courses</string>
     <string name="refresh">Refresh</string>
+    <string name="employed_schools">Employed Schools</string>
+    <string name="joinable_schools">Joinable Schools</string>
+    <string name="enrolled_schools">Enrolled Schools</string>
 
 </resources>
