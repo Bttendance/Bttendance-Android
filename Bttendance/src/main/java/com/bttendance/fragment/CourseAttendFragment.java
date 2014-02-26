@@ -22,8 +22,6 @@ import com.bttendance.model.json.UserJson;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -76,22 +74,47 @@ public class CourseAttendFragment extends BTFragment {
                 @Override
                 public void run() {
                     user = BTPreference.getUser(getActivity());
-                    ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
+
                     SparseArray<CourseJson> courses = BTTable.getCoursesOfSchool(mSchoolID);
+                    SparseArray<CourseJson> attendingCourses = new SparseArray<CourseJson>();
+                    SparseArray<CourseJson> joinableCourses = new SparseArray<CourseJson>();
                     for (int i = 0; i < courses.size(); i++) {
                         CourseJson course = courses.valueAt(i);
                         boolean joined = IntArrayHelper.contains(user.attending_courses, course.id)
                                 || IntArrayHelper.contains(user.supervising_courses, course.id);
+                        if (joined)
+                            attendingCourses.append(course.id, course);
+                        else
+                            joinableCourses.append(course.id, course);
+                    }
+
+                    ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
+                    if (attendingCourses.size() > 0)
+                        items.add(new BTListAdapter.Item(getString(R.string.attending_courses)));
+
+                    for (int i = 0; i < attendingCourses.size(); i++) {
+                        CourseJson course = attendingCourses.valueAt(i);
                         String title = course.number + " " + course.name;
                         String message = getString(R.string.prof_) + course.professor_name;
-                        items.add(new BTListAdapter.Item(false, joined, title, message, course, -1));
+                        items.add(new BTListAdapter.Item(true, title, message, course, mSchoolID));
                     }
-                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
-                        @Override
-                        public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
-                            return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
-                        }
-                    });
+
+                    if (joinableCourses.size() > 0)
+                        items.add(new BTListAdapter.Item(getString(R.string.joinable_courses)));
+
+                    for (int i = 0; i < joinableCourses.size(); i++) {
+                        CourseJson course = joinableCourses.valueAt(i);
+                        String title = course.number + " " + course.name;
+                        String message = getString(R.string.prof_) + course.professor_name;
+                        items.add(new BTListAdapter.Item(false, title, message, course, mSchoolID));
+                    }
+
+//                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+//                        @Override
+//                        public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+//                            return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+//                        }
+//                    });
                     mAdapter.setItems(items);
                     mAdapter.notifyDataSetChanged();
                 }

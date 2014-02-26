@@ -8,22 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.bttendance.R;
+import com.bttendance.adapter.CourseListAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
 import com.bttendance.adapter.kit.SimpleSectionAdapter;
+import com.bttendance.event.LoadingEvent;
+import com.bttendance.event.attendance.AttdEndEvent;
+import com.bttendance.event.attendance.AttdStartedEvent;
+import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.MyCourseCursor;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
-import com.bttendance.R;
-import com.bttendance.adapter.CourseListAdapter;
-import com.bttendance.event.attendance.AttdEndEvent;
-import com.bttendance.event.attendance.AttdStartedEvent;
-import com.bttendance.event.LoadingEvent;
-import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.model.BTTable;
-import com.bttendance.model.json.CourseJson;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -56,15 +56,15 @@ public class CourseListFragment extends BTFragment {
                 R.layout.simple_section,
                 R.id.section_text,
                 new Sectionizer<Cursor>() {
-            @Override
-            public String getSectionTitleForItem(Cursor cursor) {
-                if (IntArrayHelper.contains(user.supervising_courses, cursor.getInt(0))
-                        || MyCourseCursor.ADD_BUTTON_CREATE_COURSE == cursor.getInt(0))
-                    return getString(R.string.supervising_courses);
-                else
-                    return getString(R.string.attending_courses);
-            }
-        });
+                    @Override
+                    public String getSectionTitleForItem(Cursor cursor) {
+                        if (IntArrayHelper.contains(user.supervising_courses, cursor.getInt(0))
+                                || MyCourseCursor.ADD_BUTTON_CREATE_COURSE == cursor.getInt(0))
+                            return getString(R.string.supervising_courses);
+                        else
+                            return getString(R.string.attending_courses);
+                    }
+                });
         mListView.setAdapter(mSectionAdapter);
         swapCursor();
         return view;

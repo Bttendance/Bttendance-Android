@@ -110,7 +110,7 @@ public class PostAttendanceFragment extends BTFragment {
             boolean joined = mPost != null && IntArrayHelper.contains(mPost.checks, user.id);
             String title = user.username + " - " + user.full_name;
             String message = getString(R.string.email_) + user.email;
-            items.add(new BTListAdapter.Item(false, joined, title, message, user, mPost == null? -1: mPost.id));
+            items.add(new BTListAdapter.Item(joined, title, message, user, mPost == null? -1: mPost.id));
         }
         Collections.sort(items, new Comparator<BTListAdapter.Item>() {
             @Override

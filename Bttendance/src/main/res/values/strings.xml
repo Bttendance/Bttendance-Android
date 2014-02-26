@@ -91,6 +91,7 @@
     <string name="refresh">Refresh</string>
     <string name="employed_schools">Employed Schools</string>
     <string name="joinable_schools">Joinable Schools</string>
+    <string name="joinable_courses">Joinable Courses</string>
     <string name="enrolled_schools">Enrolled Schools</string>
 
 </resources>

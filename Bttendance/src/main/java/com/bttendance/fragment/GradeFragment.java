@@ -101,7 +101,7 @@ public class GradeFragment extends BTFragment {
             String title = user.username + " - " + user.full_name;
             String message = getString(R.string.email_) + user.email;
             GradeJson grade = GradeTable.get(user.id);
-            items.add(new BTListAdapter.Item(false, false, title, message, grade == null? new GradeJson(): grade, grade == null? -1: grade.id));
+            items.add(new BTListAdapter.Item(false, title, message, grade == null? new GradeJson(): grade, grade == null? -1: grade.id));
         }
         Collections.sort(items, new Comparator<BTListAdapter.Item>() {
             @Override

@@ -22,9 +22,8 @@ import com.bttendance.event.fragment.ShowSerialEvent;
 import com.bttendance.event.update.SchoolChooseUpdateEvent;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.MyCourseCursor;
-import com.bttendance.model.cursor.SchoolCursor;
+import com.bttendance.model.cursor.SectionedSchoolCursor;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
@@ -111,7 +110,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
                 @Override
                 public void run() {
                     user = BTPreference.getUser(getActivity());
-                    mAdapter.swapCursor(new SchoolCursor(BTTable.SchoolTable));
+                    mAdapter.swapCursor(new SectionedSchoolCursor(getActivity(), mAddButtonType));
                     mSectionAdapter.notifyDataSetChanged();
                 }
             });

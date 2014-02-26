@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.button.PlusClickedEvent;
 import com.bttendance.helper.StringMatcher;
@@ -45,11 +46,11 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
         Item i = mItems.get(position);
         if (i != null) {
             if (i.isSection()) {
-                v = mLayoutInflater.inflate(R.layout.listview_section_item, null);
-                TextView title = (TextView) v.findViewById(R.id.title);
+                v = mLayoutInflater.inflate(R.layout.simple_section, null);
+                TextView title = (TextView) v.findViewById(R.id.section_text);
                 title.setText(i.getTitle());
             } else {
-                v = mLayoutInflater.inflate(R.layout.listview_entry_item, null);
+                v = mLayoutInflater.inflate(R.layout.bt_list_item, null);
                 TextView title = (TextView) v.findViewById(R.id.title);
                 TextView message = (TextView) v.findViewById(R.id.message);
                 ImageView image = (ImageView) v.findViewById(R.id.add_btn);
@@ -150,8 +151,15 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
         private Object mJson;
         private int mId;
 
-        public Item(boolean isSection, boolean joined, String title, String message, Object json, int id) {
-            mIsSection = isSection;
+        // Section
+        public Item(String title) {
+            mIsSection = true;
+            mTitle = title;
+        }
+
+        // Entry
+        public Item(boolean joined, String title, String message, Object json, int id) {
+            mIsSection = false;
             mJoined = joined;
             mTitle = title;
             mMessage = message;
