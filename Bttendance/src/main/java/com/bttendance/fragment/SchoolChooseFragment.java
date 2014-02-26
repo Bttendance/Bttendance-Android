@@ -118,8 +118,8 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     }
 
     @Override
-    public void onServieConnected() {
-        super.onServieConnected();
+    public void onServiceConnected() {
+        super.onServiceConnected();
         getBTService().allSchools(new Callback<SchoolJson[]>() {
             @Override
             public void success(SchoolJson[] schoolJsons, Response response) {

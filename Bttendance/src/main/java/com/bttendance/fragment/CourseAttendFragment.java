@@ -123,8 +123,8 @@ public class CourseAttendFragment extends BTFragment {
     }
 
     @Override
-    public void onServieConnected() {
-        super.onServieConnected();
+    public void onServiceConnected() {
+        super.onServiceConnected();
         getBTService().schoolCourses(mSchoolID, new Callback<CourseJson[]>() {
             @Override
             public void success(CourseJson[] courseJsons, Response response) {

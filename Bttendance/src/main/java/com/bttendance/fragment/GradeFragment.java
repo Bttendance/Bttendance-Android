@@ -114,8 +114,8 @@ public class GradeFragment extends BTFragment {
     }
 
     @Override
-    public void onServieConnected() {
-        super.onServieConnected();
+    public void onServiceConnected() {
+        super.onServiceConnected();
         requestCall();
     }
 

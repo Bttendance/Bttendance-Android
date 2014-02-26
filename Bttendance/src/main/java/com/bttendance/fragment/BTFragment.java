@@ -21,7 +21,7 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
             ((BTActivity)activity).addOnServiceConnectListener(this);
         }
         if (getBTService() != null)
-            onServieConnected();
+            onServiceConnected();
     }
 
     @Override
@@ -58,16 +58,16 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
     }
 
     public void onFragmentResume() {
+    }
 
+    public void onFragmentPause() {
     }
 
     @Override
-    public void onServieConnected() {
-
+    public void onServiceConnected() {
     }
 
     @Override
-    public void onServieDisconnected() {
-
+    public void onServiceDisconnected() {
     }
 }

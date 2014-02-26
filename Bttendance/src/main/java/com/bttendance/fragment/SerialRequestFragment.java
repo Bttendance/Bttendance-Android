@@ -109,8 +109,8 @@ public class SerialRequestFragment extends BTFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
 
         if (mEmailString != null)
             mEmail.setText(mEmailString);
@@ -121,8 +121,8 @@ public class SerialRequestFragment extends BTFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onFragmentPause() {
+        super.onFragmentPause();
         KeyboardHelper.hide(getActivity(), mEmail);
     }
 

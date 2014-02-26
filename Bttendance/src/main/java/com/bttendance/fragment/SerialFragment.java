@@ -15,6 +15,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.fragment.ShowCourseCreateEvent;
 import com.bttendance.event.fragment.ShowSerialRequestEvent;
@@ -157,16 +158,16 @@ public class SerialFragment extends BTFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
         mSerialDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         isEnableSignIn();
         KeyboardHelper.show(getActivity(), mSerial);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onFragmentPause() {
+        super.onFragmentPause();
         KeyboardHelper.hide(getActivity(), mSerial);
     }
 

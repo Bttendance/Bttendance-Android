@@ -57,8 +57,8 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
     }
 
     @Override
-    public void onServieConnected() {
-        super.onServieConnected();
+    public void onServiceConnected() {
+        super.onServiceConnected();
         getSchools();
     }
 

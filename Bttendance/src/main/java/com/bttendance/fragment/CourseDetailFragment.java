@@ -71,8 +71,8 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     @Override
-    public void onServieConnected() {
-        super.onServieConnected();
+    public void onServiceConnected() {
+        super.onServiceConnected();
         getFeed();
     }
 

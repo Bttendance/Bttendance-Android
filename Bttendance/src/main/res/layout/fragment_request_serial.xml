@@ -7,7 +7,7 @@
     android:focusable="true"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingTop="15dp">
+    android:paddingTop="25dp">
 
     <TextView
         android:id="@+id/email_text"

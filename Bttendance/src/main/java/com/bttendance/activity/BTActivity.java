@@ -87,18 +87,20 @@ public class BTActivity extends SherlockFragmentActivity {
         checkPlayServices();
         for (OnServiceConnectListener listener : mServiceListeners)
             if (listener != null)
-                listener.onServieConnected();
+                listener.onServiceConnected();
     }
 
     protected void onServieDisconnected() {
         for (OnServiceConnectListener listener : mServiceListeners)
             if (listener != null)
-                listener.onServieDisconnected();
+                listener.onServiceDisconnected();
     }
 
     public BTService getBTService() {
         return mService;
     }
+
+    private BTFragment mLastFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,11 @@ public class BTActivity extends SherlockFragmentActivity {
                 FragmentManager manager = getSupportFragmentManager();
                 if (manager != null) {
                     BTFragment frag = (BTFragment) manager.findFragmentById(R.id.content);
+
+                    if (mLastFragment != null)
+                        mLastFragment.onFragmentPause();
+                    mLastFragment = frag;
+
                     if (frag != null)
                         frag.onFragmentResume();
                 }
@@ -238,9 +245,9 @@ public class BTActivity extends SherlockFragmentActivity {
 //    }
 
     public interface OnServiceConnectListener {
-        void onServieConnected();
+        void onServiceConnected();
 
-        void onServieDisconnected();
+        void onServiceDisconnected();
     }
 
     public static class ActivityStack extends Application {
