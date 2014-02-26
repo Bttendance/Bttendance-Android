@@ -14,12 +14,15 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.bttendance.BTDebug;
 import com.bttendance.R;
+import com.bttendance.event.update.UpdateCourseListEvent;
+import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.UserJson;
+import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -271,6 +274,12 @@ public class CourseCreateFragment extends BTFragment {
         getBTService().courseCreate(fullName, email, mSchoolID, name, new Callback<CourseJson>() {
             @Override
             public void success(CourseJson courseJson, Response response) {
+
+                UserJson user = BTPreference.getUser(getActivity());
+                user.supervising_courses = IntArrayHelper.add(user.supervising_courses, courseJson.id);
+                BTPreference.setUser(getActivity(), user);
+
+                BTEventBus.getInstance().post(new UpdateCourseListEvent());
 
                 int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
                 getActivity().getSupportFragmentManager().popBackStack();

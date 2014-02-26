@@ -23798,7 +23798,7 @@ com.bttendance.event.LoadingEvent -> com.bttendance.event.LoadingEvent:
 com.bttendance.event.LocationChangedEvent -> com.bttendance.event.LocationChangedEvent:
     android.location.Location mLocation -> a
     17:17:android.location.Location getLocation() -> getLocation
-com.bttendance.event.update.MyCoursesUpdateEvent -> com.bttendance.event.update.MyCoursesUpdateEvent:
+com.bttendance.event.update.UpdateCourseAttendEvent -> com.bttendance.event.update.UpdateCourseAttendEvent:
 com.bttendance.event.button.PlusClickedEvent -> com.bttendance.event.button.PlusClickedEvent:
     com.bttendance.model.json.BTJson mJson -> a
     int mId -> b
@@ -23984,7 +23984,7 @@ com.bttendance.fragment.CourseAttendFragment -> com.bttendance.fragment.CourseAt
     39:41:void onCreate(android.os.Bundle) -> onCreate
     45:50:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     55:57:void onFragmentResume() -> onFragmentResume
-    61:62:void onMyCourseUpdate(com.bttendance.event.update.MyCoursesUpdateEvent) -> onMyCourseUpdate
+    61:62:void onMyCourseUpdate(com.bttendance.event.update.UpdateCourseAttendEvent) -> onMyCourseUpdate
     65:86:void swapItems() -> l
     90:101:void onServieConnected() -> onServieConnected
     105:109:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu

@@ -19,7 +19,7 @@ import com.bttendance.adapter.kit.SimpleSectionAdapter;
 import com.bttendance.event.fragment.ShowCourseAttendEvent;
 import com.bttendance.event.fragment.ShowCourseCreateEvent;
 import com.bttendance.event.fragment.ShowSerialEvent;
-import com.bttendance.event.update.SchoolChooseUpdateEvent;
+import com.bttendance.event.update.UpdateSchoolChooseEvent;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.cursor.MyCourseCursor;
@@ -100,7 +100,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     }
 
     @Subscribe
-    public void onUpdate(SchoolChooseUpdateEvent event) {
+    public void onUpdate(UpdateSchoolChooseEvent event) {
         swapItems();
     }
 

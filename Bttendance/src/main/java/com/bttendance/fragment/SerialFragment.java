@@ -21,6 +21,7 @@ import com.bttendance.event.fragment.ShowCourseCreateEvent;
 import com.bttendance.event.fragment.ShowSerialRequestEvent;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.SchoolJson;
+import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
 
@@ -141,13 +142,10 @@ public class SerialFragment extends BTFragment {
             return;
 
         String serial = mSerial.getText().toString();
-        getBTService().serialValidate(serial, new Callback<SchoolJson>() {
+        getBTService().employSchool(mSchoolId, serial, new Callback<UserJson>() {
             @Override
-            public void success(SchoolJson school, Response response) {
-                if (school != null && school.id == mSchoolId) {
-                    BTEventBus.getInstance().post(new ShowCourseCreateEvent(mSchoolId));
-                } else
-                    BeautiToast.show(getActivity(), getString(R.string.wrong_serial));
+            public void success(UserJson user, Response response) {
+                BTEventBus.getInstance().post(new ShowCourseCreateEvent(mSchoolId));
             }
 
             @Override

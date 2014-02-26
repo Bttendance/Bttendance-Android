@@ -13,7 +13,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.update.MyCoursesUpdateEvent;
+import com.bttendance.event.update.UpdateCourseAttendEvent;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
@@ -64,7 +64,7 @@ public class CourseAttendFragment extends BTFragment {
     }
 
     @Subscribe
-    public void onUpdate(MyCoursesUpdateEvent event) {
+    public void onUpdate(UpdateCourseAttendEvent event) {
         swapItems();
     }
 

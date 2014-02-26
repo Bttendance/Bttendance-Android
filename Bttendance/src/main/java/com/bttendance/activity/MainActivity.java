@@ -8,13 +8,13 @@ import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
-import com.bttendance.activity.sign.CatchPointActivity;
-import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.UserJson;
 import com.bttendance.R;
+import com.bttendance.activity.sign.CatchPointActivity;
 import com.bttendance.adapter.BTPagerAdapter;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.model.BTPreference;
+import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.bttendance.view.PagerSlidingTabStrip;
 

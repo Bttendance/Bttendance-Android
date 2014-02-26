@@ -100,6 +100,7 @@ public interface BTAPI {
     void employSchool(@Query("username") String username,
                       @Query("password") String password,
                       @Query("school_id") int schoolID,
+                      @Query("serial") String serial,
                       Callback<UserJson> cb);
 
     @PUT("/user/enroll/school")

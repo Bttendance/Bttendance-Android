@@ -19,16 +19,15 @@ import com.bttendance.event.dialog.ShowEnableBluetoothDialog;
 import com.bttendance.event.fragment.ShowCourseAttendEvent;
 import com.bttendance.event.fragment.ShowCourseCreateEvent;
 import com.bttendance.event.fragment.ShowCourseDetailEvent;
-import com.bttendance.event.fragment.ShowSchoolChooseEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
 import com.bttendance.event.fragment.ShowForgotPasswordEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
 import com.bttendance.event.fragment.ShowPostAttdEvent;
+import com.bttendance.event.fragment.ShowSchoolChooseEvent;
 import com.bttendance.event.fragment.ShowSerialEvent;
 import com.bttendance.event.fragment.ShowSerialRequestEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
-import com.bttendance.event.update.MyCoursesUpdateEvent;
-import com.bttendance.event.update.SchoolChooseUpdateEvent;
+import com.bttendance.event.update.UpdateCourseAttendEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.CourseAttendFragment;
@@ -43,12 +42,13 @@ import com.bttendance.fragment.SchoolChooseFragment;
 import com.bttendance.fragment.SerialFragment;
 import com.bttendance.fragment.SerialRequestFragment;
 import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTKey;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.BTJson;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
-import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
@@ -94,7 +94,7 @@ public class BTEventDispatcher {
         BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
-            public void onConfirmed() {
+            public void onConfirmed(String edit) {
                 BTTable.ATTENDANCE_STARTING_COURSE = event.getCourseId();
                 if (!BluetoothHelper.isDiscoverable()) {
                     BluetoothHelper.enableWithUI();
@@ -137,7 +137,7 @@ public class BTEventDispatcher {
         BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
-            public void onConfirmed() {
+            public void onConfirmed(String edit) {
             }
 
             @Override
@@ -170,7 +170,7 @@ public class BTEventDispatcher {
         final BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
-            public void onConfirmed() {
+            public void onConfirmed(String edit) {
                 if (!BluetoothHelper.isDiscoverable()) {
                     BluetoothHelper.enableWithUI();
                     BluetoothHelper.enableDiscoverability(act);
@@ -202,7 +202,7 @@ public class BTEventDispatcher {
         final BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
-            public void onConfirmed() {
+            public void onConfirmed(String edit) {
             }
 
             @Override
@@ -316,7 +316,7 @@ public class BTEventDispatcher {
         BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
-            public void onConfirmed() {
+            public void onConfirmed(String edit) {
                 BluetoothHelper.enable(act);
             }
 
@@ -446,52 +446,44 @@ public class BTEventDispatcher {
 
         final BTJson json = event.getJson();
 
+        BTDialogFragment dialog;
         String title = null;
         String message = null;
 
         switch (json.getType()) {
             case Course:
-                title = act.getString(R.string.attend_course);
-                CourseJson course = (CourseJson) json;
-                message = course.number + " " + course.name + "\n"
-                        + act.getString(R.string.prof_) + course.professor_name + "\n"
-                        + course.school_name;
-                break;
-            case School:
-                title = act.getString(R.string.choose_school);
-                SchoolJson school = (SchoolJson) json;
-                message = school.name + "\n"
-                        + school.website;
+                if (IntArrayHelper.contains(BTPreference.getUser(act).enrolled_schools, ((CourseJson) json).school)) {
+                    title = act.getString(R.string.attend_course);
+                    CourseJson course = (CourseJson) json;
+                    message = course.number + " " + course.name + "\n"
+                            + act.getString(R.string.prof_) + course.professor_name + "\n"
+                            + course.school_name;
+                    dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
+                } else {
+                    title = act.getString(R.string.student_id_or_phone_number);
+                    CourseJson course = (CourseJson) json;
+                    message = String.format(act.getString(R.string.before_you_join_course),course.name);
+                    dialog = new BTDialogFragment(BTDialogFragment.DialogType.EDIT, title, message);
+                }
                 break;
             case User:
+            default:
                 title = act.getString(R.string.attendance_check);
                 UserJson user = (UserJson) json;
                 message = String.format(act.getString(R.string.do_you_want_to_approve_attendance), user.full_name);
+                dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
                 break;
         }
 
-        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
         dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
             @Override
-            public void onConfirmed() {
+            public void onConfirmed(String edit) {
                 switch (json.getType()) {
                     case Course:
                         act.getBTService().attendCourse(json.id, new Callback<UserJson>() {
                             @Override
                             public void success(UserJson userJson, Response response) {
-                                BTEventBus.getInstance().post(new MyCoursesUpdateEvent());
-                            }
-
-                            @Override
-                            public void failure(RetrofitError retrofitError) {
-                            }
-                        });
-                        break;
-                    case School:
-                        act.getBTService().employSchool(json.id, new Callback<UserJson>() {
-                            @Override
-                            public void success(UserJson userJson, Response response) {
-                                BTEventBus.getInstance().post(new SchoolChooseUpdateEvent());
+                                BTEventBus.getInstance().post(new UpdateCourseAttendEvent());
                             }
 
                             @Override

@@ -17,7 +17,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
-import com.bttendance.event.update.ProfileUpdateEvent;
+import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.json.UserJson;
@@ -192,7 +192,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
      */
     @Override
     public void success(UserJson userJson, Response response) {
-        BTEventBus.getInstance().post(new ProfileUpdateEvent());
+        BTEventBus.getInstance().post(new UpdateProfileEvent());
         getActivity().onBackPressed();
     }
 

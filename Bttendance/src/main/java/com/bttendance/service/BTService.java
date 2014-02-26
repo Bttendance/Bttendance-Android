@@ -406,12 +406,12 @@ public class BTService extends Service {
         });
     }
 
-    public void employSchool(int schoolID, final Callback<UserJson> cb) {
+    public void employSchool(int schoolID, String serial, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.employSchool(user.username, user.password, schoolID, new Callback<UserJson>() {
+        mBTAPI.employSchool(user.username, user.password, schoolID, serial, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
                 BTDebug.LogInfo(user.toJson());
@@ -499,6 +499,7 @@ public class BTService extends Service {
             @Override
             public void success(CourseJson course, Response response) {
                 BTTable.CourseTable.append(course.id, course);
+                BTTable.getCourses(BTTable.FILTER_MY_COURSE).append(course.id, course);
                 if (cb != null)
                     cb.success(course, response);
             }
@@ -700,7 +701,8 @@ public class BTService extends Service {
         mBTAPI.serialValidate(serial, new Callback<SchoolJson>() {
             @Override
             public void success(SchoolJson school, Response response) {
-                cb.success(school, response);
+                if (cb != null)
+                    cb.success(school, response);
             }
 
             @Override
@@ -718,10 +720,7 @@ public class BTService extends Service {
             @Override
             public void success(SerialJson serial, Response response) {
                 if (cb != null)
-                    if (response != null && response.getStatus() == 202)
-                        cb.success(serial, response);
-                    else
-                        cb.failure(null);
+                    cb.success(serial, response);
             }
 
             @Override

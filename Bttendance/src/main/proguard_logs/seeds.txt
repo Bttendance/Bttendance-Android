@@ -13557,8 +13557,8 @@ com.bttendance.event.LoadingEvent: boolean getVisibility()
 com.bttendance.event.LocationChangedEvent
 com.bttendance.event.LocationChangedEvent: LocationChangedEvent(android.location.Location)
 com.bttendance.event.LocationChangedEvent: android.location.Location getLocation()
-com.bttendance.event.update.MyCoursesUpdateEvent
-com.bttendance.event.update.MyCoursesUpdateEvent: MyCoursesUpdateEvent()
+com.bttendance.event.update.UpdateCourseAttendEvent
+com.bttendance.event.update.UpdateCourseAttendEvent: MyCoursesUpdateEvent()
 com.bttendance.event.button.PlusClickedEvent
 com.bttendance.event.button.PlusClickedEvent: PlusClickedEvent(com.bttendance.model.json.BTJson,int)
 com.bttendance.event.button.PlusClickedEvent: com.bttendance.model.json.BTJson getJson()
@@ -13637,7 +13637,7 @@ com.bttendance.fragment.CourseAttendFragment: JoinCourseFragment()
 com.bttendance.fragment.CourseAttendFragment: void onCreate(android.os.Bundle)
 com.bttendance.fragment.CourseAttendFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
 com.bttendance.fragment.CourseAttendFragment: void onFragmentResume()
-com.bttendance.fragment.CourseAttendFragment: void onMyCourseUpdate(com.bttendance.event.update.MyCoursesUpdateEvent)
+com.bttendance.fragment.CourseAttendFragment: void onMyCourseUpdate(com.bttendance.event.update.UpdateCourseAttendEvent)
 com.bttendance.fragment.CourseAttendFragment: void onServieConnected()
 com.bttendance.fragment.CourseAttendFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
 com.bttendance.fragment.CourseAttendFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)

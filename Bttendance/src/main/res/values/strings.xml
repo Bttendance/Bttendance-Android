@@ -96,5 +96,7 @@
     <string name="enrolled_schools">Enrolled Schools</string>
     <string name="fail_to_request_serial">Fail to request serial</string>
     <string name="serial_has_been_sent">Serial has been sent</string>
+    <string name="student_id_or_phone_number">Student ID or Phone Number</string>
+    <string name="before_you_join_course">Before you join course %s, you need to enter your student ID of your phone number</string>
 
 </resources>

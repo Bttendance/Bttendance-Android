@@ -11,7 +11,7 @@ import com.bttendance.R;
 import com.bttendance.adapter.ProfileAdapter;
 import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
-import com.bttendance.event.update.ProfileUpdateEvent;
+import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.cursor.MySchoolCursor;
@@ -88,7 +88,7 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
     }
 
     @Subscribe
-    public void onProfileUpdate(ProfileUpdateEvent event) {
+    public void onProfileUpdate(UpdateProfileEvent event) {
         refreshHeader();
     }
 
