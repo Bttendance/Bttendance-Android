@@ -5,10 +5,8 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.activity.MainActivity;
-import com.bttendance.event.attendance.AttdCheckedEvent;
-import com.bttendance.event.attendance.AttdCheckedManuallyEvent;
-import com.bttendance.event.attendance.AttdInProgressEvent;
+import com.bttendance.event.fragment.ShowPostAttendanceEvent;
+import com.bttendance.event.update.UpdatePostAttendanceEvent;
 import com.bttendance.event.attendance.AttdStartEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
@@ -24,7 +22,6 @@ import com.bttendance.event.fragment.ShowCourseDetailEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
 import com.bttendance.event.fragment.ShowForgotPasswordEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
-import com.bttendance.event.fragment.ShowPostAttdEvent;
 import com.bttendance.event.fragment.ShowSchoolChooseEvent;
 import com.bttendance.event.fragment.ShowSerialEvent;
 import com.bttendance.event.fragment.ShowSerialRequestEvent;
@@ -126,32 +123,6 @@ public class BTEventDispatcher {
         showDialog(dialog, "start");
     }
 
-    // Professor start attendance
-    @Subscribe
-    public void onAttendanceInProgress(final AttdInProgressEvent event) {
-        final BTActivity act = getBTActivity();
-        if (act == null)
-            return;
-
-        if (act.getSupportFragmentManager().findFragmentByTag("in progress") != null)
-            return;
-
-        String title = act.getString(R.string.attendance_check);
-        String message = act.getString(R.string.attendance_checking_is_in_progress);
-
-        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
-            @Override
-            public void onConfirmed(String edit) {
-            }
-
-            @Override
-            public void onCanceled() {
-            }
-        });
-        showDialog(dialog, "in progress");
-    }
-
     // Student Professor attendance started
     @Subscribe
     public void onAttendanceStarted(AttdStartedEvent event) {
@@ -164,8 +135,6 @@ public class BTEventDispatcher {
 
         if (BluetoothHelper.isDiscoverable()) {
             act.getBTService().attendanceStart();
-            if (event.onGoingCheck())
-                onAttendanceInProgress(new AttdInProgressEvent());
             return;
         }
 
@@ -189,32 +158,6 @@ public class BTEventDispatcher {
             }
         });
         showDialog(dialog, "started");
-    }
-
-    // Student attendance checked
-    @Subscribe
-    public void onAttendanceChecked(AttdCheckedEvent event) {
-        final BTActivity act = getBTActivity();
-        if (act == null || !(act instanceof MainActivity))
-            return;
-
-        if (act.getSupportFragmentManager().findFragmentByTag("checked") != null)
-            return;
-
-        String title = act.getString(R.string.attendance_check);
-        String message = String.format(act.getString(R.string.attendance_has_been_checked), event.getTitle());
-
-        final BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
-            @Override
-            public void onConfirmed(String edit) {
-            }
-
-            @Override
-            public void onCanceled() {
-            }
-        });
-        showDialog(dialog, "checked");
     }
 
     @Subscribe
@@ -309,6 +252,7 @@ public class BTEventDispatcher {
 //        showDialog(dialog, "gps");
 //    }
 
+    // For Sign Up
     @Subscribe
     public void onShowEnableBluetoothDialog(ShowEnableBluetoothDialog event) {
         final BTActivity act = getBTActivity();
@@ -439,12 +383,12 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onShowPostAttd(ShowPostAttdEvent event) {
+    public void onShowPostAttd(ShowPostAttendanceEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
 
-        addFragment(new PostAttendanceFragment(event.getCourseId()));
+        addFragment(new PostAttendanceFragment(event.getPostId()));
     }
 
     @Subscribe
@@ -567,7 +511,7 @@ public class BTEventDispatcher {
                         act.getBTService().postAttendanceCheckManually(event.getId(), json.id, new Callback<PostJson>() {
                             @Override
                             public void success(PostJson postJson, Response response) {
-                                BTEventBus.getInstance().post(new AttdCheckedManuallyEvent());
+                                BTEventBus.getInstance().post(new UpdatePostAttendanceEvent());
                             }
 
                             @Override

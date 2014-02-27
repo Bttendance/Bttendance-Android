@@ -13517,8 +13517,8 @@ com.bttendance.event.fragment.ShowSchoolChooseEvent: AddCourseEvent()
 com.bttendance.event.attendance.AttdCheckedEvent
 com.bttendance.event.attendance.AttdCheckedEvent: AttdCheckedEvent(java.lang.String)
 com.bttendance.event.attendance.AttdCheckedEvent: java.lang.String getTitle()
-com.bttendance.event.attendance.AttdCheckedManuallyEvent
-com.bttendance.event.attendance.AttdCheckedManuallyEvent: AttdCheckedManuallyEvent()
+com.bttendance.event.update.UpdatePostAttendanceEvent
+com.bttendance.event.update.UpdatePostAttendanceEvent: AttdCheckedManuallyEvent()
 com.bttendance.event.attendance.AttdEndEvent
 com.bttendance.event.attendance.AttdEndEvent: AttdEndEvent()
 com.bttendance.event.attendance.AttdInProgressEvent
@@ -13548,7 +13548,7 @@ com.bttendance.event.BTEventDispatcher: void onBTCanceled(com.bttendance.event.b
 com.bttendance.event.BTEventDispatcher: void onLocationChanged(com.bttendance.event.LocationChangedEvent)
 com.bttendance.event.BTEventDispatcher: void onShowEnableGPSDialog(com.bttendance.event.fragment.ShowEnableGPSDialogEvent)
 com.bttendance.event.BTEventDispatcher: void onAddCourse(com.bttendance.event.fragment.ShowSchoolChooseEvent)
-com.bttendance.event.BTEventDispatcher: void onShowAttdList(com.bttendance.event.fragment.ShowPostAttdEvent)
+com.bttendance.event.BTEventDispatcher: void onShowAttdList(com.bttendance.event.fragment.ShowPostAttendanceEvent)
 com.bttendance.event.BTEventDispatcher: void onPlusClicked(com.bttendance.event.button.PlusClickedEvent)
 com.bttendance.event.BTEventDispatcher: void onLoadingEvent(com.bttendance.event.LoadingEvent)
 com.bttendance.event.LoadingEvent
@@ -13563,9 +13563,9 @@ com.bttendance.event.button.PlusClickedEvent
 com.bttendance.event.button.PlusClickedEvent: PlusClickedEvent(com.bttendance.model.json.BTJson,int)
 com.bttendance.event.button.PlusClickedEvent: com.bttendance.model.json.BTJson getJson()
 com.bttendance.event.button.PlusClickedEvent: int getId()
-com.bttendance.event.fragment.ShowPostAttdEvent
-com.bttendance.event.fragment.ShowPostAttdEvent: ShowAttdListEvent(int)
-com.bttendance.event.fragment.ShowPostAttdEvent: int getCourseId()
+com.bttendance.event.fragment.ShowPostAttendanceEvent
+com.bttendance.event.fragment.ShowPostAttendanceEvent: ShowAttdListEvent(int)
+com.bttendance.event.fragment.ShowPostAttendanceEvent: int getCourseId()
 com.bttendance.event.fragment.ShowEnableGPSDialogEvent
 com.bttendance.event.fragment.ShowEnableGPSDialogEvent: ShowEnableGPSDialogEvent()
 com.bttendance.fragment.PostAttendanceFragment
@@ -13573,7 +13573,7 @@ com.bttendance.fragment.PostAttendanceFragment: AttendanceListFragment(int)
 com.bttendance.fragment.PostAttendanceFragment: void onCreate(android.os.Bundle)
 com.bttendance.fragment.PostAttendanceFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
 com.bttendance.fragment.PostAttendanceFragment: void onFragmentResume()
-com.bttendance.fragment.PostAttendanceFragment: void onAttdCheckedManually(com.bttendance.event.attendance.AttdCheckedManuallyEvent)
+com.bttendance.fragment.PostAttendanceFragment: void onAttdCheckedManually(com.bttendance.event.update.UpdatePostAttendanceEvent)
 com.bttendance.fragment.PostAttendanceFragment: void onServieConnected()
 com.bttendance.fragment.PostAttendanceFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
 com.bttendance.fragment.PostAttendanceFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)

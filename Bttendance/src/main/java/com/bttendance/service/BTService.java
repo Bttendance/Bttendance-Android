@@ -102,9 +102,9 @@ public class BTService extends Service {
             public void run() {
                 try {
                     BTDebug.LogError("TimeLeft : " + BTTable.getAttdChekingLeftTime());
-                    for (int i = 0; i < (int) (BTTable.getAttdChekingLeftTime() / 3000); i++) {
+                    for (int i = 0; i < (int) (BTTable.getAttdChekingLeftTime() / 5000); i++) {
                         BluetoothHelper.startDiscovery();
-                        Thread.sleep(3000);
+                        Thread.sleep(5000);
                         Set<Integer> ids = BTTable.getCheckingPostIds();
                         Set<String> list = new HashSet<String>();
                         for (String mac : BTTable.UUIDLIST())

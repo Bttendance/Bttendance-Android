@@ -21,10 +21,13 @@ import com.bttendance.event.fragment.ShowAddManagerEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.helper.IntArrayHelper;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.PostCursor;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
+import com.bttendance.model.json.UserJson;
 import com.bttendance.view.Bttendance;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
@@ -99,6 +102,10 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     private void refreshHeader() {
         if (header == null || mCourse == null)
             return;
+
+        UserJson user = BTPreference.getUser(getActivity());
+        if (IntArrayHelper.contains(user.attending_courses, mCourse.id))
+            header.findViewById(R.id.manager_layout).setVisibility(View.GONE);
 
         Bttendance bttendance = (Bttendance) header.findViewById(R.id.bttendance);
         TextView courseInfo = (TextView) header.findViewById(R.id.course_info);

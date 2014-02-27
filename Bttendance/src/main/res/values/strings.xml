@@ -102,5 +102,7 @@
     <string name="add_manager">Add Manager</string>
     <string name="would_you_like_to_add">Would you like to add \"%1$s\" as a manager of course %2$s?</string>
     <string name="is_now_manager_of_course">\"%1$s\" is now a manager of course %2$s.</string>
+    <string name="attendance_unchecked_students">Attendance Un-Checked Students</string>
+    <string name="attendance_checked_students">Attendance Checked Students</string>
 
 </resources>

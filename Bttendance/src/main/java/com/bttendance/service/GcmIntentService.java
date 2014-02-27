@@ -145,6 +145,9 @@ public class GcmIntentService extends IntentService {
             noti.defaults |= Notification.DEFAULT_VIBRATE;
             noti.defaults |= Notification.DEFAULT_SOUND;
             noti.defaults |= Notification.DEFAULT_LIGHTS;
+        } else {
+            noti.defaults |= Notification.DEFAULT_VIBRATE;
+            noti.defaults |= Notification.DEFAULT_LIGHTS;
         }
         nm.notify(NOTIFICATION_ID, noti);
     }

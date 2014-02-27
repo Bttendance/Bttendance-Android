@@ -17,13 +17,6 @@
         android:minHeight="88dp"
         android:background="@drawable/bt_list_item_background" />
 
-    <View
-        android:id="@+id/item_selector"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minHeight="88dp"
-        android:background="@drawable/bt_list_item_selector" />
-
     <com.bttendance.view.Bttendance
         android:id="@+id/bttendance"
         android:layout_width="wrap_content"
@@ -32,6 +25,21 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="18dp"
         app:type="Small" />
+
+    <View
+        android:id="@+id/item_selector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="88dp"
+        android:background="@drawable/bt_list_item_selector" />
+
+    <View
+        android:id="@+id/bttendance_bt"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="18dp" />
 
     <TextView
         android:id="@+id/title"

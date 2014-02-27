@@ -57,15 +57,16 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
                 CourseJson course = BTTable.CourseTable.get(cursor.getInt(0));
 
                 Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
+                View btButton = view.findViewById(R.id.bttendance_bt);
                 View selector = view.findViewById(R.id.item_selector);
 
-                bttendance.setOnClickListener(this);
+                btButton.setOnClickListener(this);
                 selector.setOnClickListener(this);
 
-                bttendance.setClickable(true);
+                btButton.setClickable(true);
                 selector.setVisibility(View.VISIBLE);
 
-                bttendance.setTag(R.id.course_id, course.id);
+                btButton.setTag(R.id.course_id, course.id);
                 selector.setTag(R.id.course_id, course.id);
 
                 long currentTime = DateHelper.getCurrentGMTTimeMillis();
@@ -116,7 +117,7 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.bttendance:
+            case R.id.bttendance_bt:
                 boolean checking = (Boolean) v.getTag(R.id.checking);
                 if (checking)
                     BTEventBus.getInstance().post(new AttdInProgressEvent());

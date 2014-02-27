@@ -11,6 +11,7 @@
         android:background="@color/bttendance_grey"
         android:cacheColorHint="@color/bttendance_grey"
         android:divider="@null"
+        android:listSelector="@android:color/transparent"
         android:scrollbars="none" />
 
 </RelativeLayout>

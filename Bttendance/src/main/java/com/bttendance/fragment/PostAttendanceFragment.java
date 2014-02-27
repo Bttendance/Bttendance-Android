@@ -1,6 +1,7 @@
 package com.bttendance.fragment;
 
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +11,17 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.squareup.otto.Subscribe;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.attendance.AttdCheckedManuallyEvent;
+import com.bttendance.event.update.UpdatePostAttendanceEvent;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJson;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -39,8 +38,9 @@ public class PostAttendanceFragment extends BTFragment {
     private PostJson mPost;
     private UserJson[] mUserJsons;
 
-    public PostAttendanceFragment(int courseId) {
-        mCourse = BTTable.CourseTable.get(courseId);
+    public PostAttendanceFragment(int postId) {
+        mPost = BTTable.PostTable.get(postId);
+        mCourse = BTTable.CourseTable.get(mPost.course);
     }
 
     @Override
@@ -55,7 +55,6 @@ public class PostAttendanceFragment extends BTFragment {
         mListView = (ListView) view.findViewById(android.R.id.list);
         mAdapter = new BTListAdapter(getActivity());
         mListView.setAdapter(mAdapter);
-//        mListView.setFastScrollEnabled(true);
         return view;
     }
 
@@ -66,12 +65,13 @@ public class PostAttendanceFragment extends BTFragment {
     }
 
     @Subscribe
-    public void onAttdCheckedManually(AttdCheckedManuallyEvent event) {
-        mPost = BTTable.PostTable.get(mPost.id);
+    public void onUpdate(UpdatePostAttendanceEvent event) {
         swapItems();
     }
 
     private void requestCall() {
+        if (getBTService() == null)
+            return;
 
         getBTService().courseStudents(mCourse.id, new Callback<UserJson[]>() {
             @Override
@@ -88,7 +88,7 @@ public class PostAttendanceFragment extends BTFragment {
         if (mCourse.posts.length == 0)
             return;
 
-        getBTService().post(mCourse.posts[mCourse.posts.length - 1], new Callback<PostJson>() {
+        getBTService().post(mPost.id, new Callback<PostJson>() {
             @Override
             public void success(PostJson postJson, Response response) {
                 mPost = postJson;
@@ -105,21 +105,54 @@ public class PostAttendanceFragment extends BTFragment {
         if (!this.isAdded() || mUserJsons == null)
             return;
 
-        ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
-        for (UserJson user : mUserJsons) {
-            boolean joined = mPost != null && IntArrayHelper.contains(mPost.checks, user.id);
-            String title = user.username + " - " + user.full_name;
-            String message = getString(R.string.email_) + user.email;
-            items.add(new BTListAdapter.Item(joined, title, message, user, mPost == null? -1: mPost.id));
-        }
-        Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+        mPost = BTTable.PostTable.get(mPost.id);
+
+
+        getActivity().runOnUiThread(new Runnable() {
             @Override
-            public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
-                return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+            public void run() {
+                SparseArray<UserJson> attdChecked = new SparseArray<UserJson>();
+                SparseArray<UserJson> attdUnChecked = new SparseArray<UserJson>();
+                for (UserJson user : mUserJsons)
+                    if (IntArrayHelper.contains(mPost.checks, user.id))
+                        attdChecked.append(user.id, user);
+                    else
+                        attdUnChecked.append(user.id, user);
+
+                ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
+
+                if (attdUnChecked.size() > 0)
+                    items.add(new BTListAdapter.Item(getString(R.string.attendance_unchecked_students)));
+
+                for (int i = 0; i < attdUnChecked.size(); i++) {
+                    UserJson user = attdUnChecked.valueAt(i);
+                    boolean joined = IntArrayHelper.contains(mPost.checks, user.id);
+                    String title = user.full_name;
+                    String message = user.email;
+                    items.add(new BTListAdapter.Item(joined, title, message, user, mPost == null ? -1 : mPost.id));
+                }
+
+                if (attdChecked.size() > 0)
+                    items.add(new BTListAdapter.Item(getString(R.string.attendance_checked_students)));
+
+                for (int i = 0; i < attdChecked.size(); i++) {
+                    UserJson user = attdChecked.valueAt(i);
+                    boolean joined = IntArrayHelper.contains(mPost.checks, user.id);
+                    String title = user.full_name;
+                    String message = user.email;
+                    items.add(new BTListAdapter.Item(joined, title, message, user, mPost == null ? -1 : mPost.id));
+                }
+
+//        Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+//            @Override
+//            public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+//                return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+//            }
+//        });
+                mAdapter.setItems(items);
+                mAdapter.notifyDataSetChanged();
             }
         });
-        mAdapter.setItems(items);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override

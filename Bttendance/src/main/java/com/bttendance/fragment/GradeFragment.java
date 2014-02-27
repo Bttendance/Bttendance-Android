@@ -98,8 +98,8 @@ public class GradeFragment extends BTFragment {
 
         ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
         for (UserJson user : mUserJsons) {
-            String title = user.username + " - " + user.full_name;
-            String message = getString(R.string.email_) + user.email;
+            String title = user.full_name;
+            String message = user.email;
             GradeJson grade = GradeTable.get(user.id);
             items.add(new BTListAdapter.Item(false, title, message, grade == null? new GradeJson(): grade, grade == null? -1: grade.id));
         }
