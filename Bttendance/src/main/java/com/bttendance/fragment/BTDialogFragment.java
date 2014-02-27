@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.helper.ScreenHelper;
@@ -41,7 +40,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.alert_dialog, container, false);
+        final View view = inflater.inflate(R.layout.bt_alert_dialog, container, false);
         Button cancel = (Button) view.findViewById(R.id.cancel);
         Button confirm = (Button) view.findViewById(R.id.confirm);
         View divider = view.findViewById(R.id.divider);
@@ -95,6 +94,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
                 if (mConfrimListener != null)
                     mConfrimListener.onConfirmed(mEdit.getText().toString());
             case R.id.cancel:
+                KeyboardHelper.hide(getActivity(), mEdit);
                 getActivity().onBackPressed();
                 break;
         }

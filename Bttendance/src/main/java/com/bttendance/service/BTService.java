@@ -38,12 +38,12 @@ import retrofit.client.Response;
 public class BTService extends Service {
 
     private static final String SERVER_DOMAIN_PRODUCTION = "http://www.bttd.co";
-    private static final String SERVER_DOMAIN_TEST = "http://bttendance-dev.herokuapp.com";
+    private static final String SERVER_DOMAIN_DEVELOPMENT = "http://bttendance-dev.herokuapp.com";
     private static String getServerDomain() {
         if (!BTDebug.DEBUG)
             return SERVER_DOMAIN_PRODUCTION;
         else
-            return SERVER_DOMAIN_TEST;
+            return SERVER_DOMAIN_DEVELOPMENT;
     }
     private static RestAdapter mRestAdapter = new RestAdapter.Builder()
             .setLog(new RestAdapter.Log() {
@@ -427,16 +427,36 @@ public class BTService extends Service {
         });
     }
 
-    public void enrollSchool(int schoolID, final Callback<UserJson> cb) {
+    public void enrollSchool(int schoolID, String studentID, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.enrollSchool(user.username, user.password, schoolID, new Callback<UserJson>() {
+        mBTAPI.enrollSchool(user.username, user.password, schoolID, studentID, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
                 BTDebug.LogInfo(user.toJson());
                 BTPreference.setUser(getApplicationContext(), user);
+                if (cb != null)
+                    cb.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void searchUser(String searchID, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.searchUser(user.username, user.password, searchID, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson user, Response response) {
+                BTTable.UserTable.append(user.id, user);
                 if (cb != null)
                     cb.success(user, response);
             }
@@ -563,6 +583,25 @@ public class BTService extends Service {
             public void success(GradeJson[] grades, Response response) {
                 if (cb != null)
                     cb.success(grades, response);
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                failureHandle(cb, retrofitError);
+            }
+        });
+    }
+
+    public void addManager(final String manager, final int courseId, final Callback<CourseJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.addManager(user.username, user.password, manager, courseId, new Callback<CourseJson>() {
+            @Override
+            public void success(CourseJson course, Response response) {
+                if (cb != null)
+                    cb.success(course, response);
             }
 
             @Override

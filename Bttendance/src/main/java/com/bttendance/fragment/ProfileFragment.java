@@ -11,6 +11,7 @@ import com.bttendance.R;
 import com.bttendance.adapter.ProfileAdapter;
 import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
+import com.bttendance.event.refresh.RefreshProfileEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
@@ -88,7 +89,13 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
     }
 
     @Subscribe
-    public void onProfileUpdate(UpdateProfileEvent event) {
+    public void onRefresh(RefreshProfileEvent event) {
+        getSchools();
+        refreshHeader();
+    }
+
+    @Subscribe
+    public void onUpdate(UpdateProfileEvent event) {
         refreshHeader();
     }
 
@@ -101,6 +108,32 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
                 }
             });
         }
+    }
+
+    private void refreshHeader() {
+        if (!this.isAdded() && header == null)
+            return;
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                UserJson user = BTPreference.getUser(getActivity());
+                TextView account = (TextView) header.findViewById(R.id.account_type);
+                if (user.employed_schools.length > 0 && user.enrolled_schools.length > 0)
+                    account.setText(getString(R.string.professor) + " & " + getString(R.string.student));
+                else if (user.employed_schools.length > 0)
+                    account.setText(getString(R.string.professor));
+                else
+                    account.setText(getString(R.string.student));
+
+                TextView username = (TextView) header.findViewById(R.id.username);
+                username.setText(user.username);
+                TextView name = (TextView) header.findViewById(R.id.name);
+                name.setText(user.full_name);
+                TextView mail = (TextView) header.findViewById(R.id.mail);
+                mail.setText(user.email);
+            }
+        });
     }
 
     @Override
@@ -124,26 +157,5 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
                         ShowUpdateProfileEvent.Type.MAIL));
                 break;
         }
-    }
-
-    private void refreshHeader() {
-        if (header == null)
-            return;
-
-        UserJson user = BTPreference.getUser(getActivity());
-        TextView account = (TextView) header.findViewById(R.id.account_type);
-        if (user.employed_schools.length > 0 && user.enrolled_schools.length > 0)
-            account.setText(getString(R.string.professor) + " & " + getString(R.string.student));
-        else if (user.employed_schools.length > 0)
-            account.setText(getString(R.string.professor));
-        else
-            account.setText(getString(R.string.student));
-
-        TextView username = (TextView) header.findViewById(R.id.username);
-        username.setText(user.username);
-        TextView name = (TextView) header.findViewById(R.id.name);
-        name.setText(user.full_name);
-        TextView mail = (TextView) header.findViewById(R.id.mail);
-        mail.setText(user.email);
     }
 }

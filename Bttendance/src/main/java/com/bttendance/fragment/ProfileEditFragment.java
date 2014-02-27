@@ -68,8 +68,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    mEditDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_cyan));
+                    mEditDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
                     mEditDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
                 }

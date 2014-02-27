@@ -9,18 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.fragment.ShowCourseCreateEvent;
 import com.bttendance.event.fragment.ShowSerialRequestEvent;
+import com.bttendance.event.refresh.RefreshProfileEvent;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
@@ -59,16 +57,16 @@ public class SerialFragment extends BTFragment {
         mSerial = (EditText) view.findViewById(R.id.serial);
         mSerialDiv = view.findViewById(R.id.serial_divider);
 
-        mSerial.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    mSerialDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
-                } else {
-                    mSerialDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
-                }
-            }
-        });
+//        mSerial.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    mSerialDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
+//                } else {
+//                    mSerialDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+//                }
+//            }
+//        });
 
         mSerial.addTextChangedListener(new TextWatcher() {
             @Override
@@ -145,6 +143,7 @@ public class SerialFragment extends BTFragment {
         getBTService().employSchool(mSchoolId, serial, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
+                BTEventBus.getInstance().post(new RefreshProfileEvent());
                 BTEventBus.getInstance().post(new ShowCourseCreateEvent(mSchoolId));
             }
 

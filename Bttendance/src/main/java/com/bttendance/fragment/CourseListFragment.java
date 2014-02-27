@@ -1,6 +1,5 @@
 package com.bttendance.fragment;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.adapter.CourseListAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
@@ -16,6 +14,7 @@ import com.bttendance.adapter.kit.SimpleSectionAdapter;
 import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.attendance.AttdEndEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
+import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.IntArrayHelper;
@@ -103,17 +102,11 @@ public class CourseListFragment extends BTFragment {
     public void onFragmentResume() {
         super.onFragmentResume();
         swapCursor();
-        BTDebug.LogError("onFragmentResume");
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
+    @Subscribe
+    public void onRefresh(RefreshCourseListEvent event) {
+        getCourseList();
     }
 
     @Subscribe

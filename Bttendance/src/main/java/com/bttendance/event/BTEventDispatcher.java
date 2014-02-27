@@ -15,7 +15,9 @@ import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
 import com.bttendance.event.bluetooth.BTEnabledEvent;
 import com.bttendance.event.button.PlusClickedEvent;
+import com.bttendance.event.dialog.ShowAddManagerDialog;
 import com.bttendance.event.dialog.ShowEnableBluetoothDialog;
+import com.bttendance.event.fragment.ShowAddManagerEvent;
 import com.bttendance.event.fragment.ShowCourseAttendEvent;
 import com.bttendance.event.fragment.ShowCourseCreateEvent;
 import com.bttendance.event.fragment.ShowCourseDetailEvent;
@@ -27,7 +29,10 @@ import com.bttendance.event.fragment.ShowSchoolChooseEvent;
 import com.bttendance.event.fragment.ShowSerialEvent;
 import com.bttendance.event.fragment.ShowSerialRequestEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
+import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.update.UpdateCourseAttendEvent;
+import com.bttendance.event.update.UpdateProfileEvent;
+import com.bttendance.fragment.AddManagerFragment;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.CourseAttendFragment;
@@ -327,6 +332,38 @@ public class BTEventDispatcher {
         showDialog(dialog, "bt");
     }
 
+    @Subscribe
+    public void onShowAddManagerDialog(final ShowAddManagerDialog event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        String title = act.getString(R.string.add_manager);
+        String message = String.format(act.getString(R.string.would_you_like_to_add), event.getFullname(), event.getCoursename());
+
+        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
+        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+            @Override
+            public void onConfirmed(String edit) {
+                act.getBTService().addManager(event.getUsername(), event.getCourseID(), new Callback<CourseJson>() {
+                    @Override
+                    public void success(CourseJson courseJson, Response response) {
+                        BeautiToast.show(act, String.format(act.getString(R.string.is_now_manager_of_course), event.getFullname(), event.getCoursename()));
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                    }
+                });
+            }
+
+            @Override
+            public void onCanceled() {
+            }
+        });
+        showDialog(dialog, "manager");
+    }
+
     /**
      * Show Fragment Events
      */
@@ -365,6 +402,15 @@ public class BTEventDispatcher {
             return;
 
         addFragment(new CourseAttendFragment(event.getSchoolID()));
+    }
+
+    @Subscribe
+    public void onShowAddManagerEvent(ShowAddManagerEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        addFragment(new AddManagerFragment(event.getCourseId()));
     }
 
     @Subscribe
@@ -462,7 +508,7 @@ public class BTEventDispatcher {
                 } else {
                     title = act.getString(R.string.student_id_or_phone_number);
                     CourseJson course = (CourseJson) json;
-                    message = String.format(act.getString(R.string.before_you_join_course),course.name);
+                    message = String.format(act.getString(R.string.before_you_join_course), course.name);
                     dialog = new BTDialogFragment(BTDialogFragment.DialogType.EDIT, title, message);
                 }
                 break;
@@ -480,16 +526,42 @@ public class BTEventDispatcher {
             public void onConfirmed(String edit) {
                 switch (json.getType()) {
                     case Course:
-                        act.getBTService().attendCourse(json.id, new Callback<UserJson>() {
-                            @Override
-                            public void success(UserJson userJson, Response response) {
-                                BTEventBus.getInstance().post(new UpdateCourseAttendEvent());
-                            }
+                        if (IntArrayHelper.contains(BTPreference.getUser(act).enrolled_schools, ((CourseJson) json).school)) {
+                            act.getBTService().attendCourse(json.id, new Callback<UserJson>() {
+                                @Override
+                                public void success(UserJson userJson, Response response) {
+                                    BTEventBus.getInstance().post(new UpdateCourseAttendEvent());
+                                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
+                                }
 
-                            @Override
-                            public void failure(RetrofitError retrofitError) {
-                            }
-                        });
+                                @Override
+                                public void failure(RetrofitError retrofitError) {
+                                }
+                            });
+                        } else {
+                            act.getBTService().enrollSchool(event.getId(), edit, new Callback<UserJson>() {
+                                @Override
+                                public void success(UserJson userJson, Response response) {
+                                    BTEventBus.getInstance().post(new UpdateProfileEvent());
+                                    act.getBTService().attendCourse(json.id, new Callback<UserJson>() {
+                                        @Override
+                                        public void success(UserJson userJson, Response response) {
+                                            BTEventBus.getInstance().post(new UpdateCourseAttendEvent());
+                                            BTEventBus.getInstance().post(new RefreshCourseListEvent());
+                                        }
+
+                                        @Override
+                                        public void failure(RetrofitError retrofitError) {
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void failure(RetrofitError retrofitError) {
+
+                                }
+                            });
+                        }
                         break;
                     case User:
                         act.getBTService().postAttendanceCheckManually(event.getId(), json.id, new Callback<PostJson>() {

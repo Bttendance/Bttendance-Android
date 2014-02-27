@@ -233,7 +233,7 @@ public class SignUpActivity extends BTActivity {
         builder.append(SpannableAnd);
 
         String privacy_policy = getString(R.string.privacy_policy);
-        String privacy_policy_html = "<a href=\"" + BTUrl.POLICY + "\">"
+        String privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY + "\">"
                 + privacy_policy + "</a>";
         SpannableString SpannablePrivacyHTML = new SpannableString(Html.fromHtml(privacy_policy_html));
         SpannablePrivacyHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, privacy_policy.length(), 0);

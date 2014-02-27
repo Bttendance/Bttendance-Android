@@ -17,6 +17,7 @@ import com.bttendance.event.attendance.AttdCheckedEvent;
 import com.bttendance.event.attendance.AttdEndEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.LoadingEvent;
+import com.bttendance.event.fragment.ShowAddManagerEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
 import com.bttendance.helper.DipPixelHelper;
@@ -101,7 +102,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
 
         Bttendance bttendance = (Bttendance) header.findViewById(R.id.bttendance);
         TextView courseInfo = (TextView) header.findViewById(R.id.course_info);
-        courseInfo.setText(getString(R.string.prof_) + " " + mCourse.professor_name + "\n" + mCourse.school_name);
+        courseInfo.setText(getString(R.string.prof_) + " " + mCourse.professor_name + "\n" + mCourse.school_name + "\n\n" + getString(R.string.empty_course_detail));
     }
 
     @Subscribe
@@ -166,6 +167,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 BTEventBus.getInstance().post(new ShowGradeEvent(mCourse.id));
                 break;
             case R.id.ta_bt:
+                BTEventBus.getInstance().post(new ShowAddManagerEvent(mCourse.id));
                 break;
         }
     }

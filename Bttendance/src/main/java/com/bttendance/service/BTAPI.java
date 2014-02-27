@@ -107,7 +107,14 @@ public interface BTAPI {
     void enrollSchool(@Query("username") String username,
                       @Query("password") String password,
                       @Query("school_id") int schoolID,
+                      @Query("student_id") String studentID,
                       Callback<UserJson> cb);
+
+    @GET("/user/search/user")
+    void searchUser(@Query("username") String username,
+                    @Query("password") String password,
+                    @Query("search_id") String searchID,
+                    Callback<UserJson> cb);
 
     @GET("/school/all")
     void allSchools(@Query("username") String username,
@@ -147,6 +154,13 @@ public interface BTAPI {
                       @Query("password") String password,
                       @Query("course_id") int courseID,
                       Callback<GradeJson[]> cb);
+
+    @PUT("/course/add/manager")
+    void addManager(@Query("username") String username,
+                    @Query("password") String password,
+                    @Query("manager") String manager,
+                    @Query("course_id") int courseID,
+                    Callback<CourseJson> cb);
 
     @GET("/post/{id}")
     void post(@Query("username") String username,

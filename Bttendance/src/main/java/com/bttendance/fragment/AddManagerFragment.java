@@ -15,10 +15,15 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.dialog.ShowAddManagerDialog;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.SerialJson;
+import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
+import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -27,13 +32,20 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class SerialRequestFragment extends BTFragment {
+public class AddManagerFragment extends BTFragment {
 
     private EditText mEmail = null;
     private View mEmailDiv = null;
     private int mEmailCount = 0;
     private Button mSignUp = null;
     private String mEmailString = null;
+    private int mCourseID;
+    private String mCoursename;
+
+    public AddManagerFragment(int courseID) {
+        mCourseID = courseID;
+        mCoursename = BTTable.CourseTable.get(mCourseID).name;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +55,7 @@ public class SerialRequestFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_serial_request, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_manager, container, false);
 
         mEmail = (EditText) view.findViewById(R.id.email);
         mEmailDiv = view.findViewById(R.id.email_divider);
@@ -76,8 +88,6 @@ public class SerialRequestFragment extends BTFragment {
             public void afterTextChanged(Editable s) {
             }
         });
-
-        mEmail.setText(BTPreference.getUser(getActivity()).email);
 
         mSignUp.setEnabled(false);
         mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
@@ -139,17 +149,17 @@ public class SerialRequestFragment extends BTFragment {
         if (getBTService() == null)
             return;
 
-        String email = mEmail.getText().toString();
+        final String email = mEmail.getText().toString();
 
-        getBTService().serialRequest(email, new Callback<SerialJson>() {
+        getBTService().searchUser(email, new Callback<UserJson>() {
             @Override
-            public void success(SerialJson serialJson, Response response) {
-                BeautiToast.show(getActivity(), getString(R.string.serial_has_been_sent));
+            public void success(UserJson userJson, Response response) {
+                BTEventBus.getInstance().post(new ShowAddManagerDialog(userJson.username, userJson.full_name, mCourseID, mCoursename));
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BeautiToast.show(getActivity(), getString(R.string.fail_to_request_serial));
+                BeautiToast.show(getActivity(), String.format(getString(R.string.fail_to_find_a_user), email));
             }
         });
     }
@@ -158,7 +168,7 @@ public class SerialRequestFragment extends BTFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(getString(R.string.request_serial));
+        actionBar.setTitle(getString(R.string.add_manager));
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
