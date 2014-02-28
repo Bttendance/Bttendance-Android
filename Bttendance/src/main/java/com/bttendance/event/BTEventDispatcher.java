@@ -5,8 +5,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.event.fragment.ShowPostAttendanceEvent;
-import com.bttendance.event.update.UpdatePostAttendanceEvent;
 import com.bttendance.event.attendance.AttdStartEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
@@ -22,12 +20,16 @@ import com.bttendance.event.fragment.ShowCourseDetailEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
 import com.bttendance.event.fragment.ShowForgotPasswordEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
+import com.bttendance.event.fragment.ShowPostAttendanceEvent;
 import com.bttendance.event.fragment.ShowSchoolChooseEvent;
 import com.bttendance.event.fragment.ShowSerialEvent;
 import com.bttendance.event.fragment.ShowSerialRequestEvent;
 import com.bttendance.event.fragment.ShowUpdateProfileEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.update.UpdateCourseAttendEvent;
+import com.bttendance.event.update.UpdateCourseDetailEvent;
+import com.bttendance.event.update.UpdateFeedEvent;
+import com.bttendance.event.update.UpdatePostAttendanceEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.fragment.AddManagerFragment;
 import com.bttendance.fragment.BTDialogFragment;
@@ -511,6 +513,16 @@ public class BTEventDispatcher {
                         act.getBTService().postAttendanceCheckManually(event.getId(), json.id, new Callback<PostJson>() {
                             @Override
                             public void success(PostJson postJson, Response response) {
+                                CourseJson course = BTTable.CourseTable.get(postJson.course);
+                                // Update Course & Feed Grade
+                                if (course != null) {
+                                    int students = course.students.length;
+                                    int checks = postJson.checks.length;
+                                    BTTable.PostGradeTable.append(postJson.id, (int) (100.0f * (float) checks / (float) students));
+                                    BTEventBus.getInstance().post(new UpdateCourseDetailEvent());
+                                    BTEventBus.getInstance().post(new UpdateFeedEvent());
+                                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
+                                }
                                 BTEventBus.getInstance().post(new UpdatePostAttendanceEvent());
                             }
 

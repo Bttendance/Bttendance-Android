@@ -20,6 +20,7 @@ import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.fragment.ShowAddManagerEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
+import com.bttendance.event.update.UpdateCourseDetailEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
@@ -100,16 +101,22 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     private void refreshHeader() {
-        if (header == null || mCourse == null)
+        if (!this.isAdded() || header == null || mCourse == null)
             return;
 
-        UserJson user = BTPreference.getUser(getActivity());
-        if (IntArrayHelper.contains(user.attending_courses, mCourse.id))
-            header.findViewById(R.id.manager_layout).setVisibility(View.GONE);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                UserJson user = BTPreference.getUser(getActivity());
+                if (IntArrayHelper.contains(user.attending_courses, mCourse.id))
+                    header.findViewById(R.id.manager_layout).setVisibility(View.GONE);
 
-        Bttendance bttendance = (Bttendance) header.findViewById(R.id.bttendance);
-        TextView courseInfo = (TextView) header.findViewById(R.id.course_info);
-        courseInfo.setText(getString(R.string.prof_) + " " + mCourse.professor_name + "\n" + mCourse.school_name + "\n\n" + getString(R.string.empty_course_detail));
+                Bttendance bttendance = (Bttendance) header.findViewById(R.id.bttendance);
+                bttendance.setBttendance(Bttendance.STATE.GRADE, BTTable.CourseGradeTable.get(mCourse.id));
+                TextView courseInfo = (TextView) header.findViewById(R.id.course_info);
+                courseInfo.setText(getString(R.string.prof_) + " " + mCourse.professor_name + "\n" + mCourse.school_name + "\n\n" + getString(R.string.empty_course_detail));
+            }
+        });
     }
 
     @Subscribe
@@ -120,6 +127,12 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     @Subscribe
     public void onAttdChecked(AttdCheckedEvent event) {
         swapCursor();
+    }
+
+    @Subscribe
+    public void onUpdate(UpdateCourseDetailEvent event) {
+        swapCursor();
+        refreshHeader();
     }
 
     @Override

@@ -74,10 +74,10 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
                     long time = currentTime - DateHelper.getTime(course.attdCheckedAt);
                     int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
                     bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
-                    bttendance.setTag(R.id.checking, true);
+                    btButton.setTag(R.id.checking, true);
                 } else {
                     bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
-                    bttendance.setTag(R.id.checking, false);
+                    btButton.setTag(R.id.checking, false);
                 }
 
                 TextView title = (TextView) view.findViewById(R.id.title);

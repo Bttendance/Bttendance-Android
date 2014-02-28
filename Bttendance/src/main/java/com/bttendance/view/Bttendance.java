@@ -30,8 +30,8 @@ public class Bttendance extends View {
      */
     private static final int BIG_SIZE = 105; //in dp
     private static final int SMALL_SIZE = 52; //in dp
-    private static final int BIG_WHEEL_RADIUS = 65; //in dp (135)
-    private static final int SMALL_WHEEL_RADIUS = 24; //in dp (52)
+    private static final int BIG_WHEEL_RADIUS = 50; //in dp (135)
+    private static final float SMALL_WHEEL_RADIUS = 24.2f; //in dp (52)
     /**
      * Type
      */
@@ -51,9 +51,7 @@ public class Bttendance extends View {
      * Bitmap
      */
     private Bitmap mFailBackground;
-    private Bitmap mInactiveBackground;
     private Bitmap mCircleBackground;
-    private Bitmap mWhiteCheck;
     private Bitmap mCyanCheck;
     /**
      * Paint
@@ -169,7 +167,11 @@ public class Bttendance extends View {
             mScale.getTransformation(System.currentTimeMillis(), mScaleTransformation);
             mProgress = (int) (100 * mScaleTransformation.getAlpha());
             canvas.drawRect(mMargin, mMargin, mSize - mMargin, mMargin + mRadius * 2 * (100 - mProgress) / 100, mTransparentPaint);
-            invalidate();
+        }
+
+        if (mState == STATE.GRADE) {
+            canvas.drawCircle(canvas.getWidth() / 2.0f, canvas.getHeight() / 2.0f, mRadius, mProgressPaint);
+            canvas.drawRect(mMargin, mMargin, mSize - mMargin, mMargin + mRadius * 2 * (100 - mProgress) / 100, mTransparentPaint);
         }
 
         Bitmap background = getBackgroundBitmap();
@@ -189,7 +191,7 @@ public class Bttendance extends View {
             mAlphaPaint.setAlpha((int) (255 * mAlphaTransformation.getAlpha()));
             invalidate();
         } else {
-            mAlphaPaint.setAlpha(0);
+            mAlphaPaint.setAlpha(1);
         }
         canvas.drawBitmap(mCyanCheck, 0, 0, mAlphaPaint);
     }
@@ -204,17 +206,14 @@ public class Bttendance extends View {
         switch (mType) {
             case BIG:
                 switch (mState) {
-                    case STARTED:
-                    case CHECKING:
-                        if (mWhiteCheck == null)
-                            return mWhiteCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_white_large);
-                        else
-                            return mWhiteCheck;
+                    case GRADE:
                     case CHECKED:
                         if (mCyanCheck == null)
                             return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_large);
                         else
                             return mCyanCheck;
+                    case STARTED:
+                    case CHECKING:
                     case FAIL:
                     default:
                         return null;
@@ -222,17 +221,14 @@ public class Bttendance extends View {
             case SMALL:
             default:
                 switch (mState) {
-                    case STARTED:
-                    case CHECKING:
-                        if (mWhiteCheck == null)
-                            return mWhiteCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_white_small);
-                        else
-                            return mWhiteCheck;
+                    case GRADE:
                     case CHECKED:
                         if (mCyanCheck == null)
                             return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_small);
                         else
                             return mCyanCheck;
+                    case STARTED:
+                    case CHECKING:
                     case FAIL:
                     default:
                         return null;
@@ -252,6 +248,7 @@ public class Bttendance extends View {
                             return mFailBackground;
                     case STARTED:
                     case CHECKING:
+                    case GRADE:
                     case CHECKED:
                         if (mCircleBackground == null)
                             return mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_circle_cyan_large);
@@ -270,6 +267,7 @@ public class Bttendance extends View {
                             return mFailBackground;
                     case STARTED:
                     case CHECKING:
+                    case GRADE:
                     case CHECKED:
                         if (mCircleBackground == null)
                             return mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_circle_cyan_small);

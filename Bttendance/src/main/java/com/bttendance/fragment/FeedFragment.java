@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.bttendance.event.update.UpdateFeedEvent;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 import com.bttendance.R;
@@ -58,7 +59,7 @@ public class FeedFragment extends BTFragment {
         getBTService().feed(0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
-                mAdapter.swapCursor(new PostCursor(BTTable.FILTER_MY_POST));
+                swapCursor();
                 BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
@@ -79,15 +80,20 @@ public class FeedFragment extends BTFragment {
         swapCursor();
     }
 
+    @Subscribe
+    public void onAttdEnd(AttdEndEvent event) {
+        getFeed();
+    }
+
+    @Subscribe
+    public void onUpdate(UpdateFeedEvent event) {
+        swapCursor();
+    }
+
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
         swapCursor();
-    }
-
-    @Subscribe
-    public void onAttdEnd(AttdEndEvent event) {
-        getFeed();
     }
 
     private void swapCursor() {

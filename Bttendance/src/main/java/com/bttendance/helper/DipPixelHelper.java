@@ -17,4 +17,10 @@ public class DipPixelHelper {
         float pix = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
         return pix;
     }
+
+    public static float getPixel(Context context, float dip) {
+        Resources r = context.getResources();
+        float pix = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
+        return pix;
+    }
 }

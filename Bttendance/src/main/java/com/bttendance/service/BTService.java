@@ -327,6 +327,9 @@ public class BTService extends Service {
                 for (PostJson post : posts) {
                     BTTable.PostTable.append(post.id, post);
                     BTTable.getPosts(BTTable.FILTER_MY_POST).append(post.id, post);
+                    if (post.grade < 0) post.grade = 0;
+                    if (post.grade > 100) post.grade = 100;
+                    BTTable.PostGradeTable.append(post.id, post.grade);
                 }
                 if (cb != null)
                     cb.success(posts, response);
@@ -350,6 +353,9 @@ public class BTService extends Service {
                 for (CourseJson course : courses) {
                     BTTable.CourseTable.append(course.id, course);
                     BTTable.getCourses(BTTable.FILTER_MY_COURSE).append(course.id, course);
+                    if (course.grade < 0) course.grade = 0;
+                    if (course.grade > 100) course.grade = 100;
+                    BTTable.CourseGradeTable.append(course.id, course.grade);
                 }
                 if (cb != null)
                     cb.success(courses, response);
@@ -539,8 +545,12 @@ public class BTService extends Service {
         mBTAPI.courseFeed(user.username, user.password, courseID, page, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
-                for (PostJson post : posts)
+                for (PostJson post : posts) {
                     BTTable.PostTable.append(post.id, post);
+                    if (post.grade < 0) post.grade = 0;
+                    if (post.grade > 100) post.grade = 100;
+                    BTTable.PostGradeTable.append(post.id, post.grade);
+                }
                 if (cb != null)
                     cb.success(posts, response);
             }

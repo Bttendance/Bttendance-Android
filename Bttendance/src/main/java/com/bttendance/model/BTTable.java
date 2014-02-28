@@ -31,6 +31,10 @@ public class BTTable {
     public static SparseArray<CourseJson> CourseTable = new SparseArray<CourseJson>();
     // key: post_id, value: post
     public static SparseArray<PostJson> PostTable = new SparseArray<PostJson>();
+
+    public static SparseArray<Integer> PostGradeTable = new SparseArray<Integer>();
+    public static SparseArray<Integer> CourseGradeTable = new SparseArray<Integer>();
+
     // filter: none
     private static HashMap<String, SparseArray<UserJson>> mUser = new HashMap<String, SparseArray<UserJson>>();
     // filter: my_course
@@ -39,6 +43,7 @@ public class BTTable {
     private static HashMap<String, SparseArray<PostJson>> mPost = new HashMap<String, SparseArray<PostJson>>();
     // filter: my_school
     private static HashMap<String, SparseArray<SchoolJson>> mSchool = new HashMap<String, SparseArray<SchoolJson>>();
+
     // Found UUID list
     private static Set<String> UUIDLIST = new HashSet<String>();
     private static Set<String> UUIDLISTSENDED = new HashSet<String>();

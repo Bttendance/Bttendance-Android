@@ -15,5 +15,6 @@ public class PostJson extends BTJson {
     public String course_name;
     public String course_number;
     public String school_name;
+    public int grade;
     
 }

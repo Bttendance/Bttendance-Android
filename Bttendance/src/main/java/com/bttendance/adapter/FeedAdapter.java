@@ -57,17 +57,26 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         boolean mTime = currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION;
         boolean included = IntArrayHelper.contains(post.checks, BTPreference.getUserId(context));
 
-        if (mTime && !included) {
-            long time = currentTime - DateHelper.getTime(post.createdAt);
-            int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
-            bttendance.setEndState(Bttendance.STATE.FAIL);
-            bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
-        } else if (IntArrayHelper.contains(user.supervising_courses, post.course)) {
-//            bttendance.setBttendance(S);
-        } else if (mTime || included) {
-            bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
+        if (IntArrayHelper.contains(user.supervising_courses, post.course)) {
+            if (mTime) {
+                long time = currentTime - DateHelper.getTime(post.createdAt);
+                int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
+                bttendance.setEndState(Bttendance.STATE.FAIL);
+                bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+            } else {
+                bttendance.setBttendance(Bttendance.STATE.GRADE, BTTable.PostGradeTable.get(post.id));
+            }
         } else {
-            bttendance.setBttendance(Bttendance.STATE.FAIL, 0);
+            if (mTime && !included) {
+                long time = currentTime - DateHelper.getTime(post.createdAt);
+                int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
+                bttendance.setEndState(Bttendance.STATE.FAIL);
+                bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+            } else if (mTime || included) {
+                bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
+            } else {
+                bttendance.setBttendance(Bttendance.STATE.FAIL, 0);
+            }
         }
 
         TextView title = (TextView) view.findViewById(R.id.title);
