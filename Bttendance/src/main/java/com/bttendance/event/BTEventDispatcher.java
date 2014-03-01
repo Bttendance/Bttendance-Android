@@ -53,6 +53,7 @@ import com.bttendance.model.BTTable;
 import com.bttendance.model.json.BTJson;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
+import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
@@ -439,8 +440,8 @@ public class BTEventDispatcher {
         final BTJson json = event.getJson();
 
         BTDialogFragment dialog;
-        String title = null;
-        String message = null;
+        String title;
+        String message;
 
         switch (json.getType()) {
             case Course:
@@ -454,8 +455,15 @@ public class BTEventDispatcher {
                 } else {
                     title = act.getString(R.string.student_id_or_phone_number);
                     CourseJson course = (CourseJson) json;
-                    message = String.format(act.getString(R.string.before_you_join_course), course.name);
+                    SchoolJson school = BTTable.SchoolTable.get(course.school);
+                    if (school != null && "public".equals(school.type))
+                        message = String.format(act.getString(R.string.before_you_join_course_public), course.name);
+                    else
+                        message = String.format(act.getString(R.string.before_you_join_course_private), course.name);
                     dialog = new BTDialogFragment(BTDialogFragment.DialogType.EDIT, title, message);
+
+                    if (school != null && "private".equals(school.type))
+                        dialog.setPlaceholder("XXX-XXXX-XXXX");
                 }
                 break;
             case User:
@@ -513,6 +521,7 @@ public class BTEventDispatcher {
                         act.getBTService().postAttendanceCheckManually(event.getId(), json.id, new Callback<PostJson>() {
                             @Override
                             public void success(PostJson postJson, Response response) {
+                                BTEventBus.getInstance().post(new UpdatePostAttendanceEvent());
                                 CourseJson course = BTTable.CourseTable.get(postJson.course);
                                 // Update Course & Feed Grade
                                 if (course != null) {
@@ -523,7 +532,6 @@ public class BTEventDispatcher {
                                     BTEventBus.getInstance().post(new UpdateFeedEvent());
                                     BTEventBus.getInstance().post(new RefreshCourseListEvent());
                                 }
-                                BTEventBus.getInstance().post(new UpdatePostAttendanceEvent());
                             }
 
                             @Override

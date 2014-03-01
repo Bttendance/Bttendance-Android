@@ -97,7 +97,9 @@
     <string name="fail_to_request_serial">Fail to request serial</string>
     <string name="serial_has_been_sent">Serial has been sent</string>
     <string name="student_id_or_phone_number">Student ID or Phone Number</string>
-    <string name="before_you_join_course">Before you join course %s, you need to enter your student ID of your phone number</string><string name="empty_course_detail">Lecture Type\nDate and Time\nClass Place</string>
+    <string name="before_you_join_course_public">Before you join course %s, you need to enter your <b>Student ID</b></string>
+    <string name="before_you_join_course_private">Before you join course %s, you need to enter your <b>Phone Number</b></string>
+    <string name="empty_course_detail">Lecture Type\nDate and Time\nClass Place</string>
     <string name="fail_to_find_a_user">Fail to find a user \"%s\". Please check User Id of Email again.</string>
     <string name="add_manager">Add Manager</string>
     <string name="would_you_like_to_add">Would you like to add \"%1$s\" as a manager of course %2$s?</string>

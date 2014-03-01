@@ -81,6 +81,7 @@
                         style="@style/userInfoEditText"
                         android:paddingLeft="14dp"
                         android:paddingRight="14dp"
+                        android:textColorHint="@color/grey_hex_aa"
                         android:paddingTop="8dp"
                         android:visibility="gone" />
 

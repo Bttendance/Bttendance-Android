@@ -24,6 +24,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     String mTitle;
     String mMessage;
     EditText mEdit;
+    String mEditPlaceholder;
     View mEditDivider;
     boolean mConfirmed = false;
     int mScreenHeight;
@@ -36,6 +37,10 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
 
     public void setOnConfirmListener(OnConfirmListener confrimListener) {
         mConfrimListener = confrimListener;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        mEditPlaceholder = placeholder;
     }
 
     @Override
@@ -74,14 +79,17 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
             @Override
             public void onGlobalLayout() {
                 if (view.getHeight() < mScreenHeight - 200) {
-                    ((LinearLayout)view.findViewById(R.id.total_layout)).setWeightSum(60);
+                    ((LinearLayout) view.findViewById(R.id.total_layout)).setWeightSum(60);
                     view.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
                 } else {
-                    ((LinearLayout)view.findViewById(R.id.total_layout)).setWeightSum(100);
+                    ((LinearLayout) view.findViewById(R.id.total_layout)).setWeightSum(100);
                     view.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 40));
                 }
             }
         });
+
+        if (mEditPlaceholder != null)
+            mEdit.setHint(mEditPlaceholder);
 
         return view;
     }

@@ -107,7 +107,6 @@ public class PostAttendanceFragment extends BTFragment {
 
         mPost = BTTable.PostTable.get(mPost.id);
 
-
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

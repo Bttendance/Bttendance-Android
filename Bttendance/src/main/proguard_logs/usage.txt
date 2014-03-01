@@ -544,6 +544,72 @@ com.actionbarsherlock.widget.SuggestionsAdapter:
     250:252:public void close()
     690:701:private android.graphics.drawable.Drawable getActivityIconWithCache(android.content.ComponentName)
     712:729:private android.graphics.drawable.Drawable getActivityIcon(android.content.ComponentName)
+com.bttendance.activity.BTActivity:
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST
+com.bttendance.activity.sign.SignUpActivity:
+    55:57:private void typeError()
+com.bttendance.adapter.CourseListAdapter:
+    private static final int VIEW_TYPE_ADD
+    private static final int VIEW_TYPE_ITEM
+com.bttendance.adapter.kit.CircularListAdapter:
+    static final boolean DEBUG
+com.bttendance.adapter.kit.InstantAdapterCore:
+    static final boolean DEBUG
+    private static final java.lang.String EMPTY_STRING
+    176:176:public com.bttendance.adapter.kit.ViewHandler getViewHandler(int)
+    185:185:public android.util.SparseArray getViewHandlers()
+    194:195:public void removeViewHandler(int)
+    201:202:public void removeAllViewHandlers()
+com.bttendance.adapter.kit.SimpleSectionAdapter:
+    static final boolean DEBUG
+    private static final int VIEW_TYPE_SECTION_HEADER
+com.bttendance.helper.CloudinaryHelper:
+    private static final int PROFILE_BITMAP_SIZE
+com.bttendance.helper.StringMatcher:
+    private static final char KOREAN_UNICODE_START
+    private static final char KOREAN_UNICODE_END
+    private static final char KOREAN_UNIT
+com.bttendance.model.BTDatabase$BTSQLiteHelper:
+    private static final int DATABASE_VERSION
+    private static final java.lang.String DATABASE_NAME
+    private static final java.lang.String KEY_UUID
+    private static final java.lang.String KEY_USERNAME
+    private static final java.lang.String TABLE_NAME_UUID
+    private static final java.lang.String TABLE_CREATE_UUID
+    private static final java.lang.String TABLE_NAME_USERNAME
+    private static final java.lang.String TABLE_CREATE_USERNAME
+com.bttendance.model.BTExternal:
+    private static final java.lang.String FILE_NAME
+    95:96:private static boolean deleteFile(android.content.Context)
+    100:101:private static boolean hasFile(android.content.Context)
+com.bttendance.model.BTNotification:
+    private static final java.lang.String PROPERTY_REG_ID
+    private static final java.lang.String PROPERTY_APP_VERSION
+com.bttendance.service.BTService:
+    private static final java.lang.String SERVER_DOMAIN_PRODUCTION
+    private static final java.lang.String SERVER_DOMAIN_DEVELOPMENT
+com.bttendance.service.GcmIntentService:
+    private static final int NOTIFICATION_ID
+    private static final java.lang.String TITLE
+    private static final java.lang.String MESSAGE
+    private static final java.lang.String TYPE
+    private static final java.lang.String POST
+    private static final java.lang.String COURSE
+    private static final java.lang.String ATTENDANCE_STARTED
+    private static final java.lang.String ATTENDANCE_CHECKED
+com.bttendance.view.Bttendance:
+    private static final int BLINK_DURATION
+    private static final int BIG_SIZE
+    private static final int SMALL_SIZE
+    private static final int BIG_WHEEL_RADIUS
+    private static final float SMALL_WHEEL_RADIUS
+    private static final int BIG
+    private static final int SMALL
+com.bttendance.view.IndexScroller:
+    private static final int STATE_HIDDEN
+    private static final int STATE_SHOWING
+    private static final int STATE_SHOWN
+    private static final int STATE_HIDING
 com.google.analytics.tracking.android.AdHitIdGenerator:
     24:26:AdHitIdGenerator(boolean)
 com.google.analytics.tracking.android.AdMobInfo:
@@ -919,71 +985,6 @@ com.squareup.picasso.Utils$BitmapHoneycombMR1:
     223:223:private Utils$BitmapHoneycombMR1()
 com.squareup.picasso.Utils$OkHttpLoaderCreator:
     229:229:private Utils$OkHttpLoaderCreator()
-com.bttendance.activity.BTActivity:
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST
-    239:247:private void showGPSDialog()
-com.bttendance.activity.BTActivity$5
-com.bttendance.activity.sign.PersionalizeActivity:
-    private static final int PROGRESS_TO_GO
-    private static final int PROGRESS_CHANGE_MAX
-    private static final int PROGRESS_CHANGE_DURATION
-    private static final int PROGRESS_CHANGE
-    private static final int SPEED_TO_GO
-com.bttendance.helper.CloudinaryHelper:
-    private static final int PROFILE_BITMAP_SIZE
-com.bttendance.helper.GPSTracker:
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES
-    private static final long MIN_TIME_BW_UPDATES
-    private static final int TWO_MINUTES
-    108:108:private void setTracker()
-com.bttendance.helper.StringMatcher:
-    private static final char KOREAN_UNICODE_START
-    private static final char KOREAN_UNICODE_END
-    private static final char KOREAN_UNIT
-com.bttendance.model.BTDatabase$BTSQLiteHelper:
-    private static final int DATABASE_VERSION
-    private static final java.lang.String DATABASE_NAME
-    private static final java.lang.String KEY_UUID
-    private static final java.lang.String KEY_USERNAME
-    private static final java.lang.String TABLE_NAME_UUID
-    private static final java.lang.String TABLE_CREATE_UUID
-    private static final java.lang.String TABLE_NAME_USERNAME
-    private static final java.lang.String TABLE_CREATE_USERNAME
-com.bttendance.model.BTExternal:
-    private static final java.lang.String FILE_NAME
-    97:98:private static boolean deleteFile(android.content.Context)
-    102:103:private static boolean hasFile(android.content.Context)
-com.bttendance.model.BTNotification:
-    private static final java.lang.String PROPERTY_REG_ID
-    private static final java.lang.String PROPERTY_APP_VERSION
-com.bttendance.service.BTService:
-    private static final java.lang.String SERVER_DOMAIN
-com.bttendance.service.GcmIntentService:
-    private static final int NOTIFICATION_ID
-    private static final java.lang.String TITLE
-    private static final java.lang.String MESSAGE
-    private static final java.lang.String TYPE
-    private static final java.lang.String POST
-    private static final java.lang.String COURSE
-    private static final java.lang.String ATTENDANCE_STARTED
-    private static final java.lang.String ATTENDANCE_CHECKED
-com.bttendance.view.Bttendance:
-    private static final int BLINK_DURATION
-    private static final int BIG_SIZE
-    private static final int SMALL_SIZE
-    private static final int BIG_WHEEL_RADIUS
-    private static final int SMALL_WHEEL_RADIUS
-    private static final int BIG
-    private static final int SMALL
-com.bttendance.view.Circle:
-    private static final int INIT_ALPHA
-    private static final int FIN_ALPHA
-    private static final int INIT_RADIUS
-com.bttendance.view.IndexScroller:
-    private static final int STATE_HIDDEN
-    private static final int STATE_SHOWING
-    private static final int STATE_SHOWN
-    private static final int STATE_HIDING
 retrofit.Platform$OkClientInstantiator:
     168:168:private Platform$OkClientInstantiator()
 retrofit.RestAdapter:

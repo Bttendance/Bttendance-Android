@@ -8,15 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.attendance.AttdInProgressEvent;
 import com.bttendance.event.attendance.AttdStartEvent;
 import com.bttendance.event.fragment.ShowCourseDetailEvent;
 import com.bttendance.event.fragment.ShowSchoolChooseEvent;
 import com.bttendance.helper.DateHelper;
+import com.bttendance.helper.IntArrayHelper;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.MyCourseCursor;
 import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.UserJson;
 import com.bttendance.view.Bttendance;
 import com.squareup.otto.BTEventBus;
 
@@ -55,6 +59,7 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
             case VIEW_TYPE_ITEM:
             default:
                 CourseJson course = BTTable.CourseTable.get(cursor.getInt(0));
+                UserJson user = BTPreference.getUser(mContext);
 
                 Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
                 View btButton = view.findViewById(R.id.bttendance_bt);
@@ -63,21 +68,29 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
                 btButton.setOnClickListener(this);
                 selector.setOnClickListener(this);
 
-                btButton.setClickable(true);
                 selector.setVisibility(View.VISIBLE);
 
                 btButton.setTag(R.id.course_id, course.id);
                 selector.setTag(R.id.course_id, course.id);
 
                 long currentTime = DateHelper.getCurrentGMTTimeMillis();
-                if (course.attdCheckedAt != null && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION) {
+
+                boolean mTime = course.attdCheckedAt != null && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION;
+                boolean supved = IntArrayHelper.contains(user.supervising_courses, course.id);
+
+                if (mTime) {
                     long time = currentTime - DateHelper.getTime(course.attdCheckedAt);
                     int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
                     bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
                     btButton.setTag(R.id.checking, true);
+                    btButton.setClickable(false);
                 } else {
-                    bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
+                    int grade = 0;
+                    if (BTTable.CourseGradeTable.get(course.id) != null)
+                        grade = BTTable.CourseGradeTable.get(course.id);
+                    bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
                     btButton.setTag(R.id.checking, false);
+                    btButton.setClickable(supved);
                 }
 
                 TextView title = (TextView) view.findViewById(R.id.title);

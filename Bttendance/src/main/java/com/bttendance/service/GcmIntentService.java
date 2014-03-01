@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.bttendance.activity.MainActivity;
+import com.bttendance.event.update.UpdateCourseDetailEvent;
+import com.bttendance.event.update.UpdateCourseListEvent;
+import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.model.json.UserJson;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
@@ -97,11 +100,14 @@ public class GcmIntentService extends IntentService {
         if (post != null) {
             BTTable.PostTable.append(post.id, post);
             BTTable.getPosts(BTTable.FILTER_MY_POST).append(post.id, post);
+            BTEventBus.getInstance().post(new UpdateFeedEvent());
+            BTEventBus.getInstance().post(new UpdateCourseDetailEvent());
         }
 
         if (course != null) {
             BTTable.CourseTable.append(course.id, course);
             BTTable.getCourses(BTTable.FILTER_MY_COURSE).append(course.id, course);
+            BTEventBus.getInstance().post(new UpdateCourseListEvent());
         }
 
     }
