@@ -61,16 +61,17 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
             if (mTime) {
                 long time = currentTime - DateHelper.getTime(post.createdAt);
                 int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
-                bttendance.setEndState(Bttendance.STATE.FAIL);
                 bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
             } else {
-                bttendance.setBttendance(Bttendance.STATE.GRADE, BTTable.PostGradeTable.get(post.id));
+                int grade = 0;
+                if (BTTable.PostGradeTable.get(post.id) != null)
+                    grade = BTTable.PostGradeTable.get(post.id);
+                bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
             }
         } else {
             if (mTime && !included) {
                 long time = currentTime - DateHelper.getTime(post.createdAt);
                 int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
-                bttendance.setEndState(Bttendance.STATE.FAIL);
                 bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
             } else if (mTime || included) {
                 bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);

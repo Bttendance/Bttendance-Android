@@ -46,7 +46,6 @@ public class Bttendance extends View {
     private float mMargin;
     private STATE mState;
     private int mProgress;
-    private STATE mEndState = STATE.CHECKED;
     /**
      * Bitmap
      */
@@ -293,7 +292,6 @@ public class Bttendance extends View {
                 break;
             case FAIL:
             case CHECKED:
-                mEndState = state;
                 endBttendance(state, 0);
                 break;
             default:
@@ -323,7 +321,6 @@ public class Bttendance extends View {
             @Override
             public void onAnimationEnd(Animation animation) {
                 if (System.currentTimeMillis() > animation.getStartTime() + animation.getDuration()) {
-                    mState = mEndState;
                     mProgress = 0;
                     mFadeIn.cancel();
                     mFadeOut.cancel();
@@ -336,10 +333,6 @@ public class Bttendance extends View {
         });
         mScale.start();
         mScale.getTransformation(System.currentTimeMillis(), mScaleTransformation);
-    }
-
-    public void setEndState(STATE state) {
-        mEndState = state;
     }
 
     private void endBttendance(STATE state, int progress) {

@@ -50,6 +50,7 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        BTDebug.LogError("Bind View Course List : " + cursor.getInt(0));
         switch (getItemViewType(getCursor().getPosition())) {
             case VIEW_TYPE_ADD:
                 view.findViewById(R.id.course_add_btn).setTag(cursor.getInt(0));
@@ -78,6 +79,8 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
                 boolean mTime = course.attdCheckedAt != null && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION;
                 boolean supved = IntArrayHelper.contains(user.supervising_courses, course.id);
 
+                BTDebug.LogError("mTime : " + mTime + ", supved : " + supved);
+
                 if (mTime) {
                     long time = currentTime - DateHelper.getTime(course.attdCheckedAt);
                     int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
@@ -88,6 +91,7 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
                     int grade = 0;
                     if (BTTable.CourseGradeTable.get(course.id) != null)
                         grade = BTTable.CourseGradeTable.get(course.id);
+                    BTDebug.LogError("grade : " + grade);
                     bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
                     btButton.setTag(R.id.checking, false);
                     btButton.setClickable(supved);

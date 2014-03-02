@@ -14,12 +14,12 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
 import com.bttendance.event.attendance.AttdCheckedEvent;
-import com.bttendance.event.attendance.AttdEndEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.fragment.ShowAddManagerEvent;
 import com.bttendance.event.fragment.ShowCreateNoticeEvent;
 import com.bttendance.event.fragment.ShowGradeEvent;
+import com.bttendance.event.refresh.RefreshCourseDetailEvent;
 import com.bttendance.event.update.UpdateCourseDetailEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.IntArrayHelper;
@@ -112,7 +112,10 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                     header.findViewById(R.id.manager_layout).setVisibility(View.GONE);
 
                 Bttendance bttendance = (Bttendance) header.findViewById(R.id.bttendance);
-                bttendance.setBttendance(Bttendance.STATE.GRADE, BTTable.CourseGradeTable.get(mCourse.id));
+                int grade = 0;
+                if (BTTable.CourseGradeTable.get(mCourse.id) != null)
+                    grade = BTTable.CourseGradeTable.get(mCourse.id);
+                bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
                 TextView courseInfo = (TextView) header.findViewById(R.id.course_info);
                 courseInfo.setText(getString(R.string.prof_) + " " + mCourse.professor_name + "\n" + mCourse.school_name + "\n\n" + getString(R.string.empty_course_detail));
             }
@@ -135,15 +138,16 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         refreshHeader();
     }
 
+    @Subscribe
+    public void onRefresh(RefreshCourseDetailEvent event) {
+        getFeed();
+        refreshHeader();
+    }
+
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
         swapCursor();
-    }
-
-    @Subscribe
-    public void onAttdEnd(AttdEndEvent event) {
-        getFeed();
     }
 
     private void swapCursor() {

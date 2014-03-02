@@ -10,8 +10,11 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.bttendance.BTDebug;
-import com.bttendance.event.attendance.AttdEndEvent;
+import com.bttendance.event.refresh.RefreshCourseDetailEvent;
+import com.bttendance.event.refresh.RefreshCourseListEvent;
+import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.helper.DateHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
@@ -64,6 +67,7 @@ public class BTService extends Service {
     private ConnectivityManager mConnectivityManager;
     private LocalBinder mBinder = new LocalBinder();
     private Thread mAttendanceThread;
+    private long mTimeTo;
 
     public static void bind(Context context, ServiceConnection connection) {
         Intent intent = new Intent(context, BTService.class);
@@ -93,18 +97,29 @@ public class BTService extends Service {
 
     public void attendanceStart() {
 
-        if (mAttendanceThread != null)
+        BTDebug.LogError("mTimeTo = " + mTimeTo + ", attdchecktimeto = " + BTTable.getAttdChekTimeTo());
+
+        if (mAttendanceThread != null && mTimeTo == BTTable.getAttdChekTimeTo())
+            return;
+
+        if (mAttendanceThread != null && mTimeTo != BTTable.getAttdChekTimeTo()) {
             mAttendanceThread.interrupt();
-        mAttendanceThread = null;
+            mAttendanceThread = null;
+        }
+
+        mTimeTo = BTTable.getAttdChekTimeTo();
 
         mAttendanceThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    BTDebug.LogError("TimeLeft : " + BTTable.getAttdChekingLeftTime());
-                    for (int i = 0; i < (int) (BTTable.getAttdChekingLeftTime() / 5000); i++) {
-                        BluetoothHelper.startDiscovery();
-                        Thread.sleep(5000);
+                    int i = 0;
+                    while (DateHelper.getCurrentGMTTimeMillis() < mTimeTo - 500) {
+                        if (i++ % 20 == 0) {
+                            BTDebug.LogError("Start Discovery");
+                            BluetoothHelper.startDiscovery();
+                        }
+                        Thread.sleep(500);
                         Set<Integer> ids = BTTable.getCheckingPostIds();
                         Set<String> list = new HashSet<String>();
                         for (String mac : BTTable.UUIDLIST())
@@ -144,7 +159,10 @@ public class BTService extends Service {
         if (mAttendanceThread != null)
             mAttendanceThread.interrupt();
         mAttendanceThread = null;
-        BTEventBus.getInstance().post(new AttdEndEvent());
+        BTDebug.LogError("attendanceStop");
+        BTEventBus.getInstance().post(new RefreshCourseListEvent());
+        BTEventBus.getInstance().post(new RefreshCourseDetailEvent());
+        BTEventBus.getInstance().post(new RefreshFeedEvent());
     }
 
     public void signin(String username, String password, String uuid, final Callback<UserJson> cb) {

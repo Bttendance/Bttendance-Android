@@ -12,7 +12,6 @@ import com.bttendance.adapter.CourseListAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
 import com.bttendance.adapter.kit.SimpleSectionAdapter;
 import com.bttendance.event.LoadingEvent;
-import com.bttendance.event.attendance.AttdEndEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
@@ -86,8 +85,9 @@ public class CourseListFragment extends BTFragment {
             @Override
             public void success(CourseJson[] courses, Response response) {
                 swapCursor();
-                if (BTTable.getCheckingPostIds().size() > 0)
+                if (BTTable.getCheckingPostIds().size() > 0) {
                     BTEventBus.getInstance().post(new AttdStartedEvent(true));
+                }
                 BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
@@ -119,10 +119,6 @@ public class CourseListFragment extends BTFragment {
         swapCursor();
     }
 
-    @Subscribe
-    public void onAttdEndEvent(AttdEndEvent event) {
-        getCourseList();
-    }
 
     private void swapCursor() {
         if (this.isAdded() && mAdapter != null) {

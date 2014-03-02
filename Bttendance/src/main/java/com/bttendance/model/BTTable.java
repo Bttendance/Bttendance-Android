@@ -140,17 +140,17 @@ public class BTTable {
         BTTable.UUIDLISTSENDED.remove(mac);
     }
 
-    public static synchronized long getAttdChekingLeftTime() {
-        long leftTime = 0;
+    public static synchronized long getAttdChekTimeTo() {
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
+        long timeTo = currentTime;
 
         for(int i = 0; i < BTTable.PostTable.size(); i++) {
             int key = BTTable.PostTable.keyAt(i);
             PostJson post = BTTable.PostTable.get(key);
             if (post.createdAt != null
                     && currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION
-                    && leftTime < Bttendance.PROGRESS_DURATION - (currentTime - DateHelper.getTime(post.createdAt))) {
-                leftTime = Bttendance.PROGRESS_DURATION - (currentTime - DateHelper.getTime(post.createdAt));
+                    && timeTo < DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION) {
+                timeTo = DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION;
             }
         }
 
@@ -159,15 +159,12 @@ public class BTTable {
             CourseJson course = BTTable.CourseTable.get(key);
             if (course.attdCheckedAt != null
                     && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION
-                    && leftTime < Bttendance.PROGRESS_DURATION - (currentTime - DateHelper.getTime(course.attdCheckedAt))) {
-                leftTime = Bttendance.PROGRESS_DURATION - (currentTime - DateHelper.getTime(course.attdCheckedAt));
+                    && timeTo < DateHelper.getTime(course.attdCheckedAt) + Bttendance.PROGRESS_DURATION) {
+                timeTo = DateHelper.getTime(course.attdCheckedAt) + Bttendance.PROGRESS_DURATION;
             }
         }
 
-        if (leftTime > Bttendance.PROGRESS_DURATION + 10000)
-            return 0;
-
-        return leftTime;
+        return timeTo;
     }
 
     public static synchronized Set<Integer> getCheckingPostIds() {

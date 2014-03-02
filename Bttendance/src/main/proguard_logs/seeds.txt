@@ -5677,7 +5677,8 @@ com.bttendance.R$string: int auth_client_needs_update_title
 com.bttendance.R$string: int auth_client_play_services_err_notification_msg
 com.bttendance.R$string: int auth_client_requested_by_msg
 com.bttendance.R$string: int auth_client_using_bad_version_title
-com.bttendance.R$string: int before_you_join_course
+com.bttendance.R$string: int before_you_join_course_private
+com.bttendance.R$string: int before_you_join_course_public
 com.bttendance.R$string: int by_tapping_i_agree_to_the
 com.bttendance.R$string: int cancel
 com.bttendance.R$string: int choose_school
@@ -6279,8 +6280,6 @@ com.bttendance.event.LocationChangedEvent: android.location.Location getLocation
 com.bttendance.event.attendance.AttdCheckedEvent
 com.bttendance.event.attendance.AttdCheckedEvent: AttdCheckedEvent(java.lang.String)
 com.bttendance.event.attendance.AttdCheckedEvent: java.lang.String getTitle()
-com.bttendance.event.attendance.AttdEndEvent
-com.bttendance.event.attendance.AttdEndEvent: AttdEndEvent()
 com.bttendance.event.attendance.AttdInProgressEvent
 com.bttendance.event.attendance.AttdInProgressEvent: AttdInProgressEvent()
 com.bttendance.event.attendance.AttdStartEvent
@@ -6352,8 +6351,12 @@ com.bttendance.event.fragment.ShowUpdateProfileEvent$Type: com.bttendance.event.
 com.bttendance.event.fragment.ShowUpdateProfileEvent$Type: com.bttendance.event.fragment.ShowUpdateProfileEvent$Type MAIL
 com.bttendance.event.fragment.ShowUpdateProfileEvent$Type: com.bttendance.event.fragment.ShowUpdateProfileEvent$Type[] values()
 com.bttendance.event.fragment.ShowUpdateProfileEvent$Type: com.bttendance.event.fragment.ShowUpdateProfileEvent$Type valueOf(java.lang.String)
+com.bttendance.event.refresh.RefreshCourseDetailEvent
+com.bttendance.event.refresh.RefreshCourseDetailEvent: RefreshCourseDetailEvent()
 com.bttendance.event.refresh.RefreshCourseListEvent
 com.bttendance.event.refresh.RefreshCourseListEvent: RefreshCourseListEvent()
+com.bttendance.event.refresh.RefreshFeedEvent
+com.bttendance.event.refresh.RefreshFeedEvent: RefreshFeedEvent()
 com.bttendance.event.refresh.RefreshProfileEvent
 com.bttendance.event.refresh.RefreshProfileEvent: RefreshProfileEvent()
 com.bttendance.event.update.UpdateCourseAttendEvent
@@ -6382,6 +6385,7 @@ com.bttendance.fragment.AddManagerFragment: boolean onOptionsItemSelected(com.ac
 com.bttendance.fragment.BTDialogFragment
 com.bttendance.fragment.BTDialogFragment: BTDialogFragment(com.bttendance.fragment.BTDialogFragment$DialogType,java.lang.String,java.lang.String)
 com.bttendance.fragment.BTDialogFragment: void setOnConfirmListener(com.bttendance.fragment.BTDialogFragment$OnConfirmListener)
+com.bttendance.fragment.BTDialogFragment: void setPlaceholder(java.lang.String)
 com.bttendance.fragment.BTDialogFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
 com.bttendance.fragment.BTDialogFragment: void onClick(android.view.View)
 com.bttendance.fragment.BTDialogFragment: void onDestroy()
@@ -6433,8 +6437,8 @@ com.bttendance.fragment.CourseDetailFragment: void getFeed()
 com.bttendance.fragment.CourseDetailFragment: void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent)
 com.bttendance.fragment.CourseDetailFragment: void onAttdChecked(com.bttendance.event.attendance.AttdCheckedEvent)
 com.bttendance.fragment.CourseDetailFragment: void onUpdate(com.bttendance.event.update.UpdateCourseDetailEvent)
+com.bttendance.fragment.CourseDetailFragment: void onRefresh(com.bttendance.event.refresh.RefreshCourseDetailEvent)
 com.bttendance.fragment.CourseDetailFragment: void onFragmentResume()
-com.bttendance.fragment.CourseDetailFragment: void onAttdEnd(com.bttendance.event.attendance.AttdEndEvent)
 com.bttendance.fragment.CourseDetailFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
 com.bttendance.fragment.CourseDetailFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
 com.bttendance.fragment.CourseDetailFragment: void onClick(android.view.View)
@@ -6447,7 +6451,6 @@ com.bttendance.fragment.CourseListFragment: void onFragmentResume()
 com.bttendance.fragment.CourseListFragment: void onRefresh(com.bttendance.event.refresh.RefreshCourseListEvent)
 com.bttendance.fragment.CourseListFragment: void onUpdate(com.bttendance.event.update.UpdateCourseListEvent)
 com.bttendance.fragment.CourseListFragment: void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent)
-com.bttendance.fragment.CourseListFragment: void onAttdEndEvent(com.bttendance.event.attendance.AttdEndEvent)
 com.bttendance.fragment.CreateNoticeFragment
 com.bttendance.fragment.CreateNoticeFragment: CreateNoticeFragment(int)
 com.bttendance.fragment.CreateNoticeFragment: void onCreate(android.os.Bundle)
@@ -6462,7 +6465,7 @@ com.bttendance.fragment.FeedFragment: void onServiceConnected()
 com.bttendance.fragment.FeedFragment: void getFeed()
 com.bttendance.fragment.FeedFragment: void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent)
 com.bttendance.fragment.FeedFragment: void onAttdChecked(com.bttendance.event.attendance.AttdCheckedEvent)
-com.bttendance.fragment.FeedFragment: void onAttdEnd(com.bttendance.event.attendance.AttdEndEvent)
+com.bttendance.fragment.FeedFragment: void onRefresh(com.bttendance.event.refresh.RefreshFeedEvent)
 com.bttendance.fragment.FeedFragment: void onUpdate(com.bttendance.event.update.UpdateFeedEvent)
 com.bttendance.fragment.FeedFragment: void onFragmentResume()
 com.bttendance.fragment.ForgotPasswordFragment
@@ -6639,6 +6642,9 @@ com.bttendance.helper.UUIDHelper: java.lang.String ERROR
 com.bttendance.helper.UUIDHelper: UUIDHelper()
 com.bttendance.helper.UUIDHelper: java.lang.String getUUID(android.content.Context)
 com.bttendance.helper.UUIDHelper: java.lang.String resetUUID(android.content.Context)
+com.bttendance.helper.ValidationHelper
+com.bttendance.helper.ValidationHelper: ValidationHelper()
+com.bttendance.helper.ValidationHelper: boolean phoneNumber(java.lang.String)
 com.bttendance.model.BTDatabase
 com.bttendance.model.BTDatabase: BTDatabase()
 com.bttendance.model.BTDatabase: void setUUID(android.content.Context,java.lang.String)
@@ -6714,7 +6720,7 @@ com.bttendance.model.BTTable: void UUIDLISTSENDED_addAll(java.util.Set)
 com.bttendance.model.BTTable: void UUIDLISTSENDED_refresh()
 com.bttendance.model.BTTable: boolean UUIDLISTSENDED_contains(java.lang.String)
 com.bttendance.model.BTTable: void UUIDLISTSENDED_remove(java.lang.String)
-com.bttendance.model.BTTable: long getAttdChekingLeftTime()
+com.bttendance.model.BTTable: long getAttdChekTimeTo()
 com.bttendance.model.BTTable: java.util.Set getCheckingPostIds()
 com.bttendance.model.cursor.CourseCursor
 com.bttendance.model.cursor.CourseCursor: CourseCursor(java.lang.String)
@@ -6795,6 +6801,7 @@ com.bttendance.model.json.SchoolJson
 com.bttendance.model.json.SchoolJson: java.lang.String name
 com.bttendance.model.json.SchoolJson: java.lang.String logo_image
 com.bttendance.model.json.SchoolJson: java.lang.String website
+com.bttendance.model.json.SchoolJson: java.lang.String type
 com.bttendance.model.json.SchoolJson: int[] courses
 com.bttendance.model.json.SchoolJson: int[] professors
 com.bttendance.model.json.SchoolJson: int[] students
@@ -6942,7 +6949,6 @@ com.bttendance.view.Bttendance: void onMeasure(int,int)
 com.bttendance.view.Bttendance: android.graphics.Bitmap getCheckBitmap()
 com.bttendance.view.Bttendance: android.graphics.Bitmap getBackgroundBitmap()
 com.bttendance.view.Bttendance: void setBttendance(com.bttendance.view.Bttendance$STATE,int)
-com.bttendance.view.Bttendance: void setEndState(com.bttendance.view.Bttendance$STATE)
 com.bttendance.view.Bttendance: void startAnimation(android.view.animation.Animation)
 com.bttendance.view.Bttendance$STATE
 com.bttendance.view.Bttendance$STATE: com.bttendance.view.Bttendance$STATE STARTED

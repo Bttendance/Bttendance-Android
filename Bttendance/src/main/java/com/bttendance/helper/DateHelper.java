@@ -16,7 +16,7 @@ public class DateHelper {
     private DateHelper() {
     }
 
-    public static long getCurrentGMTTimeMillis() {
+    public static synchronized long getCurrentGMTTimeMillis() {
         final Date currentTime = new Date();
         final SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));

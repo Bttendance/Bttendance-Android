@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
 import com.bttendance.event.attendance.AttdCheckedEvent;
-import com.bttendance.event.attendance.AttdEndEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.LoadingEvent;
 import com.bttendance.helper.DipPixelHelper;
@@ -81,7 +81,7 @@ public class FeedFragment extends BTFragment {
     }
 
     @Subscribe
-    public void onAttdEnd(AttdEndEvent event) {
+    public void onRefresh(RefreshFeedEvent event) {
         getFeed();
     }
 

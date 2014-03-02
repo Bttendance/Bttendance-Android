@@ -9007,14 +9007,14 @@ com.bttendance.BTDebug -> com.bttendance.BTDebug:
     boolean GOOGLE_TOAST -> GOOGLE_TOAST
     java.lang.String TAG -> TAG
     java.lang.String TAG_API -> TAG_API
-    19:24:void LogError(java.lang.String) -> LogError
-    28:32:void LogDebug(java.lang.String) -> LogDebug
-    36:40:void LogDebug(java.lang.String,java.lang.String) -> LogDebug
-    44:48:void LogInfo(java.lang.String) -> LogInfo
-    52:56:void LogVerbose(java.lang.String) -> LogVerbose
-    60:64:void LogQueryAPI(java.lang.String) -> LogQueryAPI
+    24:24:void LogError(java.lang.String) -> LogError
+    32:32:void LogDebug(java.lang.String) -> LogDebug
+    40:40:void LogDebug(java.lang.String,java.lang.String) -> LogDebug
+    48:48:void LogInfo(java.lang.String) -> LogInfo
+    56:56:void LogVerbose(java.lang.String) -> LogVerbose
+    64:64:void LogQueryAPI(java.lang.String) -> LogQueryAPI
     72:72:void LogResponseAPI(java.lang.String) -> LogResponseAPI
-    76:80:void Toast(android.content.Context,java.lang.String) -> Toast
+    80:80:void Toast(android.content.Context,java.lang.String) -> Toast
 com.bttendance.BuildConfig -> com.bttendance.BuildConfig:
     boolean DEBUG -> DEBUG
 com.bttendance.Manifest -> com.bttendance.Manifest:
@@ -10180,7 +10180,8 @@ com.bttendance.R$string -> com.bttendance.R$string:
     int auth_client_play_services_err_notification_msg -> auth_client_play_services_err_notification_msg
     int auth_client_requested_by_msg -> auth_client_requested_by_msg
     int auth_client_using_bad_version_title -> auth_client_using_bad_version_title
-    int before_you_join_course -> before_you_join_course
+    int before_you_join_course_private -> before_you_join_course_private
+    int before_you_join_course_public -> before_you_join_course_public
     int by_tapping_i_agree_to_the -> by_tapping_i_agree_to_the
     int cancel -> cancel
     int choose_school -> choose_school
@@ -10659,12 +10660,12 @@ com.bttendance.activity.MainActivity$3 -> qk:
     148:149:void run() -> run
 com.bttendance.activity.SplashActivity -> com.bttendance.activity.SplashActivity:
     int SPLASH_DURATION -> o
-    18:28:void onCreate(android.os.Bundle) -> onCreate
-    31:33:void nextActivity() -> b
-    12:12:void access$000(com.bttendance.activity.SplashActivity) -> a
+    21:31:void onCreate(android.os.Bundle) -> onCreate
+    34:36:void nextActivity() -> b
+    15:15:void access$000(com.bttendance.activity.SplashActivity) -> a
 com.bttendance.activity.SplashActivity$1 -> ql:
     com.bttendance.activity.SplashActivity this$0 -> a
-    25:26:void run() -> run
+    28:29:void run() -> run
 com.bttendance.activity.sign.CatchPointActivity -> com.bttendance.activity.sign.CatchPointActivity:
     android.widget.Button mSignUp -> o
     android.widget.Button mSignIn -> p
@@ -10894,17 +10895,17 @@ com.bttendance.adapter.ChooseSchoolAdapter -> com.bttendance.adapter.ChooseSchoo
     29:29:com.bttendance.model.json.SchoolJson getInstance(android.database.Cursor) -> getInstance
     13:13:java.lang.Object getInstance(android.database.Cursor) -> getInstance
 com.bttendance.adapter.CourseListAdapter -> com.bttendance.adapter.CourseListAdapter:
-    40:46:android.view.View newView(android.content.Context,android.database.Cursor,android.view.ViewGroup) -> newView
-    52:98:void bindView(android.view.View,android.content.Context,android.database.Cursor) -> bindView
-    102:107:int getItemViewType(int) -> getItemViewType
-    113:113:int getViewTypeCount() -> getViewTypeCount
-    118:123:long getItemId(int) -> getItemId
-    128:147:void onClick(android.view.View) -> onClick
+    41:47:android.view.View newView(android.content.Context,android.database.Cursor,android.view.ViewGroup) -> newView
+    53:106:void bindView(android.view.View,android.content.Context,android.database.Cursor) -> bindView
+    110:115:int getItemViewType(int) -> getItemViewType
+    121:121:int getViewTypeCount() -> getViewTypeCount
+    126:131:long getItemId(int) -> getItemId
+    136:155:void onClick(android.view.View) -> onClick
 com.bttendance.adapter.FeedAdapter -> com.bttendance.adapter.FeedAdapter:
     33:34:android.view.View newView(android.content.Context,android.database.Cursor,android.view.ViewGroup) -> newView
-    39:97:void bindView(android.view.View,android.content.Context,android.database.Cursor) -> bindView
-    101:106:long getItemId(int) -> getItemId
-    111:118:void onClick(android.view.View) -> onClick
+    39:98:void bindView(android.view.View,android.content.Context,android.database.Cursor) -> bindView
+    102:107:long getItemId(int) -> getItemId
+    112:119:void onClick(android.view.View) -> onClick
 com.bttendance.adapter.ProfileAdapter -> com.bttendance.adapter.ProfileAdapter:
     com.bttendance.model.json.UserJson user -> a
     31:32:android.view.View newView(android.content.Context,android.database.Cursor,android.view.ViewGroup) -> newView
@@ -11010,90 +11011,90 @@ com.bttendance.adapter.kit.ViewHandler -> com.bttendance.adapter.kit.ViewHandler
 com.bttendance.event.BTEventDispatcher -> com.bttendance.event.BTEventDispatcher:
     java.lang.ref.WeakReference mBTActRef -> a
     int mLoading -> b
-    83:85:com.bttendance.activity.BTActivity getBTActivity() -> a
-    91:126:void onAttendanceStart(com.bttendance.event.attendance.AttdStartEvent) -> onAttendanceStart
-    131:163:void onAttendanceStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttendanceStarted
-    167:188:void onBTEnabled(com.bttendance.event.bluetooth.BTEnabledEvent) -> onBTEnabled
-    192:197:void onBTDiscovered(com.bttendance.event.bluetooth.BTDiscoveredEvent) -> onBTDiscovered
-    201:210:void onBTCanceled(com.bttendance.event.bluetooth.BTCanceledEvent) -> onBTCanceled
-    214:232:void onLocationChanged(com.bttendance.event.LocationChangedEvent) -> onLocationChanged
-    260:279:void onShowEnableBluetoothDialog(com.bttendance.event.dialog.ShowEnableBluetoothDialog) -> onShowEnableBluetoothDialog
-    283:311:void onShowAddManagerDialog(com.bttendance.event.dialog.ShowAddManagerDialog) -> onShowAddManagerDialog
-    319:324:void onShowSchoolChoose(com.bttendance.event.fragment.ShowSchoolChooseEvent) -> onShowSchoolChoose
-    328:333:void onShowCourseCreate(com.bttendance.event.fragment.ShowCourseCreateEvent) -> onShowCourseCreate
-    337:342:void onShowSerial(com.bttendance.event.fragment.ShowSerialEvent) -> onShowSerial
-    346:351:void onShowCourseAttendEvent(com.bttendance.event.fragment.ShowCourseAttendEvent) -> onShowCourseAttendEvent
-    355:360:void onShowAddManagerEvent(com.bttendance.event.fragment.ShowAddManagerEvent) -> onShowAddManagerEvent
-    364:375:void onShowUpdateProfile(com.bttendance.event.fragment.ShowUpdateProfileEvent) -> onShowUpdateProfile
-    379:385:void onShowCourseDetail(com.bttendance.event.fragment.ShowCourseDetailEvent) -> onShowCourseDetail
-    389:394:void onShowPostAttd(com.bttendance.event.fragment.ShowPostAttendanceEvent) -> onShowPostAttd
-    398:403:void onShowGrade(com.bttendance.event.fragment.ShowGradeEvent) -> onShowGrade
-    407:412:void onShowForgotPassword(com.bttendance.event.fragment.ShowForgotPasswordEvent) -> onShowForgotPassword
-    416:421:void onShowSerialRequest(com.bttendance.event.fragment.ShowSerialRequestEvent) -> onShowSerialRequest
-    425:431:void onShowCreateNotice(com.bttendance.event.fragment.ShowCreateNoticeEvent) -> onShowCreateNotice
-    435:542:void onPlusClicked(com.bttendance.event.button.PlusClickedEvent) -> onPlusClicked
-    546:556:void onLoadingEvent(com.bttendance.event.LoadingEvent) -> onLoadingEvent
-    559:572:void addFragment(com.bttendance.fragment.BTFragment) -> a
-    575:588:void showDialog(com.bttendance.fragment.BTDialogFragment,java.lang.String) -> a
+    85:87:com.bttendance.activity.BTActivity getBTActivity() -> a
+    93:128:void onAttendanceStart(com.bttendance.event.attendance.AttdStartEvent) -> onAttendanceStart
+    133:165:void onAttendanceStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttendanceStarted
+    169:190:void onBTEnabled(com.bttendance.event.bluetooth.BTEnabledEvent) -> onBTEnabled
+    194:199:void onBTDiscovered(com.bttendance.event.bluetooth.BTDiscoveredEvent) -> onBTDiscovered
+    203:212:void onBTCanceled(com.bttendance.event.bluetooth.BTCanceledEvent) -> onBTCanceled
+    216:234:void onLocationChanged(com.bttendance.event.LocationChangedEvent) -> onLocationChanged
+    262:281:void onShowEnableBluetoothDialog(com.bttendance.event.dialog.ShowEnableBluetoothDialog) -> onShowEnableBluetoothDialog
+    285:313:void onShowAddManagerDialog(com.bttendance.event.dialog.ShowAddManagerDialog) -> onShowAddManagerDialog
+    321:326:void onShowSchoolChoose(com.bttendance.event.fragment.ShowSchoolChooseEvent) -> onShowSchoolChoose
+    330:335:void onShowCourseCreate(com.bttendance.event.fragment.ShowCourseCreateEvent) -> onShowCourseCreate
+    339:344:void onShowSerial(com.bttendance.event.fragment.ShowSerialEvent) -> onShowSerial
+    348:353:void onShowCourseAttendEvent(com.bttendance.event.fragment.ShowCourseAttendEvent) -> onShowCourseAttendEvent
+    357:362:void onShowAddManagerEvent(com.bttendance.event.fragment.ShowAddManagerEvent) -> onShowAddManagerEvent
+    366:377:void onShowUpdateProfile(com.bttendance.event.fragment.ShowUpdateProfileEvent) -> onShowUpdateProfile
+    381:387:void onShowCourseDetail(com.bttendance.event.fragment.ShowCourseDetailEvent) -> onShowCourseDetail
+    391:396:void onShowPostAttd(com.bttendance.event.fragment.ShowPostAttendanceEvent) -> onShowPostAttd
+    400:405:void onShowGrade(com.bttendance.event.fragment.ShowGradeEvent) -> onShowGrade
+    409:414:void onShowForgotPassword(com.bttendance.event.fragment.ShowForgotPasswordEvent) -> onShowForgotPassword
+    418:423:void onShowSerialRequest(com.bttendance.event.fragment.ShowSerialRequestEvent) -> onShowSerialRequest
+    427:433:void onShowCreateNotice(com.bttendance.event.fragment.ShowCreateNoticeEvent) -> onShowCreateNotice
+    437:551:void onPlusClicked(com.bttendance.event.button.PlusClickedEvent) -> onPlusClicked
+    555:565:void onLoadingEvent(com.bttendance.event.LoadingEvent) -> onLoadingEvent
+    568:581:void addFragment(com.bttendance.fragment.BTFragment) -> a
+    584:597:void showDialog(com.bttendance.fragment.BTDialogFragment,java.lang.String) -> a
 com.bttendance.event.BTEventDispatcher$1 -> ro:
     com.bttendance.event.attendance.AttdStartEvent val$event -> a
     com.bttendance.activity.BTActivity val$act -> b
     com.bttendance.event.BTEventDispatcher this$0 -> c
-    102:118:void onConfirmed(java.lang.String) -> onConfirmed
-    122:123:void onCanceled() -> onCanceled
+    104:120:void onConfirmed(java.lang.String) -> onConfirmed
+    124:125:void onCanceled() -> onCanceled
 com.bttendance.event.BTEventDispatcher$1$1 -> rp:
     com.bttendance.event.BTEventDispatcher$1 this$1 -> a
-    110:111:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
-    115:115:void failure(retrofit.RetrofitError) -> failure
-    107:107:void success(java.lang.Object,retrofit.client.Response) -> success
+    112:113:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+    117:117:void failure(retrofit.RetrofitError) -> failure
+    109:109:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.event.BTEventDispatcher$2 -> rq:
     com.bttendance.activity.BTActivity val$act -> a
     com.bttendance.event.BTEventDispatcher this$0 -> b
-    150:156:void onConfirmed(java.lang.String) -> onConfirmed
-    160:160:void onCanceled() -> onCanceled
+    152:158:void onConfirmed(java.lang.String) -> onConfirmed
+    162:162:void onCanceled() -> onCanceled
 com.bttendance.event.BTEventDispatcher$3 -> rr:
     com.bttendance.activity.BTActivity val$act -> a
     com.bttendance.event.BTEventDispatcher this$0 -> b
-    271:272:void onConfirmed(java.lang.String) -> onConfirmed
-    276:276:void onCanceled() -> onCanceled
+    273:274:void onConfirmed(java.lang.String) -> onConfirmed
+    278:278:void onCanceled() -> onCanceled
 com.bttendance.event.BTEventDispatcher$4 -> rs:
     com.bttendance.activity.BTActivity val$act -> a
     com.bttendance.event.dialog.ShowAddManagerDialog val$event -> b
     com.bttendance.event.BTEventDispatcher this$0 -> c
-    294:304:void onConfirmed(java.lang.String) -> onConfirmed
-    308:308:void onCanceled() -> onCanceled
+    296:306:void onConfirmed(java.lang.String) -> onConfirmed
+    310:310:void onCanceled() -> onCanceled
 com.bttendance.event.BTEventDispatcher$4$1 -> rt:
     com.bttendance.event.BTEventDispatcher$4 this$1 -> a
-    297:298:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
-    302:302:void failure(retrofit.RetrofitError) -> failure
-    294:294:void success(java.lang.Object,retrofit.client.Response) -> success
+    299:300:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+    304:304:void failure(retrofit.RetrofitError) -> failure
+    296:296:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.event.BTEventDispatcher$5 -> ru:
     com.bttendance.model.json.BTJson val$json -> a
     com.bttendance.activity.BTActivity val$act -> b
     com.bttendance.event.button.PlusClickedEvent val$event -> c
     com.bttendance.event.BTEventDispatcher this$0 -> d
-    473:535:void onConfirmed(java.lang.String) -> onConfirmed
-    539:539:void onCanceled() -> onCanceled
+    482:544:void onConfirmed(java.lang.String) -> onConfirmed
+    548:548:void onCanceled() -> onCanceled
 com.bttendance.event.BTEventDispatcher$5$1 -> rv:
     com.bttendance.event.BTEventDispatcher$5 this$1 -> a
-    479:481:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    485:485:void failure(retrofit.RetrofitError) -> failure
-    476:476:void success(java.lang.Object,retrofit.client.Response) -> success
+    488:490:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    494:494:void failure(retrofit.RetrofitError) -> failure
+    485:485:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.event.BTEventDispatcher$5$2 -> rw:
     com.bttendance.event.BTEventDispatcher$5 this$1 -> a
-    491:503:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    508:508:void failure(retrofit.RetrofitError) -> failure
-    488:488:void success(java.lang.Object,retrofit.client.Response) -> success
+    500:512:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    517:517:void failure(retrofit.RetrofitError) -> failure
+    497:497:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.event.BTEventDispatcher$5$2$1 -> rx:
     com.bttendance.event.BTEventDispatcher$5$2 this$2 -> a
-    495:497:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    501:501:void failure(retrofit.RetrofitError) -> failure
-    492:492:void success(java.lang.Object,retrofit.client.Response) -> success
+    504:506:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    510:510:void failure(retrofit.RetrofitError) -> failure
+    501:501:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.event.BTEventDispatcher$5$3 -> ry:
     com.bttendance.event.BTEventDispatcher$5 this$1 -> a
-    516:527:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
-    531:531:void failure(retrofit.RetrofitError) -> failure
-    513:513:void success(java.lang.Object,retrofit.client.Response) -> success
+    525:536:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    540:540:void failure(retrofit.RetrofitError) -> failure
+    522:522:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.event.BTEventDispatcher$6 -> rz:
     int[] $SwitchMap$com$bttendance$model$json$BTJson$JsonType -> a
 com.bttendance.event.LoadingEvent -> com.bttendance.event.LoadingEvent:
@@ -11105,7 +11106,6 @@ com.bttendance.event.LocationChangedEvent -> com.bttendance.event.LocationChange
 com.bttendance.event.attendance.AttdCheckedEvent -> com.bttendance.event.attendance.AttdCheckedEvent:
     java.lang.String mTitle -> a
     18:18:java.lang.String getTitle() -> getTitle
-com.bttendance.event.attendance.AttdEndEvent -> com.bttendance.event.attendance.AttdEndEvent:
 com.bttendance.event.attendance.AttdInProgressEvent -> com.bttendance.event.attendance.AttdInProgressEvent:
 com.bttendance.event.attendance.AttdStartEvent -> com.bttendance.event.attendance.AttdStartEvent:
     int mCourseId -> a
@@ -11177,7 +11177,9 @@ com.bttendance.event.fragment.ShowUpdateProfileEvent$Type -> com.bttendance.even
     com.bttendance.event.fragment.ShowUpdateProfileEvent$Type[] $VALUES -> a
     30:30:com.bttendance.event.fragment.ShowUpdateProfileEvent$Type[] values() -> values
     30:30:com.bttendance.event.fragment.ShowUpdateProfileEvent$Type valueOf(java.lang.String) -> valueOf
+com.bttendance.event.refresh.RefreshCourseDetailEvent -> com.bttendance.event.refresh.RefreshCourseDetailEvent:
 com.bttendance.event.refresh.RefreshCourseListEvent -> com.bttendance.event.refresh.RefreshCourseListEvent:
+com.bttendance.event.refresh.RefreshFeedEvent -> com.bttendance.event.refresh.RefreshFeedEvent:
 com.bttendance.event.refresh.RefreshProfileEvent -> com.bttendance.event.refresh.RefreshProfileEvent:
 com.bttendance.event.update.UpdateCourseAttendEvent -> com.bttendance.event.update.UpdateCourseAttendEvent:
 com.bttendance.event.update.UpdateCourseDetailEvent -> com.bttendance.event.update.UpdateCourseDetailEvent:
@@ -11227,17 +11229,19 @@ com.bttendance.fragment.BTDialogFragment -> com.bttendance.fragment.BTDialogFrag
     java.lang.String mTitle -> c
     java.lang.String mMessage -> d
     android.widget.EditText mEdit -> e
-    android.view.View mEditDivider -> f
-    boolean mConfirmed -> g
-    int mScreenHeight -> h
-    38:39:void setOnConfirmListener(com.bttendance.fragment.BTDialogFragment$OnConfirmListener) -> setOnConfirmListener
-    43:86:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    91:101:void onClick(android.view.View) -> onClick
-    105:108:void onDestroy() -> onDestroy
+    java.lang.String mEditPlaceholder -> f
+    android.view.View mEditDivider -> g
+    boolean mConfirmed -> h
+    int mScreenHeight -> i
+    39:40:void setOnConfirmListener(com.bttendance.fragment.BTDialogFragment$OnConfirmListener) -> setOnConfirmListener
+    43:44:void setPlaceholder(java.lang.String) -> setPlaceholder
+    48:94:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
+    99:109:void onClick(android.view.View) -> onClick
+    113:116:void onDestroy() -> onDestroy
 com.bttendance.fragment.BTDialogFragment$1 -> sd:
     android.view.View val$view -> a
     com.bttendance.fragment.BTDialogFragment this$0 -> b
-    76:83:void onGlobalLayout() -> onGlobalLayout
+    81:88:void onGlobalLayout() -> onGlobalLayout
 com.bttendance.fragment.BTDialogFragment$2 -> se:
     int[] $SwitchMap$com$bttendance$fragment$BTDialogFragment$DialogType -> a
 com.bttendance.fragment.BTDialogFragment$DialogType -> com.bttendance.fragment.BTDialogFragment$DialogType:
@@ -11245,8 +11249,8 @@ com.bttendance.fragment.BTDialogFragment$DialogType -> com.bttendance.fragment.B
     com.bttendance.fragment.BTDialogFragment$DialogType OK -> OK
     com.bttendance.fragment.BTDialogFragment$DialogType EDIT -> EDIT
     com.bttendance.fragment.BTDialogFragment$DialogType[] $VALUES -> a
-    112:112:com.bttendance.fragment.BTDialogFragment$DialogType[] values() -> values
-    112:112:com.bttendance.fragment.BTDialogFragment$DialogType valueOf(java.lang.String) -> valueOf
+    120:120:com.bttendance.fragment.BTDialogFragment$DialogType[] values() -> values
+    120:120:com.bttendance.fragment.BTDialogFragment$DialogType valueOf(java.lang.String) -> valueOf
 com.bttendance.fragment.BTDialogFragment$OnConfirmListener -> com.bttendance.fragment.BTDialogFragment$OnConfirmListener:
     void onConfirmed(java.lang.String) -> onConfirmed
     void onCanceled() -> onCanceled
@@ -11375,16 +11379,16 @@ com.bttendance.fragment.CourseDetailFragment -> com.bttendance.fragment.CourseDe
     62:75:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     80:82:void onServiceConnected() -> onServiceConnected
     85:101:void getFeed() -> getFeed
-    104:120:void refreshHeader() -> l
-    124:125:void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttdStarted
-    129:130:void onAttdChecked(com.bttendance.event.attendance.AttdCheckedEvent) -> onAttdChecked
-    134:136:void onUpdate(com.bttendance.event.update.UpdateCourseDetailEvent) -> onUpdate
-    140:142:void onFragmentResume() -> onFragmentResume
-    146:147:void onAttdEnd(com.bttendance.event.attendance.AttdEndEvent) -> onAttdEnd
-    150:158:void swapCursor() -> m
-    162:166:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
-    170:176:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    182:193:void onClick(android.view.View) -> onClick
+    104:123:void refreshHeader() -> l
+    127:128:void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttdStarted
+    132:133:void onAttdChecked(com.bttendance.event.attendance.AttdCheckedEvent) -> onAttdChecked
+    137:139:void onUpdate(com.bttendance.event.update.UpdateCourseDetailEvent) -> onUpdate
+    143:145:void onRefresh(com.bttendance.event.refresh.RefreshCourseDetailEvent) -> onRefresh
+    149:151:void onFragmentResume() -> onFragmentResume
+    154:162:void swapCursor() -> m
+    166:170:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
+    174:180:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
+    186:197:void onClick(android.view.View) -> onClick
 com.bttendance.fragment.CourseDetailFragment$1 -> sr:
     com.bttendance.fragment.CourseDetailFragment this$0 -> a
     92:94:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
@@ -11392,37 +11396,36 @@ com.bttendance.fragment.CourseDetailFragment$1 -> sr:
     89:89:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.fragment.CourseDetailFragment$2 -> ss:
     com.bttendance.fragment.CourseDetailFragment this$0 -> a
-    110:118:void run() -> run
+    110:121:void run() -> run
 com.bttendance.fragment.CourseDetailFragment$3 -> st:
     com.bttendance.fragment.CourseDetailFragment this$0 -> a
-    154:155:void run() -> run
+    158:159:void run() -> run
 com.bttendance.fragment.CourseListFragment -> com.bttendance.fragment.CourseListFragment:
     android.widget.ListView mListView -> a
     com.bttendance.adapter.CourseListAdapter mAdapter -> b
     com.bttendance.adapter.kit.SimpleSectionAdapter mSectionAdapter -> c
     com.bttendance.model.json.UserJson user -> d
-    45:71:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    76:78:void onServiceConnected() -> onServiceConnected
-    81:99:void getCourseList() -> getCourseList
+    44:70:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
+    75:77:void onServiceConnected() -> onServiceConnected
+    80:99:void getCourseList() -> getCourseList
     103:105:void onFragmentResume() -> onFragmentResume
     109:110:void onRefresh(com.bttendance.event.refresh.RefreshCourseListEvent) -> onRefresh
     114:115:void onUpdate(com.bttendance.event.update.UpdateCourseListEvent) -> onUpdate
     119:120:void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttdStarted
-    124:125:void onAttdEndEvent(com.bttendance.event.attendance.AttdEndEvent) -> onAttdEndEvent
-    128:138:void swapCursor() -> l
-    36:36:void access$000(com.bttendance.fragment.CourseListFragment) -> a
+    124:134:void swapCursor() -> l
+    35:35:void access$000(com.bttendance.fragment.CourseListFragment) -> a
 com.bttendance.fragment.CourseListFragment$1 -> su:
     com.bttendance.fragment.CourseListFragment this$0 -> a
-    62:66:java.lang.String getSectionTitleForItem(android.database.Cursor) -> a
-    59:59:java.lang.String getSectionTitleForItem(java.lang.Object) -> getSectionTitleForItem
+    61:65:java.lang.String getSectionTitleForItem(android.database.Cursor) -> a
+    58:58:java.lang.String getSectionTitleForItem(java.lang.Object) -> getSectionTitleForItem
 com.bttendance.fragment.CourseListFragment$2 -> sv:
     com.bttendance.fragment.CourseListFragment this$0 -> a
-    88:92:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
+    87:92:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
     96:97:void failure(retrofit.RetrofitError) -> failure
-    85:85:void success(java.lang.Object,retrofit.client.Response) -> success
+    84:84:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.fragment.CourseListFragment$3 -> sw:
     com.bttendance.fragment.CourseListFragment this$0 -> a
-    132:135:void run() -> run
+    128:131:void run() -> run
 com.bttendance.fragment.CreateNoticeFragment -> com.bttendance.fragment.CreateNoticeFragment:
     com.bttendance.model.json.CourseJson mCourse -> a
     android.widget.EditText mMessage -> b
@@ -11444,7 +11447,7 @@ com.bttendance.fragment.FeedFragment -> com.bttendance.fragment.FeedFragment:
     55:71:void getFeed() -> getFeed
     75:76:void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttdStarted
     80:81:void onAttdChecked(com.bttendance.event.attendance.AttdCheckedEvent) -> onAttdChecked
-    85:86:void onAttdEnd(com.bttendance.event.attendance.AttdEndEvent) -> onAttdEnd
+    85:86:void onRefresh(com.bttendance.event.refresh.RefreshFeedEvent) -> onRefresh
     90:91:void onUpdate(com.bttendance.event.update.UpdateFeedEvent) -> onUpdate
     95:97:void onFragmentResume() -> onFragmentResume
     100:108:void swapCursor() -> l
@@ -11532,10 +11535,10 @@ com.bttendance.fragment.PostAttendanceFragment -> com.bttendance.fragment.PostAt
     63:65:void onFragmentResume() -> onFragmentResume
     69:70:void onUpdate(com.bttendance.event.update.UpdatePostAttendanceEvent) -> onUpdate
     73:102:void requestCall() -> l
-    105:156:void swapItems() -> m
-    160:162:void onServiceConnected() -> onServiceConnected
-    166:170:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
-    174:180:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
+    105:155:void swapItems() -> m
+    159:161:void onServiceConnected() -> onServiceConnected
+    165:169:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
+    173:179:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
     33:33:com.bttendance.model.json.UserJson[] access$002(com.bttendance.fragment.PostAttendanceFragment,com.bttendance.model.json.UserJson[]) -> a
     33:33:void access$100(com.bttendance.fragment.PostAttendanceFragment) -> a
     33:33:com.bttendance.model.json.PostJson access$202(com.bttendance.fragment.PostAttendanceFragment,com.bttendance.model.json.PostJson) -> a
@@ -11553,7 +11556,7 @@ com.bttendance.fragment.PostAttendanceFragment$2 -> ti:
     91:91:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.fragment.PostAttendanceFragment$3 -> tj:
     com.bttendance.fragment.PostAttendanceFragment this$0 -> a
-    114:154:void run() -> run
+    113:153:void run() -> run
 com.bttendance.fragment.ProfileEditFragment -> com.bttendance.fragment.ProfileEditFragment:
     java.lang.String mTitle -> a
     android.widget.TextView mText -> b
@@ -11817,6 +11820,8 @@ com.bttendance.helper.UUIDHelper -> com.bttendance.helper.UUIDHelper:
     java.lang.String ERROR -> ERROR
     18:38:java.lang.String getUUID(android.content.Context) -> getUUID
     43:46:java.lang.String resetUUID(android.content.Context) -> resetUUID
+com.bttendance.helper.ValidationHelper -> com.bttendance.helper.ValidationHelper:
+    10:18:boolean phoneNumber(java.lang.String) -> phoneNumber
 com.bttendance.model.BTDatabase -> com.bttendance.model.BTDatabase:
     com.bttendance.model.BTDatabase$BTSQLiteHelper mSQLiteHelper -> a
     java.lang.Object mSingletonLock -> b
@@ -11920,8 +11925,8 @@ com.bttendance.model.BTTable -> com.bttendance.model.BTTable:
     132:133:void UUIDLISTSENDED_refresh() -> UUIDLISTSENDED_refresh
     136:136:boolean UUIDLISTSENDED_contains(java.lang.String) -> UUIDLISTSENDED_contains
     140:141:void UUIDLISTSENDED_remove(java.lang.String) -> UUIDLISTSENDED_remove
-    144:170:long getAttdChekingLeftTime() -> getAttdChekingLeftTime
-    174:200:java.util.Set getCheckingPostIds() -> getCheckingPostIds
+    144:167:long getAttdChekTimeTo() -> getAttdChekTimeTo
+    171:197:java.util.Set getCheckingPostIds() -> getCheckingPostIds
 com.bttendance.model.cursor.CourseCursor -> com.bttendance.model.cursor.CourseCursor:
     java.lang.String[] COLUMNS -> a
 com.bttendance.model.cursor.MyCourseCursor -> com.bttendance.model.cursor.MyCourseCursor:
@@ -11993,12 +11998,13 @@ com.bttendance.model.json.SchoolJson -> com.bttendance.model.json.SchoolJson:
     java.lang.String name -> name
     java.lang.String logo_image -> logo_image
     java.lang.String website -> website
+    java.lang.String type -> type
     int[] courses -> courses
     int[] professors -> professors
     int[] students -> students
     int[] serials -> serials
-    21:21:java.lang.String getName() -> getName
-    26:26:java.lang.String getWebsite() -> getWebsite
+    22:22:java.lang.String getName() -> getName
+    27:27:java.lang.String getWebsite() -> getWebsite
 com.bttendance.model.json.SerialJson -> com.bttendance.model.json.SerialJson:
     int school -> school
     java.lang.String key -> key
@@ -12061,241 +12067,243 @@ com.bttendance.service.BTService -> com.bttendance.service.BTService:
     android.net.ConnectivityManager mConnectivityManager -> c
     com.bttendance.service.BTService$LocalBinder mBinder -> d
     java.lang.Thread mAttendanceThread -> e
-    46:46:java.lang.String getServerDomain() -> a
-    69:71:void bind(android.content.Context,android.content.ServiceConnection) -> bind
-    74:75:void unbind(android.content.Context,android.content.ServiceConnection) -> unbind
-    79:82:void onCreate() -> onCreate
-    86:87:void onDestroy() -> onDestroy
-    91:91:android.os.IBinder onBind(android.content.Intent) -> onBind
-    96:141:void attendanceStart() -> attendanceStart
-    144:148:void attendanceStop() -> attendanceStop
-    151:168:void signin(java.lang.String,java.lang.String,java.lang.String,retrofit.Callback) -> signin
-    171:189:void autoSignin(retrofit.Callback) -> autoSignin
-    192:206:void forgotPassword(java.lang.String,retrofit.Callback) -> forgotPassword
-    209:233:void signup(com.bttendance.model.json.UserJson,retrofit.Callback) -> signup
-    236:254:void updateNotificationKey(java.lang.String,retrofit.Callback) -> updateNotificationKey
-    257:275:void updateProfileImage(java.lang.String,retrofit.Callback) -> updateProfileImage
-    278:296:void updateEmail(java.lang.String,retrofit.Callback) -> updateEmail
-    299:317:void updateFullName(java.lang.String,retrofit.Callback) -> updateFullName
-    320:343:void feed(int,retrofit.Callback) -> feed
-    346:369:void courses(retrofit.Callback) -> courses
-    372:392:void schools(retrofit.Callback) -> schools
-    395:413:void attendCourse(int,retrofit.Callback) -> attendCourse
-    416:434:void employSchool(int,java.lang.String,retrofit.Callback) -> employSchool
-    437:455:void enrollSchool(int,java.lang.String,retrofit.Callback) -> enrollSchool
-    458:475:void searchUser(java.lang.String,retrofit.Callback) -> searchUser
-    478:496:void allSchools(retrofit.Callback) -> allSchools
-    499:517:void schoolCourses(int,retrofit.Callback) -> schoolCourses
-    520:538:void courseCreate(java.lang.String,java.lang.String,int,java.lang.String,retrofit.Callback) -> courseCreate
-    541:563:void courseFeed(int,int,retrofit.Callback) -> courseFeed
-    566:584:void courseStudents(int,retrofit.Callback) -> courseStudents
-    587:603:void courseGrades(int,retrofit.Callback) -> courseGrades
-    606:622:void addManager(java.lang.String,int,retrofit.Callback) -> addManager
-    625:642:void post(int,retrofit.Callback) -> post
-    645:662:void postCreate(java.lang.String,java.lang.String,java.lang.String,int,retrofit.Callback) -> postCreate
-    665:682:void postAttendanceStart(int,retrofit.Callback) -> postAttendanceStart
-    685:704:void postAttendanceFoundDevice(int,java.lang.String,retrofit.Callback) -> postAttendanceFoundDevice
-    707:724:void postAttendanceCheckManually(int,int,retrofit.Callback) -> postAttendanceCheckManually
-    727:744:void postCreateNotice(int,java.lang.String,retrofit.Callback) -> postCreateNotice
-    747:762:void serialValidate(java.lang.String,retrofit.Callback) -> serialValidate
-    765:780:void serialRequest(java.lang.String,retrofit.Callback) -> serialRequest
-    783:790:boolean isConnected() -> b
-    794:811:void failureHandle(retrofit.Callback,retrofit.RetrofitError) -> a
-    38:38:void access$000(com.bttendance.service.BTService,retrofit.Callback,retrofit.RetrofitError) -> a
+    long mTimeTo -> f
+    47:47:java.lang.String getServerDomain() -> a
+    73:75:void bind(android.content.Context,android.content.ServiceConnection) -> bind
+    78:79:void unbind(android.content.Context,android.content.ServiceConnection) -> unbind
+    83:86:void onCreate() -> onCreate
+    90:91:void onDestroy() -> onDestroy
+    95:95:android.os.IBinder onBind(android.content.Intent) -> onBind
+    100:156:void attendanceStart() -> attendanceStart
+    159:166:void attendanceStop() -> attendanceStop
+    169:186:void signin(java.lang.String,java.lang.String,java.lang.String,retrofit.Callback) -> signin
+    189:207:void autoSignin(retrofit.Callback) -> autoSignin
+    210:224:void forgotPassword(java.lang.String,retrofit.Callback) -> forgotPassword
+    227:251:void signup(com.bttendance.model.json.UserJson,retrofit.Callback) -> signup
+    254:272:void updateNotificationKey(java.lang.String,retrofit.Callback) -> updateNotificationKey
+    275:293:void updateProfileImage(java.lang.String,retrofit.Callback) -> updateProfileImage
+    296:314:void updateEmail(java.lang.String,retrofit.Callback) -> updateEmail
+    317:335:void updateFullName(java.lang.String,retrofit.Callback) -> updateFullName
+    338:361:void feed(int,retrofit.Callback) -> feed
+    364:387:void courses(retrofit.Callback) -> courses
+    390:410:void schools(retrofit.Callback) -> schools
+    413:431:void attendCourse(int,retrofit.Callback) -> attendCourse
+    434:452:void employSchool(int,java.lang.String,retrofit.Callback) -> employSchool
+    455:473:void enrollSchool(int,java.lang.String,retrofit.Callback) -> enrollSchool
+    476:493:void searchUser(java.lang.String,retrofit.Callback) -> searchUser
+    496:514:void allSchools(retrofit.Callback) -> allSchools
+    517:535:void schoolCourses(int,retrofit.Callback) -> schoolCourses
+    538:556:void courseCreate(java.lang.String,java.lang.String,int,java.lang.String,retrofit.Callback) -> courseCreate
+    559:581:void courseFeed(int,int,retrofit.Callback) -> courseFeed
+    584:602:void courseStudents(int,retrofit.Callback) -> courseStudents
+    605:621:void courseGrades(int,retrofit.Callback) -> courseGrades
+    624:640:void addManager(java.lang.String,int,retrofit.Callback) -> addManager
+    643:660:void post(int,retrofit.Callback) -> post
+    663:680:void postCreate(java.lang.String,java.lang.String,java.lang.String,int,retrofit.Callback) -> postCreate
+    683:700:void postAttendanceStart(int,retrofit.Callback) -> postAttendanceStart
+    703:722:void postAttendanceFoundDevice(int,java.lang.String,retrofit.Callback) -> postAttendanceFoundDevice
+    725:742:void postAttendanceCheckManually(int,int,retrofit.Callback) -> postAttendanceCheckManually
+    745:762:void postCreateNotice(int,java.lang.String,retrofit.Callback) -> postCreateNotice
+    765:780:void serialValidate(java.lang.String,retrofit.Callback) -> serialValidate
+    783:798:void serialRequest(java.lang.String,retrofit.Callback) -> serialRequest
+    801:808:boolean isConnected() -> b
+    812:829:void failureHandle(retrofit.Callback,retrofit.RetrofitError) -> a
+    41:41:long access$000(com.bttendance.service.BTService) -> a
+    41:41:void access$100(com.bttendance.service.BTService,retrofit.Callback,retrofit.RetrofitError) -> a
 com.bttendance.service.BTService$1 -> uf:
-    52:58:void log(java.lang.String) -> log
+    55:61:void log(java.lang.String) -> log
 com.bttendance.service.BTService$10 -> ug:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    306:310:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    314:315:void failure(retrofit.RetrofitError) -> failure
-    303:303:void success(java.lang.Object,retrofit.client.Response) -> success
+    324:328:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    332:333:void failure(retrofit.RetrofitError) -> failure
+    321:321:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$11 -> uh:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    327:336:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
-    340:341:void failure(retrofit.RetrofitError) -> failure
-    324:324:void success(java.lang.Object,retrofit.client.Response) -> success
+    345:354:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
+    358:359:void failure(retrofit.RetrofitError) -> failure
+    342:342:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$12 -> ui:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    353:362:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
-    366:367:void failure(retrofit.RetrofitError) -> failure
-    350:350:void success(java.lang.Object,retrofit.client.Response) -> success
+    371:380:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
+    384:385:void failure(retrofit.RetrofitError) -> failure
+    368:368:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$13 -> uj:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    379:385:void success(com.bttendance.model.json.SchoolJson[],retrofit.client.Response) -> a
-    389:390:void failure(retrofit.RetrofitError) -> failure
-    376:376:void success(java.lang.Object,retrofit.client.Response) -> success
+    397:403:void success(com.bttendance.model.json.SchoolJson[],retrofit.client.Response) -> a
+    407:408:void failure(retrofit.RetrofitError) -> failure
+    394:394:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$14 -> uk:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    402:406:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    410:411:void failure(retrofit.RetrofitError) -> failure
-    399:399:void success(java.lang.Object,retrofit.client.Response) -> success
+    420:424:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    428:429:void failure(retrofit.RetrofitError) -> failure
+    417:417:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$15 -> ul:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    423:427:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    431:432:void failure(retrofit.RetrofitError) -> failure
-    420:420:void success(java.lang.Object,retrofit.client.Response) -> success
+    441:445:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    449:450:void failure(retrofit.RetrofitError) -> failure
+    438:438:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$16 -> um:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    444:448:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    452:453:void failure(retrofit.RetrofitError) -> failure
-    441:441:void success(java.lang.Object,retrofit.client.Response) -> success
+    462:466:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    470:471:void failure(retrofit.RetrofitError) -> failure
+    459:459:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$17 -> un:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    465:468:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    472:473:void failure(retrofit.RetrofitError) -> failure
-    462:462:void success(java.lang.Object,retrofit.client.Response) -> success
+    483:486:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    490:491:void failure(retrofit.RetrofitError) -> failure
+    480:480:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$18 -> uo:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    485:489:void success(com.bttendance.model.json.SchoolJson[],retrofit.client.Response) -> a
-    493:494:void failure(retrofit.RetrofitError) -> failure
-    482:482:void success(java.lang.Object,retrofit.client.Response) -> success
+    503:507:void success(com.bttendance.model.json.SchoolJson[],retrofit.client.Response) -> a
+    511:512:void failure(retrofit.RetrofitError) -> failure
+    500:500:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$19 -> up:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    506:510:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
-    514:515:void failure(retrofit.RetrofitError) -> failure
-    503:503:void success(java.lang.Object,retrofit.client.Response) -> success
+    524:528:void success(com.bttendance.model.json.CourseJson[],retrofit.client.Response) -> a
+    532:533:void failure(retrofit.RetrofitError) -> failure
+    521:521:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$2 -> uq:
     com.bttendance.service.BTService this$0 -> a
-    104:138:void run() -> run
+    116:153:void run() -> run
 com.bttendance.service.BTService$2$1 -> ur:
     com.bttendance.service.BTService$2 this$1 -> a
-    119:121:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
-    125:125:void failure(retrofit.RetrofitError) -> failure
-    116:116:void success(java.lang.Object,retrofit.client.Response) -> success
+    134:136:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    140:140:void failure(retrofit.RetrofitError) -> failure
+    131:131:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$20 -> us:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    527:531:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
-    535:536:void failure(retrofit.RetrofitError) -> failure
-    524:524:void success(java.lang.Object,retrofit.client.Response) -> success
+    545:549:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+    553:554:void failure(retrofit.RetrofitError) -> failure
+    542:542:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$21 -> ut:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    548:556:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
-    560:561:void failure(retrofit.RetrofitError) -> failure
-    545:545:void success(java.lang.Object,retrofit.client.Response) -> success
+    566:574:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
+    578:579:void failure(retrofit.RetrofitError) -> failure
+    563:563:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$22 -> uu:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    573:577:void success(com.bttendance.model.json.UserJson[],retrofit.client.Response) -> a
-    581:582:void failure(retrofit.RetrofitError) -> failure
-    570:570:void success(java.lang.Object,retrofit.client.Response) -> success
+    591:595:void success(com.bttendance.model.json.UserJson[],retrofit.client.Response) -> a
+    599:600:void failure(retrofit.RetrofitError) -> failure
+    588:588:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$23 -> uv:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    594:596:void success(com.bttendance.model.json.GradeJson[],retrofit.client.Response) -> a
-    600:601:void failure(retrofit.RetrofitError) -> failure
-    591:591:void success(java.lang.Object,retrofit.client.Response) -> success
+    612:614:void success(com.bttendance.model.json.GradeJson[],retrofit.client.Response) -> a
+    618:619:void failure(retrofit.RetrofitError) -> failure
+    609:609:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$24 -> uw:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    613:615:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
-    619:620:void failure(retrofit.RetrofitError) -> failure
-    610:610:void success(java.lang.Object,retrofit.client.Response) -> success
+    631:633:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+    637:638:void failure(retrofit.RetrofitError) -> failure
+    628:628:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$25 -> ux:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    632:635:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
-    640:640:void failure(retrofit.RetrofitError) -> failure
-    629:629:void success(java.lang.Object,retrofit.client.Response) -> success
+    650:653:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    658:658:void failure(retrofit.RetrofitError) -> failure
+    647:647:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$26 -> uy:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    652:655:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
-    659:660:void failure(retrofit.RetrofitError) -> failure
-    649:649:void success(java.lang.Object,retrofit.client.Response) -> success
+    670:673:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    677:678:void failure(retrofit.RetrofitError) -> failure
+    667:667:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$27 -> uz:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    672:675:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
-    679:680:void failure(retrofit.RetrofitError) -> failure
-    669:669:void success(java.lang.Object,retrofit.client.Response) -> success
+    690:693:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
+    697:698:void failure(retrofit.RetrofitError) -> failure
+    687:687:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$28 -> va:
     retrofit.Callback val$cb -> a
     java.lang.String val$uuid -> b
     com.bttendance.service.BTService this$0 -> c
-    692:696:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
-    700:702:void failure(retrofit.RetrofitError) -> failure
-    689:689:void success(java.lang.Object,retrofit.client.Response) -> success
+    710:714:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    718:720:void failure(retrofit.RetrofitError) -> failure
+    707:707:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$29 -> vb:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    714:717:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
-    721:722:void failure(retrofit.RetrofitError) -> failure
-    711:711:void success(java.lang.Object,retrofit.client.Response) -> success
+    732:735:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    739:740:void failure(retrofit.RetrofitError) -> failure
+    729:729:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$3 -> vc:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    157:161:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    165:166:void failure(retrofit.RetrofitError) -> failure
-    154:154:void success(java.lang.Object,retrofit.client.Response) -> success
+    175:179:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    183:184:void failure(retrofit.RetrofitError) -> failure
+    172:172:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$30 -> vd:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    734:737:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
-    741:742:void failure(retrofit.RetrofitError) -> failure
-    731:731:void success(java.lang.Object,retrofit.client.Response) -> success
+    752:755:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    759:760:void failure(retrofit.RetrofitError) -> failure
+    749:749:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$31 -> ve:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    753:755:void success(com.bttendance.model.json.SchoolJson,retrofit.client.Response) -> a
-    759:760:void failure(retrofit.RetrofitError) -> failure
-    750:750:void success(java.lang.Object,retrofit.client.Response) -> success
+    771:773:void success(com.bttendance.model.json.SchoolJson,retrofit.client.Response) -> a
+    777:778:void failure(retrofit.RetrofitError) -> failure
+    768:768:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$32 -> vf:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    771:773:void success(com.bttendance.model.json.SerialJson,retrofit.client.Response) -> a
-    777:778:void failure(retrofit.RetrofitError) -> failure
-    768:768:void success(java.lang.Object,retrofit.client.Response) -> success
+    789:791:void success(com.bttendance.model.json.SerialJson,retrofit.client.Response) -> a
+    795:796:void failure(retrofit.RetrofitError) -> failure
+    786:786:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$4 -> vg:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    178:182:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    186:187:void failure(retrofit.RetrofitError) -> failure
-    175:175:void success(java.lang.Object,retrofit.client.Response) -> success
+    196:200:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    204:205:void failure(retrofit.RetrofitError) -> failure
+    193:193:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$5 -> vh:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    198:199:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    203:204:void failure(retrofit.RetrofitError) -> failure
-    195:195:void success(java.lang.Object,retrofit.client.Response) -> success
+    216:217:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    221:222:void failure(retrofit.RetrofitError) -> failure
+    213:213:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$6 -> vi:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    222:226:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    230:231:void failure(retrofit.RetrofitError) -> failure
-    219:219:void success(java.lang.Object,retrofit.client.Response) -> success
+    240:244:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    248:249:void failure(retrofit.RetrofitError) -> failure
+    237:237:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$7 -> vj:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    243:247:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    251:252:void failure(retrofit.RetrofitError) -> failure
-    240:240:void success(java.lang.Object,retrofit.client.Response) -> success
+    261:265:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    269:270:void failure(retrofit.RetrofitError) -> failure
+    258:258:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$8 -> vk:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    264:268:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    272:273:void failure(retrofit.RetrofitError) -> failure
-    261:261:void success(java.lang.Object,retrofit.client.Response) -> success
+    282:286:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    290:291:void failure(retrofit.RetrofitError) -> failure
+    279:279:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$9 -> vl:
     retrofit.Callback val$cb -> a
     com.bttendance.service.BTService this$0 -> b
-    285:289:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
-    293:294:void failure(retrofit.RetrofitError) -> failure
-    282:282:void success(java.lang.Object,retrofit.client.Response) -> success
+    303:307:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
+    311:312:void failure(retrofit.RetrofitError) -> failure
+    300:300:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.service.BTService$LocalBinder -> com.bttendance.service.BTService$LocalBinder:
     com.bttendance.service.BTService this$0 -> a
-    819:819:com.bttendance.service.BTService getService() -> getService
+    837:837:com.bttendance.service.BTService getService() -> getService
 com.bttendance.service.BTUrl -> com.bttendance.service.BTUrl:
     java.lang.String TERMS -> TERMS
     java.lang.String PRIVACY -> PRIVACY
@@ -12335,49 +12343,45 @@ com.bttendance.view.Bttendance -> com.bttendance.view.Bttendance:
     float mMargin -> d
     com.bttendance.view.Bttendance$STATE mState -> e
     int mProgress -> f
-    com.bttendance.view.Bttendance$STATE mEndState -> g
-    android.graphics.Bitmap mFailBackground -> h
-    android.graphics.Bitmap mCircleBackground -> i
-    android.graphics.Bitmap mCyanCheck -> j
-    android.graphics.Paint mProgressPaint -> k
-    android.graphics.Paint mTransparentPaint -> l
-    android.graphics.Paint mAlphaPaint -> m
-    android.view.animation.Transformation mAlphaTransformation -> n
-    android.view.animation.AlphaAnimation mFadeOut -> o
-    android.view.animation.AlphaAnimation mFadeIn -> p
-    android.view.animation.Transformation mScaleTransformation -> q
-    android.view.animation.AlphaAnimation mScale -> r
-    164:197:void onDraw(android.graphics.Canvas) -> onDraw
-    201:202:void onMeasure(int,int) -> onMeasure
-    206:234:android.graphics.Bitmap getCheckBitmap() -> getCheckBitmap
-    241:277:android.graphics.Bitmap getBackgroundBitmap() -> getBackgroundBitmap
-    283:303:void setBttendance(com.bttendance.view.Bttendance$STATE,int) -> setBttendance
-    306:339:void startBttendance(int) -> a
-    342:343:void setEndState(com.bttendance.view.Bttendance$STATE) -> setEndState
-    346:351:void endBttendance(com.bttendance.view.Bttendance$STATE,int) -> a
-    355:357:void startAnimation(android.view.animation.Animation) -> startAnimation
+    android.graphics.Bitmap mFailBackground -> g
+    android.graphics.Bitmap mCircleBackground -> h
+    android.graphics.Bitmap mCyanCheck -> i
+    android.graphics.Paint mProgressPaint -> j
+    android.graphics.Paint mTransparentPaint -> k
+    android.graphics.Paint mAlphaPaint -> l
+    android.view.animation.Transformation mAlphaTransformation -> m
+    android.view.animation.AlphaAnimation mFadeOut -> n
+    android.view.animation.AlphaAnimation mFadeIn -> o
+    android.view.animation.Transformation mScaleTransformation -> p
+    android.view.animation.AlphaAnimation mScale -> q
+    163:196:void onDraw(android.graphics.Canvas) -> onDraw
+    200:201:void onMeasure(int,int) -> onMeasure
+    205:233:android.graphics.Bitmap getCheckBitmap() -> getCheckBitmap
+    240:276:android.graphics.Bitmap getBackgroundBitmap() -> getBackgroundBitmap
+    282:301:void setBttendance(com.bttendance.view.Bttendance$STATE,int) -> setBttendance
+    304:336:void startBttendance(int) -> a
+    339:344:void endBttendance(com.bttendance.view.Bttendance$STATE,int) -> a
+    348:350:void startAnimation(android.view.animation.Animation) -> startAnimation
     21:21:int access$000(com.bttendance.view.Bttendance) -> a
     21:21:android.view.animation.AlphaAnimation access$100(com.bttendance.view.Bttendance) -> b
     21:21:android.view.animation.Transformation access$200(com.bttendance.view.Bttendance) -> c
     21:21:android.view.animation.AlphaAnimation access$300(com.bttendance.view.Bttendance) -> d
-    21:21:com.bttendance.view.Bttendance$STATE access$402(com.bttendance.view.Bttendance,com.bttendance.view.Bttendance$STATE) -> a
-    21:21:com.bttendance.view.Bttendance$STATE access$500(com.bttendance.view.Bttendance) -> e
     21:21:int access$002(com.bttendance.view.Bttendance,int) -> a
 com.bttendance.view.Bttendance$1 -> vo:
     com.bttendance.view.Bttendance this$0 -> a
-    125:125:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    129:133:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    137:137:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    124:124:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    128:132:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    136:136:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
 com.bttendance.view.Bttendance$2 -> vp:
     com.bttendance.view.Bttendance this$0 -> a
-    142:142:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    146:150:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    154:154:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    141:141:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    145:149:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    153:153:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
 com.bttendance.view.Bttendance$3 -> vq:
     com.bttendance.view.Bttendance this$0 -> a
-    321:321:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    325:331:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    335:335:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    319:319:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    323:328:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    332:332:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
 com.bttendance.view.Bttendance$4 -> vr:
     int[] $SwitchMap$com$bttendance$view$Bttendance$STATE -> a
 com.bttendance.view.Bttendance$STATE -> com.bttendance.view.Bttendance$STATE:
@@ -12387,8 +12391,8 @@ com.bttendance.view.Bttendance$STATE -> com.bttendance.view.Bttendance$STATE:
     com.bttendance.view.Bttendance$STATE FAIL -> FAIL
     com.bttendance.view.Bttendance$STATE GRADE -> GRADE
     com.bttendance.view.Bttendance$STATE[] $VALUES -> a
-    359:359:com.bttendance.view.Bttendance$STATE[] values() -> values
-    359:359:com.bttendance.view.Bttendance$STATE valueOf(java.lang.String) -> valueOf
+    352:352:com.bttendance.view.Bttendance$STATE[] values() -> values
+    352:352:com.bttendance.view.Bttendance$STATE valueOf(java.lang.String) -> valueOf
 com.bttendance.view.IndexScroller -> com.bttendance.view.IndexScroller:
     android.content.Context mContext -> a
     float mIndexbarWidth -> b
