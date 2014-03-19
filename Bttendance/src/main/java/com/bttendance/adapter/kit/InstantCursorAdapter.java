@@ -16,9 +16,9 @@ package com.bttendance.adapter.kit;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.widget.CursorAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 
 /**
  * Class constructs a custom {@link CursorAdapter} by mapping <b>Instant*</b> annotated

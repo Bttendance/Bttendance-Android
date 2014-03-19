@@ -42,12 +42,6 @@ public class BTService extends Service {
 
     private static final String SERVER_DOMAIN_PRODUCTION = "http://www.bttd.co";
     private static final String SERVER_DOMAIN_DEVELOPMENT = "http://bttendance-dev.herokuapp.com";
-    private static String getServerDomain() {
-        if (!BTDebug.DEBUG)
-            return SERVER_DOMAIN_PRODUCTION;
-        else
-            return SERVER_DOMAIN_DEVELOPMENT;
-    }
     private static RestAdapter mRestAdapter = new RestAdapter.Builder()
             .setLog(new RestAdapter.Log() {
                 @Override
@@ -68,6 +62,13 @@ public class BTService extends Service {
     private LocalBinder mBinder = new LocalBinder();
     private Thread mAttendanceThread;
     private long mTimeTo;
+
+    private static String getServerDomain() {
+        if (!BTDebug.DEBUG)
+            return SERVER_DOMAIN_PRODUCTION;
+        else
+            return SERVER_DOMAIN_DEVELOPMENT;
+    }
 
     public static void bind(Context context, ServiceConnection connection) {
         Intent intent = new Intent(context, BTService.class);

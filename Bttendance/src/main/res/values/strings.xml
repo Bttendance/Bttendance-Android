@@ -84,7 +84,7 @@
     <string name="post">Post</string>
     <string name="what_should_they_know">What should they know?</string>
     <string name="to_">To. %s</string>
-    <string name="app_version">0.1</string>
+    <string name="app_version">0.1.1</string>
     <string name="password_has_been_sent">Password has been sent</string>
     <string name="fail_to_retrieve_password">Fail to retrieve password</string>
     <string name="supervising_courses">Supervising Courses</string>

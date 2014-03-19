@@ -181,6 +181,12 @@ android.support.v4.os.ParcelableCompatCreatorHoneycombMR2Stub:
 android.support.v4.print.PrintHelperKitkat:
     private static final java.lang.String LOG_TAG
     private static final int MAX_PRINT_SIZE
+    public static final int SCALE_MODE_FIT
+    public static final int SCALE_MODE_FILL
+    public static final int ORIENTATION_LANDSCAPE
+    public static final int ORIENTATION_PORTRAIT
+    public static final int COLOR_MODE_MONOCHROME
+    public static final int COLOR_MODE_COLOR
 android.support.v4.text.BidiFormatter:
     private static final char LRE
     private static final char RLE
