@@ -28,14 +28,14 @@
             android:id="@+id/course_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lineSpacingExtra="2dp"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="21dp"
             android:layout_marginRight="14dp"
             android:layout_marginTop="27dp"
             android:layout_toRightOf="@id/bttendance"
+            android:lineSpacingExtra="2dp"
             android:textColor="@color/bttendance_silver"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
@@ -45,43 +45,70 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp">
 
-        <Button
-            android:id="@+id/notice_bt"
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="42dp"
-            android:layout_weight="1"
-            android:background="@drawable/course_info_bt_1_bg"
-            android:text="@string/notice"
-            android:textColor="@color/bttendance_silver"
-            android:textSize="12sp" />
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/clicker_bt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/course_info_bt_1_bg" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_clicker"/>
+
+        </RelativeLayout>
 
         <View
             android:layout_width="3dp"
             android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/grade_bt"
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="42dp"
-            android:layout_weight="1"
-            android:background="@drawable/course_info_bt_2_bg"
-            android:text="@string/grade"
-            android:textColor="@color/bttendance_silver"
-            android:textSize="12sp" />
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/attendance_bt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/course_info_bt_2_bg" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_attendance"/>
+
+        </RelativeLayout>
 
         <View
             android:layout_width="3dp"
             android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/ta_bt"
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="42dp"
-            android:layout_weight="1"
-            android:background="@drawable/course_info_bt_3_bg"
-            android:text="@string/ta"
-            android:textColor="@color/bttendance_silver"
-            android:textSize="12sp" />
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/notice_bt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/course_info_bt_3_bg" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_notice"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

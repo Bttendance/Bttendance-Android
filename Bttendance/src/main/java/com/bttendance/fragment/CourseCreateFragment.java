@@ -276,12 +276,24 @@ public class CourseCreateFragment extends BTFragment {
                 String title = getString(R.string.email_sent);
                 String message = String.format(getString(R.string.verification_code_for_activating_your_course), email.email);
                 BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "create course"));
+                dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                    @Override
+                    public void onConfirmed(String edit) {
+                        int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        while (count-- >= 0)
+                            getActivity().getSupportFragmentManager().popBackStack();
+                    }
 
-                int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
-                getActivity().getSupportFragmentManager().popBackStack();
-                while (count-- >= 0)
-                    getActivity().getSupportFragmentManager().popBackStack();
+                    @Override
+                    public void onCanceled() {
+                        int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        while (count-- >= 0)
+                            getActivity().getSupportFragmentManager().popBackStack();
+                    }
+                });
+                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "create course"));
             }
 
             @Override

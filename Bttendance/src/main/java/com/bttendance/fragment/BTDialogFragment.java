@@ -1,5 +1,6 @@
 package com.bttendance.fragment;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.helper.ScreenHelper;
@@ -42,6 +47,33 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     public void setPlaceholder(String placeholder) {
         mEditPlaceholder = placeholder;
     }
+
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+//    }
+//
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+//        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_black)));
+//        actionBar.setTitle("Dismiss");
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.abs__home:
+//            case android.R.id.home:
+//                getActivity().onBackPressed();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -40,7 +40,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="18dp"
-        android:background="@drawable/ic_notice"
+        android:background="@drawable/ic_notice_big"
         android:visibility="gone" />
 
     <TextView

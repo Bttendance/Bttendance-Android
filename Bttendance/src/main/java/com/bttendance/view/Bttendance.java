@@ -15,6 +15,10 @@ import android.view.animation.Transformation;
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
 
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.chart.PieChart;
+
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */

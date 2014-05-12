@@ -22,12 +22,12 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2014. 1. 27..
  */
-public class CreateNoticeFragment extends BTFragment {
+public class StartClickerFragment extends BTFragment {
 
     private CourseJsonHelper mCourseHelper;
     private EditText mMessage;
 
-    public CreateNoticeFragment(int courseID) {
+    public StartClickerFragment(int courseID) {
         mCourseHelper = new CourseJsonHelper(getActivity(), courseID);
     }
 
@@ -45,7 +45,7 @@ public class CreateNoticeFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_notice, container, false);
+        View view = inflater.inflate(R.layout.fragment_start_clicker, container, false);
         mMessage = (EditText) view.findViewById(R.id.message);
         KeyboardHelper.show(getActivity(), mMessage);
         return view;
@@ -55,9 +55,9 @@ public class CreateNoticeFragment extends BTFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(getString(R.string.create_notice));
+        actionBar.setTitle(getString(R.string.start_clicker));
         actionBar.setDisplayHomeAsUpEnabled(true);
-        inflater.inflate(R.menu.create_notice_menu, menu);
+        inflater.inflate(R.menu.start_clicker_menu, menu);
     }
 
     @Override
@@ -67,17 +67,17 @@ public class CreateNoticeFragment extends BTFragment {
             case android.R.id.home:
                 getActivity().onBackPressed();
                 return true;
-            case R.id.action_post:
+            case R.id.action_start:
                 if (mMessage != null && mMessage.getText().toString().length() > 0)
-                    getBTService().postCreateNotice(mCourseHelper.getID(), mMessage.getText().toString(), new Callback<PostJson>() {
+                    getBTService().postStartClicker(mCourseHelper.getID(), mMessage.getText().toString(), 4, new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
-                            CreateNoticeFragment.this.getActivity().onBackPressed();
+                            StartClickerFragment.this.getActivity().onBackPressed();
                         }
 
                         @Override
                         public void failure(RetrofitError retrofitError) {
-                            CreateNoticeFragment.this.getActivity().onBackPressed();
+                            StartClickerFragment.this.getActivity().onBackPressed();
                         }
                     });
                 return true;

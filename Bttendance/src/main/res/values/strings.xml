@@ -82,7 +82,6 @@
     <string name="ta">TA</string>
     <string name="create_notice">Create Notice</string>
     <string name="post">Post</string>
-    <string name="what_should_they_know">What should they know?</string>
     <string name="to_">To. %s</string>
     <string name="app_version">0.2</string>
     <string name="supervising_courses">Supervising Courses</string>
@@ -122,5 +121,12 @@
     <string name="n_attendance_rate">%d%% attendance rate</string>
     <string name="n_clickers">%d clickers</string>
     <string name="n_notices">%d notices</string>
+    <string name="write_an_announcement">Write an announcement.</string>
+    <string name="presentation_page">Presentation#1 Page#11</string>
+    <string name="start_clicker">Start Clicker</string>
+    <string name="exporting_grades">Exporting Grades</string>
+    <string name="exporting_grade_has_been_finished">Exporting Grades has been finished.\nPlease check your email.\n%s</string>
+    <string name="unjoining_course">Unjoining Course</string>
+    <string name="recovering_password">Recovering Password...</string>
 
 </resources>
