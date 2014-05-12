@@ -6,19 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.bttendance.event.refresh.RefreshFeedEvent;
-import com.bttendance.event.update.UpdateFeedEvent;
-import com.squareup.otto.BTEventBus;
-import com.squareup.otto.Subscribe;
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
+import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.attendance.AttdCheckedEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
-import com.bttendance.event.LoadingEvent;
+import com.bttendance.event.refresh.RefreshFeedEvent;
+import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.PostCursor;
 import com.bttendance.model.json.PostJson;
+import com.squareup.otto.BTEventBus;
+import com.squareup.otto.Subscribe;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -101,7 +101,7 @@ public class FeedFragment extends BTFragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mAdapter.swapCursor(new PostCursor(BTTable.FILTER_MY_POST));
+                    mAdapter.swapCursor(new PostCursor(BTTable.PostTable));
                 }
             });
         }

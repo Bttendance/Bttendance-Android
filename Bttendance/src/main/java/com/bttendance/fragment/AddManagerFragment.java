@@ -15,13 +15,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.event.dialog.ShowAddManagerDialog;
+import com.bttendance.event.ShowDialogEvent;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
-import com.bttendance.model.json.SerialJson;
-import com.bttendance.model.json.UserJson;
+import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
 
@@ -39,12 +37,10 @@ public class AddManagerFragment extends BTFragment {
     private int mEmailCount = 0;
     private Button mSignUp = null;
     private String mEmailString = null;
-    private int mCourseID;
-    private String mCoursename;
+    private CourseJson mCourse;
 
     public AddManagerFragment(int courseID) {
-        mCourseID = courseID;
-        mCoursename = BTTable.CourseTable.get(mCourseID).name;
+        mCourse = BTTable.MyCourseTable.get(courseID);
     }
 
     @Override
@@ -151,15 +147,38 @@ public class AddManagerFragment extends BTFragment {
 
         final String email = mEmail.getText().toString();
 
-        getBTService().searchUser(email, new Callback<UserJson>() {
+        getBTService().searchUser(email, new Callback<UserJsonSimple>() {
             @Override
-            public void success(UserJson userJson, Response response) {
-                BTEventBus.getInstance().post(new ShowAddManagerDialog(userJson.username, userJson.full_name, mCourseID, mCoursename));
+            public void success(final UserJsonSimple user, Response response) {
+
+                String title = getString(R.string.add_manager);
+                String message = String.format(getString(R.string.would_you_like_to_add), user.full_name, mCourse.name);
+
+                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
+                dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                    @Override
+                    public void onConfirmed(String edit) {
+                        getBTService().addManager(user.username, mCourse.id, new Callback<CourseJson>() {
+                            @Override
+                            public void success(CourseJson courseJson, Response response) {
+                                BeautiToast.show(getActivity(), String.format(getActivity().getString(R.string.is_now_manager_of_course), user.full_name, mCourse.name));
+                            }
+
+                            @Override
+                            public void failure(RetrofitError retrofitError) {
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCanceled() {
+                    }
+                });
+                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "manager"));
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BeautiToast.show(getActivity(), String.format(getString(R.string.fail_to_find_a_user), email));
             }
         });
     }

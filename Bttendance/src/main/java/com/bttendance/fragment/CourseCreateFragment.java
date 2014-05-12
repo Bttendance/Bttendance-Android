@@ -15,13 +15,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.event.update.UpdateCourseListEvent;
-import com.bttendance.helper.IntArrayHelper;
+import com.bttendance.event.ShowDialogEvent;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
-import com.bttendance.model.json.CourseJson;
-import com.bttendance.model.json.UserJson;
+import com.bttendance.model.json.EmailJson;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
@@ -190,7 +188,7 @@ public class CourseCreateFragment extends BTFragment {
             }
         });
 
-        mUsername.setText(BTTable.SchoolTable.get(mSchoolID).name);
+        mUsername.setText(BTTable.AllSchoolTable.get(mSchoolID).name);
         mUsername.setClickable(false);
         mUsername.setFocusable(false);
 
@@ -271,15 +269,14 @@ public class CourseCreateFragment extends BTFragment {
         String email = mEmail.getText().toString();
         String name = mName.getText().toString();
 
-        getBTService().courseCreate(fullName, email, mSchoolID, name, new Callback<CourseJson>() {
+        getBTService().courseCreate(fullName, email, mSchoolID, name, new Callback<EmailJson>() {
             @Override
-            public void success(CourseJson courseJson, Response response) {
+            public void success(EmailJson email, Response response) {
 
-                UserJson user = BTPreference.getUser(getActivity());
-                user.supervising_courses = IntArrayHelper.add(user.supervising_courses, courseJson.id);
-                BTPreference.setUser(getActivity(), user);
-
-                BTEventBus.getInstance().post(new UpdateCourseListEvent());
+                String title = getString(R.string.email_sent);
+                String message = String.format(getString(R.string.verification_code_for_activating_your_course), email.email);
+                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
+                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "create course"));
 
                 int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
                 getActivity().getSupportFragmentManager().popBackStack();

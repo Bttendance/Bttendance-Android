@@ -10,25 +10,26 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.bttendance.BTDebug;
-import com.bttendance.event.refresh.RefreshCourseDetailEvent;
+import com.bttendance.R;
+import com.bttendance.activity.sign.CatchPointActivity;
+import com.bttendance.event.ShowDialogEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
-import com.bttendance.helper.BluetoothHelper;
-import com.bttendance.helper.DateHelper;
+import com.bttendance.fragment.BTDialogFragment;
+import com.bttendance.helper.PackagesHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
+import com.bttendance.model.json.AttendanceJson;
+import com.bttendance.model.json.ClickerJson;
 import com.bttendance.model.json.CourseJson;
-import com.bttendance.model.json.ErrorsJson;
-import com.bttendance.model.json.GradeJson;
+import com.bttendance.model.json.EmailJson;
+import com.bttendance.model.json.ErrorJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
-import com.bttendance.model.json.SerialJson;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -98,62 +99,62 @@ public class BTService extends Service {
 
     public void attendanceStart() {
 
-        BTDebug.LogError("mTimeTo = " + mTimeTo + ", attdchecktimeto = " + BTTable.getAttdChekTimeTo());
-
-        if (mAttendanceThread != null && mTimeTo == BTTable.getAttdChekTimeTo())
-            return;
-
-        if (mAttendanceThread != null && mTimeTo != BTTable.getAttdChekTimeTo()) {
-            mAttendanceThread.interrupt();
-            mAttendanceThread = null;
-        }
-
-        mTimeTo = BTTable.getAttdChekTimeTo();
-
-        mAttendanceThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    int i = 0;
-                    while (DateHelper.getCurrentGMTTimeMillis() < mTimeTo - 500) {
-                        if (i++ % 20 == 0) {
-                            BTDebug.LogError("Start Discovery");
-                            BluetoothHelper.startDiscovery();
-                        }
-                        Thread.sleep(500);
-                        Set<Integer> ids = BTTable.getCheckingPostIds();
-                        Set<String> list = new HashSet<String>();
-                        for (String mac : BTTable.UUIDLIST())
-                            list.add(mac);
-
-                        for (int id : ids) {
-                            for (String mac : list) {
-                                if (!BTTable.UUIDLISTSENDED_contains(mac)) {
-                                    postAttendanceFoundDevice(id, mac, new Callback<PostJson>() {
-                                        @Override
-                                        public void success(PostJson post, Response response) {
-                                            if (post != null)
-                                                BTDebug.LogInfo(post.toJson());
-                                        }
-
-                                        @Override
-                                        public void failure(RetrofitError retrofitError) {
-                                        }
-                                    });
-                                }
-                            }
-                        }
-                        BTTable.UUIDLISTSENDED_addAll(list);
-                        BTTable.UUIDLIST_refresh();
-                    }
-                    BTTable.UUIDLISTSENDED_refresh();
-                    attendanceStop();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        mAttendanceThread.start();
+//        BTDebug.LogError("mTimeTo = " + mTimeTo + ", attdchecktimeto = " + BTTable.getAttdChekTimeTo());
+//
+//        if (mAttendanceThread != null && mTimeTo == BTTable.getAttdChekTimeTo())
+//            return;
+//
+//        if (mAttendanceThread != null && mTimeTo != BTTable.getAttdChekTimeTo()) {
+//            mAttendanceThread.interrupt();
+//            mAttendanceThread = null;
+//        }
+//
+//        mTimeTo = BTTable.getAttdChekTimeTo();
+//
+//        mAttendanceThread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    int i = 0;
+//                    while (DateHelper.getCurrentGMTTimeMillis() < mTimeTo - 500) {
+//                        if (i++ % 20 == 0) {
+//                            BTDebug.LogError("Start Discovery");
+//                            BluetoothHelper.startDiscovery();
+//                        }
+//                        Thread.sleep(500);
+//                        Set<Integer> ids = BTTable.getCheckingPostIds();
+//                        Set<String> list = new HashSet<String>();
+//                        for (String mac : BTTable.UUIDLIST())
+//                            list.add(mac);
+//
+//                        for (int id : ids) {
+//                            for (String mac : list) {
+//                                if (!BTTable.UUIDLISTSENDED_contains(mac)) {
+//                                    attendanceFoundDevice(id, mac, new Callback<PostJson>() {
+//                                        @Override
+//                                        public void success(PostJson post, Response response) {
+//                                            if (post != null)
+//                                                BTDebug.LogInfo(post.toJson());
+//                                        }
+//
+//                                        @Override
+//                                        public void failure(RetrofitError retrofitError) {
+//                                        }
+//                                    });
+//                                }
+//                            }
+//                        }
+//                        BTTable.UUIDLISTSENDED_addAll(list);
+//                        BTTable.UUIDLIST_refresh();
+//                    }
+//                    BTTable.UUIDLISTSENDED_refresh();
+//                    attendanceStop();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        mAttendanceThread.start();
     }
 
     public void attendanceStop() {
@@ -162,66 +163,7 @@ public class BTService extends Service {
         mAttendanceThread = null;
         BTDebug.LogError("attendanceStop");
         BTEventBus.getInstance().post(new RefreshCourseListEvent());
-        BTEventBus.getInstance().post(new RefreshCourseDetailEvent());
         BTEventBus.getInstance().post(new RefreshFeedEvent());
-    }
-
-    public void signin(String username, String password, String uuid, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        mBTAPI.signin(username, password, uuid, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(getApplicationContext(), user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void autoSignin(final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.autoSignin(user.username, user.password, user.device_uuid, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(getApplicationContext(), user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void forgotPassword(String email, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        mBTAPI.forgotPassword(email, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson validation, Response response) {
-                cb.success(validation, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
     }
 
     public void signup(UserJson user, final Callback<UserJson> cb) {
@@ -233,13 +175,229 @@ public class BTService extends Service {
                 user.full_name,
                 user.email,
                 user.password,
-                user.device_type,
-                user.device_uuid,
+                user.device.type,
+                user.device.uuid,
                 new Callback<UserJson>() {
                     @Override
                     public void success(UserJson user, Response response) {
-                        BTDebug.LogInfo(user.toJson());
                         BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void autoSignin(final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String version = getString(R.string.app_version);
+        mBTAPI.autoSignin(
+                user.username,
+                user.password,
+                user.device.uuid,
+                BTAPI.ANDROID,
+                version,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void signin(String username, String password, String uuid, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.signin(
+                username,
+                password,
+                uuid,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void forgotPassword(String email, final Callback<EmailJson> cb) {
+        if (!isConnected())
+            return;
+
+        mBTAPI.forgotPassword(
+                email,
+                new Callback<EmailJson>() {
+                    @Override
+                    public void success(EmailJson email, Response response) {
+                        if (cb != null)
+                            cb.success(email, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void updateProfileImage(String profileImage, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.updateProfileImage(
+                user.username,
+                user.password,
+                user.device.uuid,
+                profileImage,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void updateEmail(String email, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.updateEmail(
+                user.username,
+                user.password,
+                user.device.uuid,
+                email,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void updateFullName(String fullName, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.updateFullName(
+                user.username,
+                user.password,
+                user.device.uuid,
+                fullName,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void feed(int page, final Callback<PostJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.feed(
+                user.username,
+                user.password,
+                page,
+                new Callback<PostJson[]>() {
+                    @Override
+                    public void success(PostJson[] posts, Response response) {
+                        for (PostJson post : posts)
+                            BTTable.PostTable.append(post.id, post);
+                        if (cb != null)
+                            cb.success(posts, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void courses(final Callback<CourseJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.courses(
+                user.username,
+                user.password,
+                new Callback<CourseJson[]>() {
+                    @Override
+                    public void success(CourseJson[] courses, Response response) {
+                        for (CourseJson course : courses)
+                            BTTable.MyCourseTable.append(course.id, course);
+                        if (cb != null)
+                            cb.success(courses, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void searchUser(String searchID, final Callback<UserJsonSimple> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.searchUser(
+                user.username,
+                user.password,
+                searchID,
+                new Callback<UserJsonSimple>() {
+                    @Override
+                    public void success(UserJsonSimple user, Response response) {
                         if (cb != null)
                             cb.success(user, response);
                     }
@@ -256,241 +414,24 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.updateNotificationKey(user.username, user.password, user.device_uuid, notificationKey, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(getApplicationContext(), user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
+        mBTAPI.updateNotificationKey(
+                user.username,
+                user.password,
+                user.device.uuid,
+                notificationKey,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void updateProfileImage(String profileImage, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.updateProfileImage(user.username, user.password, user.device_uuid, profileImage, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(getApplicationContext(), user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void updateEmail(String email, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.updateEmail(user.username, user.password, user.device_uuid, email, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(getApplicationContext(), user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void updateFullName(String fullName, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.updateFullName(user.username, user.password, user.device_uuid, fullName, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(getApplicationContext(), user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void feed(int page, final Callback<PostJson[]> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.feed(user.username, user.password, page, new Callback<PostJson[]>() {
-            @Override
-            public void success(PostJson[] posts, Response response) {
-                for (PostJson post : posts) {
-                    BTTable.PostTable.append(post.id, post);
-                    BTTable.getPosts(BTTable.FILTER_MY_POST).append(post.id, post);
-                    if (post.grade < 0) post.grade = 0;
-                    if (post.grade > 100) post.grade = 100;
-                    BTTable.PostGradeTable.append(post.id, post.grade);
-                }
-                if (cb != null)
-                    cb.success(posts, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void courses(final Callback<CourseJson[]> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.courses(user.username, user.password, new Callback<CourseJson[]>() {
-            @Override
-            public void success(CourseJson[] courses, Response response) {
-                for (CourseJson course : courses) {
-                    BTTable.CourseTable.append(course.id, course);
-                    BTTable.getCourses(BTTable.FILTER_MY_COURSE).append(course.id, course);
-                    if (course.grade < 0) course.grade = 0;
-                    if (course.grade > 100) course.grade = 100;
-                    BTTable.CourseGradeTable.append(course.id, course.grade);
-                }
-                if (cb != null)
-                    cb.success(courses, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void schools(final Callback<SchoolJson[]> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.schools(user.username, user.password, new Callback<SchoolJson[]>() {
-            @Override
-            public void success(SchoolJson[] schools, Response response) {
-                for (SchoolJson school : schools) {
-                    BTTable.SchoolTable.append(school.id, school);
-                    BTTable.getSchools(BTTable.FILTER_MY_SCHOOL).append(school.id, school);
-                }
-                if (cb != null)
-                    cb.success(schools, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void attendCourse(final int courseID, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.attendCourse(user.username, user.password, courseID, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(getApplicationContext(), user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void employSchool(int schoolID, String serial, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.employSchool(user.username, user.password, schoolID, serial, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(getApplicationContext(), user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void enrollSchool(int schoolID, String studentID, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.enrollSchool(user.username, user.password, schoolID, studentID, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTDebug.LogInfo(user.toJson());
-                BTPreference.setUser(getApplicationContext(), user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void searchUser(String searchID, final Callback<UserJson> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.searchUser(user.username, user.password, searchID, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTTable.UserTable.append(user.id, user);
-                if (cb != null)
-                    cb.success(user, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
     public void allSchools(final Callback<SchoolJson[]> cb) {
@@ -498,20 +439,23 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.allSchools(user.username, user.password, new Callback<SchoolJson[]>() {
-            @Override
-            public void success(SchoolJson[] schools, Response response) {
-                for (SchoolJson school : schools)
-                    BTTable.SchoolTable.append(school.id, school);
-                if (cb != null)
-                    cb.success(schools, response);
-            }
+        mBTAPI.allSchools(
+                user.username,
+                user.password,
+                new Callback<SchoolJson[]>() {
+                    @Override
+                    public void success(SchoolJson[] schools, Response response) {
+                        for (SchoolJson school : schools)
+                            BTTable.AllSchoolTable.append(school.id, school);
+                        if (cb != null)
+                            cb.success(schools, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
     public void schoolCourses(final int schoolId, final Callback<CourseJson[]> cb) {
@@ -519,41 +463,122 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.schoolCourses(user.username, user.password, schoolId, new Callback<CourseJson[]>() {
-            @Override
-            public void success(CourseJson[] courses, Response response) {
-                for (CourseJson course : courses)
-                    BTTable.CourseTable.append(course.id, course);
-                if (cb != null)
-                    cb.success(courses, response);
-            }
+        mBTAPI.schoolCourses(
+                user.username,
+                user.password,
+                schoolId,
+                new Callback<CourseJson[]>() {
+                    @Override
+                    public void success(CourseJson[] courses, Response response) {
+                        BTTable.updateCoursesOfSchool(schoolId, courses);
+                        if (cb != null)
+                            cb.success(courses, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
-    public void courseCreate(String name, String number, int schoolID, String profName, final Callback<CourseJson> cb) {
+    public void enrollSchool(int schoolID, String studentID, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.courseCreate(user.username, user.password, name, number, schoolID, profName, new Callback<CourseJson>() {
-            @Override
-            public void success(CourseJson course, Response response) {
-                BTTable.CourseTable.append(course.id, course);
-                BTTable.getCourses(BTTable.FILTER_MY_COURSE).append(course.id, course);
-                if (cb != null)
-                    cb.success(course, response);
-            }
+        mBTAPI.enrollSchool(
+                user.username,
+                user.password,
+                schoolID,
+                studentID,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void courseCreate(String name, String number, int schoolID, String profName, final Callback<EmailJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.courseCreate(
+                user.username,
+                user.password,
+                name,
+                number,
+                schoolID,
+                profName,
+                new Callback<EmailJson>() {
+                    @Override
+                    public void success(EmailJson email, Response response) {
+                        if (cb != null)
+                            cb.success(email, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void attendCourse(final int courseID, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.attendCourse(
+                user.username,
+                user.password,
+                courseID,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void dettendCourse(final int courseID, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.dettendCourse(
+                user.username,
+                user.password,
+                courseID,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
     public void courseFeed(final int courseID, int page, final Callback<PostJson[]> cb) {
@@ -561,64 +586,49 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.courseFeed(user.username, user.password, courseID, page, new Callback<PostJson[]>() {
-            @Override
-            public void success(PostJson[] posts, Response response) {
-                for (PostJson post : posts) {
-                    BTTable.PostTable.append(post.id, post);
-                    if (post.grade < 0) post.grade = 0;
-                    if (post.grade > 100) post.grade = 100;
-                    BTTable.PostGradeTable.append(post.id, post.grade);
-                }
-                if (cb != null)
-                    cb.success(posts, response);
-            }
+        mBTAPI.courseFeed(
+                user.username,
+                user.password,
+                courseID,
+                page,
+                new Callback<PostJson[]>() {
+                    @Override
+                    public void success(PostJson[] posts, Response response) {
+                        for (PostJson post : posts)
+                            BTTable.PostTable.append(post.id, post);
+                        if (cb != null)
+                            cb.success(posts, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
-    public void courseStudents(final int courseId, final Callback<UserJson[]> cb) {
+    public void courseStudents(final int courseId, final Callback<UserJsonSimple[]> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.courseStudents(user.username, user.password, courseId, new Callback<UserJson[]>() {
-            @Override
-            public void success(UserJson[] users, Response response) {
-                for (UserJson user : users)
-                    BTTable.UserTable.append(user.id, user);
-                if (cb != null)
-                    cb.success(users, response);
-            }
+        mBTAPI.courseStudents(
+                user.username,
+                user.password,
+                courseId,
+                new Callback<UserJsonSimple[]>() {
+                    @Override
+                    public void success(UserJsonSimple[] users, Response response) {
+                        BTTable.updateStudentsOfCourse(courseId, users);
+                        if (cb != null)
+                            cb.success(users, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
-    }
-
-    public void courseGrades(final int courseId, final Callback<GradeJson[]> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.courseGrades(user.username, user.password, courseId, new Callback<GradeJson[]>() {
-            @Override
-            public void success(GradeJson[] grades, Response response) {
-                if (cb != null)
-                    cb.success(grades, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
     public void addManager(final String manager, final int courseId, final Callback<CourseJson> cb) {
@@ -626,120 +636,120 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.addManager(user.username, user.password, manager, courseId, new Callback<CourseJson>() {
-            @Override
-            public void success(CourseJson course, Response response) {
-                if (cb != null)
-                    cb.success(course, response);
-            }
+        mBTAPI.addManager(
+                user.username,
+                user.password,
+                manager,
+                courseId,
+                new Callback<CourseJson>() {
+                    @Override
+                    public void success(CourseJson course, Response response) {
+                        if (cb != null)
+                            cb.success(course, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
-    public void post(int postId, final Callback<PostJson> cb) {
+    public void courseGrades(final int courseId, final Callback<UserJsonSimple[]> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.post(user.username, user.password, postId, new Callback<PostJson>() {
-            @Override
-            public void success(PostJson post, Response response) {
-                BTTable.PostTable.append(post.id, post);
-                if (cb != null)
-                    cb.success(post, response);
-            }
+        mBTAPI.courseGrades(
+                user.username,
+                user.password,
+                courseId,
+                new Callback<UserJsonSimple[]>() {
+                    @Override
+                    public void success(UserJsonSimple[] users, Response response) {
+                        BTTable.updateStudentsOfCourse(courseId, users);
+                        if (cb != null)
+                            cb.success(users, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
-    public void postCreate(String type, String title, String message, int courseID, final Callback<PostJson> cb) {
+    public void courseExportGrades(final int courseId, final Callback<EmailJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.postCreate(user.username, user.password, type, title, message, courseID, new Callback<PostJson>() {
-            @Override
-            public void success(PostJson post, Response response) {
-                BTTable.PostTable.append(post.id, post);
-                if (cb != null)
-                    cb.success(post, response);
-            }
+        mBTAPI.courseExportGrades(
+                user.username,
+                user.password,
+                courseId,
+                new Callback<EmailJson>() {
+                    @Override
+                    public void success(EmailJson email, Response response) {
+                        if (cb != null)
+                            cb.success(email, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
-    public void postAttendanceStart(int courseID, final Callback<CourseJson> cb) {
+    public void postStartAttendance(int courseID, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.postAttendanceStart(user.username, user.password, courseID, new Callback<CourseJson>() {
-            @Override
-            public void success(CourseJson course, Response response) {
-                BTTable.CourseTable.append(course.id, course);
-                if (cb != null)
-                    cb.success(course, response);
-            }
+        mBTAPI.postStartAttendance(
+                user.username,
+                user.password,
+                courseID,
+                new Callback<PostJson>() {
+                    @Override
+                    public void success(PostJson post, Response response) {
+                        BTTable.PostTable.append(post.id, post);
+                        if (cb != null)
+                            cb.success(post, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
-    public void postAttendanceFoundDevice(int postID, final String uuid, final Callback<PostJson> cb) {
+    public void postStartClicker(int courseID, String message, int choiceCount, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.postAttendanceFoundDevice(user.username, user.password, postID, uuid, new Callback<PostJson>() {
-            @Override
-            public void success(PostJson post, Response response) {
-                if (post != null)
-                    BTTable.PostTable.append(post.id, post);
-                if (cb != null)
-                    cb.success(post, response);
-            }
+        mBTAPI.postStartClicker(
+                user.username,
+                user.password,
+                courseID,
+                message,
+                choiceCount,
+                new Callback<PostJson>() {
+                    @Override
+                    public void success(PostJson post, Response response) {
+                        BTTable.PostTable.append(post.id, post);
+                        if (cb != null)
+                            cb.success(post, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-                BTTable.UUIDLISTSENDED_remove(uuid);
-            }
-        });
-    }
-
-    public void postAttendanceCheckManually(int postID, int userID, final Callback<PostJson> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.postAttendanceCheckManually(user.username, user.password, postID, userID, new Callback<PostJson>() {
-            @Override
-            public void success(PostJson post, Response response) {
-                BTTable.PostTable.append(post.id, post);
-                if (cb != null)
-                    cb.success(post, response);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
     public void postCreateNotice(int courseID, String message, final Callback<PostJson> cb) {
@@ -747,55 +757,148 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.postCreateNotice(user.username, user.password, courseID, message, new Callback<PostJson>() {
-            @Override
-            public void success(PostJson post, Response response) {
-                BTTable.PostTable.append(post.id, post);
-                if (cb != null)
-                    cb.success(post, response);
-            }
+        mBTAPI.postCreateNotice(
+                user.username,
+                user.password,
+                courseID,
+                message,
+                new Callback<PostJson>() {
+                    @Override
+                    public void success(PostJson post, Response response) {
+                        BTTable.PostTable.append(post.id, post);
+                        if (cb != null)
+                            cb.success(post, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
-    public void serialValidate(String serial, final Callback<SchoolJson> cb) {
+    public void attendancesFromCourses(int[] courseIDs, final Callback<int[]> cb) {
         if (!isConnected())
             return;
 
-        mBTAPI.serialValidate(serial, new Callback<SchoolJson>() {
-            @Override
-            public void success(SchoolJson school, Response response) {
-                if (cb != null)
-                    cb.success(school, response);
-            }
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.attendancesFromCourses(
+                user.username,
+                user.password,
+                courseIDs,
+                new Callback<int[]>() {
+                    @Override
+                    public void success(int[] courseIDs, Response response) {
+                        if (cb != null)
+                            cb.success(courseIDs, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
-    public void serialRequest(String email, final Callback<SerialJson> cb) {
+    public void attendanceFoundDevice(int attendanceID, final String uuid, final Callback<AttendanceJson> cb) {
         if (!isConnected())
             return;
 
-        mBTAPI.serialRequest(email, new Callback<SerialJson>() {
-            @Override
-            public void success(SerialJson serial, Response response) {
-                if (cb != null)
-                    cb.success(serial, response);
-            }
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.attendanceFoundDevice(
+                user.username,
+                user.password,
+                attendanceID,
+                uuid,
+                new Callback<AttendanceJson>() {
+                    @Override
+                    public void success(AttendanceJson attendance, Response response) {
+                        BTTable.updateAttendance(attendance);
+                        if (cb != null)
+                            cb.success(attendance, response);
+                    }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                failureHandle(cb, retrofitError);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+//                        BTTable.UUIDLISTSENDED_remove(uuid);
+                    }
+                });
+    }
+
+    public void attendanceCheckManually(int attendanceID, int userID, final Callback<AttendanceJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.attendanceCheckManually(
+                user.username,
+                user.password,
+                attendanceID,
+                userID,
+                new Callback<AttendanceJson>() {
+                    @Override
+                    public void success(AttendanceJson attendance, Response response) {
+                        BTTable.updateAttendance(attendance);
+                        if (cb != null)
+                            cb.success(attendance, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void clickerConnect(int clickerID, String socketID, final Callback<ClickerJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.clickerConnect(
+                user.username,
+                user.password,
+                clickerID,
+                socketID,
+                new Callback<ClickerJson>() {
+                    @Override
+                    public void success(ClickerJson clicker, Response response) {
+                        BTTable.updateClicker(clicker);
+                        if (cb != null)
+                            cb.success(clicker, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void clickerClick(int clickerID, String choice, final Callback<ClickerJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.clickerClick(
+                user.username,
+                user.password,
+                clickerID,
+                choice,
+                new Callback<ClickerJson>() {
+                    @Override
+                    public void success(ClickerJson clicker, Response response) {
+                        BTTable.updateClicker(clicker);
+                        if (cb != null)
+                            cb.success(clicker, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
     }
 
     private boolean isConnected() {
@@ -815,14 +918,58 @@ public class BTService extends Service {
 
         if (retrofitError.isNetworkError())
             BTDebug.LogError("Network Error");
-        else {
-            try {
-                ErrorsJson errors = (ErrorsJson) retrofitError.getBodyAs(ErrorsJson.class);
-                BTDebug.LogError(retrofitError.getResponse().getStatus() + " : " + errors.message);
-                if (errors.toast != null)
-                    BeautiToast.show(getApplicationContext(), errors.toast);
-            } catch (Exception e) {
-                BTDebug.LogError(e.getMessage() + " : " + retrofitError.getMessage());
+        else if (retrofitError.getResponse() != null) {
+            if (retrofitError.getResponse().getStatus() == 503) {
+                String title = getString(R.string.oopps);
+                String message = getString(R.string.too_many_users_are_connecting);
+                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
+                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, null));
+            } else {
+                try {
+                    ErrorJson errors = (ErrorJson) retrofitError.getBodyAs(ErrorJson.class);
+                    if ("log".equals(errors.type))
+                        BTDebug.LogError(retrofitError.getResponse().getStatus() + " : " + errors.message);
+                    if ("toast".equals(errors.type))
+                        BeautiToast.show(getApplicationContext(), errors.message);
+                    if ("alert".equals(errors.type)) {
+                        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, errors.title, errors.message);
+                        if (retrofitError.getResponse().getStatus() == 441)
+                            dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, errors.title, errors.message);
+
+                        if (retrofitError.getResponse().getStatus() == 441 || retrofitError.getResponse().getStatus() == 442)
+                            dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                                @Override
+                                public void onConfirmed(String edit) {
+                                    PackagesHelper.updateApp(getApplicationContext());
+                                }
+
+                                @Override
+                                public void onCanceled() {
+                                }
+                            });
+
+                        if (retrofitError.getResponse().getStatus() == 401)
+                            dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                                @Override
+                                public void onConfirmed(String edit) {
+                                    BTPreference.clearUser(getApplicationContext());
+                                    Intent intent = new Intent(getApplicationContext(), CatchPointActivity.class);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onCanceled() {
+                                    BTPreference.clearUser(getApplicationContext());
+                                    Intent intent = new Intent(getApplicationContext(), CatchPointActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+                        BTEventBus.getInstance().post(new ShowDialogEvent(dialog, null));
+                    }
+                } catch (Exception e) {
+                    BTDebug.LogError(e.getMessage() + " : " + retrofitError.getMessage());
+                }
             }
         }
         if (cb != null)

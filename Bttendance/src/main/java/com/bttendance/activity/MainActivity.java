@@ -1,6 +1,5 @@
 package com.bttendance.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
@@ -9,14 +8,15 @@ import android.support.v4.view.ViewPager;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.bttendance.R;
-import com.bttendance.activity.sign.CatchPointActivity;
 import com.bttendance.adapter.BTPagerAdapter;
+import com.bttendance.event.update.UpdateCourseListEvent;
+import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.bttendance.view.PagerSlidingTabStrip;
+import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -97,16 +97,12 @@ public class MainActivity extends BTActivity {
         getBTService().autoSignin(new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
-                BTPreference.setUser(MainActivity.this, userJson);
+                BTEventBus.getInstance().post(new UpdateCourseListEvent());
+                BTEventBus.getInstance().post(new UpdateProfileEvent());
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                if (retrofitError != null && retrofitError.getResponse() != null && retrofitError.getResponse().getStatus() == 401) {
-                    BTPreference.clearUser(MainActivity.this);
-                    Intent intent = new Intent(MainActivity.this, CatchPointActivity.class);
-                    MainActivity.this.startActivity(intent);
-                }
             }
         });
     }

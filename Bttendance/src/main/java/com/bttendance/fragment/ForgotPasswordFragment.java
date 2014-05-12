@@ -15,9 +15,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.ShowDialogEvent;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.json.UserJson;
-import com.bttendance.view.BeautiToast;
+import com.bttendance.model.json.EmailJson;
+import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -138,15 +139,17 @@ public class ForgotPasswordFragment extends BTFragment {
 
         String email = mEmail.getText().toString();
 
-        getBTService().forgotPassword(email, new Callback<UserJson>() {
+        getBTService().forgotPassword(email, new Callback<EmailJson>() {
             @Override
-            public void success(UserJson userJson, Response response) {
-                BeautiToast.show(getActivity(), getString(R.string.password_has_been_sent));
+            public void success(EmailJson email, Response response) {
+                String title = getString(R.string.password_recovery_success);
+                String message = String.format(getString(R.string.password_recovery_has_been_succeeded), email.email);
+                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
+                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "forgot password"));
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BeautiToast.show(getActivity(), getString(R.string.fail_to_retrieve_password));
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.bttendance.fragment;
 
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,10 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
+import com.bttendance.helper.SparceArrayHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
-import com.bttendance.model.json.GradeJson;
-import com.bttendance.model.json.UserJson;
+import com.bttendance.model.json.UserJsonSimple;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,11 +33,10 @@ public class GradeFragment extends BTFragment {
     BTListAdapter mAdapter;
     private ListView mListView;
     private CourseJson mCourse;
-    private UserJson[] mUserJsons;
-    public static SparseArray<GradeJson> GradeTable = new SparseArray<GradeJson>();
+    private ArrayList<UserJsonSimple> mUsers;
 
     public GradeFragment(int courseId) {
-        mCourse = BTTable.CourseTable.get(courseId);
+        mCourse = BTTable.MyCourseTable.get(courseId);
     }
 
     @Override
@@ -51,9 +49,8 @@ public class GradeFragment extends BTFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grade, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
-        mAdapter = new BTListAdapter(getActivity());
+        mAdapter = new BTListAdapter(getActivity(), null);
         mListView.setAdapter(mAdapter);
-//        mListView.setFastScrollEnabled(true);
         return view;
     }
 
@@ -65,48 +62,36 @@ public class GradeFragment extends BTFragment {
 
     private void requestCall() {
 
-        getBTService().courseStudents(mCourse.id, new Callback<UserJson[]>() {
+        getBTService().courseGrades(mCourse.id, new Callback<UserJsonSimple[]>() {
             @Override
-            public void success(UserJson[] userJsons, Response response) {
-                mUserJsons = userJsons;
+            public void success(UserJsonSimple[] users, Response response) {
                 swapItems();
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-            }
-        });
-
-        getBTService().courseGrades(mCourse.id, new Callback<GradeJson[]>() {
-            @Override
-            public void success(GradeJson[] gradeJsons, Response response) {
-                for (GradeJson grade: gradeJsons)
-                    GradeTable.append(grade.id, grade);
-                swapItems();
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-
             }
         });
     }
 
     private void swapItems() {
-        if (!this.isAdded() || mUserJsons == null)
+        if (!this.isAdded())
             return;
 
+        mUsers = SparceArrayHelper.asArrayList(BTTable.getStudentsOfCourse(mCourse.id));
+
         ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
-        for (UserJson user : mUserJsons) {
+        for (UserJsonSimple user : mUsers) {
             String title = user.full_name;
-            String message = user.email;
-            GradeJson grade = GradeTable.get(user.id);
-            items.add(new BTListAdapter.Item(false, title, message, grade == null? new GradeJson(): grade, grade == null? -1: grade.id));
+            String message = user.student_id;
+            if (user.grade == null)
+                user.grade = "0/0";
+            items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.GRADE, title, message, user));
         }
         Collections.sort(items, new Comparator<BTListAdapter.Item>() {
             @Override
             public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
-                return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+                return lhs.getMessage().compareToIgnoreCase(rhs.getMessage());
             }
         });
         mAdapter.setItems(items);

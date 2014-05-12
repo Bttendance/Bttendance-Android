@@ -26,7 +26,7 @@ public class ChooseSchoolAdapter extends InstantCursorAdapter<SchoolJson> {
 
     @Override
     public SchoolJson getInstance(Cursor cursor) {
-        return BTTable.SchoolTable.get(cursor.getInt(0));
+        return BTTable.AllSchoolTable.get(cursor.getInt(0));
     }
 
 }

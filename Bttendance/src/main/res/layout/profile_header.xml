@@ -104,17 +104,6 @@
         android:textColor="@color/bttendance_black"
         android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/name_edit"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/profile_image"
-        android:layout_marginRight="18dp"
-        android:layout_marginTop="58dp"
-        android:background="@drawable/ic_content_edit"
-        android:padding="5dp" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -145,17 +134,6 @@
         android:layout_marginTop="97dp"
         android:textColor="@color/bttendance_black"
         android:textSize="15sp" />
-
-    <Button
-        android:id="@+id/mail_edit"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/profile_image"
-        android:layout_marginRight="18dp"
-        android:layout_marginTop="98dp"
-        android:background="@drawable/ic_content_edit"
-        android:padding="5dp" />
 
     <View
         android:layout_width="match_parent"

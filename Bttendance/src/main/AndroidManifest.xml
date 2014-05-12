@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bttendance"
-    android:versionCode="2"
+    android:versionCode="3"
     android:versionName="@string/app_version">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -70,20 +70,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance.Sign"
             android:windowSoftInputMode="stateAlwaysVisible" />
-
-        <activity
-            android:name="com.bttendance.activity.sign.ProfessorSerial"
-            android:clearTaskOnLaunch="true"
-            android:label="@string/enter_serial"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign"
-            android:windowSoftInputMode="stateAlwaysVisible" />
-
-        <activity
-            android:name="com.bttendance.activity.sign.StudentConfirm"
-            android:clearTaskOnLaunch="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock.NoActionBar" />
 
         <activity
             android:name=".activity.MainActivity"

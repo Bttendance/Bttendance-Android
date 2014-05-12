@@ -12022,7 +12022,7 @@ com.bttendance.model.json.CourseJson -> com.bttendance.model.json.CourseJson:
     java.lang.String school_name -> school_name
     java.lang.String attdCheckedAt -> attdCheckedAt
     int grade -> grade
-com.bttendance.model.json.ErrorsJson -> com.bttendance.model.json.ErrorsJson:
+com.bttendance.model.json.ErrorJson -> com.bttendance.model.json.ErrorJson:
     java.lang.String message -> message
     java.lang.String alert -> alert
     java.lang.String toast -> toast
@@ -12075,7 +12075,7 @@ com.bttendance.model.json.UserJson$UserSchool -> com.bttendance.model.json.UserJ
 com.bttendance.model.list.CourseList -> com.bttendance.model.list.CourseList:
 com.bttendance.model.list.PostList -> com.bttendance.model.list.PostList:
 com.bttendance.model.list.SchoolList -> com.bttendance.model.list.SchoolList:
-com.bttendance.model.list.UserList -> com.bttendance.model.list.UserList:
+com.bttendance.model.list.UserListSimple -> com.bttendance.model.list.UserListSimple:
 com.bttendance.service.BTAPI -> com.bttendance.service.BTAPI:
     java.lang.String ANDROID -> ANDROID
     void signin(java.lang.String,java.lang.String,java.lang.String,retrofit.Callback) -> signin

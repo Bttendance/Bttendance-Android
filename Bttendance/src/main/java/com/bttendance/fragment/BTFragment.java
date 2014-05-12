@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.squareup.otto.BTEventBus;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.service.BTService;
+import com.squareup.otto.BTEventBus;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -18,7 +18,7 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         super.onCreate(savedInstanceState);
         Activity activity = getActivity();
         if (activity != null && activity instanceof BTActivity) {
-            ((BTActivity)activity).addOnServiceConnectListener(this);
+            ((BTActivity) activity).addOnServiceConnectListener(this);
         }
         if (getBTService() != null)
             onServiceConnected();
@@ -29,7 +29,7 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         super.onDestroy();
         Activity activity = getActivity();
         if (activity != null && activity instanceof BTActivity) {
-            ((BTActivity)activity).removeOnServiceConnectListener(this);
+            ((BTActivity) activity).removeOnServiceConnectListener(this);
         }
     }
 

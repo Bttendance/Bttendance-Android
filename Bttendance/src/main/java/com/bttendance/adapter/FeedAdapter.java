@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bttendance.R;
-import com.bttendance.event.fragment.ShowPostAttendanceEvent;
+import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.fragment.PostAttendanceFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
@@ -55,17 +56,17 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
 
         boolean mTime = currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION;
-        boolean included = IntArrayHelper.contains(post.checks, BTPreference.getUserId(context));
+        boolean included = IntArrayHelper.contains(post.attendance.checked_students, BTPreference.getUserId(context));
 
-        if (IntArrayHelper.contains(user.supervising_courses, post.course)) {
+        if (IntArrayHelper.contains(user.supervising_courses, post.course.id)) {
             if (mTime) {
                 long time = currentTime - DateHelper.getTime(post.createdAt);
                 int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
                 bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
             } else {
                 int grade = 0;
-                if (BTTable.PostGradeTable.get(post.id) != null)
-                    grade = BTTable.PostGradeTable.get(post.id);
+                if (post.grade != null)
+                    grade = Integer.parseInt(post.grade);
                 bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
             }
         } else {
@@ -82,7 +83,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
 
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
-        title.setText(post.title);
+        title.setText(post.course.name);
         message.setText(post.message + "\n" + DateHelper.getBTFormatString(post.createdAt));
 
         // Selector Events
@@ -90,7 +91,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         selector.setTag(R.id.post_id, post.id);
         selector.setOnClickListener(this);
         selector.setClickable(true);
-        if (IntArrayHelper.contains(user.supervising_courses, post.course)
+        if (IntArrayHelper.contains(user.supervising_courses, post.course.id)
                 && "attendance".equals(post.type))
             selector.setVisibility(View.VISIBLE);
         else
@@ -111,7 +112,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.item_selector:
-                BTEventBus.getInstance().post(new ShowPostAttendanceEvent((Integer) v.getTag(R.id.post_id)));
+                PostAttendanceFragment frag = new PostAttendanceFragment((Integer) v.getTag(R.id.post_id));
+                BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                 break;
             default:
                 break;

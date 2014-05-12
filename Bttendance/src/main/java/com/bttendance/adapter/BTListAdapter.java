@@ -6,32 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
-import com.bttendance.event.button.PlusClickedEvent;
-import com.bttendance.helper.StringMatcher;
-import com.bttendance.model.json.BTJson;
-import com.bttendance.model.json.GradeJson;
-import com.squareup.otto.BTEventBus;
+import com.bttendance.model.json.BTJsonSimple;
+import com.bttendance.model.json.UserJsonSimple;
 
 import java.util.ArrayList;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 11..
  */
-public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements SectionIndexer, View.OnClickListener {
+public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
 
-    private Context mContext;
+    private View.OnClickListener mListener;
     private ArrayList<Item> mItems;
     private LayoutInflater mLayoutInflater;
-    private String mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public BTListAdapter(Context context) {
+    public BTListAdapter(Context context, View.OnClickListener listener) {
         super(context, 0);
-        mContext = context;
+        mListener = listener;
         mItems = new ArrayList<Item>();
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -42,47 +36,54 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = convertView;
-        Item i = mItems.get(position);
-        if (i != null) {
-            if (i.isSection()) {
-                v = mLayoutInflater.inflate(R.layout.simple_section, null);
-                TextView title = (TextView) v.findViewById(R.id.section_text);
-                title.setText(i.getTitle());
-            } else {
-                v = mLayoutInflater.inflate(R.layout.bt_list_item, null);
-                TextView title = (TextView) v.findViewById(R.id.title);
-                TextView message = (TextView) v.findViewById(R.id.message);
-                ImageView image = (ImageView) v.findViewById(R.id.add_btn);
-                if (i.joined()) {
+        View v;
+        Item item = mItems.get(position);
+
+        if (item.getType() == Item.Type.SECTION) {
+            v = mLayoutInflater.inflate(R.layout.simple_section, null);
+            TextView title = (TextView) v.findViewById(R.id.section_text);
+            title.setText(item.getTitle());
+        } else {
+            v = mLayoutInflater.inflate(R.layout.bt_list_item, null);
+            TextView title = (TextView) v.findViewById(R.id.title);
+            TextView message = (TextView) v.findViewById(R.id.message);
+            ImageView image = (ImageView) v.findViewById(R.id.add_btn);
+
+            title.setText(item.getTitle());
+            message.setText(item.getMessage());
+            image.setTag(R.id.json, item.getJson());
+            image.setTag(R.id.type, item.getType());
+
+            switch (item.getType()) {
+                case CHECKED:
+                case JOINED:
                     image.setImageResource(R.drawable.ic_list_checked);
                     image.setClickable(false);
                     image.setOnClickListener(null);
-                } else if (i.getJson() != null && i.getJson() instanceof GradeJson) {
+                    break;
+                case UNCHECKED:
+                case UNJOINED:
+                    image.setImageResource(R.drawable.ic_list_add);
+                    image.setClickable(true);
+                    image.setOnClickListener(mListener);
+                    break;
+                case GRADE:
                     image.setImageResource(R.drawable.ic_grade);
                     image.setClickable(false);
                     image.setOnClickListener(null);
+
                     TextView grade = (TextView) v.findViewById(R.id.grade);
                     TextView gradeTotal = (TextView) v.findViewById(R.id.grade_total);
+
                     grade.setVisibility(View.VISIBLE);
                     gradeTotal.setVisibility(View.VISIBLE);
-                    if (((GradeJson) i.getJson()).grade == null) {
-                        grade.setText("0");
-                        gradeTotal.setText("0");
-                    } else {
-                        String[] gradeStrings = ((GradeJson) i.getJson()).grade.split("/");
-                        grade.setText(gradeStrings[0]);
-                        gradeTotal.setText(gradeStrings[1]);
-                    }
-                } else {
-                    image.setImageResource(R.drawable.ic_list_add);
-                    image.setClickable(true);
-                    image.setOnClickListener(this);
-                }
-                image.setTag(R.id.json, i.getJson());
-                image.setTag(R.id.id, i.getId());
-                title.setText(i.getTitle());
-                message.setText(i.getMessage());
+
+                    String[] gradeStrings = ((UserJsonSimple) item.getJson()).grade.split("/");
+                    grade.setText(gradeStrings[0]);
+                    gradeTotal.setText(gradeStrings[1]);
+                    break;
+                default:
+                    break;
             }
         }
         return v;
@@ -98,81 +99,29 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
         return mItems.size();
     }
 
-    // SectionIndexer
-    @Override
-    public Object[] getSections() {
-        String[] sections = new String[mSections.length()];
-        for (int i = 0; i < mSections.length(); i++)
-            sections[i] = String.valueOf(mSections.charAt(i));
-        return sections;
-    }
-
-    @Override
-    public int getPositionForSection(int section) {
-        for (int i = section; i >= 0; i--) {
-            for (int j = 0; j < getCount(); j++) {
-                if (i == 0) {
-                    for (int k = 0; k <= 9; k++) {
-                        if (StringMatcher.match(String.valueOf((getItem(j)).getTitle().charAt(0)), String.valueOf(k)))
-                            return j;
-                    }
-                } else {
-                    if (StringMatcher.match(String.valueOf((getItem(j)).getTitle().charAt(0)), String.valueOf(mSections.charAt(i))))
-                        return j;
-                }
-            }
-        }
-        return 0;
-    }
-
-    @Override
-    public int getSectionForPosition(int position) {
-        return 0;
-    }
-
-    // OnClickListener
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.add_btn:
-                BTJson json = (BTJson) v.getTag(R.id.json);
-                int id = (Integer) v.getTag(R.id.id);
-                BTEventBus.getInstance().post(new PlusClickedEvent(json, id));
-                break;
-        }
-    }
-
     public static class Item {
 
-        private boolean mIsSection;
-        private boolean mJoined;
+        private Type mType;
         private String mTitle;
         private String mMessage;
-        private Object mJson;
-        private int mId;
+        private BTJsonSimple mJson;
 
         // Section
         public Item(String title) {
-            mIsSection = true;
+            mType = Type.SECTION;
             mTitle = title;
         }
 
         // Entry
-        public Item(boolean joined, String title, String message, Object json, int id) {
-            mIsSection = false;
-            mJoined = joined;
+        public Item(Type type, String title, String message, BTJsonSimple json) {
+            mType = type;
             mTitle = title;
             mMessage = message;
             mJson = json;
-            mId = id;
         }
 
-        public boolean isSection() {
-            return mIsSection;
-        }
-
-        public boolean joined() {
-            return mJoined;
+        public Type getType() {
+            return mType;
         }
 
         public String getTitle() {
@@ -183,12 +132,10 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> implements S
             return mMessage;
         }
 
-        public Object getJson() {
+        public BTJsonSimple getJson() {
             return mJson;
         }
 
-        public int getId() {
-            return mId;
-        }
+        public enum Type {SECTION, CHECKED, UNCHECKED, JOINED, UNJOINED, GRADE}
     }
 }

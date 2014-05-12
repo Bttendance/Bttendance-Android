@@ -13,20 +13,18 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
+import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.attendance.AttdCheckedEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
-import com.bttendance.event.LoadingEvent;
-import com.bttendance.event.fragment.ShowAddManagerEvent;
-import com.bttendance.event.fragment.ShowCreateNoticeEvent;
-import com.bttendance.event.fragment.ShowGradeEvent;
-import com.bttendance.event.refresh.RefreshCourseDetailEvent;
-import com.bttendance.event.update.UpdateCourseDetailEvent;
+import com.bttendance.event.refresh.RefreshFeedEvent;
+import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.PostCursor;
-import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.CourseJsonHelper;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.Bttendance;
@@ -44,11 +42,11 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
 
     ListView mListView;
     FeedAdapter mAdapter;
-    CourseJson mCourse;
+    CourseJsonHelper mCourseHelper;
     View header;
 
-    public CourseDetailFragment(int courseId) {
-        mCourse = BTTable.CourseTable.get(courseId);
+    public CourseDetailFragment(int courseID) {
+        mCourseHelper = new CourseJsonHelper(getActivity(), courseID);
     }
 
     @Override
@@ -86,10 +84,10 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             return;
 
         BTEventBus.getInstance().post(new LoadingEvent(true));
-        getBTService().courseFeed(mCourse.id, 0, new Callback<PostJson[]>() {
+        getBTService().courseFeed(mCourseHelper.getID(), 0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
-                mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourse.id)));
+                mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourseHelper.getID())));
                 BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
@@ -101,23 +99,27 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     private void refreshHeader() {
-        if (!this.isAdded() || header == null || mCourse == null)
+        if (!this.isAdded() || header == null)
             return;
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 UserJson user = BTPreference.getUser(getActivity());
-                if (IntArrayHelper.contains(user.attending_courses, mCourse.id))
+                if (IntArrayHelper.contains(user.attending_courses, mCourseHelper.getID()))
                     header.findViewById(R.id.manager_layout).setVisibility(View.GONE);
 
                 Bttendance bttendance = (Bttendance) header.findViewById(R.id.bttendance);
-                int grade = 0;
-                if (BTTable.CourseGradeTable.get(mCourse.id) != null)
-                    grade = BTTable.CourseGradeTable.get(mCourse.id);
+                int grade = Integer.parseInt(mCourseHelper.getGrade());
                 bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
                 TextView courseInfo = (TextView) header.findViewById(R.id.course_info);
-                courseInfo.setText(getString(R.string.prof_) + " " + mCourse.professor_name + "\n" + mCourse.school_name + "\n\n" + getString(R.string.empty_course_detail));
+                courseInfo.setText(getString(R.string.prof_) + " " + mCourseHelper.getProfessorName() + "\n"
+                        + mCourseHelper.getSchoolName() + "\n\n"
+                        + String.format(getString(R.string.n_students), mCourseHelper.getStudentCount()) + "\n"
+                        + String.format(getString(R.string.n_attendance_rate), grade) + "\n"
+                        + String.format(getString(R.string.n_clickers), mCourseHelper.getClickerUsage()) + "\n"
+                        + String.format(getString(R.string.n_notices), mCourseHelper.getNoticeUsage())
+                );
             }
         });
     }
@@ -133,13 +135,13 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     @Subscribe
-    public void onUpdate(UpdateCourseDetailEvent event) {
+    public void onUpdate(UpdateFeedEvent event) {
         swapCursor();
         refreshHeader();
     }
 
     @Subscribe
-    public void onRefresh(RefreshCourseDetailEvent event) {
+    public void onRefresh(RefreshFeedEvent event) {
         getFeed();
         refreshHeader();
     }
@@ -155,7 +157,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourse.id)));
+                    mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourseHelper.getID())));
                 }
             });
         }
@@ -165,7 +167,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(mCourse.number + " " + mCourse.name);
+        actionBar.setTitle(mCourseHelper.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -185,13 +187,16 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.notice_bt:
-                BTEventBus.getInstance().post(new ShowCreateNoticeEvent(mCourse.id));
+                CreateNoticeFragment createNoticeFragment = new CreateNoticeFragment(mCourseHelper.getID());
+                BTEventBus.getInstance().post(new AddFragmentEvent(createNoticeFragment));
                 break;
             case R.id.grade_bt:
-                BTEventBus.getInstance().post(new ShowGradeEvent(mCourse.id));
+                GradeFragment gradeFragment = new GradeFragment(mCourseHelper.getID());
+                BTEventBus.getInstance().post(new AddFragmentEvent(gradeFragment));
                 break;
             case R.id.ta_bt:
-                BTEventBus.getInstance().post(new ShowAddManagerEvent(mCourse.id));
+                AddManagerFragment addManagerFragment = new AddManagerFragment(mCourseHelper.getID());
+                BTEventBus.getInstance().post(new AddFragmentEvent(addManagerFragment));
                 break;
         }
     }

@@ -46,8 +46,8 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.bt_alert_dialog, container, false);
-        Button cancel = (Button) view.findViewById(R.id.cancel);
         Button confirm = (Button) view.findViewById(R.id.confirm);
+        Button cancel = (Button) view.findViewById(R.id.cancel);
         View divider = view.findViewById(R.id.divider);
         mEdit = (EditText) view.findViewById(R.id.edit);
         mEditDivider = view.findViewById(R.id.edit_divider);
@@ -57,8 +57,8 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
                 mEditDivider.setVisibility(View.VISIBLE);
                 KeyboardHelper.show(getActivity(), mEdit);
             case CONFIRM:
-                cancel.setText(getString(R.string.cancel));
                 confirm.setText(getString(R.string.confrim));
+                cancel.setText(getString(R.string.cancel));
                 break;
             case OK:
                 confirm.setText(getString(R.string.ok));
@@ -66,8 +66,8 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
                 divider.setVisibility(View.GONE);
                 break;
         }
-        cancel.setOnClickListener(this);
         confirm.setOnClickListener(this);
+        cancel.setOnClickListener(this);
 
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
@@ -115,7 +115,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
             mConfrimListener.onCanceled();
     }
 
-    // Confirm => "cancel" & "confirm"
+    // Confirm => "confrim" & "cancel"
     // OK => "ok"
     public enum DialogType {
         CONFIRM, OK, EDIT

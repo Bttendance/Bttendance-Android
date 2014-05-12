@@ -84,9 +84,7 @@
     <string name="post">Post</string>
     <string name="what_should_they_know">What should they know?</string>
     <string name="to_">To. %s</string>
-    <string name="app_version">0.1.1</string>
-    <string name="password_has_been_sent">Password has been sent</string>
-    <string name="fail_to_retrieve_password">Fail to retrieve password</string>
+    <string name="app_version">0.2</string>
     <string name="supervising_courses">Supervising Courses</string>
     <string name="attending_courses">Attending Courses</string>
     <string name="refresh">Refresh</string>
@@ -96,15 +94,33 @@
     <string name="enrolled_schools">Enrolled Schools</string>
     <string name="fail_to_request_serial">Fail to request serial</string>
     <string name="serial_has_been_sent">Serial has been sent</string>
-    <string name="student_id_or_phone_number">Student ID or Phone Number</string>
+    <string name="student_id">Student ID</string>
+    <string name="phone_number">Phone Number</string>
     <string name="before_you_join_course_public">Before you join course %s, you need to enter your <b>Student ID</b></string>
     <string name="before_you_join_course_private">Before you join course %s, you need to enter your <b>Phone Number</b></string>
     <string name="empty_course_detail">Lecture Type\nDate and Time\nClass Place</string>
-    <string name="fail_to_find_a_user">Fail to find a user \"%s\". Please check User Id of Email again.</string>
     <string name="add_manager">Add Manager</string>
     <string name="would_you_like_to_add">Would you like to add \"%1$s\" as a manager of course %2$s?</string>
     <string name="is_now_manager_of_course">\"%1$s\" is now a manager of course %2$s.</string>
     <string name="attendance_unchecked_students">Attendance Un-Checked Students</string>
     <string name="attendance_checked_students">Attendance Checked Students</string>
+    <string name="plus">Plus</string>
+    <string name="email_sent">Email Sent</string>
+    <string name="verification_code_for_activating_your_course">Verification code for activating your course has been sent via email.\n%s</string>
+    <string name="password_recovery_success">Password Recovery Success</string>
+    <string name="password_recovery_has_been_succeeded">Password recovery has been succeeded.\nPlease check your email.\n%s</string>
+    <string name="oopps">Ooooppss!</string>
+    <string name="too_many_users_are_connecting">Too many users are connecting at the same time, please try again later.</string>
+    <string name="unjoin_course">Unjoin Course</string>
+    <string name="show_grades">Show Grades</string>
+    <string name="export_grades">Export Grades</string>
+    <string name="start">Start</string>
+    <string name="edit_name">Edit Name</string>
+    <string name="edit_email">Edit Email</string>
+    <string name="setting">Setting</string>
+    <string name="n_students">%d students</string>
+    <string name="n_attendance_rate">%d%% attendance rate</string>
+    <string name="n_clickers">%d clickers</string>
+    <string name="n_notices">%d notices</string>
 
 </resources>

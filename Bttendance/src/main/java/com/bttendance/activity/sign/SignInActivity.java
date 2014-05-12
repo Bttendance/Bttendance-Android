@@ -13,7 +13,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.event.fragment.ShowForgotPasswordEvent;
+import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.fragment.ForgotPasswordFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
@@ -137,7 +138,8 @@ public class SignInActivity extends BTActivity {
             @Override
             public void onClick(View v) {
                 KeyboardHelper.hide(SignInActivity.this, mUsername);
-                BTEventBus.getInstance().post(new ShowForgotPasswordEvent());
+                ForgotPasswordFragment frag = new ForgotPasswordFragment();
+                BTEventBus.getInstance().post(new AddFragmentEvent(frag));
             }
         });
     }

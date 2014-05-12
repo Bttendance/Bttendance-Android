@@ -16,13 +16,10 @@ import com.bttendance.R;
 import com.bttendance.adapter.ChooseSchoolAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
 import com.bttendance.adapter.kit.SimpleSectionAdapter;
-import com.bttendance.event.fragment.ShowCourseAttendEvent;
-import com.bttendance.event.fragment.ShowCourseCreateEvent;
-import com.bttendance.event.fragment.ShowSerialEvent;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UpdateSchoolChooseEvent;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.cursor.MyCourseCursor;
 import com.bttendance.model.cursor.SectionedSchoolCursor;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
@@ -40,12 +37,12 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
     ChooseSchoolAdapter mAdapter;
     SimpleSectionAdapter<Cursor> mSectionAdapter;
-    private int mAddButtonType;
+    private boolean mAuth;
     private ListView mListView;
     private UserJson user;
 
-    public SchoolChooseFragment(int addButtonType) {
-        mAddButtonType = addButtonType;
+    public SchoolChooseFragment(boolean auth) {
+        mAuth = auth;
         user = BTPreference.getUser(getActivity());
     }
 
@@ -72,18 +69,16 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
             @Override
             public String getSectionTitleForItem(Cursor cursor) {
-                switch (mAddButtonType) {
-                    case MyCourseCursor.ADD_BUTTON_CREATE_COURSE:
-                        if (IntArrayHelper.contains(user.employed_schools, cursor.getInt(0)))
-                            return getString(R.string.employed_schools);
-                        else
-                            return getString(R.string.joinable_schools);
-                    case MyCourseCursor.ADD_BUTTON_ATTEND_COURSE:
-                    default:
-                        if (IntArrayHelper.contains(user.enrolled_schools, cursor.getInt(0)))
-                            return getString(R.string.enrolled_schools);
-                        else
-                            return getString(R.string.joinable_schools);
+                if (mAuth) {
+                    if (IntArrayHelper.contains(user.employed_schools, cursor.getInt(0)))
+                        return getString(R.string.employed_schools);
+                    else
+                        return getString(R.string.joinable_schools);
+                } else {
+                    if (IntArrayHelper.contains(user.enrolled_schools, cursor.getInt(0)))
+                        return getString(R.string.enrolled_schools);
+                    else
+                        return getString(R.string.joinable_schools);
                 }
             }
         });
@@ -110,7 +105,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
                 @Override
                 public void run() {
                     user = BTPreference.getUser(getActivity());
-                    mAdapter.swapCursor(new SectionedSchoolCursor(getActivity(), mAddButtonType));
+                    mAdapter.swapCursor(new SectionedSchoolCursor(getActivity(), mAuth));
                     mSectionAdapter.notifyDataSetChanged();
                 }
             });
@@ -154,34 +149,12 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
-        switch (mAddButtonType) {
-            case MyCourseCursor.ADD_BUTTON_CREATE_COURSE:
-                if (IntArrayHelper.contains(user.employed_schools, (int) id)) {
-                    UserJson.UserSchool userSchool = null;
-                    for (int i = 0; i < user.employed_schools.length; i++)
-                        if (user.employed_schools[i].id == id)
-                            userSchool = user.employed_schools[i];
-                    getBTService().serialValidate(userSchool.key, new Callback<SchoolJson>() {
-                        @Override
-                        public void success(SchoolJson schoolJson, Response response) {
-                            if (schoolJson.id == id)
-                                BTEventBus.getInstance().post(new ShowCourseCreateEvent((int) id));
-                            else
-                                BTEventBus.getInstance().post(new ShowSerialEvent((int) id));
-                        }
-
-                        @Override
-                        public void failure(RetrofitError retrofitError) {
-                            BTEventBus.getInstance().post(new ShowSerialEvent((int) id));
-                        }
-                    });
-                } else
-                    BTEventBus.getInstance().post(new ShowSerialEvent((int) id));
-                break;
-            case MyCourseCursor.ADD_BUTTON_ATTEND_COURSE:
-                BTEventBus.getInstance().post(new ShowCourseAttendEvent((int) id));
-            default:
-                break;
+        if (mAuth) {
+            CourseCreateFragment frag = new CourseCreateFragment((int) id);
+            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+        } else {
+            CourseAttendFragment frag = new CourseAttendFragment((int) id);
+            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
         }
     }
 }

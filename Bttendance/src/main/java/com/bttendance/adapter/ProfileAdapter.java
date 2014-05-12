@@ -3,6 +3,7 @@ package com.bttendance.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,8 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.BTTable;
-import com.bttendance.model.json.SchoolJson;
+import com.bttendance.model.json.IdentificationJsonSimple;
+import com.bttendance.model.json.SchoolJsonSimple;
 import com.bttendance.model.json.UserJson;
 
 /**
@@ -20,6 +21,7 @@ import com.bttendance.model.json.UserJson;
 public class ProfileAdapter extends CursorAdapter {
 
     UserJson user;
+    SparseArray<SchoolJsonSimple> mSchools;
 
     public ProfileAdapter(Context context, Cursor c) {
         super(context, c, android.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
@@ -35,7 +37,7 @@ public class ProfileAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         int id = cursor.getInt(0);
-        SchoolJson school = BTTable.SchoolTable.get(id);
+        SchoolJsonSimple school = mSchools.get(id);
         TextView name = (TextView) view.findViewById(R.id.name);
         name.setText(school.name);
 
@@ -44,12 +46,19 @@ public class ProfileAdapter extends CursorAdapter {
         if (position < user.employed_schools.length)
             key.setText(mContext.getString(R.string.professor));
         else
-            key.setText(user.enrolled_schools[position - user.employed_schools.length].key);
+            for (IdentificationJsonSimple identification : user.identifications)
+                if (identification.school == id)
+                    key.setText(identification.identity);
     }
 
     @Override
     public Cursor swapCursor(Cursor newCursor) {
         user = BTPreference.getUser(mContext);
+        mSchools = new SparseArray<SchoolJsonSimple>();
+        for (SchoolJsonSimple school : user.employed_schools)
+            mSchools.append(school.id, school);
+        for (SchoolJsonSimple school : user.enrolled_schools)
+            mSchools.append(school.id, school);
         return super.swapCursor(newCursor);
     }
 

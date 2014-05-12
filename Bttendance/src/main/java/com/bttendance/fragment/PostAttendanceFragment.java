@@ -1,7 +1,6 @@
 package com.bttendance.fragment;
 
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,18 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.update.UpdatePostAttendanceEvent;
+import com.bttendance.event.ShowDialogEvent;
 import com.bttendance.helper.IntArrayHelper;
+import com.bttendance.helper.SparceArrayHelper;
 import com.bttendance.model.BTTable;
-import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.PostJson;
-import com.bttendance.model.json.UserJson;
-import com.squareup.otto.Subscribe;
+import com.bttendance.model.json.UserJsonSimple;
+import com.squareup.otto.BTEventBus;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -30,17 +32,15 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2013. 12. 30..
  */
-public class PostAttendanceFragment extends BTFragment {
+public class PostAttendanceFragment extends BTFragment implements View.OnClickListener {
 
     BTListAdapter mAdapter;
     private ListView mListView;
-    private CourseJson mCourse;
     private PostJson mPost;
-    private UserJson[] mUserJsons;
+    private ArrayList<UserJsonSimple> mUsers;
 
     public PostAttendanceFragment(int postId) {
         mPost = BTTable.PostTable.get(postId);
-        mCourse = BTTable.CourseTable.get(mPost.course);
     }
 
     @Override
@@ -53,8 +53,9 @@ public class PostAttendanceFragment extends BTFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_attendance, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
-        mAdapter = new BTListAdapter(getActivity());
+        mAdapter = new BTListAdapter(getActivity(), this);
         mListView.setAdapter(mAdapter);
+        swapItems();
         return view;
     }
 
@@ -64,34 +65,19 @@ public class PostAttendanceFragment extends BTFragment {
         requestCall();
     }
 
-    @Subscribe
-    public void onUpdate(UpdatePostAttendanceEvent event) {
-        swapItems();
+    @Override
+    public void onServiceConnected() {
+        super.onServiceConnected();
+        requestCall();
     }
 
     private void requestCall() {
         if (getBTService() == null)
             return;
 
-        getBTService().courseStudents(mCourse.id, new Callback<UserJson[]>() {
+        getBTService().courseStudents(mPost.course.id, new Callback<UserJsonSimple[]>() {
             @Override
-            public void success(UserJson[] userJsons, Response response) {
-                mUserJsons = userJsons;
-                swapItems();
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-            }
-        });
-
-        if (mCourse.posts.length == 0)
-            return;
-
-        getBTService().post(mPost.id, new Callback<PostJson>() {
-            @Override
-            public void success(PostJson postJson, Response response) {
-                mPost = postJson;
+            public void success(UserJsonSimple[] users, Response response) {
                 swapItems();
             }
 
@@ -102,52 +88,50 @@ public class PostAttendanceFragment extends BTFragment {
     }
 
     private void swapItems() {
-        if (!this.isAdded() || mUserJsons == null)
+        if (!this.isAdded())
             return;
 
         mPost = BTTable.PostTable.get(mPost.id);
+        mUsers = SparceArrayHelper.asArrayList(BTTable.getStudentsOfCourse(mPost.course.id));
+
+        Collections.sort(mUsers, new Comparator<UserJsonSimple>() {
+            @Override
+            public int compare(UserJsonSimple lhs, UserJsonSimple rhs) {
+                return lhs.student_id.compareToIgnoreCase(rhs.student_id);
+            }
+        });
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                SparseArray<UserJson> attdChecked = new SparseArray<UserJson>();
-                SparseArray<UserJson> attdUnChecked = new SparseArray<UserJson>();
-                for (UserJson user : mUserJsons)
-                    if (IntArrayHelper.contains(mPost.checks, user.id))
-                        attdChecked.append(user.id, user);
+                ArrayList<UserJsonSimple> attdChecked = new ArrayList<UserJsonSimple>();
+                ArrayList<UserJsonSimple> attdUnChecked = new ArrayList<UserJsonSimple>();
+                for (UserJsonSimple user : mUsers)
+                    if (IntArrayHelper.contains(mPost.attendance.checked_students, user.id))
+                        attdChecked.add(user);
                     else
-                        attdUnChecked.append(user.id, user);
+                        attdUnChecked.add(user);
 
                 ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
 
                 if (attdUnChecked.size() > 0)
                     items.add(new BTListAdapter.Item(getString(R.string.attendance_unchecked_students)));
 
-                for (int i = 0; i < attdUnChecked.size(); i++) {
-                    UserJson user = attdUnChecked.valueAt(i);
-                    boolean joined = IntArrayHelper.contains(mPost.checks, user.id);
+                for (UserJsonSimple user : attdUnChecked) {
                     String title = user.full_name;
                     String message = user.email;
-                    items.add(new BTListAdapter.Item(joined, title, message, user, mPost == null ? -1 : mPost.id));
+                    items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.UNCHECKED, title, message, user));
                 }
 
                 if (attdChecked.size() > 0)
                     items.add(new BTListAdapter.Item(getString(R.string.attendance_checked_students)));
 
-                for (int i = 0; i < attdChecked.size(); i++) {
-                    UserJson user = attdChecked.valueAt(i);
-                    boolean joined = IntArrayHelper.contains(mPost.checks, user.id);
+                for (UserJsonSimple user : attdChecked) {
                     String title = user.full_name;
                     String message = user.email;
-                    items.add(new BTListAdapter.Item(joined, title, message, user, mPost == null ? -1 : mPost.id));
+                    items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.CHECKED, title, message, user));
                 }
 
-//        Collections.sort(items, new Comparator<BTListAdapter.Item>() {
-//            @Override
-//            public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
-//                return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
-//            }
-//        });
                 mAdapter.setItems(items);
                 mAdapter.notifyDataSetChanged();
             }
@@ -155,16 +139,46 @@ public class PostAttendanceFragment extends BTFragment {
     }
 
     @Override
-    public void onServiceConnected() {
-        super.onServiceConnected();
-        requestCall();
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.add_btn:
+
+                final UserJsonSimple user = (UserJsonSimple) v.getTag(R.id.json);
+
+                String title = getString(R.string.attendance_check);
+                String message = String.format(getString(R.string.do_you_want_to_approve_attendance), user.full_name);
+                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
+
+
+                dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                    @Override
+                    public void onConfirmed(String edit) {
+                        getBTService().attendanceCheckManually(mPost.attendance.id, user.id, new Callback<AttendanceJson>() {
+                            @Override
+                            public void success(AttendanceJson attenanceJson, Response response) {
+                                swapItems();
+                            }
+
+                            @Override
+                            public void failure(RetrofitError retrofitError) {
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCanceled() {
+                    }
+                });
+                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "Attendance Post"));
+                break;
+        }
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(mCourse.name);
+        actionBar.setTitle(mPost.course.name);
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 

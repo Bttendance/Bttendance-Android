@@ -2,12 +2,15 @@ package com.bttendance.model.cursor;
 
 import android.content.Context;
 import android.database.MatrixCursor;
-import android.util.SparseArray;
 
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.BTTable;
-import com.bttendance.model.json.SchoolJson;
+import com.bttendance.model.json.SchoolJsonSimple;
 import com.bttendance.model.json.UserJson;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
@@ -20,15 +23,21 @@ public class MySchoolCursor extends MatrixCursor {
 
     public MySchoolCursor(Context context) {
         super(COLUMNS);
+
         UserJson user = BTPreference.getUser(context);
-        SparseArray<SchoolJson> table = BTTable.getSchools(BTTable.FILTER_MY_SCHOOL);
 
-        for (int i = 0; i < user.employed_schools.length; i++)
-            if (table.get(user.employed_schools[i].id) != null)
-                addRow(new Object[]{user.employed_schools[i].id});
+        ArrayList<SchoolJsonSimple> schools = new ArrayList<SchoolJsonSimple>();
+        schools.addAll(Arrays.asList(user.employed_schools));
+        schools.addAll(Arrays.asList(user.enrolled_schools));
 
-        for (int i = 0; i < user.enrolled_schools.length; i++)
-            if (table.get(user.enrolled_schools[i].id) != null)
-                addRow(new Object[]{user.enrolled_schools[i].id});
+        Collections.sort(schools, new Comparator<SchoolJsonSimple>() {
+            @Override
+            public int compare(SchoolJsonSimple lhs, SchoolJsonSimple rhs) {
+                return lhs.name.compareToIgnoreCase(rhs.name);
+            }
+        });
+
+        for (SchoolJsonSimple school : schools)
+            addRow(new Object[]{school.id});
     }
 }

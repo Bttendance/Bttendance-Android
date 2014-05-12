@@ -1,6 +1,6 @@
 package com.bttendance.helper;
 
-import com.bttendance.model.json.UserJson;
+import com.bttendance.model.json.BTJsonSimple;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 25..
@@ -17,12 +17,12 @@ public class IntArrayHelper {
         return false;
     }
 
-    public static boolean contains(UserJson.UserSchool[] array, int value) {
+    public static boolean contains(BTJsonSimple[] array, int value) {
         if (array == null)
             return false;
 
-        for (UserJson.UserSchool userSchool : array)
-            if (userSchool.id == value)
+        for (BTJsonSimple json : array)
+            if (json.id == value)
                 return true;
         return false;
     }
@@ -32,7 +32,7 @@ public class IntArrayHelper {
             return new int[]{value};
 
         int[] newArray = new int[array.length + 1];
-        for (int i  = 0; i < array.length; i++)
+        for (int i = 0; i < array.length; i++)
             newArray[i] = array[i];
         newArray[array.length] = value;
 

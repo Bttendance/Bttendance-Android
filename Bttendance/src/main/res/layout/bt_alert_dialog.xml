@@ -114,13 +114,13 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/cancel"
+                        android:id="@+id/confirm"
                         android:layout_width="wrap_content"
                         android:layout_height="54dp"
                         android:layout_weight="1"
                         android:background="@drawable/alert_btn_bg"
                         android:maxLines="2"
-                        android:text="Cancel"
+                        android:text="Confirm"
                         android:textColor="@color/bttendance_silver"
                         android:textSize="14sp" />
 
@@ -131,13 +131,13 @@
                         android:background="@color/bttendance_grey" />
 
                     <Button
-                        android:id="@+id/confirm"
+                        android:id="@+id/cancel"
                         android:layout_width="wrap_content"
                         android:layout_height="54dp"
                         android:layout_weight="1"
                         android:background="@drawable/alert_btn_bg"
                         android:maxLines="2"
-                        android:text="Confirm"
+                        android:text="Cancel"
                         android:textColor="@color/bttendance_silver"
                         android:textSize="14sp" />
                 </LinearLayout>

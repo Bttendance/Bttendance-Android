@@ -6770,12 +6770,12 @@ com.bttendance.model.json.CourseJson: java.lang.String school_name
 com.bttendance.model.json.CourseJson: java.lang.String attdCheckedAt
 com.bttendance.model.json.CourseJson: int grade
 com.bttendance.model.json.CourseJson: CourseJson()
-com.bttendance.model.json.ErrorsJson
-com.bttendance.model.json.ErrorsJson: java.lang.String message
-com.bttendance.model.json.ErrorsJson: java.lang.String alert
-com.bttendance.model.json.ErrorsJson: java.lang.String toast
-com.bttendance.model.json.ErrorsJson: java.lang.String uuid
-com.bttendance.model.json.ErrorsJson: ErrorsJson()
+com.bttendance.model.json.ErrorJson
+com.bttendance.model.json.ErrorJson: java.lang.String message
+com.bttendance.model.json.ErrorJson: java.lang.String alert
+com.bttendance.model.json.ErrorJson: java.lang.String toast
+com.bttendance.model.json.ErrorJson: java.lang.String uuid
+com.bttendance.model.json.ErrorJson: ErrorsJson()
 com.bttendance.model.json.GradeJson
 com.bttendance.model.json.GradeJson: java.lang.String grade
 com.bttendance.model.json.GradeJson: GradeJson()
@@ -6835,9 +6835,9 @@ com.bttendance.model.list.PostList: PostList(android.util.SparseArray)
 com.bttendance.model.list.SchoolList
 com.bttendance.model.list.SchoolList: SchoolList(java.lang.String)
 com.bttendance.model.list.SchoolList: SchoolList(android.util.SparseArray)
-com.bttendance.model.list.UserList
-com.bttendance.model.list.UserList: UserList(java.lang.String)
-com.bttendance.model.list.UserList: UserList(android.util.SparseArray)
+com.bttendance.model.list.UserListSimple
+com.bttendance.model.list.UserListSimple: UserList(java.lang.String)
+com.bttendance.model.list.UserListSimple: UserList(android.util.SparseArray)
 com.bttendance.service.BTAPI
 com.bttendance.service.BTAPI: java.lang.String ANDROID
 com.bttendance.service.BTAPI: void signin(java.lang.String,java.lang.String,java.lang.String,retrofit.Callback)

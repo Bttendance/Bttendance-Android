@@ -16,7 +16,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.event.fragment.ShowUpdateProfileEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
@@ -39,7 +38,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
     private Button mSave = null;
     private int mEditCount = 0;
     private String mEditString = null;
-    private ShowUpdateProfileEvent.Type mType;
+    private Type mType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
 
         mTitle = getArguments().getString(BTKey.EXTRA_TITLE);
         mEditString = getArguments().getString(BTKey.EXTRA_MESSAGE);
-        mType = (ShowUpdateProfileEvent.Type) getArguments().getSerializable(BTKey.EXTRA_TYPE);
+        mType = (Type) getArguments().getSerializable(BTKey.EXTRA_TYPE);
 
         setHasOptionsMenu(true);
     }
@@ -186,6 +185,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
 
     /**
      * Callback from BTService
+     *
      * @param userJson
      * @param response
      */
@@ -198,4 +198,6 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
     @Override
     public void failure(RetrofitError retrofitError) {
     }
+
+    public enum Type {IMAGE, NAME, MAIL}
 }

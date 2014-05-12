@@ -19,7 +19,6 @@ import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
 import com.bttendance.event.BTEventDispatcher;
-import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
 import com.bttendance.event.bluetooth.BTEnabledEvent;
@@ -27,7 +26,6 @@ import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.BTNotification;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTService;
 import com.google.analytics.tracking.android.EasyTracker;
@@ -74,6 +72,7 @@ public class BTActivity extends SherlockFragmentActivity {
     private BTService mService = null;
     private MenuItem mRefresh;
     private boolean mShowLoading = false;
+    private BTFragment mLastFragment;
 
     public void addOnServiceConnectListener(OnServiceConnectListener listener) {
         mServiceListeners.add(listener);
@@ -99,8 +98,6 @@ public class BTActivity extends SherlockFragmentActivity {
     public BTService getBTService() {
         return mService;
     }
-
-    private BTFragment mLastFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,9 +141,9 @@ public class BTActivity extends SherlockFragmentActivity {
         BTEventBus.getInstance().register(mEventDispatcher);
         EasyTracker.getInstance().activityStart(this);
 
-        BTDebug.LogError("ScanMode : " + BluetoothHelper.getScanMode() + " onGoing : " + BTTable.getCheckingPostIds().size());
-        if (BTTable.getCheckingPostIds().size() > 0)
-            BTEventBus.getInstance().post(new AttdStartedEvent(true));
+//        BTDebug.LogError("ScanMode : " + BluetoothHelper.getScanMode() + " onGoing : " + BTTable.getCheckingPostIds().size());
+//        if (BTTable.getCheckingPostIds().size() > 0)
+//            BTEventBus.getInstance().post(new AttdStartedEvent(true));
     }
 
     @Override
@@ -187,7 +184,7 @@ public class BTActivity extends SherlockFragmentActivity {
             UserJson user = BTPreference.getUser(this);
             if (regId == null)
                 BTNotification.registerInBackground(this);
-            else if (!regId.equals(user.notification_key))
+            else if (!regId.equals(user.device.notification_key))
                 BTNotification.sendRegistrationIdToBackend(this, regId);
         }
     }
@@ -221,7 +218,7 @@ public class BTActivity extends SherlockFragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.options_menu, menu);
+        getSupportMenuInflater().inflate(R.menu.refresh_menu, menu);
         mRefresh = menu.findItem(R.id.refresh_option_item);
         if (mShowLoading)
             mRefresh.setActionView(R.layout.loading_menu);
@@ -231,18 +228,7 @@ public class BTActivity extends SherlockFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        showGPSDialog();
     }
-
-//    private void showGPSDialog() {
-//        if (this instanceof MainActivity && !GPSTracker.isGpsEnable(this))
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    BTEventBus.getInstance().post(new ShowEnableGPSDialogEvent());
-//                }
-//            }, 3000);
-//    }
 
     public interface OnServiceConnectListener {
         void onServiceConnected();

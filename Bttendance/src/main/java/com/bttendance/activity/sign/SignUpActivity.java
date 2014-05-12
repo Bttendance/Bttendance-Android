@@ -18,8 +18,10 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.event.dialog.ShowEnableBluetoothDialog;
+import com.bttendance.event.ShowDialogEvent;
+import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.model.json.DeviceJsonSimple;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTAPI;
 import com.bttendance.service.BTUrl;
@@ -199,7 +201,21 @@ public class SignUpActivity extends BTActivity {
                     ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_cyan));
                     v.setPressed(false);
                     if (BluetoothHelper.getMacAddress() == null) {
-                        BTEventBus.getInstance().post(new ShowEnableBluetoothDialog());
+                        String title = getString(R.string.turn_on_bt_title);
+                        String message = getString(R.string.turn_on_bt_message);
+
+                        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
+                        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                            @Override
+                            public void onConfirmed(String edit) {
+                                BluetoothHelper.enable(SignUpActivity.this);
+                            }
+
+                            @Override
+                            public void onCanceled() {
+                            }
+                        });
+                        BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "bt"));
                     } else {
                         trySignUp();
                     }
@@ -302,8 +318,9 @@ public class SignUpActivity extends BTActivity {
         user.full_name = fullName;
         user.email = email;
         user.password = password;
-        user.device_type = BTAPI.ANDROID;
-        user.device_uuid = BluetoothHelper.getMacAddress();
+        user.device = new DeviceJsonSimple();
+        user.device.type = BTAPI.ANDROID;
+        user.device.uuid = BluetoothHelper.getMacAddress();
 
         getBTService().signup(user, new Callback<UserJson>() {
             @Override

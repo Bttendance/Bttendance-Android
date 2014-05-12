@@ -8,17 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.attendance.AttdInProgressEvent;
 import com.bttendance.event.attendance.AttdStartEvent;
-import com.bttendance.event.fragment.ShowCourseDetailEvent;
-import com.bttendance.event.fragment.ShowSchoolChooseEvent;
+import com.bttendance.fragment.CourseDetailFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
-import com.bttendance.model.cursor.MyCourseCursor;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.Bttendance;
@@ -29,9 +27,6 @@ import com.squareup.otto.BTEventBus;
  */
 public class CourseListAdapter extends CursorAdapter implements View.OnClickListener {
 
-    private static final int VIEW_TYPE_ADD = 0;
-    private static final int VIEW_TYPE_ITEM = 1;
-
     public CourseListAdapter(Context context, Cursor c) {
         super(context, c, false);
     }
@@ -39,86 +34,48 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        switch (getItemViewType(cursor.getPosition())) {
-            case VIEW_TYPE_ADD:
-                return inflater.inflate(R.layout.course_add, null);
-            case VIEW_TYPE_ITEM:
-            default:
-                return inflater.inflate(R.layout.course_item, null);
-        }
+        return inflater.inflate(R.layout.course_item, null);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        BTDebug.LogError("Bind View Course List : " + cursor.getInt(0));
-        switch (getItemViewType(getCursor().getPosition())) {
-            case VIEW_TYPE_ADD:
-                view.findViewById(R.id.course_add_btn).setTag(cursor.getInt(0));
-                view.findViewById(R.id.course_add_btn).setOnClickListener(this);
-                view.findViewById(R.id.course_add_btn).setClickable(true);
-                break;
-            case VIEW_TYPE_ITEM:
-            default:
-                CourseJson course = BTTable.CourseTable.get(cursor.getInt(0));
-                UserJson user = BTPreference.getUser(mContext);
+        CourseJson course = BTTable.MyCourseTable.get(cursor.getInt(0));
+        UserJson user = BTPreference.getUser(mContext);
 
-                Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
-                View btButton = view.findViewById(R.id.bttendance_bt);
-                View selector = view.findViewById(R.id.item_selector);
+        Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
+        View btButton = view.findViewById(R.id.bttendance_bt);
+        View selector = view.findViewById(R.id.item_selector);
 
-                btButton.setOnClickListener(this);
-                selector.setOnClickListener(this);
+        btButton.setOnClickListener(this);
+        selector.setOnClickListener(this);
 
-                selector.setVisibility(View.VISIBLE);
+        selector.setVisibility(View.VISIBLE);
 
-                btButton.setTag(R.id.course_id, course.id);
-                selector.setTag(R.id.course_id, course.id);
+        btButton.setTag(R.id.course_id, course.id);
+        selector.setTag(R.id.course_id, course.id);
 
-                long currentTime = DateHelper.getCurrentGMTTimeMillis();
+        long currentTime = DateHelper.getCurrentGMTTimeMillis();
 
-                boolean mTime = course.attdCheckedAt != null && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION;
-                boolean supved = IntArrayHelper.contains(user.supervising_courses, course.id);
+        boolean mTime = course.attdCheckedAt != null && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION;
+        boolean supved = IntArrayHelper.contains(user.supervising_courses, course.id);
 
-                BTDebug.LogError("mTime : " + mTime + ", supved : " + supved);
-
-                if (mTime) {
-                    long time = currentTime - DateHelper.getTime(course.attdCheckedAt);
-                    int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
-                    bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
-                    btButton.setTag(R.id.checking, true);
-                    btButton.setClickable(false);
-                } else {
-                    int grade = 0;
-                    if (BTTable.CourseGradeTable.get(course.id) != null)
-                        grade = BTTable.CourseGradeTable.get(course.id);
-                    BTDebug.LogError("grade : " + grade);
-                    bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
-                    btButton.setTag(R.id.checking, false);
-                    btButton.setClickable(supved);
-                }
-
-                TextView title = (TextView) view.findViewById(R.id.title);
-                TextView message = (TextView) view.findViewById(R.id.message);
-                title.setText(course.number + " " + course.name);
-                message.setText(context.getString(R.string.prof_) + course.professor_name + "\n" + course.school_name);
-                break;
+        if (mTime) {
+            long time = currentTime - DateHelper.getTime(course.attdCheckedAt);
+            int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
+            bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+            btButton.setTag(R.id.checking, true);
+            btButton.setClickable(false);
+        } else {
+            int grade = Integer.parseInt(course.grade);
+            bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
+            btButton.setTag(R.id.checking, false);
+            btButton.setClickable(supved);
         }
-    }
 
-    @Override
-    public int getItemViewType(int position) {
-        switch ((int) getItemId(position)) {
-            case MyCourseCursor.ADD_BUTTON_CREATE_COURSE:
-            case MyCourseCursor.ADD_BUTTON_ATTEND_COURSE:
-                return VIEW_TYPE_ADD;
-            default:
-                return VIEW_TYPE_ITEM;
-        }
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 2;
+        TextView title = (TextView) view.findViewById(R.id.title);
+        TextView message = (TextView) view.findViewById(R.id.message);
+        title.setText(course.number + " " + course.name);
+        message.setText(context.getString(R.string.prof_) + course.professor_name + "\n" + course.school.name);
     }
 
     @Override
@@ -143,11 +100,9 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
                 break;
             case R.id.item_selector:
                 int course_id = (Integer) v.getTag(R.id.course_id);
-                CourseJson course = BTTable.CourseTable.get(course_id);
-                BTEventBus.getInstance().post(new ShowCourseDetailEvent(course.id));
-                break;
-            case R.id.course_add_btn:
-                BTEventBus.getInstance().post(new ShowSchoolChooseEvent((Integer) v.getTag()));
+                CourseJson course = BTTable.MyCourseTable.get(course_id);
+                CourseDetailFragment frag = new CourseDetailFragment(course.id);
+                BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                 break;
             default:
                 break;

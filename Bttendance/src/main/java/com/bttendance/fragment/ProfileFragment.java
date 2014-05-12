@@ -1,29 +1,27 @@
 package com.bttendance.fragment;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.ProfileAdapter;
-import com.bttendance.event.LoadingEvent;
-import com.bttendance.event.fragment.ShowUpdateProfileEvent;
-import com.bttendance.event.refresh.RefreshProfileEvent;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.cursor.MySchoolCursor;
-import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -34,6 +32,59 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
     ProfileAdapter mAdapter;
     View header;
 
+    /**
+     * Action Bar Menu
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.profile_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_setting:
+                registerForContextMenu(item.getActionView());
+                getActivity().openContextMenu(item.getActionView());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Context Menu
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getActivity().getMenuInflater().inflate(R.menu.profile_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(android.view.MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.edit_name:
+                showEditName();
+                return true;
+            case R.id.edit_email:
+                showEditEmail();
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    /**
+     * Drawing View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -41,10 +92,7 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
         header = inflater.inflate(R.layout.profile_header, null, false);
         mListView.addHeaderView(header);
 
-        header.findViewById(R.id.mail_edit).setOnClickListener(this);
-        header.findViewById(R.id.name_edit).setOnClickListener(this);
         header.findViewById(R.id.profile_image_edit).setOnClickListener(this);
-        refreshHeader();
 
         View padding = new View(getActivity());
         padding.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 7));
@@ -52,51 +100,24 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
 
         mAdapter = new ProfileAdapter(getActivity(), null);
         mListView.setAdapter(mAdapter);
+
+        refreshHeader();
         swapCursor();
 
         return view;
     }
 
     @Override
-    public void onServiceConnected() {
-        super.onServiceConnected();
-        getSchools();
-    }
-
-    public void getSchools() {
-        if (getBTService() == null)
-            return;
-
-        BTEventBus.getInstance().post(new LoadingEvent(true));
-        getBTService().schools(new Callback<SchoolJson[]>() {
-            @Override
-            public void success(SchoolJson[] schools, Response response) {
-                swapCursor();
-                BTEventBus.getInstance().post(new LoadingEvent(false));
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new LoadingEvent(false));
-            }
-        });
-    }
-
-    @Override
     public void onFragmentResume() {
         super.onFragmentResume();
-        swapCursor();
-    }
-
-    @Subscribe
-    public void onRefresh(RefreshProfileEvent event) {
-        getSchools();
         refreshHeader();
+        swapCursor();
     }
 
     @Subscribe
     public void onUpdate(UpdateProfileEvent event) {
         refreshHeader();
+        swapCursor();
     }
 
     private void swapCursor() {
@@ -136,6 +157,9 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
         });
     }
 
+    /**
+     * View.OnClickListner
+     */
     @Override
     public void onClick(View v) {
         if (header == null)
@@ -144,18 +168,31 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.profile_image_edit:
                 break;
-            case R.id.name_edit:
-                TextView name = (TextView) header.findViewById(R.id.name);
-                BTEventBus.getInstance().post(new ShowUpdateProfileEvent(getString(R.string.name),
-                        name.getText().toString(),
-                        ShowUpdateProfileEvent.Type.NAME));
-                break;
-            case R.id.mail_edit:
-                TextView mail = (TextView) header.findViewById(R.id.mail);
-                BTEventBus.getInstance().post(new ShowUpdateProfileEvent(getString(R.string.mail),
-                        mail.getText().toString(),
-                        ShowUpdateProfileEvent.Type.MAIL));
-                break;
         }
+    }
+
+    /**
+     * Private Methods
+     */
+    private void showEditName() {
+        TextView name = (TextView) header.findViewById(R.id.name);
+        ProfileEditFragment frag = new ProfileEditFragment();
+        Bundle undle = new Bundle();
+        undle.putString(BTKey.EXTRA_TITLE, getString(R.string.name));
+        undle.putString(BTKey.EXTRA_MESSAGE, name.getText().toString());
+        undle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.NAME);
+        frag.setArguments(undle);
+        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+    }
+
+    private void showEditEmail() {
+        TextView mail = (TextView) header.findViewById(R.id.mail);
+        ProfileEditFragment frag = new ProfileEditFragment();
+        Bundle undle = new Bundle();
+        undle.putString(BTKey.EXTRA_TITLE, getString(R.string.mail));
+        undle.putString(BTKey.EXTRA_MESSAGE, mail.getText().toString());
+        undle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.MAIL);
+        frag.setArguments(undle);
+        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 }

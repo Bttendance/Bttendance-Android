@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.bttendance.model.json.CourseJsonSimple;
+import com.bttendance.model.json.SchoolJsonSimple;
 import com.bttendance.model.json.UserJson;
 import com.google.gson.Gson;
 
@@ -46,7 +48,10 @@ public class BTPreference {
             return null;
         Gson gson = new Gson();
         try {
-            return gson.fromJson(jsonStr, UserJson.class);
+            UserJson user = gson.fromJson(jsonStr, UserJson.class);
+            if (user.device.uuid == null)
+                user.device.uuid = user.device_uuid;
+            return user;
         } catch (Exception e) {
             clearUser(ctx);
             return null;
@@ -77,6 +82,34 @@ public class BTPreference {
         Editor edit = getInstance(ctx).edit();
         edit.putString("uuid", uuid);
         edit.commit();
+    }
+
+    public static CourseJsonSimple getCourse(Context context, int courseID) {
+        UserJson user = getUser(context);
+
+        for (CourseJsonSimple course : user.supervising_courses)
+            if (course.id == courseID)
+                return course;
+
+        for (CourseJsonSimple course : user.attending_courses)
+            if (course.id == courseID)
+                return course;
+
+        return null;
+    }
+
+    public static SchoolJsonSimple getSchool(Context context, int schoolID) {
+        UserJson user = getUser(context);
+
+        for (SchoolJsonSimple school : user.employed_schools)
+            if (school.id == schoolID)
+                return school;
+
+        for (SchoolJsonSimple school : user.enrolled_schools)
+            if (school.id == schoolID)
+                return school;
+
+        return null;
     }
 
 }// end of class
