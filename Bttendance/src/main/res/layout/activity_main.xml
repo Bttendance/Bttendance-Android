@@ -9,15 +9,15 @@
         android:id="@+id/tabs"
         app:dividerColor="@android:color/transparent"
         app:indicatorColor="@color/bttendance_cyan"
-        app:indicatorHeight="5dp"
+        app:indicatorHeight="4dp"
         app:shouldExpand="true"
         app:textAllCaps2="true"
         app:underlineColor="@android:color/transparent"
         app:underlineHeight="1dp"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="42dp"
         android:background="@color/bttendance_white"
-        android:minHeight="45dp"
+        android:minHeight="42dp"
         android:textColor="@color/bttendance_cyan"
         android:textSize="16sp" />
 
