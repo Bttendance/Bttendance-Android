@@ -77,7 +77,9 @@ public class BTTable {
 
     public static synchronized SparseArray<PostJson> getPostsOfMyCourse(UserJson user) {
         SparseArray<PostJson> posts = new SparseArray<PostJson>();
-        CourseJsonSimple[] courses = user.getCourses();
+        CourseJsonSimple[] courses = new CourseJsonSimple[0];
+        if (user != null)
+            courses = user.getCourses();
         for (int i = 0; i < PostTable.size(); i++)
             if (IntArrayHelper.contains(courses, PostTable.valueAt(i).course.id))
                 posts.append(PostTable.keyAt(i), PostTable.valueAt(i));

@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.bttendance.activity.MainActivity;
+import com.bttendance.event.refresh.RefreshCourseListEvent;
+import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.model.json.UserJson;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.squareup.otto.BTEventBus;
@@ -58,19 +60,20 @@ public class GcmIntentService extends IntentService {
                 if ("attendance_started".equals(type)) {
                     BTEventBus.getInstance().post(new AttdStartedEvent(false));
                 } else if ("attendance_on_going".equals(type)) {
-
+                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
                 } else if ("attendance_checked".equals(type)) {
                     BTEventBus.getInstance().post(new AttdCheckedEvent(title));
                 } else if ("clicker_started".equals(type)) {
-
+                    BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("clicker_on_going".equals(type)) {
-
+                    BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("notice".equals(type)) {
-
+                    BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("added_as_manager".equals(type)) {
-
+                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
+                    BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("course_created".equals(type)) {
-
+                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
                 }
             }
         }

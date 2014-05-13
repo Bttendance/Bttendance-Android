@@ -29,6 +29,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     String mPlaceholder;
     View mEditDivider;
     boolean mConfirmed = false;
+    boolean mDying = false;
     int mScreenHeight;
 
     /**
@@ -58,6 +59,10 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
      */
     public DialogType getType() {
         return mType;
+    }
+
+    public boolean isDying() {
+        return mDying;
     }
 
     public void toProgress(String message) {
@@ -220,23 +225,27 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
             case R.id.context_2:
             case R.id.context_3:
             case R.id.context_4:
+                mDying = true;
                 mConfirmed = true;
                 getActivity().onBackPressed();
                 if (mListener != null)
                     mListener.onConfirmed(((Button) v).getText().toString());
                 break;
             case R.id.total_layout:
+                mDying = true;
                 if (mType == DialogType.CONTEXT)
                     getActivity().onBackPressed();
                 break;
             case R.id.confirm:
+                mDying = true;
                 mConfirmed = true;
-                if (mListener != null)
-                    mListener.onConfirmed(mEdit.getText().toString());
                 KeyboardHelper.hide(getActivity(), mEdit);
                 getActivity().onBackPressed();
+                if (mListener != null)
+                    mListener.onConfirmed(mEdit.getText().toString());
                 break;
             case R.id.cancel:
+                mDying = true;
                 KeyboardHelper.hide(getActivity(), mEdit);
                 getActivity().onBackPressed();
                 break;

@@ -124,10 +124,13 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
         if (!this.isAdded() && header == null)
             return;
 
+        final UserJson user = BTPreference.getUser(getActivity());
+        if (user == null)
+            return;
+
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                UserJson user = BTPreference.getUser(getActivity());
                 TextView account = (TextView) header.findViewById(R.id.account_type);
                 if (user.employed_schools.length > 0 && user.enrolled_schools.length > 0)
                     account.setText(getString(R.string.professor) + " & " + getString(R.string.student));

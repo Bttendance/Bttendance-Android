@@ -16,6 +16,7 @@ import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
+import com.google.android.gms.internal.dy;
 import com.squareup.otto.Subscribe;
 
 import java.lang.ref.WeakReference;
@@ -234,7 +235,7 @@ public class BTEventDispatcher {
 
         // Some Dialog is already exist.
         BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);
-        if (frag instanceof BTDialogFragment)
+        if (frag instanceof BTDialogFragment && !((BTDialogFragment) frag).isDying())
             ((BTDialogFragment) frag).toContext(event.getOptions(), event.getListener());
         else {
             FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
@@ -256,7 +257,7 @@ public class BTEventDispatcher {
             return;
 
         BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);
-        if (frag instanceof BTDialogFragment)
+        if (frag instanceof BTDialogFragment && !((BTDialogFragment) frag).isDying())
             ((BTDialogFragment) frag).toProgress(event.getMessage());
         else {
             FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
@@ -280,19 +281,5 @@ public class BTEventDispatcher {
         BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);
         if (frag != null && frag instanceof BTDialogFragment && ((BTDialogFragment) frag).getType() == BTDialogFragment.DialogType.PROGRESS)
             act.getSupportFragmentManager().popBackStackImmediate();
-    }
-
-    @Subscribe
-    public void onLoadingEvent(LoadingEvent event) {
-        final BTActivity act = getBTActivity();
-        if (act == null)
-            return;
-
-        if (event.getVisibility())
-            mLoading++;
-        else
-            mLoading--;
-
-        act.showLoading(mLoading > 0);
     }
 }

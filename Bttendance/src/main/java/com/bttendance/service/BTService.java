@@ -958,6 +958,7 @@ public class BTService extends Service {
                                 public void onConfirmed(String edit) {
                                     BTPreference.clearUser(getApplicationContext());
                                     Intent intent = new Intent(getApplicationContext(), CatchPointActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }
 
@@ -965,6 +966,7 @@ public class BTService extends Service {
                                 public void onCanceled() {
                                     BTPreference.clearUser(getApplicationContext());
                                     Intent intent = new Intent(getApplicationContext(), CatchPointActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }
                             };

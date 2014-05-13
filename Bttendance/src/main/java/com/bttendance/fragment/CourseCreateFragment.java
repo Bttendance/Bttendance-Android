@@ -15,7 +15,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
+import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
@@ -269,6 +271,7 @@ public class CourseCreateFragment extends BTFragment {
         String email = mEmail.getText().toString();
         String name = mName.getText().toString();
 
+        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.creating_course)));
         getBTService().courseCreate(fullName, email, mSchoolID, name, new Callback<EmailJson>() {
             @Override
             public void success(EmailJson email, Response response) {
@@ -279,25 +282,23 @@ public class CourseCreateFragment extends BTFragment {
                 BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
                     @Override
                     public void onConfirmed(String edit) {
-                        int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
                         getActivity().getSupportFragmentManager().popBackStack();
-                        while (count-- >= 0)
-                            getActivity().getSupportFragmentManager().popBackStack();
+                        getActivity().getSupportFragmentManager().popBackStack();
                     }
 
                     @Override
                     public void onCanceled() {
-                        int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
                         getActivity().getSupportFragmentManager().popBackStack();
-                        while (count-- >= 0)
-                            getActivity().getSupportFragmentManager().popBackStack();
+                        getActivity().getSupportFragmentManager().popBackStack();
                     }
                 };
                 BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
             }
         });
     }

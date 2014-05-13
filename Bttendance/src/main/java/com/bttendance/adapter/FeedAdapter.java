@@ -83,8 +83,10 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
 
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
+        TextView time = (TextView) view.findViewById(R.id.time);
         title.setText(post.course.name);
-        message.setText(post.message + "\n" + DateHelper.getBTFormatString(post.createdAt));
+        message.setText(post.message);
+        time.setText(DateHelper.getBTFormatString(post.createdAt));
 
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);

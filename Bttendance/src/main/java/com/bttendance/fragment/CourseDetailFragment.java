@@ -1,7 +1,6 @@
 package com.bttendance.fragment;
 
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,13 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
 import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.event.attendance.AttdCheckedEvent;
+import com.bttendance.event.attendance.AttdStartEvent;
+import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
-import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
-import com.bttendance.event.attendance.AttdCheckedEvent;
-import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
@@ -153,17 +152,14 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         if (getBTService() == null)
             return;
 
-        BTEventBus.getInstance().post(new LoadingEvent(true));
         getBTService().courseFeed(mCourseHelper.getID(), 0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
                 mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourseHelper.getID())));
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
         });
     }
@@ -256,7 +252,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     private void startAttendance() {
-
+        BTEventBus.getInstance().post(new AttdStartEvent(mCourseHelper.getID()));
     }
 
     private void showNotice() {
@@ -305,15 +301,10 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 getBTService().dettendCourse(mCourseHelper.getID(), new Callback<UserJson>() {
                     @Override
                     public void success(UserJson user, Response response) {
-
                         BTEventBus.getInstance().post(new HideProgressDialogEvent());
                         BTEventBus.getInstance().post(new UpdateCourseListEvent());
                         BTEventBus.getInstance().post(new UpdateFeedEvent());
-
-                        int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
                         getActivity().getSupportFragmentManager().popBackStack();
-                        while (count-- >= 0)
-                            getActivity().getSupportFragmentManager().popBackStack();
                     }
 
                     @Override

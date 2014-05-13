@@ -135,5 +135,6 @@
     <string name="do_you_really_wish_to">Do you really wish to unjoin from course %s?</string>
     <string name="attending_course">Attending Course</string>
     <string name="would_you_like_to" formatted="false">Would you like to attend %s by %s?</string>
+    <string name="creating_course">Creating Course</string>
 
 </resources>

@@ -217,15 +217,6 @@ public class BTActivity extends SherlockFragmentActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.refresh_menu, menu);
-        mRefresh = menu.findItem(R.id.refresh_option_item);
-        if (mShowLoading)
-            mRefresh.setActionView(R.layout.loading_menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
     }

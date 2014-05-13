@@ -19,6 +19,9 @@ public class MyCourseCursor extends MatrixCursor {
         super(COLUMNS);
 
         UserJson user = BTPreference.getUser(context);
+        if (user == null)
+            return;
+
         for (int i = 0; i < user.supervising_courses.length; i++)
             addRow(new Object[]{user.supervising_courses[i].id});
 

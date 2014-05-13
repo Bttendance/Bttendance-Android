@@ -25,6 +25,8 @@ public class MySchoolCursor extends MatrixCursor {
         super(COLUMNS);
 
         UserJson user = BTPreference.getUser(context);
+        if (user == null)
+            return;
 
         ArrayList<SchoolJsonSimple> schools = new ArrayList<SchoolJsonSimple>();
         schools.addAll(Arrays.asList(user.employed_schools));

@@ -160,6 +160,7 @@ public class AddManagerFragment extends BTFragment {
                             @Override
                             public void success(CourseJson courseJson, Response response) {
                                 BeautiToast.show(getActivity(), String.format(getActivity().getString(R.string.is_now_manager_of_course), user.full_name, mCourse.name));
+                                getActivity().getSupportFragmentManager().popBackStack();
                             }
 
                             @Override

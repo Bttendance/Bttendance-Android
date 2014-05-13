@@ -2,7 +2,6 @@ package com.bttendance.fragment;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.bttendance.adapter.CourseListAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
 import com.bttendance.adapter.kit.SimpleSectionAdapter;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
@@ -53,7 +51,7 @@ public class CourseListFragment extends BTFragment {
     ListView mListView;
     CourseListAdapter mAdapter;
     SimpleSectionAdapter<Cursor> mSectionAdapter;
-    UserJson user;
+    UserJson mUser;
     View mView;
 
     /**
@@ -107,7 +105,7 @@ public class CourseListFragment extends BTFragment {
         header.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 8));
         mListView.addHeaderView(header);
 
-        user = BTPreference.getUser(getActivity());
+        mUser = BTPreference.getUser(getActivity());
         mAdapter = new CourseListAdapter(getActivity(), null);
         mSectionAdapter = new SimpleSectionAdapter<Cursor>(
                 getActivity(),
@@ -117,7 +115,7 @@ public class CourseListFragment extends BTFragment {
                 new Sectionizer<Cursor>() {
                     @Override
                     public String getSectionTitleForItem(Cursor cursor) {
-                        if (IntArrayHelper.contains(user.supervising_courses, cursor.getInt(0)))
+                        if (IntArrayHelper.contains(mUser.supervising_courses, cursor.getInt(0)))
                             return getString(R.string.supervising_courses);
                         else
                             return getString(R.string.attending_courses);
@@ -170,7 +168,6 @@ public class CourseListFragment extends BTFragment {
         if (getBTService() == null)
             return;
 
-        BTEventBus.getInstance().post(new LoadingEvent(true));
         getBTService().courses(new Callback<CourseJson[]>() {
             @Override
             public void success(CourseJson[] courses, Response response) {
@@ -178,12 +175,10 @@ public class CourseListFragment extends BTFragment {
 //                if (BTTable.getCheckingPostIds().size() > 0) {
 //                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
 //                }
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
         });
     }
@@ -212,7 +207,11 @@ public class CourseListFragment extends BTFragment {
     private void swapCursor() {
         if (this.isAdded() && mAdapter != null) {
 
-            if (user.getCourses().length == 0)
+            mUser = BTPreference.getUser(getActivity());
+            if (mUser == null)
+                return;
+
+            if (mUser.getCourses().length == 0)
                 mView.findViewById(R.id.no_course_layout).setVisibility(View.VISIBLE);
             else
                 mView.findViewById(R.id.no_course_layout).setVisibility(View.GONE);
@@ -220,7 +219,6 @@ public class CourseListFragment extends BTFragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    user = BTPreference.getUser(getActivity());
                     mAdapter.swapCursor(new MyCourseCursor(getActivity()));
                     mSectionAdapter.notifyDataSetChanged();
                 }

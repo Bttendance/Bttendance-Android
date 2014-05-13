@@ -54,7 +54,11 @@ public class ProfileAdapter extends CursorAdapter {
     @Override
     public Cursor swapCursor(Cursor newCursor) {
         user = BTPreference.getUser(mContext);
+
         mSchools = new SparseArray<SchoolJsonSimple>();
+        if (user == null)
+            return super.swapCursor(newCursor);
+
         for (SchoolJsonSimple school : user.employed_schools)
             mSchools.append(school.id, school);
         for (SchoolJsonSimple school : user.enrolled_schools)

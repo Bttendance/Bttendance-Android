@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.fragment.BTDialogFragment;
+import com.bttendance.event.attendance.AttdStartEvent;
 import com.bttendance.fragment.CourseDetailFragment;
+import com.bttendance.fragment.CreateNoticeFragment;
+import com.bttendance.fragment.StartClickerFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
@@ -51,8 +52,10 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
 
         selector.setOnClickListener(this);
         selector.setVisibility(View.VISIBLE);
-
         selector.setTag(R.id.course_id, courseHelper.getID());
+        view.findViewById(R.id.clicker_bt).setTag(R.id.course_id, courseHelper.getID());
+        view.findViewById(R.id.attendance_bt).setTag(R.id.course_id, courseHelper.getID());
+        view.findViewById(R.id.notice_bt).setTag(R.id.course_id, courseHelper.getID());
 
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
 
@@ -98,12 +101,30 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.item_selector:
+            case R.id.item_selector: {
                 int course_id = (Integer) v.getTag(R.id.course_id);
                 CourseJsonHelper courseHelper = new CourseJsonHelper(mUser, course_id);
                 CourseDetailFragment frag = new CourseDetailFragment(courseHelper.getID());
                 BTEventBus.getInstance().post(new AddFragmentEvent(frag));
-                break;
+            }
+            break;
+            case R.id.clicker_bt: {
+                int course_id = (Integer) v.getTag(R.id.course_id);
+                StartClickerFragment frag = new StartClickerFragment(course_id);
+                BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+            }
+            break;
+            case R.id.attendance_bt: {
+                int course_id = (Integer) v.getTag(R.id.course_id);
+                BTEventBus.getInstance().post(new AttdStartEvent(course_id));
+            }
+            break;
+            case R.id.notice_bt: {
+                int course_id = (Integer) v.getTag(R.id.course_id);
+                CreateNoticeFragment frag = new CreateNoticeFragment(course_id);
+                BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+            }
+            break;
             default:
                 break;
         }

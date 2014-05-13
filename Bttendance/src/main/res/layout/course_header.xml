@@ -43,7 +43,7 @@
         android:id="@+id/manager_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp">
+        android:layout_marginTop="2dp">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -65,7 +65,7 @@
         </RelativeLayout>
 
         <View
-            android:layout_width="3dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent" />
 
         <RelativeLayout
@@ -88,7 +88,7 @@
         </RelativeLayout>
 
         <View
-            android:layout_width="3dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent" />
 
         <RelativeLayout

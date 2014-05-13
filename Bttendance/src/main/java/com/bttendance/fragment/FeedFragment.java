@@ -8,7 +8,6 @@ import android.widget.ListView;
 
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
-import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.attendance.AttdCheckedEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
@@ -56,17 +55,14 @@ public class FeedFragment extends BTFragment {
         if (getBTService() == null)
             return;
 
-        BTEventBus.getInstance().post(new LoadingEvent(true));
         getBTService().feed(0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
                 swapCursor();
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new LoadingEvent(false));
             }
         });
     }

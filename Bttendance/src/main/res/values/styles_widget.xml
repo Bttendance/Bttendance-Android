@@ -59,4 +59,13 @@
         <item name="android:gravity">left|top</item>
         <item name="android:background">@null</item>
     </style>
+
+    <style name="itemTimeView" parent="android:Widget.Button">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/bttendance_silver</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">right|bottom</item>
+        <item name="android:background">@null</item>
+    </style>
 </resources>
