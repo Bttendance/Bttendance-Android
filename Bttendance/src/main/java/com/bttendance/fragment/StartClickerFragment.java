@@ -12,6 +12,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.CourseJsonHelper;
 import com.bttendance.model.json.PostJson;
 
@@ -28,7 +29,7 @@ public class StartClickerFragment extends BTFragment {
     private EditText mMessage;
 
     public StartClickerFragment(int courseID) {
-        mCourseHelper = new CourseJsonHelper(getActivity(), courseID);
+        mCourseHelper = new CourseJsonHelper(BTPreference.getUser(getActivity()), courseID);
     }
 
     @Override

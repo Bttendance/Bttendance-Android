@@ -48,11 +48,83 @@
 
     </com.bttendance.view.BoundedLinearLayout>
 
+
+    <com.bttendance.view.BoundedLinearLayout
+        android:id="@+id/context"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/bt_white_bg"
+        android:gravity="center_vertical"
+        android:minHeight="45dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:bounded_width="360dp">
+
+        <Button
+            android:id="@+id/context_1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/alert_btn_bg"
+            android:gravity="center"
+            android:textColor="@color/bttendance_navy"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/context_divider_2"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="@color/bttendance_grey" />
+
+        <Button
+            android:id="@+id/context_2"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/alert_btn_bg"
+            android:gravity="center"
+            android:textColor="@color/bttendance_navy"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/context_divider_3"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="@color/bttendance_grey" />
+
+        <Button
+            android:id="@+id/context_3"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/alert_btn_bg"
+            android:gravity="center"
+            android:textColor="@color/bttendance_navy"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/context_divider_4"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="@color/bttendance_grey" />
+
+        <Button
+            android:id="@+id/context_4"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/alert_btn_bg"
+            android:gravity="center"
+            android:textColor="@color/bttendance_navy"
+            android:textSize="18sp" />
+
+    </com.bttendance.view.BoundedLinearLayout>
+
     <RelativeLayout
         android:id="@+id/alert"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="60">
+        android:layout_weight="60"
+        android:visibility="gone">
 
         <com.bttendance.view.BoundedLinearLayout
             android:layout_width="match_parent"

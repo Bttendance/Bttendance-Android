@@ -130,5 +130,10 @@
     <string name="loging_in_bttendance">Loging In Bttendance</string>
     <string name="signing_up_bttendance">Signing Up Bttendance</string>
     <string name="updating_profile">Updating Profile</string>
+    <string name="no_course">No Course Yet :(</string>
+    <string name="press_plus_button">Press \'+\' button\nto create or attend a course.</string>
+    <string name="do_you_really_wish_to">Do you really wish to unjoin from course %s?</string>
+    <string name="attending_course">Attending Course</string>
+    <string name="would_you_like_to" formatted="false">Would you like to attend %s by %s?</string>
 
 </resources>

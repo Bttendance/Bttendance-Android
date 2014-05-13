@@ -1,6 +1,5 @@
 package com.bttendance.model;
 
-import android.content.Context;
 import android.util.SparseArray;
 
 import com.bttendance.helper.IntArrayHelper;
@@ -10,6 +9,7 @@ import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
+import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
 
 import java.util.HashMap;
@@ -75,9 +75,9 @@ public class BTTable {
             array.append(course.id, course);
     }
 
-    public static synchronized SparseArray<PostJson> getPostsOfMyCourse(Context context) {
+    public static synchronized SparseArray<PostJson> getPostsOfMyCourse(UserJson user) {
         SparseArray<PostJson> posts = new SparseArray<PostJson>();
-        CourseJsonSimple[] courses = BTPreference.getCourses(context);
+        CourseJsonSimple[] courses = user.getCourses();
         for (int i = 0; i < PostTable.size(); i++)
             if (IntArrayHelper.contains(courses, PostTable.valueAt(i).course.id))
                 posts.append(PostTable.keyAt(i), PostTable.valueAt(i));

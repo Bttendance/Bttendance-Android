@@ -12,7 +12,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.ShowAlertDialogEvent;
+import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.SparceArrayHelper;
 import com.bttendance.model.BTTable;
@@ -148,7 +148,7 @@ public class PostAttendanceFragment extends BTFragment implements View.OnClickLi
                 BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
                 String title = getString(R.string.attendance_check);
                 String message = String.format(getString(R.string.do_you_want_to_approve_attendance), user.full_name);
-                BTDialogFragment.OnConfirmListener listener = new BTDialogFragment.OnConfirmListener() {
+                BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
                     @Override
                     public void onConfirmed(String edit) {
                         getBTService().attendanceCheckManually(mPost.attendance.id, user.id, new Callback<AttendanceJson>() {

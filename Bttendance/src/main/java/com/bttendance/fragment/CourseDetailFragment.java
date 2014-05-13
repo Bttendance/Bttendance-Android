@@ -1,6 +1,5 @@
 package com.bttendance.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -16,8 +15,11 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
 import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.LoadingEvent;
-import com.bttendance.event.ShowAlertDialogEvent;
+import com.bttendance.event.dialog.ShowAlertDialogEvent;
+import com.bttendance.event.dialog.ShowContextDialogEvent;
+import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.attendance.AttdCheckedEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
@@ -52,8 +54,8 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     boolean mAuth;
 
     public CourseDetailFragment(int courseID) {
-        mCourseHelper = new CourseJsonHelper(getActivity(), courseID);
         UserJson user = BTPreference.getUser(getActivity());
+        mCourseHelper = new CourseJsonHelper(user, courseID);
         mAuth = IntArrayHelper.contains(user.supervising_courses, mCourseHelper.getID());
     }
 
@@ -83,44 +85,41 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 getActivity().onBackPressed();
                 return true;
             case R.id.action_setting:
-                registerForContextMenu(mListView);
-                getActivity().openContextMenu(mListView);
+                if (mAuth) {
+                    String[] options = {getString(R.string.show_grades), getString(R.string.export_grades), getString(R.string.add_manager)};
+                    BTEventBus.getInstance().post(new ShowContextDialogEvent(options, new BTDialogFragment.OnDialogListener() {
+                        @Override
+                        public void onConfirmed(String edit) {
+                            if (getString(R.string.show_grades).equals(edit))
+                                showGrade();
+                            if (getString(R.string.export_grades).equals(edit))
+                                exportGrade();
+                            if (getString(R.string.add_manager).equals(edit))
+                                showAddManager();
+                        }
+
+                        @Override
+                        public void onCanceled() {
+                        }
+                    }));
+                } else {
+                    String[] options = {getString(R.string.unjoin_course)};
+                    BTEventBus.getInstance().post(new ShowContextDialogEvent(options, new BTDialogFragment.OnDialogListener() {
+                        @Override
+                        public void onConfirmed(String edit) {
+                            if (getString(R.string.unjoin_course).equals(edit))
+                                unjoinCourse();
+                        }
+
+                        @Override
+                        public void onCanceled() {
+                        }
+                    }));
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    /**
-     * Context Menu
-     */
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        if (mAuth)
-            getActivity().getMenuInflater().inflate(R.menu.course_detail_supv_context_menu, menu);
-        else
-            getActivity().getMenuInflater().inflate(R.menu.course_detail_std_context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(android.view.MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.show_grades:
-                showGrade();
-                return true;
-            case R.id.export_grades:
-                exportGrade();
-                return true;
-            case R.id.add_manager:
-                showAddManager();
-                return true;
-            case R.id.unjoin_course:
-                unjoinCourse();
-                return true;
-        }
-        return super.onContextItemSelected(item);
     }
 
     /**
@@ -271,23 +270,20 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     private void exportGrade() {
-        final ProgressDialog progress = ProgressDialog.show(getActivity(), "", getString(R.string.exporting_grades));
+        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.exporting_grades)));
         getBTService().courseExportGrades(mCourseHelper.getID(), new Callback<EmailJson>() {
             @Override
             public void success(EmailJson email, Response response) {
-                if (progress.isShowing())
-                    progress.dismiss();
-
                 BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
                 String title = getString(R.string.export_grades);
                 String message = String.format(getString(R.string.exporting_grade_has_been_finished), email.email);
                 BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message));
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                if (progress.isShowing())
-                    progress.dismiss();
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
             }
         });
     }
@@ -298,27 +294,39 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     private void unjoinCourse() {
-        final ProgressDialog progress = ProgressDialog.show(getActivity(), "", getString(R.string.unjoining_course));
-        getBTService().dettendCourse(mCourseHelper.getID(), new Callback<UserJson>() {
+        BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
+        String title = getString(R.string.unjoin_course);
+        String message = String.format(getString(R.string.do_you_really_wish_to), mCourseHelper.getName());
+        BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
             @Override
-            public void success(UserJson user, Response response) {
-                if (progress.isShowing())
-                    progress.dismiss();
+            public void onConfirmed(String edit) {
 
-                BTEventBus.getInstance().post(new UpdateCourseListEvent());
-                BTEventBus.getInstance().post(new UpdateFeedEvent());
+                BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.unjoining_course)));
+                getBTService().dettendCourse(mCourseHelper.getID(), new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
 
-                int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
-                getActivity().getSupportFragmentManager().popBackStack();
-                while (count-- >= 0)
-                    getActivity().getSupportFragmentManager().popBackStack();
+                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                        BTEventBus.getInstance().post(new UpdateCourseListEvent());
+                        BTEventBus.getInstance().post(new UpdateFeedEvent());
+
+                        int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        while (count-- >= 0)
+                            getActivity().getSupportFragmentManager().popBackStack();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                    }
+                });
             }
 
             @Override
-            public void failure(RetrofitError retrofitError) {
-                if (progress.isShowing())
-                    progress.dismiss();
+            public void onCanceled() {
             }
-        });
+        };
+        BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
     }
 }

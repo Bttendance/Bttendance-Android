@@ -12,7 +12,9 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.ShowAlertDialogEvent;
+import com.bttendance.event.dialog.HideProgressDialogEvent;
+import com.bttendance.event.dialog.ShowAlertDialogEvent;
+import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
@@ -146,14 +148,12 @@ public class CourseAttendFragment extends BTFragment implements View.OnClickList
                 String title;
                 String message;
                 String placeholder = null;
-                BTDialogFragment.OnConfirmListener listener;
+                BTDialogFragment.OnDialogListener listener;
 
                 if (IntArrayHelper.contains(BTPreference.getUser(getActivity()).enrolled_schools, course.school.id)) {
                     type = BTDialogFragment.DialogType.CONFIRM;
                     title = getString(R.string.attend_course);
-                    message = course.number + " " + course.name + "\n"
-                            + getString(R.string.prof_) + course.professor_name + "\n"
-                            + course.school.name;
+                    message = String.format(getString(R.string.would_you_like_to), course.name, getString(R.string.prof_) + course.professor_name);
                 } else {
                     type = BTDialogFragment.DialogType.EDIT;
                     if ("public".equals(course.school.type)) {
@@ -168,20 +168,23 @@ public class CourseAttendFragment extends BTFragment implements View.OnClickList
                         placeholder = "XXX-XXXX-XXXX";
                 }
 
-                listener = new BTDialogFragment.OnConfirmListener() {
+                listener = new BTDialogFragment.OnDialogListener() {
                     @Override
                     public void onConfirmed(String edit) {
+                        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.attending_course)));
                         if (IntArrayHelper.contains(BTPreference.getUser(getActivity()).enrolled_schools, course.school.id)) {
                             getBTService().attendCourse(course.id, new Callback<UserJson>() {
                                 @Override
                                 public void success(UserJson userJson, Response response) {
                                     swapItems();
+                                    BTEventBus.getInstance().post(new HideProgressDialogEvent());
                                     BTEventBus.getInstance().post(new UpdateCourseListEvent());
                                     BTEventBus.getInstance().post(new RefreshFeedEvent());
                                 }
 
                                 @Override
                                 public void failure(RetrofitError retrofitError) {
+                                    BTEventBus.getInstance().post(new HideProgressDialogEvent());
                                 }
                             });
                         } else {
@@ -193,18 +196,21 @@ public class CourseAttendFragment extends BTFragment implements View.OnClickList
                                         @Override
                                         public void success(UserJson userJson, Response response) {
                                             swapItems();
+                                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
                                             BTEventBus.getInstance().post(new UpdateCourseListEvent());
                                             BTEventBus.getInstance().post(new RefreshFeedEvent());
                                         }
 
                                         @Override
                                         public void failure(RetrofitError retrofitError) {
+                                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
                                         }
                                     });
                                 }
 
                                 @Override
                                 public void failure(RetrofitError retrofitError) {
+                                    BTEventBus.getInstance().post(new HideProgressDialogEvent());
                                 }
                             });
                         }

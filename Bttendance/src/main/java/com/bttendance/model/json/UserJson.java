@@ -1,5 +1,7 @@
 package com.bttendance.model.json;
 
+import android.content.Context;
+
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
  */
@@ -21,4 +23,50 @@ public class UserJson extends BTJson {
     public IdentificationJsonSimple[] identifications;
 
     public String device_uuid;
+
+    public CourseJsonSimple[] getCourses() {
+
+        CourseJsonSimple[] newArray = new CourseJsonSimple[supervising_courses.length + attending_courses.length];
+
+        int i = 0;
+
+        for (CourseJsonSimple course : supervising_courses) {
+            newArray[i] = course;
+            i++;
+        }
+
+        for (CourseJsonSimple course : attending_courses) {
+            newArray[i] = course;
+            i++;
+        }
+
+        return newArray;
+
+    }
+
+    public CourseJsonSimple getCourse(int courseID) {
+
+        for (CourseJsonSimple course : supervising_courses)
+            if (course.id == courseID)
+                return course;
+
+        for (CourseJsonSimple course : attending_courses)
+            if (course.id == courseID)
+                return course;
+
+        return null;
+    }
+
+    public SchoolJsonSimple getSchool(int schoolID) {
+
+        for (SchoolJsonSimple school : employed_schools)
+            if (school.id == schoolID)
+                return school;
+
+        for (SchoolJsonSimple school : enrolled_schools)
+            if (school.id == schoolID)
+                return school;
+
+        return null;
+    }
 }

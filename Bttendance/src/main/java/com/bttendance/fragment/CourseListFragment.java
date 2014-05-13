@@ -19,6 +19,7 @@ import com.bttendance.adapter.kit.SimpleSectionAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.LoadingEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
+import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.helper.DipPixelHelper;
@@ -53,6 +54,7 @@ public class CourseListFragment extends BTFragment {
     CourseListAdapter mAdapter;
     SimpleSectionAdapter<Cursor> mSectionAdapter;
     UserJson user;
+    View mView;
 
     /**
      * Action Bar Menu
@@ -73,8 +75,20 @@ public class CourseListFragment extends BTFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_plus:
-                registerForContextMenu(mListView);
-                getActivity().openContextMenu(mListView);
+                String[] options = {getString(R.string.create_course), getString(R.string.attend_course)};
+                BTEventBus.getInstance().post(new ShowContextDialogEvent(options, new BTDialogFragment.OnDialogListener() {
+                    @Override
+                    public void onConfirmed(String edit) {
+                        if (getString(R.string.create_course).equals(edit))
+                            showSchoolChoose(true);
+                        if (getString(R.string.attend_course).equals(edit))
+                            showSchoolChoose(false);
+                    }
+
+                    @Override
+                    public void onCanceled() {
+                    }
+                }));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -82,35 +96,12 @@ public class CourseListFragment extends BTFragment {
     }
 
     /**
-     * Context Menu
-     */
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getActivity().getMenuInflater().inflate(R.menu.course_list_context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(android.view.MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.create_course:
-                showSchoolChoose(true);
-                return true;
-            case R.id.attend_course:
-                showSchoolChoose(false);
-                return true;
-        }
-        return super.onContextItemSelected(item);
-    }
-
-    /**
      * Drawing View
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_course_list, container, false);
-        mListView = (ListView) view.findViewById(android.R.id.list);
+        mView = inflater.inflate(R.layout.fragment_course_list, container, false);
+        mListView = (ListView) mView.findViewById(android.R.id.list);
 
         View header = new View(getActivity());
         header.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 8));
@@ -166,7 +157,7 @@ public class CourseListFragment extends BTFragment {
             }
         });
 
-        return view;
+        return mView;
     }
 
     @Override
@@ -220,6 +211,12 @@ public class CourseListFragment extends BTFragment {
 
     private void swapCursor() {
         if (this.isAdded() && mAdapter != null) {
+
+            if (user.getCourses().length == 0)
+                mView.findViewById(R.id.no_course_layout).setVisibility(View.VISIBLE);
+            else
+                mView.findViewById(R.id.no_course_layout).setVisibility(View.GONE);
+
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

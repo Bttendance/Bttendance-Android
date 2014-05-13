@@ -1,7 +1,6 @@
 package com.bttendance.fragment;
 
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.ProfileAdapter;
 import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTKey;
@@ -51,35 +51,24 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_setting:
-                registerForContextMenu(mListView);
-                getActivity().openContextMenu(mListView);
+                String[] options = {getString(R.string.edit_name), getString(R.string.edit_email)};
+                BTEventBus.getInstance().post(new ShowContextDialogEvent(options, new BTDialogFragment.OnDialogListener() {
+                    @Override
+                    public void onConfirmed(String edit) {
+                        if (getString(R.string.edit_name).equals(edit))
+                            showEditName();
+                        if (getString(R.string.edit_email).equals(edit))
+                            showEditEmail();
+                    }
+
+                    @Override
+                    public void onCanceled() {
+                    }
+                }));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    /**
-     * Context Menu
-     */
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getActivity().getMenuInflater().inflate(R.menu.profile_context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(android.view.MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.edit_name:
-                showEditName();
-                return true;
-            case R.id.edit_email:
-                showEditEmail();
-                return true;
-        }
-        return super.onContextItemSelected(item);
     }
 
     /**

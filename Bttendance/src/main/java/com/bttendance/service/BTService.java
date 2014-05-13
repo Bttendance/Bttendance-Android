@@ -12,7 +12,7 @@ import android.os.IBinder;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
-import com.bttendance.event.ShowAlertDialogEvent;
+import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
@@ -935,13 +935,13 @@ public class BTService extends Service {
                         BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
                         String title = errors.title;
                         String message = errors.message;
-                        BTDialogFragment.OnConfirmListener listener = null;
+                        BTDialogFragment.OnDialogListener listener = null;
 
                         if (retrofitError.getResponse().getStatus() == 441)
                             type = BTDialogFragment.DialogType.CONFIRM;
 
                         if (retrofitError.getResponse().getStatus() == 441 || retrofitError.getResponse().getStatus() == 442)
-                            listener = new BTDialogFragment.OnConfirmListener() {
+                            listener = new BTDialogFragment.OnDialogListener() {
                                 @Override
                                 public void onConfirmed(String edit) {
                                     PackagesHelper.updateApp(getApplicationContext());
@@ -953,7 +953,7 @@ public class BTService extends Service {
                             };
 
                         if (retrofitError.getResponse().getStatus() == 401)
-                            listener = new BTDialogFragment.OnConfirmListener() {
+                            listener = new BTDialogFragment.OnDialogListener() {
                                 @Override
                                 public void onConfirmed(String edit) {
                                     BTPreference.clearUser(getApplicationContext());

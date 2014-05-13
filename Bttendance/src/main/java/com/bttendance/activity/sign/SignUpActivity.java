@@ -18,16 +18,15 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.event.HideProgressDialogEvent;
-import com.bttendance.event.ShowAlertDialogEvent;
-import com.bttendance.event.ShowProgressDialogEvent;
+import com.bttendance.event.dialog.HideProgressDialogEvent;
+import com.bttendance.event.dialog.ShowAlertDialogEvent;
+import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.json.DeviceJsonSimple;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTAPI;
 import com.bttendance.service.BTUrl;
-import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
@@ -201,7 +200,7 @@ public class SignUpActivity extends BTActivity {
                         BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
                         String title = getString(R.string.turn_on_bt_title);
                         String message = getString(R.string.turn_on_bt_message);
-                        BTDialogFragment.OnConfirmListener listener = new BTDialogFragment.OnConfirmListener() {
+                        BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
                             @Override
                             public void onConfirmed(String edit) {
                                 BluetoothHelper.enable(SignUpActivity.this);

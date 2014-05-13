@@ -1,8 +1,5 @@
 package com.bttendance.model.json;
 
-import android.content.Context;
-
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 
 /**
@@ -10,14 +7,14 @@ import com.bttendance.model.BTTable;
  */
 public class CourseJsonHelper {
 
-    private Context mContext;
+    private UserJson mUser;
     private CourseJson mCourse;
     private CourseJsonSimple mCourseSimple;
 
-    public CourseJsonHelper(Context context, int courseID) {
-        mContext = context;
+    public CourseJsonHelper(UserJson user, int courseID) {
+        mUser = user;
         mCourse = BTTable.MyCourseTable.get(courseID);
-        mCourseSimple = BTPreference.getCourse(context, courseID);
+        mCourseSimple = user.getCourse(courseID);
     }
 
     public int getID() {
@@ -39,8 +36,8 @@ public class CourseJsonHelper {
     public String getSchoolName() {
         if (mCourse != null && mCourse.school.name != null)
             return mCourse.school.name;
-        if (mCourseSimple != null && BTPreference.getSchool(mContext, mCourseSimple.school) != null)
-            return BTPreference.getSchool(mContext, mCourseSimple.school).name;
+        if (mCourseSimple != null && mUser.getSchool(mCourseSimple.school) != null)
+            return mUser.getSchool(mCourseSimple.school).name;
         return null;
     }
 
@@ -80,5 +77,11 @@ public class CourseJsonHelper {
         if (mCourseSimple != null && mCourseSimple.notice_usage > 0)
             return mCourseSimple.notice_usage;
         return 0;
+    }
+
+    public String getAttdCheckedAt() {
+        if (mCourse != null && mCourse.attdCheckedAt != null)
+            return mCourse.attdCheckedAt;
+        return null;
     }
 }

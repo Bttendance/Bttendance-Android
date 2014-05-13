@@ -8,15 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.attendance.AttdStartEvent;
+import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.CourseDetailFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.BTTable;
-import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.CourseJsonHelper;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.Bttendance;
 import com.squareup.otto.BTEventBus;
@@ -26,8 +26,13 @@ import com.squareup.otto.BTEventBus;
  */
 public class CourseListAdapter extends CursorAdapter implements View.OnClickListener {
 
+    private Context mContext;
+    private UserJson mUser;
+
     public CourseListAdapter(Context context, Cursor c) {
         super(context, c, false);
+        mContext = context;
+        mUser = BTPreference.getUser(mContext);
     }
 
     @Override
@@ -38,8 +43,8 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        CourseJson course = BTTable.MyCourseTable.get(cursor.getInt(0));
-        UserJson user = BTPreference.getUser(mContext);
+        mUser = BTPreference.getUser(mContext);
+        CourseJsonHelper courseHelper = new CourseJsonHelper(mUser, cursor.getInt(0));
 
         Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);
         View selector = view.findViewById(R.id.item_selector);
@@ -47,21 +52,21 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
         selector.setOnClickListener(this);
         selector.setVisibility(View.VISIBLE);
 
-        selector.setTag(R.id.course_id, course.id);
+        selector.setTag(R.id.course_id, courseHelper.getID());
 
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
 
-        boolean mTime = course.attdCheckedAt != null && currentTime - DateHelper.getTime(course.attdCheckedAt) < Bttendance.PROGRESS_DURATION;
+        boolean mTime = courseHelper.getAttdCheckedAt() != null && currentTime - DateHelper.getTime(courseHelper.getAttdCheckedAt()) < Bttendance.PROGRESS_DURATION;
         if (mTime) {
-            long time = currentTime - DateHelper.getTime(course.attdCheckedAt);
+            long time = currentTime - DateHelper.getTime(courseHelper.getAttdCheckedAt());
             int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
             bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
         } else {
-            int grade = Integer.parseInt(course.grade);
+            int grade = Integer.parseInt(courseHelper.getGrade());
             bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
         }
 
-        boolean supved = IntArrayHelper.contains(user.supervising_courses, course.id);
+        boolean supved = IntArrayHelper.contains(mUser.supervising_courses, courseHelper.getID());
         if (supved) {
             view.findViewById(R.id.manager_layout).setVisibility(View.VISIBLE);
             view.findViewById(R.id.clicker_bt).setOnClickListener(this);
@@ -76,8 +81,8 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
 
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
-        title.setText(course.name);
-        message.setText(context.getString(R.string.prof_) + course.professor_name + "\n" + course.school.name);
+        title.setText(courseHelper.getName());
+        message.setText(context.getString(R.string.prof_) + courseHelper.getProfessorName() + "\n" + courseHelper.getSchoolName());
     }
 
     @Override
@@ -95,8 +100,8 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
         switch (v.getId()) {
             case R.id.item_selector:
                 int course_id = (Integer) v.getTag(R.id.course_id);
-                CourseJson course = BTTable.MyCourseTable.get(course_id);
-                CourseDetailFragment frag = new CourseDetailFragment(course.id);
+                CourseJsonHelper courseHelper = new CourseJsonHelper(mUser, course_id);
+                CourseDetailFragment frag = new CourseDetailFragment(courseHelper.getID());
                 BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                 break;
             default:

@@ -6379,7 +6379,7 @@ com.bttendance.fragment.AddManagerFragment: void onCreateOptionsMenu(com.actionb
 com.bttendance.fragment.AddManagerFragment: boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem)
 com.bttendance.fragment.BTDialogFragment
 com.bttendance.fragment.BTDialogFragment: BTDialogFragment(com.bttendance.fragment.BTDialogFragment$DialogType,java.lang.String,java.lang.String)
-com.bttendance.fragment.BTDialogFragment: void setOnConfirmListener(com.bttendance.fragment.BTDialogFragment$OnConfirmListener)
+com.bttendance.fragment.BTDialogFragment: void setOnConfirmListener(com.bttendance.fragment.BTDialogFragment$OnDialogListener)
 com.bttendance.fragment.BTDialogFragment: void setPlaceholder(java.lang.String)
 com.bttendance.fragment.BTDialogFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
 com.bttendance.fragment.BTDialogFragment: void onClick(android.view.View)
@@ -6390,9 +6390,9 @@ com.bttendance.fragment.BTDialogFragment$DialogType: com.bttendance.fragment.BTD
 com.bttendance.fragment.BTDialogFragment$DialogType: com.bttendance.fragment.BTDialogFragment$DialogType EDIT
 com.bttendance.fragment.BTDialogFragment$DialogType: com.bttendance.fragment.BTDialogFragment$DialogType[] values()
 com.bttendance.fragment.BTDialogFragment$DialogType: com.bttendance.fragment.BTDialogFragment$DialogType valueOf(java.lang.String)
-com.bttendance.fragment.BTDialogFragment$OnConfirmListener
-com.bttendance.fragment.BTDialogFragment$OnConfirmListener: void onConfirmed(java.lang.String)
-com.bttendance.fragment.BTDialogFragment$OnConfirmListener: void onCanceled()
+com.bttendance.fragment.BTDialogFragment$OnDialogListener
+com.bttendance.fragment.BTDialogFragment$OnDialogListener: void onConfirmed(java.lang.String)
+com.bttendance.fragment.BTDialogFragment$OnDialogListener: void onCanceled()
 com.bttendance.fragment.BTFragment
 com.bttendance.fragment.BTFragment: BTFragment()
 com.bttendance.fragment.BTFragment: void onCreate(android.os.Bundle)

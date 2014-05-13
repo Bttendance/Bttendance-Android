@@ -1,4 +1,4 @@
-package com.bttendance.event;
+package com.bttendance.event.dialog;
 
 import com.bttendance.fragment.BTDialogFragment;
 
@@ -11,17 +11,17 @@ public class ShowAlertDialogEvent {
     private String mTitle;
     private String mMessage;
     private String mPlaceholder;
-    private BTDialogFragment.OnConfirmListener mListener;
+    private BTDialogFragment.OnDialogListener mListener;
 
     public ShowAlertDialogEvent(BTDialogFragment.DialogType type, String title, String message) {
         this(type, title, message, null);
     }
 
-    public ShowAlertDialogEvent(BTDialogFragment.DialogType type, String title, String message, BTDialogFragment.OnConfirmListener listener) {
+    public ShowAlertDialogEvent(BTDialogFragment.DialogType type, String title, String message, BTDialogFragment.OnDialogListener listener) {
         this(type, title, message, null, listener);
     }
 
-    public ShowAlertDialogEvent(BTDialogFragment.DialogType type, String title, String message, String placeholder, BTDialogFragment.OnConfirmListener listener) {
+    public ShowAlertDialogEvent(BTDialogFragment.DialogType type, String title, String message, String placeholder, BTDialogFragment.OnDialogListener listener) {
         mType = type;
         mTitle = title;
         mMessage = message;
@@ -45,7 +45,7 @@ public class ShowAlertDialogEvent {
         return mPlaceholder;
     }
 
-    public BTDialogFragment.OnConfirmListener getListener() {
+    public BTDialogFragment.OnDialogListener getListener() {
         return mListener;
     }
 }

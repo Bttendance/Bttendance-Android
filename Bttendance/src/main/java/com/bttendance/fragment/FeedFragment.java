@@ -14,6 +14,7 @@ import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.PostCursor;
 import com.bttendance.model.json.PostJson;
@@ -101,7 +102,7 @@ public class FeedFragment extends BTFragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfMyCourse(getActivity())));
+                    mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfMyCourse(BTPreference.getUser(getActivity()))));
                 }
             });
         }

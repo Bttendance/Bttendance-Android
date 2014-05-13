@@ -11272,7 +11272,7 @@ com.bttendance.fragment.AddManagerFragment$3 -> sg:
     154:154:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.fragment.BTDialogFragment -> com.bttendance.fragment.BTDialogFragment:
     com.bttendance.fragment.BTDialogFragment$DialogType mType -> a
-    com.bttendance.fragment.BTDialogFragment$OnConfirmListener mConfrimListener -> b
+    com.bttendance.fragment.BTDialogFragment$OnDialogListener mConfrimListener -> b
     java.lang.String mTitle -> c
     java.lang.String mMessage -> d
     android.widget.EditText mEdit -> e
@@ -11280,7 +11280,7 @@ com.bttendance.fragment.BTDialogFragment -> com.bttendance.fragment.BTDialogFrag
     android.view.View mEditDivider -> g
     boolean mConfirmed -> h
     int mScreenHeight -> i
-    39:40:void setOnConfirmListener(com.bttendance.fragment.BTDialogFragment$OnConfirmListener) -> setOnConfirmListener
+    39:40:void setOnConfirmListener(com.bttendance.fragment.BTDialogFragment$OnDialogListener) -> setOnConfirmListener
     43:44:void setPlaceholder(java.lang.String) -> setPlaceholder
     48:94:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     99:109:void onClick(android.view.View) -> onClick
@@ -11298,7 +11298,7 @@ com.bttendance.fragment.BTDialogFragment$DialogType -> com.bttendance.fragment.B
     com.bttendance.fragment.BTDialogFragment$DialogType[] $VALUES -> a
     120:120:com.bttendance.fragment.BTDialogFragment$DialogType[] values() -> values
     120:120:com.bttendance.fragment.BTDialogFragment$DialogType valueOf(java.lang.String) -> valueOf
-com.bttendance.fragment.BTDialogFragment$OnConfirmListener -> com.bttendance.fragment.BTDialogFragment$OnConfirmListener:
+com.bttendance.fragment.BTDialogFragment$OnDialogListener -> com.bttendance.fragment.BTDialogFragment$OnDialogListener:
     void onConfirmed(java.lang.String) -> onConfirmed
     void onCanceled() -> onCanceled
 com.bttendance.fragment.BTFragment -> com.bttendance.fragment.BTFragment:

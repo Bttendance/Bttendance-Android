@@ -58,17 +58,17 @@ public class BTDebug {
     public static void LogQueryAPI(String log) {
         if (DEBUG)
             if (log != null)
-                Log.v(TAG_API, log);
+                Log.i(TAG_API, log);
             else
-                Log.v(TAG_API, "Log is null");
+                Log.i(TAG_API, "Log is null");
     }
 
     public static void LogResponseAPI(String log) {
         if (DEBUG)
             if (log != null)
-                Log.i(TAG_API, log);
+                Log.v(TAG_API, log);
             else
-                Log.i(TAG_API, "Log is null");
+                Log.v(TAG_API, "Log is null");
     }
 
     public static void Toast(Context context, String log) {

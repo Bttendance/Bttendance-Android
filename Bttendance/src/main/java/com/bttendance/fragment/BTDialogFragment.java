@@ -21,7 +21,8 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
 
     View mView;
     DialogType mType;
-    OnConfirmListener mListener;
+    OnDialogListener mListener;
+    String[] mOptions;
     String mTitle;
     String mMessage;
     EditText mEdit;
@@ -38,7 +39,13 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
         mMessage = message;
     }
 
-    public BTDialogFragment(DialogType type, String title, String message, String placeholder, OnConfirmListener listener) {
+    public BTDialogFragment(String[] options, OnDialogListener listener) {
+        mType = DialogType.CONTEXT;
+        mOptions = options;
+        mListener = listener;
+    }
+
+    public BTDialogFragment(DialogType type, String title, String message, String placeholder, OnDialogListener listener) {
         mType = type;
         mTitle = title;
         mMessage = message;
@@ -59,7 +66,13 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
         draw();
     }
 
-    public void toAlert(DialogType type, String title, String message, String placeholder, OnConfirmListener listener) {
+    public void toContext(String[] options, OnDialogListener listener) {
+        mType = DialogType.CONTEXT;
+        mOptions = options;
+        mListener = listener;
+    }
+
+    public void toAlert(DialogType type, String title, String message, String placeholder, OnDialogListener listener) {
         mType = type;
         mTitle = title;
         mMessage = message;
@@ -82,12 +95,21 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
         switch (mType) {
             case PROGRESS:
                 mView.findViewById(R.id.progress).setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.context).setVisibility(View.GONE);
                 mView.findViewById(R.id.alert).setVisibility(View.GONE);
                 mView.findViewById(R.id.padding_layout).setVisibility(View.GONE);
                 drawProgress();
                 break;
+            case CONTEXT:
+                mView.findViewById(R.id.progress).setVisibility(View.GONE);
+                mView.findViewById(R.id.context).setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.alert).setVisibility(View.GONE);
+                mView.findViewById(R.id.padding_layout).setVisibility(View.GONE);
+                drawContext();
+                break;
             default:
                 mView.findViewById(R.id.progress).setVisibility(View.GONE);
+                mView.findViewById(R.id.context).setVisibility(View.GONE);
                 mView.findViewById(R.id.alert).setVisibility(View.VISIBLE);
                 mView.findViewById(R.id.padding_layout).setVisibility(View.VISIBLE);
                 drawAlert();
@@ -147,16 +169,73 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
         message.setText(mMessage);
     }
 
+    private void drawContext() {
+        if (mOptions == null || mOptions.length > 4 || mOptions.length == 0)
+            getActivity().onBackPressed();
+
+        Button context1 = (Button) mView.findViewById(R.id.context_1);
+        Button context2 = (Button) mView.findViewById(R.id.context_2);
+        Button context3 = (Button) mView.findViewById(R.id.context_3);
+        Button context4 = (Button) mView.findViewById(R.id.context_4);
+
+        switch (mOptions.length) {
+            case 1:
+                context2.setVisibility(View.GONE);
+                mView.findViewById(R.id.context_divider_2).setVisibility(View.GONE);
+            case 2:
+                context3.setVisibility(View.GONE);
+                mView.findViewById(R.id.context_divider_3).setVisibility(View.GONE);
+            case 3:
+                context4.setVisibility(View.GONE);
+                mView.findViewById(R.id.context_divider_4).setVisibility(View.GONE);
+                break;
+        }
+
+        switch (mOptions.length) {
+            case 4:
+                context4.setText(mOptions[3]);
+                context4.setOnClickListener(this);
+            case 3:
+                context3.setText(mOptions[2]);
+                context3.setOnClickListener(this);
+            case 2:
+                context2.setText(mOptions[1]);
+                context2.setOnClickListener(this);
+            case 1:
+                context1.setText(mOptions[0]);
+                context1.setOnClickListener(this);
+                break;
+        }
+
+        mView.findViewById(R.id.total_layout).setOnClickListener(this);
+    }
+
     /**
      * View.OnClickListener
      */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.context_1:
+            case R.id.context_2:
+            case R.id.context_3:
+            case R.id.context_4:
+                mConfirmed = true;
+                getActivity().onBackPressed();
+                if (mListener != null)
+                    mListener.onConfirmed(((Button) v).getText().toString());
+                break;
+            case R.id.total_layout:
+                if (mType == DialogType.CONTEXT)
+                    getActivity().onBackPressed();
+                break;
             case R.id.confirm:
                 mConfirmed = true;
                 if (mListener != null)
                     mListener.onConfirmed(mEdit.getText().toString());
+                KeyboardHelper.hide(getActivity(), mEdit);
+                getActivity().onBackPressed();
+                break;
             case R.id.cancel:
                 KeyboardHelper.hide(getActivity(), mEdit);
                 getActivity().onBackPressed();
@@ -174,10 +253,10 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     // Confirm => "confrim" & "cancel"
     // OK => "ok"
     public enum DialogType {
-        CONFIRM, OK, EDIT, PROGRESS
+        CONFIRM, OK, EDIT, PROGRESS, CONTEXT
     }
 
-    public interface OnConfirmListener {
+    public interface OnDialogListener {
         void onConfirmed(String edit);
 
         void onCanceled();

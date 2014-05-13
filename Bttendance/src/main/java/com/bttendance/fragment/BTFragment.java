@@ -3,6 +3,7 @@ package com.bttendance.fragment;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -36,10 +37,17 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        if (this instanceof BTDialogFragment)
-            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_black)));
-        else
+        int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
+        TextView abTitle = (TextView) getActivity().findViewById(titleId);
+        if (this instanceof BTDialogFragment) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy_darken)));
+            abTitle.setTextColor(getResources().getColor(R.color.bttendance_white_darken));
+        } else {
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy)));
+            abTitle.setTextColor(getResources().getColor(R.color.bttendance_white));
+        }
     }
 
     @Override

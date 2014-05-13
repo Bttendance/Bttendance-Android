@@ -9,6 +9,10 @@ import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
 import com.bttendance.event.bluetooth.BTEnabledEvent;
+import com.bttendance.event.dialog.HideProgressDialogEvent;
+import com.bttendance.event.dialog.ShowAlertDialogEvent;
+import com.bttendance.event.dialog.ShowContextDialogEvent;
+import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
@@ -48,7 +52,7 @@ public class BTEventDispatcher {
 //        String message = act.getString(R.string.do_you_want_to_start_attendance_check);
 //
 //        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
-//        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+//        dialog.setOnConfirmListener(new BTDialogFragment.OnDialogListener() {
 //            @Override
 //            public void onConfirmed(String edit) {
 //                BTTable.ATTENDANCE_STARTING_COURSE = event.getCourseId();
@@ -96,7 +100,7 @@ public class BTEventDispatcher {
 //        String message = act.getString(R.string.turn_on_your_bluetooth_settings);
 //
 //        final BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-//        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+//        dialog.setOnConfirmListener(new BTDialogFragment.OnDialogListener() {
 //            @Override
 //            public void onConfirmed(String edit) {
 //                if (!BluetoothHelper.isDiscoverable()) {
@@ -190,7 +194,7 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onShowDialog(final ShowAlertDialogEvent event) {
+    public void onShowAlertDialog(final ShowAlertDialogEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null || event.getTitle() == null || act.findViewById(R.id.content) == null)
             return;
@@ -217,6 +221,29 @@ public class BTEventDispatcher {
                     event.getMessage(),
                     event.getPlaceholder(),
                     event.getListener()));
+            ft.addToBackStack(null);
+            ft.commitAllowingStateLoss();
+        }
+    }
+
+    @Subscribe
+    public void onShowContextDialog(final ShowContextDialogEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null || event.getOptions() == null || act.findViewById(R.id.content) == null)
+            return;
+
+        // Some Dialog is already exist.
+        BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);
+        if (frag instanceof BTDialogFragment)
+            ((BTDialogFragment) frag).toContext(event.getOptions(), event.getListener());
+        else {
+            FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
+            ft.setCustomAnimations(
+                    R.anim.fade_in_fast,
+                    R.anim.fade_out_fast,
+                    R.anim.fade_in_fast,
+                    R.anim.fade_out_fast);
+            ft.add(R.id.content, new BTDialogFragment(event.getOptions(), event.getListener()));
             ft.addToBackStack(null);
             ft.commitAllowingStateLoss();
         }
