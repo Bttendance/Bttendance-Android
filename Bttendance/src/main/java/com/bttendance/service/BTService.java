@@ -12,7 +12,7 @@ import android.os.IBinder;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
-import com.bttendance.event.ShowDialogEvent;
+import com.bttendance.event.ShowAlertDialogEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
@@ -922,8 +922,7 @@ public class BTService extends Service {
             if (retrofitError.getResponse().getStatus() == 503) {
                 String title = getString(R.string.oopps);
                 String message = getString(R.string.too_many_users_are_connecting);
-                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, null));
+                BTEventBus.getInstance().post(new ShowAlertDialogEvent(BTDialogFragment.DialogType.OK, title, message));
             } else {
                 try {
                     ErrorJson errors = (ErrorJson) retrofitError.getBodyAs(ErrorJson.class);
@@ -932,12 +931,17 @@ public class BTService extends Service {
                     if ("toast".equals(errors.type))
                         BeautiToast.show(getApplicationContext(), errors.message);
                     if ("alert".equals(errors.type)) {
-                        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, errors.title, errors.message);
+
+                        BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
+                        String title = errors.title;
+                        String message = errors.message;
+                        BTDialogFragment.OnConfirmListener listener = null;
+
                         if (retrofitError.getResponse().getStatus() == 441)
-                            dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, errors.title, errors.message);
+                            type = BTDialogFragment.DialogType.CONFIRM;
 
                         if (retrofitError.getResponse().getStatus() == 441 || retrofitError.getResponse().getStatus() == 442)
-                            dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                            listener = new BTDialogFragment.OnConfirmListener() {
                                 @Override
                                 public void onConfirmed(String edit) {
                                     PackagesHelper.updateApp(getApplicationContext());
@@ -946,10 +950,10 @@ public class BTService extends Service {
                                 @Override
                                 public void onCanceled() {
                                 }
-                            });
+                            };
 
                         if (retrofitError.getResponse().getStatus() == 401)
-                            dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                            listener = new BTDialogFragment.OnConfirmListener() {
                                 @Override
                                 public void onConfirmed(String edit) {
                                     BTPreference.clearUser(getApplicationContext());
@@ -963,9 +967,9 @@ public class BTService extends Service {
                                     Intent intent = new Intent(getApplicationContext(), CatchPointActivity.class);
                                     startActivity(intent);
                                 }
-                            });
+                            };
 
-                        BTEventBus.getInstance().post(new ShowDialogEvent(dialog, null));
+                        BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
                     }
                 } catch (Exception e) {
                     BTDebug.LogError(e.getMessage() + " : " + retrofitError.getMessage());

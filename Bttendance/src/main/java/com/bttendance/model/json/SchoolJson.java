@@ -1,5 +1,8 @@
 package com.bttendance.model.json;
 
+import com.bttendance.R;
+import com.bttendance.adapter.kit.InstantText;
+
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
  */
@@ -15,13 +18,13 @@ public class SchoolJson extends BTJson {
     public UserJsonSimple[] professors;
     public UserJsonSimple[] students;
 
-//    @InstantText(viewId = R.id.name)
-//    public String getName() {
-//        return name;
-//    }
-//
-//    @InstantText(viewId = R.id.website)
-//    public String getWebsite() {
-//        return website;
-//    }
+    @InstantText(viewId = R.id.name)
+    public String getName() {
+        return name;
+    }
+
+    @InstantText(viewId = R.id.website)
+    public String getWebsite() {
+        return website;
+    }
 }

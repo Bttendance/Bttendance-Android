@@ -1,9 +1,15 @@
 package com.bttendance.fragment;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.service.BTService;
 import com.squareup.otto.BTEventBus;
@@ -22,6 +28,30 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         }
         if (getBTService() != null)
             onServiceConnected();
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        if (this instanceof BTDialogFragment)
+            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_black)));
+        else
+            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy)));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.abs__home:
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

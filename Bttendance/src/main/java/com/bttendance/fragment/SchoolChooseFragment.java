@@ -101,10 +101,10 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
     private void swapItems() {
         if (this.isAdded() && mAdapter != null) {
+            user = BTPreference.getUser(getActivity());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    user = BTPreference.getUser(getActivity());
                     mAdapter.swapCursor(new SectionedSchoolCursor(getActivity(), mAuth));
                     mSectionAdapter.notifyDataSetChanged();
                 }

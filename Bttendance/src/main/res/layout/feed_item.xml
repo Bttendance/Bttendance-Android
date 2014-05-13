@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@null"
-    android:minHeight="88dp"
     android:paddingBottom="7dp"
     android:paddingLeft="11dp"
     android:paddingRight="11dp"
@@ -38,8 +37,9 @@
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/ic_notice_big"
         android:visibility="gone" />
 

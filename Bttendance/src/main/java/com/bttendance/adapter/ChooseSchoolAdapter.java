@@ -3,6 +3,7 @@ package com.bttendance.adapter;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.bttendance.BTDebug;
 import com.bttendance.adapter.kit.InstantCursorAdapter;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.SchoolJson;

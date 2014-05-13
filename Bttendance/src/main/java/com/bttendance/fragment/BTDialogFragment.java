@@ -1,6 +1,5 @@
 package com.bttendance.fragment;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +10,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.helper.ScreenHelper;
@@ -24,65 +19,88 @@ import com.bttendance.helper.ScreenHelper;
  */
 public class BTDialogFragment extends BTFragment implements View.OnClickListener {
 
+    View mView;
     DialogType mType;
-    OnConfirmListener mConfrimListener;
+    OnConfirmListener mListener;
     String mTitle;
     String mMessage;
     EditText mEdit;
-    String mEditPlaceholder;
+    String mPlaceholder;
     View mEditDivider;
     boolean mConfirmed = false;
     int mScreenHeight;
 
-    public BTDialogFragment(DialogType type, String title, String message) {
-        mType = type;
-        mTitle = title;
+    /**
+     * Constructor
+     */
+    public BTDialogFragment(String message) {
+        mType = DialogType.PROGRESS;
         mMessage = message;
     }
 
-    public void setOnConfirmListener(OnConfirmListener confrimListener) {
-        mConfrimListener = confrimListener;
+    public BTDialogFragment(DialogType type, String title, String message, String placeholder, OnConfirmListener listener) {
+        mType = type;
+        mTitle = title;
+        mMessage = message;
+        mPlaceholder = placeholder;
+        mListener = listener;
     }
 
-    public void setPlaceholder(String placeholder) {
-        mEditPlaceholder = placeholder;
+    /**
+     * Re Construct
+     */
+    public DialogType getType() {
+        return mType;
     }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//    }
-//
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-//        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_black)));
-//        actionBar.setTitle("Dismiss");
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.abs__home:
-//            case android.R.id.home:
-//                getActivity().onBackPressed();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    public void toProgress(String message) {
+        mType = DialogType.PROGRESS;
+        mMessage = message;
+        draw();
+    }
 
+    public void toAlert(DialogType type, String title, String message, String placeholder, OnConfirmListener listener) {
+        mType = type;
+        mTitle = title;
+        mMessage = message;
+        mPlaceholder = placeholder;
+        mListener = listener;
+        draw();
+    }
+
+    /**
+     * Drawing
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.bt_alert_dialog, container, false);
-        Button confirm = (Button) view.findViewById(R.id.confirm);
-        Button cancel = (Button) view.findViewById(R.id.cancel);
-        View divider = view.findViewById(R.id.divider);
-        mEdit = (EditText) view.findViewById(R.id.edit);
-        mEditDivider = view.findViewById(R.id.edit_divider);
+        mView = inflater.inflate(R.layout.bt_dialog, container, false);
+        draw();
+        return mView;
+    }
+
+    private void draw() {
+        switch (mType) {
+            case PROGRESS:
+                mView.findViewById(R.id.progress).setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.alert).setVisibility(View.GONE);
+                mView.findViewById(R.id.padding_layout).setVisibility(View.GONE);
+                drawProgress();
+                break;
+            default:
+                mView.findViewById(R.id.progress).setVisibility(View.GONE);
+                mView.findViewById(R.id.alert).setVisibility(View.VISIBLE);
+                mView.findViewById(R.id.padding_layout).setVisibility(View.VISIBLE);
+                drawAlert();
+                break;
+        }
+    }
+
+    private void drawAlert() {
+        Button confirm = (Button) mView.findViewById(R.id.confirm);
+        Button cancel = (Button) mView.findViewById(R.id.cancel);
+        View divider = mView.findViewById(R.id.divider);
+        mEdit = (EditText) mView.findViewById(R.id.edit);
+        mEditDivider = mView.findViewById(R.id.edit_divider);
         switch (mType) {
             case EDIT:
                 mEdit.setVisibility(View.VISIBLE);
@@ -101,38 +119,44 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
         confirm.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
-        TextView title = (TextView) view.findViewById(R.id.title);
-        TextView message = (TextView) view.findViewById(R.id.message);
+        TextView title = (TextView) mView.findViewById(R.id.title);
+        TextView message = (TextView) mView.findViewById(R.id.message_alert);
         title.setText(mTitle);
         message.setText(mMessage);
 
         mScreenHeight = ScreenHelper.getHeight(getActivity());
-        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if (view.getHeight() < mScreenHeight - 200) {
-                    ((LinearLayout) view.findViewById(R.id.total_layout)).setWeightSum(60);
-                    view.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
+                if (mView.getHeight() < mScreenHeight - 200) {
+                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(60);
+                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
                 } else {
-                    ((LinearLayout) view.findViewById(R.id.total_layout)).setWeightSum(100);
-                    view.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 40));
+                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(100);
+                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 40));
                 }
             }
         });
 
-        if (mEditPlaceholder != null)
-            mEdit.setHint(mEditPlaceholder);
-
-        return view;
+        if (mPlaceholder != null)
+            mEdit.setHint(mPlaceholder);
     }
 
+    private void drawProgress() {
+        TextView message = (TextView) mView.findViewById(R.id.message_progress);
+        message.setText(mMessage);
+    }
+
+    /**
+     * View.OnClickListener
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirm:
                 mConfirmed = true;
-                if (mConfrimListener != null)
-                    mConfrimListener.onConfirmed(mEdit.getText().toString());
+                if (mListener != null)
+                    mListener.onConfirmed(mEdit.getText().toString());
             case R.id.cancel:
                 KeyboardHelper.hide(getActivity(), mEdit);
                 getActivity().onBackPressed();
@@ -143,14 +167,14 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mConfrimListener != null && !mConfirmed)
-            mConfrimListener.onCanceled();
+        if (mListener != null && !mConfirmed)
+            mListener.onCanceled();
     }
 
     // Confirm => "confrim" & "cancel"
     // OK => "ok"
     public enum DialogType {
-        CONFIRM, OK, EDIT
+        CONFIRM, OK, EDIT, PROGRESS
     }
 
     public interface OnConfirmListener {

@@ -15,7 +15,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.event.ShowDialogEvent;
+import com.bttendance.event.ShowAlertDialogEvent;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
@@ -153,9 +153,7 @@ public class AddManagerFragment extends BTFragment {
 
                 String title = getString(R.string.add_manager);
                 String message = String.format(getString(R.string.would_you_like_to_add), user.full_name, mCourse.name);
-
-                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
-                dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                BTDialogFragment.OnConfirmListener listener = new BTDialogFragment.OnConfirmListener() {
                     @Override
                     public void onConfirmed(String edit) {
                         getBTService().addManager(user.username, mCourse.id, new Callback<CourseJson>() {
@@ -173,8 +171,9 @@ public class AddManagerFragment extends BTFragment {
                     @Override
                     public void onCanceled() {
                     }
-                });
-                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "manager"));
+                };
+
+                BTEventBus.getInstance().post(new ShowAlertDialogEvent(BTDialogFragment.DialogType.CONFIRM, title, message, listener));
             }
 
             @Override

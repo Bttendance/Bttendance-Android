@@ -17,10 +17,11 @@ import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.LoadingEvent;
-import com.bttendance.event.ShowDialogEvent;
+import com.bttendance.event.ShowAlertDialogEvent;
 import com.bttendance.event.attendance.AttdCheckedEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
+import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.IntArrayHelper;
@@ -53,7 +54,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     public CourseDetailFragment(int courseID) {
         mCourseHelper = new CourseJsonHelper(getActivity(), courseID);
         UserJson user = BTPreference.getUser(getActivity());
-        mAuth = IntArrayHelper.contains(user.attending_courses, mCourseHelper.getID());
+        mAuth = IntArrayHelper.contains(user.supervising_courses, mCourseHelper.getID());
     }
 
     /**
@@ -82,8 +83,8 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 getActivity().onBackPressed();
                 return true;
             case R.id.action_setting:
-                registerForContextMenu(item.getActionView());
-                getActivity().openContextMenu(item.getActionView());
+                registerForContextMenu(mListView);
+                getActivity().openContextMenu(mListView);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -277,10 +278,10 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 if (progress.isShowing())
                     progress.dismiss();
 
+                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
                 String title = getString(R.string.export_grades);
                 String message = String.format(getString(R.string.exporting_grade_has_been_finished), email.email);
-                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "export grade"));
+                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message));
             }
 
             @Override
@@ -298,11 +299,14 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
 
     private void unjoinCourse() {
         final ProgressDialog progress = ProgressDialog.show(getActivity(), "", getString(R.string.unjoining_course));
-        getBTService().courseExportGrades(mCourseHelper.getID(), new Callback<EmailJson>() {
+        getBTService().dettendCourse(mCourseHelper.getID(), new Callback<UserJson>() {
             @Override
-            public void success(EmailJson email, Response response) {
+            public void success(UserJson user, Response response) {
                 if (progress.isShowing())
                     progress.dismiss();
+
+                BTEventBus.getInstance().post(new UpdateCourseListEvent());
+                BTEventBus.getInstance().post(new UpdateFeedEvent());
 
                 int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
                 getActivity().getSupportFragmentManager().popBackStack();

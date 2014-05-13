@@ -14,6 +14,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.event.HideProgressDialogEvent;
+import com.bttendance.event.ShowProgressDialogEvent;
 import com.bttendance.fragment.ForgotPasswordFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.KeyboardHelper;
@@ -162,15 +164,18 @@ public class SignInActivity extends BTActivity {
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
         String uuid = BluetoothHelper.getMacAddress();
+        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.loging_in_bttendance)));
         getBTService().signin(username, password, uuid, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
                 startActivity(getNextIntent());
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
             }
         });
     }

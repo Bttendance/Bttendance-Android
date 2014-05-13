@@ -18,7 +18,9 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.event.ShowDialogEvent;
+import com.bttendance.event.HideProgressDialogEvent;
+import com.bttendance.event.ShowAlertDialogEvent;
+import com.bttendance.event.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.json.DeviceJsonSimple;
@@ -52,11 +54,6 @@ public class SignUpActivity extends BTActivity {
     private String mUsernameString = null;
     private String mEmailString = null;
     private String mPasswordString = null;
-
-    private void typeError() {
-        BeautiToast.show(this, getString(R.string.user_type_error_occurred));
-        onBackPressed();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -201,11 +198,10 @@ public class SignUpActivity extends BTActivity {
                     ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_cyan));
                     v.setPressed(false);
                     if (BluetoothHelper.getMacAddress() == null) {
+                        BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
                         String title = getString(R.string.turn_on_bt_title);
                         String message = getString(R.string.turn_on_bt_message);
-
-                        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
-                        dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                        BTDialogFragment.OnConfirmListener listener = new BTDialogFragment.OnConfirmListener() {
                             @Override
                             public void onConfirmed(String edit) {
                                 BluetoothHelper.enable(SignUpActivity.this);
@@ -214,8 +210,8 @@ public class SignUpActivity extends BTActivity {
                             @Override
                             public void onCanceled() {
                             }
-                        });
-                        BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "bt"));
+                        };
+                        BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
                     } else {
                         trySignUp();
                     }
@@ -322,15 +318,18 @@ public class SignUpActivity extends BTActivity {
         user.device.type = BTAPI.ANDROID;
         user.device.uuid = BluetoothHelper.getMacAddress();
 
+        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.signing_up_bttendance)));
         getBTService().signup(user, new Callback<UserJson>() {
             @Override
             public void success(UserJson user, Response response) {
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
                 startActivity(getNextIntent());
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
             }
         });
     }

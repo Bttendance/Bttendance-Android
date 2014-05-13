@@ -1,10 +1,7 @@
 package com.bttendance.event;
 
-import android.app.ProgressDialog;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentTransaction;
 
-import com.actionbarsherlock.view.Window;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.attendance.AttdStartEvent;
@@ -12,8 +9,8 @@ import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
 import com.bttendance.event.bluetooth.BTEnabledEvent;
+import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.fragment.BTProgressDialogFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.squareup.otto.Subscribe;
 
@@ -170,11 +167,15 @@ public class BTEventDispatcher {
         if (act == null || act.findViewById(R.id.content) == null)
             return;
 
-        final BTFragment frag = event.getFragment();
+        // Hide all dialog is exist
+        BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);
+        if (frag != null && frag instanceof BTDialogFragment)
+            act.getSupportFragmentManager().popBackStackImmediate();
 
         act.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                BTFragment frag = event.getFragment();
                 FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(
                         R.anim.slide_in_right,
@@ -189,31 +190,36 @@ public class BTEventDispatcher {
     }
 
     @Subscribe
-    public void onShowDialog(final ShowDialogEvent event) {
+    public void onShowDialog(final ShowAlertDialogEvent event) {
         final BTActivity act = getBTActivity();
-        if (act == null || event.getDialog() == null || act.findViewById(R.id.content) == null)
+        if (act == null || event.getTitle() == null || act.findViewById(R.id.content) == null)
             return;
 
-        if (event.getName() != null && act.getSupportFragmentManager().findFragmentByTag(event.getName()) != null)
-            return;
-
-        if (act.getSupportFragmentManager().findFragmentById(R.id.content) instanceof BTProgressDialogFragment)
-            act.getSupportFragmentManager().popBackStack();
-
-        act.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(
-                        R.anim.fade_in_fast,
-                        R.anim.fade_out_fast,
-                        R.anim.fade_in_fast,
-                        R.anim.fade_out_fast);
-                ft.add(R.id.content, event.getDialog(), event.getName());
-                ft.addToBackStack(event.getName());
-                ft.commitAllowingStateLoss();
-            }
-        });
+        // Some Dialog is already exist.
+        BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);
+        if (frag instanceof BTDialogFragment)
+            ((BTDialogFragment) frag).toAlert(
+                    event.getType(),
+                    event.getTitle(),
+                    event.getMessage(),
+                    event.getPlaceholder(),
+                    event.getListener());
+        else {
+            FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
+            ft.setCustomAnimations(
+                    R.anim.fade_in_fast,
+                    R.anim.fade_out_fast,
+                    R.anim.fade_in_fast,
+                    R.anim.fade_out_fast);
+            ft.add(R.id.content, new BTDialogFragment(
+                    event.getType(),
+                    event.getTitle(),
+                    event.getMessage(),
+                    event.getPlaceholder(),
+                    event.getListener()));
+            ft.addToBackStack(null);
+            ft.commitAllowingStateLoss();
+        }
     }
 
     @Subscribe
@@ -222,26 +228,31 @@ public class BTEventDispatcher {
         if (act == null || act.findViewById(R.id.content) == null || event.getMessage() == null)
             return;
 
-        BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentByTag(event.getMessage());
-        if (!event.getShow() && frag != null && act.getSupportFragmentManager().findFragmentById(R.id.content) instanceof BTProgressDialogFragment)
-            act.getSupportFragmentManager().popBackStack();
-
-        if (event.getShow() && frag == null) {
-            act.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
-                    ft.setCustomAnimations(
-                            R.anim.fade_in_fast,
-                            R.anim.fade_out_fast,
-                            R.anim.fade_in_fast,
-                            R.anim.fade_out_fast);
-                    ft.add(R.id.content, new BTProgressDialogFragment(event.getMessage()), event.getMessage());
-                    ft.addToBackStack(event.getMessage());
-                    ft.commitAllowingStateLoss();
-                }
-            });
+        BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);
+        if (frag instanceof BTDialogFragment)
+            ((BTDialogFragment) frag).toProgress(event.getMessage());
+        else {
+            FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
+            ft.setCustomAnimations(
+                    R.anim.fade_in_fast,
+                    R.anim.fade_out_fast,
+                    R.anim.fade_in_fast,
+                    R.anim.fade_out_fast);
+            ft.add(R.id.content, new BTDialogFragment(event.getMessage()));
+            ft.addToBackStack(null);
+            ft.commitAllowingStateLoss();
         }
+    }
+
+    @Subscribe
+    public void onHideProgressDialog(HideProgressDialogEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null || act.findViewById(R.id.content) == null)
+            return;
+
+        BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);
+        if (frag != null && frag instanceof BTDialogFragment && ((BTDialogFragment) frag).getType() == BTDialogFragment.DialogType.PROGRESS)
+            act.getSupportFragmentManager().popBackStackImmediate();
     }
 
     @Subscribe

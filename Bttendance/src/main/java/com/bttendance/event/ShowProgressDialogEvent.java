@@ -6,18 +6,13 @@ package com.bttendance.event;
 public class ShowProgressDialogEvent {
 
     private String mMessage;
-    private boolean mShow;
 
-    public ShowProgressDialogEvent(String message, boolean show) {
+    public ShowProgressDialogEvent(String message) {
         mMessage = message;
-        mShow = show;
     }
 
     public String getMessage() {
         return mMessage;
     }
 
-    public boolean getShow() {
-        return mShow;
-    }
 }

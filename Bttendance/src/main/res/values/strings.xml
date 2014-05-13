@@ -35,7 +35,6 @@
     <string name="please_press_back_button_again_to_exit_">"Please press Back button again to exit."</string>
     <string name="validated">"Validated"</string>
     <string name="wrong_serial">"Wrong Serial"</string>
-    <string name="user_type_error_occurred">"User Type Error Occurred"</string>
     <string name="feed">"Feed"</string>
     <string name="courses">"Courses"</string>
     <string name="course">"Course"</string>
@@ -128,5 +127,8 @@
     <string name="exporting_grade_has_been_finished">Exporting Grades has been finished.\nPlease check your email.\n%s</string>
     <string name="unjoining_course">Unjoining Course</string>
     <string name="recovering_password">Recovering Password...</string>
+    <string name="loging_in_bttendance">Loging In Bttendance</string>
+    <string name="signing_up_bttendance">Signing Up Bttendance</string>
+    <string name="updating_profile">Updating Profile</string>
 
 </resources>

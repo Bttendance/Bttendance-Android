@@ -64,11 +64,11 @@ public class BTDebug {
     }
 
     public static void LogResponseAPI(String log) {
-//        if (DEBUG)
-//            if (log != null)
-//                Log.i(TAG_API, log);
-//            else
-//                Log.i(TAG_API, "Log is null");
+        if (DEBUG)
+            if (log != null)
+                Log.i(TAG_API, log);
+            else
+                Log.i(TAG_API, "Log is null");
     }
 
     public static void Toast(Context context, String log) {

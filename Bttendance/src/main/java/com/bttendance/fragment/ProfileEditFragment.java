@@ -16,6 +16,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.HideProgressDialogEvent;
+import com.bttendance.event.ShowProgressDialogEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
@@ -120,12 +122,16 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
     }
 
     private void save() {
+        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.updating_profile)));
         switch (mType) {
             case NAME:
                 getBTService().updateFullName(mEdit.getText().toString(), this);
                 break;
             case MAIL:
                 getBTService().updateEmail(mEdit.getText().toString(), this);
+                break;
+            default:
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
                 break;
         }
     }
@@ -191,12 +197,14 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
      */
     @Override
     public void success(UserJson userJson, Response response) {
+        BTEventBus.getInstance().post(new HideProgressDialogEvent());
         BTEventBus.getInstance().post(new UpdateProfileEvent());
         getActivity().onBackPressed();
     }
 
     @Override
     public void failure(RetrofitError retrofitError) {
+        BTEventBus.getInstance().post(new HideProgressDialogEvent());
     }
 
     public enum Type {IMAGE, NAME, MAIL}

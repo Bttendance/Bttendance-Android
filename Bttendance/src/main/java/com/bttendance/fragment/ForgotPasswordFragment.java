@@ -1,7 +1,6 @@
 package com.bttendance.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -16,7 +15,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.event.ShowDialogEvent;
+import com.bttendance.event.HideProgressDialogEvent;
+import com.bttendance.event.ShowAlertDialogEvent;
 import com.bttendance.event.ShowProgressDialogEvent;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.EmailJson;
@@ -123,6 +123,8 @@ public class ForgotPasswordFragment extends BTFragment {
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
+        if (!isAdded())
+            return;
 
         if (mEmailString != null)
             mEmail.setText(mEmailString);
@@ -155,20 +157,20 @@ public class ForgotPasswordFragment extends BTFragment {
 
         String email = mEmail.getText().toString();
 
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.recovering_password), true));
+        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.recovering_password)));
         getBTService().forgotPassword(email, new Callback<EmailJson>() {
             @Override
             public void success(EmailJson email, Response response) {
-                BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.recovering_password), false));
+                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
                 String title = getString(R.string.password_recovery_success);
                 String message = String.format(getString(R.string.password_recovery_has_been_succeeded), email.email);
-                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "forgot password"));
+                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message));
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.recovering_password), false));
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
             }
         });
     }

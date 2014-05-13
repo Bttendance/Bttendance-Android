@@ -101,7 +101,7 @@ public class FeedFragment extends BTFragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mAdapter.swapCursor(new PostCursor(BTTable.PostTable));
+                    mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfMyCourse(getActivity())));
                 }
             });
         }

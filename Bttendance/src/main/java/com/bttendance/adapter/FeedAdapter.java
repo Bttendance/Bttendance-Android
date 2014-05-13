@@ -56,30 +56,30 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
 
         boolean mTime = currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION;
-        boolean included = IntArrayHelper.contains(post.attendance.checked_students, BTPreference.getUserId(context));
-
-        if (IntArrayHelper.contains(user.supervising_courses, post.course.id)) {
-            if (mTime) {
-                long time = currentTime - DateHelper.getTime(post.createdAt);
-                int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
-                bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
-            } else {
-                int grade = 0;
-                if (post.grade != null)
-                    grade = Integer.parseInt(post.grade);
-                bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
-            }
-        } else {
-            if (mTime && !included) {
-                long time = currentTime - DateHelper.getTime(post.createdAt);
-                int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
-                bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
-            } else if (mTime || included) {
-                bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
-            } else {
-                bttendance.setBttendance(Bttendance.STATE.FAIL, 0);
-            }
-        }
+//        boolean included = IntArrayHelper.contains(post.attendance.checked_students, BTPreference.getUserId(context));
+//
+//        if (IntArrayHelper.contains(user.supervising_courses, post.course.id)) {
+//            if (mTime) {
+//                long time = currentTime - DateHelper.getTime(post.createdAt);
+//                int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
+//                bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+//            } else {
+//                int grade = 0;
+//                if (post.grade != null)
+//                    grade = Integer.parseInt(post.grade);
+//                bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
+//            }
+//        } else {
+//            if (mTime && !included) {
+//                long time = currentTime - DateHelper.getTime(post.createdAt);
+//                int progress = (int) ((float) 100 * ((float) Bttendance.PROGRESS_DURATION - (float) time) / (float) Bttendance.PROGRESS_DURATION);
+//                bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+//            } else if (mTime || included) {
+//                bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
+//            } else {
+//                bttendance.setBttendance(Bttendance.STATE.FAIL, 0);
+//            }
+//        }
 
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);

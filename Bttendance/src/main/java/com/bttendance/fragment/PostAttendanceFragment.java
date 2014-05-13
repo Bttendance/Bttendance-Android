@@ -12,7 +12,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.ShowDialogEvent;
+import com.bttendance.event.ShowAlertDialogEvent;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.SparceArrayHelper;
 import com.bttendance.model.BTTable;
@@ -145,12 +145,10 @@ public class PostAttendanceFragment extends BTFragment implements View.OnClickLi
 
                 final UserJsonSimple user = (UserJsonSimple) v.getTag(R.id.json);
 
+                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
                 String title = getString(R.string.attendance_check);
                 String message = String.format(getString(R.string.do_you_want_to_approve_attendance), user.full_name);
-                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
-
-
-                dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                BTDialogFragment.OnConfirmListener listener = new BTDialogFragment.OnConfirmListener() {
                     @Override
                     public void onConfirmed(String edit) {
                         getBTService().attendanceCheckManually(mPost.attendance.id, user.id, new Callback<AttendanceJson>() {
@@ -168,8 +166,8 @@ public class PostAttendanceFragment extends BTFragment implements View.OnClickLi
                     @Override
                     public void onCanceled() {
                     }
-                });
-                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "Attendance Post"));
+                };
+                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
                 break;
         }
     }

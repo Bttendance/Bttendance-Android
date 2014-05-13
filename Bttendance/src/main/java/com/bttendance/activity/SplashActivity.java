@@ -3,10 +3,7 @@ package com.bttendance.activity;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
-import com.bttendance.adapter.BTPagerAdapter;
-import com.bttendance.model.BTPreference;
 import com.crashlytics.android.Crashlytics;
 
 /**

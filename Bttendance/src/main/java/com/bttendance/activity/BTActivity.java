@@ -138,8 +138,7 @@ public class BTActivity extends SherlockFragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (!(this instanceof CatchPointActivity))
-            BTEventBus.getInstance().register(mEventDispatcher);
+        BTEventBus.getInstance().register(mEventDispatcher);
         EasyTracker.getInstance().activityStart(this);
 
 //        BTDebug.LogError("ScanMode : " + BluetoothHelper.getScanMode() + " onGoing : " + BTTable.getCheckingPostIds().size());
@@ -150,8 +149,7 @@ public class BTActivity extends SherlockFragmentActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (!(this instanceof CatchPointActivity))
-            BTEventBus.getInstance().unregister(mEventDispatcher);
+        BTEventBus.getInstance().unregister(mEventDispatcher);
         EasyTracker.getInstance().activityStop(this);
     }
 

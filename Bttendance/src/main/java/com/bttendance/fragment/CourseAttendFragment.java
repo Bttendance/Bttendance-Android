@@ -12,7 +12,9 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.ShowDialogEvent;
+import com.bttendance.event.ShowAlertDialogEvent;
+import com.bttendance.event.refresh.RefreshFeedEvent;
+import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.SparceArrayHelper;
@@ -140,17 +142,20 @@ public class CourseAttendFragment extends BTFragment implements View.OnClickList
 
                 final CourseJson course = (CourseJson) v.getTag(R.id.json);
 
-                BTDialogFragment dialog;
+                BTDialogFragment.DialogType type;
                 String title;
                 String message;
+                String placeholder = null;
+                BTDialogFragment.OnConfirmListener listener;
 
                 if (IntArrayHelper.contains(BTPreference.getUser(getActivity()).enrolled_schools, course.school.id)) {
+                    type = BTDialogFragment.DialogType.CONFIRM;
                     title = getString(R.string.attend_course);
                     message = course.number + " " + course.name + "\n"
                             + getString(R.string.prof_) + course.professor_name + "\n"
                             + course.school.name;
-                    dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
                 } else {
+                    type = BTDialogFragment.DialogType.EDIT;
                     if ("public".equals(course.school.type)) {
                         title = getString(R.string.student_id);
                         message = String.format(getString(R.string.before_you_join_course_public), course.name);
@@ -158,13 +163,12 @@ public class CourseAttendFragment extends BTFragment implements View.OnClickList
                         title = getString(R.string.phone_number);
                         message = String.format(getString(R.string.before_you_join_course_private), course.name);
                     }
-                    dialog = new BTDialogFragment(BTDialogFragment.DialogType.EDIT, title, message);
 
                     if ("private".equals(course.school.type))
-                        dialog.setPlaceholder("XXX-XXXX-XXXX");
+                        placeholder = "XXX-XXXX-XXXX";
                 }
 
-                dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                listener = new BTDialogFragment.OnConfirmListener() {
                     @Override
                     public void onConfirmed(String edit) {
                         if (IntArrayHelper.contains(BTPreference.getUser(getActivity()).enrolled_schools, course.school.id)) {
@@ -172,6 +176,8 @@ public class CourseAttendFragment extends BTFragment implements View.OnClickList
                                 @Override
                                 public void success(UserJson userJson, Response response) {
                                     swapItems();
+                                    BTEventBus.getInstance().post(new UpdateCourseListEvent());
+                                    BTEventBus.getInstance().post(new RefreshFeedEvent());
                                 }
 
                                 @Override
@@ -187,6 +193,8 @@ public class CourseAttendFragment extends BTFragment implements View.OnClickList
                                         @Override
                                         public void success(UserJson userJson, Response response) {
                                             swapItems();
+                                            BTEventBus.getInstance().post(new UpdateCourseListEvent());
+                                            BTEventBus.getInstance().post(new RefreshFeedEvent());
                                         }
 
                                         @Override
@@ -205,8 +213,9 @@ public class CourseAttendFragment extends BTFragment implements View.OnClickList
                     @Override
                     public void onCanceled() {
                     }
-                });
-                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "Attend Course"));
+                };
+
+                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, placeholder, listener));
                 break;
         }
 

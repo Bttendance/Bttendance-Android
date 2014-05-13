@@ -15,7 +15,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.event.ShowDialogEvent;
+import com.bttendance.event.ShowAlertDialogEvent;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
@@ -273,10 +273,10 @@ public class CourseCreateFragment extends BTFragment {
             @Override
             public void success(EmailJson email, Response response) {
 
+                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
                 String title = getString(R.string.email_sent);
                 String message = String.format(getString(R.string.verification_code_for_activating_your_course), email.email);
-                BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-                dialog.setOnConfirmListener(new BTDialogFragment.OnConfirmListener() {
+                BTDialogFragment.OnConfirmListener listener = new BTDialogFragment.OnConfirmListener() {
                     @Override
                     public void onConfirmed(String edit) {
                         int count = getActivity().getSupportFragmentManager().getBackStackEntryCount();
@@ -292,8 +292,8 @@ public class CourseCreateFragment extends BTFragment {
                         while (count-- >= 0)
                             getActivity().getSupportFragmentManager().popBackStack();
                     }
-                });
-                BTEventBus.getInstance().post(new ShowDialogEvent(dialog, "create course"));
+                };
+                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
             }
 
             @Override

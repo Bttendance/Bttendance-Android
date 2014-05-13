@@ -25,6 +25,7 @@
         <item name="actionBarTabStyle">@style/ActionBarTabStyle.Bttendance</item>
         <item name="actionDropDownStyle">@style/DropDownNav.Bttendance</item>
         <item name="actionBarStyle">@style/ActionBar.Solid.Bttendance</item>
+        <item name="actionButtonStyle">@style/ActionBarButton.Solid.Bttendance</item>
         <item name="actionModeBackground">@drawable/cab_background_top_bttendance</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_bttendance</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bttendance</item>
@@ -46,6 +47,12 @@
         <item name="backgroundSplit">@drawable/ab_bottom_solid_bttendance</item>
         <item name="progressBarStyle">@style/ProgressBar.Bttendance</item>
         <item name="displayOptions">disableHome|showTitle</item>
+    </style>
+
+    <style name="ActionBarButton.Solid.Bttendance" parent="Widget.Sherlock.Light.ActionButton">
+        <item name="android:minWidth">46dip</item>
+        <item name="android:paddingRight">0dip</item>
+        <item name="android:paddingLeft">0dip</item>
     </style>
 
     <style name="ActionBar.Solid.Bttendance.Sign" parent="@style/ActionBar.Solid.Bttendance">

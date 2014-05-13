@@ -73,8 +73,8 @@ public class CourseListFragment extends BTFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_plus:
-                registerForContextMenu(item.getActionView());
-                getActivity().openContextMenu(item.getActionView());
+                registerForContextMenu(mListView);
+                getActivity().openContextMenu(mListView);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

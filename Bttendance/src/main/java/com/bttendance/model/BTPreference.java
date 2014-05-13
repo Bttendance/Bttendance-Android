@@ -84,6 +84,27 @@ public class BTPreference {
         edit.commit();
     }
 
+    public static CourseJsonSimple[] getCourses(Context context) {
+        UserJson user = getUser(context);
+
+        CourseJsonSimple[] newArray = new CourseJsonSimple[user.supervising_courses.length + user.attending_courses.length];
+
+        int i = 0;
+
+        for (CourseJsonSimple course : user.supervising_courses) {
+            newArray[i] = course;
+            i++;
+        }
+
+        for (CourseJsonSimple course : user.attending_courses) {
+            newArray[i] = course;
+            i++;
+        }
+
+        return newArray;
+
+    }
+
     public static CourseJsonSimple getCourse(Context context, int courseID) {
         UserJson user = getUser(context);
 

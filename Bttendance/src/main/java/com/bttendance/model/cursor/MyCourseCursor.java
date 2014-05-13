@@ -22,10 +22,10 @@ public class MyCourseCursor extends MatrixCursor {
 
         for (int i = 0; i < user.supervising_courses.length; i++)
             if (BTTable.MyCourseTable.get(user.supervising_courses[i].id) != null)
-                addRow(new Object[]{user.supervising_courses[i]});
+                addRow(new Object[]{user.supervising_courses[i].id});
 
         for (int i = 0; i < user.attending_courses.length; i++)
             if (BTTable.MyCourseTable.get(user.attending_courses[i].id) != null)
-                addRow(new Object[]{user.attending_courses[i]});
+                addRow(new Object[]{user.attending_courses[i].id});
     }
 }

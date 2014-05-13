@@ -51,8 +51,8 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_setting:
-                registerForContextMenu(item.getActionView());
-                getActivity().openContextMenu(item.getActionView());
+                registerForContextMenu(mListView);
+                getActivity().openContextMenu(mListView);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
