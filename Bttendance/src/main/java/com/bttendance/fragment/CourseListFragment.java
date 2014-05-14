@@ -172,9 +172,6 @@ public class CourseListFragment extends BTFragment {
             @Override
             public void success(CourseJson[] courses, Response response) {
                 swapCursor();
-//                if (BTTable.getCheckingPostIds().size() > 0) {
-//                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
-//                }
             }
 
             @Override

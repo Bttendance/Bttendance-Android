@@ -13,7 +13,6 @@ import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
@@ -141,7 +140,6 @@ public class BTActivity extends SherlockFragmentActivity {
         BTEventBus.getInstance().register(mEventDispatcher);
         EasyTracker.getInstance().activityStart(this);
 
-//        BTDebug.LogError("ScanMode : " + BluetoothHelper.getScanMode() + " onGoing : " + BTTable.getCheckingPostIds().size());
 //        if (BTTable.getCheckingPostIds().size() > 0)
 //            BTEventBus.getInstance().post(new AttdStartedEvent(true));
     }

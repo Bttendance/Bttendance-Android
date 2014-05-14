@@ -51,6 +51,15 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="centerTextView" parent="android:Widget.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/bttendance_silver</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@null</item>
+    </style>
+
     <style name="itemTextView" parent="android:Widget.Button">
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>

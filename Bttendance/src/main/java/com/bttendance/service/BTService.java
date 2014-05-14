@@ -375,6 +375,10 @@ public class BTService extends Service {
                     public void success(CourseJson[] courses, Response response) {
                         for (CourseJson course : courses)
                             BTTable.MyCourseTable.append(course.id, course);
+
+//                if (BTTable.getCheckingPostIds().size() > 0) {
+//                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
+//                }
                         if (cb != null)
                             cb.success(courses, response);
                     }

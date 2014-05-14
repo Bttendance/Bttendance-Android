@@ -18,23 +18,25 @@
         android:background="@drawable/bt_list_item_background"
         android:minHeight="88dp" />
 
+    <RelativeLayout
+        android:id="@+id/clicker"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="14dp"
+        android:visibility="gone" />
+
     <com.bttendance.view.Bttendance
         android:id="@+id/bttendance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="18dp"
-        app:type="Small" />
-
-    <View
-        android:id="@+id/item_selector"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@id/time"
         android:layout_alignParentTop="true"
-        android:background="@drawable/bt_list_item_selector"
-        android:minHeight="88dp" />
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        app:type="Small" />
 
     <View
         android:id="@+id/notice"
@@ -46,6 +48,15 @@
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_notice_big"
         android:visibility="gone" />
+
+    <View
+        android:id="@+id/item_selector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/time"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bt_list_item_selector"
+        android:minHeight="88dp" />
 
     <TextView
         android:id="@+id/title"
