@@ -150,8 +150,7 @@ public class BTActivity extends SherlockFragmentActivity {
         UserJson user = BTPreference.getUser(this);
         OldUserJson userold = BTPreference.getUserOld(this);
         Intent intent;
-        if ((user == null || user.username == null || user.password == null)
-                && (userold == null || userold.username == null || user.password == null)) {
+        if (user == null && userold == null) {
             BTPreference.clearUser(this);
             intent = new Intent(this, CatchPointActivity.class);
         } else {
@@ -177,6 +176,9 @@ public class BTActivity extends SherlockFragmentActivity {
         } else {
             String regId = BTNotification.getRegistrationId(this);
             UserJson user = BTPreference.getUser(this);
+            if (user == null)
+                return;
+
             if (regId == null)
                 BTNotification.registerInBackground(this);
             else if (!regId.equals(user.device.notification_key))

@@ -16,7 +16,6 @@ import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
-import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.DateHelper;
@@ -293,15 +292,20 @@ public class BTService extends Service {
         final UserJson usernew = BTPreference.getUser(getApplicationContext());
         OldUserJson userold = BTPreference.getUserOld(getApplicationContext());
 
-        String username = usernew.username;
-        String password = usernew.password;
-        String device_uuid = usernew.device.uuid;
+        String username;
+        String password;
+        String device_uuid;
 
-        if (usernew == null) {
+        if (usernew != null) {
+            username = usernew.username;
+            password = usernew.password;
+            device_uuid = usernew.device.uuid;
+        } else if (userold != null) {
             username = userold.username;
             password = userold.password;
             device_uuid = userold.device_uuid;
-        }
+        } else
+            return;
 
         String version = getString(R.string.app_version);
         mBTAPI.autoSignin(
@@ -454,6 +458,9 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        if (user == null)
+            return;
+
         mBTAPI.feed(
                 user.username,
                 user.password,
@@ -485,6 +492,9 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        if (user == null)
+            return;
+
         mBTAPI.courses(
                 user.username,
                 user.password,
@@ -533,6 +543,9 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        if (user == null)
+            return;
+
         mBTAPI.updateNotificationKey(
                 user.username,
                 user.password,

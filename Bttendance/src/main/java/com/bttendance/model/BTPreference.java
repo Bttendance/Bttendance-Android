@@ -56,6 +56,7 @@ public class BTPreference {
     public static void clearUser(Context ctx) {
         Editor edit = getInstance(ctx).edit();
         edit.remove("users");
+        edit.remove("user");
         edit.commit();
     }
 
