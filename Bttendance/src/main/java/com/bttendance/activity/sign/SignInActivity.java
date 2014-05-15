@@ -198,6 +198,7 @@ public class SignInActivity extends BTActivity {
         mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
 
         isEnableSignIn();
+        BTEventBus.getInstance().register(mEventDispatcher);
     }
 
     @Override
@@ -205,6 +206,7 @@ public class SignInActivity extends BTActivity {
         super.onPause();
         mUsernameString = mUsername.getText().toString();
         mPasswordString = mPassword.getText().toString();
+        BTEventBus.getInstance().unregister(mEventDispatcher);
     }
 
     @Override

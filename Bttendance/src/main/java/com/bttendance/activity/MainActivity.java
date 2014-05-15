@@ -70,6 +70,14 @@ public class MainActivity extends BTActivity {
 
         mViewPager.setCurrentItem(1);
         mTabs.setIconTabSelected(1);
+
+        BTEventBus.getInstance().register(mEventDispatcher);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BTEventBus.getInstance().unregister(mEventDispatcher);
     }
 
     private void setActionBarTitle(int position) {

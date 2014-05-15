@@ -188,7 +188,9 @@ public class BTService extends Service {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(mRefreshTimeTo - System.currentTimeMillis());
+                    long timeout = mRefreshTimeTo - System.currentTimeMillis();
+                    if (timeout > 0)
+                        Thread.sleep(timeout);
                     BTEventBus.getInstance().post(new RefreshCourseListEvent());
                     BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } catch (InterruptedException e) {

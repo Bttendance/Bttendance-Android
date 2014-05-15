@@ -126,6 +126,22 @@ public class BTEventDispatcher {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
+
+        if (BTTable.ATTENDANCE_STARTING_COURSE != -1) {
+            int courseID = BTTable.ATTENDANCE_STARTING_COURSE;
+            BTTable.ATTENDANCE_STARTING_COURSE = -1;
+            act.getBTService().postStartAttendance(courseID, new Callback<PostJson>() {
+                @Override
+                public void success(PostJson postJson, Response response) {
+                    act.getBTService().attendanceStart();
+                }
+
+                @Override
+                public void failure(RetrofitError retrofitError) {
+                }
+            });
+        } else
+            act.getBTService().attendanceStart();
     }
 
     @Subscribe
@@ -142,6 +158,11 @@ public class BTEventDispatcher {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
+
+        if (BTTable.ATTENDANCE_STARTING_COURSE != -1) {
+            BTTable.ATTENDANCE_STARTING_COURSE = -1;
+            BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
+        }
     }
 
     @Subscribe

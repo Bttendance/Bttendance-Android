@@ -76,12 +76,14 @@ public class CreateNoticeFragment extends BTFragment {
                     getBTService().postCreateNotice(mCourseHelper.getID(), mMessage.getText().toString(), new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
-                            CreateNoticeFragment.this.getActivity().onBackPressed();
+                            if (CreateNoticeFragment.this.getActivity() != null)
+                                CreateNoticeFragment.this.getActivity().onBackPressed();
                         }
 
                         @Override
                         public void failure(RetrofitError retrofitError) {
-                            CreateNoticeFragment.this.getActivity().onBackPressed();
+                            if (CreateNoticeFragment.this.getActivity() != null)
+                                CreateNoticeFragment.this.getActivity().onBackPressed();
                         }
                     });
                 return true;

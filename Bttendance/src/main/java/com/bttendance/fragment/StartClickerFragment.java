@@ -76,12 +76,14 @@ public class StartClickerFragment extends BTFragment {
                     getBTService().postStartClicker(mCourseHelper.getID(), mMessage.getText().toString(), 4, new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
-                            StartClickerFragment.this.getActivity().onBackPressed();
+                            if (StartClickerFragment.this.getActivity() != null)
+                                StartClickerFragment.this.getActivity().onBackPressed();
                         }
 
                         @Override
                         public void failure(RetrofitError retrofitError) {
-                            StartClickerFragment.this.getActivity().onBackPressed();
+                            if (StartClickerFragment.this.getActivity() != null)
+                                StartClickerFragment.this.getActivity().onBackPressed();
                         }
                     });
                 return true;

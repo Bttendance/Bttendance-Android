@@ -287,6 +287,7 @@ public class SignUpActivity extends BTActivity {
         mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
 
         isEnableSignUp();
+        BTEventBus.getInstance().register(mEventDispatcher);
     }
 
     @Override
@@ -297,6 +298,7 @@ public class SignUpActivity extends BTActivity {
         mUsernameString = mUsername.getText().toString();
         mEmailString = mEmail.getText().toString();
         mPasswordString = mPassword.getText().toString();
+        BTEventBus.getInstance().unregister(mEventDispatcher);
     }
 
     private void trySignUp() {

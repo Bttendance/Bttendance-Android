@@ -69,7 +69,7 @@ public class BTActivity extends SherlockFragmentActivity {
         }
     };
     ArrayList<OnServiceConnectListener> mServiceListeners = new ArrayList<OnServiceConnectListener>();
-    private BTEventDispatcher mEventDispatcher = null;
+    protected BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
     private BTFragment mLastFragment;
 
@@ -144,20 +144,6 @@ public class BTActivity extends SherlockFragmentActivity {
     protected void onStop() {
         super.onStop();
         EasyTracker.getInstance().activityStop(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (this instanceof MainActivity || this instanceof SignUpActivity || this instanceof SignInActivity)
-            BTEventBus.getInstance().register(mEventDispatcher);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (this instanceof MainActivity || this instanceof SignUpActivity || this instanceof SignInActivity)
-            BTEventBus.getInstance().unregister(mEventDispatcher);
     }
 
     public Intent getNextIntent() {
