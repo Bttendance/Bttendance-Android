@@ -1,7 +1,5 @@
 package com.bttendance.model.json;
 
-import android.content.Context;
-
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
  */
@@ -21,8 +19,6 @@ public class UserJson extends BTJson {
     public SerialJsonSimple[] serials;
     public SchoolJsonSimple[] enrolled_schools;
     public IdentificationJsonSimple[] identifications;
-
-    public String device_uuid;
 
     public CourseJsonSimple[] getCourses() {
 

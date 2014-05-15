@@ -24,6 +24,7 @@ import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.BTNotification;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.json.OldUserJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTService;
 import com.google.analytics.tracking.android.EasyTracker;
@@ -147,8 +148,10 @@ public class BTActivity extends SherlockFragmentActivity {
 
     public Intent getNextIntent() {
         UserJson user = BTPreference.getUser(this);
+        OldUserJson userold = BTPreference.getUserOld(this);
         Intent intent;
-        if (user == null || user.username == null || user.password == null) {
+        if ((user == null || user.username == null || user.password == null)
+                && (userold == null || userold.username == null || user.password == null)) {
             BTPreference.clearUser(this);
             intent = new Intent(this, CatchPointActivity.class);
         } else {

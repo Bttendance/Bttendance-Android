@@ -28,6 +28,7 @@ import com.bttendance.model.json.ClickerJson;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.EmailJson;
 import com.bttendance.model.json.ErrorJson;
+import com.bttendance.model.json.OldUserJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
@@ -289,18 +290,36 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        UserJson user = BTPreference.getUser(getApplicationContext());
+        final UserJson usernew = BTPreference.getUser(getApplicationContext());
+        OldUserJson userold = BTPreference.getUserOld(getApplicationContext());
+
+        String username = usernew.username;
+        String password = usernew.password;
+        String device_uuid = usernew.device.uuid;
+
+        if (usernew == null) {
+            username = userold.username;
+            password = userold.password;
+            device_uuid = userold.device_uuid;
+        }
+
         String version = getString(R.string.app_version);
         mBTAPI.autoSignin(
-                user.username,
-                user.password,
-                user.device.uuid,
+                username,
+                password,
+                device_uuid,
                 BTAPI.ANDROID,
                 version,
                 new Callback<UserJson>() {
                     @Override
                     public void success(UserJson user, Response response) {
                         BTPreference.setUser(getApplicationContext(), user);
+
+                        if (usernew == null) {
+                            BTEventBus.getInstance().post(new RefreshFeedEvent());
+                            BTEventBus.getInstance().post(new RefreshCourseListEvent());
+                        }
+
                         if (cb != null)
                             cb.success(user, response);
                     }

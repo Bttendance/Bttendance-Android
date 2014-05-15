@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.bttendance.BTDebug;
 import com.bttendance.model.json.CourseJsonSimple;
+import com.bttendance.model.json.OldUserJson;
 import com.bttendance.model.json.SchoolJsonSimple;
 import com.bttendance.model.json.UserJson;
 import com.google.gson.Gson;
@@ -35,22 +37,36 @@ public class BTPreference {
         }
     }
 
+    public static OldUserJson getUserOld(Context ctx) {
+        String jsonStr = getInstance(ctx).getString("user", null);
+        if (jsonStr == null)
+            return null;
+
+        Gson gson = new Gson();
+        try {
+            OldUserJson user = gson.fromJson(jsonStr, OldUserJson.class);
+            return user;
+        } catch (Exception e) {
+            clearUser(ctx);
+            return null;
+        }
+    }
+
     // on Log out
     public static void clearUser(Context ctx) {
         Editor edit = getInstance(ctx).edit();
-        edit.remove("user");
+        edit.remove("users");
         edit.commit();
     }
 
     public static UserJson getUser(Context ctx) {
-        String jsonStr = getInstance(ctx).getString("user", null);
+        String jsonStr = getInstance(ctx).getString("users", null);
         if (jsonStr == null)
             return null;
+
         Gson gson = new Gson();
         try {
             UserJson user = gson.fromJson(jsonStr, UserJson.class);
-            if (user.device.uuid == null)
-                user.device.uuid = user.device_uuid;
             return user;
         } catch (Exception e) {
             clearUser(ctx);
@@ -70,7 +86,7 @@ public class BTPreference {
         String jsonStr = gson.toJson(user);
 
         Editor edit = getInstance(ctx).edit();
-        edit.putString("user", jsonStr);
+        edit.putString("users", jsonStr);
         edit.commit();
     }
 

@@ -10,6 +10,7 @@ import com.actionbarsherlock.view.Menu;
 import com.bttendance.R;
 import com.bttendance.adapter.BTPagerAdapter;
 import com.bttendance.event.attendance.AttdStartedEvent;
+import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.fragment.BTFragment;
