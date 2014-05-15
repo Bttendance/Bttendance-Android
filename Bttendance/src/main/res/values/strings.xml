@@ -82,7 +82,7 @@
     <string name="create_notice">Create Notice</string>
     <string name="post">Post</string>
     <string name="to_">To. %s</string>
-    <string name="app_version">0.2</string>
+    <string name="app_version">0.3</string>
     <string name="supervising_courses">Supervising Courses</string>
     <string name="attending_courses">Attending Courses</string>
     <string name="refresh">Refresh</string>
