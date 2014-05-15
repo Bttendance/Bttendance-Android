@@ -12,9 +12,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.update.UpdateClickerDetailEvent;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.PostJson;
+import com.squareup.otto.Subscribe;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -28,6 +30,7 @@ public class PostClickerFragment extends BTFragment {
 
     private PostJson mPost;
     private GraphicalView mChartView;
+    private CategorySeries mSeries;
 
     public PostClickerFragment(int postId) {
         mPost = BTTable.PostTable.get(postId);
@@ -46,8 +49,8 @@ public class PostClickerFragment extends BTFragment {
         RelativeLayout clicker = (RelativeLayout) view.findViewById(R.id.clicker);
 
         DefaultRenderer renderer = mPost.clicker.getRenderer(getActivity());
-        CategorySeries series = mPost.clicker.getSeries();
-        mChartView = ChartFactory.getPieChartView(getActivity(), series, renderer);
+        mSeries = mPost.clicker.getSeries();
+        mChartView = ChartFactory.getPieChartView(getActivity(), mSeries, renderer);
         clicker.addView(mChartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         View ring = new View(getActivity());
@@ -66,6 +69,22 @@ public class PostClickerFragment extends BTFragment {
         detail.setText(mPost.clicker.getDetail());
 
         return view;
+    }
+
+    @Subscribe
+    public void onUpdate(UpdateClickerDetailEvent event) {
+        if (!this.isAdded() || mPost == null)
+            return;
+
+        mPost = BTTable.PostTable.get(mPost.id);
+        mSeries = mPost.clicker.getSeries();
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mChartView.repaint();
+            }
+        });
     }
 
     @Override

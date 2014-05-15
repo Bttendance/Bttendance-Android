@@ -6,10 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
-import com.bttendance.event.attendance.AttdCheckedEvent;
-import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.helper.DipPixelHelper;
@@ -65,16 +64,6 @@ public class FeedFragment extends BTFragment {
             public void failure(RetrofitError retrofitError) {
             }
         });
-    }
-
-    @Subscribe
-    public void onAttdStarted(AttdStartedEvent event) {
-        swapCursor();
-    }
-
-    @Subscribe
-    public void onAttdChecked(AttdCheckedEvent event) {
-        swapCursor();
     }
 
     @Subscribe

@@ -24,11 +24,11 @@
     <TextView
         android:id="@+id/key"
         android:layout_width="match_parent"
-        android:layout_height="13dp"
+        android:layout_height="16dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/name"
-        android:gravity="center_vertical|left"
-        android:text="Professor"
+        android:gravity="top|left"
+        android:text="@string/no_identity"
         android:singleLine="true"
         android:textColor="@color/bttendance_silver"
         android:textSize="12sp" />

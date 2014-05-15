@@ -12,10 +12,13 @@ import android.os.IBinder;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
+import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
+import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.PackagesHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
@@ -30,6 +33,10 @@ import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -62,7 +69,9 @@ public class BTService extends Service {
     private ConnectivityManager mConnectivityManager;
     private LocalBinder mBinder = new LocalBinder();
     private Thread mAttendanceThread;
-    private long mTimeTo;
+    private Thread mRefreshThread;
+    private long mAttdTimeTo;
+    private long mRefreshTimeTo;
 
     private static String getServerDomain() {
         if (!BTDebug.DEBUG)
@@ -97,73 +106,97 @@ public class BTService extends Service {
         return mBinder;
     }
 
-    public void attendanceStart() {
+    private void refreshCheck() {
 
-//        BTDebug.LogError("mTimeTo = " + mTimeTo + ", attdchecktimeto = " + BTTable.getAttdChekTimeTo());
-//
-//        if (mAttendanceThread != null && mTimeTo == BTTable.getAttdChekTimeTo())
-//            return;
-//
-//        if (mAttendanceThread != null && mTimeTo != BTTable.getAttdChekTimeTo()) {
-//            mAttendanceThread.interrupt();
-//            mAttendanceThread = null;
-//        }
-//
-//        mTimeTo = BTTable.getAttdChekTimeTo();
-//
-//        mAttendanceThread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    int i = 0;
-//                    while (DateHelper.getCurrentGMTTimeMillis() < mTimeTo - 500) {
-//                        if (i++ % 20 == 0) {
-//                            BTDebug.LogError("Start Discovery");
-//                            BluetoothHelper.startDiscovery();
-//                        }
-//                        Thread.sleep(500);
-//                        Set<Integer> ids = BTTable.getCheckingPostIds();
-//                        Set<String> list = new HashSet<String>();
-//                        for (String mac : BTTable.UUIDLIST())
-//                            list.add(mac);
-//
-//                        for (int id : ids) {
-//                            for (String mac : list) {
-//                                if (!BTTable.UUIDLISTSENDED_contains(mac)) {
-//                                    attendanceFoundDevice(id, mac, new Callback<PostJson>() {
-//                                        @Override
-//                                        public void success(PostJson post, Response response) {
-//                                            if (post != null)
-//                                                BTDebug.LogInfo(post.toJson());
-//                                        }
-//
-//                                        @Override
-//                                        public void failure(RetrofitError retrofitError) {
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        }
-//                        BTTable.UUIDLISTSENDED_addAll(list);
-//                        BTTable.UUIDLIST_refresh();
-//                    }
-//                    BTTable.UUIDLISTSENDED_refresh();
-//                    attendanceStop();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        mAttendanceThread.start();
+        long refreshTimeTo = BTTable.getRefreshTimeTo();
+        BTDebug.LogError("mRefreshTimeTo = " + mRefreshTimeTo + ", refreshTimeTo = " + refreshTimeTo);
+
+        if(refreshTimeTo == -1)
+            return;
+
+        if (mRefreshThread != null && mRefreshTimeTo == refreshTimeTo)
+            return;
+
+        if (mRefreshThread != null && mRefreshTimeTo != refreshTimeTo) {
+            mRefreshThread.interrupt();
+            mRefreshThread = null;
+        }
+
+        mRefreshTimeTo = refreshTimeTo;
+
+        mRefreshThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(mRefreshTimeTo - System.currentTimeMillis());
+                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
+                    BTEventBus.getInstance().post(new RefreshFeedEvent());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        mRefreshThread.start();
     }
 
-    public void attendanceStop() {
-        if (mAttendanceThread != null)
+    public void attendanceStart() {
+
+        BTDebug.LogError("mAttdTimeTo = " + mAttdTimeTo + ", attdchecktimeto = " + BTTable.getAttdChekTimeTo());
+
+        if (mAttendanceThread != null && mAttdTimeTo == BTTable.getAttdChekTimeTo())
+            return;
+
+        if (mAttendanceThread != null && mAttdTimeTo != BTTable.getAttdChekTimeTo()) {
             mAttendanceThread.interrupt();
-        mAttendanceThread = null;
-        BTDebug.LogError("attendanceStop");
-        BTEventBus.getInstance().post(new RefreshCourseListEvent());
-        BTEventBus.getInstance().post(new RefreshFeedEvent());
+            mAttendanceThread = null;
+        }
+
+        mAttdTimeTo = BTTable.getAttdChekTimeTo();
+
+        mAttendanceThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    int i = 0;
+                    while (DateHelper.getCurrentGMTTimeMillis() < mAttdTimeTo - 500) {
+                        if (i++ % 20 == 0) {
+                            BTDebug.LogError("Start Discovery");
+                            BluetoothHelper.startDiscovery();
+                        }
+                        Thread.sleep(500);
+                        Set<Integer> ids = BTTable.getAttdCheckingIds();
+                        Map<String, String> list = new ConcurrentHashMap<String, String>();
+                        for (String mac : BTTable.UUIDLIST().keySet())
+                            list.put(mac, mac);
+
+                        for (int id : ids) {
+                            for (String mac : list.keySet()) {
+                                if (!BTTable.UUIDLISTSENDED_contains(mac)) {
+                                    attendanceFoundDevice(id, mac, new Callback<AttendanceJson>() {
+                                        @Override
+                                        public void success(AttendanceJson attendance, Response response) {
+                                            if (attendance != null)
+                                                BTDebug.LogInfo(attendance.toJson());
+                                        }
+
+                                        @Override
+                                        public void failure(RetrofitError retrofitError) {
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                        BTTable.UUIDLISTSENDED_addAll(list);
+                        BTTable.UUIDLIST_refresh();
+                    }
+                    BTTable.UUIDLISTSENDED_refresh();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        mAttendanceThread.start();
     }
 
     public void signup(UserJson user, final Callback<UserJson> cb) {
@@ -351,6 +384,12 @@ public class BTService extends Service {
                     public void success(PostJson[] posts, Response response) {
                         for (PostJson post : posts)
                             BTTable.PostTable.append(post.id, post);
+
+                        if (BTTable.getAttdCheckingIds().size() > 0)
+                            BTEventBus.getInstance().post(new AttdStartedEvent(true));
+
+                        refreshCheck();
+
                         if (cb != null)
                             cb.success(posts, response);
                     }
@@ -376,9 +415,6 @@ public class BTService extends Service {
                         for (CourseJson course : courses)
                             BTTable.MyCourseTable.append(course.id, course);
 
-//                if (BTTable.getCheckingPostIds().size() > 0) {
-//                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
-//                }
                         if (cb != null)
                             cb.success(courses, response);
                     }
@@ -600,6 +636,12 @@ public class BTService extends Service {
                     public void success(PostJson[] posts, Response response) {
                         for (PostJson post : posts)
                             BTTable.PostTable.append(post.id, post);
+
+                        if (BTTable.getAttdCheckingIds().size() > 0)
+                            BTEventBus.getInstance().post(new AttdStartedEvent(true));
+
+                        refreshCheck();
+
                         if (cb != null)
                             cb.success(posts, response);
                     }
@@ -817,7 +859,6 @@ public class BTService extends Service {
                 new Callback<AttendanceJson>() {
                     @Override
                     public void success(AttendanceJson attendance, Response response) {
-                        BTTable.updateAttendance(attendance);
                         if (cb != null)
                             cb.success(attendance, response);
                     }
@@ -825,7 +866,7 @@ public class BTService extends Service {
                     @Override
                     public void failure(RetrofitError retrofitError) {
                         failureHandle(cb, retrofitError);
-//                        BTTable.UUIDLISTSENDED_remove(uuid);
+                        BTTable.UUIDLISTSENDED_remove(uuid);
                     }
                 });
     }

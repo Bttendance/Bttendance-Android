@@ -341,10 +341,10 @@ public class Bttendance extends View {
 
     private void endBttendance(STATE state, int progress) {
         mState = state;
-        mProgress = progress;
         mScale.cancel();
         mFadeIn.cancel();
         mFadeOut.cancel();
+        mProgress = progress;
     }
 
     @Override

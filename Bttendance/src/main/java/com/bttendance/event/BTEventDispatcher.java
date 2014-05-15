@@ -16,10 +16,17 @@ import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
-import com.google.android.gms.internal.dy;
+import com.bttendance.model.BTTable;
+import com.bttendance.model.json.PostJson;
+import com.bttendance.view.BeautiToast;
+import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
 import java.lang.ref.WeakReference;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 20..
@@ -27,10 +34,6 @@ import java.lang.ref.WeakReference;
 public class BTEventDispatcher {
 
     private WeakReference<BTActivity> mBTActRef;
-    /**
-     * Loading
-     */
-    private int mLoading = 0;
 
     public BTEventDispatcher(BTActivity btActivity) {
         mBTActRef = new WeakReference<BTActivity>(btActivity);
@@ -42,47 +45,44 @@ public class BTEventDispatcher {
         return mBTActRef.get();
     }
 
-    // Professor start attendance
     @Subscribe
     public void onAttendanceStart(final AttdStartEvent event) {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
 
-//        String title = act.getString(R.string.attendance_check);
-//        String message = act.getString(R.string.do_you_want_to_start_attendance_check);
-//
-//        BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.CONFIRM, title, message);
-//        dialog.setOnConfirmListener(new BTDialogFragment.OnDialogListener() {
-//            @Override
-//            public void onConfirmed(String edit) {
-//                BTTable.ATTENDANCE_STARTING_COURSE = event.getCourseId();
-//                if (!BluetoothHelper.isDiscoverable()) {
-//                    BluetoothHelper.enableWithUI();
-//                    BluetoothHelper.enableDiscoverability(act);
-//                } else {
-//                    act.getBTService().postAttendanceStart(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<CourseJson>() {
-//                        @Override
-//                        public void success(CourseJson courseJson, Response response) {
-//                            act.getBTService().attendanceStart();
-//                        }
-//
-//                        @Override
-//                        public void failure(RetrofitError retrofitError) {
-//                        }
-//                    });
-//                }
-//            }
-//
-//            @Override
-//            public void onCanceled() {
-//                BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
-//            }
-//        });
-//        showDialog(dialog, "start");
+        BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
+        String title = act.getString(R.string.attendance_check);
+        String message = act.getString(R.string.do_you_want_to_start_attendance_check);
+        BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
+            @Override
+            public void onConfirmed(String edit) {
+                BTTable.ATTENDANCE_STARTING_COURSE = event.getCourseId();
+                if (!BluetoothHelper.isDiscoverable()) {
+                    BluetoothHelper.enableWithUI();
+                    BluetoothHelper.enableDiscoverability(act);
+                } else {
+                    act.getBTService().postStartAttendance(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<PostJson>() {
+                        @Override
+                        public void success(PostJson postJson, Response response) {
+                            act.getBTService().attendanceStart();
+                        }
+
+                        @Override
+                        public void failure(RetrofitError retrofitError) {
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCanceled() {
+                BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
+            }
+        };
+        BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
     }
 
-    // Student Professor attendance started
     @Subscribe
     public void onAttendanceStarted(AttdStartedEvent event) {
         final BTActivity act = getBTActivity();
@@ -97,26 +97,25 @@ public class BTEventDispatcher {
             return;
         }
 
-//        String title = act.getString(R.string.attendance_check);
-//        String message = act.getString(R.string.turn_on_your_bluetooth_settings);
-//
-//        final BTDialogFragment dialog = new BTDialogFragment(BTDialogFragment.DialogType.OK, title, message);
-//        dialog.setOnConfirmListener(new BTDialogFragment.OnDialogListener() {
-//            @Override
-//            public void onConfirmed(String edit) {
-//                if (!BluetoothHelper.isDiscoverable()) {
-//                    BluetoothHelper.enableWithUI();
-//                    BluetoothHelper.enableDiscoverability(act);
-//                } else {
-//                    act.getBTService().attendanceStart();
-//                }
-//            }
-//
-//            @Override
-//            public void onCanceled() {
-//            }
-//        });
-//        showDialog(dialog, "started");
+        BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
+        String title = act.getString(R.string.attendance_check);
+        String message = act.getString(R.string.turn_on_your_bluetooth_settings);
+        BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
+            @Override
+            public void onConfirmed(String edit) {
+                if (!BluetoothHelper.isDiscoverable()) {
+                    BluetoothHelper.enableWithUI();
+                    BluetoothHelper.enableDiscoverability(act);
+                } else {
+                    act.getBTService().attendanceStart();
+                }
+            }
+
+            @Override
+            public void onCanceled() {
+            }
+        };
+        BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
     }
 
     @Subscribe
@@ -124,24 +123,6 @@ public class BTEventDispatcher {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
-
-//        if (act instanceof ProfessorActivity) {
-//            if (BTTable.ATTENDANCE_STARTING_COURSE != -1) {
-//                act.getBTService().postAttendanceStart(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<CourseJson>() {
-//                    @Override
-//                    public void success(CourseJson courseJson, Response response) {
-//                        act.getBTService().attendanceStart();
-//                    }
-//
-//                    @Override
-//                    public void failure(RetrofitError retrofitError) {
-//                    }
-//                });
-//            } else
-//                act.getBTService().attendanceStart();
-//        } else if (act instanceof MainActivity) {
-//            act.getBTService().attendanceStart();
-//        }
     }
 
     @Subscribe
@@ -150,7 +131,7 @@ public class BTEventDispatcher {
         if (act == null)
             return;
 
-//        BTTable.UUIDLIST_add(event.getMacAddress());
+        BTTable.UUIDLIST_add(event.getMacAddress());
     }
 
     @Subscribe
@@ -158,12 +139,6 @@ public class BTEventDispatcher {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
-
-//        if (act instanceof ProfessorActivity) {
-//            BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
-//        } else if (act instanceof MainActivity) {
-//            onAttendanceStarted(new AttdStartedEvent(false));
-//        }
     }
 
     @Subscribe

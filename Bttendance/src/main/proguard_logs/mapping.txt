@@ -11229,7 +11229,7 @@ com.bttendance.event.refresh.RefreshCourseListEvent -> com.bttendance.event.refr
 com.bttendance.event.refresh.RefreshFeedEvent -> com.bttendance.event.refresh.RefreshFeedEvent:
 com.bttendance.event.refresh.RefreshProfileEvent -> com.bttendance.event.refresh.RefreshProfileEvent:
 com.bttendance.event.update.UpdateCourseAttendEvent -> com.bttendance.event.update.UpdateCourseAttendEvent:
-com.bttendance.event.update.UpdateCourseDetailEvent -> com.bttendance.event.update.UpdateCourseDetailEvent:
+com.bttendance.event.update.UpdateClickerDetailEvent -> com.bttendance.event.update.UpdateClickerDetailEvent:
 com.bttendance.event.update.UpdateCourseListEvent -> com.bttendance.event.update.UpdateCourseListEvent:
 com.bttendance.event.update.UpdateFeedEvent -> com.bttendance.event.update.UpdateFeedEvent:
 com.bttendance.event.update.UpdatePostAttendanceEvent -> com.bttendance.event.update.UpdatePostAttendanceEvent:
@@ -11429,7 +11429,7 @@ com.bttendance.fragment.CourseDetailFragment -> com.bttendance.fragment.CourseDe
     104:123:void refreshHeader() -> l
     127:128:void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent) -> onAttdStarted
     132:133:void onAttdChecked(com.bttendance.event.attendance.AttdCheckedEvent) -> onAttdChecked
-    137:139:void onUpdate(com.bttendance.event.update.UpdateCourseDetailEvent) -> onUpdate
+    137:139:void onUpdate(com.bttendance.event.update.UpdateClickerDetailEvent) -> onUpdate
     143:145:void onRefresh(com.bttendance.event.refresh.RefreshCourseDetailEvent) -> onRefresh
     149:151:void onFragmentResume() -> onFragmentResume
     154:162:void swapCursor() -> m

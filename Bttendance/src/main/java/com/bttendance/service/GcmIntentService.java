@@ -12,22 +12,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
+import com.bttendance.BTDebug;
+import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
+import com.bttendance.activity.sign.CatchPointActivity;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
+import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.squareup.otto.BTEventBus;
-import com.bttendance.BTDebug;
-import com.bttendance.R;
-import com.bttendance.activity.sign.CatchPointActivity;
-import com.bttendance.event.attendance.AttdCheckedEvent;
-import com.bttendance.event.attendance.AttdStartedEvent;
-import com.bttendance.model.BTPreference;
 
 /**
-* Created by TheFinestArtist on 2013. 12. 4..
-*/
+ * Created by TheFinestArtist on 2013. 12. 4..
+ */
 public class GcmIntentService extends IntentService {
     private static final int NOTIFICATION_ID = 1;
 
@@ -49,8 +48,8 @@ public class GcmIntentService extends IntentService {
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 BTDebug.LogInfo("Notification Received: " + extras.toString());
 
-//                BTTable.UUIDLIST_refresh();
-//                BTTable.UUIDLISTSENDED_refresh();
+                BTTable.UUIDLIST_refresh();
+                BTTable.UUIDLISTSENDED_refresh();
 
                 String type = extras.getString("type");
                 String title = extras.getString("title");
@@ -58,11 +57,13 @@ public class GcmIntentService extends IntentService {
                 sendNotification(title, message, true);
 
                 if ("attendance_started".equals(type)) {
-                    BTEventBus.getInstance().post(new AttdStartedEvent(false));
+                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
+                    BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("attendance_on_going".equals(type)) {
-                    BTEventBus.getInstance().post(new AttdStartedEvent(true));
+                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
+                    BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("attendance_checked".equals(type)) {
-                    BTEventBus.getInstance().post(new AttdCheckedEvent(title));
+                    BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("clicker_started".equals(type)) {
                     BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("clicker_on_going".equals(type)) {

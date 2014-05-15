@@ -13,7 +13,6 @@ import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
@@ -69,8 +68,6 @@ public class BTActivity extends SherlockFragmentActivity {
     ArrayList<OnServiceConnectListener> mServiceListeners = new ArrayList<OnServiceConnectListener>();
     private BTEventDispatcher mEventDispatcher = null;
     private BTService mService = null;
-    private MenuItem mRefresh;
-    private boolean mShowLoading = false;
     private BTFragment mLastFragment;
 
     public void addOnServiceConnectListener(OnServiceConnectListener listener) {
@@ -139,9 +136,6 @@ public class BTActivity extends SherlockFragmentActivity {
         super.onStart();
         BTEventBus.getInstance().register(mEventDispatcher);
         EasyTracker.getInstance().activityStart(this);
-
-//        if (BTTable.getCheckingPostIds().size() > 0)
-//            BTEventBus.getInstance().post(new AttdStartedEvent(true));
     }
 
     @Override
@@ -197,26 +191,6 @@ public class BTActivity extends SherlockFragmentActivity {
             else
                 BTEventBus.getInstance().post(new BTEnabledEvent());
         }
-    }
-
-    public void showLoading(boolean showLoading) {
-        mShowLoading = showLoading;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (mRefresh != null) {
-                    if (mShowLoading)
-                        mRefresh.setActionView(R.layout.loading_menu);
-                    else
-                        mRefresh.setActionView(null);
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     public interface OnServiceConnectListener {

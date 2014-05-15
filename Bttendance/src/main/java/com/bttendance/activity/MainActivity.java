@@ -9,10 +9,12 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.bttendance.R;
 import com.bttendance.adapter.BTPagerAdapter;
+import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.bttendance.view.PagerSlidingTabStrip;
@@ -87,6 +89,14 @@ public class MainActivity extends BTActivity {
     private void fragmentResume(int position) {
         if (mPagerAdapter != null)
             ((BTFragment) mPagerAdapter.getItem(position)).onFragmentResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (BTTable.getAttdCheckingIds().size() > 0)
+            BTEventBus.getInstance().post(new AttdStartedEvent(true));
     }
 
     @Override

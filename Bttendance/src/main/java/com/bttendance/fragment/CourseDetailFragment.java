@@ -14,9 +14,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.FeedAdapter;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.attendance.AttdCheckedEvent;
 import com.bttendance.event.attendance.AttdStartEvent;
-import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
@@ -187,16 +185,6 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 );
             }
         });
-    }
-
-    @Subscribe
-    public void onAttdStarted(AttdStartedEvent event) {
-        swapCursor();
-    }
-
-    @Subscribe
-    public void onAttdChecked(AttdCheckedEvent event) {
-        swapCursor();
     }
 
     @Subscribe

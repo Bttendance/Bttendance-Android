@@ -6356,8 +6356,8 @@ com.bttendance.event.refresh.RefreshProfileEvent
 com.bttendance.event.refresh.RefreshProfileEvent: RefreshProfileEvent()
 com.bttendance.event.update.UpdateCourseAttendEvent
 com.bttendance.event.update.UpdateCourseAttendEvent: UpdateCourseAttendEvent()
-com.bttendance.event.update.UpdateCourseDetailEvent
-com.bttendance.event.update.UpdateCourseDetailEvent: UpdateCourseDetailEvent()
+com.bttendance.event.update.UpdateClickerDetailEvent
+com.bttendance.event.update.UpdateClickerDetailEvent: UpdateCourseDetailEvent()
 com.bttendance.event.update.UpdateCourseListEvent
 com.bttendance.event.update.UpdateCourseListEvent: UpdateCourseListEvent()
 com.bttendance.event.update.UpdateFeedEvent
@@ -6431,7 +6431,7 @@ com.bttendance.fragment.CourseDetailFragment: void onServiceConnected()
 com.bttendance.fragment.CourseDetailFragment: void getFeed()
 com.bttendance.fragment.CourseDetailFragment: void onAttdStarted(com.bttendance.event.attendance.AttdStartedEvent)
 com.bttendance.fragment.CourseDetailFragment: void onAttdChecked(com.bttendance.event.attendance.AttdCheckedEvent)
-com.bttendance.fragment.CourseDetailFragment: void onUpdate(com.bttendance.event.update.UpdateCourseDetailEvent)
+com.bttendance.fragment.CourseDetailFragment: void onUpdate(com.bttendance.event.update.UpdateClickerDetailEvent)
 com.bttendance.fragment.CourseDetailFragment: void onRefresh(com.bttendance.event.refresh.RefreshCourseDetailEvent)
 com.bttendance.fragment.CourseDetailFragment: void onFragmentResume()
 com.bttendance.fragment.CourseDetailFragment: void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater)
