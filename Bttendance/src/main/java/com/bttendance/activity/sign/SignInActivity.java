@@ -169,8 +169,13 @@ public class SignInActivity extends BTActivity {
             @Override
             public void success(UserJson user, Response response) {
                 BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                startActivity(getNextIntent());
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                SignInActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(getNextIntent());
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                });
             }
 
             @Override

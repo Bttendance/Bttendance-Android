@@ -45,6 +45,9 @@ public class CourseListAdapter extends CursorAdapter implements View.OnClickList
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         mUser = BTPreference.getUser(mContext);
+        if (mUser == null)
+            return;
+
         CourseJsonHelper courseHelper = new CourseJsonHelper(mUser, cursor.getInt(0));
 
         Bttendance bttendance = (Bttendance) view.findViewById(R.id.bttendance);

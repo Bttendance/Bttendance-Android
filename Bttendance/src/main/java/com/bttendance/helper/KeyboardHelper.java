@@ -9,6 +9,9 @@ import android.view.inputmethod.InputMethodManager;
 public class KeyboardHelper {
 
     public static void show(final Context context, final View view) {
+        if (view == null)
+            return;
+
         view.requestFocus();
         view.postDelayed(new Runnable() {
             @Override
@@ -21,18 +24,27 @@ public class KeyboardHelper {
     }
 
     public static void showByUser(Context context, View view) {
+        if (view == null)
+            return;
+
         InputMethodManager keyboard = (InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         keyboard.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
     }
 
     public static void hide(Context context, View view) {
+        if (view == null)
+            return;
+
         InputMethodManager imm = (InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public static void hideByUser(Context context, View view) {
+        if (view == null)
+            return;
+
         InputMethodManager imm = (InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);

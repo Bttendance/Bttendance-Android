@@ -55,6 +55,9 @@ public class CreateNoticeFragment extends BTFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        if (getSherlockActivity() == null)
+            return;
+
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setTitle(getString(R.string.create_notice));
         actionBar.setDisplayHomeAsUpEnabled(true);

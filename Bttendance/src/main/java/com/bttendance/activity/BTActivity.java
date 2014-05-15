@@ -16,6 +16,8 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
+import com.bttendance.activity.sign.SignInActivity;
+import com.bttendance.activity.sign.SignUpActivity;
 import com.bttendance.event.BTEventDispatcher;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
@@ -135,15 +137,27 @@ public class BTActivity extends SherlockFragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        BTEventBus.getInstance().register(mEventDispatcher);
         EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        BTEventBus.getInstance().unregister(mEventDispatcher);
         EasyTracker.getInstance().activityStop(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (this instanceof MainActivity || this instanceof SignUpActivity || this instanceof SignInActivity)
+            BTEventBus.getInstance().register(mEventDispatcher);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (this instanceof MainActivity || this instanceof SignUpActivity || this instanceof SignInActivity)
+            BTEventBus.getInstance().unregister(mEventDispatcher);
     }
 
     public Intent getNextIntent() {

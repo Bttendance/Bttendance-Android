@@ -183,6 +183,7 @@ public class ForgotPasswordFragment extends BTFragment {
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setTitle(getString(R.string.forgot_password));
         actionBar.setDisplayHomeAsUpEnabled(true);
+        KeyboardHelper.show(getActivity(), mEmail);
     }
 
     @Override

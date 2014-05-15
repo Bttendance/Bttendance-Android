@@ -68,6 +68,9 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        if (getSherlockActivity() == null)
+            return;
+
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setTitle(mCourseHelper.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);

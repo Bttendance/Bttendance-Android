@@ -172,6 +172,9 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        if (getSherlockActivity() == null)
+            return;
+
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setTitle(getString(R.string.edit_profile));
         actionBar.setDisplayHomeAsUpEnabled(true);

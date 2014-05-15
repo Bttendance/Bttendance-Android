@@ -2,6 +2,7 @@ package com.bttendance.event;
 
 import android.support.v4.app.FragmentTransaction;
 
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.attendance.AttdStartEvent;

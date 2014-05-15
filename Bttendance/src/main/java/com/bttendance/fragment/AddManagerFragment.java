@@ -186,6 +186,9 @@ public class AddManagerFragment extends BTFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        if (getSherlockActivity() == null)
+            return;
+
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setTitle(getString(R.string.add_manager));
         actionBar.setDisplayHomeAsUpEnabled(true);
