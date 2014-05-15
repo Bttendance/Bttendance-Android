@@ -56,6 +56,8 @@ public class GcmIntentService extends IntentService {
                 String message = extras.getString("message");
                 sendNotification(title, message, true);
 
+                BTDebug.LogError("GCM onHandleIntent TYPE : " + type);
+
                 if ("attendance_started".equals(type)) {
                     BTEventBus.getInstance().post(new RefreshCourseListEvent());
                     BTEventBus.getInstance().post(new RefreshFeedEvent());

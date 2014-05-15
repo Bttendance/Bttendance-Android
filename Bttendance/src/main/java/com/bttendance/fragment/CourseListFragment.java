@@ -10,7 +10,6 @@ import android.widget.ListView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.adapter.CourseListAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
@@ -26,18 +25,8 @@ import com.bttendance.model.BTPreference;
 import com.bttendance.model.cursor.MyCourseCursor;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
-import com.koushikdutta.async.http.AsyncHttpClient;
-import com.koushikdutta.async.http.socketio.Acknowledge;
-import com.koushikdutta.async.http.socketio.ConnectCallback;
-import com.koushikdutta.async.http.socketio.EventCallback;
-import com.koushikdutta.async.http.socketio.JSONCallback;
-import com.koushikdutta.async.http.socketio.SocketIOClient;
-import com.koushikdutta.async.http.socketio.StringCallback;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -123,37 +112,6 @@ public class CourseListFragment extends BTFragment {
                 });
         mListView.setAdapter(mSectionAdapter);
         swapCursor();
-
-        SocketIOClient.connect(AsyncHttpClient.getDefaultInstance(), "http://bttendance-dev.herokuapp.com", new ConnectCallback() {
-            @Override
-            public void onConnectCompleted(Exception ex, SocketIOClient client) {
-                if (ex != null) {
-                    ex.printStackTrace();
-                    return;
-                }
-
-                BTDebug.LogError("Connected");
-
-                client.setStringCallback(new StringCallback() {
-                    @Override
-                    public void onString(String string, Acknowledge acknowledge) {
-                        BTDebug.LogError(string);
-                    }
-                });
-                client.on("bttendance", new EventCallback() {
-                    @Override
-                    public void onEvent(JSONArray arguments, Acknowledge acknowledge) {
-                        BTDebug.LogError("args: " + arguments.toString());
-                    }
-                });
-                client.setJSONCallback(new JSONCallback() {
-                    @Override
-                    public void onJSON(JSONObject json, Acknowledge acknowledge) {
-                        BTDebug.LogError("json: " + json.toString());
-                    }
-                });
-            }
-        });
 
         return mView;
     }

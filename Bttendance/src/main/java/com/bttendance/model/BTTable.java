@@ -15,6 +15,7 @@ import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.view.Bttendance;
+import com.bttendance.view.Clicker;
 import com.squareup.otto.BTEventBus;
 
 import java.util.HashMap;
@@ -194,9 +195,9 @@ public class BTTable {
 
             if (post.createdAt != null
                     && "clicker".equals(post.type)
-                    && currentTime - DateHelper.getTime(post.createdAt) < 60000
-                    && timeTo > DateHelper.getTime(post.createdAt) + 60000) {
-                timeTo = DateHelper.getTime(post.createdAt) + 60000;
+                    && currentTime - DateHelper.getTime(post.createdAt) < Clicker.PROGRESS_DURATION
+                    && timeTo > DateHelper.getTime(post.createdAt) + Clicker.PROGRESS_DURATION) {
+                timeTo = DateHelper.getTime(post.createdAt) + Clicker.PROGRESS_DURATION;
             }
         }
 

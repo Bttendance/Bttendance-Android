@@ -11,6 +11,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.update.UpdateClickerDetailEvent;
 import com.bttendance.helper.DipPixelHelper;
@@ -29,8 +30,7 @@ import org.achartengine.renderer.DefaultRenderer;
 public class PostClickerFragment extends BTFragment {
 
     private PostJson mPost;
-    private GraphicalView mChartView;
-    private CategorySeries mSeries;
+    private RelativeLayout mClicker;
 
     public PostClickerFragment(int postId) {
         mPost = BTTable.PostTable.get(postId);
@@ -46,18 +46,18 @@ public class PostClickerFragment extends BTFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_clicker, container, false);
 
-        RelativeLayout clicker = (RelativeLayout) view.findViewById(R.id.clicker);
+        mClicker = (RelativeLayout) view.findViewById(R.id.clicker);
 
         DefaultRenderer renderer = mPost.clicker.getRenderer(getActivity());
-        mSeries = mPost.clicker.getSeries();
-        mChartView = ChartFactory.getPieChartView(getActivity(), mSeries, renderer);
-        clicker.addView(mChartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        CategorySeries series = mPost.clicker.getSeries();
+        GraphicalView chartView = ChartFactory.getPieChartView(getActivity(), series, renderer);
+        mClicker.addView(chartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         View ring = new View(getActivity());
         ring.setBackgroundResource(R.drawable.ic_polledge);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) DipPixelHelper.getPixel(getActivity(), 243), (int) DipPixelHelper.getPixel(getActivity(), 243));
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-        clicker.addView(ring, params);
+        mClicker.addView(ring, params);
 
         // Title, Message, Detail
         TextView title = (TextView) view.findViewById(R.id.title);
@@ -76,13 +76,25 @@ public class PostClickerFragment extends BTFragment {
         if (!this.isAdded() || mPost == null)
             return;
 
+        BTDebug.LogError("onUpdate Post Clicker");
+
         mPost = BTTable.PostTable.get(mPost.id);
-        mSeries = mPost.clicker.getSeries();
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mChartView.repaint();
+                mClicker.removeAllViews();
+
+                DefaultRenderer renderer = mPost.clicker.getRenderer(getActivity());
+                CategorySeries series = mPost.clicker.getSeries();
+                GraphicalView chartView = ChartFactory.getPieChartView(getActivity(), series, renderer);
+                mClicker.addView(chartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+                View ring = new View(getActivity());
+                ring.setBackgroundResource(R.drawable.ic_polledge);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) DipPixelHelper.getPixel(getActivity(), 243), (int) DipPixelHelper.getPixel(getActivity(), 243));
+                params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                mClicker.addView(ring, params);
             }
         });
     }

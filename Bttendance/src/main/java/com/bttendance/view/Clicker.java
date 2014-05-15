@@ -18,25 +18,26 @@ import com.bttendance.helper.DipPixelHelper;
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class Bttendance extends View {
+public class Clicker extends View {
 
     /**
      * Duration
      */
-    public static final int PROGRESS_DURATION = 180000;
+    public static final int PROGRESS_DURATION = 60000;
     private static final int BLINK_DURATION = 1000;
     /**
      * Dimension
      */
-    private static final int BIG_SIZE = 105; //in dp
     private static final int SMALL_SIZE = 52; //in dp
-    private static final int BIG_WHEEL_RADIUS = 50; //in dp (135)
     private static final float SMALL_WHEEL_RADIUS = 24.2f; //in dp (52)
     /**
      * Type
      */
-    private static final int BIG = 0;
-    private static final int SMALL = 1;
+    private static final int A = 0;
+    private static final int B = 1;
+    private static final int C = 2;
+    private static final int D = 3;
+    private static final int E = 4;
     /**
      * Variables
      */
@@ -44,14 +45,12 @@ public class Bttendance extends View {
     private float mSize;
     private float mRadius;
     private float mMargin;
-    private STATE mState;
     private int mProgress;
     /**
      * Bitmap
      */
-    private Bitmap mFailBackground;
     private Bitmap mCircleBackground;
-    private Bitmap mCyanCheck;
+    private Bitmap mAlphabet;
     /**
      * Paint
      */
@@ -67,31 +66,22 @@ public class Bttendance extends View {
     private Transformation mScaleTransformation;
     private AlphaAnimation mScale;
 
-    public Bttendance(Context context) {
+    public Clicker(Context context) {
         this(context, null);
     }
 
-    public Bttendance(Context context, AttributeSet attrs) {
+    public Clicker(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public Bttendance(Context context, AttributeSet attrs, int defStyleAttr) {
+    public Clicker(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         // load the styled attributes and set their properties
-        final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Bttendance, defStyleAttr, 0);
-        mType = attributes.getInt(R.styleable.Bttendance_type, SMALL);
-        switch (mType) {
-            case BIG:
-                mRadius = DipPixelHelper.getPixel(getContext(), BIG_WHEEL_RADIUS);
-                mSize = DipPixelHelper.getPixel(getContext(), BIG_SIZE);
-                break;
-            case SMALL:
-            default:
-                mRadius = DipPixelHelper.getPixel(getContext(), SMALL_WHEEL_RADIUS);
-                mSize = DipPixelHelper.getPixel(getContext(), SMALL_SIZE);
-                break;
-        }
+        final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Clicker, defStyleAttr, 0);
+        mType = attributes.getInt(R.styleable.Clicker_alphabet, A);
+        mRadius = DipPixelHelper.getPixel(getContext(), SMALL_WHEEL_RADIUS);
+        mSize = DipPixelHelper.getPixel(getContext(), SMALL_SIZE);
         mMargin = (mSize - mRadius * 2) / 2.0f;
 
         mProgressPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -103,14 +93,25 @@ public class Bttendance extends View {
         mTransparentPaint.setColor(getResources().getColor(R.color.bttendance_white));
 
         switch (mType) {
-            case BIG:
-                mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_large);
+            case A:
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_a);
                 break;
-            case SMALL:
+            case B:
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_b);
+                break;
+            case C:
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_c);
+                break;
+            case D:
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_d);
+                break;
+            case E:
             default:
-                mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_small);
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_a);
                 break;
         }
+
+        mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_circle_cyan_small);
 
         mAlphaPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mAlphaTransformation = new Transformation();
@@ -155,7 +156,6 @@ public class Bttendance extends View {
 
         mScaleTransformation = new Transformation();
         mScale = new AlphaAnimation(1f, 0f);
-        mState = STATE.CHECKED;
     }
 
     @Override
@@ -168,18 +168,7 @@ public class Bttendance extends View {
             canvas.drawRect(mMargin, mMargin, mSize - mMargin, mMargin + mRadius * 2 * (100 - mProgress) / 100, mTransparentPaint);
         }
 
-        if (mState == STATE.GRADE) {
-            canvas.drawCircle(canvas.getWidth() / 2.0f, canvas.getHeight() / 2.0f, mRadius, mProgressPaint);
-            canvas.drawRect(mMargin, mMargin, mSize - mMargin, mMargin + mRadius * 2 * (100 - mProgress) / 100, mTransparentPaint);
-        }
-
-        Bitmap background = getBackgroundBitmap();
-        if (background != null)
-            canvas.drawBitmap(background, 0, 0, null);
-
-        Bitmap check = getCheckBitmap();
-        if (check != null)
-            canvas.drawBitmap(check, 0, 0, null);
+        canvas.drawBitmap(mCircleBackground, 0, 0, null);
 
         if (mFadeOut.hasStarted() && !mFadeOut.hasEnded()) {
             mFadeOut.getTransformation(System.currentTimeMillis(), mAlphaTransformation);
@@ -192,7 +181,7 @@ public class Bttendance extends View {
         } else {
             mAlphaPaint.setAlpha(1);
         }
-        canvas.drawBitmap(mCyanCheck, 0, 0, mAlphaPaint);
+        canvas.drawBitmap(mAlphabet, 0, 0, mAlphaPaint);
     }
 
     @Override
@@ -200,109 +189,8 @@ public class Bttendance extends View {
         setMeasuredDimension((int) mSize, (int) mSize);
     }
 
-    private Bitmap getCheckBitmap() {
-
-        switch (mType) {
-            case BIG:
-                switch (mState) {
-                    case GRADE:
-                    case CHECKED:
-                        if (mCyanCheck == null)
-                            return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_large);
-                        else
-                            return mCyanCheck;
-                    case STARTED:
-                    case CHECKING:
-                    case FAIL:
-                    default:
-                        return null;
-                }
-            case SMALL:
-            default:
-                switch (mState) {
-                    case GRADE:
-                    case CHECKED:
-                        if (mCyanCheck == null)
-                            return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_small);
-                        else
-                            return mCyanCheck;
-                    case STARTED:
-                    case CHECKING:
-                    case FAIL:
-                    default:
-                        return null;
-                }
-        }
-    }
-
-    private Bitmap getBackgroundBitmap() {
-
-        switch (mType) {
-            case BIG:
-                switch (mState) {
-                    case FAIL:
-                        if (mFailBackground == null)
-                            return mFailBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_large);
-                        else
-                            return mFailBackground;
-                    case STARTED:
-                    case CHECKING:
-                    case GRADE:
-                    case CHECKED:
-                        if (mCircleBackground == null)
-                            return mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_circle_cyan_large);
-                        else
-                            return mCircleBackground;
-                    default:
-                        return null;
-                }
-            case SMALL:
-            default:
-                switch (mState) {
-                    case FAIL:
-                        if (mFailBackground == null)
-                            return mFailBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_small);
-                        else
-                            return mFailBackground;
-                    case STARTED:
-                    case CHECKING:
-                    case GRADE:
-                    case CHECKED:
-                        if (mCircleBackground == null)
-                            return mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_circle_cyan_small);
-                        else
-                            return mCircleBackground;
-                    default:
-                        return null;
-                }
-        }
-    }
-
-    public void setBttendance(STATE state, int progress) {
+    public void startClicker(int progress) {
         mProgress = progress;
-        mState = state;
-        switch (mState) {
-            case STARTED:
-                mProgress = 100;
-            case CHECKING:
-                startBttendance(mProgress);
-                break;
-            case GRADE:
-                endBttendance(state, progress);
-                break;
-            case FAIL:
-            case CHECKED:
-                endBttendance(state, 0);
-                break;
-            default:
-                break;
-        }
-        invalidate();
-    }
-
-    private void startBttendance(int progress) {
-        mProgress = progress;
-        mState = STATE.CHECKING;
         mFadeOut.start();
         mFadeOut.getTransformation(System.currentTimeMillis(), mAlphaTransformation);
         mScale = new AlphaAnimation(1f * (float) progress / 100f, 0f);
@@ -333,14 +221,7 @@ public class Bttendance extends View {
         });
         mScale.start();
         mScale.getTransformation(System.currentTimeMillis(), mScaleTransformation);
-    }
-
-    private void endBttendance(STATE state, int progress) {
-        mState = state;
-        mScale.cancel();
-        mFadeIn.cancel();
-        mFadeOut.cancel();
-        mProgress = progress;
+        invalidate();
     }
 
     @Override
@@ -348,6 +229,4 @@ public class Bttendance extends View {
         super.startAnimation(animation);
         clearAnimation();
     }
-
-    public static enum STATE {STARTED, CHECKING, CHECKED, FAIL, GRADE}
 }

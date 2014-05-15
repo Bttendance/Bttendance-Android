@@ -217,6 +217,6 @@ public interface BTAPI {
     void clickerClick(@Query("username") String username,
                       @Query("password") String password,
                       @Query("clicker_id") int clickerID,
-                      @Query("choice_number") String choice,
+                      @Query("choice_number") int choice,
                       Callback<ClickerJson> cb);
 }

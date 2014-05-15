@@ -9,6 +9,7 @@ import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
 import com.bttendance.event.bluetooth.BTEnabledEvent;
+import com.bttendance.event.clicker.ClickerClickEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
@@ -17,6 +18,7 @@ import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.BTTable;
+import com.bttendance.model.json.ClickerJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
@@ -139,6 +141,24 @@ public class BTEventDispatcher {
         final BTActivity act = getBTActivity();
         if (act == null)
             return;
+    }
+
+    @Subscribe
+    public void onClickerClicked(ClickerClickEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null)
+            return;
+
+        PostJson post = BTTable.PostTable.get(event.getPostID());
+        act.getBTService().clickerClick(post.clicker.id, event.getChoice(), new Callback<ClickerJson>() {
+            @Override
+            public void success(ClickerJson clickerJson, Response response) {
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+            }
+        });
     }
 
     @Subscribe

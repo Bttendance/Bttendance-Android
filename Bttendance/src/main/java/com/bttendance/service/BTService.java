@@ -16,6 +16,7 @@ import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
+import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.DateHelper;
@@ -32,7 +33,19 @@ import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.view.BeautiToast;
+import com.google.gson.Gson;
+import com.koushikdutta.async.http.AsyncHttpClient;
+import com.koushikdutta.async.http.socketio.Acknowledge;
+import com.koushikdutta.async.http.socketio.ConnectCallback;
+import com.koushikdutta.async.http.socketio.EventCallback;
+import com.koushikdutta.async.http.socketio.JSONCallback;
+import com.koushikdutta.async.http.socketio.SocketIOClient;
+import com.koushikdutta.async.http.socketio.StringCallback;
 import com.squareup.otto.BTEventBus;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.Set;
@@ -73,7 +86,7 @@ public class BTService extends Service {
     private long mAttdTimeTo;
     private long mRefreshTimeTo;
 
-    private static String getServerDomain() {
+    public static String getServerDomain() {
         if (!BTDebug.DEBUG)
             return SERVER_DOMAIN_PRODUCTION;
         else
@@ -94,6 +107,53 @@ public class BTService extends Service {
         super.onCreate();
         mConnectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         mBTAPI = mRestAdapter.create(BTAPI.class);
+
+        SocketIOClient.connect(AsyncHttpClient.getDefaultInstance(), BTService.getServerDomain(), new ConnectCallback() {
+            @Override
+            public void onConnectCompleted(Exception ex, SocketIOClient client) {
+                if (ex != null) {
+                    ex.printStackTrace();
+                    return;
+                }
+
+                BTDebug.LogQueryAPI("Socket Connected-------");
+
+                client.setStringCallback(new StringCallback() {
+                    @Override
+                    public void onString(String string, Acknowledge acknowledge) {
+                        BTDebug.LogQueryAPI("string: " + string);
+                    }
+                });
+
+                client.on("onConnect", new EventCallback() {
+                    @Override
+                    public void onEvent(JSONArray arguments, Acknowledge acknowledge) {
+                        BTDebug.LogQueryAPI("args: " + arguments.toString());
+                    }
+                });
+
+                client.on("clickers", new EventCallback() {
+                    @Override
+                    public void onEvent(JSONArray arguments, Acknowledge acknowledge) {
+                        try {
+                            BTDebug.LogQueryAPI("args: " + arguments);
+                            JSONObject clicker = arguments.getJSONObject(0).getJSONObject("data");
+                            ClickerJson clickerJson = new Gson().fromJson(clicker.toString(), ClickerJson.class);
+                            BTTable.updateClicker(clickerJson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                client.setJSONCallback(new JSONCallback() {
+                    @Override
+                    public void onJSON(JSONObject json, Acknowledge acknowledge) {
+                        BTDebug.LogQueryAPI("json: " + json.toString());
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -111,7 +171,7 @@ public class BTService extends Service {
         long refreshTimeTo = BTTable.getRefreshTimeTo();
         BTDebug.LogError("mRefreshTimeTo = " + mRefreshTimeTo + ", refreshTimeTo = " + refreshTimeTo);
 
-        if(refreshTimeTo == -1)
+        if (refreshTimeTo == -1)
             return;
 
         if (mRefreshThread != null && mRefreshTimeTo == refreshTimeTo)
@@ -921,7 +981,7 @@ public class BTService extends Service {
                 });
     }
 
-    public void clickerClick(int clickerID, String choice, final Callback<ClickerJson> cb) {
+    public void clickerClick(int clickerID, int choice, final Callback<ClickerJson> cb) {
         if (!isConnected())
             return;
 
