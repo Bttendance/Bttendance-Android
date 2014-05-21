@@ -56,7 +56,7 @@ public class BTTable {
 
         String filter = FILTER_STUDENTS_OF_COURSE + courseID;
         SparseArray<UserJsonSimple> array = mUser.get(filter);
-        if (users == null) {
+        if (array == null) {
             array = new SparseArray<UserJsonSimple>();
             mUser.put(filter, array);
         }

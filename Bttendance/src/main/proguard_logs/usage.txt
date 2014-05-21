@@ -552,11 +552,6 @@ com.actionbarsherlock.widget.SuggestionsAdapter:
     712:729:private android.graphics.drawable.Drawable getActivityIcon(android.content.ComponentName)
 com.bttendance.activity.BTActivity:
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST
-com.bttendance.activity.sign.SignUpActivity:
-    55:57:private void typeError()
-com.bttendance.adapter.CourseListAdapter:
-    private static final int VIEW_TYPE_ADD
-    private static final int VIEW_TYPE_ITEM
 com.bttendance.adapter.kit.CircularListAdapter:
     static final boolean DEBUG
 com.bttendance.adapter.kit.InstantAdapterCore:
@@ -596,13 +591,6 @@ com.bttendance.service.BTService:
     private static final java.lang.String SERVER_DOMAIN_DEVELOPMENT
 com.bttendance.service.GcmIntentService:
     private static final int NOTIFICATION_ID
-    private static final java.lang.String TITLE
-    private static final java.lang.String MESSAGE
-    private static final java.lang.String TYPE
-    private static final java.lang.String POST
-    private static final java.lang.String COURSE
-    private static final java.lang.String ATTENDANCE_STARTED
-    private static final java.lang.String ATTENDANCE_CHECKED
 com.bttendance.view.Bttendance:
     private static final int BLINK_DURATION
     private static final int BIG_SIZE
@@ -611,6 +599,15 @@ com.bttendance.view.Bttendance:
     private static final float SMALL_WHEEL_RADIUS
     private static final int BIG
     private static final int SMALL
+com.bttendance.view.Clicker:
+    private static final int BLINK_DURATION
+    private static final int SMALL_SIZE
+    private static final float SMALL_WHEEL_RADIUS
+    private static final int A
+    private static final int B
+    private static final int C
+    private static final int D
+    private static final int E
 com.bttendance.view.IndexScroller:
     private static final int STATE_HIDDEN
     private static final int STATE_SHOWING
@@ -792,6 +789,90 @@ com.google.gson.stream.JsonReader:
     private static final int NUMBER_CHAR_EXP_SIGN
     private static final int NUMBER_CHAR_EXP_DIGIT
 com.google.gson.stream.JsonScope
+com.koushikdutta.async.ArrayDeque:
+    private static final int MIN_INITIAL_CAPACITY
+com.koushikdutta.async.AsyncServer:
+    private static final long QUEUE_EMPTY
+com.koushikdutta.async.ChannelWrapper:
+    public abstract void shutdownInput()
+com.koushikdutta.async.DatagramChannelWrapper:
+    75:75:public void shutdownInput()
+com.koushikdutta.async.ServerSocketChannelWrapper:
+    19:19:public void shutdownInput()
+com.koushikdutta.async.SocketChannelWrapper:
+    55:59:public void shutdownInput()
+com.koushikdutta.async.http.AsyncHttpClient:
+    private static final java.lang.String LOGTAG
+com.koushikdutta.async.http.HybiParser:
+    private static final java.lang.String TAG
+    private static final int BYTE
+    private static final int FIN
+    private static final int MASK
+    private static final int RSV1
+    private static final int RSV2
+    private static final int RSV3
+    private static final int OPCODE
+    private static final int LENGTH
+    private static final int MODE_TEXT
+    private static final int MODE_BINARY
+    private static final int OP_CONTINUATION
+    private static final int OP_TEXT
+    private static final int OP_BINARY
+    private static final int OP_CLOSE
+    private static final int OP_PING
+    private static final int OP_PONG
+    private static final long BASE
+    private static final long _2_TO_8_
+    private static final long _2_TO_16_
+    private static final long _2_TO_24
+    private static final long _2_TO_32_
+    private static final long _2_TO_40_
+    private static final long _2_TO_48_
+    private static final long _2_TO_56_
+    383:383:public void ping(java.lang.String)
+    386:389:public void close(int,java.lang.String)
+com.koushikdutta.async.http.ResponseCacheMiddleware:
+    private static final int VERSION
+    private static final java.lang.String LOGTAG
+com.koushikdutta.async.http.ResponseCacheMiddleware$Entry:
+    878:893:private java.security.cert.Certificate[] readCertArray(com.koushikdutta.async.http.libcore.StrictLineReader)
+com.koushikdutta.async.http.WebSocketImpl:
+    static final java.lang.String MAGIC
+com.koushikdutta.async.http.filter.GZIPInputFilter:
+    private static final int FCOMMENT
+    private static final int FEXTRA
+    private static final int FHCRC
+    private static final int FNAME
+com.koushikdutta.async.http.libcore.Arrays
+com.koushikdutta.async.http.libcore.DiskLruCache:
+    static final java.lang.String JOURNAL_FILE
+    static final java.lang.String JOURNAL_FILE_TEMP
+    static final java.lang.String JOURNAL_FILE_BACKUP
+    static final java.lang.String MAGIC
+    static final java.lang.String VERSION_1
+    static final long ANY_SEQUENCE_NUMBER
+    private static final java.lang.String CLEAN
+    private static final java.lang.String DIRTY
+    private static final java.lang.String REMOVE
+    private static final java.lang.String READ
+com.koushikdutta.async.http.libcore.HeaderParser:
+    19:21:HeaderParser()
+com.koushikdutta.async.http.libcore.ResponseHeaders:
+    private static final java.lang.String SENT_MILLIS
+    private static final java.lang.String RECEIVED_MILLIS
+com.koushikdutta.async.http.libcore.Streams:
+    10:10:Streams()
+com.koushikdutta.async.http.libcore.StrictLineReader:
+    private static final byte CR
+    private static final byte LF
+com.koushikdutta.async.http.socketio.SocketIOClient:
+    20:33:private static void reportError(com.koushikdutta.async.future.SimpleFuture,android.os.Handler,com.koushikdutta.async.http.socketio.ConnectCallback,java.lang.Exception)
+com.koushikdutta.async.http.socketio.SocketIOClient$1
+com.koushikdutta.async.http.socketio.transport.XHRPollingTransport:
+    private static final java.lang.String SEPARATOR
+com.koushikdutta.async.stream.OutputStreamDataSink:
+    int totalWritten
+    40:56:private boolean doPending()
 com.squareup.okhttp.ConnectionPool:
     private static final int MAX_CONNECTIONS_TO_CLEANUP
     private static final long DEFAULT_KEEP_ALIVE_DURATION_MS
@@ -991,6 +1072,19 @@ com.squareup.picasso.Utils$BitmapHoneycombMR1:
     223:223:private Utils$BitmapHoneycombMR1()
 com.squareup.picasso.Utils$OkHttpLoaderCreator:
     229:229:private Utils$OkHttpLoaderCreator()
+org.achartengine.chart.BarChart:
+    private static final int SHAPE_WIDTH
+org.achartengine.chart.BubbleChart:
+    private static final int SHAPE_WIDTH
+    private static final int MIN_BUBBLE_SIZE
+    private static final int MAX_BUBBLE_SIZE
+org.achartengine.chart.DialChart:
+    private static final int NEEDLE_RADIUS
+org.achartengine.chart.LineChart:
+    private static final int SHAPE_WIDTH
+org.achartengine.chart.ScatterChart:
+    private static final float SIZE
+    private static final int SHAPE_WIDTH
 retrofit.Platform$OkClientInstantiator:
     168:168:private Platform$OkClientInstantiator()
 retrofit.RestAdapter:

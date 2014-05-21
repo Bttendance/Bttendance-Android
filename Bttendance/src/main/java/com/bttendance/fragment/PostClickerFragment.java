@@ -31,6 +31,7 @@ public class PostClickerFragment extends BTFragment {
 
     private PostJson mPost;
     private RelativeLayout mClicker;
+    private TextView mDetail;
 
     public PostClickerFragment(int postId) {
         mPost = BTTable.PostTable.get(postId);
@@ -62,11 +63,11 @@ public class PostClickerFragment extends BTFragment {
         // Title, Message, Detail
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
-        TextView detail = (TextView) view.findViewById(R.id.detail);
+        mDetail = (TextView) view.findViewById(R.id.detail);
 
         title.setText(mPost.course.name);
         message.setText(mPost.message);
-        detail.setText(mPost.clicker.getDetail());
+        mDetail.setText(mPost.clicker.getDetail());
 
         return view;
     }
@@ -95,6 +96,8 @@ public class PostClickerFragment extends BTFragment {
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) DipPixelHelper.getPixel(getActivity(), 243), (int) DipPixelHelper.getPixel(getActivity(), 243));
                 params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
                 mClicker.addView(ring, params);
+
+                mDetail.setText(mPost.clicker.getDetail());
             }
         });
     }
