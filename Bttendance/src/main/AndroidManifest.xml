@@ -26,7 +26,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="20" />
 
     <application
         android:allowBackup="true"
@@ -72,7 +72,7 @@
             android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.bttendance.activity.MainActivity"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

@@ -54,6 +54,7 @@ public class GcmIntentService extends IntentService {
                 String type = extras.getString("type");
                 String title = extras.getString("title");
                 String message = extras.getString("message");
+                int course_id = extras.getInt("course_id");
                 sendNotification(title, message, true);
 
                 BTDebug.LogError("GCM onHandleIntent TYPE : " + type);
@@ -105,7 +106,7 @@ public class GcmIntentService extends IntentService {
 
         UserJson user = BTPreference.getUser(this);
         PendingIntent pending;
-        if (user == null || user.username == null || user.password == null) {
+        if (user == null || user.email == null || user.password == null) {
             BTPreference.clearUser(this);
             pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         } else {

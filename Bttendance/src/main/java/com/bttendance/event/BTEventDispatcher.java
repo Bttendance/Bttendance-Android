@@ -2,7 +2,6 @@ package com.bttendance.event;
 
 import android.support.v4.app.FragmentTransaction;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.attendance.AttdStartEvent;
@@ -65,7 +64,7 @@ public class BTEventDispatcher {
                     BluetoothHelper.enableWithUI();
                     BluetoothHelper.enableDiscoverability(act);
                 } else {
-                    act.getBTService().postStartAttendance(BTTable.ATTENDANCE_STARTING_COURSE, new Callback<PostJson>() {
+                    act.getBTService().postStartAttendance(BTTable.ATTENDANCE_STARTING_COURSE, "auto", new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
                             act.getBTService().attendanceStart();
@@ -130,7 +129,7 @@ public class BTEventDispatcher {
         if (BTTable.ATTENDANCE_STARTING_COURSE != -1) {
             int courseID = BTTable.ATTENDANCE_STARTING_COURSE;
             BTTable.ATTENDANCE_STARTING_COURSE = -1;
-            act.getBTService().postStartAttendance(courseID, new Callback<PostJson>() {
+            act.getBTService().postStartAttendance(courseID, "auto", new Callback<PostJson>() {
                 @Override
                 public void success(PostJson postJson, Response response) {
                     act.getBTService().attendanceStart();

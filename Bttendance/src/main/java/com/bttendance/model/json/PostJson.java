@@ -12,7 +12,6 @@ public class PostJson extends BTJson {
     public CourseJsonSimple course;
     public AttendanceJsonSimple attendance;
     public ClickerJsonSimple clicker;
+    public NoticeJsonSimple notice;
 
-    //Added by APIs
-    public String grade;
 }

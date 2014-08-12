@@ -176,16 +176,16 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                     header.findViewById(R.id.manager_layout).setVisibility(View.GONE);
 
                 Bttendance bttendance = (Bttendance) header.findViewById(R.id.bttendance);
-                int grade = Integer.parseInt(mCourseHelper.getGrade());
-                bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
-                TextView courseInfo = (TextView) header.findViewById(R.id.course_info);
-                courseInfo.setText(getString(R.string.prof_) + " " + mCourseHelper.getProfessorName() + "\n"
-                        + mCourseHelper.getSchoolName() + "\n\n"
-                        + String.format(getString(R.string.n_students), mCourseHelper.getStudentCount()) + "\n"
-                        + String.format(getString(R.string.n_attendance_rate), grade) + "\n"
-                        + String.format(getString(R.string.n_clickers), mCourseHelper.getClickerUsage()) + "\n"
-                        + String.format(getString(R.string.n_notices), mCourseHelper.getNoticeUsage())
-                );
+//                int grade = Integer.parseInt(mCourseHelper.getGrade());
+//                bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
+//                TextView courseInfo = (TextView) header.findViewById(R.id.course_info);
+//                courseInfo.setText(getString(R.string.prof_) + " " + mCourseHelper.getProfessorName() + "\n"
+//                        + mCourseHelper.getSchoolName() + "\n\n"
+//                        + String.format(getString(R.string.n_students), mCourseHelper.getStudentCount()) + "\n"
+//                        + String.format(getString(R.string.n_attendance_rate), grade) + "\n"
+//                        + String.format(getString(R.string.n_clickers), mCourseHelper.getClickerUsage()) + "\n"
+//                        + String.format(getString(R.string.n_notices), mCourseHelper.getNoticeUsage())
+//                );
             }
         });
     }

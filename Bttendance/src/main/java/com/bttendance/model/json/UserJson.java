@@ -6,19 +6,25 @@ package com.bttendance.model.json;
 
 public class UserJson extends BTJson {
 
-    public String username;
-    public String username_lower;
     public String email;
     public String password;
     public String full_name;
-    public String profile_image;
     public DeviceJsonSimple device;
+    public SettingJsonSimple setting;
     public CourseJsonSimple[] supervising_courses;
     public CourseJsonSimple[] attending_courses;
     public SchoolJsonSimple[] employed_schools;
-    public SerialJsonSimple[] serials;
     public SchoolJsonSimple[] enrolled_schools;
     public IdentificationJsonSimple[] identifications;
+    public QuestionJsonSimple[] questions;
+
+    public boolean supervising(int courseID) {
+        for (CourseJsonSimple course : supervising_courses)
+            if (course.id == courseID)
+                return true;
+
+        return false;
+    }
 
     public CourseJsonSimple[] getCourses() {
 

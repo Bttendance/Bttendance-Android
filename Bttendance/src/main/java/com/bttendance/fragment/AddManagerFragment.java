@@ -156,7 +156,7 @@ public class AddManagerFragment extends BTFragment {
                 BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
                     @Override
                     public void onConfirmed(String edit) {
-                        getBTService().addManager(user.username, mCourse.id, new Callback<CourseJson>() {
+                        getBTService().addManager(user.email, mCourse.id, new Callback<CourseJson>() {
                             @Override
                             public void success(CourseJson courseJson, Response response) {
                                 BeautiToast.show(getActivity(), String.format(getActivity().getString(R.string.is_now_manager_of_course), user.full_name, mCourse.name));

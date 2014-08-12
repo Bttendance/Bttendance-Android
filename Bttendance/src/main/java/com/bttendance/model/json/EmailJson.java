@@ -7,5 +7,5 @@ package com.bttendance.model.json;
 public class EmailJson extends BTJson {
 
     public String email;
-    public String sent;
+
 }

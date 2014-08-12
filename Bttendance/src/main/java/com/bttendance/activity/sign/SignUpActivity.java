@@ -36,21 +36,17 @@ import retrofit.client.Response;
 public class SignUpActivity extends BTActivity {
 
     private EditText mFullName = null;
-    private EditText mUsername = null;
     private EditText mEmail = null;
     private EditText mPassword = null;
     private View mFullNameDiv = null;
-    private View mUsernameDiv = null;
     private View mEmailDiv = null;
     private View mPasswordDiv = null;
     private int mFullNameCount = 0;
-    private int mUsernameCount = 0;
     private int mEmailCount = 0;
     private int mPasswordCount = 0;
     private Button mSignUp = null;
     private TextView mTermOfUse = null;
     private String mFullNameString = null;
-    private String mUsernameString = null;
     private String mEmailString = null;
     private String mPasswordString = null;
 
@@ -61,11 +57,9 @@ public class SignUpActivity extends BTActivity {
         getSupportActionBar().setTitle(getString(R.string.sign_up));
 
         mFullName = (EditText) findViewById(R.id.full_name);
-        mUsername = (EditText) findViewById(R.id.username);
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
         mFullNameDiv = findViewById(R.id.full_name_divider);
-        mUsernameDiv = findViewById(R.id.username_divider);
         mEmailDiv = findViewById(R.id.email_divider);
         mPasswordDiv = findViewById(R.id.password_divider);
 
@@ -96,34 +90,6 @@ public class SignUpActivity extends BTActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-            }
-        });
-
-        mUsername.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    mUsernameDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_cyan));
-                } else {
-                    mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
-                }
-            }
-        });
-
-        mUsername.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mUsernameCount = mUsername.getText().toString().length();
-                isEnableSignUp();
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
             }
         });
 
@@ -259,7 +225,7 @@ public class SignUpActivity extends BTActivity {
     }
 
     public void isEnableSignUp() {
-        if (mFullNameCount > 0 && mUsernameCount > 0 && mEmailCount > 0 && mPasswordCount > 5) {
+        if (mFullNameCount > 0 && mEmailCount > 0 && mPasswordCount > 5) {
             mSignUp.setEnabled(true);
             mSignUp.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
@@ -274,15 +240,12 @@ public class SignUpActivity extends BTActivity {
 
         if (mFullNameString != null)
             mFullName.setText(mFullNameString);
-        if (mUsernameString != null)
-            mUsername.setText(mUsernameString);
         if (mEmailString != null)
             mEmail.setText(mEmailString);
         if (mPasswordString != null)
             mPassword.setText(mPasswordString);
 
         mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
-        mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
         mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
 
@@ -295,7 +258,6 @@ public class SignUpActivity extends BTActivity {
         super.onPause();
 
         mFullNameString = mFullName.getText().toString();
-        mUsernameString = mUsername.getText().toString();
         mEmailString = mEmail.getText().toString();
         mPasswordString = mPassword.getText().toString();
         BTEventBus.getInstance().unregister(mEventDispatcher);
@@ -306,12 +268,10 @@ public class SignUpActivity extends BTActivity {
             return;
 
         String fullName = mFullName.getText().toString();
-        String username = mUsername.getText().toString();
         String email = mEmail.getText().toString();
         String password = mPassword.getText().toString();
 
         UserJson user = new UserJson();
-        user.username = username;
         user.full_name = fullName;
         user.email = email;
         user.password = password;

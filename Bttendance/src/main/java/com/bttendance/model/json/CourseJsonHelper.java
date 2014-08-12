@@ -49,39 +49,27 @@ public class CourseJsonHelper {
         return null;
     }
 
-    public String getGrade() {
-        if (mCourse != null && mCourse.grade != null)
-            return mCourse.grade;
-        return "0";
+    public int getAttendanceRate() {
+        if (mCourse != null)
+            return mCourse.attendance_rate;
+        return -1;
+    }
+
+    public int getClickerRate() {
+        if (mCourse != null)
+            return mCourse.clicker_rate;
+        return -1;
+    }
+
+    public int getNoticeUnseen() {
+        if (mCourse != null)
+            return mCourse.notice_unseen;
+        return -1;
     }
 
     public int getStudentCount() {
-        if (mCourse != null && mCourse.students_count > 0)
+        if (mCourse != null)
             return mCourse.students_count;
-        if (mCourseSimple != null && mCourseSimple.students_count > 0)
-            return mCourseSimple.students_count;
-        return 0;
-    }
-
-    public int getClickerUsage() {
-        if (mCourse != null && mCourse.clicker_usage > 0)
-            return mCourse.clicker_usage;
-        if (mCourseSimple != null && mCourseSimple.clicker_usage > 0)
-            return mCourseSimple.clicker_usage;
-        return 0;
-    }
-
-    public int getNoticeUsage() {
-        if (mCourse != null && mCourse.notice_usage > 0)
-            return mCourse.notice_usage;
-        if (mCourseSimple != null && mCourseSimple.notice_usage > 0)
-            return mCourseSimple.notice_usage;
-        return 0;
-    }
-
-    public String getAttdCheckedAt() {
-        if (mCourse != null && mCourse.attdCheckedAt != null)
-            return mCourse.attdCheckedAt;
-        return null;
+        return -1;
     }
 }

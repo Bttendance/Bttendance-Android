@@ -24,6 +24,8 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.bttendance.R;
+
 public class ScreenHelper {
 
     @SuppressWarnings("deprecation")
@@ -38,6 +40,12 @@ public class ScreenHelper {
             return size.x;
         } else
             return display.getWidth();
+    }
+
+    public static int getNaviDrawerWidth(Context context) {
+        int maxMenuWidth = context.getResources().getDimensionPixelSize(R.dimen.side_menu_max_width);
+        int behindOffset = Math.min(ScreenHelper.getWidth(context) * 5 / 6, maxMenuWidth);
+        return behindOffset;
     }
 
     @SuppressWarnings("deprecation")

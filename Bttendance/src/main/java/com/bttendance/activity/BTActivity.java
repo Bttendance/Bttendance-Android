@@ -16,8 +16,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
-import com.bttendance.activity.sign.SignInActivity;
-import com.bttendance.activity.sign.SignUpActivity;
 import com.bttendance.event.BTEventDispatcher;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
@@ -26,7 +24,6 @@ import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.BTNotification;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.OldUserJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTService;
 import com.google.analytics.tracking.android.EasyTracker;
@@ -148,9 +145,8 @@ public class BTActivity extends SherlockFragmentActivity {
 
     public Intent getNextIntent() {
         UserJson user = BTPreference.getUser(this);
-        OldUserJson userold = BTPreference.getUserOld(this);
         Intent intent;
-        if (user == null && userold == null) {
+        if (user == null) {
             BTPreference.clearUser(this);
             intent = new Intent(this, CatchPointActivity.class);
         } else {
@@ -162,8 +158,8 @@ public class BTActivity extends SherlockFragmentActivity {
     }
 
     private void checkPlayServices() {
-        if (!(this instanceof MainActivity))
-            return;
+//        if (!(this instanceof MainActivity))
+//            return;
 
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {

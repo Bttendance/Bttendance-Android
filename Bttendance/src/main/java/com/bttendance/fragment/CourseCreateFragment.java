@@ -22,6 +22,7 @@ import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.EmailJson;
+import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
@@ -272,28 +273,28 @@ public class CourseCreateFragment extends BTFragment {
         String name = mName.getText().toString();
 
         BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.creating_course)));
-        getBTService().courseCreate(fullName, email, mSchoolID, name, new Callback<EmailJson>() {
+        getBTService().courseCreate(name, mSchoolID, fullName, new Callback<UserJson>() {
             @Override
-            public void success(EmailJson email, Response response) {
+            public void success(UserJson user, Response response) {
 
-                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
-                String title = getString(R.string.email_sent);
-                String message = String.format(getString(R.string.verification_code_for_activating_your_course), email.email);
-                BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
-                    @Override
-                    public void onConfirmed(String edit) {
-                        getActivity().getSupportFragmentManager().popBackStack();
-                        getActivity().getSupportFragmentManager().popBackStack();
-                    }
-
-                    @Override
-                    public void onCanceled() {
-                        getActivity().getSupportFragmentManager().popBackStack();
-                        getActivity().getSupportFragmentManager().popBackStack();
-                    }
-                };
-                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
+//                String title = getString(R.string.email_sent);
+//                String message = String.format(getString(R.string.verification_code_for_activating_your_course), email.email);
+//                BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
+//                    @Override
+//                    public void onConfirmed(String edit) {
+//                        getActivity().getSupportFragmentManager().popBackStack();
+//                        getActivity().getSupportFragmentManager().popBackStack();
+//                    }
+//
+//                    @Override
+//                    public void onCanceled() {
+//                        getActivity().getSupportFragmentManager().popBackStack();
+//                        getActivity().getSupportFragmentManager().popBackStack();
+//                    }
+//                };
+//                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
             }
 
             @Override

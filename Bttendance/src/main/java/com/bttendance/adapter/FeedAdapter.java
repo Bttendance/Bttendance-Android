@@ -225,8 +225,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                 bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
             } else {
                 int grade = 0;
-                if (post.grade != null)
-                    grade = Integer.parseInt(post.grade);
+//                if (post.grade != null)
+//                    grade = Integer.parseInt(post.grade);
                 bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
             }
         } else {

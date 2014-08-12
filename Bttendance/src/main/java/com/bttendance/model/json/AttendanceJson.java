@@ -7,6 +7,7 @@ package com.bttendance.model.json;
 public class AttendanceJson extends BTJson {
 
     public int[] checked_students;
+    public int[] late_students;
     public int[][] clusters;
     public PostJsonSimple post;
 }

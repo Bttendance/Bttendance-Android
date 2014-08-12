@@ -1,14 +1,9 @@
-
 package com.bttendance.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.bttendance.BTDebug;
-import com.bttendance.model.json.CourseJsonSimple;
-import com.bttendance.model.json.OldUserJson;
-import com.bttendance.model.json.SchoolJsonSimple;
 import com.bttendance.model.json.UserJson;
 import com.google.gson.Gson;
 
@@ -34,21 +29,6 @@ public class BTPreference {
                 mPref = ctx.getSharedPreferences("BTRef", Context.MODE_PRIVATE);
             }
             return mPref;
-        }
-    }
-
-    public static OldUserJson getUserOld(Context ctx) {
-        String jsonStr = getInstance(ctx).getString("user", null);
-        if (jsonStr == null)
-            return null;
-
-        Gson gson = new Gson();
-        try {
-            OldUserJson user = gson.fromJson(jsonStr, OldUserJson.class);
-            return user;
-        } catch (Exception e) {
-            clearUser(ctx);
-            return null;
         }
     }
 

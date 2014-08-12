@@ -1,36 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <com.bttendance.view.PagerSlidingTabStrip
-        android:id="@+id/tabs"
-        app:dividerColor="@android:color/transparent"
-        app:indicatorColor="@color/bttendance_cyan"
-        app:indicatorHeight="4dp"
-        app:shouldExpand="true"
-        app:textAllCaps2="true"
-        app:underlineColor="@android:color/transparent"
-        app:underlineHeight="1dp"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:background="@color/bttendance_white"
-        android:minHeight="42dp"
-        android:textColor="@color/bttendance_cyan"
-        android:textSize="16sp" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tabs"
-        android:background="@null" />
 
     <RelativeLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</RelativeLayout>
+    <!-- The navigation drawer -->
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="@color/bttendance_white" />
+
+</android.support.v4.widget.DrawerLayout>

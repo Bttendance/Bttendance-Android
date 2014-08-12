@@ -156,8 +156,8 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
             CourseCreateFragment frag = new CourseCreateFragment((int) id);
             BTEventBus.getInstance().post(new AddFragmentEvent(frag));
         } else {
-            CourseAttendFragment frag = new CourseAttendFragment((int) id);
-            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+//            CourseAttendFragment frag = new CourseAttendFragment((int) id);
+//            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
         }
     }
 }

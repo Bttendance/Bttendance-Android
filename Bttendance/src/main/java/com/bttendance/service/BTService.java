@@ -27,8 +27,9 @@ import com.bttendance.model.json.ClickerJson;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.EmailJson;
 import com.bttendance.model.json.ErrorJson;
-import com.bttendance.model.json.OldUserJson;
+import com.bttendance.model.json.NoticeJson;
 import com.bttendance.model.json.PostJson;
+import com.bttendance.model.json.QuestionJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
@@ -76,7 +77,7 @@ public class BTService extends Service {
                 }
             })
             .setLogLevel(RestAdapter.LogLevel.FULL)
-            .setServer(getServerDomain() + "/api")
+            .setEndpoint(getServerDomain() + "/api")
             .build();
     private BTAPI mBTAPI;
     private ConnectivityManager mConnectivityManager;
@@ -261,17 +262,21 @@ public class BTService extends Service {
         mAttendanceThread.start();
     }
 
+    /**
+     * User APIs
+     */
     public void signup(UserJson user, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
+        String locale = getResources().getConfiguration().locale.getCountry();
         mBTAPI.signup(
-                user.username,
                 user.full_name,
                 user.email,
                 user.password,
                 user.device.type,
                 user.device.uuid,
+                locale,
                 new Callback<UserJson>() {
                     @Override
                     public void success(UserJson user, Response response) {
@@ -291,41 +296,23 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        final UserJson usernew = BTPreference.getUser(getApplicationContext());
-        OldUserJson userold = BTPreference.getUserOld(getApplicationContext());
-
-        String username;
-        String password;
-        String device_uuid;
-
-        if (usernew != null) {
-            username = usernew.username;
-            password = usernew.password;
-            device_uuid = usernew.device.uuid;
-        } else if (userold != null) {
-            username = userold.username;
-            password = userold.password;
-            device_uuid = userold.device_uuid;
-        } else
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        String version = getString(R.string.app_version);
+        if (user == null)
             return;
 
-        String version = getString(R.string.app_version);
         mBTAPI.autoSignin(
-                username,
-                password,
-                device_uuid,
+                user.email,
+                user.password,
+                locale,
+                user.device.uuid,
                 BTAPI.ANDROID,
                 version,
                 new Callback<UserJson>() {
                     @Override
                     public void success(UserJson user, Response response) {
                         BTPreference.setUser(getApplicationContext(), user);
-
-                        if (usernew == null) {
-                            BTEventBus.getInstance().post(new RefreshFeedEvent());
-                            BTEventBus.getInstance().post(new RefreshCourseListEvent());
-                        }
-
                         if (cb != null)
                             cb.success(user, response);
                     }
@@ -337,14 +324,17 @@ public class BTService extends Service {
                 });
     }
 
-    public void signin(String username, String password, String uuid, final Callback<UserJson> cb) {
+    public void signin(String email, String password, String uuid, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
+        String locale = getResources().getConfiguration().locale.getCountry();
         mBTAPI.signin(
-                username,
+                email,
                 password,
+                locale,
                 uuid,
+                BTAPI.ANDROID,
                 new Callback<UserJson>() {
                     @Override
                     public void success(UserJson user, Response response) {
@@ -364,8 +354,10 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
+        String locale = getResources().getConfiguration().locale.getCountry();
         mBTAPI.forgotPassword(
                 email,
+                locale,
                 new Callback<EmailJson>() {
                     @Override
                     public void success(EmailJson email, Response response) {
@@ -380,41 +372,21 @@ public class BTService extends Service {
                 });
     }
 
-    public void updateProfileImage(String profileImage, final Callback<UserJson> cb) {
+    public void updatePassword(String passwordOld, String passwordNew, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.updateProfileImage(
-                user.username,
-                user.password,
-                user.device.uuid,
-                profileImage,
-                new Callback<UserJson>() {
-                    @Override
-                    public void success(UserJson user, Response response) {
-                        BTPreference.setUser(getApplicationContext(), user);
-                        if (cb != null)
-                            cb.success(user, response);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError retrofitError) {
-                        failureHandle(cb, retrofitError);
-                    }
-                });
-    }
-
-    public void updateEmail(String email, final Callback<UserJson> cb) {
-        if (!isConnected())
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
             return;
 
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.updateEmail(
-                user.username,
+        mBTAPI.updatePassword(
+                user.email,
                 user.password,
-                user.device.uuid,
-                email,
+                locale,
+                passwordOld,
+                passwordNew,
                 new Callback<UserJson>() {
                     @Override
                     public void success(UserJson user, Response response) {
@@ -435,10 +407,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.updateFullName(
-                user.username,
+                user.email,
                 user.password,
-                user.device.uuid,
+                locale,
                 fullName,
                 new Callback<UserJson>() {
                     @Override
@@ -455,31 +431,54 @@ public class BTService extends Service {
                 });
     }
 
-    public void feed(int page, final Callback<PostJson[]> cb) {
+    public void updateEmail(String emailNew, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
         if (user == null)
             return;
 
-        mBTAPI.feed(
-                user.username,
+        mBTAPI.updateEmail(
+                user.email,
                 user.password,
-                page,
-                new Callback<PostJson[]>() {
+                locale,
+                emailNew,
+                new Callback<UserJson>() {
                     @Override
-                    public void success(PostJson[] posts, Response response) {
-                        for (PostJson post : posts)
-                            BTTable.PostTable.append(post.id, post);
-
-                        if (BTTable.getAttdCheckingIds().size() > 0)
-                            BTEventBus.getInstance().post(new AttdStartedEvent(true));
-
-                        refreshCheck();
-
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
                         if (cb != null)
-                            cb.success(posts, response);
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void searchUser(String searchID, final Callback<UserJsonSimple> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.searchUser(
+                user.email,
+                user.password,
+                locale,
+                searchID,
+                new Callback<UserJsonSimple>() {
+                    @Override
+                    public void success(UserJsonSimple user, Response response) {
+                        if (cb != null)
+                            cb.success(user, response);
                     }
 
                     @Override
@@ -494,12 +493,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
         if (user == null)
             return;
 
         mBTAPI.courses(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 new Callback<CourseJson[]>() {
                     @Override
                     public void success(CourseJson[] courses, Response response) {
@@ -517,40 +518,22 @@ public class BTService extends Service {
                 });
     }
 
-    public void searchUser(String searchID, final Callback<UserJsonSimple> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.searchUser(
-                user.username,
-                user.password,
-                searchID,
-                new Callback<UserJsonSimple>() {
-                    @Override
-                    public void success(UserJsonSimple user, Response response) {
-                        if (cb != null)
-                            cb.success(user, response);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError retrofitError) {
-                        failureHandle(cb, retrofitError);
-                    }
-                });
-    }
-
+    /**
+     * Device APIs
+     */
     public void updateNotificationKey(String notificationKey, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
         if (user == null)
             return;
 
         mBTAPI.updateNotificationKey(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 user.device.uuid,
                 notificationKey,
                 new Callback<UserJson>() {
@@ -568,14 +551,291 @@ public class BTService extends Service {
                 });
     }
 
+    /**
+     * Setting APIs
+     */
+    public void updateSettingAttendance(boolean attendance, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.updateSettingAttendance(
+                user.email,
+                user.password,
+                locale,
+                attendance,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void updateSettingClicker(boolean clicker, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.updateSettingClicker(
+                user.email,
+                user.password,
+                locale,
+                clicker,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void updateSettingNotice(boolean notice, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.updateSettingNotice(
+                user.email,
+                user.password,
+                locale,
+                notice,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    /**
+     * Question APIs
+     */
+    public void myQuestions(final Callback<QuestionJson[]> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.myQuestions(
+                user.email,
+                user.password,
+                locale,
+                new Callback<QuestionJson[]>() {
+                    @Override
+                    public void success(QuestionJson[] questions, Response response) {
+                        if (cb != null)
+                            cb.success(questions, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void createQuestion(String message, int choiceCount, final Callback<QuestionJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.createQuestion(
+                user.email,
+                user.password,
+                locale,
+                message,
+                choiceCount,
+                new Callback<QuestionJson>() {
+                    @Override
+                    public void success(QuestionJson question, Response response) {
+                        if (cb != null)
+                            cb.success(question, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void editQuestion(int questionID, String message, int choiceCount, final Callback<QuestionJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.updateQuestion(
+                user.email,
+                user.password,
+                locale,
+                questionID,
+                message,
+                choiceCount,
+                new Callback<QuestionJson>() {
+                    @Override
+                    public void success(QuestionJson question, Response response) {
+                        if (cb != null)
+                            cb.success(question, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void removeQuestion(int questionID, final Callback<QuestionJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.removeQuestion(
+                user.email,
+                user.password,
+                locale,
+                questionID,
+                new Callback<QuestionJson>() {
+                    @Override
+                    public void success(QuestionJson question, Response response) {
+                        if (cb != null)
+                            cb.success(question, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    /**
+     * Identification APIs
+     */
+    public void updateIdentity(int schoolID, String identity, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.updateIdentity(
+                user.email,
+                user.password,
+                locale,
+                schoolID,
+                identity,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    /**
+     * School APIs
+     */
+    public void createSchool(String name, String type, final Callback<SchoolJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.createSchool(
+                user.email,
+                user.password,
+                locale,
+                name,
+                type,
+                new Callback<SchoolJson>() {
+                    @Override
+                    public void success(SchoolJson school, Response response) {
+                        if (cb != null)
+                            cb.success(school, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
     public void allSchools(final Callback<SchoolJson[]> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.allSchools(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 new Callback<SchoolJson[]>() {
                     @Override
                     public void success(SchoolJson[] schools, Response response) {
@@ -592,38 +852,19 @@ public class BTService extends Service {
                 });
     }
 
-    public void schoolCourses(final int schoolId, final Callback<CourseJson[]> cb) {
-        if (!isConnected())
-            return;
-
-        UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.schoolCourses(
-                user.username,
-                user.password,
-                schoolId,
-                new Callback<CourseJson[]>() {
-                    @Override
-                    public void success(CourseJson[] courses, Response response) {
-                        BTTable.updateCoursesOfSchool(schoolId, courses);
-                        if (cb != null)
-                            cb.success(courses, response);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError retrofitError) {
-                        failureHandle(cb, retrofitError);
-                    }
-                });
-    }
-
     public void enrollSchool(int schoolID, String studentID, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.enrollSchool(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 schoolID,
                 studentID,
                 new Callback<UserJson>() {
@@ -641,23 +882,60 @@ public class BTService extends Service {
                 });
     }
 
-    public void courseCreate(String name, String number, int schoolID, String profName, final Callback<EmailJson> cb) {
+    /**
+     * Course APIs
+     */
+    public void courseCreate(String name, int schoolID, String profName, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.courseCreate(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 name,
-                number,
                 schoolID,
                 profName,
-                new Callback<EmailJson>() {
+                new Callback<UserJson>() {
                     @Override
-                    public void success(EmailJson email, Response response) {
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
                         if (cb != null)
-                            cb.success(email, response);
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void searchCourse(final int courseID, final String courseCode, final Callback<CourseJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.courseSearch(
+                user.email,
+                user.password,
+                locale,
+                courseID,
+                courseCode,
+                new Callback<CourseJson>() {
+                    @Override
+                    public void success(CourseJson course, Response response) {
+                        if (cb != null)
+                            cb.success(course, response);
                     }
 
                     @Override
@@ -672,9 +950,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.attendCourse(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 courseID,
                 new Callback<UserJson>() {
                     @Override
@@ -696,9 +979,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.dettendCourse(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 courseID,
                 new Callback<UserJson>() {
                     @Override
@@ -720,9 +1008,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.courseFeed(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 courseID,
                 page,
                 new Callback<PostJson[]>() {
@@ -747,21 +1040,55 @@ public class BTService extends Service {
                 });
     }
 
-    public void courseStudents(final int courseId, final Callback<UserJsonSimple[]> cb) {
+    public void openCourse(final int courseID, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.courseStudents(
-                user.username,
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.openCourse(
+                user.email,
                 user.password,
-                courseId,
-                new Callback<UserJsonSimple[]>() {
+                locale,
+                courseID,
+                new Callback<UserJson>() {
                     @Override
-                    public void success(UserJsonSimple[] users, Response response) {
-                        BTTable.updateStudentsOfCourse(courseId, users);
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
                         if (cb != null)
-                            cb.success(users, response);
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void closeCourse(final int courseID, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.closeCourse(
+                user.email,
+                user.password,
+                locale,
+                courseID,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
                     }
 
                     @Override
@@ -776,9 +1103,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.addManager(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 manager,
                 courseId,
                 new Callback<CourseJson>() {
@@ -795,14 +1127,77 @@ public class BTService extends Service {
                 });
     }
 
-    public void courseGrades(final int courseId, final Callback<UserJsonSimple[]> cb) {
+    public void courseStudents(final int courseId, final Callback<UserJsonSimple[]> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.courseGrades(
-                user.username,
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.courseStudents(
+                user.email,
                 user.password,
+                locale,
+                courseId,
+                new Callback<UserJsonSimple[]>() {
+                    @Override
+                    public void success(UserJsonSimple[] users, Response response) {
+                        BTTable.updateStudentsOfCourse(courseId, users);
+                        if (cb != null)
+                            cb.success(users, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void courseAttendanceGrades(final int courseId, final Callback<UserJsonSimple[]> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.courseAttendanceGrades(
+                user.email,
+                user.password,
+                locale,
+                courseId,
+                new Callback<UserJsonSimple[]>() {
+                    @Override
+                    public void success(UserJsonSimple[] users, Response response) {
+                        BTTable.updateStudentsOfCourse(courseId, users);
+                        if (cb != null)
+                            cb.success(users, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void courseClickerGrades(final int courseId, final Callback<UserJsonSimple[]> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.courseClickerGrades(
+                user.email,
+                user.password,
+                locale,
                 courseId,
                 new Callback<UserJsonSimple[]>() {
                     @Override
@@ -824,9 +1219,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.courseExportGrades(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 courseId,
                 new Callback<EmailJson>() {
                     @Override
@@ -842,15 +1242,24 @@ public class BTService extends Service {
                 });
     }
 
-    public void postStartAttendance(int courseID, final Callback<PostJson> cb) {
+    /**
+     * Post APIs
+     */
+    public void postStartAttendance(int courseID, String type, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.postStartAttendance(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 courseID,
+                type,
                 new Callback<PostJson>() {
                     @Override
                     public void success(PostJson post, Response response) {
@@ -871,9 +1280,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.postStartClicker(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 courseID,
                 message,
                 choiceCount,
@@ -897,9 +1311,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.postCreateNotice(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 courseID,
                 message,
                 new Callback<PostJson>() {
@@ -917,14 +1336,80 @@ public class BTService extends Service {
                 });
     }
 
+    public void updatePostMessage(int postID, String message, final Callback<PostJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.postUpdateMessage(
+                user.email,
+                user.password,
+                locale,
+                postID,
+                message,
+                new Callback<PostJson>() {
+                    @Override
+                    public void success(PostJson post, Response response) {
+                        BTTable.PostTable.append(post.id, post);
+                        if (cb != null)
+                            cb.success(post, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    public void removePost(int postID, final Callback<PostJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.postRemove(
+                user.email,
+                user.password,
+                locale,
+                postID,
+                new Callback<PostJson>() {
+                    @Override
+                    public void success(PostJson post, Response response) {
+                        if (cb != null)
+                            cb.success(post, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
+    /**
+     * Attendance APIs
+     */
     public void attendancesFromCourses(int[] courseIDs, final Callback<int[]> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.attendancesFromCourses(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 courseIDs,
                 new Callback<int[]>() {
                     @Override
@@ -945,9 +1430,14 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
         mBTAPI.attendanceFoundDevice(
-                user.username,
+                user.email,
                 user.password,
+                locale,
                 attendanceID,
                 uuid,
                 new Callback<AttendanceJson>() {
@@ -965,14 +1455,19 @@ public class BTService extends Service {
                 });
     }
 
-    public void attendanceCheckManually(int attendanceID, int userID, final Callback<AttendanceJson> cb) {
+    public void attendanceToggleManually(int attendanceID, int userID, final Callback<AttendanceJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.attendanceCheckManually(
-                user.username,
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.attendanceToggleManually(
+                user.email,
                 user.password,
+                locale,
                 attendanceID,
                 userID,
                 new Callback<AttendanceJson>() {
@@ -990,16 +1485,24 @@ public class BTService extends Service {
                 });
     }
 
-    public void clickerConnect(int clickerID, String socketID, final Callback<ClickerJson> cb) {
+    /**
+     * Clicker APIs
+     */
+    public void clickerClick(int clickerID, int choice, final Callback<ClickerJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.clickerConnect(
-                user.username,
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.clickerClick(
+                user.email,
                 user.password,
+                locale,
                 clickerID,
-                socketID,
+                choice,
                 new Callback<ClickerJson>() {
                     @Override
                     public void success(ClickerJson clicker, Response response) {
@@ -1015,22 +1518,28 @@ public class BTService extends Service {
                 });
     }
 
-    public void clickerClick(int clickerID, int choice, final Callback<ClickerJson> cb) {
+    /**
+     * Notice APIs
+     */
+    public void noticeSeen(int noticeID, final Callback<NoticeJson> cb) {
         if (!isConnected())
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        mBTAPI.clickerClick(
-                user.username,
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if (user == null)
+            return;
+
+        mBTAPI.seenNotice(
+                user.email,
                 user.password,
-                clickerID,
-                choice,
-                new Callback<ClickerJson>() {
+                locale,
+                noticeID,
+                new Callback<NoticeJson>() {
                     @Override
-                    public void success(ClickerJson clicker, Response response) {
-                        BTTable.updateClicker(clicker);
+                    public void success(NoticeJson notice, Response response) {
                         if (cb != null)
-                            cb.success(clicker, response);
+                            cb.success(notice, response);
                     }
 
                     @Override

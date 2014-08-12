@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/bttendance_white"
+    android:layout_height="118dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:background="@color/bttendance_grey" />
+
+    <Button
+        android:id="@+id/selector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bt_selector" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bttendance_cyan"
+        android:text="Programming Language"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="14dp"
+        android:textSize="16sp"
+        android:id="@+id/course_name" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="26dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:src="@drawable/arrow" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bttendance_silver"
+        android:text="Clicker rate 75%  Attendance 80%"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="58dp"
+        android:layout_marginLeft="14dp"
+        android:textSize="12sp"
+        android:id="@+id/course_detail1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bttendance_silver"
+        android:text="2 unread notices"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="78dp"
+        android:layout_marginLeft="14dp"
+        android:textSize="12sp"
+        android:id="@+id/course_detail2" />
+
+</RelativeLayout>

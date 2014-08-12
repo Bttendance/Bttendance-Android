@@ -1,19 +1,5 @@
 package com.squareup.picasso;
 
-import android.content.Context;
-import android.net.Uri;
-
-import com.squareup.okhttp.HttpResponseCache;
-import com.squareup.okhttp.OkHttpClient;
-
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import static com.squareup.picasso.Utils.parseResponseSourceHeader;
-
 /**
  * Created by huewu on 13. 6. 19..
  */
@@ -21,7 +7,8 @@ public class BTPicasso {
 
     private static Picasso mSingleton;
 
-    private BTPicasso(){}
+    private BTPicasso() {
+    }
 
 //    public static Picasso with(Context context) {
 //        if (mSingleton == null) {

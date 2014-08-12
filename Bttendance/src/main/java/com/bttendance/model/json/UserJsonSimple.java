@@ -6,10 +6,8 @@ package com.bttendance.model.json;
 
 public class UserJsonSimple extends BTJsonSimple {
 
-    public String username;
     public String email;
     public String full_name;
-    public String profile_image;
 
     // Added by APIs
     public String grade;

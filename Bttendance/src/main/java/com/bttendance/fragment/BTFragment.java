@@ -43,15 +43,15 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
         TextView abTitle = (TextView) getActivity().findViewById(titleId);
-        if (this instanceof BTDialogFragment && getActivity() instanceof MainActivity) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setHomeButtonEnabled(false);
-            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy_darken)));
-            abTitle.setTextColor(getResources().getColor(R.color.bttendance_white_darken));
-        } else {
-            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy)));
-            abTitle.setTextColor(getResources().getColor(R.color.bttendance_white));
-        }
+//        if (this instanceof BTDialogFragment && getActivity() instanceof MainActivity) {
+//            actionBar.setDisplayHomeAsUpEnabled(false);
+//            actionBar.setHomeButtonEnabled(false);
+//            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy_darken)));
+//            abTitle.setTextColor(getResources().getColor(R.color.bttendance_white_darken));
+//        } else {
+//            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy)));
+//            abTitle.setTextColor(getResources().getColor(R.color.bttendance_white));
+//        }
     }
 
     @Override

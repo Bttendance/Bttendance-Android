@@ -7,6 +7,10 @@
     <string name="hello_">Hello!</string>
     <string name="welcome_to_bttendance">Welcome to Bttendance</string>
 
+    <!-- Navi Drawer -->
+    <string name="drawer_open">Menu Open</string>
+    <string name="drawer_close">Menu Close</string>
+
     <string name="username">User ID</string>
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
@@ -19,11 +23,12 @@
     <string name="forgot_password_underline">"<u>Forgot password?</u>"</string>
     <string name="log_in">"Log In"</string>
     <string name="sign_up">"Sign Up"</string>
-    <string name="enter_serial">"Enter Serial"</string>
     <string name="who_are_you">"Who are you?"</string>
     <string name="please_choose_carefully">"Please choose carefully"</string>
     <string name="professor">"Professor"</string>
     <string name="student">"Student"</string>
+    <string name="professor_capital">"PROFESSOR"</string>
+    <string name="student_capital">"STUDENT"</string>
     <string name="i_am_a_student_proceed">"I am a student, proceed"</string>
     <string name="cancel">"Cancel"</string>
     <string name="are_you_student">"Are You Student?"</string>
@@ -137,5 +142,12 @@
     <string name="would_you_like_to" formatted="false">Would you like to attend %s by %s?</string>
     <string name="creating_course">Creating Course</string>
     <string name="no_identity">No Identity</string>
+    <string name="lectures">Lectures</string>
+    <string name="add_course">Add Course</string>
+    <string name="guide">Guide</string>
+    <string name="feedback">Feedback</string>
+    <string name="clicker_rate_attendance_rate">Clicker rate %1$d%%  Attendance %2$d%%</string>
+    <string name="students_read_recent_notice">%1$d/%2$d students have read recent notice</string>
+    <string name="unread_notices">%d unread notices</string>
 
 </resources>

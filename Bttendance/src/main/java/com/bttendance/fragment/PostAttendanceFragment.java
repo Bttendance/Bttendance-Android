@@ -151,7 +151,7 @@ public class PostAttendanceFragment extends BTFragment implements View.OnClickLi
                 BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
                     @Override
                     public void onConfirmed(String edit) {
-                        getBTService().attendanceCheckManually(mPost.attendance.id, user.id, new Callback<AttendanceJson>() {
+                        getBTService().attendanceToggleManually(mPost.attendance.id, user.id, new Callback<AttendanceJson>() {
                             @Override
                             public void success(AttendanceJson attenanceJson, Response response) {
                                 swapItems();

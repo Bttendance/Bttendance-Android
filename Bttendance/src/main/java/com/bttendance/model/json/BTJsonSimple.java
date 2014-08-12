@@ -50,9 +50,11 @@ public class BTJsonSimple {
         Post, SimplePost,
         Device, SimpleDevice,
         Identification, SimpleIdentification,
-        Serial, SimpleSerial,
+        Setting, SimpleSetting,
+        Question, SimpleQuestion,
         Attendance, SimpleAttendance,
         Clicker, SimpleClicker,
+        Notice, SimpleNotice,
         Null
     }
 }

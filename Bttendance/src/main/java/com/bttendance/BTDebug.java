@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 public class BTDebug {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     public static final boolean GOOGLE_TOAST = true;
     public static final String TAG = "Bttendance";
     public static final String TAG_API = "API";

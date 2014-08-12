@@ -139,8 +139,6 @@ public class ProfileFragment extends BTFragment implements View.OnClickListener 
                 else
                     account.setText(getString(R.string.student));
 
-                TextView username = (TextView) header.findViewById(R.id.username);
-                username.setText(user.username);
                 TextView name = (TextView) header.findViewById(R.id.name);
                 name.setText(user.full_name);
                 TextView mail = (TextView) header.findViewById(R.id.mail);

@@ -10,8 +10,6 @@ import com.bttendance.adapter.kit.InstantText;
 public class SchoolJsonSimple extends BTJsonSimple {
 
     public String name;
-    public String logo_image;
-    public String website;
     public String type;
 
     @InstantText(viewId = R.id.name)
@@ -19,8 +17,4 @@ public class SchoolJsonSimple extends BTJsonSimple {
         return name;
     }
 
-    @InstantText(viewId = R.id.website)
-    public String getWebsite() {
-        return website;
-    }
 }

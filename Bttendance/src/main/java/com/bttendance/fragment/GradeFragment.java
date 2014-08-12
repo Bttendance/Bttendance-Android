@@ -62,7 +62,7 @@ public class GradeFragment extends BTFragment {
 
     private void requestCall() {
 
-        getBTService().courseGrades(mCourse.id, new Callback<UserJsonSimple[]>() {
+        getBTService().courseAttendanceGrades(mCourse.id, new Callback<UserJsonSimple[]>() {
             @Override
             public void success(UserJsonSimple[] users, Response response) {
                 swapItems();
