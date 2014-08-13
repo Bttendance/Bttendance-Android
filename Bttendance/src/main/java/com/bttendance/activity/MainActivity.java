@@ -1,5 +1,6 @@
 package com.bttendance.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -232,6 +233,9 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             case CreateCourse:
                 break;
             case Guide:
+                Intent intent = new Intent(this, GuideActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             case Setting:
                 fragment = new SettingFragment();

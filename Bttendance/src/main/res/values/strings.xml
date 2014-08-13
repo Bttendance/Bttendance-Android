@@ -173,5 +173,13 @@
     <string name="summary_off">The preference is off</string>
     <string name="switch_on">ON</string>
     <string name="switch_off"> </string>
+    <string name="next">Next</string>
+    <string name="guide_first_welcome">Welcome!</string>
+    <string name="guide_first_message">Let me introduce\nhow to user\nBTTENDANCE.</string>
+    <string name="see_more">See More</string>
+    <string name="guide_poll_message">Check the response of your students\nduring the class by using BTTENDANCE</string>
+    <string name="guide_attendance_message">Check your students\' attendance\naccurately and effortlessly\nby using elaborate algorithm.</string>
+    <string name="guide_notice_message">Notify important information\nto your students as easy as\nsending a text message.</string>
+    <string name="guide_last_start">Let\'s start\nBTTENDANCE</string>
 
 </resources>

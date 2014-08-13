@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <solid android:color="@color/bttendance_cyan_50" />
+            <solid android:color="@color/bttendance_cyan_30"/>
             <corners android:radius="3dp" />
-        </shape>
-    </item>
-    <item android:state_focused="true">
-        <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <solid android:color="@color/bttendance_cyan_50" />
-            <corners android:radius="3dp" />
+            <stroke android:width="2.5px" android:color="@color/bttendance_white" />
         </shape>
     </item>
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <solid android:color="@color/bttendance_cyan" />
+    		<solid android:color="@android:color/transparent"/>
             <corners android:radius="3dp" />
+            <stroke android:width="2.5px" android:color="@color/bttendance_white" />
         </shape>
     </item>
 
