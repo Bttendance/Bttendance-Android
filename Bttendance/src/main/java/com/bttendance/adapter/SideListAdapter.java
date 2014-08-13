@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bttendance.R;
@@ -32,13 +33,10 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
         add(new SideItem(SideItemType.Section, getContext().getString(R.string.lectures)));
         add(new SideItem(SideItemType.CreateCourse, null));
 
-        for (CourseJsonSimple course : user.supervising_courses)
+        for (CourseJsonSimple course : user.getOpenedCourses())
             add(new SideItem(SideItemType.Course, course));
 
-        for (CourseJsonSimple course : user.attending_courses)
-            add(new SideItem(SideItemType.Course, course));
-
-        add(new SideItem(SideItemType.Margin, 23));
+        add(new SideItem(SideItemType.Margin, 20));
         add(new SideItem(SideItemType.Section, getContext().getString(R.string.app_name_capital)));
         add(new SideItem(SideItemType.Guide, null));
         add(new SideItem(SideItemType.Setting, null));
@@ -49,13 +47,12 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
 
         SideItem sideItem = getItem(position);
         switch (sideItem.type) {
             case Header: {
-                if (convertView == null)
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_header, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_header, null);
                 TextView name = (TextView) convertView.findViewById(R.id.header_name);
                 TextView type = (TextView) convertView.findViewById(R.id.header_type);
                 name.setText(user.full_name);
@@ -65,48 +62,36 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
                     type.setText(getContext().getString(R.string.student_capital));
                 break;
             }
-            case Section: {
-                if (convertView == null)
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_section, null);
-                TextView section = (TextView) convertView.findViewById(R.id.section_text);
-                section.setText((String) sideItem.getObject());
-                break;
-            }
             case CreateCourse: {
-                if (convertView == null)
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.list_text);
                 text.setText(getContext().getString(R.string.add_course));
                 convertView.findViewById(R.id.list_image).setVisibility(View.VISIBLE);
                 break;
             }
             case Guide: {
-                if (convertView == null)
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.list_text);
                 text.setText(getContext().getString(R.string.guide));
                 convertView.findViewById(R.id.list_image).setVisibility(View.INVISIBLE);
                 break;
             }
             case Setting: {
-                if (convertView == null)
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.list_text);
                 text.setText(getContext().getString(R.string.setting));
                 convertView.findViewById(R.id.list_image).setVisibility(View.INVISIBLE);
                 break;
             }
             case Feedback: {
-                if (convertView == null)
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.list_text);
                 text.setText(getContext().getString(R.string.feedback));
                 convertView.findViewById(R.id.list_image).setVisibility(View.INVISIBLE);
                 break;
             }
             case Course: {
-                if (convertView == null)
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_course, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_course, null);
                 CourseJsonSimple course = (CourseJsonSimple) sideItem.getObject();
                 TextView name = (TextView) convertView.findViewById(R.id.course_name);
                 name.setText(course.name);
@@ -122,23 +107,38 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
                     else
                         detail2.setText(String.format(getContext().getString(R.string.unread_notices), mCourse.notice_unseen));
                 } else {
-                    detail1.setText(getContext().getString(R.string.clicker_rate_attendance_rate));
+                    detail1.setText(getContext().getString(R.string.clicker_rate_attendance_rate_none));
                     if (user.supervising(course.id))
-                        detail2.setText(getContext().getString(R.string.students_read_recent_notice));
+                        detail2.setText(getContext().getString(R.string.students_read_recent_notice_none));
                     else
-                        detail2.setText(getContext().getString(R.string.unread_notices));
+                        detail2.setText(getContext().getString(R.string.unread_notices_none));
                 }
                 break;
             }
+            case Section: {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_section, null);
+                TextView section = (TextView) convertView.findViewById(R.id.section_text);
+                section.setText((String) sideItem.getObject());
+                break;
+            }
             case Margin: {
-                if (convertView == null)
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.empty_layout, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.empty_layout, null);
                 int height = (Integer) sideItem.getObject();
                 if (height > 100 || height < 0)
                     height = 0;
                 convertView.setMinimumHeight((int) DipPixelHelper.getPixel(getContext(), height));
                 break;
             }
+        }
+
+        if (convertView != null && convertView.findViewById(R.id.selector) != null) {
+            final View finalConvertView = convertView;
+            convertView.findViewById(R.id.selector).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((ListView) parent).performItemClick(finalConvertView, position, 0);
+                }
+            });
         }
 
         return convertView;
@@ -153,17 +153,17 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
             this.object = object;
         }
 
-        SideItemType getType() {
+        public SideItemType getType() {
             return this.type;
         }
 
-        Object getObject() {
+        public Object getObject() {
             return this.object;
         }
     }
 
     public enum SideItemType {
-        Header, Section, CreateCourse, Guide, Setting, Feedback, Course, Margin
+        Header, CreateCourse, Guide, Setting, Feedback, Course, Section, Margin
     }
 
 }

@@ -45,6 +45,7 @@
     <color name="bttendance_grey">#E9E9F7</color>
     <color name="bttendance_silver">#6D6D7B</color>
     <color name="bttendance_black">#191927</color>
+    <color name="bttendance_red">#C1272D</color>
 
     <color name="bttendance_a">#0072B0</color>
     <color name="bttendance_b">#2C8ECE</color>
@@ -57,6 +58,7 @@
 
     <color name="bttendance_white_50">#80F1F1FF</color>
 
+    <color name="bttendance_cyan_10">#1A33B5E5</color>
     <color name="bttendance_cyan_20">#3333B5E5</color>
     <color name="bttendance_cyan_25">#4033B5E5</color>
     <color name="bttendance_cyan_30">#4D33B5E5</color>

@@ -149,5 +149,29 @@
     <string name="clicker_rate_attendance_rate">Clicker rate %1$d%%  Attendance %2$d%%</string>
     <string name="students_read_recent_notice">%1$d/%2$d students have read recent notice</string>
     <string name="unread_notices">%d unread notices</string>
+    <string name="clicker_rate_attendance_rate_none">Clicker rate %  Attendance %</string>
+    <string name="students_read_recent_notice_none">/ students have read recent notice</string>
+    <string name="unread_notices_none"> unread notices</string>
+    <string name="menu">Menu</string>
+    <string name="clicker_capital">CLICKER</string>
+    <string name="institution_capital">INSTITUTION</string>
+    <string name="saved_clicker_questions">%d Saved Clicker Questions</string>
+    <string name="update_password">Update Password</string>
+    <string name="student__">Student - %s</string>
+    <string name="closed_lectures">CLOSED LECTURES</string>
+    <string name="edit_">Edit %s</string>
+    <string name="if_you_turn_off_the_notification">If you turn off the notification, you won\'t be able to receive professor\'s action.</string>
+    <string name="attendance">Attendance</string>
+    <string name="clicker">Clicker</string>
+    <string name="attendance_notification">Attendance Notification</string>
+    <string name="clicker_notification">Clicker Notification</string>
+    <string name="notice_notification">Notice Notification</string>
+    <string name="blog">Blog</string>
+    <string name="facebook">Facebook Page</string>
+
+    <string name="summary_on">The preference is on</string>
+    <string name="summary_off">The preference is off</string>
+    <string name="switch_on">ON</string>
+    <string name="switch_off"> </string>
 
 </resources>

@@ -3,6 +3,6 @@
 
     <item android:state_pressed="true" android:drawable="@color/bttendance_cyan_10" />
     <item android:state_focused="true" android:drawable="@color/bttendance_cyan_10"/>
-    <item android:drawable="@android:color/transparent"/>
+    <item android:drawable="@color/bttendance_grey"/>
 
 </selector>

@@ -3,12 +3,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@color/bttendance_white"
-    android:layout_height="105dp">
+    android:layout_height="108dp"
+    android:minHeight="108dp">
 
     <Button
         android:id="@+id/selector"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="103dp"
         android:background="@drawable/bt_selector" />
 
     <ImageView
@@ -27,7 +28,7 @@
         android:gravity="center_horizontal"
         android:layout_alignParentTop="true"
         android:lines="1"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="44dp"
         android:textSize="21sp"
         android:id="@+id/header_name" />
 

@@ -158,8 +158,8 @@ public class BTActivity extends SherlockFragmentActivity {
     }
 
     private void checkPlayServices() {
-//        if (!(this instanceof MainActivity))
-//            return;
+        if (!(this instanceof MainActivity))
+            return;
 
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {

@@ -74,7 +74,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setTitle(mCourseHelper.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);
-        inflater.inflate(R.menu.profile_menu, menu);
+        inflater.inflate(R.menu.course_detail_menu, menu);
     }
 
     @Override

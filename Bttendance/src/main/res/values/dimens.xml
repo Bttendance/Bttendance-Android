@@ -1,3 +1,3 @@
 <resources>
-    <dimen name="side_menu_max_width">270dp</dimen>
+    <dimen name="side_menu_max_width">300dp</dimen>
 </resources>

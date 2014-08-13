@@ -26,6 +26,84 @@ public class UserJson extends BTJson {
         return false;
     }
 
+    public boolean employed(int schoolID) {
+        for (SchoolJsonSimple school : employed_schools)
+            if (school.id == schoolID)
+                return true;
+
+        return false;
+    }
+
+    public String getIdentity(int schoolID) {
+        for (IdentificationJsonSimple identification : identifications)
+            if (identification.school == schoolID)
+                return identification.identity;
+
+        return null;
+    }
+
+    public CourseJsonSimple[] getOpenedCourses() {
+
+        int opened = 0;
+
+        for (CourseJsonSimple course : supervising_courses)
+            if (course.opened)
+                opened++;
+        for (CourseJsonSimple course : attending_courses)
+            if (course.opened)
+                opened++;
+
+        CourseJsonSimple[] newArray = new CourseJsonSimple[opened];
+
+        int i = 0;
+
+        for (CourseJsonSimple course : supervising_courses)
+            if (course.opened) {
+                newArray[i] = course;
+                i++;
+            }
+
+        for (CourseJsonSimple course : attending_courses)
+            if (course.opened) {
+                newArray[i] = course;
+                i++;
+            }
+
+        return newArray;
+
+    }
+
+    public CourseJsonSimple[] getClosedCourses() {
+
+        int closed = 0;
+
+        for (CourseJsonSimple course : supervising_courses)
+            if (!course.opened)
+                closed++;
+        for (CourseJsonSimple course : attending_courses)
+            if (!course.opened)
+                closed++;
+
+        CourseJsonSimple[] newArray = new CourseJsonSimple[closed];
+
+        int i = 0;
+
+        for (CourseJsonSimple course : supervising_courses)
+            if (!course.opened) {
+                newArray[i] = course;
+                i++;
+            }
+
+        for (CourseJsonSimple course : attending_courses)
+            if (!course.opened) {
+                newArray[i] = course;
+                i++;
+            }
+
+        return newArray;
+
+    }
+
     public CourseJsonSimple[] getCourses() {
 
         CourseJsonSimple[] newArray = new CourseJsonSimple[supervising_courses.length + attending_courses.length];

@@ -50,6 +50,9 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
         mEditString = getArguments().getString(BTKey.EXTRA_MESSAGE);
         mType = (Type) getArguments().getSerializable(BTKey.EXTRA_TYPE);
 
+        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        actionBar.setTitle(String.format(getString(R.string.edit_), mTitle));
+
         setHasOptionsMenu(true);
     }
 
@@ -176,20 +179,10 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(getString(R.string.edit_profile));
         actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.abs__home:
-            case android.R.id.home:
-                getActivity().onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(true);
     }
 
     /**

@@ -1,24 +1,28 @@
 package com.bttendance.activity;
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateProfileEvent;
+import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.ProfileFragment;
+import com.bttendance.fragment.SettingFragment;
+import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
@@ -31,7 +35,7 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2013. 11. 20..
  */
-public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
+public class MainActivity extends BTActivity implements AdapterView.OnItemClickListener {
 
     private static Handler mUIHandler = new Handler();
     private DrawerLayout mDrawerLayout;
@@ -39,14 +43,19 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private SideListAdapter mSideAdapter;
     private ListView mListMenu;
 
-
     private boolean mFinishApplication = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ActivityStack.clear(this);
+        ActivityStack.clear(this);
         setContentView(R.layout.activity_main);
+
+        mSideAdapter = new SideListAdapter(getApplicationContext());
+        mSideAdapter.setNotifyOnChange(true);
+        mListMenu = (ListView) findViewById(R.id.left_drawer);
+        mListMenu.setAdapter(mSideAdapter);
+        mListMenu.setOnItemClickListener(this);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -59,35 +68,29 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             @Override
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-//                getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu();
+                replacePendingFragment();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-//                getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        mSideAdapter = new SideListAdapter(getApplicationContext());
-        mSideAdapter.setNotifyOnChange(true);
-        mListMenu = (ListView) findViewById(R.id.left_drawer);
-        mListMenu.setAdapter(mSideAdapter);
-        mListMenu.setOnItemClickListener(this);
-//        ViewGroup.LayoutParams params = mListMenu.getLayoutParams();
-//        params.width = ScreenHelper.getNaviDrawerWidth(this);
-//        mListMenu.setLayoutParams(params);
+        ViewGroup.LayoutParams params = mListMenu.getLayoutParams();
+        params.width = ScreenHelper.getNaviDrawerWidth(this);
+        mListMenu.setLayoutParams(params);
 
-//        BTEventBus.getInstance().register(mEventDispatcher);
+        BTEventBus.getInstance().register(mEventDispatcher);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        BTEventBus.getInstance().unregister(mEventDispatcher);
+        BTEventBus.getInstance().unregister(mEventDispatcher);
     }
 
     @Override
@@ -98,23 +101,23 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             BTEventBus.getInstance().post(new AttdStartedEvent(true));
     }
 
-//    @Override
-//    protected void onServieConnected() {
-//        super.onServieConnected();
-//
-//        //Check whether on going Attendance exists
-//        getBTService().autoSignin(new Callback<UserJson>() {
-//            @Override
-//            public void success(UserJson userJson, Response response) {
-//                BTEventBus.getInstance().post(new UpdateCourseListEvent());
-//                BTEventBus.getInstance().post(new UpdateProfileEvent());
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//            }
-//        });
-//    }
+    @Override
+    protected void onServieConnected() {
+        super.onServieConnected();
+
+        //Check whether on going Attendance exists
+        getBTService().autoSignin(new Callback<UserJson>() {
+            @Override
+            public void success(UserJson userJson, Response response) {
+                BTEventBus.getInstance().post(new UpdateCourseListEvent());
+                BTEventBus.getInstance().post(new UpdateProfileEvent());
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+            }
+        });
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -129,42 +132,130 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setDisplayShowHomeEnabled(true);
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.setDisplayShowTitleEnabled(true);
-//        return super.onCreateOptionsMenu(menu);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-//    @Override
-//    public void onBackPressed() {
-//        FragmentManager fm = getSupportFragmentManager();
-//        if (fm.getBackStackEntryCount() > 0) {
-//            super.onBackPressed();
-//        } else
-//            tryToFinish();
-//    }
-//
-//    private void tryToFinish() {
-//        if (mFinishApplication) {
-//            finish();
-//        } else {
-//            BeautiToast.show(this, getString(R.string.please_press_back_button_again_to_exit_));
-//            mFinishApplication = true;
-//            mUIHandler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mFinishApplication = false;
-//                }
-//            }, 3000);
-//        }
-//    }
+        FragmentManager fm = getSupportFragmentManager();
+        switch (item.getItemId()) {
+            case R.id.abs__home:
+            case android.R.id.home:
+                if (mDrawerLayout.isDrawerOpen(mListMenu))
+                    mDrawerLayout.closeDrawer(mListMenu);
+                else if (fm.getBackStackEntryCount() > 0)
+                    super.onBackPressed();
+                else
+                    mDrawerLayout.openDrawer(mListMenu);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * ************************
+     * Option Menu
+     * *************************
+     */
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        if (isDrawerOpen())
+            actionBar.setTitle(getString(R.string.menu));
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean isDrawerOpen() {
+        return mDrawerLayout.isDrawerOpen(mListMenu);
+    }
+
+    /**
+     * ************************
+     * Back Press
+     * *************************
+     */
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (mDrawerLayout.isDrawerOpen(mListMenu))
+            mDrawerLayout.closeDrawer(mListMenu);
+        else if (fm.getBackStackEntryCount() > 0) {
+            super.onBackPressed();
+        } else
+            tryToFinish();
+    }
+
+    private void tryToFinish() {
+        if (mFinishApplication) {
+            finish();
+        } else {
+            BeautiToast.show(this, getString(R.string.please_press_back_button_again_to_exit_));
+            mFinishApplication = true;
+            mUIHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mFinishApplication = false;
+                }
+            }, 3000);
+        }
+    }
+
+    /**
+     * ************************
+     * onItemClick
+     * *************************
+     */
+
+    private BTFragment pendingFragment;
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         SideListAdapter.SideItem item = mSideAdapter.getItem(position);
+
+        BTFragment fragment = null;
+
+        switch (item.getType()) {
+            case Header:
+                fragment = new ProfileFragment();
+                break;
+            case CreateCourse:
+                break;
+            case Guide:
+                break;
+            case Setting:
+                fragment = new SettingFragment();
+                break;
+            case Feedback:
+                break;
+            case Course:
+                break;
+            case Section: //nothing happens
+            case Margin:
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            pendingFragment = fragment;
+            mDrawerLayout.closeDrawer(mListMenu);
+        }
+    }
+
+    private void replacePendingFragment() {
+        final FragmentManager fm = getSupportFragmentManager();
+        if (pendingFragment != null && fm.getBackStackEntryCount() == 0)
+            fm.beginTransaction().replace(R.id.content, pendingFragment).commit();
+        pendingFragment = null;
     }
 }

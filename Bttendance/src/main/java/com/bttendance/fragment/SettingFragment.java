@@ -12,21 +12,17 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
-import com.bttendance.adapter.ProfileAdapter;
-import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.adapter.SettingAdapter;
 import com.bttendance.event.update.UpdateProfileEvent;
-import com.bttendance.model.BTKey;
-import com.bttendance.model.BTPreference;
-import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class ProfileFragment extends BTFragment implements AdapterView.OnItemClickListener {
+public class SettingFragment extends BTFragment implements AdapterView.OnItemClickListener {
 
     ListView mListView;
-    ProfileAdapter mAdapter;
+    SettingAdapter mAdapter;
 
     /**
      * Action Bar Menu
@@ -46,7 +42,7 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         if (!((MainActivity) getActivity()).isDrawerOpen())
-            actionBar.setTitle(getString(R.string.profile));
+            actionBar.setTitle(getString(R.string.setting));
     }
 
     /**
@@ -54,9 +50,9 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
-        mAdapter = new ProfileAdapter(getActivity());
+        mAdapter = new SettingAdapter(getActivity());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
         return view;
@@ -92,67 +88,24 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         switch (mAdapter.getItem(position).getType()) {
-            case Name:
-                showEditName();
+            case Attendance:
                 break;
-            case Email:
-                showEditEmail();
+            case Clicker:
                 break;
-            case SavedClicker:
-                showSavedClicker();
+            case Notice:
                 break;
-            case Course:
-                showCourse();
+            case PushInfo:
                 break;
-            case Institution:
-                showEditIdentity();
+            case Terms:
                 break;
-            case Password:
-                showChangePassword();
+            case Privacy:
                 break;
-            case Section:
+            case Blog:
+                break;
+            case Facebook:
                 break;
             case Margin:
                 break;
         }
-    }
-
-    /**
-     * Private Methods
-     */
-    private void showEditName() {
-        ProfileEditFragment frag = new ProfileEditFragment();
-        Bundle undle = new Bundle();
-        undle.putString(BTKey.EXTRA_TITLE, getString(R.string.name));
-        undle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).full_name);
-        undle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.NAME);
-        frag.setArguments(undle);
-        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
-    }
-
-    private void showEditEmail() {
-        ProfileEditFragment frag = new ProfileEditFragment();
-        Bundle undle = new Bundle();
-        undle.putString(BTKey.EXTRA_TITLE, getString(R.string.mail));
-        undle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).full_name);
-        undle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.MAIL);
-        frag.setArguments(undle);
-        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
-    }
-
-    private void showSavedClicker() {
-
-    }
-
-    private void showCourse() {
-
-    }
-
-    private void showEditIdentity() {
-
-    }
-
-    private void showChangePassword() {
-
     }
 }
