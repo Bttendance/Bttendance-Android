@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.adapter.GuidePagerAdapter;
 import com.bttendance.helper.DipPixelHelper;
@@ -88,8 +87,6 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        BTDebug.LogError(String.format("%d %f %d", position, positionOffset, positionOffsetPixels));
 
         if (Build.VERSION.SDK_INT >= 11) {
 

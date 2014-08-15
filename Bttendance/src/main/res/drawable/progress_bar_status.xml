@@ -4,10 +4,10 @@
         <shape>
             <gradient
                 android:angle="270"
-                android:centerColor="@android:color/transparent"
+                android:centerColor="@color/bttendance_silver"
                 android:centerY="0.75"
-                android:endColor="@android:color/transparent"
-                android:startColor="@android:color/transparent" />
+                android:endColor="@color/bttendance_silver"
+                android:startColor="@color/bttendance_silver" />
         </shape>
     </item>
     <item android:id="@android:id/secondaryProgress">
@@ -15,10 +15,10 @@
             <shape>
                 <gradient
                     android:angle="270"
-                    android:centerColor="@color/bttendance_black"
+                    android:centerColor="@android:color/transparent"
                     android:centerY="0.75"
-                    android:endColor="@color/bttendance_black"
-                    android:startColor="@color/bttendance_black" />
+                    android:endColor="@android:color/transparent"
+                    android:startColor="@android:color/transparent" />
             </shape>
         </clip>
     </item>

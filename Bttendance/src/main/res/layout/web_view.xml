@@ -15,9 +15,10 @@
         android:id="@+id/web_view_progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/progress_bar_status"
+        android:progressDrawable="@drawable/progress_bar_status"
         android:indeterminateOnly="false"
+        android:progress="50"
         android:max="100" />
 </RelativeLayout>

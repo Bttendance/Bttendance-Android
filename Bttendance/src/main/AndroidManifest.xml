@@ -65,6 +65,20 @@
         </activity>
 
         <activity
+            android:name="com.bttendance.activity.course.CreateCourseActivity"
+            android:label="@string/create_course"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bttendance.Sign">
+        </activity>
+
+        <activity
+            android:name="com.bttendance.activity.course.AttendCourseActivity"
+            android:label="@string/attend_course"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bttendance.Sign">
+        </activity>
+
+        <activity
             android:name="com.bttendance.activity.sign.CatchPointActivity"
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTop"
