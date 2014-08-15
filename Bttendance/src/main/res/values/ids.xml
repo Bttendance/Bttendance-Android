@@ -6,6 +6,9 @@
     <item name="course_id" type="id" />
     <item name="course_name" type="id" />
 
+    <item name="school_id" type="id" />
+    <item name="school_name" type="id" />
+
     <item name="post_id" type="id" />
     <item name="post_title" type="id" />
     <item name="post_message" type="id" />

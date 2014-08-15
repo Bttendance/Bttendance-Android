@@ -19,7 +19,6 @@ import com.bttendance.R;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
-import com.bttendance.event.update.UpdateProfileEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.ProfileFragment;
 import com.bttendance.fragment.SettingFragment;
@@ -111,7 +110,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             @Override
             public void success(UserJson userJson, Response response) {
                 BTEventBus.getInstance().post(new UpdateCourseListEvent());
-                BTEventBus.getInstance().post(new UpdateProfileEvent());
             }
 
             @Override

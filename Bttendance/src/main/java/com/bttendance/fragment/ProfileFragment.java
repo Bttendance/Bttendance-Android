@@ -14,7 +14,7 @@ import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.ProfileAdapter;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.update.UpdateProfileEvent;
+import com.bttendance.event.update.UpdateUserEvent;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.squareup.otto.BTEventBus;
@@ -40,6 +40,9 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        if (getSherlockActivity() == null)
+            return;
+
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
@@ -66,10 +69,12 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     public void onFragmentResume() {
         super.onFragmentResume();
         refreshAdapter();
+        if (getBTService() != null)
+            getBTService().autoSignin(null);
     }
 
     @Subscribe
-    public void onUpdate(UpdateProfileEvent event) {
+    public void onUpdate(UpdateUserEvent event) {
         refreshAdapter();
     }
 
@@ -105,7 +110,7 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
                 showCourse();
                 break;
             case Institution:
-                showEditIdentity();
+                showEditIdentity((Integer) view.getTag(R.id.school_id));
                 break;
             case Password:
                 showChangePassword();
@@ -122,21 +127,21 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
      */
     private void showEditName() {
         ProfileEditFragment frag = new ProfileEditFragment();
-        Bundle undle = new Bundle();
-        undle.putString(BTKey.EXTRA_TITLE, getString(R.string.name));
-        undle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).full_name);
-        undle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.NAME);
-        frag.setArguments(undle);
+        Bundle bundle = new Bundle();
+        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.name));
+        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).full_name);
+        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.NAME);
+        frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
     private void showEditEmail() {
         ProfileEditFragment frag = new ProfileEditFragment();
-        Bundle undle = new Bundle();
-        undle.putString(BTKey.EXTRA_TITLE, getString(R.string.mail));
-        undle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).full_name);
-        undle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.MAIL);
-        frag.setArguments(undle);
+        Bundle bundle = new Bundle();
+        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.email));
+        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).email);
+        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.MAIL);
+        frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
@@ -148,11 +153,19 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
 
     }
 
-    private void showEditIdentity() {
-
+    private void showEditIdentity(int schoolID) {
+        ProfileEditFragment frag = new ProfileEditFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.identity));
+        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).getIdentity(schoolID));
+        bundle.putSerializable(BTKey.EXTRA_SCHOOL_ID, schoolID);
+        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.IDENTITY);
+        frag.setArguments(bundle);
+        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
     private void showChangePassword() {
-
+        UpdatePasswordFragment frag = new UpdatePasswordFragment();
+        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 }

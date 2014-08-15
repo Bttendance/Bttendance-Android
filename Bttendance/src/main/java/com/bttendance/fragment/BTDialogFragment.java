@@ -172,6 +172,20 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     private void drawProgress() {
         TextView message = (TextView) mView.findViewById(R.id.message_progress);
         message.setText(mMessage);
+
+        mScreenHeight = ScreenHelper.getHeight(getActivity());
+        mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (mView.getHeight() < mScreenHeight - 200) {
+                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(65);
+                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
+                } else {
+                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(100);
+                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 35));
+                }
+            }
+        });
     }
 
     private void drawContext() {

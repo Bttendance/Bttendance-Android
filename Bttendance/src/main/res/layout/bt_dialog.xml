@@ -12,42 +12,47 @@
     android:weightSum="100">
 
 
-    <com.bttendance.view.BoundedLinearLayout
+    <RelativeLayout
         android:id="@+id/progress"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/bt_white_bg"
-        android:gravity="center_vertical"
-        android:minHeight="90dp"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:bounded_width="360dp">
+        android:layout_height="0dp"
+        android:layout_weight="65"
+        android:visibility="gone">
 
-        <com.bttendance.view.ProgressWheel
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="20dp"
-            app:barColorProgress="@color/bttendance_navy"
-            app:barLengthProgress="110dp"
-            app:barWidthProgress="2dp"
-            app:contourColorProgress="@android:color/transparent"
-            app:rimColorProgress="@color/bttendance_grey"
-            app:rimWidthProgress="2dp" />
-
-        <TextView
-            android:id="@+id/message_progress"
+        <com.bttendance.view.BoundedLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top|left"
-            android:text="Loading..."
-            android:textColor="@color/bttendance_silver"
-            android:textSize="16sp" />
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bt_white_bg"
+            android:gravity="center_vertical"
+            android:minHeight="90dp"
+            android:orientation="horizontal"
+            app:bounded_width="360dp">
 
-    </com.bttendance.view.BoundedLinearLayout>
+            <com.bttendance.view.ProgressWheel
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                app:barColorProgress="@color/bttendance_navy"
+                app:barLengthProgress="110dp"
+                app:barWidthProgress="2dp"
+                app:contourColorProgress="@android:color/transparent"
+                app:rimColorProgress="@color/bttendance_grey"
+                app:rimWidthProgress="2dp" />
 
+            <TextView
+                android:id="@+id/message_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|left"
+                android:text="Loading..."
+                android:textColor="@color/bttendance_silver"
+                android:textSize="16sp" />
+
+        </com.bttendance.view.BoundedLinearLayout>
+    </RelativeLayout>
 
     <com.bttendance.view.BoundedLinearLayout
         android:id="@+id/context"
@@ -59,6 +64,7 @@
         android:background="@drawable/bt_white_bg"
         android:gravity="center_vertical"
         android:minHeight="45dp"
+        android:layout_weight="60"
         android:orientation="vertical"
         android:visibility="visible"
         app:bounded_width="360dp">

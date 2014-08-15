@@ -170,7 +170,7 @@ public interface BTAPI {
                         @Query("password") String password,
                         @Query("locale") String locale,
                         @Query("school_id") int schoolID,
-                        @Query("identify") String identify,
+                        @Query("identity") String identify,
                         Callback<UserJson> cb);
 
     /**

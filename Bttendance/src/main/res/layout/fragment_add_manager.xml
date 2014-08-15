@@ -14,7 +14,7 @@
         style="@style/userInfoText"
         android:layout_alignParentTop="true"
         android:singleLine="true"
-        android:text="@string/username" />
+        android:text="@string/email" />
 
     <EditText
         android:id="@+id/email"

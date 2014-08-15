@@ -11,7 +11,6 @@
     <string name="drawer_open">Menu Open</string>
     <string name="drawer_close">Menu Close</string>
 
-    <string name="username">User ID</string>
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
     <string name="password">"Password"</string>
@@ -78,7 +77,6 @@
     <string name="edit_cap">EDIT</string>
     <string name="account_type">Account Type</string>
     <string name="name">Name</string>
-    <string name="mail">Mail</string>
     <string name="save">Save</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="notice">Notice</string>
@@ -87,7 +85,7 @@
     <string name="create_notice">Create Notice</string>
     <string name="post">Post</string>
     <string name="to_">To. %s</string>
-    <string name="app_version">0.3.2</string>
+    <string name="app_version">1.0.0</string>
     <string name="supervising_courses">Supervising Courses</string>
     <string name="attending_courses">Attending Courses</string>
     <string name="refresh">Refresh</string>
@@ -181,5 +179,11 @@
     <string name="guide_attendance_message">Check your students\' attendance\naccurately and effortlessly\nby using elaborate algorithm.</string>
     <string name="guide_notice_message">Notify important information\nto your students as easy as\nsending a text message.</string>
     <string name="guide_last_start">Let\'s start\nBTTENDANCE</string>
+    <string name="identity">Identity</string>
+    <string name="updating_password">Updating Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="more_than_six_letters_">more than 6 letters..</string>
+    <string name="tutorial">Tutorial</string>
 
 </resources>

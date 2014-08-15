@@ -53,9 +53,15 @@
         <activity
             android:name="com.bttendance.activity.GuideActivity"
             android:label="@string/guide"
-            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock.NoActionBar">
+        </activity>
+
+        <activity
+            android:name="com.bttendance.activity.TutorialActivity"
+            android:label="@string/tutorial"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bttendance.Sign">
         </activity>
 
         <activity

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.bttendance.event.update.UpdateUserEvent;
 import com.bttendance.model.json.UserJson;
 import com.google.gson.Gson;
+import com.squareup.otto.BTEventBus;
 
 /**
  * Preference Helper
@@ -69,6 +71,8 @@ public class BTPreference {
         Editor edit = getInstance(ctx).edit();
         edit.putString("users", jsonStr);
         edit.commit();
+
+        BTEventBus.getInstance().post(new UpdateUserEvent());
     }
 
     public static String getUUID(Context ctx) {

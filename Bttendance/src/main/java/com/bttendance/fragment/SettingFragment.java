@@ -1,5 +1,7 @@
 package com.bttendance.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,13 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.SettingAdapter;
-import com.bttendance.event.update.UpdateProfileEvent;
+import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.helper.PackagesHelper;
+import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
+
+import org.jraf.android.backport.switchwidget.Switch;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -36,6 +43,9 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        if (getSherlockActivity() == null)
+            return;
+
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
@@ -65,7 +75,7 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
     }
 
     @Subscribe
-    public void onUpdate(UpdateProfileEvent event) {
+    public void onUpdate(UpdateUserEvent event) {
         refreshAdapter();
     }
 
@@ -89,23 +99,106 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         switch (mAdapter.getItem(position).getType()) {
             case Attendance:
+                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
+                    getBTService().updateSettingAttendance(((Switch) view.findViewById(R.id.setting_noti)).isChecked(), null);
                 break;
             case Clicker:
+                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
+                    getBTService().updateSettingClicker(((Switch) view.findViewById(R.id.setting_noti)).isChecked(), null);
                 break;
             case Notice:
+                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
+                    getBTService().updateSettingNotice(((Switch) view.findViewById(R.id.setting_noti)).isChecked(), null);
                 break;
             case PushInfo:
                 break;
             case Terms:
+                showTerms();
                 break;
             case Privacy:
+                showPrivacy();
                 break;
             case Blog:
+                showBlog();
                 break;
             case Facebook:
+                showFacebook();
                 break;
             case Margin:
                 break;
+        }
+    }
+
+    /**
+     * Private Methods
+     */
+    private void showTerms() {
+        String url;
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if ("ko".equals(locale))
+            url = "http://www.bttendance.com/terms";
+        else
+            url = "http://www.bttendance.com/terms-en";
+
+        SimpleWebViewFragment frag = new SimpleWebViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(SimpleWebViewFragment.EXTRA_URL, url);
+        frag.setArguments(bundle);
+        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+    }
+
+    private void showPrivacy() {
+        String url;
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if ("ko".equals(locale))
+            url = "http://www.bttendance.com/privacy";
+        else
+            url = "http://www.bttendance.com/privacy-en";
+
+        SimpleWebViewFragment frag = new SimpleWebViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(SimpleWebViewFragment.EXTRA_URL, url);
+        frag.setArguments(bundle);
+        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+    }
+
+    private void showBlog() {
+        String url;
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if ("ko".equals(locale))
+            url = "http://bttendance.tistory.com";
+        else
+            url = "http://www.bttendance.com/blog";
+
+        SimpleWebViewFragment frag = new SimpleWebViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(SimpleWebViewFragment.EXTRA_URL, url);
+        frag.setArguments(bundle);
+        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+    }
+
+    private void showFacebook() {
+        String url;
+        String locale = getResources().getConfiguration().locale.getCountry();
+        String facebookScheme;
+        if ("ko".equals(locale)) {
+            facebookScheme = "fb://profile/226844200832003";
+            url = "http://www.facebook.com/226844200832003";
+        } else {
+            facebookScheme = "fb://profile/633914856683639";
+            url = "http://www.facebook.com/633914856683639";
+        }
+
+        if (PackagesHelper.isInstalled(getActivity(), PackagesHelper.FACEBOOK)) {
+            Intent facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookScheme));
+            facebookIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            startActivity(facebookIntent);
+        } else {
+            SimpleWebViewFragment frag = new SimpleWebViewFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(SimpleWebViewFragment.EXTRA_URL, url);
+            frag.setArguments(bundle);
+            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
         }
     }
 }

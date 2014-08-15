@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.SchoolJsonSimple;
@@ -102,6 +103,7 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
             case Institution: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_detail, null);
                 SchoolJsonSimple school = (SchoolJsonSimple) profileItem.getObject();
+                convertView.setTag(R.id.school_id, school.id);
                 TextView text = (TextView) convertView.findViewById(R.id.profile_text);
                 TextView message = (TextView) convertView.findViewById(R.id.profile_message);
                 text.setText(school.name);
