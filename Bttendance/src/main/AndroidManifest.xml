@@ -54,29 +54,25 @@
             android:name="com.bttendance.activity.GuideActivity"
             android:label="@string/guide"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Sherlock.NoActionBar" />
 
         <activity
             android:name="com.bttendance.activity.TutorialActivity"
             android:label="@string/tutorial"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign">
-        </activity>
+            android:theme="@style/Theme.Bttendance.Sign" />
 
         <activity
             android:name="com.bttendance.activity.course.CreateCourseActivity"
             android:label="@string/create_course"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign">
-        </activity>
+            android:theme="@style/Theme.Bttendance.Sign" />
 
         <activity
             android:name="com.bttendance.activity.course.AttendCourseActivity"
             android:label="@string/attend_course"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign">
-        </activity>
+            android:theme="@style/Theme.Bttendance.Sign" />
 
         <activity
             android:name="com.bttendance.activity.sign.CatchPointActivity"
@@ -105,6 +101,17 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance" />
+
+        <activity android:name="com.uservoice.uservoicesdk.activity.PortalActivity" />
+        <activity android:name="com.uservoice.uservoicesdk.activity.ForumActivity" />
+        <activity android:name="com.uservoice.uservoicesdk.activity.ArticleActivity" />
+        <activity android:name="com.uservoice.uservoicesdk.activity.TopicActivity" />
+        <activity
+            android:name="com.uservoice.uservoicesdk.activity.ContactActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.uservoice.uservoicesdk.activity.PostIdeaActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <receiver
             android:name="com.bttendance.service.GcmBroadcastReceiver"

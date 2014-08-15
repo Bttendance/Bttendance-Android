@@ -23,10 +23,13 @@ import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.ProfileFragment;
 import com.bttendance.fragment.SettingFragment;
 import com.bttendance.helper.ScreenHelper;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
+import com.uservoice.uservoicesdk.Config;
+import com.uservoice.uservoicesdk.UserVoice;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -239,6 +242,13 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 fragment = new SettingFragment();
                 break;
             case Feedback:
+                UserJson user = BTPreference.getUser(this);
+                Config config = new Config("bttendance.uservoice.com");
+                config.setForumId(259759);
+                config.identifyUser(user.email, user.full_name, user.email);
+                UserVoice.init(config, this);
+                UserVoice.launchPostIdea(this);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);
                 break;
             case Course:
                 break;
