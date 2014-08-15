@@ -24,7 +24,8 @@
             android:layout_alignLeft="@+id/password"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/username_text"
-            android:hint="@string/or_e_mail"
+            android:hint="@string/john_at_bttendance_dot_com"
+            android:textColorHint="@color/grey_hex_aa"
             android:inputType="text|textEmailAddress"
             android:singleLine="true" />
 

@@ -20,7 +20,8 @@
         android:id="@+id/email"
         style="@style/userInfoEditText"
         android:layout_alignParentTop="true"
-        android:hint="@string/or_e_mail"
+        android:hint="@string/john_at_bttendance_dot_com"
+        android:textColorHint="@color/grey_hex_aa"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/email_text"
         android:inputType="text|textEmailAddress" />

@@ -185,5 +185,8 @@
     <string name="new_password">New Password</string>
     <string name="more_than_six_letters_">more than 6 letters..</string>
     <string name="tutorial">Tutorial</string>
+    <string name="make_your_lecture_interactive">Make Your Lecture Interactive!</string>
+    <string name="john_smith">John Smith</string>
+    <string name="john_at_bttendance_dot_com">john@bttendance.com</string>
 
 </resources>

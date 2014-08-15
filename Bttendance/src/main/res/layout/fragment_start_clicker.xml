@@ -26,6 +26,7 @@
         android:background="@android:color/transparent"
         android:gravity="top|left"
         android:hint="@string/presentation_page"
+        android:textColorHint="@color/grey_hex_aa"
         android:paddingBottom="15dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
