@@ -16,7 +16,7 @@ import com.bttendance.activity.BTActivity;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
-import com.bttendance.fragment.ForgotPasswordFragment;
+import com.bttendance.fragment.sign.ForgotPasswordFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
@@ -60,7 +60,7 @@ public class SignInActivity extends BTActivity {
                     mUsernameDiv.setBackgroundColor(getResources().getColor(
                             R.color.bttendance_cyan));
                 } else {
-                    mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                    mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
@@ -88,7 +88,7 @@ public class SignInActivity extends BTActivity {
                     mPasswordDiv.setBackgroundColor(getResources().getColor(
                             R.color.bttendance_cyan));
                 } else {
-                    mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                    mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
@@ -111,7 +111,7 @@ public class SignInActivity extends BTActivity {
 
         mSignIn = (Button) findViewById(R.id.signin);
         mSignIn.setEnabled(false);
-        mSignIn.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+        mSignIn.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSignIn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -153,7 +153,7 @@ public class SignInActivity extends BTActivity {
             mSignIn.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
             mSignIn.setEnabled(false);
-            mSignIn.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+            mSignIn.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         }
     }
 
@@ -194,8 +194,8 @@ public class SignInActivity extends BTActivity {
         if (mPasswordString != null)
             mPassword.setText(mPasswordString);
 
-        mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
-        mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
+        mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
 
         isEnableSignIn();
         BTEventBus.getInstance().register(mEventDispatcher);

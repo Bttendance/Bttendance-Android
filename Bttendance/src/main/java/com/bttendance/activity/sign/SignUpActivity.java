@@ -70,7 +70,7 @@ public class SignUpActivity extends BTActivity {
                     mFullNameDiv.setBackgroundColor(getResources().getColor(
                             R.color.bttendance_cyan));
                 } else {
-                    mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                    mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
@@ -100,7 +100,7 @@ public class SignUpActivity extends BTActivity {
                     mEmailDiv
                             .setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
-                    mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                    mEmailDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
@@ -128,7 +128,7 @@ public class SignUpActivity extends BTActivity {
                     mPasswordDiv.setBackgroundColor(getResources().getColor(
                             R.color.bttendance_cyan));
                 } else {
-                    mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                    mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
@@ -151,7 +151,7 @@ public class SignUpActivity extends BTActivity {
 
         mSignUp = (Button) findViewById(R.id.signup);
         mSignUp.setEnabled(false);
-        mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+        mSignUp.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSignUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -230,7 +230,7 @@ public class SignUpActivity extends BTActivity {
             mSignUp.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
             mSignUp.setEnabled(false);
-            mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+            mSignUp.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         }
     }
 
@@ -245,9 +245,9 @@ public class SignUpActivity extends BTActivity {
         if (mPasswordString != null)
             mPassword.setText(mPasswordString);
 
-        mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
-        mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
-        mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mFullNameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
+        mEmailDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
+        mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
 
         isEnableSignUp();
         BTEventBus.getInstance().register(mEventDispatcher);

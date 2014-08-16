@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.course;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.bttendance.adapter.kit.Sectionizer;
 import com.bttendance.adapter.kit.SimpleSectionAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UpdateSchoolChooseEvent;
+import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.cursor.SectionedSchoolCursor;
@@ -153,8 +154,8 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
         if (mAuth) {
-            CourseCreateFragment frag = new CourseCreateFragment((int) id);
-            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+//            CourseCreateFragment frag = new CourseCreateFragment((int) id);
+//            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
         } else {
 //            CourseAttendFragment frag = new CourseAttendFragment((int) id);
 //            BTEventBus.getInstance().post(new AddFragmentEvent(frag));

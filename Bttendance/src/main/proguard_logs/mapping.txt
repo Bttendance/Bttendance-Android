@@ -11575,7 +11575,7 @@ com.bttendance.fragment.FeedFragment$1 -> th:
 com.bttendance.fragment.FeedFragment$2 -> ti:
     com.bttendance.fragment.FeedFragment this$0 -> a
     90:91:void run() -> run
-com.bttendance.fragment.ForgotPasswordFragment -> com.bttendance.fragment.ForgotPasswordFragment:
+com.bttendance.fragment.sign.ForgotPasswordFragment -> com.bttendance.fragment.sign.ForgotPasswordFragment:
     android.widget.EditText mEmail -> a
     android.view.View mEmailDiv -> b
     int mEmailCount -> c
@@ -11590,23 +11590,23 @@ com.bttendance.fragment.ForgotPasswordFragment -> com.bttendance.fragment.Forgot
     155:176:void trySignUp() -> l
     180:187:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     191:197:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    32:32:android.view.View access$000(com.bttendance.fragment.ForgotPasswordFragment) -> a
-    32:32:int access$102(com.bttendance.fragment.ForgotPasswordFragment,int) -> a
-    32:32:android.widget.EditText access$200(com.bttendance.fragment.ForgotPasswordFragment) -> b
-    32:32:void access$300(com.bttendance.fragment.ForgotPasswordFragment) -> c
-com.bttendance.fragment.ForgotPasswordFragment$1 -> tj:
-    com.bttendance.fragment.ForgotPasswordFragment this$0 -> a
+    32:32:android.view.View access$000(com.bttendance.fragment.sign.ForgotPasswordFragment) -> a
+    32:32:int access$102(com.bttendance.fragment.sign.ForgotPasswordFragment,int) -> a
+    32:32:android.widget.EditText access$200(com.bttendance.fragment.sign.ForgotPasswordFragment) -> b
+    32:32:void access$300(com.bttendance.fragment.sign.ForgotPasswordFragment) -> c
+com.bttendance.fragment.sign.ForgotPasswordFragment$1 -> tj:
+    com.bttendance.fragment.sign.ForgotPasswordFragment this$0 -> a
     57:63:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.bttendance.fragment.ForgotPasswordFragment$2 -> tk:
-    com.bttendance.fragment.ForgotPasswordFragment this$0 -> a
+com.bttendance.fragment.sign.ForgotPasswordFragment$2 -> tk:
+    com.bttendance.fragment.sign.ForgotPasswordFragment this$0 -> a
     69:71:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     75:75:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     79:79:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.bttendance.fragment.ForgotPasswordFragment$3 -> tl:
-    com.bttendance.fragment.ForgotPasswordFragment this$0 -> a
+com.bttendance.fragment.sign.ForgotPasswordFragment$3 -> tl:
+    com.bttendance.fragment.sign.ForgotPasswordFragment this$0 -> a
     87:103:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.bttendance.fragment.ForgotPasswordFragment$4 -> tm:
-    com.bttendance.fragment.ForgotPasswordFragment this$0 -> a
+com.bttendance.fragment.sign.ForgotPasswordFragment$4 -> tm:
+    com.bttendance.fragment.sign.ForgotPasswordFragment this$0 -> a
     164:169:void success(com.bttendance.model.json.EmailJson,retrofit.client.Response) -> a
     173:174:void failure(retrofit.RetrofitError) -> failure
     161:161:void success(java.lang.Object,retrofit.client.Response) -> success
@@ -11761,7 +11761,7 @@ com.bttendance.fragment.ProfileFragment$3 -> ub:
     com.bttendance.model.json.UserJson val$user -> a
     com.bttendance.fragment.ProfileFragment this$0 -> b
     134:148:void run() -> run
-com.bttendance.fragment.SchoolChooseFragment -> com.bttendance.fragment.SchoolChooseFragment:
+com.bttendance.fragment.course.SchoolChooseFragment -> com.bttendance.fragment.course.SchoolChooseFragment:
     com.bttendance.adapter.ChooseSchoolAdapter mAdapter -> a
     com.bttendance.adapter.kit.SimpleSectionAdapter mSectionAdapter -> b
     boolean mAuth -> c
@@ -11776,18 +11776,18 @@ com.bttendance.fragment.SchoolChooseFragment -> com.bttendance.fragment.SchoolCh
     132:139:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     143:149:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
     155:162:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-    36:36:boolean access$000(com.bttendance.fragment.SchoolChooseFragment) -> a
-    36:36:com.bttendance.model.json.UserJson access$100(com.bttendance.fragment.SchoolChooseFragment) -> b
-    36:36:void access$200(com.bttendance.fragment.SchoolChooseFragment) -> c
-com.bttendance.fragment.SchoolChooseFragment$1 -> uc:
-    com.bttendance.fragment.SchoolChooseFragment this$0 -> a
+    36:36:boolean access$000(com.bttendance.fragment.course.SchoolChooseFragment) -> a
+    36:36:com.bttendance.model.json.UserJson access$100(com.bttendance.fragment.course.SchoolChooseFragment) -> b
+    36:36:void access$200(com.bttendance.fragment.course.SchoolChooseFragment) -> c
+com.bttendance.fragment.course.SchoolChooseFragment$1 -> uc:
+    com.bttendance.fragment.course.SchoolChooseFragment this$0 -> a
     72:81:java.lang.String getSectionTitleForItem(android.database.Cursor) -> a
     68:68:java.lang.String getSectionTitleForItem(java.lang.Object) -> getSectionTitleForItem
-com.bttendance.fragment.SchoolChooseFragment$2 -> ud:
-    com.bttendance.fragment.SchoolChooseFragment this$0 -> a
+com.bttendance.fragment.course.SchoolChooseFragment$2 -> ud:
+    com.bttendance.fragment.course.SchoolChooseFragment this$0 -> a
     108:110:void run() -> run
-com.bttendance.fragment.SchoolChooseFragment$3 -> ue:
-    com.bttendance.fragment.SchoolChooseFragment this$0 -> a
+com.bttendance.fragment.course.SchoolChooseFragment$3 -> ue:
+    com.bttendance.fragment.course.SchoolChooseFragment this$0 -> a
     121:122:void success(com.bttendance.model.json.SchoolJson[],retrofit.client.Response) -> a
     126:126:void failure(retrofit.RetrofitError) -> failure
     118:118:void success(java.lang.Object,retrofit.client.Response) -> success

@@ -86,7 +86,7 @@ public class AddManagerFragment extends BTFragment {
         });
 
         mSignUp.setEnabled(false);
-        mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+        mSignUp.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSignUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -120,7 +120,7 @@ public class AddManagerFragment extends BTFragment {
         if (mEmailString != null)
             mEmail.setText(mEmailString);
 
-        mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mEmailDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
         isEnableSignUp();
         KeyboardHelper.show(getActivity(), mEmail);
     }
@@ -137,7 +137,7 @@ public class AddManagerFragment extends BTFragment {
             mSignUp.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
             mSignUp.setEnabled(false);
-            mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+            mSignUp.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         }
     }
 

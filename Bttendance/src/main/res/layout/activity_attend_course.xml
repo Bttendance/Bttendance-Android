@@ -32,7 +32,7 @@
         android:layout_height="1dp"
         android:layout_below="@id/code"
         android:layout_marginBottom="15dp"
-        android:background="@color/grey_hex_cc" />
+        android:background="@color/bttendance_silver_30" />
 
     <Button
         android:id="@+id/attend_course"

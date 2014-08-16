@@ -75,7 +75,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
                 if (hasFocus) {
                     mEditDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
-                    mEditDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                    mEditDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
@@ -98,7 +98,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
 
         mSave = (Button) view.findViewById(R.id.save);
         mSave.setEnabled(false);
-        mSave.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+        mSave.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSave.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -150,7 +150,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
             mSave.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
             mSave.setEnabled(false);
-            mSave.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+            mSave.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         }
     }
 
@@ -160,7 +160,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
 
         if (mEditString != null)
             mEdit.setText(mEditString);
-        mEditDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mEditDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
         mEdit.setSelection(mEdit.getText().length(), mEdit.getText().length());
         isEnableSave();
         KeyboardHelper.show(getActivity(), mEdit);

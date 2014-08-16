@@ -63,7 +63,7 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
                 if (hasFocus) {
                     mOldDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
-                    mOldDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                    mOldDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
@@ -90,7 +90,7 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
                 if (hasFocus) {
                     mNewDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
-                    mNewDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                    mNewDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
@@ -113,7 +113,7 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
 
         mSave = (Button) view.findViewById(R.id.save);
         mSave.setEnabled(false);
-        mSave.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+        mSave.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSave.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -152,7 +152,7 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
             mSave.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
             mSave.setEnabled(false);
-            mSave.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+            mSave.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         }
     }
 
@@ -165,10 +165,10 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
         if (mNewString != null)
             mNew.setText(mNewString);
 
-        mOldDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mOldDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
         mOld.setSelection(mOld.getText().length(), mOld.getText().length());
 
-        mNewDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mNewDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
         mNew.setSelection(mNew.getText().length(), mNew.getText().length());
 
         isEnableSave();

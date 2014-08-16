@@ -41,6 +41,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.bttendance.R;
+import com.bttendance.fragment.BTFragment;
 
 public class SimpleWebViewFragment extends BTFragment {
 

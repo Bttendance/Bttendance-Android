@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.sign;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +18,8 @@ import com.bttendance.R;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
+import com.bttendance.fragment.BTDialogFragment;
+import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.EmailJson;
 import com.squareup.otto.BTEventBus;
@@ -58,7 +60,7 @@ public class ForgotPasswordFragment extends BTFragment {
                     mEmailDiv
                             .setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
-                    mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                    mEmailDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
@@ -80,7 +82,7 @@ public class ForgotPasswordFragment extends BTFragment {
         });
 
         mSignUp.setEnabled(false);
-        mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+        mSignUp.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSignUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -114,7 +116,7 @@ public class ForgotPasswordFragment extends BTFragment {
         if (mEmailString != null)
             mEmail.setText(mEmailString);
 
-        mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mEmailDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
         isEnableSignUp();
         KeyboardHelper.show(getActivity(), mEmail);
         mEmail.requestFocus();
@@ -129,7 +131,7 @@ public class ForgotPasswordFragment extends BTFragment {
         if (mEmailString != null)
             mEmail.setText(mEmailString);
 
-        mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+        mEmailDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
         isEnableSignUp();
         KeyboardHelper.show(getActivity(), mEmail);
         mEmail.requestFocus();
@@ -147,7 +149,7 @@ public class ForgotPasswordFragment extends BTFragment {
             mSignUp.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
             mSignUp.setEnabled(false);
-            mSignUp.setTextColor(getResources().getColor(R.color.grey_hex_cc));
+            mSignUp.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         }
     }
 

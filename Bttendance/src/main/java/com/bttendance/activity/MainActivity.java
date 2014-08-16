@@ -16,6 +16,8 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.activity.course.CreateCourseActivity;
+import com.bttendance.activity.guide.GuideActivity;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
@@ -231,8 +233,12 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             case Header:
                 fragment = new ProfileFragment();
                 break;
-            case CreateCourse:
+            case CreateCourse: {
+                Intent intent = new Intent(this, CreateCourseActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
                 break;
+            }
             case Guide:
                 Intent intent = new Intent(this, GuideActivity.class);
                 startActivity(intent);
@@ -248,7 +254,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 config.identifyUser(user.email, user.full_name, user.email);
                 UserVoice.init(config, this);
                 UserVoice.launchPostIdea(this);
-                overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
                 break;
             case Course:
                 break;

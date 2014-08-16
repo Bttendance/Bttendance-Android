@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bttendance.R;
-import com.bttendance.activity.TutorialActivity;
+import com.bttendance.activity.guide.TutorialActivity;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.SimpleWebViewFragment;
 
@@ -41,7 +41,7 @@ public class GuideAttendanceFragment extends BTFragment {
                 Intent intent = new Intent(getActivity(), TutorialActivity.class);
                 intent.putExtra(SimpleWebViewFragment.EXTRA_URL, url);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.no_anim);
+                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
             }
         });
         return view;

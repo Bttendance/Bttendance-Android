@@ -1,4 +1,4 @@
-package com.bttendance.activity;
+package com.bttendance.activity.guide;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -6,9 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.activity.BTActivity;
 import com.bttendance.fragment.SimpleWebViewFragment;
-import com.squareup.otto.BTEventBus;
 
 /**
  * Created by TheFinestArtist on 2014. 08. 14..

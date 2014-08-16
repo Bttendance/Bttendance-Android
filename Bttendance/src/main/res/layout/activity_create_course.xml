@@ -46,7 +46,7 @@
 
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/name_edit"
             style="@style/userInfoEditText"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/text_box"
@@ -57,9 +57,9 @@
             android:id="@+id/name_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/name"
+            android:layout_below="@id/name_edit"
             android:layout_marginBottom="10dp"
-            android:background="@color/grey_hex_cc" />
+            android:background="@color/bttendance_silver_30" />
 
         <EditText
             android:id="@+id/professor"
@@ -75,7 +75,7 @@
             android:layout_height="1dp"
             android:layout_below="@id/professor"
             android:layout_marginBottom="10dp"
-            android:background="@color/grey_hex_cc" />
+            android:background="@color/bttendance_silver_30" />
 
         <EditText
             android:id="@+id/institution"
@@ -101,7 +101,7 @@
             android:layout_height="1dp"
             android:layout_below="@id/institution"
             android:layout_marginBottom="15dp"
-            android:background="@color/grey_hex_cc" />
+            android:background="@color/bttendance_silver_30" />
 
         <Button
             android:id="@+id/create_course"

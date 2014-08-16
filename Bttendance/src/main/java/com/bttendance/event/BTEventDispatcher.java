@@ -44,6 +44,7 @@ public class BTEventDispatcher {
     private BTActivity getBTActivity() {
         if (mBTActRef == null)
             return null;
+
         return mBTActRef.get();
     }
 
@@ -185,7 +186,7 @@ public class BTEventDispatcher {
     @Subscribe
     public void onAddFragment(final AddFragmentEvent event) {
         final BTActivity act = getBTActivity();
-        if (act == null || act.findViewById(R.id.content) == null)
+        if (act == null || act.findViewById(R.id.content) == null || !act.isVisible())
             return;
 
         // Hide all dialog is exist
@@ -213,7 +214,7 @@ public class BTEventDispatcher {
     @Subscribe
     public void onShowAlertDialog(final ShowAlertDialogEvent event) {
         final BTActivity act = getBTActivity();
-        if (act == null || event.getTitle() == null || act.findViewById(R.id.content) == null)
+        if (act == null || event.getTitle() == null || act.findViewById(R.id.content) == null || !act.isVisible())
             return;
 
         // Some Dialog is already exist.
@@ -246,7 +247,7 @@ public class BTEventDispatcher {
     @Subscribe
     public void onShowContextDialog(final ShowContextDialogEvent event) {
         final BTActivity act = getBTActivity();
-        if (act == null || event.getOptions() == null || act.findViewById(R.id.content) == null)
+        if (act == null || event.getOptions() == null || act.findViewById(R.id.content) == null || !act.isVisible())
             return;
 
         // Some Dialog is already exist.
@@ -269,7 +270,7 @@ public class BTEventDispatcher {
     @Subscribe
     public void onShowProgressDialog(final ShowProgressDialogEvent event) {
         final BTActivity act = getBTActivity();
-        if (act == null || act.findViewById(R.id.content) == null || event.getMessage() == null)
+        if (act == null || act.findViewById(R.id.content) == null || event.getMessage() == null || !act.isVisible())
             return;
 
         BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);
@@ -291,7 +292,7 @@ public class BTEventDispatcher {
     @Subscribe
     public void onHideProgressDialog(HideProgressDialogEvent event) {
         final BTActivity act = getBTActivity();
-        if (act == null || act.findViewById(R.id.content) == null)
+        if (act == null || act.findViewById(R.id.content) == null || !act.isVisible())
             return;
 
         BTFragment frag = (BTFragment) act.getSupportFragmentManager().findFragmentById(R.id.content);

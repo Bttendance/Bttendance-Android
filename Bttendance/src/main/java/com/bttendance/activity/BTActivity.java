@@ -131,6 +131,23 @@ public class BTActivity extends SherlockFragmentActivity {
         unregisterReceiver(mReceiver);
     }
 
+    private boolean mCurrentlyVisible = false;
+    public boolean isVisible() {
+        return mCurrentlyVisible;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCurrentlyVisible = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mCurrentlyVisible = false;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();

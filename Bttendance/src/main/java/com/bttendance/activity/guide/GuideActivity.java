@@ -1,4 +1,4 @@
-package com.bttendance.activity;
+package com.bttendance.activity.guide;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bttendance.R;
+import com.bttendance.activity.BTActivity;
 import com.bttendance.adapter.GuidePagerAdapter;
 import com.bttendance.helper.DipPixelHelper;
 import com.viewpagerindicator.CirclePageIndicator;
