@@ -3,7 +3,6 @@ package com.bttendance.adapter;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.bttendance.BTDebug;
 import com.bttendance.adapter.kit.InstantCursorAdapter;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.SchoolJson;
@@ -21,6 +20,7 @@ public class ChooseSchoolAdapter extends InstantCursorAdapter<SchoolJson> {
      * @param dataType         The data type backed by your adapter.
      * @param cursor           The {@link android.database.Cursor} to be used.
      */
+
     public ChooseSchoolAdapter(Context context, int layoutResourceId, Class<?> dataType, Cursor cursor) {
         super(context, layoutResourceId, dataType, cursor);
     }

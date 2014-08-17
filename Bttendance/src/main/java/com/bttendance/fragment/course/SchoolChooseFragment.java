@@ -2,10 +2,13 @@ package com.bttendance.fragment.course;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -16,15 +19,16 @@ import com.bttendance.R;
 import com.bttendance.adapter.ChooseSchoolAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
 import com.bttendance.adapter.kit.SimpleSectionAdapter;
-import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UpdateSchoolChooseEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.IntArrayHelper;
+import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.cursor.SectionedSchoolCursor;
+import com.bttendance.model.BTTable;
+import com.bttendance.model.cursor.AllSchoolCursor;
 import com.bttendance.model.json.SchoolJson;
+import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
-import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
 import retrofit.Callback;
@@ -38,19 +42,23 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
     ChooseSchoolAdapter mAdapter;
     SimpleSectionAdapter<Cursor> mSectionAdapter;
-    private boolean mAuth;
     private ListView mListView;
-    private UserJson user;
+    EditText mEditSearch;
+    String mFilter;
+    private UserJson mUser;
 
-    public SchoolChooseFragment(boolean auth) {
-        mAuth = auth;
-        user = BTPreference.getUser(getActivity());
+    public SchoolChooseFragment() {
+        mUser = BTPreference.getUser(getActivity());
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        SchoolJsonArray schoolJsonArray = BTPreference.getAllSchools(getActivity());
+        for (SchoolJson school : schoolJsonArray.all_schools)
+            BTTable.AllSchoolTable.append(school.id, school);
     }
 
     @Override
@@ -70,17 +78,11 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
             @Override
             public String getSectionTitleForItem(Cursor cursor) {
-                if (mAuth) {
-                    if (IntArrayHelper.contains(user.employed_schools, cursor.getInt(0)))
-                        return getString(R.string.employed_schools);
-                    else
-                        return getString(R.string.joinable_schools);
-                } else {
-                    if (IntArrayHelper.contains(user.enrolled_schools, cursor.getInt(0)))
-                        return getString(R.string.enrolled_schools);
-                    else
-                        return getString(R.string.joinable_schools);
-                }
+                if (IntArrayHelper.contains(mUser.employed_schools, cursor.getInt(0))
+                        || IntArrayHelper.contains(mUser.enrolled_schools, cursor.getInt(0)))
+                    return getString(R.string.my_institutions);
+                else
+                    return getString(R.string.other_institutions);
             }
         });
 
@@ -102,11 +104,13 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
     private void swapItems() {
         if (this.isAdded() && mAdapter != null) {
-            user = BTPreference.getUser(getActivity());
+            mUser = BTPreference.getUser(getActivity());
+            if (mEditSearch != null)
+                mFilter = mEditSearch.getText().toString();
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mAdapter.swapCursor(new SectionedSchoolCursor(getActivity(), mAuth));
+                    mAdapter.swapCursor(new AllSchoolCursor(getActivity(), mFilter));
                     mSectionAdapter.notifyDataSetChanged();
                 }
             });
@@ -135,8 +139,30 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(getString(R.string.choose_school));
+        actionBar.setTitle(getString(R.string.choose_institution));
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        inflater.inflate(R.menu.school_choose_menu, menu);
+
+        mEditSearch = (EditText) menu.findItem(R.id.action_search).getActionView().findViewById(R.id.search_edit);
+        mEditSearch.addTextChangedListener(mTextWatcher);
+
+        MenuItem menuSearch = menu.findItem(R.id.action_search);
+        menuSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                mEditSearch.setText("");
+                KeyboardHelper.hide(getActivity(), mEditSearch);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                KeyboardHelper.show(getActivity(), mEditSearch);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -151,14 +177,27 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         }
     }
 
+    // EditText TextWatcher
+    private TextWatcher mTextWatcher = new TextWatcher() {
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            swapItems();
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                      int arg3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                  int arg3) {
+        }
+
+    };
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
-        if (mAuth) {
-//            CourseCreateFragment frag = new CourseCreateFragment((int) id);
-//            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
-        } else {
-//            CourseAttendFragment frag = new CourseAttendFragment((int) id);
-//            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
-        }
     }
 }

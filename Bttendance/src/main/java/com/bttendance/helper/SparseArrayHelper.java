@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by TheFinestArtist on 2014. 5. 12..
  */
-public class SparceArrayHelper {
+public class SparseArrayHelper {
 
     public static <C> ArrayList<C> asArrayList(SparseArray<C> sparseArray) {
         if (sparseArray == null) return new ArrayList<C>();

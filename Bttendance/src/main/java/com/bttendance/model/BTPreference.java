@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
 import com.google.gson.Gson;
 import com.squareup.otto.BTEventBus;
@@ -74,6 +75,31 @@ public class BTPreference {
 
         BTEventBus.getInstance().post(new UpdateUserEvent());
     }
+
+    public static SchoolJsonArray getAllSchools(Context ctx) {
+        String jsonStr = getInstance(ctx).getString("all_schools", null);
+        if (jsonStr == null)
+            return null;
+
+        Gson gson = new Gson();
+        try {
+            SchoolJsonArray schoolJsonArray = gson.fromJson(jsonStr, SchoolJsonArray.class);
+            return schoolJsonArray;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void setAllSchools(Context ctx, SchoolJsonArray schoolJsonArray) {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(schoolJsonArray);
+
+        Editor edit = getInstance(ctx).edit();
+        edit.putString("all_schools", jsonStr);
+        edit.commit();
+    }
+
+    // courses, schools, posts
 
     public static String getUUID(Context ctx) {
         return getInstance(ctx).getString("uuid", null);

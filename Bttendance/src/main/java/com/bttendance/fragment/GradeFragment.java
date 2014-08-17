@@ -12,7 +12,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.helper.SparceArrayHelper;
+import com.bttendance.helper.SparseArrayHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJsonSimple;
@@ -78,7 +78,7 @@ public class GradeFragment extends BTFragment {
         if (!this.isAdded())
             return;
 
-        mUsers = SparceArrayHelper.asArrayList(BTTable.getStudentsOfCourse(mCourse.id));
+        mUsers = SparseArrayHelper.asArrayList(BTTable.getStudentsOfCourse(mCourse.id));
 
         ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
         for (UserJsonSimple user : mUsers) {

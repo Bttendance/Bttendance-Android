@@ -31,6 +31,7 @@ import com.bttendance.model.json.NoticeJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.QuestionJson;
 import com.bttendance.model.json.SchoolJson;
+import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.view.BeautiToast;
@@ -839,6 +840,8 @@ public class BTService extends Service {
                 new Callback<SchoolJson[]>() {
                     @Override
                     public void success(SchoolJson[] schools, Response response) {
+                        SchoolJsonArray schoolJsonArray = new SchoolJsonArray(schools);
+                        BTPreference.setAllSchools(getApplicationContext(), schoolJsonArray);
                         for (SchoolJson school : schools)
                             BTTable.AllSchoolTable.append(school.id, school);
                         if (cb != null)

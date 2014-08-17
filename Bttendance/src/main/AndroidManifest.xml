@@ -29,6 +29,7 @@
         android:targetSdkVersion="20" />
 
     <application
+        android:name="com.bttendance.BTApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/icon"

@@ -74,24 +74,34 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/professor"
-            android:layout_marginBottom="10dp"
             android:background="@color/bttendance_silver_30" />
 
         <EditText
             android:id="@+id/institution"
             style="@style/userInfoEditText"
             android:layout_below="@id/professor_divider"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/text_box"
+            android:clickable="false"
+            android:focusable="false"
             android:hint="@string/please_choose_a_institution"
             android:textColorHint="@color/grey_hex_aa"
             android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/institution_button"
+            android:layout_width="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_height="33dp"
+            android:layout_below="@id/professor_divider"
+            android:background="@drawable/bt_selector" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/professor_divider"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="16dp"
             android:layout_marginRight="4dp"
             android:src="@drawable/arrow" />
 
@@ -112,5 +122,10 @@
             android:text="@string/create_course" />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

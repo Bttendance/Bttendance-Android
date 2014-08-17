@@ -192,5 +192,11 @@
     <string name="please_choose_a_institution">Choose an institution.</string>
     <string name="code">Code</string>
     <string name="enter_your_class_code">Enter your class code.</string>
+    <string name="other_institutions">Other Institutions</string>
+    <string name="my_institutions">My Institutions</string>
+    <string name="_courses">%d Courses</string>
+    <string name="create_an_institution">Create an Institution</string>
+    <string name="search">Search</string>
+    <string name="choose_institution">Choose Institution</string>
 
 </resources>

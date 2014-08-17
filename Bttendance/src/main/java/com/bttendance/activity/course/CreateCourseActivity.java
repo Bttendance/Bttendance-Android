@@ -1,6 +1,7 @@
 package com.bttendance.activity.course;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
@@ -9,13 +10,18 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
+import com.bttendance.fragment.course.SchoolChooseFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.json.SchoolJsonSimple;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 
@@ -30,7 +36,6 @@ public class CreateCourseActivity extends BTActivity {
     private EditText mInstitution = null;
     private View mNameDiv = null;
     private View mProfessorDiv = null;
-    private View mInstitutionDiv = null;
     private int mNameCount = 0;
     private int mProfessorCount = 0;
     private int mInstitutionCount = 0;
@@ -39,18 +44,20 @@ public class CreateCourseActivity extends BTActivity {
     private String mProfessorString = null;
     private String mInstitutionString = null;
 
+    private Button mInstitutionBt = null;
+
+    private SchoolJsonSimple mSchool = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_course);
-        getSupportActionBar().setTitle(getString(R.string.create_course));
 
         mName = (EditText) findViewById(R.id.name_edit);
         mProfessor = (EditText) findViewById(R.id.professor);
         mInstitution = (EditText) findViewById(R.id.institution);
         mNameDiv = findViewById(R.id.name_divider);
         mProfessorDiv = findViewById(R.id.professor_divider);
-        mInstitutionDiv = findViewById(R.id.institution_divider);
 
         mProfessor.setText(BTPreference.getUser(this).full_name);
 
@@ -75,12 +82,10 @@ public class CreateCourseActivity extends BTActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -88,8 +93,7 @@ public class CreateCourseActivity extends BTActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    mProfessorDiv
-                            .setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
+                    mProfessorDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
                     mProfessorDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
@@ -112,18 +116,6 @@ public class CreateCourseActivity extends BTActivity {
             }
         });
 
-        mInstitution.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    mInstitutionDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_cyan));
-                } else {
-                    mInstitutionDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
-                }
-            }
-        });
-
         mInstitution.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -137,6 +129,16 @@ public class CreateCourseActivity extends BTActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+
+        mInstitutionBt = (Button) findViewById(R.id.institution_button);
+        mInstitutionBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SchoolChooseFragment fragment = new SchoolChooseFragment();
+                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+                KeyboardHelper.hide(CreateCourseActivity.this, mName);
             }
         });
 
@@ -190,7 +192,6 @@ public class CreateCourseActivity extends BTActivity {
 
         mNameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
         mProfessorDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
-        mInstitutionDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
 
         KeyboardHelper.show(this, mName);
 
@@ -231,6 +232,18 @@ public class CreateCourseActivity extends BTActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(getString(R.string.create_course));
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -241,8 +254,14 @@ public class CreateCourseActivity extends BTActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.no_anim, R.anim.slide_out_down);
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            super.onBackPressed();
+            KeyboardHelper.show(this, mName);
+        } else {
+            super.onBackPressed();
+            overridePendingTransition(R.anim.no_anim, R.anim.slide_out_down);
+        }
     }
 
 }// end of class

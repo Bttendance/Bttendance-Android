@@ -14,7 +14,7 @@ import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.helper.IntArrayHelper;
-import com.bttendance.helper.SparceArrayHelper;
+import com.bttendance.helper.SparseArrayHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.PostJson;
@@ -92,7 +92,7 @@ public class PostAttendanceFragment extends BTFragment implements View.OnClickLi
             return;
 
         mPost = BTTable.PostTable.get(mPost.id);
-        mUsers = SparceArrayHelper.asArrayList(BTTable.getStudentsOfCourse(mPost.course.id));
+        mUsers = SparseArrayHelper.asArrayList(BTTable.getStudentsOfCourse(mPost.course.id));
 
         Collections.sort(mUsers, new Comparator<UserJsonSimple>() {
             @Override
