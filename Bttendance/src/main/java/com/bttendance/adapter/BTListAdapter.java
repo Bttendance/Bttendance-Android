@@ -19,13 +19,11 @@ import java.util.ArrayList;
  */
 public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
 
-    private View.OnClickListener mListener;
     private ArrayList<Item> mItems;
     private LayoutInflater mLayoutInflater;
 
-    public BTListAdapter(Context context, View.OnClickListener listener) {
+    public BTListAdapter(Context context) {
         super(context, 0);
-        mListener = listener;
         mItems = new ArrayList<Item>();
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -55,22 +53,10 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
             image.setTag(R.id.type, item.getType());
 
             switch (item.getType()) {
-                case CHECKED:
-                case JOINED:
-                    image.setImageResource(R.drawable.ic_list_checked);
-                    image.setClickable(false);
-                    image.setOnClickListener(null);
-                    break;
-                case UNCHECKED:
-                case UNJOINED:
-                    image.setImageResource(R.drawable.ic_list_add);
-                    image.setClickable(true);
-                    image.setOnClickListener(mListener);
-                    break;
+                case EMPTY:
+                    image.setImageDrawable(null);
                 case GRADE:
                     image.setImageResource(R.drawable.ic_grade);
-                    image.setClickable(false);
-                    image.setOnClickListener(null);
 
                     TextView grade = (TextView) v.findViewById(R.id.grade);
                     TextView gradeTotal = (TextView) v.findViewById(R.id.grade_total);
@@ -136,6 +122,6 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
             return mJson;
         }
 
-        public enum Type {SECTION, CHECKED, UNCHECKED, JOINED, UNJOINED, GRADE}
+        public enum Type {SECTION, GRADE, EMPTY}
     }
 }

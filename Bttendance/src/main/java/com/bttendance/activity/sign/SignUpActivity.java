@@ -199,8 +199,14 @@ public class SignUpActivity extends BTActivity {
         builder.append(SpannableFormat);
 
         String term_and_condition = getString(R.string.terms_of_service);
-        String term_and_condition_html = "<a href=\"" + BTUrl.TERMS + "\">"
+        String term_and_condition_html = "<a href=\"" + BTUrl.TERMS_EN + "\">"
                 + term_and_condition + "</a>";
+
+        String locale = getResources().getConfiguration().locale.getCountry();
+        if ("kr".equals(locale))
+            term_and_condition_html = "<a href=\"" + BTUrl.TERMS_KR + "\">"
+                    + term_and_condition + "</a>";
+
         SpannableString SpannableTermHTML = new SpannableString(Html.fromHtml(term_and_condition_html));
         SpannableTermHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, term_and_condition.length(), 0);
         builder.append(SpannableTermHTML);
@@ -209,8 +215,12 @@ public class SignUpActivity extends BTActivity {
         builder.append(SpannableAnd);
 
         String privacy_policy = getString(R.string.privacy_policy);
-        String privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY + "\">"
+        String privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY_EN + "\">"
                 + privacy_policy + "</a>";
+        if ("kr".equals(locale))
+            privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY_KR + "\">"
+                    + privacy_policy + "</a>";
+
         SpannableString SpannablePrivacyHTML = new SpannableString(Html.fromHtml(privacy_policy_html));
         SpannablePrivacyHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, privacy_policy.length(), 0);
         builder.append(SpannablePrivacyHTML);

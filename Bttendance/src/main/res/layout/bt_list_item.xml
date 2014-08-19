@@ -43,7 +43,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
-        android:src="@drawable/ic_list_add" />
+        android:src="@drawable/ic_grade" />
 
     <TextView
         android:id="@+id/grade"

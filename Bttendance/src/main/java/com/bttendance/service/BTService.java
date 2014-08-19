@@ -37,6 +37,7 @@ import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
+import com.bttendance.model.json.UserJsonSimpleArray;
 import com.bttendance.view.BeautiToast;
 import com.google.gson.Gson;
 import com.koushikdutta.async.http.AsyncHttpClient;
@@ -1165,8 +1166,12 @@ public class BTService extends Service {
                     @Override
                     public void success(UserJsonSimple[] users, Response response) {
                         BTTable.updateStudentsOfCourse(courseId, users);
+
                         if (cb != null)
                             cb.success(users, response);
+
+                        UserJsonSimpleArray userJsonSimpleArray = new UserJsonSimpleArray(users);
+                        BTPreference.setStudentsOfCourse(getApplicationContext(), userJsonSimpleArray, courseId);
                     }
 
                     @Override
@@ -1180,7 +1185,7 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        UserJson user = BTPreference.getUser(getApplicationContext());
+        final UserJson user = BTPreference.getUser(getApplicationContext());
         String locale = getResources().getConfiguration().locale.getCountry();
         if (user == null)
             return;
@@ -1193,9 +1198,13 @@ public class BTService extends Service {
                 new Callback<UserJsonSimple[]>() {
                     @Override
                     public void success(UserJsonSimple[] users, Response response) {
-                        BTTable.updateStudentsOfCourse(courseId, users);
+                        BTTable.updateAttendanceRecordsOfCourse(courseId, users);
+
                         if (cb != null)
                             cb.success(users, response);
+
+                        UserJsonSimpleArray userJsonSimpleArray = new UserJsonSimpleArray(users);
+                        BTPreference.setStudentsOfCourse(getApplicationContext(), userJsonSimpleArray, courseId);
                     }
 
                     @Override
@@ -1222,9 +1231,13 @@ public class BTService extends Service {
                 new Callback<UserJsonSimple[]>() {
                     @Override
                     public void success(UserJsonSimple[] users, Response response) {
-                        BTTable.updateStudentsOfCourse(courseId, users);
+                        BTTable.updateClickerRecordsOfCourse(courseId, users);
+
                         if (cb != null)
                             cb.success(users, response);
+
+                        UserJsonSimpleArray userJsonSimpleArray = new UserJsonSimpleArray(users);
+                        BTPreference.setStudentsOfCourse(getApplicationContext(), userJsonSimpleArray, courseId);
                     }
 
                     @Override

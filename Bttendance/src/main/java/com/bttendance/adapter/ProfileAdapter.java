@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.SchoolJsonSimple;
@@ -21,7 +20,7 @@ import com.bttendance.model.json.UserJson;
  */
 public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
 
-    private UserJson user;
+    private UserJson mUser;
 
     public ProfileAdapter(Context context) {
         super(context, R.layout.empty_layout);
@@ -29,7 +28,7 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
     }
 
     public void refreshAdapter() {
-        user = BTPreference.getUser(getContext());
+        mUser = BTPreference.getUser(getContext());
         clear();
 
         add(new ProfileItem(ProfileItemType.Name, null));
@@ -38,17 +37,17 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
         add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.clicker_capital)));
         add(new ProfileItem(ProfileItemType.SavedClicker, null));
 
-        if (user.getClosedCourses().length > 0) {
+        if (mUser.getClosedCourses().length > 0) {
             add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.closed_lectures)));
-            for (CourseJsonSimple course : user.getClosedCourses())
-                add(new ProfileItem(ProfileItemType.Course, course));
+            for (CourseJsonSimple course : mUser.getClosedCourses())
+                add(new ProfileItem(ProfileItemType.Course, course.id));
         }
 
-        if (user.employed_schools.length + user.enrolled_schools.length > 0) {
+        if (mUser.employed_schools.length + mUser.enrolled_schools.length > 0) {
             add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.institution_capital)));
-            for (SchoolJsonSimple school : user.employed_schools)
+            for (SchoolJsonSimple school : mUser.employed_schools)
                 add(new ProfileItem(ProfileItemType.Institution, school));
-            for (SchoolJsonSimple school : user.enrolled_schools)
+            for (SchoolJsonSimple school : mUser.enrolled_schools)
                 add(new ProfileItem(ProfileItemType.Institution, school));
         }
 
@@ -69,7 +68,7 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 TextView type = (TextView) convertView.findViewById(R.id.profile_type);
                 TextView info = (TextView) convertView.findViewById(R.id.profile_info);
                 type.setText(getContext().getString(R.string.name));
-                info.setText(user.full_name);
+                info.setText(mUser.full_name);
                 break;
             }
             case Email: {
@@ -77,14 +76,14 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 TextView type = (TextView) convertView.findViewById(R.id.profile_type);
                 TextView info = (TextView) convertView.findViewById(R.id.profile_info);
                 type.setText(getContext().getString(R.string.email));
-                info.setText(user.email);
+                info.setText(mUser.email);
                 break;
             }
             case SavedClicker: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.profile_text);
-                if (user.questions != null)
-                    text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), user.questions.length));
+                if (mUser.questions != null)
+                    text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), mUser.questions.length));
                 else
                     text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), 0));
                 text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
@@ -92,12 +91,12 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
             }
             case Course: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_detail, null);
-                CourseJsonSimple course = (CourseJsonSimple) profileItem.getObject();
+                CourseJsonSimple course = mUser.getCourse((Integer) profileItem.getObject());
                 TextView text = (TextView) convertView.findViewById(R.id.profile_text);
                 TextView message = (TextView) convertView.findViewById(R.id.profile_message);
                 text.setText(course.name);
                 text.setTextColor(getContext().getResources().getColor(R.color.bttendance_cyan));
-                message.setText(user.getSchool(course.school).name);
+                message.setText(mUser.getSchool(course.school).name);
                 break;
             }
             case Institution: {
@@ -108,12 +107,12 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 TextView message = (TextView) convertView.findViewById(R.id.profile_message);
                 text.setText(school.name);
                 text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
-                if (user.employed(school.id)) {
+                if (mUser.employed(school.id)) {
                     message.setText(getContext().getString(R.string.professor));
                     convertView.findViewById(R.id.selector).setVisibility(View.GONE);
                     convertView.findViewById(R.id.profile_arrow).setVisibility(View.GONE);
                 } else
-                    message.setText(String.format(getContext().getString(R.string.student__), user.getIdentity(school.id)));
+                    message.setText(String.format(getContext().getString(R.string.student__), mUser.getIdentity(school.id)));
                 break;
             }
             case Password: {

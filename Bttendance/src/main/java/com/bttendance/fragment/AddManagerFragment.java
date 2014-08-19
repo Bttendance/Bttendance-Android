@@ -57,17 +57,17 @@ public class AddManagerFragment extends BTFragment {
         mEmailDiv = view.findViewById(R.id.email_divider);
         mSignUp = (Button) view.findViewById(R.id.signup);
 
-//        mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    mEmailDiv
-//                            .setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
-//                } else {
-//                    mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
-//                }
-//            }
-//        });
+        mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    mEmailDiv
+                            .setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
+                } else {
+                    mEmailDiv.setBackgroundColor(getResources().getColor(R.color.grey_hex_cc));
+                }
+            }
+        });
 
         mEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -190,8 +190,11 @@ public class AddManagerFragment extends BTFragment {
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(getString(R.string.add_manager));
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(getString(R.string.add_manager));
     }
 
     @Override

@@ -31,6 +31,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class BTTable {
 
     public static String FILTER_STUDENTS_OF_COURSE = "students_of_course";
+    public static String FILTER_ATTENDANCE_RECORDS_OF_COURSE = "attendance_records_of_course";
+    public static String FILTER_CLICKER_RECORDS_OF_COURSE = "clicker_records_of_course";
     public static String FILTER_COURSE_OF_SCHOOL = "course_of_school";
     public static SparseArray<SchoolJson> AllSchoolTable = new SparseArray<SchoolJson>();
     public static SparseArray<CourseJson> MyCourseTable = new SparseArray<CourseJson>();
@@ -57,6 +59,54 @@ public class BTTable {
     public static synchronized void updateStudentsOfCourse(int courseID, UserJsonSimple[] users) {
 
         String filter = FILTER_STUDENTS_OF_COURSE + courseID;
+        SparseArray<UserJsonSimple> array = mUser.get(filter);
+        if (array == null) {
+            array = new SparseArray<UserJsonSimple>();
+            mUser.put(filter, array);
+        }
+
+        for (UserJsonSimple user : users)
+            array.append(user.id, user);
+    }
+
+    public static synchronized SparseArray<UserJsonSimple> getAttendanceRecordsOfCourse(int courseID) {
+
+        String filter = FILTER_ATTENDANCE_RECORDS_OF_COURSE + courseID;
+        SparseArray<UserJsonSimple> array = mUser.get(filter);
+        if (array == null) {
+            array = new SparseArray<UserJsonSimple>();
+            mUser.put(filter, array);
+        }
+        return array;
+    }
+
+    public static synchronized void updateAttendanceRecordsOfCourse(int courseID, UserJsonSimple[] users) {
+
+        String filter = FILTER_ATTENDANCE_RECORDS_OF_COURSE + courseID;
+        SparseArray<UserJsonSimple> array = mUser.get(filter);
+        if (array == null) {
+            array = new SparseArray<UserJsonSimple>();
+            mUser.put(filter, array);
+        }
+
+        for (UserJsonSimple user : users)
+            array.append(user.id, user);
+    }
+
+    public static synchronized SparseArray<UserJsonSimple> getClickerRecordsOfCourse(int courseID) {
+
+        String filter = FILTER_CLICKER_RECORDS_OF_COURSE + courseID;
+        SparseArray<UserJsonSimple> array = mUser.get(filter);
+        if (array == null) {
+            array = new SparseArray<UserJsonSimple>();
+            mUser.put(filter, array);
+        }
+        return array;
+    }
+
+    public static synchronized void updateClickerRecordsOfCourse(int courseID, UserJsonSimple[] users) {
+
+        String filter = FILTER_CLICKER_RECORDS_OF_COURSE + courseID;
         SparseArray<UserJsonSimple> array = mUser.get(filter);
         if (array == null) {
             array = new SparseArray<UserJsonSimple>();

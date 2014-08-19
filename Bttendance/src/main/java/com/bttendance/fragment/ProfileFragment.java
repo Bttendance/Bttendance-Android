@@ -107,7 +107,7 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
                 showSavedClicker();
                 break;
             case Course:
-                showCourse();
+                showCourse((Integer) mAdapter.getItem(position).getObject());
                 break;
             case Institution:
                 showEditIdentity((Integer) view.getTag(R.id.school_id));
@@ -149,8 +149,9 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
 
     }
 
-    private void showCourse() {
-
+    private void showCourse(int courseID) {
+        CourseDetailFragment fragment = new CourseDetailFragment(courseID);
+        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
     }
 
     private void showEditIdentity(int schoolID) {

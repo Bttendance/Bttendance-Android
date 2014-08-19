@@ -20,6 +20,7 @@ import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
@@ -145,37 +146,45 @@ public class AttendCourseActivity extends BTActivity {
                     @Override
                     public void onConfirmed(String edit) {
                         BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.attending_course)));
-                        getBTService().enrollSchool(courseJson.school.id, edit, new Callback<UserJson>() {
-                            @Override
-                            public void success(UserJson userJson, Response response) {
-                                getBTService().attendCourse(courseJson.id, new Callback<UserJson>() {
-                                    @Override
-                                    public void success(UserJson userJson, Response response) {
-                                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                                        onBackPressed();
-                                        Intent intent = new Intent(AttendCourseActivity.this, GuideCourseAttendActivity.class);
-                                        startActivity(intent);
-                                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                    }
+                        if (BTPreference.getUser(getApplicationContext()).enrolled(courseJson.school.id)) {
+                            attendCourse(courseJson.id);
+                        } else {
+                            getBTService().enrollSchool(courseJson.school.id, edit, new Callback<UserJson>() {
+                                @Override
+                                public void success(UserJson userJson, Response response) {
+                                    attendCourse(courseJson.id);
+                                }
 
-                                    @Override
-                                    public void failure(RetrofitError retrofitError) {
-                                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void failure(RetrofitError retrofitError) {
-                                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                            }
-                        });
+                                @Override
+                                public void failure(RetrofitError retrofitError) {
+                                    BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                                }
+                            });
+                        }
                     }
 
                     @Override
                     public void onCanceled() {
                     }
                 }));
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+            }
+        });
+    }
+
+    private void attendCourse(int courseID) {
+        getBTService().attendCourse(courseID, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson userJson, Response response) {
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                onBackPressed();
+                Intent intent = new Intent(AttendCourseActivity.this, GuideCourseAttendActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
             @Override

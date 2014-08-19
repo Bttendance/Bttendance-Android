@@ -130,7 +130,7 @@ public class SimpleWebViewFragment extends BTFragment {
             if (progress < 100 && mPbar.getVisibility() == ProgressBar.GONE)
                 mPbar.setVisibility(ProgressBar.VISIBLE);
             mPbar.setProgress(progress);
-            
+
             if (progress == 100) {
                 mPbar.setVisibility(ProgressBar.GONE);
                 mRefresh.setActionView(null);

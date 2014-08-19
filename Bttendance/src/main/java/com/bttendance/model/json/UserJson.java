@@ -34,6 +34,14 @@ public class UserJson extends BTJson {
         return false;
     }
 
+    public boolean enrolled(int schoolID) {
+        for (SchoolJsonSimple school : enrolled_schools)
+            if (school.id == schoolID)
+                return true;
+
+        return false;
+    }
+
     public String getIdentity(int schoolID) {
         for (IdentificationJsonSimple identification : identifications)
             if (identification.school == schoolID)

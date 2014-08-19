@@ -53,7 +53,7 @@ public class PostAttendanceFragment extends BTFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_attendance, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
-        mAdapter = new BTListAdapter(getActivity(), this);
+        mAdapter = new BTListAdapter(getActivity());
         mListView.setAdapter(mAdapter);
         swapItems();
         return view;
@@ -120,7 +120,7 @@ public class PostAttendanceFragment extends BTFragment implements View.OnClickLi
                 for (UserJsonSimple user : attdUnChecked) {
                     String title = user.full_name;
                     String message = user.email;
-                    items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.UNCHECKED, title, message, user));
+                    items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.EMPTY, title, message, user));
                 }
 
                 if (attdChecked.size() > 0)
@@ -129,7 +129,7 @@ public class PostAttendanceFragment extends BTFragment implements View.OnClickLi
                 for (UserJsonSimple user : attdChecked) {
                     String title = user.full_name;
                     String message = user.email;
-                    items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.CHECKED, title, message, user));
+                    items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.EMPTY, title, message, user));
                 }
 
                 mAdapter.setItems(items);

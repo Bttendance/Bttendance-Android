@@ -75,13 +75,21 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-        if (!((MainActivity) getActivity()).isDrawerOpen()) {
+        if (mCourse.opened) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+            if (!((MainActivity) getActivity()).isDrawerOpen()) {
+                actionBar.setTitle(mCourse.name);
+                inflater.inflate(R.menu.course_detail_menu, menu);
+            }
+        } else {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(mCourse.name);
-            inflater.inflate(R.menu.course_detail_menu, menu);
         }
     }
 
@@ -296,35 +304,6 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
-//    private void showGrade() {
-//        GradeFragment frag = new GradeFragment(mCourse.id);
-//        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
-//    }
-//
-//    private void exportGrade() {
-//        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.exporting_grades)));
-//        getBTService().courseExportGrades(mCourseHelper.getID(), new Callback<EmailJson>() {
-//            @Override
-//            public void success(EmailJson email, Response response) {
-//                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
-//                String title = getString(R.string.export_grades);
-//                String message = String.format(getString(R.string.exporting_grade_has_been_finished), email.email);
-//                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message));
-//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//            }
-//        });
-//    }
-//
-//    private void showAddManager() {
-//        AddManagerFragment frag = new AddManagerFragment(mCourseHelper.getID());
-//        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
-//    }
-
     private void openCourse() {
         BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
         String title = getString(R.string.open_course);
@@ -370,8 +349,6 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                     public void success(UserJson user, Response response) {
                         BTEventBus.getInstance().post(new HideProgressDialogEvent());
                         BTEventBus.getInstance().post(new UpdateCourseListEvent());
-                        BTEventBus.getInstance().post(new UpdateFeedEvent());
-                        getActivity().getSupportFragmentManager().popBackStack();
                     }
 
                     @Override

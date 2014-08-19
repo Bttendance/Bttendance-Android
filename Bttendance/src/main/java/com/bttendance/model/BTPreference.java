@@ -10,6 +10,7 @@ import com.bttendance.model.json.PostJsonArray;
 import com.bttendance.model.json.QuestionJsonArray;
 import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.model.json.UserJsonSimpleArray;
 import com.google.gson.Gson;
 import com.squareup.otto.BTEventBus;
 
@@ -145,6 +146,29 @@ public class BTPreference {
 
         Editor edit = getInstance(ctx).edit();
         edit.putString("posts_" + courseId, jsonStr);
+        edit.commit();
+    }
+
+    public static UserJsonSimpleArray getStudentsOfCourse(Context ctx, int courseID) {
+        String jsonStr = getInstance(ctx).getString("students_" + courseID, null);
+        if (jsonStr == null)
+            return null;
+
+        Gson gson = new Gson();
+        try {
+            UserJsonSimpleArray userJsonSimpleArray = gson.fromJson(jsonStr, UserJsonSimpleArray.class);
+            return userJsonSimpleArray;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void setStudentsOfCourse(Context ctx, UserJsonSimpleArray userJsonSimpleArray, int courseId) {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(userJsonSimpleArray);
+
+        Editor edit = getInstance(ctx).edit();
+        edit.putString("students_" + courseId, jsonStr);
         edit.commit();
     }
 

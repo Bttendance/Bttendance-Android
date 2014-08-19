@@ -236,5 +236,8 @@
     <string name="clicker_records">Clicker Records</string>
     <string name="export_records">Export Records</string>
     <string name="show_the_student_list">Show the Student List</string>
+    <string name="would_you_like_to_close_course">Would you like to close %s?</string>
+    <string name="closing_course">Closing Course</string>
+    <string name="student_list">Student List</string>
 
 </resources>
