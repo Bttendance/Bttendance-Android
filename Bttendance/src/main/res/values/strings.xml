@@ -226,5 +226,15 @@
     <string name="guide_attend_course_forth_info">Please refrain from using the smartphone for functions other than BTTENDANCE during class!</string>
     <string name="open_course">Open Course</string>
     <string name="opening_course">Opening Course</string>
+    <string name="s_students">%s Students</string>
+    <string name="course_setting">Course Setting</string>
+    <string name="records_capital">RECORDS</string>
+    <string name="students_capital">STUDENTS</string>
+    <string name="managers_capital">MANAGERS</string>
+    <string name="close_course">Close Course</string>
+    <string name="attendance_records">Attendance Records</string>
+    <string name="clicker_records">Clicker Records</string>
+    <string name="export_records">Export Records</string>
+    <string name="show_the_student_list">Show the Student List</string>
 
 </resources>

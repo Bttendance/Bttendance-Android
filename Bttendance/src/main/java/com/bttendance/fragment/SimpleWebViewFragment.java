@@ -40,8 +40,8 @@ import android.widget.RelativeLayout;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.fragment.BTFragment;
 
 public class SimpleWebViewFragment extends BTFragment {
 
@@ -52,6 +52,8 @@ public class SimpleWebViewFragment extends BTFragment {
     private FrameLayout mView = null;
     private WebView mWebview = null;
     private ProgressBar mPbar = null;
+
+    private MenuItem mRefresh;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,6 +117,10 @@ public class SimpleWebViewFragment extends BTFragment {
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(getString(R.string.app_name_capital));
+
+        inflater.inflate(R.menu.webview_menu, menu);
+        mRefresh = menu.findItem(R.id.refresh_option_item);
+        mRefresh.setActionView(R.layout.loading_menu);
     }
 
     public class MyWebChromeClient extends WebChromeClient {
@@ -124,8 +130,11 @@ public class SimpleWebViewFragment extends BTFragment {
             if (progress < 100 && mPbar.getVisibility() == ProgressBar.GONE)
                 mPbar.setVisibility(ProgressBar.VISIBLE);
             mPbar.setProgress(progress);
-            if (progress == 100)
+            
+            if (progress == 100) {
                 mPbar.setVisibility(ProgressBar.GONE);
+                mRefresh.setActionView(null);
+            }
         }
     }
 

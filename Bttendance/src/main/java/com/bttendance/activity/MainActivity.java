@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.guide.GuideActivity;
@@ -182,8 +183,11 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
 
-        if (isDrawerOpen())
+        if (isDrawerOpen()) {
             actionBar.setTitle(getString(R.string.menu));
+            MenuInflater inflater = getSupportMenuInflater();
+            inflater.inflate(R.menu.no_menu, menu);
+        }
 
         return super.onCreateOptionsMenu(menu);
     }

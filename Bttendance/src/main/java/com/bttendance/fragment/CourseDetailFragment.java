@@ -1,16 +1,20 @@
 package com.bttendance.fragment;
 
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.FeedAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.attendance.AttdStartEvent;
@@ -22,13 +26,14 @@ import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.PostCursor;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.view.Bttendance;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
@@ -70,9 +75,14 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(mCourse.name);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        inflater.inflate(R.menu.course_detail_menu, menu);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        if (!((MainActivity) getActivity()).isDrawerOpen()) {
+            actionBar.setTitle(mCourse.name);
+            inflater.inflate(R.menu.course_detail_menu, menu);
+        }
     }
 
     @Override
@@ -172,17 +182,55 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 if (!mAuth)
                     header.findViewById(R.id.manager_layout).setVisibility(View.GONE);
 
-                Bttendance bttendance = (Bttendance) header.findViewById(R.id.bttendance);
-//                int grade = Integer.parseInt(mCourseHelper.getGrade());
-//                bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
-//                TextView courseInfo = (TextView) header.findViewById(R.id.course_info);
-//                courseInfo.setText(getString(R.string.prof_) + " " + mCourseHelper.getProfessorName() + "\n"
-//                        + mCourseHelper.getSchoolName() + "\n\n"
-//                        + String.format(getString(R.string.n_students), mCourseHelper.getStudentCount()) + "\n"
-//                        + String.format(getString(R.string.n_attendance_rate), grade) + "\n"
-//                        + String.format(getString(R.string.n_clickers), mCourseHelper.getClickerUsage()) + "\n"
-//                        + String.format(getString(R.string.n_notices), mCourseHelper.getNoticeUsage())
-//                );
+                CourseJson course = BTTable.MyCourseTable.get(mCourse.id);
+
+                TextView courseCode = (TextView) header.findViewById(R.id.code_text);
+                String code = course.code;
+                if (code != null)
+                    code = code.toUpperCase();
+                courseCode.setText(code);
+
+                TextView courseName = (TextView) header.findViewById(R.id.course_name);
+                courseName.setText(mCourse.name);
+
+                String studentsCount = "";
+                if (course != null)
+                    studentsCount = String.format("%d", course.students_count);
+
+                String schoolName = "School Name";
+                if (mUser.getSchool(mCourse.school) != null)
+                    schoolName = mUser.getSchool(mCourse.school).name;
+
+                String detailed = mCourse.professor_name
+                        + " | " + schoolName
+                        + " | " + String.format(getString(R.string.s_students), studentsCount);
+
+                Rect bounds = new Rect();
+                Paint paint = new Paint();
+                paint.setTextSize(12.0f);
+                paint.getTextBounds(detailed, 0, detailed.length(), bounds);
+                float width = DipPixelHelper.getPixel(getActivity(), (float) Math.ceil(bounds.width()));
+                float textViewWidth = ScreenHelper.getWidth(getActivity()) - DipPixelHelper.getPixel(getActivity(), 42);
+
+                if (width > textViewWidth) {
+                    detailed = schoolName + " | " + String.format(getString(R.string.s_students), studentsCount);
+                    paint.getTextBounds(detailed, 0, detailed.length(), bounds);
+                    width = DipPixelHelper.getPixel(getActivity(), (float) Math.ceil(bounds.width()));
+                    textViewWidth = ScreenHelper.getWidth(getActivity()) - DipPixelHelper.getPixel(getActivity(), 42);
+
+                    if (width > textViewWidth) {
+                        detailed = mCourse.professor_name
+                                + "\n" + schoolName
+                                + "\n" + String.format(getString(R.string.s_students), studentsCount);
+                    } else {
+                        detailed = mCourse.professor_name
+                                + "\n" + schoolName
+                                + " | " + String.format(getString(R.string.s_students), studentsCount);
+                    }
+                }
+
+                TextView courseDetail = (TextView) header.findViewById(R.id.course_detail);
+                courseDetail.setText(detailed);
             }
         });
     }

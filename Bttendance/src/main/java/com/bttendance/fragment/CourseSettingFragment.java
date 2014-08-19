@@ -11,13 +11,8 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.bttendance.R;
-import com.bttendance.activity.MainActivity;
-import com.bttendance.adapter.ProfileAdapter;
-import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.adapter.CourseSettingAdapter;
 import com.bttendance.event.update.UpdateUserEvent;
-import com.bttendance.model.BTKey;
-import com.bttendance.model.BTPreference;
-import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
 /**
@@ -25,10 +20,12 @@ import com.squareup.otto.Subscribe;
  */
 public class CourseSettingFragment extends BTFragment implements AdapterView.OnItemClickListener {
 
+    int mCourseID;
     ListView mListView;
-    ProfileAdapter mAdapter;
+    CourseSettingAdapter mAdapter;
 
     public CourseSettingFragment(int courseID) {
+        mCourseID = courseID;
     }
 
     /**
@@ -48,11 +45,10 @@ public class CourseSettingFragment extends BTFragment implements AdapterView.OnI
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
-        if (!((MainActivity) getActivity()).isDrawerOpen())
-            actionBar.setTitle(getString(R.string.profile));
+        actionBar.setTitle(getString(R.string.course_setting));
     }
 
     /**
@@ -60,9 +56,9 @@ public class CourseSettingFragment extends BTFragment implements AdapterView.OnI
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_course_setting, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
-        mAdapter = new ProfileAdapter(getActivity());
+        mAdapter = new CourseSettingAdapter(getActivity(), mCourseID);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
         return view;
@@ -100,26 +96,27 @@ public class CourseSettingFragment extends BTFragment implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         switch (mAdapter.getItem(position).getType()) {
-            case Name:
-                showEditName();
+            case AddManager:
+                addManager();
                 break;
-            case Email:
-                showEditEmail();
+            case ShowStudentList:
+                showStudentList();
                 break;
-            case SavedClicker:
-                showSavedClicker();
+            case ExportRecords:
+                exportRecords();
                 break;
-            case Course:
-                showCourse();
+            case ClickerRecords:
+                clickerRecords();
                 break;
-            case Institution:
-                showEditIdentity((Integer) view.getTag(R.id.school_id));
+            case AttendanceRecords:
+                attendanceRecords();
                 break;
-            case Password:
-                showChangePassword();
+            case CloseCourse:
+                closeCourse();
                 break;
+            case Manager:
+            case Header:
             case Section:
-                break;
             case Margin:
                 break;
         }
@@ -128,47 +125,21 @@ public class CourseSettingFragment extends BTFragment implements AdapterView.OnI
     /**
      * Private Methods
      */
-    private void showEditName() {
-        ProfileEditFragment frag = new ProfileEditFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.name));
-        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).full_name);
-        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.NAME);
-        frag.setArguments(bundle);
-        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+    private void addManager() {
     }
 
-    private void showEditEmail() {
-        ProfileEditFragment frag = new ProfileEditFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.email));
-        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).email);
-        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.MAIL);
-        frag.setArguments(bundle);
-        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+    private void showStudentList() {
     }
 
-    private void showSavedClicker() {
-
+    private void exportRecords() {
     }
 
-    private void showCourse() {
-
+    private void clickerRecords() {
     }
 
-    private void showEditIdentity(int schoolID) {
-        ProfileEditFragment frag = new ProfileEditFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.identity));
-        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).getIdentity(schoolID));
-        bundle.putSerializable(BTKey.EXTRA_SCHOOL_ID, schoolID);
-        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.IDENTITY);
-        frag.setArguments(bundle);
-        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+    private void attendanceRecords() {
     }
 
-    private void showChangePassword() {
-        UpdatePasswordFragment frag = new UpdatePasswordFragment();
-        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+    private void closeCourse() {
     }
 }

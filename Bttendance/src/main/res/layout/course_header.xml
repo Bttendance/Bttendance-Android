@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,28 +11,85 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="157dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/course_info_bg">
 
-        <com.bttendance.view.Bttendance
-            android:id="@+id/bttendance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="14dp"
-            app:type="Big" />
+        <View
+            android:id="@+id/code_bg"
+            android:layout_width="56dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="21dp"
+            android:background="@drawable/bt_navy_round"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <View
+            android:layout_width="56dp"
+            android:layout_height="39dp"
+            android:background="@drawable/bt_grey_round"
+            android:layout_marginTop="39dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <View
+            android:layout_width="56dp"
+            android:layout_height="30dp"
+            android:background="@color/bttendance_grey"
+            android:layout_marginTop="39dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <TextView
-            android:id="@+id/course_info"
+            android:layout_width="56dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="21dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/class_code"
+            android:textColor="@color/bttendance_white"
+            android:textStyle="bold"
+            android:textSize="9sp" />
+
+        <TextView
+            android:layout_width="56dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="39dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@color/bttendance_navy"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:id="@+id/code_text" />
+
+        <TextView
+            android:id="@+id/course_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="21dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="27dp"
-            android:layout_toRightOf="@id/bttendance"
-            android:lineSpacingExtra="2dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/code_bg"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="Computing Machinery"
+            android:textColor="@color/bttendance_silver"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/course_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="21dp"
+            android:layout_below="@id/course_name"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="Alan Turing | University of Cambridge | 10 Students"
             android:textColor="@color/bttendance_silver"
             android:textSize="12sp" />
 
@@ -47,7 +103,7 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="42dp"
+            android:layout_height="68dp"
             android:layout_weight="1">
 
             <Button
@@ -59,8 +115,20 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/ic_clicker"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/ic_clicker"
+                android:id="@+id/clicker_img" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/clicker_img"
+                android:layout_marginTop="7dp"
+                android:gravity="center_horizontal"
+                android:text="@string/clicker"
+                android:textColor="@color/bttendance_navy"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 
@@ -70,7 +138,7 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="42dp"
+            android:layout_height="68dp"
             android:layout_weight="1">
 
             <Button
@@ -82,8 +150,20 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/ic_attendance"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/ic_attendance"
+                android:id="@+id/attendance_img" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/attendance_img"
+                android:layout_marginTop="7dp"
+                android:gravity="center_horizontal"
+                android:text="@string/attendance"
+                android:textColor="@color/bttendance_navy"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 
@@ -93,7 +173,7 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="42dp"
+            android:layout_height="68dp"
             android:layout_weight="1">
 
             <Button
@@ -105,8 +185,20 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/ic_notice"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/ic_notice"
+                android:id="@+id/notice_img" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/notice_img"
+                android:layout_marginTop="7dp"
+                android:gravity="center_horizontal"
+                android:text="@string/notice"
+                android:textColor="@color/bttendance_navy"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 

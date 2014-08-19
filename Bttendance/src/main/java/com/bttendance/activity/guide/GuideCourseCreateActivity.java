@@ -20,7 +20,10 @@ public class GuideCourseCreateActivity extends BTActivity {
         setContentView(R.layout.activity_guide_create_course);
 
         TextView classCode = (TextView) findViewById(R.id.code_text);
-        classCode.setText(getIntent().getStringExtra(EXTRA_CLASS_CODE));
+        String code = getIntent().getStringExtra(EXTRA_CLASS_CODE);
+        if (code != null)
+            code = code.toUpperCase();
+        classCode.setText(code);
 
         findViewById(R.id.continue_bt).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -18,4 +18,13 @@ public class CourseJson extends BTJson {
     public int clicker_rate;
     public int notice_unseen;
 
+    public UserJsonSimple getManager(int managerID) {
+
+        for (UserJsonSimple manager : managers)
+            if (manager.id == managerID)
+                return manager;
+
+        return null;
+    }
+
 }
