@@ -25,11 +25,14 @@ import com.bttendance.model.BTTable;
 import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.ClickerJson;
 import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.CourseJsonArray;
 import com.bttendance.model.json.EmailJson;
 import com.bttendance.model.json.ErrorJson;
 import com.bttendance.model.json.NoticeJson;
 import com.bttendance.model.json.PostJson;
+import com.bttendance.model.json.PostJsonArray;
 import com.bttendance.model.json.QuestionJson;
+import com.bttendance.model.json.QuestionJsonArray;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
@@ -510,6 +513,9 @@ public class BTService extends Service {
 
                         if (cb != null)
                             cb.success(courses, response);
+
+                        CourseJsonArray courseJsonArray = new CourseJsonArray(courses);
+                        BTPreference.setCourses(getApplicationContext(), courseJsonArray);
                     }
 
                     @Override
@@ -661,8 +667,14 @@ public class BTService extends Service {
                 new Callback<QuestionJson[]>() {
                     @Override
                     public void success(QuestionJson[] questions, Response response) {
+                        for (QuestionJson question : questions)
+                            BTTable.MyQuestionTable.append(question.id, question);
+
                         if (cb != null)
                             cb.success(questions, response);
+
+                        QuestionJsonArray questionJsonArray = new QuestionJsonArray(questions);
+                        BTPreference.setMyQuestions(getApplicationContext(), questionJsonArray);
                     }
 
                     @Override
@@ -840,12 +852,14 @@ public class BTService extends Service {
                 new Callback<SchoolJson[]>() {
                     @Override
                     public void success(SchoolJson[] schools, Response response) {
-                        SchoolJsonArray schoolJsonArray = new SchoolJsonArray(schools);
-                        BTPreference.setAllSchools(getApplicationContext(), schoolJsonArray);
                         for (SchoolJson school : schools)
                             BTTable.AllSchoolTable.append(school.id, school);
+
                         if (cb != null)
                             cb.success(schools, response);
+
+                        SchoolJsonArray schoolJsonArray = new SchoolJsonArray(schools);
+                        BTPreference.setAllSchools(getApplicationContext(), schoolJsonArray);
                     }
 
                     @Override
@@ -1034,6 +1048,9 @@ public class BTService extends Service {
 
                         if (cb != null)
                             cb.success(posts, response);
+
+                        PostJsonArray postJsonArray = new PostJsonArray(posts);
+                        BTPreference.setPostsOfCourse(getApplicationContext(), postJsonArray, courseID);
                     }
 
                     @Override

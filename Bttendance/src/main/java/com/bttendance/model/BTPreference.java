@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.model.json.CourseJsonArray;
+import com.bttendance.model.json.PostJsonArray;
+import com.bttendance.model.json.QuestionJsonArray;
 import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
 import com.google.gson.Gson;
@@ -99,7 +102,86 @@ public class BTPreference {
         edit.commit();
     }
 
-    // courses, schools, posts
+    public static CourseJsonArray getCourses(Context ctx) {
+        String jsonStr = getInstance(ctx).getString("courses", null);
+        if (jsonStr == null)
+            return null;
+
+        Gson gson = new Gson();
+        try {
+            CourseJsonArray courseJsonArray = gson.fromJson(jsonStr, CourseJsonArray.class);
+            return courseJsonArray;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void setCourses(Context ctx, CourseJsonArray courseJsonArray) {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(courseJsonArray);
+
+        Editor edit = getInstance(ctx).edit();
+        edit.putString("courses", jsonStr);
+        edit.commit();
+    }
+
+    public static PostJsonArray getPostsOfCourse(Context ctx, int courseID) {
+        String jsonStr = getInstance(ctx).getString("posts_" + courseID, null);
+        if (jsonStr == null)
+            return null;
+
+        Gson gson = new Gson();
+        try {
+            PostJsonArray postJsonArray = gson.fromJson(jsonStr, PostJsonArray.class);
+            return postJsonArray;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void setPostsOfCourse(Context ctx, PostJsonArray postJsonArray, int courseId) {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(postJsonArray);
+
+        Editor edit = getInstance(ctx).edit();
+        edit.putString("posts_" + courseId, jsonStr);
+        edit.commit();
+    }
+
+    public static QuestionJsonArray getMyQuestions(Context ctx) {
+        String jsonStr = getInstance(ctx).getString("my_questions", null);
+        if (jsonStr == null)
+            return null;
+
+        Gson gson = new Gson();
+        try {
+            QuestionJsonArray questionJsonArray = gson.fromJson(jsonStr, QuestionJsonArray.class);
+            return questionJsonArray;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void setMyQuestions(Context ctx, QuestionJsonArray questionJsonArray) {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(questionJsonArray);
+
+        Editor edit = getInstance(ctx).edit();
+        edit.putString("my_questions", jsonStr);
+        edit.commit();
+    }
+
+    public static boolean seenGuide(Context ctx) {
+        Boolean seen = getInstance(ctx).getBoolean("seen_guide", false);
+
+        if (!seen) {
+            Editor edit = getInstance(ctx).edit();
+            edit.putBoolean("seen_guide", true);
+            edit.commit();
+        }
+
+        return seen;
+    }
 
     public static String getUUID(Context ctx) {
         return getInstance(ctx).getString("uuid", null);

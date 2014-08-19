@@ -15,7 +15,6 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.adapter.ChooseSchoolAdapter;
@@ -61,8 +60,8 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         setHasOptionsMenu(true);
 
         SchoolJsonArray schoolJsonArray = BTPreference.getAllSchools(getActivity());
-        if (schoolJsonArray != null && schoolJsonArray.all_schools != null)
-            for (SchoolJson school : schoolJsonArray.all_schools)
+        if (schoolJsonArray != null && schoolJsonArray.schools != null)
+            for (SchoolJson school : schoolJsonArray.schools)
                 BTTable.AllSchoolTable.append(school.id, school);
     }
 

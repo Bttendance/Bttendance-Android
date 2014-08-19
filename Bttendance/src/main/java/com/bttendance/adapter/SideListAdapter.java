@@ -13,6 +13,7 @@ import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.CourseJsonArray;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.UserJson;
 
@@ -27,6 +28,12 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
 
     public void refreshAdapter() {
         mUser = BTPreference.getUser(getContext());
+
+        CourseJsonArray courseJsonArray = BTPreference.getCourses(getContext());
+        if (courseJsonArray != null && courseJsonArray.courses != null)
+            for (CourseJson course : courseJsonArray.courses)
+                BTTable.MyCourseTable.append(course.id, course);
+
         clear();
 
         add(new SideItem(SideItemType.Header, null));

@@ -5,9 +5,9 @@ package com.bttendance.model.json;
  */
 public class SchoolJsonArray {
 
-    public SchoolJson[] all_schools;
+    public SchoolJson[] schools;
 
     public SchoolJsonArray(SchoolJson[] schools) {
-        this.all_schools = schools;
+        this.schools = schools;
     }
 }

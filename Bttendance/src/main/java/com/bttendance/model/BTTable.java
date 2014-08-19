@@ -11,6 +11,7 @@ import com.bttendance.model.json.ClickerJson;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.PostJson;
+import com.bttendance.model.json.QuestionJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
@@ -34,6 +35,7 @@ public class BTTable {
     public static SparseArray<SchoolJson> AllSchoolTable = new SparseArray<SchoolJson>();
     public static SparseArray<CourseJson> MyCourseTable = new SparseArray<CourseJson>();
     public static SparseArray<PostJson> PostTable = new SparseArray<PostJson>();
+    public static SparseArray<QuestionJson> MyQuestionTable = new SparseArray<QuestionJson>();
     public static int ATTENDANCE_STARTING_COURSE = -1;
     private static HashMap<String, SparseArray<UserJsonSimple>> mUser = new HashMap<String, SparseArray<UserJsonSimple>>();
     private static HashMap<String, SparseArray<CourseJson>> mCourse = new HashMap<String, SparseArray<CourseJson>>();

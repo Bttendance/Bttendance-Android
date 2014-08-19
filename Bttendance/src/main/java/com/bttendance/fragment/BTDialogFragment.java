@@ -17,7 +17,7 @@ import com.bttendance.helper.ScreenHelper;
 /**
  * Created by TheFinestArtist on 2013. 12. 20..
  */
-public class BTDialogFragment extends BTFragment implements View.OnClickListener {
+public class BTDialogFragment extends BTFragment implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     View mView;
     DialogType mType;
@@ -151,19 +151,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
         title.setText(mTitle);
         message.setText(mMessage);
 
-        mScreenHeight = ScreenHelper.getHeight(getActivity());
-        mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (mView.getHeight() < mScreenHeight - 200) {
-                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(60);
-                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
-                } else {
-                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(100);
-                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 40));
-                }
-            }
-        });
+        mView.getViewTreeObserver().addOnGlobalLayoutListener(this);
 
         if (mPlaceholder != null)
             mEdit.setHint(mPlaceholder);
@@ -172,20 +160,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     private void drawProgress() {
         TextView message = (TextView) mView.findViewById(R.id.message_progress);
         message.setText(mMessage);
-
-        mScreenHeight = ScreenHelper.getHeight(getActivity());
-        mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (mView.getHeight() < mScreenHeight - 200) {
-                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(65);
-                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
-                } else {
-                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(100);
-                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 35));
-                }
-            }
-        });
+        mView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     private void drawContext() {
@@ -226,7 +201,51 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
                 break;
         }
 
+        mView.findViewById(R.id.cancel_context).setOnClickListener(this);
         mView.findViewById(R.id.total_layout).setOnClickListener(this);
+        mView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+    }
+
+    /**
+     * ViewTreeObserver.onGlobalLayout
+     */
+    @Override
+    public void onGlobalLayout() {
+
+        if (getActivity() == null)
+            return;
+
+        mScreenHeight = ScreenHelper.getHeight(getActivity());
+
+        switch (mType) {
+            case EDIT:
+            case CONFIRM:
+            case OK:
+                if (mView.getHeight() < mScreenHeight - 200) {
+                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(60);
+                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
+                } else {
+                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(100);
+                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 40));
+                }
+                break;
+
+            case PROGRESS:
+                if (mView.getHeight() < mScreenHeight - 200) {
+                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(65);
+                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
+                } else {
+                    ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(100);
+                    mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 35));
+                }
+                break;
+
+            case CONTEXT:
+            default:
+                ((LinearLayout) mView.findViewById(R.id.total_layout)).setWeightSum(60);
+                mView.findViewById(R.id.padding_layout).setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0));
+                break;
+        }
     }
 
     /**
@@ -246,6 +265,7 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
                     mListener.onConfirmed(((Button) v).getText().toString());
                 break;
             case R.id.total_layout:
+            case R.id.cancel_context:
                 mDying = true;
                 if (mType == DialogType.CONTEXT)
                     getActivity().onBackPressed();

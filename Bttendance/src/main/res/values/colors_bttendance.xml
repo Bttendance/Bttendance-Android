@@ -71,4 +71,7 @@
     <color name="bttendance_cyan_30">#4D33B5E5</color>
     <color name="bttendance_cyan_50">#8033B5E5</color>
     <color name="bttendance_cyan_80">#CC33B5E5</color>
+
+    <color name="bttendance_red_10">#1AC1272D</color>
+    <color name="bttendance_red_25">#40C1272D</color>
 </resources>

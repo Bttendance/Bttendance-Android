@@ -107,6 +107,12 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
         if (BTTable.getAttdCheckingIds().size() > 0)
             BTEventBus.getInstance().post(new AttdStartedEvent(true));
+
+        if (!BTPreference.seenGuide(this)) {
+            Intent intent = new Intent(this, GuideActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        }
     }
 
     @Override
