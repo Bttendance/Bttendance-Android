@@ -16,17 +16,19 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.activity.guide.GuideActivity;
+import com.bttendance.activity.guide.GuideCourseAttendActivity;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.CourseDetailFragment;
 import com.bttendance.fragment.ProfileFragment;
 import com.bttendance.fragment.SettingFragment;
 import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
@@ -81,6 +83,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
+                refreshSideMenu();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -126,7 +129,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
 
@@ -234,7 +236,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 fragment = new ProfileFragment();
                 break;
             case CreateCourse: {
-                Intent intent = new Intent(this, CreateCourseActivity.class);
+                Intent intent = new Intent(this, GuideCourseAttendActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
                 break;
@@ -257,6 +259,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
                 break;
             case Course:
+                fragment = new CourseDetailFragment((Integer) item.getObject());
                 break;
             case Section: //nothing happens
             case Margin:
@@ -270,10 +273,29 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         }
     }
 
+    // onDrawerClosed
     private void replacePendingFragment() {
         final FragmentManager fm = getSupportFragmentManager();
         if (pendingFragment != null && fm.getBackStackEntryCount() == 0)
             fm.beginTransaction().replace(R.id.content, pendingFragment).commit();
         pendingFragment = null;
+    }
+
+    // onDrawerOpened
+    private void refreshSideMenu() {
+        if (getBTService() == null)
+            return;
+
+        getBTService().courses(new Callback<CourseJson[]>() {
+            @Override
+            public void success(CourseJson[] courseJsons, Response response) {
+                if (mSideAdapter != null)
+                    mSideAdapter.refreshAdapter();
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+            }
+        });
     }
 }

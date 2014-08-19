@@ -135,7 +135,8 @@
     <string name="updating_profile">Updating Profile</string>
     <string name="no_course">No Course Yet :(</string>
     <string name="press_plus_button">Press \'+\' button\nto create or attend a course.</string>
-    <string name="do_you_really_wish_to">Do you really wish to unjoin from course %s?</string>
+    <string name="do_you_really_wish_to_unjoin">Do you really wish to unjoin from course %s?</string>
+    <string name="do_you_really_wish_to_open">Do you really wish to open course %s?</string>
     <string name="attending_course">Attending Course</string>
     <string name="would_you_like_to" formatted="false">Would you like to attend %s by %s?</string>
     <string name="creating_course">Creating Course</string>
@@ -198,5 +199,32 @@
     <string name="create_an_institution">Create an Institution</string>
     <string name="search">Search</string>
     <string name="choose_institution">Choose Institution</string>
+    <string name="create_institution">Create Institution</string>
+    <string name="choose_the_type_of_institution">Choose the type of institution.</string>
+    <string name="etc">Etc.</string>
+    <string name="institute">Institute</string>
+    <string name="university">University</string>
+    <string name="creating_school">Creating School</string>
+    <string name="student_number_univ">Student Number</string>
+    <string name="student_number_school">Student Number</string>
+    <string name="before_you_join_univ">Before you join course %s, you need to enter your student number</string>
+    <string name="before_you_join_school">Before you join course %s, you need to enter your student number</string>
+    <string name="before_you_join_institute">Before you join course %s, you need to enter your phone number</string>
+    <string name="before_you_join_etc">Before you join course %s, you need to enter your identity number</string>
+    <string name="continue_">Continue</string>
+    <string name="your_course_has_been_created">Your course has been created!</string>
+    <string name="tips_for_bttendance">Tips for BTTENDANCE</string>
+    <string name="guide_create_course_class_code_info">Please tell the students about the class code on the left. Students may register your course easily by entering the class code.</string>
+    <string name="class_code">CLASS CODE</string>
+    <string name="guide_create_course_first_info">Please inform the students in detail why you are using BTTENDANCE.</string>
+    <string name="guide_create_course_second_info">It is important to tell the students that during class, smartphones may not be used for anything other than BTTENDANCE.</string>
+    <string name="guide_create_course_third_info">Please check the guide and the tutorial anytime when you have difficulty using the features of BTTENDANCE!</string>
+    <string name="you_are_successfully_registered">You are successfully\nRegistered!</string>
+    <string name="guide_attend_course_first_info">When the instructor is using the features of BTTENDANCE, check the feed under the course info to participate.</string>
+    <string name="guide_attend_course_second_info">Click each post to view its information in detail.</string>
+    <string name="guide_attend_course_third_info">Attendance on BTTENDANCE will be checked via Bluetooth, so please keep the Bluetooth on while calling attendance.</string>
+    <string name="guide_attend_course_forth_info">Please refrain from using the smartphone for functions other than BTTENDANCE during class!</string>
+    <string name="open_course">Open Course</string>
+    <string name="opening_course">Opening Course</string>
 
 </resources>

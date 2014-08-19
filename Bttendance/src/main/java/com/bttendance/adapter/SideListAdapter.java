@@ -18,7 +18,7 @@ import com.bttendance.model.json.UserJson;
 
 public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
 
-    private UserJson user;
+    private UserJson mUser;
 
     public SideListAdapter(Context context) {
         super(context, R.layout.empty_layout);
@@ -26,15 +26,15 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
     }
 
     public void refreshAdapter() {
-        user = BTPreference.getUser(getContext());
+        mUser = BTPreference.getUser(getContext());
         clear();
 
         add(new SideItem(SideItemType.Header, null));
         add(new SideItem(SideItemType.Section, getContext().getString(R.string.lectures)));
         add(new SideItem(SideItemType.CreateCourse, null));
 
-        for (CourseJsonSimple course : user.getOpenedCourses())
-            add(new SideItem(SideItemType.Course, course));
+        for (CourseJsonSimple course : mUser.getOpenedCourses())
+            add(new SideItem(SideItemType.Course, course.id));
 
         add(new SideItem(SideItemType.Margin, 20));
         add(new SideItem(SideItemType.Section, getContext().getString(R.string.app_name_capital)));
@@ -55,8 +55,8 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_header, null);
                 TextView name = (TextView) convertView.findViewById(R.id.header_name);
                 TextView type = (TextView) convertView.findViewById(R.id.header_type);
-                name.setText(user.full_name);
-                if (user.supervising_courses.length > 0)
+                name.setText(mUser.full_name);
+                if (mUser.supervising_courses.length > 0)
                     type.setText(getContext().getString(R.string.professor_capital));
                 else
                     type.setText(getContext().getString(R.string.student_capital));
@@ -92,7 +92,7 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
             }
             case Course: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_course, null);
-                CourseJsonSimple course = (CourseJsonSimple) sideItem.getObject();
+                CourseJsonSimple course = mUser.getCourse((Integer) sideItem.getObject());
                 TextView name = (TextView) convertView.findViewById(R.id.course_name);
                 name.setText(course.name);
 
@@ -102,13 +102,13 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
                 CourseJson mCourse = BTTable.MyCourseTable.get(course.id);
                 if (mCourse != null) {
                     detail1.setText(String.format(getContext().getString(R.string.clicker_rate_attendance_rate), mCourse.clicker_rate, mCourse.attendance_rate));
-                    if (user.supervising(course.id))
+                    if (mUser.supervising(course.id))
                         detail2.setText(String.format(getContext().getString(R.string.students_read_recent_notice), mCourse.students_count - mCourse.notice_unseen, mCourse.students_count));
                     else
                         detail2.setText(String.format(getContext().getString(R.string.unread_notices), mCourse.notice_unseen));
                 } else {
                     detail1.setText(getContext().getString(R.string.clicker_rate_attendance_rate_none));
-                    if (user.supervising(course.id))
+                    if (mUser.supervising(course.id))
                         detail2.setText(getContext().getString(R.string.students_read_recent_notice_none));
                     else
                         detail2.setText(getContext().getString(R.string.unread_notices_none));

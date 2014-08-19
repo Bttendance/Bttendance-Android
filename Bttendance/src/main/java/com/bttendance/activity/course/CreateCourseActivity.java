@@ -1,5 +1,6 @@
 package com.bttendance.activity.course;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -15,13 +16,16 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
+import com.bttendance.activity.guide.GuideCourseCreateActivity;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.course.SchoolChooseFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.SchoolJsonSimple;
+import com.bttendance.model.json.CourseJson;
+import com.bttendance.model.json.CourseJsonSimple;
+import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 
@@ -46,7 +50,7 @@ public class CreateCourseActivity extends BTActivity {
 
     private Button mInstitutionBt = null;
 
-    private SchoolJsonSimple mSchool = null;
+    private SchoolJson mSchool = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,13 +64,13 @@ public class CreateCourseActivity extends BTActivity {
         mProfessorDiv = findViewById(R.id.professor_divider);
 
         mProfessor.setText(BTPreference.getUser(this).full_name);
+        mProfessorCount = mProfessor.getText().toString().length();
 
         mName.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    mNameDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_cyan));
+                    mNameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
                     mNameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
@@ -75,13 +79,13 @@ public class CreateCourseActivity extends BTActivity {
 
         mName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mNameCount = mName.getText().toString().length();
                 isEnableCreateCourse();
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
@@ -170,13 +174,20 @@ public class CreateCourseActivity extends BTActivity {
     }
 
     public void isEnableCreateCourse() {
-        if (mNameCount > 0 && mProfessorCount > 0 && mInstitutionCount > 0) {
+        if (mNameCount > 0 && mProfessorCount > 0 && mSchool != null) {
             mCreateCourse.setEnabled(true);
             mCreateCourse.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
             mCreateCourse.setEnabled(false);
             mCreateCourse.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         }
+    }
+
+    public void setSchool(SchoolJson school) {
+        mSchool = school;
+        mInstitutionString = mSchool.name;
+        mInstitution.setText(mInstitutionString);
+        isEnableCreateCourse();
     }
 
     @Override
@@ -213,15 +224,47 @@ public class CreateCourseActivity extends BTActivity {
         if (getBTService() == null)
             return;
 
+        if (mSchool == null)
+            return;
+
         String name = mName.getText().toString();
         String professor = mProfessor.getText().toString();
-        String institution = mInstitution.getText().toString();
+        int schoolID = mSchool.id;
+
+        final UserJson user = BTPreference.getUser(this);
 
         BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.creating_course)));
-        getBTService().courseCreate(name, 1, professor, new Callback<UserJson>() {
+        getBTService().courseCreate(name, schoolID, professor, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+
+                int newCourseID = 0;
+                for (CourseJsonSimple new_course : userJson.getOpenedCourses()) {
+                    boolean hasCourse = false;
+                    for (CourseJsonSimple old_course : user.getOpenedCourses()) {
+                        if (new_course.id == old_course.id)
+                            hasCourse = true;
+                    }
+                    if (!hasCourse)
+                        newCourseID = new_course.id;
+                }
+
+                getBTService().searchCourse(newCourseID, "", new Callback<CourseJson>() {
+                    @Override
+                    public void success(CourseJson courseJson, Response response) {
+                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                        onBackPressed();
+                        Intent intent = new Intent(CreateCourseActivity.this, GuideCourseCreateActivity.class);
+                        intent.putExtra(GuideCourseCreateActivity.EXTRA_CLASS_CODE, courseJson.code);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                    }
+                });
             }
 
             @Override
@@ -246,16 +289,21 @@ public class CreateCourseActivity extends BTActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.abs__home:
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return (super.onOptionsItemSelected(item));
     }
 
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 0) {
+        if (fm.getBackStackEntryCount() > 1) {
+            super.onBackPressed();
+        } else if (fm.getBackStackEntryCount() > 0) {
             super.onBackPressed();
             KeyboardHelper.show(this, mName);
         } else {

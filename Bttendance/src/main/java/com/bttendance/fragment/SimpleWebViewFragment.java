@@ -114,7 +114,7 @@ public class SimpleWebViewFragment extends BTFragment {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getString(R.string.app_name));
+        actionBar.setTitle(getString(R.string.app_name_capital));
     }
 
     public class MyWebChromeClient extends WebChromeClient {

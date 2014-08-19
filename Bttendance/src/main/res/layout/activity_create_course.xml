@@ -86,7 +86,7 @@
             android:focusable="false"
             android:hint="@string/please_choose_a_institution"
             android:textColorHint="@color/grey_hex_aa"
-            android:inputType="textPassword" />
+            android:inputType="text" />
 
         <Button
             android:id="@+id/institution_button"

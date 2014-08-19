@@ -12,8 +12,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.CourseJsonHelper;
 import com.bttendance.model.json.PostJson;
 
 import retrofit.Callback;
@@ -25,11 +23,11 @@ import retrofit.client.Response;
  */
 public class CreateNoticeFragment extends BTFragment {
 
-    private CourseJsonHelper mCourseHelper;
+    private int mCourseID;
     private EditText mMessage;
 
     public CreateNoticeFragment(int courseID) {
-        mCourseHelper = new CourseJsonHelper(BTPreference.getUser(getActivity()), courseID);
+        mCourseID = courseID;
     }
 
     @Override
@@ -73,7 +71,7 @@ public class CreateNoticeFragment extends BTFragment {
                 return true;
             case R.id.action_post:
                 if (mMessage != null && mMessage.getText().toString().length() > 0)
-                    getBTService().postCreateNotice(mCourseHelper.getID(), mMessage.getText().toString(), new Callback<PostJson>() {
+                    getBTService().postCreateNotice(mCourseID, mMessage.getText().toString(), new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
                             if (CreateNoticeFragment.this.getActivity() != null)

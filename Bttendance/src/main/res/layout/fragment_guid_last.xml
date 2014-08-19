@@ -50,6 +50,7 @@
             android:layout_height="48dp"
             android:background="@drawable/bt_cyan_background"
             android:textColor="@color/bttendance_white"
+            android:text="@string/create_course"
             android:textSize="18sp"
             android:layout_marginBottom="14dp"
             android:id="@+id/guide_last_bt1" />

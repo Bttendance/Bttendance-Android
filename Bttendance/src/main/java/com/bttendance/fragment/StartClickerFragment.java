@@ -12,8 +12,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.CourseJsonHelper;
 import com.bttendance.model.json.PostJson;
 
 import retrofit.Callback;
@@ -25,11 +23,11 @@ import retrofit.client.Response;
  */
 public class StartClickerFragment extends BTFragment {
 
-    private CourseJsonHelper mCourseHelper;
+    private int mCourseID;
     private EditText mMessage;
 
     public StartClickerFragment(int courseID) {
-        mCourseHelper = new CourseJsonHelper(BTPreference.getUser(getActivity()), courseID);
+        mCourseID = courseID;
     }
 
     @Override
@@ -73,7 +71,7 @@ public class StartClickerFragment extends BTFragment {
                 return true;
             case R.id.action_start:
                 if (mMessage != null && mMessage.getText().toString().length() > 0)
-                    getBTService().postStartClicker(mCourseHelper.getID(), mMessage.getText().toString(), 4, new Callback<PostJson>() {
+                    getBTService().postStartClicker(mCourseID, mMessage.getText().toString(), 4, new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
                             if (StartClickerFragment.this.getActivity() != null)

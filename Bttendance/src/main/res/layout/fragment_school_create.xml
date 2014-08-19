@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bttendance_grey"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="25dp">
+
+    <TextView
+        android:id="@+id/text"
+        style="@style/userInfoText"
+        android:layout_alignParentTop="true"
+        android:singleLine="true"
+        android:text="@string/name" />
+
+    <EditText
+        android:id="@+id/edit"
+        style="@style/userInfoEditText"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/text"
+        android:layout_marginLeft="8dp"
+        android:inputType="textEmailAddress"
+        android:hint="Institution name (in English)."
+        android:textColorHint="@color/bttendance_silver_30"
+        android:singleLine="true" />
+
+    <View
+        android:id="@+id/edit_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/edit"
+        android:background="@color/bttendance_silver_30" />
+
+    <LinearLayout
+        android:id="@+id/type_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/edit_divider">
+
+        <LinearLayout
+            android:id="@+id/university_bg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bt_selector_round"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:paddingTop="11dp"
+            android:paddingBottom="13dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/university_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/attendance_silver" />
+
+            <TextView
+                android:id="@+id/university_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="@string/university"
+                android:textColor="@color/bttendance_silver"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/school_bg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bt_selector_round"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:paddingTop="11dp"
+            android:paddingBottom="13dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/school_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/attendance_silver" />
+
+            <TextView
+                android:id="@+id/school_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="@string/school"
+                android:textColor="@color/bttendance_silver"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/institute_bg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bt_selector_round"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:paddingTop="11dp"
+            android:paddingBottom="13dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/institute_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/attendance_silver" />
+
+            <TextView
+                android:id="@+id/institute_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="@string/institute"
+                android:textColor="@color/bttendance_silver"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/etc_bg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bt_selector_round"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            android:paddingTop="11dp"
+            android:paddingBottom="13dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/etc_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/attendance_silver" />
+
+            <TextView
+                android:id="@+id/etc_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="@string/etc"
+                android:textColor="@color/bttendance_silver"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/type_info"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_below="@id/type_choose"
+        android:text="@string/choose_the_type_of_institution"
+        android:gravity="top|center_horizontal"
+        android:textSize="12sp"
+        android:textColor="@color/bttendance_silver" />
+
+    <Button
+        android:id="@+id/create_school"
+        style="@style/signInUpButton"
+        android:layout_below="@id/type_info"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:enabled="false"
+        android:text="@string/create_institution" />
+
+</RelativeLayout>

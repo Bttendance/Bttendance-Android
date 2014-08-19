@@ -15,10 +15,13 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.bttendance.BTDebug;
 import com.bttendance.R;
+import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.adapter.ChooseSchoolAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
 import com.bttendance.adapter.kit.SimpleSectionAdapter;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UpdateSchoolChooseEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.IntArrayHelper;
@@ -29,6 +32,7 @@ import com.bttendance.model.cursor.AllSchoolCursor;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
+import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
 import retrofit.Callback;
@@ -57,8 +61,9 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         setHasOptionsMenu(true);
 
         SchoolJsonArray schoolJsonArray = BTPreference.getAllSchools(getActivity());
-        for (SchoolJson school : schoolJsonArray.all_schools)
-            BTTable.AllSchoolTable.append(school.id, school);
+        if (schoolJsonArray != null && schoolJsonArray.all_schools != null)
+            for (SchoolJson school : schoolJsonArray.all_schools)
+                BTTable.AllSchoolTable.append(school.id, school);
     }
 
     @Override
@@ -88,12 +93,22 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
         mListView.setAdapter(mSectionAdapter);
         mListView.setOnItemClickListener(this);
+
+        view.findViewById(R.id.create_school).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SchoolCreateFragment fragment = new SchoolCreateFragment();
+                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+            }
+        });
+
         return view;
     }
 
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
+        KeyboardHelper.hide(getActivity(), mEditSearch);
         swapItems();
     }
 
@@ -163,18 +178,8 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
                 return true;
             }
         });
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.abs__home:
-            case android.R.id.home:
-                getActivity().onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        KeyboardHelper.hide(getActivity(), mEditSearch);
     }
 
     // EditText TextWatcher
@@ -186,18 +191,19 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         }
 
         @Override
-        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                      int arg3) {
+        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
         }
 
         @Override
-        public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-                                  int arg3) {
+        public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
         }
 
     };
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
+        int schoolID = mAdapter.getCursor().getInt(0);
+        ((CreateCourseActivity)getActivity()).setSchool(BTTable.AllSchoolTable.get(schoolID));
+        getActivity().onBackPressed();
     }
 }

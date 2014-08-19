@@ -43,7 +43,7 @@
             android:layout_marginTop="23dp"
             android:textColor="@color/bttendance_white"
             android:gravity="center"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:lineSpacingExtra="5dp"
             android:text="@string/guide_poll_message" />
 

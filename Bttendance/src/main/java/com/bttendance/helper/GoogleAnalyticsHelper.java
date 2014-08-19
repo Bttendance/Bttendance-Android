@@ -48,7 +48,7 @@
 //        EasyTracker.getTracker().setAppVersion(context.getString(R.string.app_version));
 //
 //        // App Name
-//        EasyTracker.getTracker().setAppName(context.getString(R.string.app_name));
+//        EasyTracker.getTracker().setAppName(context.getString(R.string.app_name_capital));
 //
 //        // Custom Dimension and Metric Setting
 //

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -23,12 +22,10 @@ import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.PostCursor;
-import com.bttendance.model.json.CourseJsonHelper;
-import com.bttendance.model.json.EmailJson;
+import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.Bttendance;
@@ -46,14 +43,15 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
 
     ListView mListView;
     FeedAdapter mAdapter;
-    CourseJsonHelper mCourseHelper;
     View header;
     boolean mAuth;
+    UserJson mUser;
+    CourseJsonSimple mCourse;
 
     public CourseDetailFragment(int courseID) {
-        UserJson user = BTPreference.getUser(getActivity());
-        mCourseHelper = new CourseJsonHelper(user, courseID);
-        mAuth = IntArrayHelper.contains(user.supervising_courses, mCourseHelper.getID());
+        mUser = BTPreference.getUser(getActivity());
+        mAuth = mUser.supervising(courseID);
+        mCourse = mUser.getCourse(courseID);
     }
 
     /**
@@ -72,7 +70,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(mCourseHelper.getName());
+        actionBar.setTitle(mCourse.name);
         actionBar.setDisplayHomeAsUpEnabled(true);
         inflater.inflate(R.menu.course_detail_menu, menu);
     }
@@ -85,24 +83,23 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 getActivity().onBackPressed();
                 return true;
             case R.id.action_setting:
-                if (mAuth) {
-                    String[] options = {getString(R.string.show_grades), getString(R.string.export_grades), getString(R.string.add_manager)};
+                if (mAuth && mCourse.opened) {
+                    CourseSettingFragment fragment = new CourseSettingFragment(mCourse.id);
+                    BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+                } else if (mAuth) {
+                    String[] options = {getString(R.string.open_course)};
                     BTEventBus.getInstance().post(new ShowContextDialogEvent(options, new BTDialogFragment.OnDialogListener() {
                         @Override
                         public void onConfirmed(String edit) {
-                            if (getString(R.string.show_grades).equals(edit))
-                                showGrade();
-                            if (getString(R.string.export_grades).equals(edit))
-                                exportGrade();
-                            if (getString(R.string.add_manager).equals(edit))
-                                showAddManager();
+                            if (getString(R.string.open_course).equals(edit))
+                                openCourse();
                         }
 
                         @Override
                         public void onCanceled() {
                         }
                     }));
-                } else {
+                } else if (mCourse.opened) {
                     String[] options = {getString(R.string.unjoin_course)};
                     BTEventBus.getInstance().post(new ShowContextDialogEvent(options, new BTDialogFragment.OnDialogListener() {
                         @Override
@@ -153,10 +150,10 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         if (getBTService() == null)
             return;
 
-        getBTService().courseFeed(mCourseHelper.getID(), 0, new Callback<PostJson[]>() {
+        getBTService().courseFeed(mCourse.id, 0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
-                mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourseHelper.getID())));
+                mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourse.id)));
             }
 
             @Override
@@ -213,7 +210,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourseHelper.getID())));
+                    mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourse.id)));
                 }
             });
         }
@@ -238,58 +235,89 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
      * Private Methods
      */
     private void showClicker() {
-        StartClickerFragment frag = new StartClickerFragment(mCourseHelper.getID());
+        StartClickerFragment frag = new StartClickerFragment(mCourse.id);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
     private void startAttendance() {
-        BTEventBus.getInstance().post(new AttdStartEvent(mCourseHelper.getID()));
+        BTEventBus.getInstance().post(new AttdStartEvent(mCourse.id));
     }
 
     private void showNotice() {
-        CreateNoticeFragment frag = new CreateNoticeFragment(mCourseHelper.getID());
+        CreateNoticeFragment frag = new CreateNoticeFragment(mCourse.id);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
-    private void showGrade() {
-        GradeFragment frag = new GradeFragment(mCourseHelper.getID());
-        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
-    }
+//    private void showGrade() {
+//        GradeFragment frag = new GradeFragment(mCourse.id);
+//        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+//    }
+//
+//    private void exportGrade() {
+//        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.exporting_grades)));
+//        getBTService().courseExportGrades(mCourseHelper.getID(), new Callback<EmailJson>() {
+//            @Override
+//            public void success(EmailJson email, Response response) {
+//                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
+//                String title = getString(R.string.export_grades);
+//                String message = String.format(getString(R.string.exporting_grade_has_been_finished), email.email);
+//                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message));
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//            }
+//        });
+//    }
+//
+//    private void showAddManager() {
+//        AddManagerFragment frag = new AddManagerFragment(mCourseHelper.getID());
+//        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+//    }
 
-    private void exportGrade() {
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.exporting_grades)));
-        getBTService().courseExportGrades(mCourseHelper.getID(), new Callback<EmailJson>() {
+    private void openCourse() {
+        BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
+        String title = getString(R.string.open_course);
+        String message = String.format(getString(R.string.do_you_really_wish_to_open), mCourse.name);
+        BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
             @Override
-            public void success(EmailJson email, Response response) {
-                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
-                String title = getString(R.string.export_grades);
-                String message = String.format(getString(R.string.exporting_grade_has_been_finished), email.email);
-                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message));
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+            public void onConfirmed(String edit) {
+
+                BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.opening_course)));
+                getBTService().openCourse(mCourse.id, new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                        BTEventBus.getInstance().post(new UpdateCourseListEvent());
+                        BTEventBus.getInstance().post(new UpdateFeedEvent());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                    }
+                });
             }
 
             @Override
-            public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+            public void onCanceled() {
             }
-        });
-    }
-
-    private void showAddManager() {
-        AddManagerFragment frag = new AddManagerFragment(mCourseHelper.getID());
-        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+        };
+        BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
     }
 
     private void unjoinCourse() {
         BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
         String title = getString(R.string.unjoin_course);
-        String message = String.format(getString(R.string.do_you_really_wish_to), mCourseHelper.getName());
+        String message = String.format(getString(R.string.do_you_really_wish_to_unjoin), mCourse.name);
         BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
             @Override
             public void onConfirmed(String edit) {
 
                 BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.unjoining_course)));
-                getBTService().dettendCourse(mCourseHelper.getID(), new Callback<UserJson>() {
+                getBTService().dettendCourse(mCourse.id, new Callback<UserJson>() {
                     @Override
                     public void success(UserJson user, Response response) {
                         BTEventBus.getInstance().post(new HideProgressDialogEvent());
