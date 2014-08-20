@@ -27,8 +27,8 @@ import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.fragment.notice.CreateNoticeFragment;
-import com.bttendance.fragment.clicker.StartClickerFragment;
+import com.bttendance.fragment.clicker.ClickerStartFragment;
+import com.bttendance.fragment.notice.NoticePostFragment;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTPreference;
@@ -295,7 +295,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
      * Private Methods
      */
     private void showClicker() {
-        StartClickerFragment frag = new StartClickerFragment(mCourse.id);
+        ClickerStartFragment frag = new ClickerStartFragment(mCourse.id);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
@@ -304,7 +304,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     private void showNotice() {
-        CreateNoticeFragment frag = new CreateNoticeFragment(mCourse.id);
+        NoticePostFragment frag = new NoticePostFragment(mCourse.id);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 

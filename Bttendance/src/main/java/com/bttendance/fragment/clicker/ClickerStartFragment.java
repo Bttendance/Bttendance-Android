@@ -25,12 +25,12 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2014. 1. 27..
  */
-public class StartClickerFragment extends BTFragment {
+public class ClickerStartFragment extends BTFragment {
 
     private int mCourseID;
     private EditText mMessage;
 
-    public StartClickerFragment(int courseID) {
+    public ClickerStartFragment(int courseID) {
         mCourseID = courseID;
     }
 
@@ -48,7 +48,7 @@ public class StartClickerFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_start_clicker, container, false);
+        View view = inflater.inflate(R.layout.fragment_clicker_start, container, false);
         mMessage = (EditText) view.findViewById(R.id.message_edit);
         KeyboardHelper.show(getActivity(), mMessage);
         return view;
@@ -85,8 +85,8 @@ public class StartClickerFragment extends BTFragment {
                         public void success(PostJson postJson, Response response) {
                             item.setEnabled(true);
                             BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                            if (StartClickerFragment.this.getActivity() != null)
-                                StartClickerFragment.this.getActivity().onBackPressed();
+                            if (ClickerStartFragment.this.getActivity() != null)
+                                ClickerStartFragment.this.getActivity().onBackPressed();
                         }
 
                         @Override

@@ -34,14 +34,14 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2013. 12. 30..
  */
-public class PostAttendanceFragment extends BTFragment implements View.OnClickListener {
+public class AttendanceDetailFragment extends BTFragment implements View.OnClickListener {
 
     BTListAdapter mAdapter;
     private ListView mListView;
     private PostJson mPost;
     private ArrayList<UserJsonSimple> mUsers;
 
-    public PostAttendanceFragment(int postId) {
+    public AttendanceDetailFragment(int postId) {
         mPost = BTTable.PostTable.get(postId);
     }
 
@@ -53,7 +53,7 @@ public class PostAttendanceFragment extends BTFragment implements View.OnClickLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_post_attendance, container, false);
+        View view = inflater.inflate(R.layout.fragment_attendance_detail, container, false);
         mListView = (ListView) view.findViewById(android.R.id.list);
         mAdapter = new BTListAdapter(getActivity());
         mListView.setAdapter(mAdapter);

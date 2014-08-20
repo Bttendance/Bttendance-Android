@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.bttendance.R;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.clicker.ClickerClickEvent;
-import com.bttendance.fragment.attendance.PostAttendanceFragment;
-import com.bttendance.fragment.clicker.PostClickerFragment;
+import com.bttendance.fragment.attendance.AttendanceDetailFragment;
+import com.bttendance.fragment.clicker.ClickerDetailFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.IntArrayHelper;
@@ -306,11 +306,11 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
             case R.id.item_selector:
                 PostJson post = BTTable.PostTable.get((Integer) v.getTag(R.id.post_id));
                 if ("attendance".equals(post.type)) {
-                    PostAttendanceFragment frag = new PostAttendanceFragment(post.id);
+                    AttendanceDetailFragment frag = new AttendanceDetailFragment(post.id);
                     BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                 }
                 if ("clicker".equals(post.type)) {
-                    PostClickerFragment frag = new PostClickerFragment(post.id);
+                    ClickerDetailFragment frag = new ClickerDetailFragment(post.id);
                     BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                 }
                 break;

@@ -28,13 +28,13 @@ import org.achartengine.renderer.DefaultRenderer;
 /**
  * Created by TheFinestArtist on 2013. 12. 30..
  */
-public class PostClickerFragment extends BTFragment {
+public class ClickerDetailFragment extends BTFragment {
 
     private PostJson mPost;
     private RelativeLayout mClicker;
     private TextView mDetail;
 
-    public PostClickerFragment(int postId) {
+    public ClickerDetailFragment(int postId) {
         mPost = BTTable.PostTable.get(postId);
     }
 
@@ -46,7 +46,7 @@ public class PostClickerFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_post_clicker, container, false);
+        View view = inflater.inflate(R.layout.fragment_clicker_detail, container, false);
 
         mClicker = (RelativeLayout) view.findViewById(R.id.clicker);
 

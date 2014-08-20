@@ -1,19 +1,24 @@
-package com.bttendance.fragment.attendance;
+package com.bttendance.fragment.notice;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.dialog.HideProgressDialogEvent;
+import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTTable;
 import com.bttendance.model.json.PostJson;
+import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -22,12 +27,12 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2014. 1. 27..
  */
-public class StartAttendanceFragment extends BTFragment {
+public class NoticePostFragment extends BTFragment {
 
     private int mCourseID;
     private EditText mMessage;
 
-    public StartAttendanceFragment(int courseID) {
+    public NoticePostFragment(int courseID) {
         mCourseID = courseID;
     }
 
@@ -45,7 +50,13 @@ public class StartAttendanceFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_start_clicker, container, false);
+        View view = inflater.inflate(R.layout.fragment_notice_post, container, false);
+        int studentCount = 0;
+        if (BTTable.MyCourseTable.get(mCourseID) != null)
+            studentCount = BTTable.MyCourseTable.get(mCourseID).students_count;
+
+        TextView guide = (TextView) view.findViewById(R.id.notice_guide);
+        guide.setText(String.format(getString(R.string.notice_post_guide), studentCount));
         mMessage = (EditText) view.findViewById(R.id.message_edit);
         KeyboardHelper.show(getActivity(), mMessage);
         return view;
@@ -62,8 +73,8 @@ public class StartAttendanceFragment extends BTFragment {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getString(R.string.start_clicker));
-        inflater.inflate(R.menu.start_clicker_menu, menu);
+        actionBar.setTitle(getString(R.string.create_notice));
+        inflater.inflate(R.menu.create_notice_menu, menu);
     }
 
     @Override
@@ -73,20 +84,23 @@ public class StartAttendanceFragment extends BTFragment {
             case android.R.id.home:
                 getActivity().onBackPressed();
                 return true;
-            case R.id.action_start:
+            case R.id.action_post:
                 if (mMessage != null && mMessage.getText().toString().length() > 0) {
                     item.setEnabled(false);
-                    getBTService().postStartClicker(mCourseID, mMessage.getText().toString(), 4, new Callback<PostJson>() {
+                    BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.posting_notice)));
+                    getBTService().postCreateNotice(mCourseID, mMessage.getText().toString(), new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
-                            if (StartAttendanceFragment.this.getActivity() != null)
-                                StartAttendanceFragment.this.getActivity().onBackPressed();
                             item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                            if (NoticePostFragment.this.getActivity() != null)
+                                NoticePostFragment.this.getActivity().onBackPressed();
                         }
 
                         @Override
                         public void failure(RetrofitError retrofitError) {
                             item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
                         }
                     });
                     return true;
