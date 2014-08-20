@@ -76,6 +76,12 @@
             android:theme="@style/Theme.Bttendance.Sign" />
 
         <activity
+            android:name=".activity.course.AddCourseActivity"
+            android:label="@string/add_course"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" />
+
+        <activity
             android:name="com.bttendance.activity.course.CreateCourseActivity"
             android:label="@string/create_course"
             android:screenOrientation="portrait"

@@ -261,5 +261,8 @@
     <string name="post_guide_notice">Click here to see how to use Notice.</string>
     <string name="update_app_title">New BTTENDANCE Available</string>
     <string name="update_app_message">New version of BTTENDANCE has been updated. Please update the app for new features.</string>
+    <string name="empty_school_name">School Name</string>
+    <string name="notice_d_d_read">Notice (%1$d/%2$d read)</string>
+    <string name="unread_notice">Unread Notice</string>
 
 </resources>

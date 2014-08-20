@@ -217,6 +217,7 @@ public class AttendCourseActivity extends BTActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.abs__home:
             case android.R.id.home:
                 onBackPressed();
         }

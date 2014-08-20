@@ -209,7 +209,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 if (course != null)
                     studentsCount = String.format("%d", course.students_count);
 
-                String schoolName = "School Name";
+                String schoolName = getString(R.string.empty_school_name);
                 if (mUser.getSchool(mCourse.school) != null)
                     schoolName = mUser.getSchool(mCourse.school).name;
 

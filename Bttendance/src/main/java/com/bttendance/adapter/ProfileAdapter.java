@@ -96,7 +96,10 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 TextView message = (TextView) convertView.findViewById(R.id.profile_message);
                 text.setText(course.name);
                 text.setTextColor(getContext().getResources().getColor(R.color.bttendance_cyan));
-                message.setText(mUser.getSchool(course.school).name);
+                String schoolName = getContext().getString(R.string.empty_school_name);
+                if (mUser.getSchool(course.school) != null)
+                    schoolName = mUser.getSchool(course.school).name;
+                message.setText(schoolName);
                 break;
             }
             case Institution: {

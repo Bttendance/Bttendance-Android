@@ -42,6 +42,15 @@
         <item name="android:windowBackground">@color/bttendance_white</item>
     </style>
 
+    <style name="Theme.Transparent" parent="Theme.Sherlock.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
     <style name="Widget.Holo.CompoundButton.Switch.Bttendance" parent="Widget.Holo.CompoundButton.Switch">
         <item name="track">@drawable/bttendance_switch_track_holo_light</item>
         <item name="thumb">@drawable/bttendance_switch_inner_holo_light</item>

@@ -3,6 +3,8 @@ package com.bttendance.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
@@ -23,9 +25,9 @@ import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.fragment.attendance.AttendanceDetailFragment;
 import com.bttendance.fragment.clicker.ClickerDetailFragment;
 import com.bttendance.helper.DateHelper;
-import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.PackagesHelper;
+import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.BTUrl;
@@ -41,6 +43,8 @@ import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.renderer.DefaultRenderer;
 
+import static com.bttendance.helper.DipPixelHelper.getPixel;
+
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
  */
@@ -48,6 +52,9 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
 
     Context mContext;
     int mCourseID;
+    UserJson mUser;
+    boolean mAuth;
+    CourseJson mCourse;
 
     public enum Type {UPDATE, TIPS, CLICKER, ATTENDANCE, NOTICE}
 
@@ -55,6 +62,9 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         super(context, c, android.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         mContext = context;
         mCourseID = courseID;
+        mUser = BTPreference.getUser(context);
+        mAuth = mUser.supervising(mCourseID);
+        mCourse = BTTable.MyCourseTable.get(mCourseID);
     }
 
     @Override
@@ -186,6 +196,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
             time.setVisibility(View.VISIBLE);
             guideMessage.setVisibility(View.GONE);
 
+            title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
             title.setText(post.course.name);
             message.setText(post.message);
             time.setText(DateHelper.getBTFormatString(post.createdAt));
@@ -220,7 +231,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
 
             View ring = new View(context);
             ring.setBackgroundResource(R.drawable.ic_clicker_ring);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) DipPixelHelper.getPixel(context, 52), (int) DipPixelHelper.getPixel(context, 52));
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) getPixel(context, 52), (int) getPixel(context, 52));
             params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             clicker.addView(ring, params);
 
@@ -235,6 +246,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
             time.setVisibility(View.VISIBLE);
             guideMessage.setVisibility(View.GONE);
 
+            title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
             title.setText(post.course.name);
             message.setText(post.message + "\n" + post.clicker.getDetail());
             time.setText(DateHelper.getBTFormatString(post.createdAt));
@@ -250,7 +262,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
     }
 
     private void drawAttendance(View view, Context context, PostJson post) {
-        UserJson user = BTPreference.getUser(mContext);
+        UserJson user = BTPreference.getUser(context);
 
         RelativeLayout normal = (RelativeLayout) view.findViewById(R.id.normal);
         RelativeLayout choice = (RelativeLayout) view.findViewById(R.id.choice);
@@ -307,9 +319,29 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         time.setVisibility(View.VISIBLE);
         guideMessage.setVisibility(View.GONE);
 
+        title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
         title.setText(post.course.name);
         message.setText(post.message);
         time.setText(DateHelper.getBTFormatString(post.createdAt));
+
+        // Attendance Icon Param
+        Rect bounds = new Rect();
+        Paint paint = new Paint();
+        paint.setTextSize(12.0f);
+        paint.getTextBounds(post.message, 0, post.message.length(), bounds);
+        float width = getPixel(context, (float) Math.ceil(bounds.width()));
+        float textViewWidth = ScreenHelper.getWidth(context) - getPixel(context, 116);
+
+        int pix_18 = (int) getPixel(context, 18);
+        int pix_26 = (int) getPixel(context, 26);
+        int pix_52 = (int) getPixel(context, 52);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(pix_52, pix_52);
+        if (width > textViewWidth)
+            params.setMargins(pix_18, pix_26, 0, 0);
+        else
+            params.setMargins(pix_18, pix_18, 0, 0);
+        bttendance.setLayoutParams(params);
 
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);
@@ -349,9 +381,44 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         time.setVisibility(View.VISIBLE);
         guideMessage.setVisibility(View.GONE);
 
-        title.setText(post.course.name);
+        if (mAuth) {
+            int studentCount = 0;
+            int seenStudent = 0;
+            if (mCourse != null)
+                studentCount = mCourse.students_count;
+            if (post.notice != null && post.notice.seen_students != null)
+                seenStudent = post.notice.seen_students.length;
+            title.setText(String.format(context.getString(R.string.notice_d_d_read), seenStudent, studentCount));
+            title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
+        } else if (post.notice.seen(mUser.id)) {
+            title.setText(context.getString(R.string.notice));
+            title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
+        } else {
+            title.setText(context.getString(R.string.unread_notice));
+            title.setTextColor(context.getResources().getColor(R.color.bttendance_red));
+        }
+
         message.setText(post.message);
         time.setText(DateHelper.getBTFormatString(post.createdAt));
+
+        // Notice Icon Param
+        Rect bounds = new Rect();
+        Paint paint = new Paint();
+        paint.setTextSize(12.0f);
+        paint.getTextBounds(post.message, 0, post.message.length(), bounds);
+        float width = getPixel(context, (float) Math.ceil(bounds.width()));
+        float textViewWidth = ScreenHelper.getWidth(context) - getPixel(context, 116);
+
+        int pix_18 = (int) getPixel(context, 18);
+        int pix_26 = (int) getPixel(context, 26);
+        int pix_52 = (int) getPixel(context, 52);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(pix_52, pix_52);
+        if (width > textViewWidth)
+            params.setMargins(pix_18, pix_26, 0, 0);
+        else
+            params.setMargins(pix_18, pix_18, 0, 0);
+        notice.setLayoutParams(params);
 
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);
@@ -393,23 +460,23 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
 
         switch (type) {
             case UPDATE:
-                guideMessage.setText(mContext.getString(R.string.post_guide_update));
+                guideMessage.setText(context.getString(R.string.post_guide_update));
                 guide.setBackgroundResource(R.drawable.ic_bttendance_big);
                 break;
             case TIPS:
-                guideMessage.setText(mContext.getString(R.string.post_guide_tips));
+                guideMessage.setText(context.getString(R.string.post_guide_tips));
                 guide.setBackgroundResource(R.drawable.ic_bttendance_big);
                 break;
             case CLICKER:
-                guideMessage.setText(mContext.getString(R.string.post_guide_clicker));
+                guideMessage.setText(context.getString(R.string.post_guide_clicker));
                 guide.setBackgroundResource(R.drawable.ic_clicker_big);
                 break;
             case ATTENDANCE:
-                guideMessage.setText(mContext.getString(R.string.post_guide_attendance));
+                guideMessage.setText(context.getString(R.string.post_guide_attendance));
                 guide.setBackgroundResource(R.drawable.ic_attendance_big);
                 break;
             case NOTICE:
-                guideMessage.setText(mContext.getString(R.string.post_guide_notice));
+                guideMessage.setText(context.getString(R.string.post_guide_notice));
                 guide.setBackgroundResource(R.drawable.ic_notice_big);
                 break;
         }
@@ -455,11 +522,10 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                             }));
                             break;
                         case TIPS:
-                            if (BTPreference.getUser(mContext).supervising(mCourseID)) {
-                                CourseJson course = BTTable.MyCourseTable.get(mCourseID);
+                            if (mAuth) {
                                 String code = "";
-                                if (course != null)
-                                    code = course.code;
+                                if (mCourse != null)
+                                    code = mCourse.code;
                                 Intent intent = new Intent(mContext, GuideCourseCreateActivity.class);
                                 intent.putExtra(GuideCourseCreateActivity.EXTRA_CLASS_CODE, code);
                                 mContext.startActivity(intent);

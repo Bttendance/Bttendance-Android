@@ -8,4 +8,11 @@ public class NoticeJsonSimple extends BTJsonSimple {
 
     public int[] seen_students;
     public int post;
+
+    public boolean seen(int userID) {
+        for (int id : seen_students)
+            if (id == userID)
+                return true;
+        return false;
+    }
 }
