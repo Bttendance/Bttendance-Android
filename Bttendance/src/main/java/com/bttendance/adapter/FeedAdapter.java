@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.clicker.ClickerClickEvent;
-import com.bttendance.fragment.PostAttendanceFragment;
-import com.bttendance.fragment.PostClickerFragment;
+import com.bttendance.fragment.attendance.PostAttendanceFragment;
+import com.bttendance.fragment.clicker.PostClickerFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.IntArrayHelper;

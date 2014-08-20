@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.clicker;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.event.update.UpdateClickerDetailEvent;
+import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.PostJson;

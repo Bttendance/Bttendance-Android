@@ -239,5 +239,12 @@
     <string name="would_you_like_to_close_course">Would you like to close %s?</string>
     <string name="closing_course">Closing Course</string>
     <string name="student_list">Student List</string>
+    <string name="clicker_start_guide">* Responses will be collected for 60 seconds.</string>
+    <string name="choices">Choices</string>
+    <string name="clicker_start_info">Choose number of choices</string>
+    <string name="load_saved_question">Load saved question</string>
+    <string name="starting_clicker">Starting Clicker</string>
+    <string name="posting_notice">Posting Notice</string>
+    <string name="notice_post_guide">* %d student(s) will receive this notice.\n* You may check how many students read it so far.</string>
 
 </resources>

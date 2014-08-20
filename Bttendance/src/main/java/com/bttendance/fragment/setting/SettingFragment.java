@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.setting;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +17,8 @@ import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.SettingAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.helper.PackagesHelper;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;

@@ -10990,7 +10990,7 @@ com.bttendance.adapter.BTPagerAdapter -> com.bttendance.adapter.BTPagerAdapter:
     android.content.Context mContext -> a
     com.bttendance.fragment.FeedFragment mFeedFragment -> b
     com.bttendance.fragment.CourseListFragment mCourseListFragment -> c
-    com.bttendance.fragment.ProfileFragment mProfileFragment -> d
+    com.bttendance.fragment.profile.ProfileFragment mProfileFragment -> d
     int mCurrentPosition -> e
     38:46:android.support.v4.app.Fragment getItem(int) -> getItem
     52:52:int getCount() -> getCount
@@ -11215,7 +11215,7 @@ com.bttendance.event.update.UpdateFeedEvent -> com.bttendance.event.update.Updat
 com.bttendance.event.update.UpdatePostAttendanceEvent -> com.bttendance.event.update.UpdatePostAttendanceEvent:
 com.bttendance.event.update.UpdateProfileEvent -> com.bttendance.event.update.UpdateProfileEvent:
 com.bttendance.event.update.UpdateSchoolChooseEvent -> com.bttendance.event.update.UpdateSchoolChooseEvent:
-com.bttendance.fragment.AddManagerFragment -> com.bttendance.fragment.AddManagerFragment:
+com.bttendance.fragment.course.AddManagerFragment -> com.bttendance.fragment.course.AddManagerFragment:
     android.widget.EditText mEmail -> a
     android.view.View mEmailDiv -> b
     int mEmailCount -> c
@@ -11230,30 +11230,30 @@ com.bttendance.fragment.AddManagerFragment -> com.bttendance.fragment.AddManager
     145:184:void trySignUp() -> l
     188:195:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     199:205:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    33:33:int access$002(com.bttendance.fragment.AddManagerFragment,int) -> a
-    33:33:android.widget.EditText access$100(com.bttendance.fragment.AddManagerFragment) -> a
-    33:33:void access$200(com.bttendance.fragment.AddManagerFragment) -> b
-    33:33:com.bttendance.model.json.CourseJson access$300(com.bttendance.fragment.AddManagerFragment) -> c
-com.bttendance.fragment.AddManagerFragment$1 -> rv:
-    com.bttendance.fragment.AddManagerFragment this$0 -> a
+    33:33:int access$002(com.bttendance.fragment.course.AddManagerFragment,int) -> a
+    33:33:android.widget.EditText access$100(com.bttendance.fragment.course.AddManagerFragment) -> a
+    33:33:void access$200(com.bttendance.fragment.course.AddManagerFragment) -> b
+    33:33:com.bttendance.model.json.CourseJson access$300(com.bttendance.fragment.course.AddManagerFragment) -> c
+com.bttendance.fragment.course.AddManagerFragment$1 -> rv:
+    com.bttendance.fragment.course.AddManagerFragment this$0 -> a
     75:77:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     81:81:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     85:85:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.bttendance.fragment.AddManagerFragment$2 -> rw:
-    com.bttendance.fragment.AddManagerFragment this$0 -> a
+com.bttendance.fragment.course.AddManagerFragment$2 -> rw:
+    com.bttendance.fragment.course.AddManagerFragment this$0 -> a
     93:109:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.bttendance.fragment.AddManagerFragment$3 -> rx:
-    com.bttendance.fragment.AddManagerFragment this$0 -> a
+com.bttendance.fragment.course.AddManagerFragment$3 -> rx:
+    com.bttendance.fragment.course.AddManagerFragment this$0 -> a
     154:178:void success(com.bttendance.model.json.UserJsonSimple,retrofit.client.Response) -> a
     182:182:void failure(retrofit.RetrofitError) -> failure
     150:150:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.fragment.AddManagerFragment$3$1 -> ry:
+com.bttendance.fragment.course.AddManagerFragment$3$1 -> ry:
     com.bttendance.model.json.UserJsonSimple val$user -> a
-    com.bttendance.fragment.AddManagerFragment$3 this$1 -> b
+    com.bttendance.fragment.course.AddManagerFragment$3 this$1 -> b
     159:170:void onConfirmed(java.lang.String) -> onConfirmed
     174:174:void onCanceled() -> onCanceled
-com.bttendance.fragment.AddManagerFragment$3$1$1 -> rz:
-    com.bttendance.fragment.AddManagerFragment$3$1 this$2 -> a
+com.bttendance.fragment.course.AddManagerFragment$3$1$1 -> rz:
+    com.bttendance.fragment.course.AddManagerFragment$3$1 this$2 -> a
     162:164:void success(com.bttendance.model.json.CourseJson,retrofit.client.Response) -> a
     168:168:void failure(retrofit.RetrofitError) -> failure
     159:159:void success(java.lang.Object,retrofit.client.Response) -> success
@@ -11445,7 +11445,7 @@ com.bttendance.fragment.CourseCreateFragment$8 -> ss:
 com.bttendance.fragment.CourseCreateFragment$9 -> st:
     com.bttendance.fragment.CourseCreateFragment this$0 -> a
     204:220:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.bttendance.fragment.CourseDetailFragment -> com.bttendance.fragment.CourseDetailFragment:
+com.bttendance.fragment.course.CourseDetailFragment -> com.bttendance.fragment.course.CourseDetailFragment:
     android.widget.ListView mListView -> a
     com.bttendance.adapter.FeedAdapter mAdapter -> b
     com.bttendance.model.json.CourseJsonHelper mCourseHelper -> c
@@ -11470,40 +11470,40 @@ com.bttendance.fragment.CourseDetailFragment -> com.bttendance.fragment.CourseDe
     260:276:void exportGrade() -> r
     279:281:void showAddManager() -> s
     284:313:void unjoinCourse() -> t
-    45:45:void access$000(com.bttendance.fragment.CourseDetailFragment) -> a
-    45:45:void access$100(com.bttendance.fragment.CourseDetailFragment) -> b
-    45:45:void access$200(com.bttendance.fragment.CourseDetailFragment) -> c
-    45:45:void access$300(com.bttendance.fragment.CourseDetailFragment) -> d
-com.bttendance.fragment.CourseDetailFragment$1 -> su:
-    com.bttendance.fragment.CourseDetailFragment this$0 -> a
+    45:45:void access$000(com.bttendance.fragment.course.CourseDetailFragment) -> a
+    45:45:void access$100(com.bttendance.fragment.course.CourseDetailFragment) -> b
+    45:45:void access$200(com.bttendance.fragment.course.CourseDetailFragment) -> c
+    45:45:void access$300(com.bttendance.fragment.course.CourseDetailFragment) -> d
+com.bttendance.fragment.course.CourseDetailFragment$1 -> su:
+    com.bttendance.fragment.course.CourseDetailFragment this$0 -> a
     93:99:void onConfirmed(java.lang.String) -> onConfirmed
     103:103:void onCanceled() -> onCanceled
-com.bttendance.fragment.CourseDetailFragment$2 -> sv:
-    com.bttendance.fragment.CourseDetailFragment this$0 -> a
+com.bttendance.fragment.course.CourseDetailFragment$2 -> sv:
+    com.bttendance.fragment.course.CourseDetailFragment this$0 -> a
     110:112:void onConfirmed(java.lang.String) -> onConfirmed
     116:116:void onCanceled() -> onCanceled
-com.bttendance.fragment.CourseDetailFragment$3 -> sw:
-    com.bttendance.fragment.CourseDetailFragment this$0 -> a
+com.bttendance.fragment.course.CourseDetailFragment$3 -> sw:
+    com.bttendance.fragment.course.CourseDetailFragment this$0 -> a
     159:160:void success(com.bttendance.model.json.PostJson[],retrofit.client.Response) -> a
     164:164:void failure(retrofit.RetrofitError) -> failure
     156:156:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.fragment.CourseDetailFragment$4 -> sx:
-    com.bttendance.fragment.CourseDetailFragment this$0 -> a
+com.bttendance.fragment.course.CourseDetailFragment$4 -> sx:
+    com.bttendance.fragment.course.CourseDetailFragment this$0 -> a
     175:189:void run() -> run
-com.bttendance.fragment.CourseDetailFragment$5 -> sy:
-    com.bttendance.fragment.CourseDetailFragment this$0 -> a
+com.bttendance.fragment.course.CourseDetailFragment$5 -> sy:
+    com.bttendance.fragment.course.CourseDetailFragment this$0 -> a
     216:217:void run() -> run
-com.bttendance.fragment.CourseDetailFragment$6 -> sz:
-    com.bttendance.fragment.CourseDetailFragment this$0 -> a
+com.bttendance.fragment.course.CourseDetailFragment$6 -> sz:
+    com.bttendance.fragment.course.CourseDetailFragment this$0 -> a
     264:269:void success(com.bttendance.model.json.EmailJson,retrofit.client.Response) -> a
     273:274:void failure(retrofit.RetrofitError) -> failure
     261:261:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.fragment.CourseDetailFragment$7 -> ta:
-    com.bttendance.fragment.CourseDetailFragment this$0 -> a
+com.bttendance.fragment.course.CourseDetailFragment$7 -> ta:
+    com.bttendance.fragment.course.CourseDetailFragment this$0 -> a
     291:306:void onConfirmed(java.lang.String) -> onConfirmed
     310:310:void onCanceled() -> onCanceled
-com.bttendance.fragment.CourseDetailFragment$7$1 -> tb:
-    com.bttendance.fragment.CourseDetailFragment$7 this$1 -> a
+com.bttendance.fragment.course.CourseDetailFragment$7$1 -> tb:
+    com.bttendance.fragment.course.CourseDetailFragment$7 this$1 -> a
     295:299:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> a
     303:304:void failure(retrofit.RetrofitError) -> failure
     292:292:void success(java.lang.Object,retrofit.client.Response) -> success
@@ -11543,7 +11543,7 @@ com.bttendance.fragment.CourseListFragment$3 -> te:
 com.bttendance.fragment.CourseListFragment$4 -> tf:
     com.bttendance.fragment.CourseListFragment this$0 -> a
     177:179:void run() -> run
-com.bttendance.fragment.CreateNoticeFragment -> com.bttendance.fragment.CreateNoticeFragment:
+com.bttendance.fragment.notice.CreateNoticeFragment -> com.bttendance.fragment.notice.CreateNoticeFragment:
     com.bttendance.model.json.CourseJsonHelper mCourseHelper -> a
     android.widget.EditText mMessage -> b
     37:39:void onCreate(android.os.Bundle) -> onCreate
@@ -11551,8 +11551,8 @@ com.bttendance.fragment.CreateNoticeFragment -> com.bttendance.fragment.CreateNo
     49:52:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     57:65:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     69:91:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-com.bttendance.fragment.CreateNoticeFragment$1 -> tg:
-    com.bttendance.fragment.CreateNoticeFragment this$0 -> a
+com.bttendance.fragment.notice.CreateNoticeFragment$1 -> tg:
+    com.bttendance.fragment.notice.CreateNoticeFragment this$0 -> a
     79:81:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     85:87:void failure(retrofit.RetrofitError) -> failure
     76:76:void success(java.lang.Object,retrofit.client.Response) -> success
@@ -11633,7 +11633,7 @@ com.bttendance.fragment.GradeFragment$2 -> to:
     com.bttendance.fragment.GradeFragment this$0 -> a
     94:94:int compare(com.bttendance.adapter.BTListAdapter$Item,com.bttendance.adapter.BTListAdapter$Item) -> a
     91:91:int compare(java.lang.Object,java.lang.Object) -> compare
-com.bttendance.fragment.PostAttendanceFragment -> com.bttendance.fragment.PostAttendanceFragment:
+com.bttendance.fragment.attendance.PostAttendanceFragment -> com.bttendance.fragment.attendance.PostAttendanceFragment:
     com.bttendance.adapter.BTListAdapter mAdapter -> a
     android.widget.ListView mListView -> b
     com.bttendance.model.json.PostJson mPost -> c
@@ -11647,32 +11647,32 @@ com.bttendance.fragment.PostAttendanceFragment -> com.bttendance.fragment.PostAt
     143:173:void onClick(android.view.View) -> onClick
     177:184:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     188:194:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    35:35:void access$000(com.bttendance.fragment.PostAttendanceFragment) -> a
-    35:35:java.util.ArrayList access$100(com.bttendance.fragment.PostAttendanceFragment) -> b
-    35:35:com.bttendance.model.json.PostJson access$200(com.bttendance.fragment.PostAttendanceFragment) -> c
-com.bttendance.fragment.PostAttendanceFragment$1 -> tp:
-    com.bttendance.fragment.PostAttendanceFragment this$0 -> a
+    35:35:void access$000(com.bttendance.fragment.attendance.PostAttendanceFragment) -> a
+    35:35:java.util.ArrayList access$100(com.bttendance.fragment.attendance.PostAttendanceFragment) -> b
+    35:35:com.bttendance.model.json.PostJson access$200(com.bttendance.fragment.attendance.PostAttendanceFragment) -> c
+com.bttendance.fragment.attendance.PostAttendanceFragment$1 -> tp:
+    com.bttendance.fragment.attendance.PostAttendanceFragment this$0 -> a
     81:82:void success(com.bttendance.model.json.UserJsonSimple[],retrofit.client.Response) -> a
     86:86:void failure(retrofit.RetrofitError) -> failure
     78:78:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.fragment.PostAttendanceFragment$2 -> tq:
-    com.bttendance.fragment.PostAttendanceFragment this$0 -> a
+com.bttendance.fragment.attendance.PostAttendanceFragment$2 -> tq:
+    com.bttendance.fragment.attendance.PostAttendanceFragment this$0 -> a
     100:100:int compare(com.bttendance.model.json.UserJsonSimple,com.bttendance.model.json.UserJsonSimple) -> a
     97:97:int compare(java.lang.Object,java.lang.Object) -> compare
-com.bttendance.fragment.PostAttendanceFragment$3 -> tr:
-    com.bttendance.fragment.PostAttendanceFragment this$0 -> a
+com.bttendance.fragment.attendance.PostAttendanceFragment$3 -> tr:
+    com.bttendance.fragment.attendance.PostAttendanceFragment this$0 -> a
     107:137:void run() -> run
-com.bttendance.fragment.PostAttendanceFragment$4 -> ts:
+com.bttendance.fragment.attendance.PostAttendanceFragment$4 -> ts:
     com.bttendance.model.json.UserJsonSimple val$user -> a
-    com.bttendance.fragment.PostAttendanceFragment this$0 -> b
+    com.bttendance.fragment.attendance.PostAttendanceFragment this$0 -> b
     154:164:void onConfirmed(java.lang.String) -> onConfirmed
     168:168:void onCanceled() -> onCanceled
-com.bttendance.fragment.PostAttendanceFragment$4$1 -> tt:
-    com.bttendance.fragment.PostAttendanceFragment$4 this$1 -> a
+com.bttendance.fragment.attendance.PostAttendanceFragment$4$1 -> tt:
+    com.bttendance.fragment.attendance.PostAttendanceFragment$4 this$1 -> a
     157:158:void success(com.bttendance.model.json.AttendanceJson,retrofit.client.Response) -> a
     162:162:void failure(retrofit.RetrofitError) -> failure
     154:154:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.fragment.PostClickerFragment -> com.bttendance.fragment.PostClickerFragment:
+com.bttendance.fragment.clicker.PostClickerFragment -> com.bttendance.fragment.clicker.PostClickerFragment:
     com.bttendance.model.json.PostJson mPost -> a
     android.widget.RelativeLayout mClicker -> b
     android.widget.TextView mDetail -> c
@@ -11681,13 +11681,13 @@ com.bttendance.fragment.PostClickerFragment -> com.bttendance.fragment.PostClick
     77:103:void onUpdate(com.bttendance.event.update.UpdateClickerDetailEvent) -> onUpdate
     107:114:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     118:124:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-    30:30:android.widget.RelativeLayout access$000(com.bttendance.fragment.PostClickerFragment) -> a
-    30:30:com.bttendance.model.json.PostJson access$100(com.bttendance.fragment.PostClickerFragment) -> b
-    30:30:android.widget.TextView access$200(com.bttendance.fragment.PostClickerFragment) -> c
-com.bttendance.fragment.PostClickerFragment$1 -> tu:
-    com.bttendance.fragment.PostClickerFragment this$0 -> a
+    30:30:android.widget.RelativeLayout access$000(com.bttendance.fragment.clicker.PostClickerFragment) -> a
+    30:30:com.bttendance.model.json.PostJson access$100(com.bttendance.fragment.clicker.PostClickerFragment) -> b
+    30:30:android.widget.TextView access$200(com.bttendance.fragment.clicker.PostClickerFragment) -> c
+com.bttendance.fragment.clicker.PostClickerFragment$1 -> tu:
+    com.bttendance.fragment.clicker.PostClickerFragment this$0 -> a
     87:101:void run() -> run
-com.bttendance.fragment.ProfileEditFragment -> com.bttendance.fragment.ProfileEditFragment:
+com.bttendance.fragment.profile.ProfileEditFragment -> com.bttendance.fragment.profile.ProfileEditFragment:
     java.lang.String mTitle -> a
     android.widget.TextView mText -> b
     android.widget.EditText mEdit -> c
@@ -11695,7 +11695,7 @@ com.bttendance.fragment.ProfileEditFragment -> com.bttendance.fragment.ProfileEd
     android.widget.Button mSave -> e
     int mEditCount -> f
     java.lang.String mEditString -> g
-    com.bttendance.fragment.ProfileEditFragment$Type mType -> h
+    com.bttendance.fragment.profile.ProfileEditFragment$Type mType -> h
     47:54:void onCreate(android.os.Bundle) -> onCreate
     58:121:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     125:137:void save() -> l
@@ -11708,32 +11708,32 @@ com.bttendance.fragment.ProfileEditFragment -> com.bttendance.fragment.ProfileEd
     203:206:void success(com.bttendance.model.json.UserJson,retrofit.client.Response) -> success
     210:211:void failure(retrofit.RetrofitError) -> failure
     34:34:void success(java.lang.Object,retrofit.client.Response) -> success
-    34:34:android.view.View access$000(com.bttendance.fragment.ProfileEditFragment) -> a
-    34:34:int access$102(com.bttendance.fragment.ProfileEditFragment,int) -> a
-    34:34:android.widget.EditText access$200(com.bttendance.fragment.ProfileEditFragment) -> b
-    34:34:void access$300(com.bttendance.fragment.ProfileEditFragment) -> c
-    34:34:void access$400(com.bttendance.fragment.ProfileEditFragment) -> d
-com.bttendance.fragment.ProfileEditFragment$1 -> tv:
-    com.bttendance.fragment.ProfileEditFragment this$0 -> a
+    34:34:android.view.View access$000(com.bttendance.fragment.profile.ProfileEditFragment) -> a
+    34:34:int access$102(com.bttendance.fragment.profile.ProfileEditFragment,int) -> a
+    34:34:android.widget.EditText access$200(com.bttendance.fragment.profile.ProfileEditFragment) -> b
+    34:34:void access$300(com.bttendance.fragment.profile.ProfileEditFragment) -> c
+    34:34:void access$400(com.bttendance.fragment.profile.ProfileEditFragment) -> d
+com.bttendance.fragment.profile.ProfileEditFragment$1 -> tv:
+    com.bttendance.fragment.profile.ProfileEditFragment this$0 -> a
     71:76:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.bttendance.fragment.ProfileEditFragment$2 -> tw:
-    com.bttendance.fragment.ProfileEditFragment this$0 -> a
+com.bttendance.fragment.profile.ProfileEditFragment$2 -> tw:
+    com.bttendance.fragment.profile.ProfileEditFragment this$0 -> a
     82:84:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     88:88:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     92:92:void afterTextChanged(android.text.Editable) -> afterTextChanged
-com.bttendance.fragment.ProfileEditFragment$3 -> tx:
-    com.bttendance.fragment.ProfileEditFragment this$0 -> a
+com.bttendance.fragment.profile.ProfileEditFragment$3 -> tx:
+    com.bttendance.fragment.profile.ProfileEditFragment this$0 -> a
     101:117:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.bttendance.fragment.ProfileEditFragment$4 -> ty:
+com.bttendance.fragment.profile.ProfileEditFragment$4 -> ty:
     int[] $SwitchMap$com$bttendance$fragment$ProfileEditFragment$Type -> a
-com.bttendance.fragment.ProfileEditFragment$Type -> com.bttendance.fragment.ProfileEditFragment$Type:
-    com.bttendance.fragment.ProfileEditFragment$Type IMAGE -> IMAGE
-    com.bttendance.fragment.ProfileEditFragment$Type NAME -> NAME
-    com.bttendance.fragment.ProfileEditFragment$Type MAIL -> MAIL
-    com.bttendance.fragment.ProfileEditFragment$Type[] $VALUES -> a
-    213:213:com.bttendance.fragment.ProfileEditFragment$Type[] values() -> values
-    213:213:com.bttendance.fragment.ProfileEditFragment$Type valueOf(java.lang.String) -> valueOf
-com.bttendance.fragment.ProfileFragment -> com.bttendance.fragment.ProfileFragment:
+com.bttendance.fragment.profile.ProfileEditFragment$Type -> com.bttendance.fragment.profile.ProfileEditFragment$Type:
+    com.bttendance.fragment.profile.ProfileEditFragment$Type IMAGE -> IMAGE
+    com.bttendance.fragment.profile.ProfileEditFragment$Type NAME -> NAME
+    com.bttendance.fragment.profile.ProfileEditFragment$Type MAIL -> MAIL
+    com.bttendance.fragment.profile.ProfileEditFragment$Type[] $VALUES -> a
+    213:213:com.bttendance.fragment.profile.ProfileEditFragment$Type[] values() -> values
+    213:213:com.bttendance.fragment.profile.ProfileEditFragment$Type valueOf(java.lang.String) -> valueOf
+com.bttendance.fragment.profile.ProfileFragment -> com.bttendance.fragment.profile.ProfileFragment:
     android.widget.ListView mListView -> a
     com.bttendance.adapter.ProfileAdapter mAdapter -> b
     android.view.View header -> c
@@ -11748,18 +11748,18 @@ com.bttendance.fragment.ProfileFragment -> com.bttendance.fragment.ProfileFragme
     157:164:void onClick(android.view.View) -> onClick
     170:178:void showEditName() -> n
     181:189:void showEditEmail() -> o
-    29:29:void access$000(com.bttendance.fragment.ProfileFragment) -> a
-    29:29:void access$100(com.bttendance.fragment.ProfileFragment) -> b
-com.bttendance.fragment.ProfileFragment$1 -> tz:
-    com.bttendance.fragment.ProfileFragment this$0 -> a
+    29:29:void access$000(com.bttendance.fragment.profile.ProfileFragment) -> a
+    29:29:void access$100(com.bttendance.fragment.profile.ProfileFragment) -> b
+com.bttendance.fragment.profile.ProfileFragment$1 -> tz:
+    com.bttendance.fragment.profile.ProfileFragment this$0 -> a
     58:62:void onConfirmed(java.lang.String) -> onConfirmed
     66:66:void onCanceled() -> onCanceled
-com.bttendance.fragment.ProfileFragment$2 -> ua:
-    com.bttendance.fragment.ProfileFragment this$0 -> a
+com.bttendance.fragment.profile.ProfileFragment$2 -> ua:
+    com.bttendance.fragment.profile.ProfileFragment this$0 -> a
     117:118:void run() -> run
-com.bttendance.fragment.ProfileFragment$3 -> ub:
+com.bttendance.fragment.profile.ProfileFragment$3 -> ub:
     com.bttendance.model.json.UserJson val$user -> a
-    com.bttendance.fragment.ProfileFragment this$0 -> b
+    com.bttendance.fragment.profile.ProfileFragment this$0 -> b
     134:148:void run() -> run
 com.bttendance.fragment.course.SchoolChooseFragment -> com.bttendance.fragment.course.SchoolChooseFragment:
     com.bttendance.adapter.ChooseSchoolAdapter mAdapter -> a
@@ -11791,7 +11791,7 @@ com.bttendance.fragment.course.SchoolChooseFragment$3 -> ue:
     121:122:void success(com.bttendance.model.json.SchoolJson[],retrofit.client.Response) -> a
     126:126:void failure(retrofit.RetrofitError) -> failure
     118:118:void success(java.lang.Object,retrofit.client.Response) -> success
-com.bttendance.fragment.StartClickerFragment -> com.bttendance.fragment.StartClickerFragment:
+com.bttendance.fragment.clicker.StartClickerFragment -> com.bttendance.fragment.clicker.StartClickerFragment:
     com.bttendance.model.json.CourseJsonHelper mCourseHelper -> a
     android.widget.EditText mMessage -> b
     37:39:void onCreate(android.os.Bundle) -> onCreate
@@ -11799,8 +11799,8 @@ com.bttendance.fragment.StartClickerFragment -> com.bttendance.fragment.StartCli
     49:52:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     57:65:void onCreateOptionsMenu(com.actionbarsherlock.view.Menu,com.actionbarsherlock.view.MenuInflater) -> onCreateOptionsMenu
     69:91:boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
-com.bttendance.fragment.StartClickerFragment$1 -> uf:
-    com.bttendance.fragment.StartClickerFragment this$0 -> a
+com.bttendance.fragment.clicker.StartClickerFragment$1 -> uf:
+    com.bttendance.fragment.clicker.StartClickerFragment this$0 -> a
     79:81:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
     85:87:void failure(retrofit.RetrofitError) -> failure
     76:76:void success(java.lang.Object,retrofit.client.Response) -> success

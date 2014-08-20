@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +15,8 @@ import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.ProfileAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.course.CourseDetailFragment;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.squareup.otto.BTEventBus;

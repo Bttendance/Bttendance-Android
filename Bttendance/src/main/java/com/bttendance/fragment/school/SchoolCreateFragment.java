@@ -1,4 +1,4 @@
-package com.bttendance.fragment.course;
+package com.bttendance.fragment.school;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -24,7 +24,6 @@ import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.BTTable;
 import com.bttendance.model.json.SchoolJson;
 import com.squareup.otto.BTEventBus;
 

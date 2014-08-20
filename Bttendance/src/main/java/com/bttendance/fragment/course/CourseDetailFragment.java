@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.course;
 
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -25,6 +25,10 @@ import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
+import com.bttendance.fragment.BTDialogFragment;
+import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.notice.CreateNoticeFragment;
+import com.bttendance.fragment.clicker.StartClickerFragment;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTPreference;

@@ -20,7 +20,7 @@ import com.bttendance.activity.guide.GuideCourseCreateActivity;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
-import com.bttendance.fragment.course.SchoolChooseFragment;
+import com.bttendance.fragment.school.SchoolChooseFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.CourseJson;

@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.course;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +17,8 @@ import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.fragment.BTDialogFragment;
+import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.EmailJson;

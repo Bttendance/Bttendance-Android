@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.course;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,6 +16,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
+import com.bttendance.fragment.BTDialogFragment;
+import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;

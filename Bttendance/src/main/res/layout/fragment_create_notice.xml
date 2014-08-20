@@ -3,25 +3,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bttendance_grey"
+    android:background="@color/bttendance_white"
     android:clickable="true"
     android:focusable="true">
+
+    <TextView
+        android:id="@+id/notice_guide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bttendance_grey"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textSize="12sp"
+        android:textColor="@color/bttendance_silver" />
 
     <ImageView
         android:id="@+id/notice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/notice_guide"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_notice_big" />
 
     <EditText
-        android:id="@+id/message"
+        android:id="@+id/message_edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/notice_guide"
         android:layout_toRightOf="@id/notice"
         android:background="@android:color/transparent"
         android:gravity="top|left"

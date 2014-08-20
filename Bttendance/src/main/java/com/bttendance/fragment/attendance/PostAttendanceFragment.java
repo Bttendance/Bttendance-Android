@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.attendance;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +13,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
+import com.bttendance.fragment.BTDialogFragment;
+import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.SparseArrayHelper;
 import com.bttendance.model.BTTable;

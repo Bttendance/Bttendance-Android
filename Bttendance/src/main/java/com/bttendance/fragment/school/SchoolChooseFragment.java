@@ -1,4 +1,4 @@
-package com.bttendance.fragment.course;
+package com.bttendance.fragment.school;
 
 import android.database.Cursor;
 import android.os.Bundle;

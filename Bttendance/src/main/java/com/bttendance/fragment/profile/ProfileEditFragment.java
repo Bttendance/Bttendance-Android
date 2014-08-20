@@ -1,4 +1,4 @@
-package com.bttendance.fragment;
+package com.bttendance.fragment.profile;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -17,7 +18,9 @@ import com.bttendance.R;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 
@@ -28,77 +31,60 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2014. 1. 23..
  */
-public class UpdatePasswordFragment extends BTFragment implements Callback<UserJson> {
+public class ProfileEditFragment extends BTFragment implements Callback<UserJson> {
 
-    private EditText mOld = null;
-    private EditText mNew = null;
-    private View mOldDiv = null;
-    private View mNewDiv = null;
+    private String mTitle = null;
+    private TextView mText = null;
+    private EditText mEdit = null;
+    private View mEditDiv = null;
     private Button mSave = null;
-    private int mOldCount = 0;
-    private int mNewCount = 0;
-    private String mOldString = null;
-    private String mNewString = null;
+    private int mEditCount = 0;
+    private String mEditString = null;
+    private Type mType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mTitle = getArguments().getString(BTKey.EXTRA_TITLE);
+        mEditString = getArguments().getString(BTKey.EXTRA_MESSAGE);
+        mType = (Type) getArguments().getSerializable(BTKey.EXTRA_TYPE);
+
+        if (getSherlockActivity() != null) {
+            ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+            actionBar.setTitle(String.format(getString(R.string.edit_), mTitle));
+        }
+
         setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_update_password, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
-        mOld = (EditText) view.findViewById(R.id.edit_old);
-        mOldDiv = view.findViewById(R.id.divider_old);
-        mNew = (EditText) view.findViewById(R.id.edit_new);
-        mNewDiv = view.findViewById(R.id.divider_new);
+        mText = (TextView) view.findViewById(R.id.text);
+        mEdit = (EditText) view.findViewById(R.id.edit);
+        mEditDiv = view.findViewById(R.id.edit_divider);
 
-        KeyboardHelper.show(getActivity(), mOld);
+        mText.setText(mTitle);
+        mEdit.setText(mEditString);
+        KeyboardHelper.show(getActivity(), mEdit);
 
-        mOld.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    mOldDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
+                    mEditDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
-                    mOldDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
+                    mEditDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
 
-        mOld.addTextChangedListener(new TextWatcher() {
+        mEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mOldCount = mOld.getText().toString().length();
-                isEnableSave();
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-        mNew.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    mNewDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
-                } else {
-                    mNewDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
-                }
-            }
-        });
-
-        mNew.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mNewCount = mNew.getText().toString().length();
+                mEditCount = mEdit.getText().toString().length();
                 isEnableSave();
             }
 
@@ -141,13 +127,26 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
     }
 
     private void save() {
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.updating_password)));
-        getBTService().updatePassword(mOld.getText().toString(), mNew.getText().toString(), this);
+        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.updating_profile)));
+        switch (mType) {
+            case NAME:
+                getBTService().updateFullName(mEdit.getText().toString(), this);
+                break;
+            case MAIL:
+                getBTService().updateEmail(mEdit.getText().toString(), this);
+                break;
+            case IDENTITY:
+                getBTService().updateIdentity(getArguments().getInt(BTKey.EXTRA_SCHOOL_ID), mEdit.getText().toString(), this);
+                break;
+            default:
+                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                break;
+        }
     }
 
     private void isEnableSave() {
 
-        if (mOldCount > 0 && mNewCount > 0) {
+        if (mEditCount > 0) {
             mSave.setEnabled(true);
             mSave.setTextColor(getResources().getColor(R.color.bttendance_cyan));
         } else {
@@ -160,32 +159,24 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
     public void onResume() {
         super.onResume();
 
-        if (mOldString != null)
-            mOld.setText(mOldString);
-        if (mNewString != null)
-            mNew.setText(mNewString);
-
-        mOldDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
-        mOld.setSelection(mOld.getText().length(), mOld.getText().length());
-
-        mNewDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
-        mNew.setSelection(mNew.getText().length(), mNew.getText().length());
-
+        if (mEditString != null)
+            mEdit.setText(mEditString);
+        mEditDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
+        mEdit.setSelection(mEdit.getText().length(), mEdit.getText().length());
         isEnableSave();
-        KeyboardHelper.show(getActivity(), mOld);
+        KeyboardHelper.show(getActivity(), mEdit);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mOldString = mOld.getText().toString();
-        mNewString = mNew.getText().toString();
+        mEditString = mEdit.getText().toString();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        KeyboardHelper.hide(getActivity(), mOld);
+        KeyboardHelper.hide(getActivity(), mEdit);
     }
 
     @Override
@@ -199,7 +190,6 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getString(R.string.update_password));
     }
 
     /**
@@ -219,4 +209,6 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
     public void failure(RetrofitError retrofitError) {
         BTEventBus.getInstance().post(new HideProgressDialogEvent());
     }
+
+    public enum Type {IMAGE, NAME, MAIL, IDENTITY}
 }
