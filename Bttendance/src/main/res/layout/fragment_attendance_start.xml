@@ -1,200 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bttendance_white"
+    android:background="@color/bttendance_grey"
     android:clickable="true"
     android:focusable="true">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:gravity="center"
+        android:text="@string/attendance_start_guide"
+        android:textSize="12sp"
+        android:textColor="@color/bttendance_silver" />
 
-        <TextView
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="72dp">
+
+        <RelativeLayout
+            android:id="@+id/attendance_start_bt_layout"
+            android:layout_width="247dp"
             android:layout_height="wrap_content"
-            android:background="@color/bttendance_grey"
-            android:paddingTop="13dp"
-            android:paddingBottom="13dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/clicker_start_guide"
-            android:textSize="12sp"
-            android:textColor="@color/bttendance_silver" />
+            android:layout_centerHorizontal="true"
+            android:minHeight="108dp"
+            android:background="@drawable/bt_white_round"
+            android:layout_marginBottom="15dp">
 
-        <EditText
-            android:id="@+id/message_edit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="85dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/clicker"
-            android:background="@android:color/transparent"
-            android:gravity="top|left"
-            android:textColorHint="@color/bttendance_silver_50"
-            android:paddingBottom="10dp"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp"
-            android:paddingTop="10dp"
-            android:textColor="@color/bttendance_silver"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bluetooth"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="95dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/choices_bg"
-                    android:gravity="center"
-                    android:text="2"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver"
-                    android:textSize="26sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="132dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="16dp"
-                    android:text="@string/choices"
+                    android:text="@string/attendance_start_bluetooth_title"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver" />
+                    android:textColor="@color/bttendance_navy"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="132dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/attendance_start_bluetooth_message"
+                    android:textSize="12sp"
+                    android:textColor="@color/bttendance_navy" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/choices_bg"
-                    android:gravity="center"
-                    android:text="3"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver"
-                    android:textSize="26sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="16dp"
-                    android:text="@string/choices"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/attendance_start_no_bt_layout"
+            android:layout_width="247dp"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:layout_below="@id/attendance_start_bt_layout"
+            android:layout_centerHorizontal="true"
+            android:minHeight="108dp"
+            android:background="@drawable/bt_white_round">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/no_bluetooth"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="33dp" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="95dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/choices_bg"
-                    android:gravity="center"
-                    android:text="4"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver"
-                    android:textSize="26sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="132dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="16dp"
-                    android:text="@string/choices"
+                    android:text="@string/attendance_start_no_bluetooth_title"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver" />
+                    android:textColor="@color/bttendance_navy"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="132dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/attendance_start_no_bluetooth_message"
+                    android:textSize="12sp"
+                    android:textColor="@color/bttendance_navy" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/choices_bg"
-                    android:gravity="center"
-                    android:text="5"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver"
-                    android:textSize="26sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="16dp"
-                    android:text="@string/choices"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:gravity="center"
-            android:text="@string/clicker_start_info"
-            android:textSize="12sp"
-            android:textColor="@color/bttendance_silver" />
+        </RelativeLayout>
 
         <Button
-            android:id="@+id/load_question"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:background="@drawable/load_btn_bg"
-            android:textColor="@color/bttendance_white"
-            android:textSize="15sp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:enabled="true"
-            android:text="@string/load_saved_question" />
+            android:id="@+id/attendance_bluetooth_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/attendance_start_bt_layout"
+            android:layout_alignBottom="@id/attendance_start_bt_layout"
+            android:layout_alignLeft="@id/attendance_start_bt_layout"
+            android:layout_alignRight="@id/attendance_start_bt_layout"
+            android:background="@drawable/bt_selector" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/attendance_no_bluetooth_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/attendance_start_no_bt_layout"
+            android:layout_alignBottom="@id/attendance_start_no_bt_layout"
+            android:layout_alignLeft="@id/attendance_start_no_bt_layout"
+            android:layout_alignRight="@id/attendance_start_no_bt_layout"
+            android:background="@drawable/bt_selector" />
 
-</ScrollView>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="34dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:gravity="center"
+        android:text="@string/attendance_start_info"
+        android:textSize="12sp"
+        android:textColor="@color/bttendance_silver" />
+
+</RelativeLayout>

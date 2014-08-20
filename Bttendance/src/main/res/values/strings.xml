@@ -246,5 +246,13 @@
     <string name="starting_clicker">Starting Clicker</string>
     <string name="posting_notice">Posting Notice</string>
     <string name="notice_post_guide">* %d student(s) will receive this notice.\n* You may check how many students read it so far.</string>
+    <string name="attendance_start_guide">Choose how to check the attendance and click \nthe Start button.</string>
+    <string name="attendance_start_info">You may edit the attendance record anytime\nafter the attendance check is complete.</string>
+    <string name="start_attendance">Start Attendance</string>
+    <string name="starting_attendance">Starting Attendance</string>
+    <string name="attendance_start_bluetooth_title">Check attendance\nfaster\nwith Bluetooth</string>
+    <string name="attendance_start_bluetooth_message">(Estimated time: 1 min)</string>
+    <string name="attendance_start_no_bluetooth_title">Check attendance\nby calling\neach student</string>
+    <string name="attendance_start_no_bluetooth_message">(Estimated time: 5 min)</string>
 
 </resources>

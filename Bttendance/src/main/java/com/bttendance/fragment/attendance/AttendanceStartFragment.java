@@ -11,9 +11,12 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.dialog.HideProgressDialogEvent;
+import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.PostJson;
+import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -25,7 +28,6 @@ import retrofit.client.Response;
 public class AttendanceStartFragment extends BTFragment {
 
     private int mCourseID;
-    private EditText mMessage;
 
     public AttendanceStartFragment(int courseID) {
         mCourseID = courseID;
@@ -40,14 +42,11 @@ public class AttendanceStartFragment extends BTFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        KeyboardHelper.hide(getActivity(), mMessage);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_attendance_start, container, false);
-        mMessage = (EditText) view.findViewById(R.id.message_edit);
-        KeyboardHelper.show(getActivity(), mMessage);
         return view;
     }
 
@@ -62,8 +61,8 @@ public class AttendanceStartFragment extends BTFragment {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getString(R.string.start_clicker));
-        inflater.inflate(R.menu.start_clicker_menu, menu);
+        actionBar.setTitle(getString(R.string.start_attendance));
+        inflater.inflate(R.menu.attendance_start_menu, menu);
     }
 
     @Override
@@ -74,19 +73,22 @@ public class AttendanceStartFragment extends BTFragment {
                 getActivity().onBackPressed();
                 return true;
             case R.id.action_start:
-                if (mMessage != null && mMessage.getText().toString().length() > 0) {
+                if (true) {
                     item.setEnabled(false);
-                    getBTService().postStartClicker(mCourseID, mMessage.getText().toString(), 4, new Callback<PostJson>() {
+                    BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.starting_attendance)));
+                    getBTService().postStartClicker(mCourseID, "Asdf", 4, new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
+                            item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
                             if (AttendanceStartFragment.this.getActivity() != null)
                                 AttendanceStartFragment.this.getActivity().onBackPressed();
-                            item.setEnabled(true);
                         }
 
                         @Override
                         public void failure(RetrofitError retrofitError) {
                             item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
                         }
                     });
                     return true;

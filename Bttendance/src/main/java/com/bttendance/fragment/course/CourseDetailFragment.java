@@ -17,7 +17,6 @@ import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.FeedAdapter;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.attendance.AttdStartEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
@@ -27,6 +26,7 @@ import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.attendance.AttendanceStartFragment;
 import com.bttendance.fragment.clicker.ClickerStartFragment;
 import com.bttendance.fragment.notice.NoticePostFragment;
 import com.bttendance.helper.DipPixelHelper;
@@ -300,7 +300,8 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     private void startAttendance() {
-        BTEventBus.getInstance().post(new AttdStartEvent(mCourse.id));
+        AttendanceStartFragment frag = new AttendanceStartFragment(mCourse.id);
+        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
     private void showNotice() {

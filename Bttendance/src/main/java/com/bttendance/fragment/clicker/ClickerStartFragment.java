@@ -66,7 +66,7 @@ public class ClickerStartFragment extends BTFragment {
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(getString(R.string.start_clicker));
-        inflater.inflate(R.menu.start_clicker_menu, menu);
+        inflater.inflate(R.menu.clicker_start_menu, menu);
     }
 
     @Override

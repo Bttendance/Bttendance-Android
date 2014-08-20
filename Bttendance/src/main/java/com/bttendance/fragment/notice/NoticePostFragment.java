@@ -74,7 +74,7 @@ public class NoticePostFragment extends BTFragment {
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(getString(R.string.create_notice));
-        inflater.inflate(R.menu.create_notice_menu, menu);
+        inflater.inflate(R.menu.notice_create_menu, menu);
     }
 
     @Override
