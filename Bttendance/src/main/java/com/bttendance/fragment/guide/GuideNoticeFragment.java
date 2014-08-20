@@ -13,6 +13,7 @@ import com.bttendance.R;
 import com.bttendance.activity.guide.TutorialActivity;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.SimpleWebViewFragment;
+import com.bttendance.model.BTUrl;
 
 /**
  * Created by TheFinestArtist on 2014. 8. 13..
@@ -31,15 +32,8 @@ public class GuideNoticeFragment extends BTFragment {
         mSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String locale = getResources().getConfiguration().locale.getCountry();
-                String url = "http://www.bttd.co/tutorial/notice?" +
-                        "device_type=android" +
-                        "&locale=" + locale +
-                        "&app_version=" + getString(R.string.app_version);
-
                 Intent intent = new Intent(getActivity(), TutorialActivity.class);
-                intent.putExtra(SimpleWebViewFragment.EXTRA_URL, url);
+                intent.putExtra(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialNotice(getActivity()));
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
             }

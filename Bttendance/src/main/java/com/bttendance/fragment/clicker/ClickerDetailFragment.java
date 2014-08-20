@@ -56,7 +56,7 @@ public class ClickerDetailFragment extends BTFragment {
         mClicker.addView(chartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         View ring = new View(getActivity());
-        ring.setBackgroundResource(R.drawable.ic_polledge);
+        ring.setBackgroundResource(R.drawable.ic_clicker_edge);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) DipPixelHelper.getPixel(getActivity(), 243), (int) DipPixelHelper.getPixel(getActivity(), 243));
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         mClicker.addView(ring, params);
@@ -93,7 +93,7 @@ public class ClickerDetailFragment extends BTFragment {
                 mClicker.addView(chartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
                 View ring = new View(getActivity());
-                ring.setBackgroundResource(R.drawable.ic_polledge);
+                ring.setBackgroundResource(R.drawable.ic_clicker_edge);
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) DipPixelHelper.getPixel(getActivity(), 243), (int) DipPixelHelper.getPixel(getActivity(), 243));
                 params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
                 mClicker.addView(ring, params);

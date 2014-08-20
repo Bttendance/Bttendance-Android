@@ -13,33 +13,27 @@ import com.bttendance.R;
 import com.bttendance.activity.guide.TutorialActivity;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.SimpleWebViewFragment;
+import com.bttendance.model.BTUrl;
 
 /**
  * Created by TheFinestArtist on 2014. 8. 13..
  */
-public class GuidePollFragment extends BTFragment {
+public class GuideClickerFragment extends BTFragment {
 
     Button mSeeMore;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_guid_poll, container, false);
+        View view = inflater.inflate(R.layout.fragment_guid_clicker, container, false);
         if (Build.VERSION.SDK_INT < 11)
-            ((ImageView) view.findViewById(R.id.guide_poll)).setImageResource(R.drawable.poll_bg);
+            ((ImageView) view.findViewById(R.id.guide_clicker)).setImageResource(R.drawable.clicker_bg);
 
         mSeeMore = (Button) view.findViewById(R.id.see_more);
         mSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String locale = getResources().getConfiguration().locale.getCountry();
-                String url = "http://www.bttd.co/tutorial/clicker?" +
-                        "device_type=android" +
-                        "&locale=" + locale +
-                        "&app_version=" + getString(R.string.app_version);
-
                 Intent intent = new Intent(getActivity(), TutorialActivity.class);
-                intent.putExtra(SimpleWebViewFragment.EXTRA_URL, url);
+                intent.putExtra(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialClicker(getActivity()));
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
             }

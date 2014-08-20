@@ -15,6 +15,8 @@
 
     <item name="image_url" type="id" />
 
+    <item name="guide_type" type="id" />
+
     <item name="json" type="id" />
     <item name="type" type="id" />
     <item name="id" type="id" />

@@ -22,7 +22,7 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
     ViewPager mPagerView;
     CirclePageIndicator mCircleIndicator;
     ImageView mGuideFirst;
-    ImageView mGuidePoll;
+    ImageView mGuideClicker;
     ImageView mGuideAttendance;
     ImageView mGuideNotice;
     ImageView mGuideLast;
@@ -46,7 +46,7 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
         mCircleIndicator.setRadius(DipPixelHelper.getPixel(this, 4));
 
         mGuideFirst = (ImageView) findViewById(R.id.guide_first);
-        mGuidePoll = (ImageView) findViewById(R.id.guide_poll);
+        mGuideClicker = (ImageView) findViewById(R.id.guide_clicker);
         mGuideAttendance = (ImageView) findViewById(R.id.guide_attendance);
         mGuideNotice = (ImageView) findViewById(R.id.guide_notice);
         mGuideLast = (ImageView) findViewById(R.id.guide_last);
@@ -74,7 +74,7 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
         super.onResume();
         if (Build.VERSION.SDK_INT >= 11) {
             mGuideFirst.setImageResource(R.drawable.welcome_bg);
-            mGuidePoll.setImageResource(R.drawable.poll_bg);
+            mGuideClicker.setImageResource(R.drawable.clicker_bg);
             mGuideAttendance.setImageResource(R.drawable.attendance_bg);
             mGuideNotice.setImageResource(R.drawable.notice_bg);
         }
@@ -95,7 +95,7 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
 
             if (scrollOffset < 0) {
                 mGuideFirst.setAlpha(1.0f);
-                mGuidePoll.setAlpha(0.0f);
+                mGuideClicker.setAlpha(0.0f);
                 mGuideAttendance.setAlpha(0.0f);
                 mGuideNotice.setAlpha(0.0f);
                 mGuideLast.setAlpha(0.0f);
@@ -104,7 +104,7 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
 
             if (0 <= scrollOffset && scrollOffset < 1) {
                 mGuideFirst.setAlpha(1.0f - scrollOffset);
-                mGuidePoll.setAlpha(scrollOffset);
+                mGuideClicker.setAlpha(scrollOffset);
                 mGuideAttendance.setAlpha(0.0f);
                 mGuideNotice.setAlpha(0.0f);
                 mGuideLast.setAlpha(0.0f);
@@ -113,7 +113,7 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
 
             if (1 <= scrollOffset && scrollOffset < 2) {
                 mGuideFirst.setAlpha(0.0f);
-                mGuidePoll.setAlpha(2.0f - scrollOffset);
+                mGuideClicker.setAlpha(2.0f - scrollOffset);
                 mGuideAttendance.setAlpha(scrollOffset - 1.0f);
                 mGuideNotice.setAlpha(0.0f);
                 mGuideLast.setAlpha(0.0f);
@@ -122,7 +122,7 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
 
             if (2 <= scrollOffset && scrollOffset < 3) {
                 mGuideFirst.setAlpha(0.0f);
-                mGuidePoll.setAlpha(0.0f);
+                mGuideClicker.setAlpha(0.0f);
                 mGuideAttendance.setAlpha(3.0f - scrollOffset);
                 mGuideNotice.setAlpha(scrollOffset - 2.0f);
                 mGuideLast.setAlpha(0.0f);
@@ -131,7 +131,7 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
 
             if (3 <= scrollOffset && scrollOffset < 4) {
                 mGuideFirst.setAlpha(0.0f);
-                mGuidePoll.setAlpha(0.0f);
+                mGuideClicker.setAlpha(0.0f);
                 mGuideAttendance.setAlpha(0.0f);
                 mGuideNotice.setAlpha(4.0f - scrollOffset);
                 mGuideLast.setAlpha(scrollOffset - 3.0f);
@@ -140,7 +140,7 @@ public class GuideActivity extends BTActivity implements ViewPager.OnPageChangeL
 
             if (4 <= scrollOffset) {
                 mGuideFirst.setAlpha(0.0f);
-                mGuidePoll.setAlpha(0.0f);
+                mGuideClicker.setAlpha(0.0f);
                 mGuideAttendance.setAlpha(0.0f);
                 mGuideNotice.setAlpha(0.0f);
                 mGuideLast.setAlpha(1.0f);

@@ -26,7 +26,7 @@ import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.model.json.DeviceJsonSimple;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTAPI;
-import com.bttendance.service.BTUrl;
+import com.bttendance.model.BTUrl;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;

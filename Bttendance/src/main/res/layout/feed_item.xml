@@ -59,6 +59,17 @@
                 android:background="@drawable/ic_notice_big"
                 android:visibility="gone" />
 
+            <View
+                android:id="@+id/guide"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/ic_bttendance_big"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/title"
                 style="@style/itemTextView"
@@ -88,6 +99,23 @@
                 android:focusable="false"
                 android:lineSpacingExtra="1dp"
                 android:paddingBottom="10dp" />
+
+            <TextView
+                android:id="@+id/guide_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingTop="22dp"
+                android:layout_marginLeft="81dp"
+                android:layout_marginRight="13dp"
+                android:background="@null"
+                android:clickable="false"
+                android:focusable="false"
+                android:lineSpacingExtra="5dp"
+                android:includeFontPadding="false"
+                android:textColor="@color/bttendance_silver"
+                android:textSize="14sp" />
 
         </RelativeLayout>
 

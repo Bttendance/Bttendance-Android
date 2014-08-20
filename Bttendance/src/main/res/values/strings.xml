@@ -254,5 +254,12 @@
     <string name="attendance_start_bluetooth_message">(Estimated time: 1 min)</string>
     <string name="attendance_start_no_bluetooth_title">Check attendance\nby calling\neach student</string>
     <string name="attendance_start_no_bluetooth_message">(Estimated time: 5 min)</string>
+    <string name="post_guide_update">You cannot read this post in the current version. Please update to the lastest version.</string>
+    <string name="post_guide_tips">Click here to see the Tips for Using BTTENDANCE!</string>
+    <string name="post_guide_clicker">Click here to see how to use Clicker.</string>
+    <string name="post_guide_attendance">Click here to see how to use Attendance.</string>
+    <string name="post_guide_notice">Click here to see how to use Notice.</string>
+    <string name="update_app_title">New BTTENDANCE Available</string>
+    <string name="update_app_message">New version of BTTENDANCE has been updated. Please update the app for new features.</string>
 
 </resources>

@@ -7058,11 +7058,11 @@ com.bttendance.service.BTService: void clickerClick(int,int,retrofit.Callback)
 com.bttendance.service.BTService$LocalBinder
 com.bttendance.service.BTService$LocalBinder: BTService$LocalBinder(com.bttendance.service.BTService)
 com.bttendance.service.BTService$LocalBinder: com.bttendance.service.BTService getService()
-com.bttendance.service.BTUrl
-com.bttendance.service.BTUrl: java.lang.String TERMS
-com.bttendance.service.BTUrl: java.lang.String PRIVACY
-com.bttendance.service.BTUrl: java.lang.String PARTNERSHIP
-com.bttendance.service.BTUrl: BTUrl()
+com.bttendance.model.BTUrl
+com.bttendance.model.BTUrl: java.lang.String TERMS
+com.bttendance.model.BTUrl: java.lang.String PRIVACY
+com.bttendance.model.BTUrl: java.lang.String PARTNERSHIP
+com.bttendance.model.BTUrl: BTUrl()
 com.bttendance.service.GcmBroadcastReceiver
 com.bttendance.service.GcmBroadcastReceiver: GcmBroadcastReceiver()
 com.bttendance.service.GcmBroadcastReceiver: void onReceive(android.content.Context,android.content.Intent)

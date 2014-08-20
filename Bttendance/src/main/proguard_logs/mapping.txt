@@ -12527,7 +12527,7 @@ com.bttendance.service.BTService$9 -> vy:
 com.bttendance.service.BTService$LocalBinder -> com.bttendance.service.BTService$LocalBinder:
     com.bttendance.service.BTService this$0 -> a
     1130:1130:com.bttendance.service.BTService getService() -> getService
-com.bttendance.service.BTUrl -> com.bttendance.service.BTUrl:
+com.bttendance.model.BTUrl -> com.bttendance.model.BTUrl:
     java.lang.String TERMS -> TERMS
     java.lang.String PRIVACY -> PRIVACY
     java.lang.String PARTNERSHIP -> PARTNERSHIP

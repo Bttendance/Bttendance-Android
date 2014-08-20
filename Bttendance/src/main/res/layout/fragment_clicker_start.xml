@@ -184,7 +184,7 @@
         <Button
             android:id="@+id/load_question"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="43dp"
             android:background="@drawable/load_btn_bg"
             android:textColor="@color/bttendance_white"
             android:textSize="15sp"

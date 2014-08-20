@@ -157,7 +157,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         View padding = new View(getActivity());
         padding.setMinimumHeight((int) DipPixelHelper.getPixel(getActivity(), 7));
         mListView.addFooterView(padding);
-        mAdapter = new FeedAdapter(getActivity(), null);
+        mAdapter = new FeedAdapter(getActivity(), null, mCourse.id);
         mListView.setAdapter(mAdapter);
         return view;
     }

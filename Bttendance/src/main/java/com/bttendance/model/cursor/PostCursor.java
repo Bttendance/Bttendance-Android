@@ -18,5 +18,10 @@ public class PostCursor extends MatrixCursor {
         super(COLUMNS);
         for (int i = table.size() - 1; i >= 0; i--)
             addRow(new Object[]{table.keyAt(i)});
+
+        addRow(new Object[]{-1});
+        addRow(new Object[]{-2});
+        addRow(new Object[]{-3});
+        addRow(new Object[]{-4});
     }
 }
