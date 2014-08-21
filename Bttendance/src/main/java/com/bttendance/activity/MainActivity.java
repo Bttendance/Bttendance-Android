@@ -24,6 +24,7 @@ import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.course.CourseDetailFragment;
+import com.bttendance.fragment.course.NoCourseFragment;
 import com.bttendance.fragment.profile.ProfileFragment;
 import com.bttendance.fragment.setting.SettingFragment;
 import com.bttendance.helper.ScreenHelper;
@@ -94,6 +95,21 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         mListMenu.setLayoutParams(params);
 
         BTEventBus.getInstance().register(mEventDispatcher);
+
+        setFirstFragment();
+    }
+
+    private void setFirstFragment() {
+        BTFragment fragment;
+        int lastCourse = BTPreference.getLastSeenCourse(this);
+        if (lastCourse == 0)
+            fragment = new NoCourseFragment();
+        else
+            fragment = new CourseDetailFragment(lastCourse);
+
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0)
+            fm.beginTransaction().replace(R.id.content, fragment).commit();
     }
 
     @Override
@@ -285,7 +301,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
     // onDrawerClosed
     private void replacePendingFragment() {
-        final FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         if (pendingFragment != null && fm.getBackStackEntryCount() == 0)
             fm.beginTransaction().replace(R.id.content, pendingFragment).commit();
         pendingFragment = null;

@@ -62,6 +62,8 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         mUser = BTPreference.getUser(getActivity());
         mAuth = mUser.supervising(courseID);
         mCourse = mUser.getCourse(courseID);
+        if (mCourse.opened)
+            BTPreference.setLastSeenCourse(getActivity(), mCourse.id);
     }
 
     /**

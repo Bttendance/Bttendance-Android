@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 
 import com.bttendance.event.update.UpdateUserEvent;
 import com.bttendance.model.json.CourseJsonArray;
+import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.PostJsonArray;
 import com.bttendance.model.json.QuestionJsonArray;
 import com.bttendance.model.json.SchoolJsonArray;
@@ -192,6 +193,31 @@ public class BTPreference {
 
         Editor edit = getInstance(ctx).edit();
         edit.putString("my_questions", jsonStr);
+        edit.commit();
+    }
+
+    public static int getLastSeenCourse(Context ctx) {
+        int lastCourse = getInstance(ctx).getInt("last_course", 0);
+        if (lastCourse == 0) {
+            UserJson user = getUser(ctx);
+            for (CourseJsonSimple course : user.supervising_courses)
+                if (course.opened) {
+                    setLastSeenCourse(ctx, course.id);
+                    return course.id;
+                }
+
+            for (CourseJsonSimple course : user.attending_courses)
+                if (course.opened) {
+                    setLastSeenCourse(ctx, course.id);
+                    return course.id;
+                }
+        }
+        return lastCourse;
+    }
+
+    public static void setLastSeenCourse(Context ctx, int lastCourse) {
+        Editor edit = getInstance(ctx).edit();
+        edit.putInt("last_course", lastCourse);
         edit.commit();
     }
 
