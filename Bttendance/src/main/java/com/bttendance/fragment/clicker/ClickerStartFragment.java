@@ -4,18 +4,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.PostJson;
+import com.bttendance.model.json.QuestionJson;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
@@ -28,10 +32,30 @@ import retrofit.client.Response;
 public class ClickerStartFragment extends BTFragment {
 
     private int mCourseID;
+    private QuestionJson mQuestion;
     private EditText mMessage;
+    boolean mForProfile;
+
+    int mChoice;
+    TextView mChoice2Img;
+    TextView mChoice3Img;
+    TextView mChoice4Img;
+    TextView mChoice5Img;
+    TextView mChoice2Text;
+    TextView mChoice3Text;
+    TextView mChoice4Text;
+    TextView mChoice5Text;
 
     public ClickerStartFragment(int courseID) {
         mCourseID = courseID;
+        mForProfile = false;
+    }
+
+    public ClickerStartFragment(QuestionJson question) {
+        mQuestion = question;
+        if (mQuestion != null)
+            mChoice = mQuestion.choice_count;
+        mForProfile = true;
     }
 
     @Override
@@ -51,7 +75,102 @@ public class ClickerStartFragment extends BTFragment {
         View view = inflater.inflate(R.layout.fragment_clicker_start, container, false);
         mMessage = (EditText) view.findViewById(R.id.message_edit);
         KeyboardHelper.show(getActivity(), mMessage);
+
+        mChoice2Img = (TextView) view.findViewById(R.id.choice_2_image);
+        mChoice3Img = (TextView) view.findViewById(R.id.choice_3_image);
+        mChoice4Img = (TextView) view.findViewById(R.id.choice_4_image);
+        mChoice5Img = (TextView) view.findViewById(R.id.choice_5_image);
+
+        mChoice2Text = (TextView) view.findViewById(R.id.choice_2_text);
+        mChoice3Text = (TextView) view.findViewById(R.id.choice_3_text);
+        mChoice4Text = (TextView) view.findViewById(R.id.choice_4_text);
+        mChoice5Text = (TextView) view.findViewById(R.id.choice_5_text);
+
+        view.findViewById(R.id.choice_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mChoice = 2;
+                refreshChoiceView();
+            }
+        });
+
+        view.findViewById(R.id.choice_3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mChoice = 3;
+                refreshChoiceView();
+            }
+        });
+
+        view.findViewById(R.id.choice_4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mChoice = 4;
+                refreshChoiceView();
+            }
+        });
+
+        view.findViewById(R.id.choice_5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mChoice = 5;
+                refreshChoiceView();
+            }
+        });
+
+        Button loadQuestionBt = (Button) view.findViewById(R.id.load_question);
+        if (mForProfile)
+            loadQuestionBt.setVisibility(View.GONE);
+        loadQuestionBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClickerQuestionListFragment fragment = new ClickerQuestionListFragment(false);
+                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+            }
+        });
+
         return view;
+    }
+
+    private void refreshChoiceView() {
+
+        mChoice2Img.setSelected(false);
+        mChoice3Img.setSelected(false);
+        mChoice4Img.setSelected(false);
+        mChoice5Img.setSelected(false);
+
+        mChoice2Img.setTextColor(getResources().getColor(R.color.bttendance_silver));
+        mChoice3Img.setTextColor(getResources().getColor(R.color.bttendance_silver));
+        mChoice4Img.setTextColor(getResources().getColor(R.color.bttendance_silver));
+        mChoice5Img.setTextColor(getResources().getColor(R.color.bttendance_silver));
+
+        mChoice2Text.setTextColor(getResources().getColor(R.color.bttendance_silver));
+        mChoice3Text.setTextColor(getResources().getColor(R.color.bttendance_silver));
+        mChoice4Text.setTextColor(getResources().getColor(R.color.bttendance_silver));
+        mChoice5Text.setTextColor(getResources().getColor(R.color.bttendance_silver));
+
+        switch (mChoice) {
+            case 2:
+                mChoice2Img.setSelected(true);
+                mChoice2Img.setTextColor(getResources().getColor(R.color.bttendance_cyan));
+                mChoice2Text.setTextColor(getResources().getColor(R.color.bttendance_navy));
+                break;
+            case 3:
+                mChoice3Img.setSelected(true);
+                mChoice3Img.setTextColor(getResources().getColor(R.color.bttendance_cyan));
+                mChoice3Text.setTextColor(getResources().getColor(R.color.bttendance_navy));
+                break;
+            case 4:
+                mChoice4Img.setSelected(true);
+                mChoice4Img.setTextColor(getResources().getColor(R.color.bttendance_cyan));
+                mChoice4Text.setTextColor(getResources().getColor(R.color.bttendance_navy));
+                break;
+            case 5:
+                mChoice5Img.setSelected(true);
+                mChoice5Img.setTextColor(getResources().getColor(R.color.bttendance_cyan));
+                mChoice5Text.setTextColor(getResources().getColor(R.color.bttendance_navy));
+                break;
+        }
     }
 
     @Override
@@ -65,8 +184,16 @@ public class ClickerStartFragment extends BTFragment {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getString(R.string.start_clicker));
-        inflater.inflate(R.menu.clicker_start_menu, menu);
+        if (!mForProfile) {
+            actionBar.setTitle(getString(R.string.start_clicker));
+            inflater.inflate(R.menu.clicker_start_menu, menu);
+        } else if (mQuestion == null) {
+            actionBar.setTitle(getString(R.string.add_question));
+            inflater.inflate(R.menu.add_question_menu, menu);
+        } else {
+            actionBar.setTitle(getString(R.string.edit_question));
+            inflater.inflate(R.menu.add_question_menu, menu);
+        }
     }
 
     @Override
@@ -80,6 +207,48 @@ public class ClickerStartFragment extends BTFragment {
                 if (mMessage != null && mMessage.getText().toString().length() > 0) {
                     item.setEnabled(false);
                     BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.starting_clicker)));
+                    getBTService().postStartClicker(mCourseID, mMessage.getText().toString(), 4, new Callback<PostJson>() {
+                        @Override
+                        public void success(PostJson postJson, Response response) {
+                            item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                            if (ClickerStartFragment.this.getActivity() != null)
+                                ClickerStartFragment.this.getActivity().onBackPressed();
+                        }
+
+                        @Override
+                        public void failure(RetrofitError retrofitError) {
+                            item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                        }
+                    });
+                    return true;
+                }
+            case R.id.action_save:
+                if (mMessage != null && mMessage.getText().toString().length() > 0) {
+                    item.setEnabled(false);
+                    BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.saving_question)));
+                    getBTService().postStartClicker(mCourseID, mMessage.getText().toString(), 4, new Callback<PostJson>() {
+                        @Override
+                        public void success(PostJson postJson, Response response) {
+                            item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                            if (ClickerStartFragment.this.getActivity() != null)
+                                ClickerStartFragment.this.getActivity().onBackPressed();
+                        }
+
+                        @Override
+                        public void failure(RetrofitError retrofitError) {
+                            item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                        }
+                    });
+                    return true;
+                }
+            case R.id.action_edit:
+                if (mMessage != null && mMessage.getText().toString().length() > 0) {
+                    item.setEnabled(false);
+                    BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.saving_question)));
                     getBTService().postStartClicker(mCourseID, mMessage.getText().toString(), 4, new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {

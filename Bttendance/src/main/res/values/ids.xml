@@ -13,6 +13,8 @@
     <item name="post_title" type="id" />
     <item name="post_message" type="id" />
 
+    <item name="question_id" type="id" />
+
     <item name="image_url" type="id" />
 
     <item name="guide_type" type="id" />

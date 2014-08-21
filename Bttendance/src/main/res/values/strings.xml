@@ -264,5 +264,10 @@
     <string name="empty_school_name">School Name</string>
     <string name="notice_d_d_read">Notice (%1$d/%2$d read)</string>
     <string name="unread_notice">Unread Notice</string>
+    <string name="add_a_question">Add a Question</string>
+    <string name="clicker_questions">Clicker Questions</string>
+    <string name="add_question">Add Question</string>
+    <string name="saving_question">Saving Question</string>
+    <string name="edit_question">Edit Question</string>
 
 </resources>

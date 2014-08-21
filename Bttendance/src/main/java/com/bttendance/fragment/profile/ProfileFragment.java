@@ -16,6 +16,7 @@ import com.bttendance.adapter.ProfileAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UpdateUserEvent;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.clicker.ClickerQuestionListFragment;
 import com.bttendance.fragment.course.CourseDetailFragment;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
@@ -148,7 +149,8 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     }
 
     private void showSavedClicker() {
-
+        ClickerQuestionListFragment fragment = new ClickerQuestionListFragment(true);
+        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
     }
 
     private void showCourse(int courseID) {

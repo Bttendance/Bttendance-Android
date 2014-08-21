@@ -56,10 +56,40 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
     boolean mAuth;
     CourseJson mCourse;
 
-    public enum Type {UPDATE, TIPS, CLICKER, ATTENDANCE, NOTICE}
+    public enum Type {UPDATE, TIPS, GUIDE_CLICKER, GUIDE_ATTENDANCE, GUIDE_NOTICE, CLICKER, ATTENDANCE, NOTICE, CHOICE}
 
-    public FeedAdapter(Context context, Cursor c, int courseID) {
-        super(context, c, android.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+    private Type getType(Cursor cursor) {
+        int id = cursor.getInt(0);
+        if (id < 0) {
+            switch (id) {
+                case -1:
+                    return Type.TIPS;
+                case -2:
+                    return Type.GUIDE_CLICKER;
+                case -3:
+                    return Type.GUIDE_ATTENDANCE;
+                case -4:
+                    return Type.GUIDE_NOTICE;
+            }
+        } else {
+            PostJson post = BTTable.PostTable.get(id);
+            if ("clicker".equals(post.type)) {
+                if (!mAuth && post.clicker.getChoiceInt(mUser.id) == 6 && Clicker.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(post.createdAt) > 0)
+                    return Type.CHOICE;
+                return Type.CLICKER;
+            }
+
+            if ("attendance".equals(post.type))
+                return Type.ATTENDANCE;
+
+            if ("notice".equals(post.type))
+                return Type.NOTICE;
+        }
+        return Type.UPDATE;
+    }
+
+    public FeedAdapter(Context context, Cursor cursor, int courseID) {
+        super(context, cursor, android.widget.CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         mContext = context;
         mCourseID = courseID;
         mUser = BTPreference.getUser(context);
@@ -68,217 +98,235 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
     }
 
     @Override
+    public long getItemId(int position) {
+        Cursor cursor = (Cursor) getItem(position);
+        if (cursor == null)
+            return -1;
+
+        int id = cursor.getInt(0);
+        return id;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 3;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Cursor cursor = (Cursor) getItem(position);
+
+        switch (getType(cursor)) {
+            case CLICKER:
+            case ATTENDANCE:
+            case NOTICE:
+                return 0;
+            case CHOICE:
+                return 1;
+            case UPDATE:
+            case TIPS:
+            case GUIDE_CLICKER:
+            case GUIDE_ATTENDANCE:
+            case GUIDE_NOTICE:
+            default:
+                return 2;
+        }
+    }
+
+    @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.feed_item, null);
+
+        switch (getType(cursor)) {
+            case CLICKER:
+            case ATTENDANCE:
+            case NOTICE:
+                return inflater.inflate(R.layout.feed_item, null);
+            case CHOICE:
+                return inflater.inflate(R.layout.choice_item, null);
+            case UPDATE:
+            case TIPS:
+            case GUIDE_CLICKER:
+            case GUIDE_ATTENDANCE:
+            case GUIDE_NOTICE:
+            default:
+                return inflater.inflate(R.layout.guide_item, null);
+        }
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        int id = cursor.getInt(0);
-        if (id < 0) {
-            switch (id) {
-                case -1:
-                    drawGuide(view, context, Type.TIPS);
-                    break;
-                case -2:
-                    drawGuide(view, context, Type.CLICKER);
-                    break;
-                case -3:
-                    drawGuide(view, context, Type.ATTENDANCE);
-                    break;
-                case -4:
-                    drawGuide(view, context, Type.NOTICE);
-                    break;
-            }
-        } else {
-            PostJson post = BTTable.PostTable.get(id);
-            if ("clicker".equals(post.type))
-                drawClicker(view, context, post);
-            else if ("attendance".equals(post.type))
-                drawAttendance(view, context, post);
-            else if ("notice".equals(post.type))
-                drawNotice(view, context, post);
-            else
+
+        switch (getType(cursor)) {
+            case UPDATE:
                 drawGuide(view, context, Type.UPDATE);
+                break;
+            case TIPS:
+                drawGuide(view, context, Type.TIPS);
+                break;
+            case GUIDE_CLICKER:
+                drawGuide(view, context, Type.GUIDE_CLICKER);
+                break;
+            case GUIDE_ATTENDANCE:
+                drawGuide(view, context, Type.GUIDE_ATTENDANCE);
+                break;
+            case GUIDE_NOTICE:
+                drawGuide(view, context, Type.GUIDE_NOTICE);
+                break;
+            case CLICKER: {
+                PostJson post = BTTable.PostTable.get(cursor.getInt(0));
+                drawClicker(view, context, post);
+                break;
+            }
+            case ATTENDANCE: {
+                PostJson post = BTTable.PostTable.get(cursor.getInt(0));
+                drawAttendance(view, context, post);
+                break;
+            }
+            case NOTICE: {
+                PostJson post = BTTable.PostTable.get(cursor.getInt(0));
+                drawNotice(view, context, post);
+                break;
+            }
+            case CHOICE: {
+                PostJson post = BTTable.PostTable.get(cursor.getInt(0));
+                drawChoice(view, context, post);
+                break;
+            }
         }
+    }
+
+    private void drawChoice(View view, Context context, PostJson post) {
+
+        View margin_a = view.findViewById(R.id.margin_a);
+        Clicker choice_a = (Clicker) view.findViewById(R.id.choice_a);
+        View margin_b = view.findViewById(R.id.margin_b);
+        Clicker choice_b = (Clicker) view.findViewById(R.id.choice_b);
+        View margin_c = view.findViewById(R.id.margin_c);
+        Clicker choice_c = (Clicker) view.findViewById(R.id.choice_c);
+        View margin_d = view.findViewById(R.id.margin_d);
+        Clicker choice_d = (Clicker) view.findViewById(R.id.choice_d);
+        View margin_e = view.findViewById(R.id.margin_e);
+        Clicker choice_e = (Clicker) view.findViewById(R.id.choice_e);
+
+        margin_a.setVisibility(View.VISIBLE);
+        margin_b.setVisibility(View.VISIBLE);
+        margin_c.setVisibility(View.VISIBLE);
+        margin_d.setVisibility(View.VISIBLE);
+        margin_e.setVisibility(View.VISIBLE);
+
+        choice_a.setVisibility(View.VISIBLE);
+        choice_b.setVisibility(View.VISIBLE);
+        choice_c.setVisibility(View.VISIBLE);
+        choice_d.setVisibility(View.VISIBLE);
+        choice_e.setVisibility(View.VISIBLE);
+
+        choice_a.setTag(R.id.post_id, post.id);
+        choice_b.setTag(R.id.post_id, post.id);
+        choice_c.setTag(R.id.post_id, post.id);
+        choice_d.setTag(R.id.post_id, post.id);
+        choice_e.setTag(R.id.post_id, post.id);
+
+        choice_a.setOnClickListener(this);
+        choice_b.setOnClickListener(this);
+        choice_c.setOnClickListener(this);
+        choice_d.setOnClickListener(this);
+        choice_e.setOnClickListener(this);
+
+        choice_a.setClickable(true);
+        choice_b.setClickable(true);
+        choice_c.setClickable(true);
+        choice_d.setClickable(true);
+        choice_e.setClickable(true);
+
+        long currentTime = System.currentTimeMillis();
+        int progress = (int) (100.0f * (float) (Clicker.PROGRESS_DURATION - currentTime + DateHelper.getTime(post.createdAt)) / (float) Clicker.PROGRESS_DURATION);
+        choice_a.startClicker(progress);
+        choice_b.startClicker(progress);
+        choice_c.startClicker(progress);
+        choice_d.startClicker(progress);
+        choice_e.startClicker(progress);
+
+        switch (post.clicker.choice_count) {
+            case 2:
+                margin_c.setVisibility(View.GONE);
+                choice_c.setVisibility(View.GONE);
+            case 3:
+                margin_d.setVisibility(View.GONE);
+                choice_d.setVisibility(View.GONE);
+            case 4:
+                margin_e.setVisibility(View.GONE);
+                choice_e.setVisibility(View.GONE);
+            case 5:
+                break;
+        }
+
+        // Title, Message, Time
+        TextView title = (TextView) view.findViewById(R.id.choice_title);
+        TextView message = (TextView) view.findViewById(R.id.choice_message);
+        TextView time = (TextView) view.findViewById(R.id.time);
+
+        title.setVisibility(View.VISIBLE);
+        message.setVisibility(View.VISIBLE);
+        time.setVisibility(View.VISIBLE);
+
+        title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
+        title.setText(post.course.name);
+        message.setText(post.message);
+        time.setText(DateHelper.getBTFormatString(post.createdAt));
     }
 
     private void drawClicker(View view, Context context, PostJson post) {
 
-        UserJson user = BTPreference.getUser(mContext);
-        long currentTime = System.currentTimeMillis();
+        RelativeLayout clicker = (RelativeLayout) view.findViewById(R.id.clicker);
+        Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
+        View notice = view.findViewById(R.id.notice);
 
-        if (currentTime - DateHelper.getTime(post.createdAt) < Clicker.PROGRESS_DURATION
-                && !IntArrayHelper.contains(user.supervising_courses, post.course.id)
-                && !IntArrayHelper.contains(post.clicker.a_students, user.id)
-                && !IntArrayHelper.contains(post.clicker.b_students, user.id)
-                && !IntArrayHelper.contains(post.clicker.c_students, user.id)
-                && !IntArrayHelper.contains(post.clicker.d_students, user.id)
-                && !IntArrayHelper.contains(post.clicker.e_students, user.id)) {
+        clicker.setVisibility(View.VISIBLE);
+        bttendance.setVisibility(View.GONE);
+        notice.setVisibility(View.GONE);
 
-            RelativeLayout normal = (RelativeLayout) view.findViewById(R.id.normal);
-            RelativeLayout choice = (RelativeLayout) view.findViewById(R.id.choice);
+        DefaultRenderer renderer = post.clicker.getRenderer(context);
+        CategorySeries series = post.clicker.getSeries();
+        GraphicalView chartView = ChartFactory.getPieChartView(context, series, renderer);
+        clicker.addView(chartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-            normal.setVisibility(View.GONE);
-            choice.setVisibility(View.VISIBLE);
+        View ring = new View(context);
+        ring.setBackgroundResource(R.drawable.ic_clicker_ring);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) getPixel(context, 52), (int) getPixel(context, 52));
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        clicker.addView(ring, params);
 
-            View margin_a = view.findViewById(R.id.margin_a);
-            Clicker choice_a = (Clicker) view.findViewById(R.id.choice_a);
-            View margin_b = view.findViewById(R.id.margin_b);
-            Clicker choice_b = (Clicker) view.findViewById(R.id.choice_b);
-            View margin_c = view.findViewById(R.id.margin_c);
-            Clicker choice_c = (Clicker) view.findViewById(R.id.choice_c);
-            View margin_d = view.findViewById(R.id.margin_d);
-            Clicker choice_d = (Clicker) view.findViewById(R.id.choice_d);
-            View margin_e = view.findViewById(R.id.margin_e);
-            Clicker choice_e = (Clicker) view.findViewById(R.id.choice_e);
+        // Title, Message, Time
+        TextView title = (TextView) view.findViewById(R.id.title);
+        TextView message = (TextView) view.findViewById(R.id.message);
+        TextView time = (TextView) view.findViewById(R.id.time);
 
-            margin_a.setVisibility(View.VISIBLE);
-            margin_b.setVisibility(View.VISIBLE);
-            margin_c.setVisibility(View.VISIBLE);
-            margin_d.setVisibility(View.VISIBLE);
-            margin_e.setVisibility(View.VISIBLE);
+        title.setVisibility(View.VISIBLE);
+        message.setVisibility(View.VISIBLE);
+        time.setVisibility(View.VISIBLE);
 
-            choice_a.setVisibility(View.VISIBLE);
-            choice_b.setVisibility(View.VISIBLE);
-            choice_c.setVisibility(View.VISIBLE);
-            choice_d.setVisibility(View.VISIBLE);
-            choice_e.setVisibility(View.VISIBLE);
+        title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
+        title.setText(post.course.name);
+        message.setText(post.message + "\n" + post.clicker.getDetail());
+        time.setText(DateHelper.getBTFormatString(post.createdAt));
 
-            choice_a.setTag(R.id.post_id, post.id);
-            choice_b.setTag(R.id.post_id, post.id);
-            choice_c.setTag(R.id.post_id, post.id);
-            choice_d.setTag(R.id.post_id, post.id);
-            choice_e.setTag(R.id.post_id, post.id);
-
-            choice_a.setOnClickListener(this);
-            choice_b.setOnClickListener(this);
-            choice_c.setOnClickListener(this);
-            choice_d.setOnClickListener(this);
-            choice_e.setOnClickListener(this);
-
-            choice_a.setClickable(true);
-            choice_b.setClickable(true);
-            choice_c.setClickable(true);
-            choice_d.setClickable(true);
-            choice_e.setClickable(true);
-
-            int progress = (int) (100.0f * (float) (Clicker.PROGRESS_DURATION - currentTime + DateHelper.getTime(post.createdAt)) / (float) Clicker.PROGRESS_DURATION);
-            choice_a.startClicker(progress);
-            choice_b.startClicker(progress);
-            choice_c.startClicker(progress);
-            choice_d.startClicker(progress);
-            choice_e.startClicker(progress);
-
-            switch (post.clicker.choice_count) {
-                case 2:
-                    margin_c.setVisibility(View.GONE);
-                    choice_c.setVisibility(View.GONE);
-                case 3:
-                    margin_d.setVisibility(View.GONE);
-                    choice_d.setVisibility(View.GONE);
-                case 4:
-                    margin_e.setVisibility(View.GONE);
-                    choice_e.setVisibility(View.GONE);
-                case 5:
-                    break;
-            }
-
-            // Title, Message, Time
-            TextView title = (TextView) view.findViewById(R.id.choice_title);
-            TextView message = (TextView) view.findViewById(R.id.choice_message);
-            TextView time = (TextView) view.findViewById(R.id.time);
-            TextView guideMessage = (TextView) view.findViewById(R.id.guide_message);
-
-            title.setVisibility(View.VISIBLE);
-            message.setVisibility(View.VISIBLE);
-            time.setVisibility(View.VISIBLE);
-            guideMessage.setVisibility(View.GONE);
-
-            title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
-            title.setText(post.course.name);
-            message.setText(post.message);
-            time.setText(DateHelper.getBTFormatString(post.createdAt));
-
-            // Selector Events
-            View selector = view.findViewById(R.id.item_selector);
-            selector.setTag(R.id.post_id, null);
-            selector.setTag(R.id.guide_type, null);
-            selector.setClickable(false);
-            selector.setVisibility(View.GONE);
-        } else {
-            RelativeLayout normal = (RelativeLayout) view.findViewById(R.id.normal);
-            RelativeLayout choice = (RelativeLayout) view.findViewById(R.id.choice);
-
-            normal.setVisibility(View.VISIBLE);
-            choice.setVisibility(View.GONE);
-
-            RelativeLayout clicker = (RelativeLayout) view.findViewById(R.id.clicker);
-            Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
-            View notice = view.findViewById(R.id.notice);
-            View guide = view.findViewById(R.id.guide);
-
-            clicker.setVisibility(View.VISIBLE);
-            bttendance.setVisibility(View.GONE);
-            notice.setVisibility(View.GONE);
-            guide.setVisibility(View.GONE);
-
-            DefaultRenderer renderer = post.clicker.getRenderer(context);
-            CategorySeries series = post.clicker.getSeries();
-            GraphicalView chartView = ChartFactory.getPieChartView(context, series, renderer);
-            clicker.addView(chartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-            View ring = new View(context);
-            ring.setBackgroundResource(R.drawable.ic_clicker_ring);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) getPixel(context, 52), (int) getPixel(context, 52));
-            params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-            clicker.addView(ring, params);
-
-            // Title, Message, Time
-            TextView title = (TextView) view.findViewById(R.id.title);
-            TextView message = (TextView) view.findViewById(R.id.message);
-            TextView time = (TextView) view.findViewById(R.id.time);
-            TextView guideMessage = (TextView) view.findViewById(R.id.guide_message);
-
-            title.setVisibility(View.VISIBLE);
-            message.setVisibility(View.VISIBLE);
-            time.setVisibility(View.VISIBLE);
-            guideMessage.setVisibility(View.GONE);
-
-            title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
-            title.setText(post.course.name);
-            message.setText(post.message + "\n" + post.clicker.getDetail());
-            time.setText(DateHelper.getBTFormatString(post.createdAt));
-
-            // Selector Events
-            View selector = view.findViewById(R.id.item_selector);
-            selector.setTag(R.id.post_id, post.id);
-            selector.setTag(R.id.guide_type, null);
-            selector.setOnClickListener(this);
-            selector.setClickable(true);
-            selector.setVisibility(View.VISIBLE);
-        }
+        // Selector Events
+        View selector = view.findViewById(R.id.item_selector);
+        selector.setTag(R.id.post_id, post.id);
+        selector.setOnClickListener(this);
     }
 
     private void drawAttendance(View view, Context context, PostJson post) {
         UserJson user = BTPreference.getUser(context);
 
-        RelativeLayout normal = (RelativeLayout) view.findViewById(R.id.normal);
-        RelativeLayout choice = (RelativeLayout) view.findViewById(R.id.choice);
-
-        normal.setVisibility(View.VISIBLE);
-        choice.setVisibility(View.GONE);
-
         RelativeLayout clicker = (RelativeLayout) view.findViewById(R.id.clicker);
         Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
         View notice = view.findViewById(R.id.notice);
-        View guide = view.findViewById(R.id.guide);
 
         clicker.setVisibility(View.GONE);
         bttendance.setVisibility(View.VISIBLE);
         notice.setVisibility(View.GONE);
-        guide.setVisibility(View.GONE);
 
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
 
@@ -312,12 +360,10 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
         TextView time = (TextView) view.findViewById(R.id.time);
-        TextView guideMessage = (TextView) view.findViewById(R.id.guide_message);
 
         title.setVisibility(View.VISIBLE);
         message.setVisibility(View.VISIBLE);
         time.setVisibility(View.VISIBLE);
-        guideMessage.setVisibility(View.GONE);
 
         title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
         title.setText(post.course.name);
@@ -346,40 +392,27 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);
         selector.setTag(R.id.post_id, post.id);
-        selector.setTag(R.id.guide_type, null);
         selector.setOnClickListener(this);
-        selector.setClickable(true);
-        selector.setVisibility(View.VISIBLE);
     }
 
     private void drawNotice(View view, Context context, PostJson post) {
 
-        RelativeLayout normal = (RelativeLayout) view.findViewById(R.id.normal);
-        RelativeLayout choice = (RelativeLayout) view.findViewById(R.id.choice);
-
-        normal.setVisibility(View.VISIBLE);
-        choice.setVisibility(View.GONE);
-
         RelativeLayout clicker = (RelativeLayout) view.findViewById(R.id.clicker);
         Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
         View notice = view.findViewById(R.id.notice);
-        View guide = view.findViewById(R.id.guide);
 
         clicker.setVisibility(View.GONE);
         bttendance.setVisibility(View.GONE);
         notice.setVisibility(View.VISIBLE);
-        guide.setVisibility(View.GONE);
 
         // Title, Message, Time
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView message = (TextView) view.findViewById(R.id.message);
         TextView time = (TextView) view.findViewById(R.id.time);
-        TextView guideMessage = (TextView) view.findViewById(R.id.guide_message);
 
         title.setVisibility(View.VISIBLE);
         message.setVisibility(View.VISIBLE);
         time.setVisibility(View.VISIBLE);
-        guideMessage.setVisibility(View.GONE);
 
         if (mAuth) {
             int studentCount = 0;
@@ -423,40 +456,13 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);
         selector.setTag(R.id.post_id, post.id);
-        selector.setTag(R.id.guide_type, null);
         selector.setOnClickListener(this);
-        selector.setClickable(true);
-        selector.setVisibility(View.VISIBLE);
     }
 
     private void drawGuide(View view, Context context, Type type) {
 
-        RelativeLayout normal = (RelativeLayout) view.findViewById(R.id.normal);
-        RelativeLayout choice = (RelativeLayout) view.findViewById(R.id.choice);
-
-        normal.setVisibility(View.VISIBLE);
-        choice.setVisibility(View.GONE);
-
-        RelativeLayout clicker = (RelativeLayout) view.findViewById(R.id.clicker);
-        Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
-        View notice = view.findViewById(R.id.notice);
         View guide = view.findViewById(R.id.guide);
-
-        clicker.setVisibility(View.GONE);
-        bttendance.setVisibility(View.GONE);
-        notice.setVisibility(View.GONE);
-        guide.setVisibility(View.VISIBLE);
-
-        // Title, Message, Time
-        TextView title = (TextView) view.findViewById(R.id.title);
-        TextView message = (TextView) view.findViewById(R.id.message);
-        TextView time = (TextView) view.findViewById(R.id.time);
         TextView guideMessage = (TextView) view.findViewById(R.id.guide_message);
-
-        title.setVisibility(View.GONE);
-        message.setVisibility(View.GONE);
-        time.setVisibility(View.GONE);
-        guideMessage.setVisibility(View.VISIBLE);
 
         switch (type) {
             case UPDATE:
@@ -467,15 +473,15 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                 guideMessage.setText(context.getString(R.string.post_guide_tips));
                 guide.setBackgroundResource(R.drawable.ic_bttendance_big);
                 break;
-            case CLICKER:
+            case GUIDE_CLICKER:
                 guideMessage.setText(context.getString(R.string.post_guide_clicker));
                 guide.setBackgroundResource(R.drawable.ic_clicker_big);
                 break;
-            case ATTENDANCE:
+            case GUIDE_ATTENDANCE:
                 guideMessage.setText(context.getString(R.string.post_guide_attendance));
                 guide.setBackgroundResource(R.drawable.ic_attendance_big);
                 break;
-            case NOTICE:
+            case GUIDE_NOTICE:
                 guideMessage.setText(context.getString(R.string.post_guide_notice));
                 guide.setBackgroundResource(R.drawable.ic_notice_big);
                 break;
@@ -483,21 +489,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
 
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);
-        selector.setTag(R.id.post_id, null);
         selector.setTag(R.id.guide_type, type);
         selector.setOnClickListener(this);
-        selector.setClickable(true);
-        selector.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        Cursor cursor = (Cursor) getItem(position);
-        if (cursor == null)
-            return -1;
-
-        int id = cursor.getInt(0);
-        return id;
     }
 
     @Override
@@ -538,7 +531,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                                     ((BTActivity) mContext).overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             }
                             break;
-                        case CLICKER: {
+                        case GUIDE_CLICKER: {
                             SimpleWebViewFragment fragment = new SimpleWebViewFragment();
                             Bundle bundle = new Bundle();
                             bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialClicker(mContext));
@@ -546,7 +539,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                             break;
                         }
-                        case ATTENDANCE: {
+                        case GUIDE_ATTENDANCE: {
                             SimpleWebViewFragment fragment = new SimpleWebViewFragment();
                             Bundle bundle = new Bundle();
                             bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialAttendance(mContext));
@@ -554,7 +547,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                             break;
                         }
-                        case NOTICE: {
+                        case GUIDE_NOTICE: {
                             SimpleWebViewFragment fragment = new SimpleWebViewFragment();
                             Bundle bundle = new Bundle();
                             bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialNotice(mContext));

@@ -37,6 +37,7 @@ import com.bttendance.model.cursor.PostCursor;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.PostJson;
+import com.bttendance.model.json.PostJsonArray;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
@@ -159,6 +160,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         mListView.addFooterView(padding);
         mAdapter = new FeedAdapter(getActivity(), null, mCourse.id);
         mListView.setAdapter(mAdapter);
+        swapCursor();
         return view;
     }
 
@@ -175,7 +177,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         getBTService().courseFeed(mCourse.id, 0, new Callback<PostJson[]>() {
             @Override
             public void success(PostJson[] posts, Response response) {
-                mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourse.id)));
+                swapCursor();
             }
 
             @Override
@@ -270,6 +272,12 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    if (BTTable.getPostsOfCourse(mCourse.id) == null) {
+                        PostJsonArray postJsonArray = BTPreference.getPostsOfCourse(getActivity(), mCourse.id);
+                        if (postJsonArray != null)
+                            for (PostJson post : postJsonArray.posts)
+                                BTTable.PostTable.append(post.id, post);
+                    }
                     mAdapter.swapCursor(new PostCursor(BTTable.getPostsOfCourse(mCourse.id)));
                 }
             });

@@ -48,12 +48,14 @@
             android:paddingBottom="10dp">
 
             <LinearLayout
+                android:id="@+id/choice_2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/choice_2_image"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:background="@drawable/choices_bg"
@@ -64,6 +66,7 @@
                     android:textSize="26sp" />
 
                 <TextView
+                    android:id="@+id/choice_2_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
@@ -76,12 +79,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/choice_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/choice_3_image"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:background="@drawable/choices_bg"
@@ -92,6 +97,7 @@
                     android:textSize="26sp" />
 
                 <TextView
+                    android:id="@+id/choice_3_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
@@ -112,12 +118,14 @@
             android:paddingBottom="10dp">
 
             <LinearLayout
+                android:id="@+id/choice_4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/choice_4_image"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:background="@drawable/choices_bg"
@@ -128,6 +136,7 @@
                     android:textSize="26sp" />
 
                 <TextView
+                    android:id="@+id/choice_4_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
@@ -140,12 +149,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/choice_5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/choice_5_image"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:background="@drawable/choices_bg"
@@ -156,6 +167,7 @@
                     android:textSize="26sp" />
 
                 <TextView
+                    android:id="@+id/choice_5_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"

@@ -22,6 +22,31 @@ public class ClickerJsonSimple extends BTJsonSimple {
     public int[] e_students;
     public int post;
 
+    public int getChoiceInt(int userID) {
+
+        for (int i = 0; i < a_students.length; i++)
+            if (a_students[i] == userID)
+                return 1;
+
+        for (int i = 0; i < b_students.length; i++)
+            if (b_students[i] == userID)
+                return 2;
+
+        for (int i = 0; i < c_students.length; i++)
+            if (c_students[i] == userID)
+                return 3;
+
+        for (int i = 0; i < d_students.length; i++)
+            if (d_students[i] == userID)
+                return 4;
+
+        for (int i = 0; i < e_students.length; i++)
+            if (e_students[i] == userID)
+                return 5;
+
+        return 6;
+    }
+
     public String getDetail() {
         int total = a_students.length + b_students.length + c_students.length + d_students.length + e_students.length;
         int a = 0, b = 0, c = 0, d = 0, e = 0;

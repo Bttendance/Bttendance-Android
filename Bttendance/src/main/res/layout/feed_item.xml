@@ -24,210 +24,65 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:id="@+id/normal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:id="@+id/clicker"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="19dp"
+            android:visibility="gone" />
 
-            <RelativeLayout
-                android:id="@+id/clicker"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="9dp"
-                android:layout_marginTop="19dp"
-                android:visibility="gone" />
+        <com.bttendance.view.Bttendance
+            android:id="@+id/bttendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="18dp"
+            app:type="Small" />
 
-            <com.bttendance.view.Bttendance
-                android:id="@+id/bttendance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="18dp"
-                app:type="Small" />
+        <View
+            android:id="@+id/notice"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/ic_notice_big"
+            android:visibility="gone" />
 
-            <View
-                android:id="@+id/notice"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="18dp"
-                android:background="@drawable/ic_notice_big"
-                android:visibility="gone" />
-
-            <View
-                android:id="@+id/guide"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="18dp"
-                android:background="@drawable/ic_bttendance_big"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/title"
-                style="@style/itemTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="81dp"
-                android:layout_marginRight="13dp"
-                android:layout_marginTop="26dp"
-                android:clickable="false"
-                android:focusable="false"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/message"
-                style="@style/itemTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="81dp"
-                android:layout_marginRight="13dp"
-                android:layout_marginTop="43dp"
-                android:background="@null"
-                android:clickable="false"
-                android:focusable="false"
-                android:lineSpacingExtra="1dp"
-                android:paddingBottom="10dp" />
-
-            <TextView
-                android:id="@+id/guide_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:paddingTop="22dp"
-                android:layout_marginLeft="81dp"
-                android:layout_marginRight="13dp"
-                android:background="@null"
-                android:clickable="false"
-                android:focusable="false"
-                android:lineSpacingExtra="5dp"
-                android:includeFontPadding="false"
-                android:textColor="@color/bttendance_silver"
-                android:textSize="14sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/choice"
+        <TextView
+            android:id="@+id/title"
+            style="@style/itemTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="81dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="26dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/choice_title"
-                style="@style/itemTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="16dp"
-                android:clickable="false"
-                android:focusable="false"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Architecture"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/choice_message"
-                style="@style/itemTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="33dp"
-                android:clickable="false"
-                android:focusable="false"
-                android:gravity="center"
-                android:lineSpacingExtra="1dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="PPT#2 Slide#17 Problem" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="72dp"
-                android:paddingBottom="20dp">
-
-                <View
-                    android:id="@+id/margin_a"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <com.bttendance.view.Clicker
-                    android:id="@+id/choice_a"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:alphabet="A" />
-
-                <View
-                    android:id="@+id/margin_b"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <com.bttendance.view.Clicker
-                    android:id="@+id/choice_b"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:alphabet="B" />
-
-                <View
-                    android:id="@+id/margin_c"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <com.bttendance.view.Clicker
-                    android:id="@+id/choice_c"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:alphabet="C" />
-
-                <View
-                    android:id="@+id/margin_d"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <com.bttendance.view.Clicker
-                    android:id="@+id/choice_d"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:alphabet="D" />
-
-                <View
-                    android:id="@+id/margin_e"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <com.bttendance.view.Clicker
-                    android:id="@+id/choice_e"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:alphabet="E" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/message"
+            style="@style/itemTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="81dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="43dp"
+            android:background="@null"
+            android:clickable="false"
+            android:focusable="false"
+            android:lineSpacingExtra="1dp"
+            android:paddingBottom="10dp" />
 
     </RelativeLayout>
 
