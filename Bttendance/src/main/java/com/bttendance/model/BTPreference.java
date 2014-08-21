@@ -141,12 +141,12 @@ public class BTPreference {
         }
     }
 
-    public static void setPostsOfCourse(Context ctx, PostJsonArray postJsonArray, int courseId) {
+    public static void setPostsOfCourse(Context ctx, PostJsonArray postJsonArray, int courseID) {
         Gson gson = new Gson();
         String jsonStr = gson.toJson(postJsonArray);
 
         Editor edit = getInstance(ctx).edit();
-        edit.putString("posts_" + courseId, jsonStr);
+        edit.putString("posts_" + courseID, jsonStr);
         edit.commit();
     }
 

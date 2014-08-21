@@ -73,6 +73,7 @@ public class ClickerStartFragment extends BTFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        KeyboardHelper.hide(getActivity(), mMessage);
     }
 
     @Override
@@ -80,12 +81,6 @@ public class ClickerStartFragment extends BTFragment {
         super.onFragmentResume();
         KeyboardHelper.show(getActivity(), mMessage);
         mMessage.setSelection(mMessage.getText().length(), mMessage.getText().length());
-    }
-
-    @Override
-    public void onFragmentPause() {
-        super.onFragmentPause();
-        KeyboardHelper.hide(getActivity(), mMessage);
     }
 
     @Override
@@ -148,6 +143,7 @@ public class ClickerStartFragment extends BTFragment {
         loadQuestionBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                KeyboardHelper.hide(getActivity(), mMessage);
                 ClickerQuestionListFragment fragment = new ClickerQuestionListFragment(false, new ClickerQuestionListFragment.QuestionChosenListener() {
                     @Override
                     public void OnQuestionChosen(QuestionJson question) {

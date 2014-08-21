@@ -114,7 +114,7 @@ public class BTActivity extends SherlockFragmentActivity {
                     mLastFragment = frag;
 
                     if (frag != null)
-                        frag.onFragmentResume();
+                        frag.onPendingFragmentResume();
                 }
             }
         });

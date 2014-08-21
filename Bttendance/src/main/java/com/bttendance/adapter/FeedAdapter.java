@@ -24,6 +24,7 @@ import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.fragment.attendance.AttendanceDetailFragment;
 import com.bttendance.fragment.clicker.ClickerDetailFragment;
+import com.bttendance.fragment.notice.NoticeDetailFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.PackagesHelper;
@@ -568,6 +569,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                         ClickerDetailFragment frag = new ClickerDetailFragment(post.id);
                         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                     } else if ("notice".equals(post.type)) {
+                        NoticeDetailFragment frag = new NoticeDetailFragment(post.id);
+                        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                     } else {
                     }
                 }

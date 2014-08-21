@@ -107,7 +107,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             case android.R.id.home:
                 getActivity().onBackPressed();
                 return true;
-            case R.id.action_setting:
+            case R.id.action_course_setting:
                 if (mAuth && mCourse.opened) {
                     CourseSettingFragment fragment = new CourseSettingFragment(mCourse.id);
                     BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
@@ -166,9 +166,21 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         return view;
     }
 
+    @Subscribe
+    public void onUpdate(UpdateFeedEvent event) {
+        swapCursor();
+        refreshHeader();
+    }
+
+    @Subscribe
+    public void onRefresh(RefreshFeedEvent event) {
+        getFeed();
+        refreshHeader();
+    }
+
     @Override
-    public void onServiceConnected() {
-        super.onServiceConnected();
+    public void onFragmentResume() {
+        super.onFragmentResume();
         getFeed();
     }
 
@@ -251,30 +263,12 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         });
     }
 
-    @Subscribe
-    public void onUpdate(UpdateFeedEvent event) {
-        swapCursor();
-        refreshHeader();
-    }
-
-    @Subscribe
-    public void onRefresh(RefreshFeedEvent event) {
-        getFeed();
-        refreshHeader();
-    }
-
-    @Override
-    public void onFragmentResume() {
-        super.onFragmentResume();
-        swapCursor();
-    }
-
     private void swapCursor() {
         if (this.isAdded() && mAdapter != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (BTTable.getPostsOfCourse(mCourse.id) == null) {
+                    if (BTTable.getPostsOfCourse(mCourse.id).size() == 0) {
                         PostJsonArray postJsonArray = BTPreference.getPostsOfCourse(getActivity(), mCourse.id);
                         if (postJsonArray != null)
                             for (PostJson post : postJsonArray.posts)

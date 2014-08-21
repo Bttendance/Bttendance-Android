@@ -9,7 +9,6 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.activity.MainActivity;
@@ -87,6 +86,15 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         super.onResume();
     }
 
+    private boolean mPendingResume;
+
+    public void onPendingFragmentResume() {
+        if (getBTService() == null)
+            mPendingResume = true;
+        else
+            onFragmentResume();
+    }
+
     public void onFragmentResume() {
     }
 
@@ -95,6 +103,8 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
 
     @Override
     public void onServiceConnected() {
+        if (mPendingResume)
+            onFragmentResume();
     }
 
     @Override

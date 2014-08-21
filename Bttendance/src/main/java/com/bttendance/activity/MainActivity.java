@@ -108,8 +108,10 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             fragment = new CourseDetailFragment(lastCourse);
 
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0)
+        if (fm.getBackStackEntryCount() == 0) {
             fm.beginTransaction().replace(R.id.content, fragment).commit();
+            fragment.onPendingFragmentResume();
+        }
     }
 
     @Override
@@ -302,8 +304,10 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     // onDrawerClosed
     private void replacePendingFragment() {
         FragmentManager fm = getSupportFragmentManager();
-        if (pendingFragment != null && fm.getBackStackEntryCount() == 0)
+        if (pendingFragment != null && fm.getBackStackEntryCount() == 0) {
             fm.beginTransaction().replace(R.id.content, pendingFragment).commit();
+            pendingFragment.onPendingFragmentResume();
+        }
         pendingFragment = null;
     }
 

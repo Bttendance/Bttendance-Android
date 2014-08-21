@@ -125,8 +125,9 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
     }
 
     @Override
-    public void onServiceConnected() {
-        super.onServiceConnected();
+    public void onFragmentResume() {
+        super.onFragmentResume();
+        getQuestion();
     }
 
     public void getQuestion() {
@@ -143,12 +144,6 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
             public void failure(RetrofitError retrofitError) {
             }
         });
-    }
-
-    @Override
-    public void onFragmentResume() {
-        super.onFragmentResume();
-        getQuestion();
     }
 
     private void swapCursor() {
@@ -180,6 +175,7 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
         } else if (mListener != null) {
             mListener.OnQuestionChosen(question);
+            getActivity().onBackPressed();
         }
     }
 }

@@ -274,5 +274,11 @@
     <string name="no_course_add_info">You should create a course (professor)\nor attend a course (student)\nbefore using BTTENDANCE.</string>
     <string name="no_course_guide_title">You have no course yet!</string>
     <string name="updating_question">Updating Question</string>
+    <string name="show_details">Show Details</string>
+    <string name="notice_detail_prof">* This notice was written in %1$s.\n* %2$d out of %3$d (%4$d%%) student(s) read this notice.</string>
+    <string name="notice_detail_std_read">* This notice was written in %s.\n* You have read this notice.</string>
+    <string name="notice_detail_std_unread">* This notice was written in %s.\n* You have not read this notice.</string>
+    <string name="delete_notice">Delete Notice</string>
+    <string name="deleting_notice">Deleting Notice</string>
 
 </resources>

@@ -108,7 +108,16 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     public void onFragmentResume() {
         super.onFragmentResume();
         KeyboardHelper.hide(getActivity(), mEditSearch);
-        swapItems();
+        getBTService().allSchools(new Callback<SchoolJson[]>() {
+            @Override
+            public void success(SchoolJson[] schoolJsons, Response response) {
+                swapItems();
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+            }
+        });
     }
 
     @Subscribe
@@ -129,21 +138,6 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
                 }
             });
         }
-    }
-
-    @Override
-    public void onServiceConnected() {
-        super.onServiceConnected();
-        getBTService().allSchools(new Callback<SchoolJson[]>() {
-            @Override
-            public void success(SchoolJson[] schoolJsons, Response response) {
-                swapItems();
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-            }
-        });
     }
 
     @Override
@@ -202,7 +196,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
         int schoolID = mAdapter.getCursor().getInt(0);
-        ((CreateCourseActivity)getActivity()).setSchool(BTTable.AllSchoolTable.get(schoolID));
+        ((CreateCourseActivity) getActivity()).setSchool(BTTable.AllSchoolTable.get(schoolID));
         getActivity().onBackPressed();
     }
 }

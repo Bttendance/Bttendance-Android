@@ -67,12 +67,6 @@ public class AttendanceDetailFragment extends BTFragment implements View.OnClick
         requestCall();
     }
 
-    @Override
-    public void onServiceConnected() {
-        super.onServiceConnected();
-        requestCall();
-    }
-
     private void requestCall() {
         if (getBTService() == null)
             return;

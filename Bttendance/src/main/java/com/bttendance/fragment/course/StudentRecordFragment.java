@@ -65,6 +65,7 @@ public class StudentRecordFragment extends BTFragment {
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
+        requestCall();
     }
 
     private void requestCall() {
@@ -153,12 +154,6 @@ public class StudentRecordFragment extends BTFragment {
 
 
         mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onServiceConnected() {
-        super.onServiceConnected();
-        requestCall();
     }
 
     @Override
