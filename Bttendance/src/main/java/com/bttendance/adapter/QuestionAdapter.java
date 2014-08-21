@@ -6,13 +6,12 @@ import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.QuestionJson;
-import com.bttendance.view.Bttendance;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
@@ -42,43 +41,15 @@ public class QuestionAdapter extends CursorAdapter implements View.OnClickListen
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         QuestionJson question = BTTable.MyQuestionTable.get(cursor.getInt(0));
-        drawQuestion(view, context, question);
+        drawQuestion(view, question);
     }
 
-    private void drawQuestion(View view, Context context, QuestionJson question) {
+    private void drawQuestion(View view, QuestionJson question) {
 
-        RelativeLayout clicker = (RelativeLayout) view.findViewById(R.id.clicker);
-        Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
-        View notice = view.findViewById(R.id.notice);
-
-        clicker.setVisibility(View.VISIBLE);
-        bttendance.setVisibility(View.GONE);
-        notice.setVisibility(View.GONE);
-
-//        DefaultRenderer renderer = post.clicker.getRenderer(context);
-//        CategorySeries series = post.clicker.getSeries();
-//        GraphicalView chartView = ChartFactory.getPieChartView(context, series, renderer);
-//        clicker.addView(chartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//
-//        View ring = new View(context);
-//        ring.setBackgroundResource(R.drawable.ic_clicker_ring);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) getPixel(context, 52), (int) getPixel(context, 52));
-//        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-//        clicker.addView(ring, params);
-//
-//        // Title, Message, Time
-//        TextView title = (TextView) view.findViewById(R.id.title);
-//        TextView message = (TextView) view.findViewById(R.id.message);
-//        TextView time = (TextView) view.findViewById(R.id.time);
-//
-//        title.setVisibility(View.VISIBLE);
-//        message.setVisibility(View.VISIBLE);
-//        time.setVisibility(View.VISIBLE);
-//
-//        title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
-//        title.setText(post.course.name);
-//        message.setText(post.message + "\n" + post.clicker.getDetail());
-//        time.setText(DateHelper.getBTFormatString(post.createdAt));
+        if (question != null) {
+            ((TextView) view.findViewById(R.id.choice)).setText("" + question.choice_count);
+            ((TextView) view.findViewById(R.id.message)).setText(question.message);
+        }
 
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);
@@ -90,10 +61,7 @@ public class QuestionAdapter extends CursorAdapter implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.item_selector:
-                BTDebug.LogError(v.getParent().getParent().getClass().getSimpleName());
-                QuestionJson question = BTTable.MyQuestionTable.get((Integer) v.getTag(R.id.question_id));
-                if (question == null)
-                    return;
+                ((ListView) v.getParent().getParent()).performItemClick(v, 0, 0);
                 break;
             default:
                 break;

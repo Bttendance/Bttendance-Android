@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -31,16 +32,29 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2014. 8. 20..
  */
-public class ClickerQuestionListFragment extends BTFragment {
+public class ClickerQuestionListFragment extends BTFragment implements AdapterView.OnItemClickListener {
 
     ListView mListView;
     QuestionAdapter mAdapter;
     UserJson mUser;
     boolean mForProfile;
 
+    QuestionChosenListener mListener;
+
+    public interface QuestionChosenListener {
+        public void OnQuestionChosen(QuestionJson question);
+    }
+
     public ClickerQuestionListFragment(boolean forProfile) {
         mUser = BTPreference.getUser(getActivity());
         mForProfile = forProfile;
+        mListener = null;
+    }
+
+    public ClickerQuestionListFragment(boolean forProfile, QuestionChosenListener listener) {
+        mUser = BTPreference.getUser(getActivity());
+        mForProfile = forProfile;
+        mListener = listener;
     }
 
     /**
@@ -93,6 +107,7 @@ public class ClickerQuestionListFragment extends BTFragment {
         mListView.addFooterView(paddingBottom);
         mAdapter = new QuestionAdapter(getActivity(), null);
         mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(this);
 
         Button addQuestionBt = (Button) view.findViewById(R.id.add_question_bt);
         if (!mForProfile)
@@ -112,7 +127,6 @@ public class ClickerQuestionListFragment extends BTFragment {
     @Override
     public void onServiceConnected() {
         super.onServiceConnected();
-        getQuestion();
     }
 
     public void getQuestion() {
@@ -134,7 +148,7 @@ public class ClickerQuestionListFragment extends BTFragment {
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
-        swapCursor();
+        getQuestion();
     }
 
     private void swapCursor() {
@@ -151,6 +165,21 @@ public class ClickerQuestionListFragment extends BTFragment {
                     mAdapter.swapCursor(new QuestionCursor(BTTable.MyQuestionTable));
                 }
             });
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        QuestionJson question = BTTable.MyQuestionTable.get((Integer) view.getTag(R.id.question_id));
+        if (question == null)
+            return;
+
+        if (mForProfile) {
+            ClickerStartFragment fragment = new ClickerStartFragment(question);
+            BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+        } else if (mListener != null) {
+            mListener.OnQuestionChosen(question);
         }
     }
 }

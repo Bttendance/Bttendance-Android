@@ -22,7 +22,8 @@
             android:paddingRight="16dp"
             android:text="@string/clicker_start_guide"
             android:textSize="12sp"
-            android:textColor="@color/bttendance_silver" />
+            android:textColor="@color/bttendance_silver"
+            android:id="@+id/clicker_start_guide" />
 
         <EditText
             android:id="@+id/message_edit"
@@ -45,7 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:id="@+id/clicker_start_choice_1">
 
             <LinearLayout
                 android:id="@+id/choice_2"
@@ -115,7 +117,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:id="@+id/clicker_start_choice_2">
 
             <LinearLayout
                 android:id="@+id/choice_4"
@@ -191,7 +194,8 @@
             android:gravity="center"
             android:text="@string/clicker_start_info"
             android:textSize="12sp"
-            android:textColor="@color/bttendance_silver" />
+            android:textColor="@color/bttendance_silver"
+            android:id="@+id/clicker_start_info" />
 
         <Button
             android:id="@+id/load_question"

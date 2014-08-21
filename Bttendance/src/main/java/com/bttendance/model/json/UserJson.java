@@ -16,7 +16,7 @@ public class UserJson extends BTJson {
     public SchoolJsonSimple[] employed_schools;
     public SchoolJsonSimple[] enrolled_schools;
     public IdentificationJsonSimple[] identifications;
-    public QuestionJsonSimple[] questions;
+    public int questions_count;
 
     public boolean supervising(int courseID) {
         for (CourseJsonSimple course : supervising_courses)

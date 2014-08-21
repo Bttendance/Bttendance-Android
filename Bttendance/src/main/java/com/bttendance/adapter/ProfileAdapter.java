@@ -82,10 +82,7 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
             case SavedClicker: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.profile_text);
-                if (mUser.questions != null)
-                    text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), mUser.questions.length));
-                else
-                    text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), 0));
+                text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), mUser.questions_count));
                 text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
                 break;
             }
