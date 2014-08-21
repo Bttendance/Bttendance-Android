@@ -38,7 +38,7 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
 
         add(new SideItem(SideItemType.Header, null));
         add(new SideItem(SideItemType.Section, getContext().getString(R.string.lectures)));
-        add(new SideItem(SideItemType.CreateCourse, null));
+        add(new SideItem(SideItemType.AddCourse, null));
 
         for (CourseJsonSimple course : mUser.getOpenedCourses())
             add(new SideItem(SideItemType.Course, course.id));
@@ -69,7 +69,7 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
                     type.setText(getContext().getString(R.string.student_capital));
                 break;
             }
-            case CreateCourse: {
+            case AddCourse: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.list_text);
                 text.setText(getContext().getString(R.string.add_course));
@@ -170,7 +170,7 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
     }
 
     public enum SideItemType {
-        Header, CreateCourse, Guide, Setting, Feedback, Course, Section, Margin
+        Header, AddCourse, Guide, Setting, Feedback, Course, Section, Margin
     }
 
 }

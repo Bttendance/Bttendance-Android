@@ -62,7 +62,9 @@
     <color name="bttendance_silver_10">#1A6D6D7B</color>
     <color name="bttendance_silver_20">#336D6D7B</color>
     <color name="bttendance_silver_30">#4D6D6D7B</color>
+    <color name="bttendance_silver_45">#736D6D7B</color>
     <color name="bttendance_silver_50">#806D6D7B</color>
+    <color name="bttendance_silver_65">#A66D6D7B</color>
     <color name="bttendance_silver_80">#CC6D6D7B</color>
 
     <color name="bttendance_cyan_10">#1A33B5E5</color>

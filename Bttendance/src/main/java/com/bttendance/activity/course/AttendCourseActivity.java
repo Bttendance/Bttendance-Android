@@ -236,6 +236,6 @@ public class AttendCourseActivity extends BTActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_right);
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_down);
     }
 }// end of class

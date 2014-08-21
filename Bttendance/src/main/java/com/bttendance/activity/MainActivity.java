@@ -261,7 +261,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             case Header:
                 fragment = new ProfileFragment();
                 break;
-            case CreateCourse: {
+            case AddCourse: {
                 Intent intent = new Intent(this, AddCourseActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

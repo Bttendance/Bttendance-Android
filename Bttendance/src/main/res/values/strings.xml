@@ -269,5 +269,9 @@
     <string name="add_question">Add Question</string>
     <string name="saving_question">Saving Question</string>
     <string name="edit_question">Edit Question</string>
+    <string name="show_guide">Show Guide</string>
+    <string name="no_course_guide_info">If you want to know\nmore about BTTENDANCE</string>
+    <string name="no_course_add_info">You should create a course (professor)\nor attend a course (student)\nbefore using BTTENDANCE.</string>
+    <string name="no_course_guide_title">You have no course yet!</string>
 
 </resources>

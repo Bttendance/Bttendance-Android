@@ -58,7 +58,7 @@
         <Button
             android:layout_width="140dp"
             android:layout_height="48dp"
-            android:background="@drawable/bt_silver_background"
+            android:background="@drawable/bt_silver_10_background"
             android:textColor="@color/bttendance_black"
             android:text="@string/attend_course"
             android:textSize="18sp"
