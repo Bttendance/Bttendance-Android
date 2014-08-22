@@ -23,7 +23,7 @@ public class Clicker extends View {
     /**
      * Duration
      */
-    public static final int PROGRESS_DURATION = 60000;
+    public static final int PROGRESS_DURATION = 65000;
     private static final int BLINK_DURATION = 1000;
     /**
      * Dimension

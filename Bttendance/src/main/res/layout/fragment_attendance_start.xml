@@ -7,6 +7,11 @@
     android:clickable="true"
     android:focusable="true">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/alert_bg" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +24,8 @@
         android:gravity="center"
         android:text="@string/attendance_start_guide"
         android:textSize="12sp"
-        android:textColor="@color/bttendance_silver" />
+        android:textColor="@color/bttendance_silver"
+        android:id="@+id/attendance_guide" />
 
     <RelativeLayout
         android:layout_width="match_parent"

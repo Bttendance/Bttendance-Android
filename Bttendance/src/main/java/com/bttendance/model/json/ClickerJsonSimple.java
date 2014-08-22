@@ -22,6 +22,31 @@ public class ClickerJsonSimple extends BTJsonSimple {
     public int[] e_students;
     public int post;
 
+    public String getChoice(int userID) {
+
+        for (int i = 0; i < a_students.length; i++)
+            if (a_students[i] == userID)
+                return "A";
+
+        for (int i = 0; i < b_students.length; i++)
+            if (b_students[i] == userID)
+                return "B";
+
+        for (int i = 0; i < c_students.length; i++)
+            if (c_students[i] == userID)
+                return "C";
+
+        for (int i = 0; i < d_students.length; i++)
+            if (d_students[i] == userID)
+                return "D";
+
+        for (int i = 0; i < e_students.length; i++)
+            if (e_students[i] == userID)
+                return "E";
+
+        return null;
+    }
+
     public int getChoiceInt(int userID) {
 
         for (int i = 0; i < a_students.length; i++)
@@ -45,6 +70,36 @@ public class ClickerJsonSimple extends BTJsonSimple {
                 return 5;
 
         return 6;
+    }
+
+    public int getParticipatedCount() {
+        return a_students.length + b_students.length + c_students.length + d_students.length + e_students.length;
+    }
+
+    public int getPercent(int choice) {
+        int total = a_students.length + b_students.length + c_students.length + d_students.length + e_students.length;
+        int a = 0, b = 0, c = 0, d = 0, e = 0;
+        if (total != 0) {
+            b = Math.round((float) b_students.length * 100.0f / (float) total);
+            c = Math.round((float) c_students.length * 100.0f / (float) total);
+            d = Math.round((float) d_students.length * 100.0f / (float) total);
+            e = Math.round((float) e_students.length * 100.0f / (float) total);
+            a = 100 - b - c - d - e;
+        }
+
+        switch (choice) {
+            case 1:
+                return a;
+            case 2:
+                return b;
+            case 3:
+                return c;
+            case 4:
+                return d;
+            case 5:
+            default:
+                return e;
+        }
     }
 
     public String getDetail() {

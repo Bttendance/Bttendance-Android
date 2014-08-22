@@ -1,10 +1,13 @@
 package com.bttendance.fragment.attendance;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -14,7 +17,7 @@ import com.bttendance.R;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.PostJson;
 import com.squareup.otto.BTEventBus;
 
@@ -28,6 +31,11 @@ import retrofit.client.Response;
 public class AttendanceStartFragment extends BTFragment {
 
     private int mCourseID;
+    private String mType = null;
+    private Button mAttdBtButton;
+    private Button mAttdNoBtButton;
+    private View mAlertBg;
+    private TextView mAttendanceGuide;
 
     public AttendanceStartFragment(int courseID) {
         mCourseID = courseID;
@@ -47,6 +55,29 @@ public class AttendanceStartFragment extends BTFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_attendance_start, container, false);
+        mAttdBtButton = (Button) view.findViewById(R.id.attendance_bluetooth_bt);
+        mAttdBtButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAttdBtButton.setSelected(true);
+                mAttdNoBtButton.setSelected(false);
+                mType = AttendanceJson.TYPE_AUTO;
+            }
+        });
+
+        mAttdNoBtButton = (Button) view.findViewById(R.id.attendance_no_bluetooth_bt);
+        mAttdNoBtButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAttdBtButton.setSelected(false);
+                mAttdNoBtButton.setSelected(true);
+                mType = AttendanceJson.TYPE_MANUAL;
+            }
+        });
+
+        mAlertBg = view.findViewById(R.id.alert_bg);
+        mAttendanceGuide = (TextView) view.findViewById(R.id.attendance_guide);
+
         return view;
     }
 
@@ -73,10 +104,10 @@ public class AttendanceStartFragment extends BTFragment {
                 getActivity().onBackPressed();
                 return true;
             case R.id.action_start:
-                if (true) {
+                if (AttendanceJson.TYPE_AUTO.equals(mType) || AttendanceJson.TYPE_MANUAL.equals(mType)) {
                     item.setEnabled(false);
                     BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.starting_attendance)));
-                    getBTService().postStartClicker(mCourseID, "Asdf", 4, new Callback<PostJson>() {
+                    getBTService().postStartAttendance(mCourseID, mType, new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
                             item.setEnabled(true);
@@ -92,6 +123,11 @@ public class AttendanceStartFragment extends BTFragment {
                         }
                     });
                     return true;
+                } else {
+                    Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(200);
+                    mAlertBg.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
+                    mAttendanceGuide.setTextColor(getResources().getColor(R.color.bttendance_red));
                 }
             default:
                 return super.onOptionsItemSelected(item);

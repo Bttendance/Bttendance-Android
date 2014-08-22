@@ -448,7 +448,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         int pix_52 = (int) getPixel(context, 52);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(pix_52, pix_52);
-        if (width > textViewWidth)
+        if (width > textViewWidth || post.message.contains("\n"))
             params.setMargins(pix_18, pix_26, 0, 0);
         else
             params.setMargins(pix_18, pix_18, 0, 0);

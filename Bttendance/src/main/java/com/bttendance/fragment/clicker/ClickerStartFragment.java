@@ -2,6 +2,7 @@ package com.bttendance.fragment.clicker;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class ClickerStartFragment extends BTFragment {
 
     private int mCourseID;
     private QuestionJson mQuestion;
+    private PostJson mPost;
     private EditText mMessage;
     boolean mForProfile;
 
@@ -57,10 +59,17 @@ public class ClickerStartFragment extends BTFragment {
         mForProfile = false;
     }
 
+    public ClickerStartFragment(PostJson post) {
+        mPost = post;
+        mForProfile = false;
+    }
+
+    public ClickerStartFragment() {
+        mForProfile = true;
+    }
+
     public ClickerStartFragment(QuestionJson question) {
         mQuestion = question;
-        if (mQuestion != null)
-            mChoice = mQuestion.choice_count;
         mForProfile = true;
     }
 
@@ -144,7 +153,8 @@ public class ClickerStartFragment extends BTFragment {
             @Override
             public void onClick(View view) {
                 KeyboardHelper.hide(getActivity(), mMessage);
-                ClickerQuestionListFragment fragment = new ClickerQuestionListFragment(false, new ClickerQuestionListFragment.QuestionChosenListener() {
+
+                final ClickerQuestionListFragment fragment = new ClickerQuestionListFragment(false, new ClickerQuestionListFragment.QuestionChosenListener() {
                     @Override
                     public void OnQuestionChosen(QuestionJson question) {
                         mMessage.setText(question.message);
@@ -152,7 +162,13 @@ public class ClickerStartFragment extends BTFragment {
                         refreshChoiceView();
                     }
                 });
-                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+                    }
+                }, 500);
             }
         });
 
@@ -160,6 +176,19 @@ public class ClickerStartFragment extends BTFragment {
             mMessage.setText(mQuestion.message);
             mChoice = mQuestion.choice_count;
             refreshChoiceView();
+        }
+
+        if (mPost != null) {
+            loadQuestionBt.setVisibility(View.GONE);
+            view.findViewById(R.id.clicker_start_guide).setVisibility(View.GONE);
+            mInfoView.setVisibility(View.GONE);
+            mMessage.setText(mPost.message);
+            mChoice = mPost.clicker.choice_count;
+            refreshChoiceView();
+            view.findViewById(R.id.choice_2).setOnClickListener(null);
+            view.findViewById(R.id.choice_3).setOnClickListener(null);
+            view.findViewById(R.id.choice_4).setOnClickListener(null);
+            view.findViewById(R.id.choice_5).setOnClickListener(null);
         }
 
         return view;
@@ -217,7 +246,10 @@ public class ClickerStartFragment extends BTFragment {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
-        if (!mForProfile) {
+        if (mPost != null) {
+            actionBar.setTitle(getString(R.string.edit_message));
+            inflater.inflate(R.menu.clicker_edit_menu, menu);
+        } else if (!mForProfile) {
             actionBar.setTitle(getString(R.string.start_clicker));
             inflater.inflate(R.menu.clicker_start_menu, menu);
         } else if (mQuestion == null) {
@@ -235,6 +267,31 @@ public class ClickerStartFragment extends BTFragment {
             case R.id.abs__home:
             case android.R.id.home:
                 getActivity().onBackPressed();
+                return true;
+            case R.id.action_edit_message:
+                if (mMessage != null && mMessage.getText().toString().length() > 0) {
+                    item.setEnabled(false);
+                    BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.updating_clicker)));
+                    getBTService().updatePostMessage(mPost.id, mMessage.getText().toString(), new Callback<PostJson>() {
+                        @Override
+                        public void success(PostJson postJson, Response response) {
+                            item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                            if (ClickerStartFragment.this.getActivity() != null)
+                                ClickerStartFragment.this.getActivity().onBackPressed();
+                        }
+
+                        @Override
+                        public void failure(RetrofitError retrofitError) {
+                            item.setEnabled(true);
+                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                        }
+                    });
+                } else {
+                    Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(200);
+                    mMessage.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
+                }
                 return true;
             case R.id.action_start:
                 if (mMessage != null && mChoice >= 2 && mChoice <= 5) {
@@ -255,7 +312,6 @@ public class ClickerStartFragment extends BTFragment {
                             BTEventBus.getInstance().post(new HideProgressDialogEvent());
                         }
                     });
-                    return true;
                 } else {
                     Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                     vibrator.vibrate(200);
@@ -263,6 +319,7 @@ public class ClickerStartFragment extends BTFragment {
                     mChoiceView2.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
                     mInfoView.setTextColor(getResources().getColor(R.color.bttendance_red));
                 }
+                return true;
             case R.id.action_save:
                 if (mMessage != null && mMessage.getText().toString().length() > 0 && mChoice >= 2 && mChoice <= 5) {
                     item.setEnabled(false);
@@ -282,7 +339,6 @@ public class ClickerStartFragment extends BTFragment {
                             BTEventBus.getInstance().post(new HideProgressDialogEvent());
                         }
                     });
-                    return true;
                 } else if (mMessage != null && mMessage.getText().toString().length() > 0) {
                     Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                     vibrator.vibrate(200);
@@ -301,6 +357,7 @@ public class ClickerStartFragment extends BTFragment {
                     mChoiceView2.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
                     mInfoView.setTextColor(getResources().getColor(R.color.bttendance_red));
                 }
+                return true;
             case R.id.action_edit:
                 if (mMessage != null && mMessage.getText().toString().length() > 0 && mChoice >= 2 && mChoice <= 5) {
                     item.setEnabled(false);
@@ -320,7 +377,6 @@ public class ClickerStartFragment extends BTFragment {
                             BTEventBus.getInstance().post(new HideProgressDialogEvent());
                         }
                     });
-                    return true;
                 } else if (mMessage != null && mMessage.getText().toString().length() > 0) {
                     Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                     vibrator.vibrate(200);
@@ -339,6 +395,7 @@ public class ClickerStartFragment extends BTFragment {
                     mChoiceView2.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
                     mInfoView.setTextColor(getResources().getColor(R.color.bttendance_red));
                 }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

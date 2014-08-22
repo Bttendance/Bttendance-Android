@@ -17,6 +17,7 @@ import com.bttendance.adapter.QuestionAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.QuestionCursor;
@@ -115,7 +116,7 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
         addQuestionBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClickerStartFragment fragment = new ClickerStartFragment(null);
+                ClickerStartFragment fragment = new ClickerStartFragment();
                 BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
             }
         });

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -38,7 +37,7 @@ public class NoticeDetailFragment extends BTFragment {
     private CourseJson mCourse;
     private PostJson mPost;
     private boolean mAuth;
-    private EditText mMessage;
+    private TextView mMessage;
 
     public NoticeDetailFragment(int postID) {
         mPost = BTTable.PostTable.get(postID);
@@ -78,16 +77,20 @@ public class NoticeDetailFragment extends BTFragment {
             guide.setText(String.format(getString(R.string.notice_detail_std_unread), createdAt));
         }
 
-        mMessage = (EditText) view.findViewById(R.id.message_edit);
+        mMessage = (TextView) view.findViewById(R.id.message_tv);
         mMessage.setText(mPost.message);
 
-        if (!mAuth) {
-            view.findViewById(R.id.show_details).setVisibility(View.GONE);
-            view.findViewById(R.id.show_details_text).setVisibility(View.GONE);
-        }
-
+        if (!mAuth)
+            view.findViewById(R.id.show_details_layout).setVisibility(View.GONE);
 
         return view;
+    }
+
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+        if (getBTService() != null && !mAuth)
+            getBTService().noticeSeen(mPost.notice.id, null);
     }
 
     @Override

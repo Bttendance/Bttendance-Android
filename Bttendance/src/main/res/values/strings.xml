@@ -49,12 +49,10 @@
     <string name="number">"Course ID"</string>
     <string name="school">"School"</string>
     <string name="create_course">"Create Course"</string>
-    <string name="enter">"Enter"</string>
     <string name="forgot_password">"Forgot Password"</string>
     <string name="attend_course">"Attend Course"</string>
     <string name="choose_school">"Choose School"</string>
     <string name="confrim">"Confirm"</string>
-    <string name="cancel">"Cancel"</string>
     <string name="ok">"OK"</string>
     <string name="on_the_anvil">"On the anvil"</string>
     <string name="attendance_check_has_been_canceled">"Attendance check has been canceled"</string>
@@ -280,5 +278,13 @@
     <string name="notice_detail_std_unread">* This notice was written in %s.\n* You have not read this notice.</string>
     <string name="delete_notice">Delete Notice</string>
     <string name="deleting_notice">Deleting Notice</string>
+    <string name="clicker_message_normal">%1$d out of %2$d participated, %3$s</string>
+    <string name="delete_clicker">Delete Clicker</string>
+    <string name="deleting_clicker">Deleting Clicker</string>
+    <string name="clicker_student_no_choice">You have not chosen a response.</string>
+    <string name="clicker_student_choice">You have chosen %s.</string>
+    <string name="edit_message">Edit Message</string>
+    <string name="updating_clicker">Updating Clicker</string>
+    <string name="clicker_message_left_time">%1$s\nClicker Ongoing (%2$d sec left)</string>
 
 </resources>
