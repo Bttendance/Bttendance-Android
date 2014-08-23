@@ -17,7 +17,7 @@ import com.bttendance.adapter.QuestionAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.QuestionCursor;
@@ -46,15 +46,7 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
         public void OnQuestionChosen(QuestionJson question);
     }
 
-    public ClickerQuestionListFragment(boolean forProfile) {
-        mUser = BTPreference.getUser(getActivity());
-        mForProfile = forProfile;
-        mListener = null;
-    }
-
-    public ClickerQuestionListFragment(boolean forProfile, QuestionChosenListener listener) {
-        mUser = BTPreference.getUser(getActivity());
-        mForProfile = forProfile;
+    public void setOnQuestionChosenListener(QuestionChosenListener listener) {
         mListener = listener;
     }
 
@@ -63,6 +55,9 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mUser = BTPreference.getUser(getActivity());
+        mForProfile = getArguments() != null ? getArguments().getBoolean(BTKey.EXTRA_FOR_PROFILE) : false;
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -117,6 +112,9 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
             @Override
             public void onClick(View view) {
                 ClickerStartFragment fragment = new ClickerStartFragment();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, true);
+                fragment.setArguments(bundle);
                 BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
             }
         });
@@ -172,7 +170,11 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
             return;
 
         if (mForProfile) {
-            ClickerStartFragment fragment = new ClickerStartFragment(question);
+            ClickerStartFragment fragment = new ClickerStartFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(BTKey.EXTRA_QUESTION_ID, question.id);
+            bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, true);
+            fragment.setArguments(bundle);
             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
         } else if (mListener != null) {
             mListener.OnQuestionChosen(question);

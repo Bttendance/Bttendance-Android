@@ -55,6 +55,7 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
             switch (item.getType()) {
                 case EMPTY:
                     image.setImageDrawable(null);
+                    break;
                 case GRADE:
                     image.setImageResource(R.drawable.ic_grade);
 

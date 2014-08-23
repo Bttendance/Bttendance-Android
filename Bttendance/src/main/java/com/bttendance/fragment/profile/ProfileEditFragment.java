@@ -44,11 +44,11 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        mTitle = getArguments() != null ? getArguments().getString(BTKey.EXTRA_TITLE) : null;
+        mEditString = getArguments() != null ? getArguments().getString(BTKey.EXTRA_MESSAGE) : null;
+        mType = getArguments() != null ? (Type) getArguments().getSerializable(BTKey.EXTRA_TYPE) : Type.IMAGE;
 
-        mTitle = getArguments().getString(BTKey.EXTRA_TITLE);
-        mEditString = getArguments().getString(BTKey.EXTRA_MESSAGE);
-        mType = (Type) getArguments().getSerializable(BTKey.EXTRA_TYPE);
+        super.onCreate(savedInstanceState);
 
         if (getSherlockActivity() != null) {
             ActionBar actionBar = getSherlockActivity().getSupportActionBar();

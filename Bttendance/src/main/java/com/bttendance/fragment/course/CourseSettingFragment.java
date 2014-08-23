@@ -19,6 +19,7 @@ import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.update.UpdateUserEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.EmailJson;
@@ -40,16 +41,14 @@ public class CourseSettingFragment extends BTFragment implements AdapterView.OnI
     ListView mListView;
     CourseSettingAdapter mAdapter;
 
-    public CourseSettingFragment(int courseID) {
-        mCourseID = courseID;
-        mCourse = BTPreference.getUser(getActivity()).getCourse(courseID);
-    }
-
     /**
      * Action Bar Menu
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mCourseID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_COURSE_ID) : 0;
+        mCourse = BTPreference.getUser(getActivity()).getCourse(mCourseID);
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -143,12 +142,19 @@ public class CourseSettingFragment extends BTFragment implements AdapterView.OnI
      * Private Methods
      */
     private void addManager() {
-        AddManagerFragment fragment = new AddManagerFragment(mCourseID);
+        AddManagerFragment fragment = new AddManagerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourseID);
+        fragment.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
     }
 
     private void showStudentList() {
-        StudentRecordFragment frag = new StudentRecordFragment(mCourse.id, StudentRecordFragment.RecordType.NoRecord);
+        StudentRecordFragment frag = new StudentRecordFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourseID);
+        bundle.putSerializable(BTKey.EXTRA_TYPE, StudentRecordFragment.RecordType.NoRecord);
+        frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
@@ -172,12 +178,20 @@ public class CourseSettingFragment extends BTFragment implements AdapterView.OnI
     }
 
     private void clickerRecords() {
-        StudentRecordFragment frag = new StudentRecordFragment(mCourse.id, StudentRecordFragment.RecordType.Clicker);
+        StudentRecordFragment frag = new StudentRecordFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourseID);
+        bundle.putSerializable(BTKey.EXTRA_TYPE, StudentRecordFragment.RecordType.Clicker);
+        frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
     private void attendanceRecords() {
-        StudentRecordFragment frag = new StudentRecordFragment(mCourse.id, StudentRecordFragment.RecordType.Attendance);
+        StudentRecordFragment frag = new StudentRecordFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourseID);
+        bundle.putSerializable(BTKey.EXTRA_TYPE, StudentRecordFragment.RecordType.Attendance);
+        frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 

@@ -13,6 +13,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.model.json.UserJsonSimpleArray;
@@ -39,14 +40,12 @@ public class StudentRecordFragment extends BTFragment {
 
     public enum RecordType {NoRecord, Clicker, Attendance}
 
-    public StudentRecordFragment(int courseId, RecordType type) {
-        mCourseID = courseId;
-        mType = type;
-        mStudents = BTPreference.getStudentsOfCourse(getActivity(), mCourseID);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mCourseID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_COURSE_ID) : 0;
+        mType = getArguments() != null ? (RecordType) getArguments().getSerializable(BTKey.EXTRA_TYPE) : RecordType.NoRecord;
+        mStudents = BTPreference.getStudentsOfCourse(getActivity(), mCourseID);
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -69,6 +68,8 @@ public class StudentRecordFragment extends BTFragment {
     }
 
     private void requestCall() {
+        if (mCourseID == 0)
+            return;
 
         switch (mType) {
             case NoRecord:
@@ -117,6 +118,18 @@ public class StudentRecordFragment extends BTFragment {
         if (!this.isAdded())
             return;
 
+        BTListAdapter.Item.Type type;
+        switch (mType) {
+            case NoRecord:
+                type = BTListAdapter.Item.Type.EMPTY;
+                break;
+            case Clicker:
+            case Attendance:
+            default:
+                type = BTListAdapter.Item.Type.GRADE;
+                break;
+        }
+
         if (mUsers == null) {
             if (mStudents == null || mStudents.users != null)
                 return;
@@ -125,7 +138,7 @@ public class StudentRecordFragment extends BTFragment {
             for (UserJsonSimple user : mStudents.users) {
                 String title = user.full_name;
                 String message = user.student_id;
-                items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.GRADE, title, message, user));
+                items.add(new BTListAdapter.Item(type, title, message, user));
             }
             Collections.sort(items, new Comparator<BTListAdapter.Item>() {
                 @Override
@@ -141,7 +154,7 @@ public class StudentRecordFragment extends BTFragment {
                 String message = user.student_id;
                 if (user.grade == null)
                     user.grade = "0/0";
-                items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.GRADE, title, message, user));
+                items.add(new BTListAdapter.Item(type, title, message, user));
             }
             Collections.sort(items, new Comparator<BTListAdapter.Item>() {
                 @Override

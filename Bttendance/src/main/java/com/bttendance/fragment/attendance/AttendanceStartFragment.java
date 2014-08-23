@@ -17,6 +17,7 @@ import com.bttendance.R;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.PostJson;
 import com.squareup.otto.BTEventBus;
@@ -37,12 +38,10 @@ public class AttendanceStartFragment extends BTFragment {
     private View mAlertBg;
     private TextView mAttendanceGuide;
 
-    public AttendanceStartFragment(int courseID) {
-        mCourseID = courseID;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mCourseID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_COURSE_ID) : 0;
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }

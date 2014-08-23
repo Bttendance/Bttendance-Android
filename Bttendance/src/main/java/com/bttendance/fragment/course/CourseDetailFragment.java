@@ -31,6 +31,7 @@ import com.bttendance.fragment.clicker.ClickerStartFragment;
 import com.bttendance.fragment.notice.NoticePostFragment;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.ScreenHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.PostCursor;
@@ -58,19 +59,19 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     UserJson mUser;
     CourseJsonSimple mCourse;
 
-    public CourseDetailFragment(int courseID) {
-        mUser = BTPreference.getUser(getActivity());
-        mAuth = mUser.supervising(courseID);
-        mCourse = mUser.getCourse(courseID);
-        if (mCourse.opened)
-            BTPreference.setLastSeenCourse(getActivity(), mCourse.id);
-    }
-
     /**
      * Action Bar Menu
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        int courseID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_COURSE_ID) : 0;
+        mUser = BTPreference.getUser(getActivity());
+        mAuth = mUser.supervising(courseID);
+        mCourse = mUser.getCourse(courseID);
+        if (mCourse != null && mCourse.opened)
+            BTPreference.setLastSeenCourse(getActivity(), mCourse.id);
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -78,7 +79,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getSherlockActivity() == null || mCourse == null)
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
@@ -109,7 +110,10 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 return true;
             case R.id.action_course_setting:
                 if (mAuth && mCourse.opened) {
-                    CourseSettingFragment fragment = new CourseSettingFragment(mCourse.id);
+                    CourseSettingFragment fragment = new CourseSettingFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourse.id);
+                    fragment.setArguments(bundle);
                     BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                 } else if (mAuth) {
                     String[] options = {getString(R.string.open_course)};
@@ -185,7 +189,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     public void getFeed() {
-        if (getBTService() == null)
+        if (getBTService() == null || mCourse == null)
             return;
 
         getBTService().courseFeed(mCourse.id, 0, new Callback<PostJson[]>() {
@@ -201,7 +205,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     }
 
     private void refreshHeader() {
-        if (!this.isAdded() || header == null)
+        if (!this.isAdded() || header == null || mCourse == null)
             return;
 
         getActivity().runOnUiThread(new Runnable() {
@@ -299,17 +303,27 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
      * Private Methods
      */
     private void showClicker() {
-        ClickerStartFragment frag = new ClickerStartFragment(mCourse.id);
+        ClickerStartFragment frag = new ClickerStartFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourse.id);
+        bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, false);
+        frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
     private void startAttendance() {
-        AttendanceStartFragment frag = new AttendanceStartFragment(mCourse.id);
+        AttendanceStartFragment frag = new AttendanceStartFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourse.id);
+        frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
     private void showNotice() {
-        NoticePostFragment frag = new NoticePostFragment(mCourse.id);
+        NoticePostFragment frag = new NoticePostFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourse.id);
+        frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 

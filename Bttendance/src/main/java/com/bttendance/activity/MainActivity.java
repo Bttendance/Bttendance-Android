@@ -28,6 +28,7 @@ import com.bttendance.fragment.course.NoCourseFragment;
 import com.bttendance.fragment.profile.ProfileFragment;
 import com.bttendance.fragment.setting.SettingFragment;
 import com.bttendance.helper.ScreenHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
@@ -104,8 +105,12 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         int lastCourse = BTPreference.getLastSeenCourse(this);
         if (lastCourse == 0)
             fragment = new NoCourseFragment();
-        else
-            fragment = new CourseDetailFragment(lastCourse);
+        else {
+            fragment = new CourseDetailFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(BTKey.EXTRA_COURSE_ID, lastCourse);
+            fragment.setArguments(bundle);
+        }
 
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() == 0) {
@@ -287,7 +292,10 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
                 break;
             case Course:
-                fragment = new CourseDetailFragment((Integer) item.getObject());
+                fragment = new CourseDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(BTKey.EXTRA_COURSE_ID, (Integer) item.getObject());
+                fragment.setArguments(bundle);
                 break;
             case Section: //nothing happens
             case Margin:

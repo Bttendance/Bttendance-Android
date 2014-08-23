@@ -86,7 +86,6 @@ public class Clicker extends View {
 
         mProgressPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mProgressPaint.setStyle(Paint.Style.FILL);
-        mProgressPaint.setColor(getResources().getColor(R.color.bttendance_navy));
 
         mTransparentPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTransparentPaint.setStyle(Paint.Style.FILL);
@@ -95,19 +94,24 @@ public class Clicker extends View {
         switch (mType) {
             case A:
                 mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_a);
+                mProgressPaint.setColor(getResources().getColor(R.color.bttendance_a));
                 break;
             case B:
                 mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_b);
+                mProgressPaint.setColor(getResources().getColor(R.color.bttendance_b));
                 break;
             case C:
                 mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_c);
+                mProgressPaint.setColor(getResources().getColor(R.color.bttendance_c));
                 break;
             case D:
                 mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_d);
+                mProgressPaint.setColor(getResources().getColor(R.color.bttendance_d));
                 break;
             case E:
             default:
-                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_a);
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_e);
+                mProgressPaint.setColor(getResources().getColor(R.color.bttendance_e));
                 break;
         }
 

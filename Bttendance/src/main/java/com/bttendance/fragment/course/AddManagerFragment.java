@@ -19,6 +19,7 @@ import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJsonSimple;
@@ -41,12 +42,11 @@ public class AddManagerFragment extends BTFragment {
     private String mEmailString = null;
     private CourseJson mCourse;
 
-    public AddManagerFragment(int courseID) {
-        mCourse = BTTable.MyCourseTable.get(courseID);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        int courseID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_COURSE_ID) : 0;
+        mCourse = BTTable.MyCourseTable.get(courseID);
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -144,7 +144,7 @@ public class AddManagerFragment extends BTFragment {
     }
 
     private void trySignUp() {
-        if (getBTService() == null)
+        if (getBTService() == null || mCourse == null)
             return;
 
         final String email = mEmail.getText().toString();

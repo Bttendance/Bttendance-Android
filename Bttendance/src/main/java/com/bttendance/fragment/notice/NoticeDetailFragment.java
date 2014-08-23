@@ -17,6 +17,7 @@ import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DateHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
@@ -39,15 +40,14 @@ public class NoticeDetailFragment extends BTFragment {
     private boolean mAuth;
     private TextView mMessage;
 
-    public NoticeDetailFragment(int postID) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        int postID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
         mPost = BTTable.PostTable.get(postID);
         mUser = BTPreference.getUser(getActivity());
         mCourse = BTTable.MyCourseTable.get(mPost.course.id);
         mAuth = mUser.supervising(mCourse.id);
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -89,14 +89,14 @@ public class NoticeDetailFragment extends BTFragment {
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
-        if (getBTService() != null && !mAuth)
+        if (getBTService() != null && mPost != null && !mAuth)
             getBTService().noticeSeen(mPost.notice.id, null);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getSherlockActivity() == null || mPost == null)
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();

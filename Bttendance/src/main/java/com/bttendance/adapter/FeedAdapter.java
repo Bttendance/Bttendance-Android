@@ -29,6 +29,7 @@ import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.PackagesHelper;
 import com.bttendance.helper.ScreenHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.BTUrl;
@@ -272,7 +273,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         time.setVisibility(View.VISIBLE);
 
         title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
-        title.setText(post.course.name);
+        title.setText(context.getString(R.string.clicker));
         message.setText(post.message);
         time.setText(DateHelper.getBTFormatString(post.createdAt));
     }
@@ -308,7 +309,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         time.setVisibility(View.VISIBLE);
 
         title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
-        title.setText(post.course.name);
+        title.setText(context.getString(R.string.clicker));
         message.setText(post.message + "\n" + post.clicker.getDetail());
         time.setText(DateHelper.getBTFormatString(post.createdAt));
 
@@ -351,9 +352,9 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                 int progress = (int) (100.0f * (float) (Bttendance.PROGRESS_DURATION - time) / (float) Bttendance.PROGRESS_DURATION);
                 bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
             } else if (mTime || included) {
-                bttendance.setBttendance(Bttendance.STATE.CHECKED, 0);
+                bttendance.setBttendance(Bttendance.STATE.PRESENT, 0);
             } else {
-                bttendance.setBttendance(Bttendance.STATE.FAIL, 0);
+                bttendance.setBttendance(Bttendance.STATE.ABSCENT, 0);
             }
         }
 
@@ -563,13 +564,22 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                         return;
 
                     if ("attendance".equals(post.type)) {
-                        AttendanceDetailFragment frag = new AttendanceDetailFragment(post.id);
+                        AttendanceDetailFragment frag = new AttendanceDetailFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(BTKey.EXTRA_POST_ID, post.id);
+                        frag.setArguments(bundle);
                         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                     } else if ("clicker".equals(post.type)) {
-                        ClickerDetailFragment frag = new ClickerDetailFragment(post.id);
+                        ClickerDetailFragment frag = new ClickerDetailFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(BTKey.EXTRA_POST_ID, post.id);
+                        frag.setArguments(bundle);
                         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                     } else if ("notice".equals(post.type)) {
-                        NoticeDetailFragment frag = new NoticeDetailFragment(post.id);
+                        NoticeDetailFragment frag = new NoticeDetailFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(BTKey.EXTRA_POST_ID, post.id);
+                        frag.setArguments(bundle);
                         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                     } else {
                     }

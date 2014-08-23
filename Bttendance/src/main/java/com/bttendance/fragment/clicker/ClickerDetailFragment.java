@@ -23,6 +23,7 @@ import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
@@ -103,15 +104,14 @@ public class ClickerDetailFragment extends BTFragment {
         }
     };
 
-    public ClickerDetailFragment(int postID) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        int postID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
         mPost = BTTable.PostTable.get(postID);
         mUser = BTPreference.getUser(getActivity());
         mCourse = BTTable.MyCourseTable.get(mPost.course.id);
         mAuth = mUser.supervising(mCourse.id);
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -164,9 +164,6 @@ public class ClickerDetailFragment extends BTFragment {
 
     @Subscribe
     public void onUpdate(UpdateClickerDetailEvent event) {
-        if (!this.isAdded() || mPost == null)
-            return;
-
         reDrawView();
     }
 
@@ -177,6 +174,9 @@ public class ClickerDetailFragment extends BTFragment {
     }
 
     private void reDrawView() {
+        if (!this.isAdded() || mPost == null)
+            return;
+
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -262,7 +262,7 @@ public class ClickerDetailFragment extends BTFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getSherlockActivity() == null || mPost == null)
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
@@ -307,7 +307,11 @@ public class ClickerDetailFragment extends BTFragment {
                         }
 
                         if (getString(R.string.edit_message).equals(edit)) {
-                            ClickerStartFragment fragment = new ClickerStartFragment(mPost);
+                            ClickerStartFragment fragment = new ClickerStartFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(BTKey.EXTRA_POST_ID, mPost.id);
+                            bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, false);
+                            fragment.setArguments(bundle);
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                         }
                     }

@@ -17,6 +17,7 @@ import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.SparseArrayHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.PostJson;
@@ -41,12 +42,11 @@ public class AttendanceDetailFragment extends BTFragment implements View.OnClick
     private PostJson mPost;
     private ArrayList<UserJsonSimple> mUsers;
 
-    public AttendanceDetailFragment(int postId) {
-        mPost = BTTable.PostTable.get(postId);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        int postID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
+        mPost = BTTable.PostTable.get(postID);
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -68,7 +68,7 @@ public class AttendanceDetailFragment extends BTFragment implements View.OnClick
     }
 
     private void requestCall() {
-        if (getBTService() == null)
+        if (getBTService() == null || mPost == null)
             return;
 
         getBTService().courseStudents(mPost.course.id, new Callback<UserJsonSimple[]>() {
@@ -175,7 +175,7 @@ public class AttendanceDetailFragment extends BTFragment implements View.OnClick
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(mPost.course.name);
+        actionBar.setTitle(getString(R.string.attendance));
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 

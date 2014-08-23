@@ -21,6 +21,8 @@ import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTKey;
+import com.bttendance.model.BTTable;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.QuestionJson;
 import com.squareup.otto.BTEventBus;
@@ -54,27 +56,15 @@ public class ClickerStartFragment extends BTFragment {
     TextView mChoice4Text;
     TextView mChoice5Text;
 
-    public ClickerStartFragment(int courseID) {
-        mCourseID = courseID;
-        mForProfile = false;
-    }
-
-    public ClickerStartFragment(PostJson post) {
-        mPost = post;
-        mForProfile = false;
-    }
-
-    public ClickerStartFragment() {
-        mForProfile = true;
-    }
-
-    public ClickerStartFragment(QuestionJson question) {
-        mQuestion = question;
-        mForProfile = true;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mCourseID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_COURSE_ID) : 0;
+        mForProfile = getArguments() != null ? getArguments().getBoolean(BTKey.EXTRA_FOR_PROFILE) : false;
+        int questionID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_QUESTION_ID) : 0;
+        mQuestion = BTTable.MyQuestionTable.get(questionID);
+        int postID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
+        mPost = BTTable.PostTable.get(postID);
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -154,7 +144,11 @@ public class ClickerStartFragment extends BTFragment {
             public void onClick(View view) {
                 KeyboardHelper.hide(getActivity(), mMessage);
 
-                final ClickerQuestionListFragment fragment = new ClickerQuestionListFragment(false, new ClickerQuestionListFragment.QuestionChosenListener() {
+                final ClickerQuestionListFragment fragment = new ClickerQuestionListFragment();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, false);
+                fragment.setArguments(bundle);
+                fragment.setOnQuestionChosenListener(new ClickerQuestionListFragment.QuestionChosenListener() {
                     @Override
                     public void OnQuestionChosen(QuestionJson question) {
                         mMessage.setText(question.message);

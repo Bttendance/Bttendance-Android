@@ -50,14 +50,12 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     String mFilter;
     private UserJson mUser;
 
-    public SchoolChooseFragment() {
-        mUser = BTPreference.getUser(getActivity());
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mUser = BTPreference.getUser(getActivity());
 
         SchoolJsonArray schoolJsonArray = BTPreference.getAllSchools(getActivity());
         if (schoolJsonArray != null && schoolJsonArray.schools != null)

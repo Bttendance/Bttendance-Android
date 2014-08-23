@@ -16,6 +16,7 @@ import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.PostJson;
 import com.squareup.otto.BTEventBus;
@@ -32,12 +33,10 @@ public class NoticePostFragment extends BTFragment {
     private int mCourseID;
     private EditText mMessage;
 
-    public NoticePostFragment(int courseID) {
-        mCourseID = courseID;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mCourseID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_COURSE_ID) : 0;
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }

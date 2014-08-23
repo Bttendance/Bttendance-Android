@@ -58,10 +58,11 @@ public class SimpleWebViewFragment extends BTFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         mUrl = getArguments().getString(EXTRA_URL);
         if (!mUrl.startsWith("http"))
             mUrl = "http://" + mUrl;
-        setHasOptionsMenu(true);
     }
 
     @SuppressLint({

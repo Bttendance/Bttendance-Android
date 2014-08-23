@@ -149,12 +149,18 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     }
 
     private void showSavedClicker() {
-        ClickerQuestionListFragment fragment = new ClickerQuestionListFragment(true);
+        ClickerQuestionListFragment fragment = new ClickerQuestionListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, true);
+        fragment.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
     }
 
     private void showCourse(int courseID) {
-        CourseDetailFragment fragment = new CourseDetailFragment(courseID);
+        CourseDetailFragment fragment = new CourseDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, courseID);
+        fragment.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
     }
 
