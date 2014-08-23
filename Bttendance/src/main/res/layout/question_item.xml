@@ -17,19 +17,14 @@
         android:background="@drawable/bt_list_item_background"
         android:minHeight="88dp" />
 
-    <TextView
+    <View
         android:id="@+id/choice"
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:background="@drawable/question_bg"
+        android:background="@drawable/ql_2"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="9dp"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:textColor="@color/bttendance_cyan"
-        android:textSize="35sp"
-        android:textStyle="bold" />
+        android:layout_marginRight="9dp" />
 
     <TextView
         android:id="@id/message"

@@ -286,5 +286,16 @@
     <string name="edit_message">Edit Message</string>
     <string name="updating_clicker">Updating Clicker</string>
     <string name="clicker_message_left_time">%1$s\nClicker Ongoing (%2$d sec left)</string>
+    <string name="delete_attendance">Delete Attendance</string>
+    <string name="deleting_attendance">Deleting Attendance</string>
+    <string name="rate_">Rate(%d%%)</string>
+    <string name="attendance_title_auto_done">Check Complete!</string>
+    <string name="attendance_title_auto_ongoing">Check Ongoing</string>
+    <string name="attendance_title_manual">Manual Check</string>
+    <string name="attendance_message_time_left">%d sec remaining.</string>
+    <string name="attendance_message_status">Attendance Status</string>
+    <string name="attendance_message_present">Recorded as present</string>
+    <string name="attendance_message_abscent">Recorded as absent</string>
+    <string name="attendance_message_tardy">Recorded as tardy</string>
 
 </resources>

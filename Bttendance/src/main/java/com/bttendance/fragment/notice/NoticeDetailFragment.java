@@ -11,11 +11,13 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.feature.FeatureDetailListFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
@@ -38,7 +40,9 @@ public class NoticeDetailFragment extends BTFragment {
     private CourseJson mCourse;
     private PostJson mPost;
     private boolean mAuth;
+    private TextView mGuide;
     private TextView mMessage;
+    private View mShowDetail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,32 +60,21 @@ public class NoticeDetailFragment extends BTFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notice_detail, container, false);
 
-        String createdAt = DateHelper.getBTFormatString(mPost.createdAt);
-
-        TextView guide = (TextView) view.findViewById(R.id.notice_guide);
-        if (mAuth) {
-            int seenCount = mPost.notice.seen_students.length;
-
-            int studentCount = 0;
-            if (mCourse != null)
-                studentCount = mCourse.students_count;
-
-            int rate = 0;
-            if (studentCount != 0)
-                rate = seenCount / studentCount * 100;
-
-            guide.setText(String.format(getString(R.string.notice_detail_prof), createdAt, seenCount, studentCount, rate));
-        } else if (mPost.notice.seen(mUser.id)) {
-            guide.setText(String.format(getString(R.string.notice_detail_std_read), createdAt));
-        } else {
-            guide.setText(String.format(getString(R.string.notice_detail_std_unread), createdAt));
-        }
-
+        mGuide = (TextView) view.findViewById(R.id.notice_guide);
         mMessage = (TextView) view.findViewById(R.id.message_tv);
-        mMessage.setText(mPost.message);
 
-        if (!mAuth)
-            view.findViewById(R.id.show_details_layout).setVisibility(View.GONE);
+        mShowDetail = view.findViewById(R.id.show_details_layout);
+        view.findViewById(R.id.show_details).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FeatureDetailListFragment fragment = new FeatureDetailListFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(BTKey.EXTRA_POST_ID, mPost.id);
+                bundle.putSerializable(BTKey.EXTRA_TYPE, FeatureDetailListFragment.Type.Notice);
+                fragment.setArguments(bundle);
+                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+            }
+        });
 
         return view;
     }
@@ -91,6 +84,49 @@ public class NoticeDetailFragment extends BTFragment {
         super.onFragmentResume();
         if (getBTService() != null && mPost != null && !mAuth)
             getBTService().noticeSeen(mPost.notice.id, null);
+
+        reDrawView();
+    }
+
+    private void reDrawView() {
+        if (!this.isAdded() || mPost == null)
+            return;
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                mPost = BTTable.PostTable.get(mPost.id);
+                if (mPost == null)
+                    return;
+
+                String createdAt = DateHelper.getPostFormatString(mPost.createdAt);
+                if (mAuth) {
+                    int seenCount = mPost.notice.seen_students.length;
+
+                    int studentCount = 0;
+                    if (mCourse != null)
+                        studentCount = mCourse.students_count;
+
+                    int rate = 0;
+                    if (studentCount != 0)
+                        rate = seenCount / studentCount * 100;
+
+                    mGuide.setText(String.format(getString(R.string.notice_detail_prof), createdAt, seenCount, studentCount, rate));
+                } else if (mPost.notice.seen(mUser.id)) {
+                    mGuide.setText(String.format(getString(R.string.notice_detail_std_read), createdAt));
+                } else {
+                    mGuide.setText(String.format(getString(R.string.notice_detail_std_unread), createdAt));
+                }
+
+                mMessage.setText(mPost.message);
+
+                if (mAuth)
+                    mShowDetail.setVisibility(View.VISIBLE);
+                else
+                    mShowDetail.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

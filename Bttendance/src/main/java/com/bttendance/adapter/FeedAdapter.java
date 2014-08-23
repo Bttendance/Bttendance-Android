@@ -275,7 +275,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
         title.setText(context.getString(R.string.clicker));
         message.setText(post.message);
-        time.setText(DateHelper.getBTFormatString(post.createdAt));
+        time.setText(DateHelper.getPostFormatString(post.createdAt));
     }
 
     private void drawClicker(View view, Context context, PostJson post) {
@@ -311,7 +311,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
         title.setText(context.getString(R.string.clicker));
         message.setText(post.message + "\n" + post.clicker.getDetail());
-        time.setText(DateHelper.getBTFormatString(post.createdAt));
+        time.setText(DateHelper.getPostFormatString(post.createdAt));
 
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);
@@ -370,7 +370,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
         title.setText(post.course.name);
         message.setText(post.message);
-        time.setText(DateHelper.getBTFormatString(post.createdAt));
+        time.setText(DateHelper.getPostFormatString(post.createdAt));
 
         // Attendance Icon Param
         Rect bounds = new Rect();
@@ -434,7 +434,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         }
 
         message.setText(post.message);
-        time.setText(DateHelper.getBTFormatString(post.createdAt));
+        time.setText(DateHelper.getPostFormatString(post.createdAt));
 
         // Notice Icon Param
         Rect bounds = new Rect();

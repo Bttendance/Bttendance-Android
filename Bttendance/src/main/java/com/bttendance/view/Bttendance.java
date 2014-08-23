@@ -23,7 +23,7 @@ public class Bttendance extends View {
     /**
      * Duration
      */
-    public static final int PROGRESS_DURATION = 180000;
+    public static final int PROGRESS_DURATION = 65000;
     private static final int BLINK_DURATION = 1000;
     /**
      * Dimension
@@ -212,7 +212,6 @@ public class Bttendance extends View {
                             return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_large);
                         else
                             return mCyanCheck;
-                    case STARTED:
                     case CHECKING:
                     case ABSCENT:
                     case PRESENT:
@@ -228,7 +227,6 @@ public class Bttendance extends View {
                             return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_small);
                         else
                             return mCyanCheck;
-                    case STARTED:
                     case CHECKING:
                     case ABSCENT:
                     case PRESENT:
@@ -246,20 +244,19 @@ public class Bttendance extends View {
                 switch (mState) {
                     case ABSCENT:
                         if (mAbscentBackground == null)
-                            return mAbscentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_large);
+                            return mAbscentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_grey_large);
                         else
                             return mAbscentBackground;
                     case PRESENT:
                         if (mPresendBackground == null)
-                            return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_large);
+                            return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_present_navy_large);
                         else
                             return mPresendBackground;
                     case TARDY:
                         if (mTardyBackground == null)
-                            return mTardyBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_large);
+                            return mTardyBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_tardy_cyan_large);
                         else
                             return mTardyBackground;
-                    case STARTED:
                     case CHECKING:
                     case GRADE:
                         if (mCircleBackground == null)
@@ -279,15 +276,14 @@ public class Bttendance extends View {
                             return mAbscentBackground;
                     case PRESENT:
                         if (mPresendBackground == null)
-                            return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_small);
+                            return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_present_navy_small);
                         else
                             return mPresendBackground;
                     case TARDY:
                         if (mTardyBackground == null)
-                            return mTardyBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_small);
+                            return mTardyBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_tardy_cyan_small);
                         else
                             return mTardyBackground;
-                    case STARTED:
                     case CHECKING:
                     case GRADE:
                         if (mCircleBackground == null)
@@ -304,8 +300,6 @@ public class Bttendance extends View {
         mProgress = progress;
         mState = state;
         switch (mState) {
-            case STARTED:
-                mProgress = 100;
             case CHECKING:
                 startBttendance(mProgress);
                 break;
@@ -372,5 +366,5 @@ public class Bttendance extends View {
         clearAnimation();
     }
 
-    public static enum STATE {STARTED, CHECKING, ABSCENT, PRESENT, TARDY, GRADE}
+    public static enum STATE {CHECKING, ABSCENT, PRESENT, TARDY, GRADE}
 }

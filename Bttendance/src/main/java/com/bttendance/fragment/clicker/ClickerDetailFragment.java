@@ -21,6 +21,7 @@ import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.update.UpdateClickerDetailEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.feature.FeatureDetailListFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTKey;
@@ -51,6 +52,7 @@ public class ClickerDetailFragment extends BTFragment {
     private CourseJson mCourse;
     private PostJson mPost;
     private boolean mAuth;
+
     private RelativeLayout mClicker;
 
     private TextView mTitle;
@@ -99,7 +101,7 @@ public class ClickerDetailFragment extends BTFragment {
                 mMessage.setText(message);
             } else {
                 mMessage.setText(String.format(getString(R.string.clicker_message_left_time), message, (int) leftTime / 1000));
-                timerHandler.postDelayed(this, 500);
+                timerHandler.postDelayed(this, 200);
             }
         }
     };
@@ -151,11 +153,17 @@ public class ClickerDetailFragment extends BTFragment {
         mEStudentTv = (TextView) view.findViewById(R.id.e_student);
 
         mStudentChoice = (TextView) view.findViewById(R.id.student_choice);
+
         mShowDetail = view.findViewById(R.id.show_details_layout);
-        mShowDetail.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.show_details).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                FeatureDetailListFragment fragment = new FeatureDetailListFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(BTKey.EXTRA_POST_ID, mPost.id);
+                bundle.putSerializable(BTKey.EXTRA_TYPE, FeatureDetailListFragment.Type.Clicker);
+                fragment.setArguments(bundle);
+                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
             }
         });
 
@@ -189,7 +197,7 @@ public class ClickerDetailFragment extends BTFragment {
                 int studentCount = 0;
                 if (mCourse != null)
                     studentCount = mCourse.students_count;
-                message = String.format(getString(R.string.clicker_message_normal), mPost.clicker.getParticipatedCount(), studentCount, DateHelper.getBTFormatString(mPost.createdAt));
+                message = String.format(getString(R.string.clicker_message_normal), mPost.clicker.getParticipatedCount(), studentCount, DateHelper.getPostFormatString(mPost.createdAt));
 
                 if (Clicker.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0) {
                     timerHandler.removeCallbacks(timerRunnable);
@@ -237,7 +245,10 @@ public class ClickerDetailFragment extends BTFragment {
                 mDStudentTv.setText("" + mPost.clicker.d_students.length);
                 mEStudentTv.setText("" + mPost.clicker.e_students.length);
 
-                if (!mAuth) {
+                if (mAuth) {
+                    mStudentChoice.setVisibility(View.GONE);
+                    mShowDetail.setVisibility(View.VISIBLE);
+                } else {
                     if (mPost.clicker.getChoice(mUser.id) == null)
                         mStudentChoice.setText(getString(R.string.clicker_student_no_choice));
                     else
@@ -245,9 +256,6 @@ public class ClickerDetailFragment extends BTFragment {
 
                     mShowDetail.setVisibility(View.GONE);
                     mStudentChoice.setVisibility(View.VISIBLE);
-                } else {
-                    mStudentChoice.setVisibility(View.GONE);
-                    mShowDetail.setVisibility(View.VISIBLE);
                 }
             }
         });

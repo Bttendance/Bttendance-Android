@@ -1,32 +1,34 @@
 package com.bttendance.fragment.attendance;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.adapter.BTListAdapter;
-import com.bttendance.event.dialog.ShowAlertDialogEvent;
+import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.event.dialog.HideProgressDialogEvent;
+import com.bttendance.event.dialog.ShowContextDialogEvent;
+import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.helper.IntArrayHelper;
-import com.bttendance.helper.SparseArrayHelper;
+import com.bttendance.fragment.feature.FeatureDetailListFragment;
+import com.bttendance.helper.DateHelper;
 import com.bttendance.model.BTKey;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.AttendanceJson;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
-import com.bttendance.model.json.UserJsonSimple;
+import com.bttendance.model.json.UserJson;
+import com.bttendance.view.Bttendance;
 import com.squareup.otto.BTEventBus;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -35,17 +37,62 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2013. 12. 30..
  */
-public class AttendanceDetailFragment extends BTFragment implements View.OnClickListener {
+public class AttendanceDetailFragment extends BTFragment {
 
-    BTListAdapter mAdapter;
-    private ListView mListView;
+    private UserJson mUser;
+    private CourseJson mCourse;
     private PostJson mPost;
-    private ArrayList<UserJsonSimple> mUsers;
+    private boolean mAuth;
+
+    private TextView mDate;
+    private TextView mTime;
+    private TextView mTitle;
+    private TextView mMessage;
+
+    private View mMoreMargin;
+    private Bttendance mBttendance;
+
+    private View mStatusLayout;
+    private TextView mAttended;
+    private TextView mTotal;
+    private TextView mRate;
+
+    private View mShowDetail;
+
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            long leftTime = Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt);
+            if (leftTime > 60000)
+                leftTime = 60000;
+
+            if (leftTime < 0) {
+                timerHandler.removeCallbacks(timerRunnable);
+
+                String message;
+                if (mAuth)
+                    message = getString(R.string.attendance_message_status);
+                else
+                    message = getString(R.string.attendance_message_abscent);
+
+                mMessage.setText(message);
+            } else {
+                String message = String.format(getString(R.string.attendance_message_time_left), (int) leftTime / 1000);
+                mMessage.setText(message);
+                timerHandler.postDelayed(this, 200);
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         int postID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
         mPost = BTTable.PostTable.get(postID);
+        mUser = BTPreference.getUser(getActivity());
+        mCourse = BTTable.MyCourseTable.get(mPost.course.id);
+        mAuth = mUser.supervising(mCourse.id);
 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -54,129 +101,172 @@ public class AttendanceDetailFragment extends BTFragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_attendance_detail, container, false);
-        mListView = (ListView) view.findViewById(android.R.id.list);
-        mAdapter = new BTListAdapter(getActivity());
-        mListView.setAdapter(mAdapter);
-        swapItems();
+
+        mDate = (TextView) view.findViewById(R.id.date);
+        mTime = (TextView) view.findViewById(R.id.time);
+        mTitle = (TextView) view.findViewById(R.id.title);
+        mMessage = (TextView) view.findViewById(R.id.message);
+        mMoreMargin = view.findViewById(R.id.more_margin);
+        mBttendance = (Bttendance) view.findViewById(R.id.bttendance);
+        mStatusLayout = view.findViewById(R.id.attendance_status);
+        mAttended = (TextView) view.findViewById(R.id.attended_students);
+        mTotal = (TextView) view.findViewById(R.id.total_students);
+        mRate = (TextView) view.findViewById(R.id.attendance_rate);
+
+        mShowDetail = view.findViewById(R.id.show_details_layout);
+        view.findViewById(R.id.show_details).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FeatureDetailListFragment fragment = new FeatureDetailListFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(BTKey.EXTRA_POST_ID, mPost.id);
+                bundle.putSerializable(BTKey.EXTRA_TYPE, FeatureDetailListFragment.Type.Attendance);
+                fragment.setArguments(bundle);
+                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+            }
+        });
         return view;
     }
 
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
-        requestCall();
+        reDrawView();
     }
 
-    private void requestCall() {
-        if (getBTService() == null || mPost == null)
+    private void reDrawView() {
+        if (!this.isAdded() || mPost == null)
             return;
-
-        getBTService().courseStudents(mPost.course.id, new Callback<UserJsonSimple[]>() {
-            @Override
-            public void success(UserJsonSimple[] users, Response response) {
-                swapItems();
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-            }
-        });
-    }
-
-    private void swapItems() {
-        if (!this.isAdded())
-            return;
-
-        mPost = BTTable.PostTable.get(mPost.id);
-        mUsers = SparseArrayHelper.asArrayList(BTTable.getStudentsOfCourse(mPost.course.id));
-
-        Collections.sort(mUsers, new Comparator<UserJsonSimple>() {
-            @Override
-            public int compare(UserJsonSimple lhs, UserJsonSimple rhs) {
-                return lhs.student_id.compareToIgnoreCase(rhs.student_id);
-            }
-        });
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ArrayList<UserJsonSimple> attdChecked = new ArrayList<UserJsonSimple>();
-                ArrayList<UserJsonSimple> attdUnChecked = new ArrayList<UserJsonSimple>();
-                for (UserJsonSimple user : mUsers)
-                    if (IntArrayHelper.contains(mPost.attendance.checked_students, user.id))
-                        attdChecked.add(user);
+
+                mPost = BTTable.PostTable.get(mPost.id);
+                if (mPost == null)
+                    return;
+
+                mDate.setText(DateHelper.getDateFormatString(mPost.createdAt));
+                mTime.setText(DateHelper.getTimeFormatString(mPost.createdAt));
+
+                String title1 = getString(R.string.attendance_title_auto_done);
+                String title2 = getString(R.string.attendance_title_auto_ongoing);
+                String title3 = getString(R.string.attendance_title_manual);
+
+                if (mAuth) {
+                    if (AttendanceJson.TYPE_MANUAL.equals(mPost.attendance.type))
+                        mTitle.setText(title3);
+                    else if (Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0)
+                        mTitle.setText(title2);
                     else
-                        attdUnChecked.add(user);
+                        mTitle.setText(title1);
+                } else {
 
-                ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
-
-                if (attdUnChecked.size() > 0)
-                    items.add(new BTListAdapter.Item(getString(R.string.attendance_unchecked_students)));
-
-                for (UserJsonSimple user : attdUnChecked) {
-                    String title = user.full_name;
-                    String message = user.email;
-                    items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.EMPTY, title, message, user));
+                    if (AttendanceJson.TYPE_MANUAL.equals(mPost.attendance.type))
+                        mTitle.setText(title3);
+                    else if (mPost.attendance.getStateInt(mUser.id) == 0
+                            && Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0)
+                        mTitle.setText(title2);
+                    else
+                        mTitle.setText(title1);
                 }
 
-                if (attdChecked.size() > 0)
-                    items.add(new BTListAdapter.Item(getString(R.string.attendance_checked_students)));
+                long leftTime = Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt);
+                String message1 = String.format(getString(R.string.attendance_message_time_left), leftTime);
+                String message2 = getString(R.string.attendance_message_status);
+                String message3 = getString(R.string.attendance_message_present);
+                String message4 = getString(R.string.attendance_message_abscent);
+                String message5 = getString(R.string.attendance_message_tardy);
 
-                for (UserJsonSimple user : attdChecked) {
-                    String title = user.full_name;
-                    String message = user.email;
-                    items.add(new BTListAdapter.Item(BTListAdapter.Item.Type.EMPTY, title, message, user));
+                timerHandler.removeCallbacks(timerRunnable);
+                if (mAuth) {
+                    if (AttendanceJson.TYPE_AUTO.equals(mPost.attendance.type)
+                            && Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0) {
+                        mMessage.setText(message1);
+                        timerHandler.postDelayed(timerRunnable, 0);
+                    } else
+                        mMessage.setText(message2);
+                } else {
+                    mMessage.setTextColor(getResources().getColor(R.color.bttendance_silver));
+                    if (mPost.attendance.getStateInt(mUser.id) == 0
+                            && AttendanceJson.TYPE_AUTO.equals(mPost.attendance.type)
+                            && Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0) {
+                        mMessage.setText(message1);
+                        timerHandler.postDelayed(timerRunnable, 0);
+                    } else if (mPost.attendance.getStateInt(mUser.id) == 0) {
+                        mMessage.setText(message4);
+                    } else if (mPost.attendance.getStateInt(mUser.id) == 1) {
+                        mMessage.setText(message3);
+                        mMessage.setTextColor(getResources().getColor(R.color.bttendance_navy));
+                    } else if (mPost.attendance.getStateInt(mUser.id) == 2) {
+                        mMessage.setText(message5);
+                        mMessage.setTextColor(getResources().getColor(R.color.bttendance_cyan));
+                    }
                 }
 
-                mAdapter.setItems(items);
-                mAdapter.notifyDataSetChanged();
+                int totalStudents = 0;
+                if (mCourse != null)
+                    totalStudents = mCourse.students_count;
+                int rate = 0;
+                if (totalStudents != 0)
+                    rate = Math.round((float) mPost.attendance.getAttendedCount() / (float) totalStudents * 100.0f);
+
+                if (mAuth) {
+                    mBttendance.setBttendance(Bttendance.STATE.GRADE, rate);
+                } else {
+                    if (mPost.attendance.getStateInt(mUser.id) == 0
+                            && AttendanceJson.TYPE_AUTO.equals(mPost.attendance.type)
+                            && Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0) {
+                        long time = System.currentTimeMillis() - DateHelper.getTime(mPost.createdAt);
+                        int progress = (int) (100.0f * (float) (Bttendance.PROGRESS_DURATION - time) / (float) Bttendance.PROGRESS_DURATION);
+                        mBttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+                    } else if (mPost.attendance.getStateInt(mUser.id) == 0) {
+                        mBttendance.setBttendance(Bttendance.STATE.ABSCENT, 0);
+                    } else if (mPost.attendance.getStateInt(mUser.id) == 1) {
+                        mBttendance.setBttendance(Bttendance.STATE.PRESENT, 0);
+                    } else if (mPost.attendance.getStateInt(mUser.id) == 2) {
+                        mBttendance.setBttendance(Bttendance.STATE.TARDY, 0);
+                    }
+                }
+
+                if (mAuth) {
+                    mAttended.setText("" + mPost.attendance.getAttendedCount());
+                    mTotal.setText("" + totalStudents);
+                    mRate.setText(String.format(getString(R.string.rate_), rate));
+                    mMoreMargin.setVisibility(View.VISIBLE);
+                    mRate.setVisibility(View.VISIBLE);
+                    mStatusLayout.setVisibility(View.VISIBLE);
+                    mShowDetail.setVisibility(View.VISIBLE);
+                } else {
+                    mMoreMargin.setVisibility(View.GONE);
+                    mStatusLayout.setVisibility(View.GONE);
+                    mRate.setVisibility(View.GONE);
+                    mShowDetail.setVisibility(View.GONE);
+                }
             }
         });
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.add_btn:
-
-                final UserJsonSimple user = (UserJsonSimple) v.getTag(R.id.json);
-
-                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
-                String title = getString(R.string.attendance_check);
-                String message = String.format(getString(R.string.do_you_want_to_approve_attendance), user.full_name);
-                BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
-                    @Override
-                    public void onConfirmed(String edit) {
-                        getBTService().attendanceToggleManually(mPost.attendance.id, user.id, new Callback<AttendanceJson>() {
-                            @Override
-                            public void success(AttendanceJson attenanceJson, Response response) {
-                                swapItems();
-                            }
-
-                            @Override
-                            public void failure(RetrofitError retrofitError) {
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCanceled() {
-                    }
-                };
-                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
-                break;
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        timerHandler.removeCallbacks(timerRunnable);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getSherlockActivity() == null || mPost == null)
             return;
 
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-        actionBar.setTitle(getString(R.string.attendance));
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(getString(R.string.clicker));
+        if (mAuth)
+            inflater.inflate(R.menu.attendance_detail_menu, menu);
     }
 
     @Override
@@ -185,6 +275,36 @@ public class AttendanceDetailFragment extends BTFragment implements View.OnClick
             case R.id.abs__home:
             case android.R.id.home:
                 getActivity().onBackPressed();
+                return true;
+            case R.id.action_post_setting:
+                String[] options = {getString(R.string.delete_attendance)};
+                BTEventBus.getInstance().post(new ShowContextDialogEvent(options, new BTDialogFragment.OnDialogListener() {
+                    @Override
+                    public void onConfirmed(String edit) {
+                        if (getString(R.string.delete_attendance).equals(edit)) {
+                            if (getBTService() != null) {
+                                BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.deleting_attendance)));
+                                getBTService().removePost(mPost.id, new Callback<PostJson>() {
+                                    @Override
+                                    public void success(PostJson postJson, Response response) {
+                                        BTTable.PostTable.delete(postJson.id);
+                                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                                        getActivity().onBackPressed();
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError retrofitError) {
+                                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCanceled() {
+                    }
+                }));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

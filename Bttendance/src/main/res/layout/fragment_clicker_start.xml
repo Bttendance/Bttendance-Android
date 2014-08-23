@@ -56,16 +56,12 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <TextView
+                <ImageView
                     android:id="@+id/choice_2_image"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/choices_bg"
-                    android:gravity="center"
-                    android:text="2"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver"
-                    android:textSize="26sp" />
+                    android:src="@drawable/choices_bg_2" />
 
                 <TextView
                     android:id="@+id/choice_2_text"
@@ -87,16 +83,12 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <TextView
+                <ImageView
                     android:id="@+id/choice_3_image"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/choices_bg"
-                    android:gravity="center"
-                    android:text="3"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver"
-                    android:textSize="26sp" />
+                    android:src="@drawable/choices_bg_3" />
 
                 <TextView
                     android:id="@+id/choice_3_text"
@@ -127,16 +119,12 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <TextView
+                <ImageView
                     android:id="@+id/choice_4_image"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/choices_bg"
-                    android:gravity="center"
-                    android:text="4"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver"
-                    android:textSize="26sp" />
+                    android:src="@drawable/choices_bg_4" />
 
                 <TextView
                     android:id="@+id/choice_4_text"
@@ -158,16 +146,12 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <TextView
+                <ImageView
                     android:id="@+id/choice_5_image"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/choices_bg"
-                    android:gravity="center"
-                    android:text="5"
-                    android:textStyle="bold"
-                    android:textColor="@color/bttendance_silver"
-                    android:textSize="26sp" />
+                    android:src="@drawable/choices_bg_5" />
 
                 <TextView
                     android:id="@+id/choice_5_text"

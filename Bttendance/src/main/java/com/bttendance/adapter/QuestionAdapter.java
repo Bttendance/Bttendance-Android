@@ -47,7 +47,20 @@ public class QuestionAdapter extends CursorAdapter implements View.OnClickListen
     private void drawQuestion(View view, QuestionJson question) {
 
         if (question != null) {
-            ((TextView) view.findViewById(R.id.choice)).setText("" + question.choice_count);
+            switch (question.choice_count) {
+                case 2:
+                    view.findViewById(R.id.choice).setBackgroundResource(R.drawable.ql_2);
+                    break;
+                case 3:
+                    view.findViewById(R.id.choice).setBackgroundResource(R.drawable.ql_3);
+                    break;
+                case 4:
+                    view.findViewById(R.id.choice).setBackgroundResource(R.drawable.ql_4);
+                    break;
+                case 5:
+                    view.findViewById(R.id.choice).setBackgroundResource(R.drawable.ql_5);
+                    break;
+            }
             ((TextView) view.findViewById(R.id.message)).setText(question.message);
         }
 

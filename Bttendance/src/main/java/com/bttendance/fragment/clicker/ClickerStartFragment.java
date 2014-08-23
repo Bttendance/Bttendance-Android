@@ -47,10 +47,10 @@ public class ClickerStartFragment extends BTFragment {
     private TextView mInfoView;
 
     int mChoice;
-    TextView mChoice2Img;
-    TextView mChoice3Img;
-    TextView mChoice4Img;
-    TextView mChoice5Img;
+    View mChoice2Img;
+    View mChoice3Img;
+    View mChoice4Img;
+    View mChoice5Img;
     TextView mChoice2Text;
     TextView mChoice3Text;
     TextView mChoice4Text;
@@ -92,10 +92,10 @@ public class ClickerStartFragment extends BTFragment {
         mChoiceView2 = view.findViewById(R.id.clicker_start_choice_2);
         mInfoView = (TextView) view.findViewById(R.id.clicker_start_info);
 
-        mChoice2Img = (TextView) view.findViewById(R.id.choice_2_image);
-        mChoice3Img = (TextView) view.findViewById(R.id.choice_3_image);
-        mChoice4Img = (TextView) view.findViewById(R.id.choice_4_image);
-        mChoice5Img = (TextView) view.findViewById(R.id.choice_5_image);
+        mChoice2Img = view.findViewById(R.id.choice_2_image);
+        mChoice3Img = view.findViewById(R.id.choice_3_image);
+        mChoice4Img = view.findViewById(R.id.choice_4_image);
+        mChoice5Img = view.findViewById(R.id.choice_5_image);
 
         mChoice2Text = (TextView) view.findViewById(R.id.choice_2_text);
         mChoice3Text = (TextView) view.findViewById(R.id.choice_3_text);
@@ -195,11 +195,6 @@ public class ClickerStartFragment extends BTFragment {
         mChoice4Img.setSelected(false);
         mChoice5Img.setSelected(false);
 
-        mChoice2Img.setTextColor(getResources().getColor(R.color.bttendance_silver));
-        mChoice3Img.setTextColor(getResources().getColor(R.color.bttendance_silver));
-        mChoice4Img.setTextColor(getResources().getColor(R.color.bttendance_silver));
-        mChoice5Img.setTextColor(getResources().getColor(R.color.bttendance_silver));
-
         mChoice2Text.setTextColor(getResources().getColor(R.color.bttendance_silver));
         mChoice3Text.setTextColor(getResources().getColor(R.color.bttendance_silver));
         mChoice4Text.setTextColor(getResources().getColor(R.color.bttendance_silver));
@@ -208,22 +203,18 @@ public class ClickerStartFragment extends BTFragment {
         switch (mChoice) {
             case 2:
                 mChoice2Img.setSelected(true);
-                mChoice2Img.setTextColor(getResources().getColor(R.color.bttendance_cyan));
                 mChoice2Text.setTextColor(getResources().getColor(R.color.bttendance_navy));
                 break;
             case 3:
                 mChoice3Img.setSelected(true);
-                mChoice3Img.setTextColor(getResources().getColor(R.color.bttendance_cyan));
                 mChoice3Text.setTextColor(getResources().getColor(R.color.bttendance_navy));
                 break;
             case 4:
                 mChoice4Img.setSelected(true);
-                mChoice4Img.setTextColor(getResources().getColor(R.color.bttendance_cyan));
                 mChoice4Text.setTextColor(getResources().getColor(R.color.bttendance_navy));
                 break;
             case 5:
                 mChoice5Img.setSelected(true);
-                mChoice5Img.setTextColor(getResources().getColor(R.color.bttendance_cyan));
                 mChoice5Text.setTextColor(getResources().getColor(R.color.bttendance_navy));
                 break;
         }

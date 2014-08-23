@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.bttendance.R;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.PostJson;
 
@@ -20,13 +21,12 @@ public class FeatureDetailListFragment extends BTFragment {
 
     public enum Type {Clicker, Attendance, Notice}
 
-    FeatureDetailListFragment(Type type, int postID) {
-        mType = type;
-        mPost = BTTable.PostTable.get(postID);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mType = getArguments() != null ? (Type) getArguments().getSerializable(BTKey.EXTRA_TYPE) : Type.Notice;
+        int postID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
+        mPost = BTTable.PostTable.get(postID);
+
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
