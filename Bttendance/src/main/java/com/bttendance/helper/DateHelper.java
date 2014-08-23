@@ -1,5 +1,7 @@
 package com.bttendance.helper;
 
+import android.text.format.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,6 +11,7 @@ public class DateHelper {
 
     public static String SERVER_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.'000Z'";
     public static String POST_FORMAT = "yy/MM/dd HH:mm";
+    public static String CLICKER_FORMAT = "yyyy/MM/dd kk:mm";
     public static String DATE_FORMAT = "yyyy/MM/dd";
     public static String TIME_FORMAT = "HH:mm";
     private static SimpleDateFormat server_format = new SimpleDateFormat(SERVER_FORMAT);
@@ -27,48 +30,9 @@ public class DateHelper {
         return getTime(time);
     }
 
-//    public static String getTimeAgoString(Context context, String timeStr) {
-//
-//        if (timeStr == null || timeStr.length() == 0)
-//            return "";
-//
-//        Date date;
-//        try {
-//            date = server_format.parse(timeStr);
-//            CharSequence time_ago_str = DateUtils.getRelativeDateTimeString(
-//                    context, date.getTime(), DateUtils.MINUTE_IN_MILLIS,
-//                    DateUtils.WEEK_IN_MILLIS, 0);
-//            String string = time_ago_str.toString();
-//            int index = string.lastIndexOf(",");
-//            if (index > 0)
-//                string = string.substring(0, index);
-//            return string;
-//        } catch (ParseException e) {
-//            return "";
-//        }
-//    }
-
-//    public static CharSequence getTimeAgoString(Context context, long currentTimeMillis) {
-//        CharSequence time_ago_str = DateUtils.getRelativeDateTimeString(
-//                context, currentTimeMillis, DateUtils.MINUTE_IN_MILLIS,
-//                DateUtils.WEEK_IN_MILLIS, 0);
-//        if (time_ago_str == null)
-//            return "";
-//
-//        String string = time_ago_str.toString();
-//        int index = string.lastIndexOf(",");
-//        if (index > 0)
-//            string = string.substring(0, index);
-//        return string;
-//    }
-
-//    public static String getCurrentTimeString() {
-//        return (String) DateFormat.format(SERVER_FORMAT, System.currentTimeMillis());
-//    }
-
-//    public static String getString(Date date) {
-//        return server_format.format(date);
-//    }
+    public static String getCurrentTimeString() {
+        return (String) DateFormat.format(CLICKER_FORMAT, System.currentTimeMillis());
+    }
 
     public static long getTime(String timeStr) {
         Date date;

@@ -138,7 +138,7 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
             }
         }
 
-        if (convertView != null && convertView.findViewById(R.id.selector) != null) {
+        if (convertView.findViewById(R.id.selector) != null) {
             final View finalConvertView = convertView;
             convertView.findViewById(R.id.selector).setOnClickListener(new View.OnClickListener() {
                 @Override

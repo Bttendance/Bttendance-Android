@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -34,7 +35,7 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2014. 8. 22..
  */
-public class FeatureDetailListFragment extends BTFragment implements View.OnClickListener {
+public class FeatureDetailListFragment extends BTFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     BTListAdapter mAdapter;
     private ListView mListView;
@@ -110,8 +111,6 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
         View view = inflater.inflate(R.layout.fragment_feature_detail_list, container, false);
 
         mListView = (ListView) view.findViewById(android.R.id.list);
-        mAdapter = new BTListAdapter(getActivity());
-        mListView.setAdapter(mAdapter);
 
         mSortName = (Button) view.findViewById(R.id.sort_by_name);
         mSortNumber = (Button) view.findViewById(R.id.sort_by_number);
@@ -142,11 +141,18 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
                 break;
             case Attendance:
                 mSortStatus.setText(getString(R.string.sort_by_status));
+                View header = inflater.inflate(R.layout.attendance_detail_list_header, null, false);
+                mListView.addHeaderView(header);
+                mListView.setDividerHeight(0);
                 break;
             case Notice:
                 mSortStatus.setText(getString(R.string.sort_by_read));
                 break;
         }
+
+        mAdapter = new BTListAdapter(getActivity());
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(this);
 
         return view;
     }
@@ -155,7 +161,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
     public void onFragmentResume() {
         super.onFragmentResume();
         requestCall();
-        swapItems();
+        swapItems(true);
     }
 
     private void requestCall() {
@@ -166,7 +172,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
             @Override
             public void success(UserJsonSimple[] users, Response response) {
                 mUsers = users;
-                swapItems();
+                swapItems(true);
             }
 
             @Override
@@ -175,7 +181,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
         });
     }
 
-    private void swapItems() {
+    private void swapItems(boolean sort) {
         if (!this.isAdded() || mUsers == null)
             return;
 
@@ -197,41 +203,43 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
         for (UserJsonSimple user : mUsers) {
             String title = user.full_name;
             String message = user.student_id;
-            items.add(new BTListAdapter.Item(type, title, message, getStatus(user.id)));
+            items.add(new BTListAdapter.Item(type, title, message, user, getStatus(user.id)));
         }
 
-        switch (mSort) {
-            case Name:
-                Collections.sort(items, new Comparator<BTListAdapter.Item>() {
-                    @Override
-                    public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
-                        return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
-                    }
-                });
-                break;
-            case Number:
-                Collections.sort(items, new Comparator<BTListAdapter.Item>() {
-                    @Override
-                    public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
-                        return lhs.getMessage().compareToIgnoreCase(rhs.getMessage());
-                    }
-                });
-                break;
-            case Status:
-                Collections.sort(items, new Comparator<BTListAdapter.Item>() {
-                    @Override
-                    public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
-                        return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
-                    }
-                });
+        if (sort) {
+            switch (mSort) {
+                case Name:
+                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+                        @Override
+                        public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+                            return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+                        }
+                    });
+                    break;
+                case Number:
+                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+                        @Override
+                        public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+                            return lhs.getMessage().compareToIgnoreCase(rhs.getMessage());
+                        }
+                    });
+                    break;
+                case Status:
+                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+                        @Override
+                        public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+                            return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
+                        }
+                    });
 
-                Collections.sort(items, new Comparator<BTListAdapter.Item>() {
-                    @Override
-                    public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
-                        return lhs.getStatus().ordinal() - rhs.getStatus().ordinal();
-                    }
-                });
-                break;
+                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+                        @Override
+                        public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+                            return lhs.getStatus().ordinal() - rhs.getStatus().ordinal();
+                        }
+                    });
+                    break;
+            }
         }
 
         getActivity().runOnUiThread(new Runnable() {
@@ -299,21 +307,30 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
                 mSortName.setSelected(true);
                 mSortName.setTextColor(getResources().getColor(R.color.bttendance_cyan));
                 mSort = Sort.Name;
-                swapItems();
+                swapItems(true);
                 break;
             case R.id.sort_by_number:
                 mSortNumber.setSelected(true);
                 mSortNumber.setTextColor(getResources().getColor(R.color.bttendance_cyan));
                 mSort = Sort.Number;
-                swapItems();
+                swapItems(true);
                 break;
             case R.id.sort_by_status:
                 mSortStatus.setSelected(true);
                 mSortStatus.setTextColor(getResources().getColor(R.color.bttendance_cyan));
                 mSort = Sort.Status;
-                swapItems();
+                swapItems(true);
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if (mPost == null)
+            return;
+
+        mPost.attendance.toggleStatus((int) l);
+        swapItems(false);
     }
 
     @Override

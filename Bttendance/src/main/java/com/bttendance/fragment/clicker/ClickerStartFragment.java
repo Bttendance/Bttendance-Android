@@ -20,6 +20,7 @@ import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
@@ -166,6 +167,10 @@ public class ClickerStartFragment extends BTFragment {
             }
         });
 
+        if (mQuestion == null && mPost == null && !mForProfile) {
+            mMessage.setHint(String.format(getString(R.string.clicker_hint), DateHelper.getCurrentTimeString()));
+        }
+
         if (mQuestion != null) {
             mMessage.setText(mQuestion.message);
             mChoice = mQuestion.choice_count;
@@ -281,8 +286,11 @@ public class ClickerStartFragment extends BTFragment {
             case R.id.action_start:
                 if (mMessage != null && mChoice >= 2 && mChoice <= 5) {
                     item.setEnabled(false);
+                    String message = mMessage.getText().toString();
+                    if (message == null || message.length() == 0)
+                        message = mMessage.getHint().toString();
                     BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.starting_clicker)));
-                    getBTService().postStartClicker(mCourseID, mMessage.getText().toString(), 4, new Callback<PostJson>() {
+                    getBTService().postStartClicker(mCourseID, message, mChoice, new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
                             item.setEnabled(true);

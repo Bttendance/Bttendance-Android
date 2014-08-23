@@ -307,5 +307,7 @@
     <string name="absent">Absent</string>
     <string name="tardy">Tardy</string>
     <string name="present">Present</string>
+    <string name="attendance_detail_list_header_guide">Click on the student’s name to toggle the student’s attendance status in the order of Absent ➜ Present ➜ Tardy ➜ Absent.</string>
+    <string name="clicker_hint">This clicker has been created at %s</string>
 
 </resources>
