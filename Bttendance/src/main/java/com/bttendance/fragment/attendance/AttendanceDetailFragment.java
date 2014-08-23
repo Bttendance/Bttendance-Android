@@ -75,7 +75,7 @@ public class AttendanceDetailFragment extends BTFragment {
                 if (mAuth)
                     message = getString(R.string.attendance_message_status);
                 else
-                    message = getString(R.string.attendance_message_abscent);
+                    message = getString(R.string.attendance_message_absent);
 
                 mMessage.setText(message);
             } else {
@@ -175,7 +175,7 @@ public class AttendanceDetailFragment extends BTFragment {
                 String message1 = String.format(getString(R.string.attendance_message_time_left), leftTime);
                 String message2 = getString(R.string.attendance_message_status);
                 String message3 = getString(R.string.attendance_message_present);
-                String message4 = getString(R.string.attendance_message_abscent);
+                String message4 = getString(R.string.attendance_message_absent);
                 String message5 = getString(R.string.attendance_message_tardy);
 
                 timerHandler.removeCallbacks(timerRunnable);
@@ -221,7 +221,7 @@ public class AttendanceDetailFragment extends BTFragment {
                         int progress = (int) (100.0f * (float) (Bttendance.PROGRESS_DURATION - time) / (float) Bttendance.PROGRESS_DURATION);
                         mBttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
                     } else if (mPost.attendance.getStateInt(mUser.id) == 0) {
-                        mBttendance.setBttendance(Bttendance.STATE.ABSCENT, 0);
+                        mBttendance.setBttendance(Bttendance.STATE.ABSENT, 0);
                     } else if (mPost.attendance.getStateInt(mUser.id) == 1) {
                         mBttendance.setBttendance(Bttendance.STATE.PRESENT, 0);
                     } else if (mPost.attendance.getStateInt(mUser.id) == 2) {
@@ -264,7 +264,7 @@ public class AttendanceDetailFragment extends BTFragment {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getString(R.string.clicker));
+        actionBar.setTitle(getString(R.string.attendance));
         if (mAuth)
             inflater.inflate(R.menu.attendance_detail_menu, menu);
     }

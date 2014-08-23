@@ -30,7 +30,7 @@ public class Bttendance extends View {
      */
     private static final int BIG_SIZE = 200; //in dp
     private static final int SMALL_SIZE = 52; //in dp
-    private static final float BIG_WHEEL_RADIUS = 74.1f; //in dp (135)
+    private static final float BIG_WHEEL_RADIUS = 92.0f; //in dp (135)
     private static final float SMALL_WHEEL_RADIUS = 24.2f; //in dp (52)
     /**
      * Type
@@ -49,7 +49,7 @@ public class Bttendance extends View {
     /**
      * Bitmap
      */
-    private Bitmap mAbscentBackground;
+    private Bitmap mAbsentBackground;
     private Bitmap mPresendBackground;
     private Bitmap mTardyBackground;
     private Bitmap mCircleBackground;
@@ -213,7 +213,7 @@ public class Bttendance extends View {
                         else
                             return mCyanCheck;
                     case CHECKING:
-                    case ABSCENT:
+                    case ABSENT:
                     case PRESENT:
                     case TARDY:
                     default:
@@ -228,7 +228,7 @@ public class Bttendance extends View {
                         else
                             return mCyanCheck;
                     case CHECKING:
-                    case ABSCENT:
+                    case ABSENT:
                     case PRESENT:
                     case TARDY:
                     default:
@@ -242,11 +242,11 @@ public class Bttendance extends View {
         switch (mType) {
             case BIG:
                 switch (mState) {
-                    case ABSCENT:
-                        if (mAbscentBackground == null)
-                            return mAbscentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_grey_large);
+                    case ABSENT:
+                        if (mAbsentBackground == null)
+                            return mAbsentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_grey_large);
                         else
-                            return mAbscentBackground;
+                            return mAbsentBackground;
                     case PRESENT:
                         if (mPresendBackground == null)
                             return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_present_navy_large);
@@ -269,11 +269,11 @@ public class Bttendance extends View {
             case SMALL:
             default:
                 switch (mState) {
-                    case ABSCENT:
-                        if (mAbscentBackground == null)
-                            return mAbscentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_small);
+                    case ABSENT:
+                        if (mAbsentBackground == null)
+                            return mAbsentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_small);
                         else
-                            return mAbscentBackground;
+                            return mAbsentBackground;
                     case PRESENT:
                         if (mPresendBackground == null)
                             return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_present_navy_small);
@@ -307,7 +307,7 @@ public class Bttendance extends View {
                 endBttendance(state, progress);
                 break;
             case TARDY:
-            case ABSCENT:
+            case ABSENT:
             case PRESENT:
                 endBttendance(state, 0);
                 break;
@@ -366,5 +366,5 @@ public class Bttendance extends View {
         clearAnimation();
     }
 
-    public static enum STATE {CHECKING, ABSCENT, PRESENT, TARDY, GRADE}
+    public static enum STATE {CHECKING, ABSENT, PRESENT, TARDY, GRADE}
 }

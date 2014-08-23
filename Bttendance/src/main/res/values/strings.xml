@@ -295,7 +295,17 @@
     <string name="attendance_message_time_left">%d sec remaining.</string>
     <string name="attendance_message_status">Attendance Status</string>
     <string name="attendance_message_present">Recorded as present</string>
-    <string name="attendance_message_abscent">Recorded as absent</string>
+    <string name="attendance_message_absent">Recorded as absent</string>
     <string name="attendance_message_tardy">Recorded as tardy</string>
+    <string name="sort_by_name">Name</string>
+    <string name="sort_by_number">Number</string>
+    <string name="sort_by_status">Status</string>
+    <string name="sort_by_choice">Choice</string>
+    <string name="sort_by_read">Read</string>
+    <string name="unread">Unread</string>
+    <string name="read">Read</string>
+    <string name="absent">Absent</string>
+    <string name="tardy">Tardy</string>
+    <string name="present">Present</string>
 
 </resources>

@@ -56,8 +56,6 @@ public class StudentRecordFragment extends BTFragment {
         mListView = (ListView) view.findViewById(android.R.id.list);
         mAdapter = new BTListAdapter(getActivity());
         mListView.setAdapter(mAdapter);
-        swapItems();
-        requestCall();
         return view;
     }
 
@@ -65,6 +63,7 @@ public class StudentRecordFragment extends BTFragment {
     public void onFragmentResume() {
         super.onFragmentResume();
         requestCall();
+        swapItems();
     }
 
     private void requestCall() {
@@ -164,7 +163,6 @@ public class StudentRecordFragment extends BTFragment {
             });
             mAdapter.setItems(items);
         }
-
 
         mAdapter.notifyDataSetChanged();
     }

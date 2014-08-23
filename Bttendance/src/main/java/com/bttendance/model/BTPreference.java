@@ -164,12 +164,12 @@ public class BTPreference {
         }
     }
 
-    public static void setStudentsOfCourse(Context ctx, UserJsonSimpleArray userJsonSimpleArray, int courseId) {
+    public static void setStudentsOfCourse(Context ctx, UserJsonSimpleArray userJsonSimpleArray, int courseID) {
         Gson gson = new Gson();
         String jsonStr = gson.toJson(userJsonSimpleArray);
 
         Editor edit = getInstance(ctx).edit();
-        edit.putString("students_" + courseId, jsonStr);
+        edit.putString("students_" + courseID, jsonStr);
         edit.commit();
     }
 

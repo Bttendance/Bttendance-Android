@@ -6,9 +6,9 @@
     android:minHeight="53dp"
     android:background="@color/bttendance_white"
     android:paddingBottom="0dp"
-    android:paddingLeft="13dp"
-    android:paddingRight="13dp"
-    android:paddingTop="4dp">
+    android:paddingLeft="18dp"
+    android:paddingRight="10dp"
+    android:paddingTop="8dp">
 
     <TextView
         android:id="@+id/title"
@@ -19,7 +19,8 @@
         android:layout_toLeftOf="@+id/add_btn"
         android:gravity="center_vertical|left"
         android:singleLine="true"
-        android:text="CS101 Basic Programming"
+        android:includeFontPadding="false"
+        android:text="Victoria An"
         android:textColor="@color/bttendance_silver"
         android:textSize="16sp" />
 
@@ -27,14 +28,16 @@
         android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="16dp"
+        android:layout_marginTop="-2dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/title"
         android:layout_toLeftOf="@id/add_btn"
         android:gravity="center_vertical|left"
         android:singleLine="true"
-        android:text="Prof. Dong Jun Kim"
+        android:includeFontPadding="false"
+        android:text="CM140012"
         android:textColor="@color/bttendance_silver"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
     <ImageView
         android:id="@id/add_btn"
@@ -44,6 +47,18 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
         android:src="@drawable/ic_grade" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/add_btn"
+        android:gravity="center"
+        android:text="Tardy"
+        android:textColor="@color/bttendance_silver"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/grade"

@@ -53,15 +53,27 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
             image.setTag(R.id.type, item.getType());
 
             switch (item.getType()) {
-                case EMPTY:
+                case EMPTY: {
+                    TextView status = (TextView) v.findViewById(R.id.status);
+                    status.setVisibility(View.GONE);
                     image.setImageDrawable(null);
+
+                    TextView grade = (TextView) v.findViewById(R.id.grade);
+                    TextView gradeTotal = (TextView) v.findViewById(R.id.grade_total);
+                    grade.setVisibility(View.GONE);
+                    gradeTotal.setVisibility(View.GONE);
+
                     break;
-                case GRADE:
+                }
+                case SECTION:
+                    break;
+                case GRADE: {
+                    TextView status = (TextView) v.findViewById(R.id.status);
+                    status.setVisibility(View.GONE);
                     image.setImageResource(R.drawable.ic_grade);
 
                     TextView grade = (TextView) v.findViewById(R.id.grade);
                     TextView gradeTotal = (TextView) v.findViewById(R.id.grade_total);
-
                     grade.setVisibility(View.VISIBLE);
                     gradeTotal.setVisibility(View.VISIBLE);
 
@@ -69,6 +81,84 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
                     grade.setText(gradeStrings[0]);
                     gradeTotal.setText(gradeStrings[1]);
                     break;
+                }
+                case CLICKER: {
+                    TextView status = (TextView) v.findViewById(R.id.status);
+                    status.setVisibility(View.GONE);
+
+                    TextView grade = (TextView) v.findViewById(R.id.grade);
+                    TextView gradeTotal = (TextView) v.findViewById(R.id.grade_total);
+                    grade.setVisibility(View.GONE);
+                    gradeTotal.setVisibility(View.GONE);
+
+                    switch (item.getStatus()) {
+                        case CHOICE_A:
+                            image.setImageResource(R.drawable.s_a);
+                            break;
+                        case CHOICE_B:
+                            image.setImageResource(R.drawable.s_b);
+                            break;
+                        case CHOICE_C:
+                            image.setImageResource(R.drawable.s_c);
+                            break;
+                        case CHOICE_D:
+                            image.setImageResource(R.drawable.s_d);
+                            break;
+                        case CHOICE_E:
+                            image.setImageResource(R.drawable.s_e);
+                            break;
+                        case CHOICE_NONE:
+                            image.setImageResource(R.drawable.ic_absent);
+                            break;
+                    }
+                    break;
+                }
+                case ATTENDANCE: {
+                    TextView status = (TextView) v.findViewById(R.id.status);
+                    status.setVisibility(View.VISIBLE);
+
+                    TextView grade = (TextView) v.findViewById(R.id.grade);
+                    TextView gradeTotal = (TextView) v.findViewById(R.id.grade_total);
+                    grade.setVisibility(View.GONE);
+                    gradeTotal.setVisibility(View.GONE);
+
+                    switch (item.getStatus()) {
+                        case ABSENT:
+                            image.setImageResource(R.drawable.ic_absent);
+                            status.setText(getContext().getString(R.string.absent));
+                            break;
+                        case TARDY:
+                            image.setImageResource(R.drawable.ic_tardy);
+                            status.setText(getContext().getString(R.string.tardy));
+                            break;
+                        case PRESENT:
+                            image.setImageResource(R.drawable.ic_present);
+                            status.setText(getContext().getString(R.string.present));
+                            break;
+                    }
+                    break;
+                }
+                case NOTICE: {
+                    TextView status = (TextView) v.findViewById(R.id.status);
+                    status.setVisibility(View.VISIBLE);
+
+                    TextView grade = (TextView) v.findViewById(R.id.grade);
+                    TextView gradeTotal = (TextView) v.findViewById(R.id.grade_total);
+                    grade.setVisibility(View.GONE);
+                    gradeTotal.setVisibility(View.GONE);
+
+                    switch (item.getStatus()) {
+                        case UNREAD:
+                            image.setImageResource(R.drawable.close_eye);
+                            status.setText(getContext().getString(R.string.unread));
+                            break;
+                        case READ:
+                            image.setImageResource(R.drawable.eye);
+                            status.setText(getContext().getString(R.string.read));
+                            break;
+                    }
+                    break;
+                }
                 default:
                     break;
             }
@@ -92,6 +182,7 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
         private String mTitle;
         private String mMessage;
         private BTJsonSimple mJson;
+        private Status mStatus;
 
         // Section
         public Item(String title) {
@@ -99,12 +190,20 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
             mTitle = title;
         }
 
-        // Entry
+        // Entry #1
         public Item(Type type, String title, String message, BTJsonSimple json) {
             mType = type;
             mTitle = title;
             mMessage = message;
             mJson = json;
+        }
+
+        // Entry #2
+        public Item(Type type, String title, String message, Status status) {
+            mType = type;
+            mTitle = title;
+            mMessage = message;
+            mStatus = status;
         }
 
         public Type getType() {
@@ -123,6 +222,12 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
             return mJson;
         }
 
-        public enum Type {SECTION, GRADE, EMPTY}
+        public Status getStatus() {
+            return mStatus;
+        }
+
+        public enum Type {SECTION, GRADE, EMPTY, CLICKER, ATTENDANCE, NOTICE}
+
+        public enum Status {ABSENT, TARDY, PRESENT, CHOICE_A, CHOICE_B, CHOICE_C, CHOICE_D, CHOICE_E, CHOICE_NONE, UNREAD, READ}
     }
 }

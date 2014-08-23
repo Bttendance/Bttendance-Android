@@ -354,7 +354,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
             } else if (mTime || included) {
                 bttendance.setBttendance(Bttendance.STATE.PRESENT, 0);
             } else {
-                bttendance.setBttendance(Bttendance.STATE.ABSCENT, 0);
+                bttendance.setBttendance(Bttendance.STATE.ABSENT, 0);
             }
         }
 

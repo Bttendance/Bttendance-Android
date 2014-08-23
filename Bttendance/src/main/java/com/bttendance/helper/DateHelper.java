@@ -9,7 +9,7 @@ public class DateHelper {
 
     public static String SERVER_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.'000Z'";
     public static String POST_FORMAT = "yy/MM/dd HH:mm";
-    public static String DATE_FORMAT = "yy/MM/dd";
+    public static String DATE_FORMAT = "yyyy/MM/dd";
     public static String TIME_FORMAT = "HH:mm";
     private static SimpleDateFormat server_format = new SimpleDateFormat(SERVER_FORMAT);
     private static SimpleDateFormat post_format = new SimpleDateFormat(POST_FORMAT);
