@@ -54,7 +54,7 @@ public class GcmIntentService extends IntentService {
                 String type = extras.getString("type");
                 String title = extras.getString("title");
                 String message = extras.getString("message");
-                int course_id = extras.getInt("course_id");
+//                int course_id = Integer.getInteger(extras.getString("course_id"));
                 sendNotification(title, message, true);
 
                 BTDebug.LogError("GCM onHandleIntent TYPE : " + type);

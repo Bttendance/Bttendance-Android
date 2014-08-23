@@ -2,18 +2,18 @@ package com.bttendance.model;
 
 import android.util.SparseArray;
 
-import com.bttendance.event.update.UpdateClickerDetailEvent;
-import com.bttendance.event.update.UpdateFeedEvent;
+import com.bttendance.event.socket.UpdateAttendanceEvent;
+import com.bttendance.event.socket.UpdateClickerEvent;
+import com.bttendance.event.socket.UpdateNoticeEvent;
+import com.bttendance.event.socket.UpdatePostEvent;
 import com.bttendance.helper.DateHelper;
-import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.ClickerJson;
 import com.bttendance.model.json.CourseJson;
-import com.bttendance.model.json.CourseJsonSimple;
+import com.bttendance.model.json.NoticeJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.QuestionJson;
 import com.bttendance.model.json.SchoolJson;
-import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.view.Bttendance;
 import com.bttendance.view.Clicker;
@@ -149,22 +149,6 @@ public class BTTable {
         return posts;
     }
 
-    public static synchronized void updateAttendance(AttendanceJson attendance) {
-        if (attendance == null)
-            return;
-
-        boolean isChanged = false;
-        for (int i = 0; i < PostTable.size(); i++) {
-            if (PostTable.valueAt(i).id == attendance.post.id) {
-                PostTable.valueAt(i).attendance.checked_students = attendance.checked_students;
-                isChanged = true;
-            }
-        }
-
-        if (isChanged)
-            BTEventBus.getInstance().post(new UpdateFeedEvent());
-    }
-
     public static synchronized void updateClicker(ClickerJson clicker) {
         if (clicker == null)
             return;
@@ -183,9 +167,57 @@ public class BTTable {
         }
 
         if (isChanged) {
-            BTEventBus.getInstance().post(new UpdateFeedEvent());
-            BTEventBus.getInstance().post(new UpdateClickerDetailEvent());
+            BTEventBus.getInstance().post(new UpdateClickerEvent());
         }
+    }
+
+    public static synchronized void updateAttendance(AttendanceJson attendance) {
+        if (attendance == null)
+            return;
+
+        boolean isChanged = false;
+        for (int i = 0; i < PostTable.size(); i++) {
+            if (PostTable.valueAt(i).id == attendance.post.id) {
+                PostTable.valueAt(i).attendance.checked_students = attendance.checked_students;
+                PostTable.valueAt(i).attendance.late_students = attendance.late_students;
+                isChanged = true;
+            }
+        }
+
+        if (isChanged)
+            BTEventBus.getInstance().post(new UpdateAttendanceEvent());
+    }
+
+    public static synchronized void updateNotice(NoticeJson notice) {
+        if (notice == null)
+            return;
+
+        boolean isChanged = false;
+        for (int i = 0; i < PostTable.size(); i++) {
+            if (PostTable.valueAt(i).id == notice.post.id) {
+                PostTable.valueAt(i).notice.seen_students = notice.seen_students;
+                isChanged = true;
+            }
+        }
+
+        if (isChanged)
+            BTEventBus.getInstance().post(new UpdateNoticeEvent());
+    }
+
+    public static synchronized void updatePost(PostJson post) {
+        if (post == null)
+            return;
+
+        boolean isChanged = false;
+        for (int i = 0; i < PostTable.size(); i++) {
+            if (PostTable.valueAt(i).id == post.id) {
+                PostTable.append(post.id, post);
+                isChanged = true;
+            }
+        }
+
+        if (isChanged)
+            BTEventBus.getInstance().post(new UpdatePostEvent());
     }
 
     public static synchronized void UUIDLIST_add(String mac) {

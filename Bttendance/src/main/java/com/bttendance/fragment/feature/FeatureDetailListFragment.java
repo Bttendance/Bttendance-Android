@@ -326,9 +326,10 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (mPost == null)
+        if (getBTService() == null || mPost == null)
             return;
 
+        getBTService().attendanceToggleManually(mPost.attendance.id, (int) l, null);
         mPost.attendance.toggleStatus((int) l);
         swapItems(false);
     }

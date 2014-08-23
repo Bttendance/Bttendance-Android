@@ -108,6 +108,8 @@ public class BTService extends Service {
         context.unbindService(connection);
     }
 
+    private SocketIOClient mSocketClient;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -121,6 +123,9 @@ public class BTService extends Service {
                     ex.printStackTrace();
                     return;
                 }
+
+                mSocketClient = client;
+                socketConnect();
 
                 BTDebug.LogQueryAPI("Socket Connected-------");
 
@@ -138,14 +143,52 @@ public class BTService extends Service {
                     }
                 });
 
-                client.on("clickers", new EventCallback() {
+                client.on("clicker", new EventCallback() {
                     @Override
                     public void onEvent(JSONArray arguments, Acknowledge acknowledge) {
                         try {
-                            BTDebug.LogQueryAPI("args: " + arguments);
-                            JSONObject clicker = arguments.getJSONObject(0).getJSONObject("data");
-                            ClickerJson clickerJson = new Gson().fromJson(clicker.toString(), ClickerJson.class);
+                            BTDebug.LogQueryAPI("clicker : " + arguments.getJSONObject(0).toString());
+                            ClickerJson clickerJson = new Gson().fromJson(arguments.getJSONObject(0).toString(), ClickerJson.class);
                             BTTable.updateClicker(clickerJson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                client.on("attendance", new EventCallback() {
+                    @Override
+                    public void onEvent(JSONArray arguments, Acknowledge acknowledge) {
+                        try {
+                            BTDebug.LogQueryAPI("attendance : " + arguments.getJSONObject(0).toString());
+                            AttendanceJson attendanceJson = new Gson().fromJson(arguments.getJSONObject(0).toString(), AttendanceJson.class);
+                            BTTable.updateAttendance(attendanceJson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                client.on("notice", new EventCallback() {
+                    @Override
+                    public void onEvent(JSONArray arguments, Acknowledge acknowledge) {
+                        try {
+                            BTDebug.LogQueryAPI("notice : " + arguments.getJSONObject(0).toString());
+                            NoticeJson noticeJson = new Gson().fromJson(arguments.getJSONObject(0).toString(), NoticeJson.class);
+                            BTTable.updateNotice(noticeJson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                client.on("post", new EventCallback() {
+                    @Override
+                    public void onEvent(JSONArray arguments, Acknowledge acknowledge) {
+                        try {
+                            BTDebug.LogQueryAPI("post : " + arguments.getJSONObject(0).toString());
+                            PostJson postJson = new Gson().fromJson(arguments.getJSONObject(0).toString(), PostJson.class);
+                            BTTable.updatePost(postJson);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -160,6 +203,24 @@ public class BTService extends Service {
                 });
             }
         });
+    }
+
+    public void socketConnect() {
+        if (mSocketClient == null || !mSocketClient.isConnected())
+            return;
+
+        try {
+            UserJson user = BTPreference.getUser(getApplicationContext());
+            String locale = getResources().getConfiguration().locale.getCountry();
+            JSONArray arr = new JSONArray();
+            JSONObject obj = new JSONObject();
+            obj.put("url", String.format("/api/sockets/connect?email=%s&password=%s&locale=%s", user.email, user.password, locale));
+            arr.put(obj);
+            mSocketClient.emit("put", arr);
+            BTDebug.LogError("SENT to Connect");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
