@@ -605,14 +605,15 @@ public class BTService extends Service {
                 new Callback<CourseJson[]>() {
                     @Override
                     public void success(CourseJson[] courses, Response response) {
+
+                        CourseJsonArray courseJsonArray = new CourseJsonArray(courses);
+                        BTPreference.setCourses(getApplicationContext(), courseJsonArray);
+
                         for (CourseJson course : courses)
                             BTTable.MyCourseTable.append(course.id, course);
 
                         if (cb != null)
                             cb.success(courses, response);
-
-                        CourseJsonArray courseJsonArray = new CourseJsonArray(courses);
-                        BTPreference.setCourses(getApplicationContext(), courseJsonArray);
                     }
 
                     @Override

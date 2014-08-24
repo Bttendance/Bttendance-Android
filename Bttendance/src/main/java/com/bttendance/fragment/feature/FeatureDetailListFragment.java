@@ -48,6 +48,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
     public Sort mSort;
     public PostJson mPost;
     private UserJsonSimple[] mUsers;
+    private ArrayList<BTListAdapter.Item> mItems = new ArrayList<BTListAdapter.Item>();
 
     public enum Type {Clicker, Attendance, Notice}
 
@@ -235,17 +236,24 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
                 break;
         }
 
-        final ArrayList<BTListAdapter.Item> items = new ArrayList<BTListAdapter.Item>();
-        for (UserJsonSimple user : mUsers) {
-            String title = user.full_name;
-            String message = user.student_id;
-            items.add(new BTListAdapter.Item(type, title, message, user, getStatus(user.id)));
+        if (sort) {
+            mItems = new ArrayList<BTListAdapter.Item>();
+            for (UserJsonSimple user : mUsers) {
+                String title = user.full_name;
+                String message = user.student_id;
+                mItems.add(new BTListAdapter.Item(type, title, message, user, getStatus(user.id)));
+            }
+        } else {
+            for (BTListAdapter.Item item : mItems)
+                for (UserJsonSimple user : mUsers)
+                    if (item.getJson().id == user.id)
+                        item.setStatus(getStatus(user.id));
         }
 
         if (sort) {
             switch (mSort) {
                 case Name:
-                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+                    Collections.sort(mItems, new Comparator<BTListAdapter.Item>() {
                         @Override
                         public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
                             return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
@@ -253,7 +261,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
                     });
                     break;
                 case Number:
-                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+                    Collections.sort(mItems, new Comparator<BTListAdapter.Item>() {
                         @Override
                         public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
                             return lhs.getMessage().compareToIgnoreCase(rhs.getMessage());
@@ -261,14 +269,14 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
                     });
                     break;
                 case Status:
-                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+                    Collections.sort(mItems, new Comparator<BTListAdapter.Item>() {
                         @Override
                         public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
                             return lhs.getTitle().compareToIgnoreCase(rhs.getTitle());
                         }
                     });
 
-                    Collections.sort(items, new Comparator<BTListAdapter.Item>() {
+                    Collections.sort(mItems, new Comparator<BTListAdapter.Item>() {
                         @Override
                         public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
                             return lhs.getStatus().ordinal() - rhs.getStatus().ordinal();
@@ -281,7 +289,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mAdapter.setItems(items);
+                mAdapter.setItems(mItems);
                 mAdapter.notifyDataSetChanged();
             }
         });

@@ -219,20 +219,40 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
             return mType;
         }
 
+        public void setType(Type type) {
+            mType = type;
+        }
+
         public String getTitle() {
             return mTitle;
+        }
+
+        public void setTitle(String title) {
+            mTitle = title;
         }
 
         public String getMessage() {
             return mMessage;
         }
 
+        public void setMessage(String message) {
+            mMessage = message;
+        }
+
         public BTJsonSimple getJson() {
             return mJson;
         }
 
+        public void setJson(BTJsonSimple json) {
+            mJson = json;
+        }
+
         public Status getStatus() {
             return mStatus;
+        }
+
+        public void setStatus(Status status) {
+            mStatus = status;
         }
 
         public enum Type {GRADE, EMPTY, CLICKER, ATTENDANCE, NOTICE}
