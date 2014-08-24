@@ -608,7 +608,7 @@ public class BTService extends Service {
                 new Callback<UserJson>() {
                     @Override
                     public void success(UserJson user, Response response) {
-                        BTPreference.setUser(getApplicationContext(), user);
+//                        BTPreference.setUser(getApplicationContext(), user);
                         if (cb != null)
                             cb.success(user, response);
                     }

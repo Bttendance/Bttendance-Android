@@ -16,7 +16,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.bttendance.R;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
-import com.bttendance.event.update.UpdateUserEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
@@ -212,7 +211,6 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
     @Override
     public void success(UserJson userJson, Response response) {
         BTEventBus.getInstance().post(new HideProgressDialogEvent());
-        BTEventBus.getInstance().post(new UpdateUserEvent());
         getActivity().onBackPressed();
     }
 

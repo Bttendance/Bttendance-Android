@@ -16,7 +16,6 @@ import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
-import com.bttendance.event.update.UpdateUserEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTKey;
@@ -25,7 +24,6 @@ import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.EmailJson;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
-import com.squareup.otto.Subscribe;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -86,11 +84,6 @@ public class CourseSettingFragment extends BTFragment implements AdapterView.OnI
         refreshAdapter();
         if (getBTService() != null)
             getBTService().autoSignin(null);
-    }
-
-    @Subscribe
-    public void onUpdate(UpdateUserEvent event) {
-        refreshAdapter();
     }
 
     private void refreshAdapter() {
