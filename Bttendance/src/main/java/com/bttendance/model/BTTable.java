@@ -2,10 +2,10 @@ package com.bttendance.model;
 
 import android.util.SparseArray;
 
-import com.bttendance.event.socket.UpdateAttendanceEvent;
-import com.bttendance.event.socket.UpdateClickerEvent;
-import com.bttendance.event.socket.UpdateNoticeEvent;
-import com.bttendance.event.socket.UpdatePostEvent;
+import com.bttendance.event.socket.AttendanceUpdatedEvent;
+import com.bttendance.event.socket.ClickerUpdatedEvent;
+import com.bttendance.event.socket.NoticeUpdatedEvent;
+import com.bttendance.event.socket.PostUpdatedEvent;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.ClickerJson;
@@ -167,7 +167,7 @@ public class BTTable {
         }
 
         if (isChanged) {
-            BTEventBus.getInstance().post(new UpdateClickerEvent());
+            BTEventBus.getInstance().post(new ClickerUpdatedEvent());
         }
     }
 
@@ -185,7 +185,7 @@ public class BTTable {
         }
 
         if (isChanged)
-            BTEventBus.getInstance().post(new UpdateAttendanceEvent());
+            BTEventBus.getInstance().post(new AttendanceUpdatedEvent());
     }
 
     public static synchronized void updateNotice(NoticeJson notice) {
@@ -201,7 +201,7 @@ public class BTTable {
         }
 
         if (isChanged)
-            BTEventBus.getInstance().post(new UpdateNoticeEvent());
+            BTEventBus.getInstance().post(new NoticeUpdatedEvent());
     }
 
     public static synchronized void updatePost(PostJson post) {
@@ -217,7 +217,7 @@ public class BTTable {
         }
 
         if (isChanged)
-            BTEventBus.getInstance().post(new UpdatePostEvent());
+            BTEventBus.getInstance().post(new PostUpdatedEvent());
     }
 
     public static synchronized void UUIDLIST_add(String mac) {

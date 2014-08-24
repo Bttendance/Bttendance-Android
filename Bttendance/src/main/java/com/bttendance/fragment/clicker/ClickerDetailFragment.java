@@ -18,7 +18,8 @@ import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
-import com.bttendance.event.update.UpdateClickerDetailEvent;
+import com.bttendance.event.socket.ClickerUpdatedEvent;
+import com.bttendance.event.socket.PostUpdatedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.feature.FeatureDetailListFragment;
@@ -171,7 +172,12 @@ public class ClickerDetailFragment extends BTFragment {
     }
 
     @Subscribe
-    public void onUpdate(UpdateClickerDetailEvent event) {
+    public void onClickerUpdated(ClickerUpdatedEvent event) {
+        reDrawView();
+    }
+
+    @Subscribe
+    public void onPostUpdated(PostUpdatedEvent event) {
         reDrawView();
     }
 

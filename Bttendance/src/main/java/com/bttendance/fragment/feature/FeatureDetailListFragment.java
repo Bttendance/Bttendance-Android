@@ -14,6 +14,10 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
+import com.bttendance.event.socket.AttendanceUpdatedEvent;
+import com.bttendance.event.socket.ClickerUpdatedEvent;
+import com.bttendance.event.socket.NoticeUpdatedEvent;
+import com.bttendance.event.socket.PostUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
@@ -23,6 +27,7 @@ import com.bttendance.model.json.ClickerJsonSimple;
 import com.bttendance.model.json.NoticeJsonSimple;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJsonSimple;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -157,6 +162,26 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
         return view;
     }
 
+    @Subscribe
+    public void onClickerUpdated(ClickerUpdatedEvent event) {
+        swapItems(false);
+    }
+
+    @Subscribe
+    public void onAttendanceUpdated(AttendanceUpdatedEvent event) {
+        swapItems(false);
+    }
+
+    @Subscribe
+    public void onNoticeUpdated(NoticeUpdatedEvent event) {
+        swapItems(false);
+    }
+
+    @Subscribe
+    public void onPostUpdated(PostUpdatedEvent event) {
+        swapItems(false);
+    }
+
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
@@ -183,6 +208,10 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
 
     private void swapItems(boolean sort) {
         if (!this.isAdded() || mUsers == null)
+            return;
+
+        mPost = BTTable.PostTable.get(mPost.id);
+        if (mPost == null)
             return;
 
         BTListAdapter.Item.Type type;

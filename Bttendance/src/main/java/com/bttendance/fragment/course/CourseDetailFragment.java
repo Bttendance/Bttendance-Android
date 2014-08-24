@@ -22,6 +22,10 @@ import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
+import com.bttendance.event.socket.AttendanceUpdatedEvent;
+import com.bttendance.event.socket.ClickerUpdatedEvent;
+import com.bttendance.event.socket.NoticeUpdatedEvent;
+import com.bttendance.event.socket.PostUpdatedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
@@ -180,6 +184,26 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     public void onRefresh(RefreshFeedEvent event) {
         getFeed();
         refreshHeader();
+    }
+
+    @Subscribe
+    public void onClickerUpdated(ClickerUpdatedEvent event) {
+        swapCursor();
+    }
+
+    @Subscribe
+    public void onAttendanceUpdated(AttendanceUpdatedEvent event) {
+        swapCursor();
+    }
+
+    @Subscribe
+    public void onNoticeUpdated(NoticeUpdatedEvent event) {
+        swapCursor();
+    }
+
+    @Subscribe
+    public void onPostUpdated(PostUpdatedEvent event) {
+        swapCursor();
     }
 
     @Override

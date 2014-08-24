@@ -15,6 +15,8 @@ import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
+import com.bttendance.event.socket.NoticeUpdatedEvent;
+import com.bttendance.event.socket.PostUpdatedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.feature.FeatureDetailListFragment;
@@ -26,6 +28,7 @@ import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
+import com.squareup.otto.Subscribe;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -77,6 +80,16 @@ public class NoticeDetailFragment extends BTFragment {
         });
 
         return view;
+    }
+
+    @Subscribe
+    public void onNoticeUpdated(NoticeUpdatedEvent event) {
+        reDrawView();
+    }
+
+    @Subscribe
+    public void onPostUpdated(PostUpdatedEvent event) {
+        reDrawView();
     }
 
     @Override

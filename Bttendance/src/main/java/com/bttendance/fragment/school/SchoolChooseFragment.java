@@ -21,7 +21,6 @@ import com.bttendance.adapter.ChooseSchoolAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
 import com.bttendance.adapter.kit.SimpleSectionAdapter;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.update.UpdateSchoolChooseEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.KeyboardHelper;
@@ -32,7 +31,6 @@ import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
-import com.squareup.otto.Subscribe;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -116,11 +114,6 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
             public void failure(RetrofitError retrofitError) {
             }
         });
-    }
-
-    @Subscribe
-    public void onUpdate(UpdateSchoolChooseEvent event) {
-        swapItems();
     }
 
     private void swapItems() {
