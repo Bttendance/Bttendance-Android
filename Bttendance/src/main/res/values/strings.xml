@@ -297,6 +297,7 @@
     <string name="attendance_message_present">Recorded as present</string>
     <string name="attendance_message_absent">Recorded as absent</string>
     <string name="attendance_message_tardy">Recorded as tardy</string>
+    <string name="attendance_message_ongoing">Attendance Check is Ongoing</string>
     <string name="sort_by_name">Name</string>
     <string name="sort_by_number">Number</string>
     <string name="sort_by_status">Status</string>
@@ -309,5 +310,12 @@
     <string name="present">Present</string>
     <string name="attendance_detail_list_header_guide">Click on the student’s name to toggle the student’s attendance status in the order of Absent ➜ Present ➜ Tardy ➜ Absent.</string>
     <string name="clicker_hint">This clicker has been created at %s</string>
+    <string name="attendance_timered_message">Attendance Ongoing (%d sec left)</string>
+    <string name="clicker_timered_message">Clicker Ongoing (%d sec left)</string>
+    <string name="attendance_message_post_prof">%1$d/%2$d (%3$d%%) students has been attended.</string>
+    <string name="delete">Delete</string>
+    <string name="delete_question">Delete Question</string>
+    <string name="delete_question_message">Do you want to delete current question?</string>
+    <string name="deleting_question">Deleting Question</string>
 
 </resources>

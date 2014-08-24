@@ -43,6 +43,8 @@ import com.google.gson.Gson;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.socketio.Acknowledge;
 import com.koushikdutta.async.http.socketio.ConnectCallback;
+import com.koushikdutta.async.http.socketio.DisconnectCallback;
+import com.koushikdutta.async.http.socketio.ErrorCallback;
 import com.koushikdutta.async.http.socketio.EventCallback;
 import com.koushikdutta.async.http.socketio.JSONCallback;
 import com.koushikdutta.async.http.socketio.SocketIOClient;
@@ -55,6 +57,8 @@ import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 import retrofit.Callback;
@@ -91,6 +95,7 @@ public class BTService extends Service {
     private Thread mRefreshThread;
     private long mAttdTimeTo;
     private long mRefreshTimeTo;
+    private int mReconnectTry = 0;
 
     public static String getServerDomain() {
         if (!BTDebug.DEBUG)
@@ -115,17 +120,23 @@ public class BTService extends Service {
         super.onCreate();
         mConnectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         mBTAPI = mRestAdapter.create(BTAPI.class);
+        socketConnect();
+    }
+
+    public void socketConnect() {
+        if (mSocketClient != null && mSocketClient.isConnected())
+            return;
 
         SocketIOClient.connect(AsyncHttpClient.getDefaultInstance(), BTService.getServerDomain(), new ConnectCallback() {
             @Override
-            public void onConnectCompleted(Exception ex, SocketIOClient client) {
+            public void onConnectCompleted(Exception ex, final SocketIOClient client) {
                 if (ex != null) {
                     ex.printStackTrace();
                     return;
                 }
 
                 mSocketClient = client;
-                socketConnect();
+                socketConnectToServer();
 
                 BTDebug.LogQueryAPI("Socket Connected-------");
 
@@ -201,13 +212,37 @@ public class BTService extends Service {
                         BTDebug.LogQueryAPI("json: " + json.toString());
                     }
                 });
+
+                client.setErrorCallback(new ErrorCallback() {
+                    @Override
+                    public void onError(String error) {
+
+                    }
+                });
+
+                client.setDisconnectCallback(new DisconnectCallback() {
+                    @Override
+                    public void onDisconnect(Exception e) {
+                        if (!client.isConnected()) {
+                            new Timer().schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    client.reconnect();
+                                    mReconnectTry++;
+                                }
+                            }, 5000 * mReconnectTry);
+                        }
+                    }
+                });
             }
         });
     }
 
-    public void socketConnect() {
-        if (mSocketClient == null || !mSocketClient.isConnected())
+    public void socketConnectToServer() {
+        if (mSocketClient == null || !mSocketClient.isConnected()) {
+            socketConnect();
             return;
+        }
 
         try {
             UserJson user = BTPreference.getUser(getApplicationContext());
@@ -794,6 +829,7 @@ public class BTService extends Service {
                 new Callback<QuestionJson>() {
                     @Override
                     public void success(QuestionJson question, Response response) {
+                        BTTable.MyQuestionTable.append(question.id, question);
                         if (cb != null)
                             cb.success(question, response);
                     }
@@ -822,6 +858,7 @@ public class BTService extends Service {
                 new Callback<QuestionJson>() {
                     @Override
                     public void success(QuestionJson question, Response response) {
+                        BTTable.MyQuestionTable.remove(question.id);
                         if (cb != null)
                             cb.success(question, response);
                     }
@@ -986,6 +1023,7 @@ public class BTService extends Service {
                         BTPreference.setUser(getApplicationContext(), user);
                         if (cb != null)
                             cb.success(user, response);
+                        socketConnectToServer();
                     }
 
                     @Override
@@ -1044,6 +1082,7 @@ public class BTService extends Service {
                         BTPreference.setUser(getApplicationContext(), user);
                         if (cb != null)
                             cb.success(user, response);
+                        socketConnectToServer();
                     }
 
                     @Override
@@ -1100,6 +1139,17 @@ public class BTService extends Service {
                 new Callback<PostJson[]>() {
                     @Override
                     public void success(PostJson[] posts, Response response) {
+
+                        PostJsonArray postJsonArray = new PostJsonArray(posts);
+                        BTPreference.setPostsOfCourse(getApplicationContext(), postJsonArray, courseID);
+
+                        for (int i = 0; i < BTTable.PostTable.size(); i++) {
+                            int key = BTTable.PostTable.keyAt(i);
+                            PostJson post = BTTable.PostTable.get(key);
+                            if (post.course == null || post.course.id <= 0)
+                                BTTable.PostTable.remove(key);
+                        }
+
                         for (PostJson post : posts)
                             BTTable.PostTable.append(post.id, post);
 
@@ -1110,9 +1160,6 @@ public class BTService extends Service {
 
                         if (cb != null)
                             cb.success(posts, response);
-
-                        PostJsonArray postJsonArray = new PostJsonArray(posts);
-                        BTPreference.setPostsOfCourse(getApplicationContext(), postJsonArray, courseID);
                     }
 
                     @Override
@@ -1477,6 +1524,7 @@ public class BTService extends Service {
                 new Callback<PostJson>() {
                     @Override
                     public void success(PostJson post, Response response) {
+                        BTTable.PostTable.remove(post.id);
                         if (cb != null)
                             cb.success(post, response);
                     }

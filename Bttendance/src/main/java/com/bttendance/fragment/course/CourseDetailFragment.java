@@ -177,13 +177,11 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     @Subscribe
     public void onUpdate(UpdateFeedEvent event) {
         swapCursor();
-        refreshHeader();
     }
 
     @Subscribe
     public void onRefresh(RefreshFeedEvent event) {
         getFeed();
-        refreshHeader();
     }
 
     @Subscribe
@@ -210,6 +208,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     public void onFragmentResume() {
         super.onFragmentResume();
         getFeed();
+        swapCursor();
     }
 
     public void getFeed() {
@@ -296,7 +295,9 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (BTTable.getPostsOfCourse(mCourse.id).size() == 0) {
+                    if (BTTable.getPostsOfCourse(mCourse.id).size() == 0
+                            && BTTable.MyCourseTable.get(mCourse.id) != null
+                            && BTTable.MyCourseTable.get(mCourse.id).posts_count != 0) {
                         PostJsonArray postJsonArray = BTPreference.getPostsOfCourse(getActivity(), mCourse.id);
                         if (postJsonArray != null)
                             for (PostJson post : postJsonArray.posts)

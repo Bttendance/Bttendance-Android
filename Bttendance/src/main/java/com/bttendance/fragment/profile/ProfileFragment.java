@@ -14,7 +14,7 @@ import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.ProfileAdapter;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.clicker.ClickerQuestionListFragment;
 import com.bttendance.fragment.course.CourseDetailFragment;
@@ -77,7 +77,7 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     }
 
     @Subscribe
-    public void onUpdate(UpdateUserEvent event) {
+    public void onUpdate(UserUpdatedEvent event) {
         refreshAdapter();
     }
 

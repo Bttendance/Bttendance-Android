@@ -183,6 +183,13 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
     }
 
     @Override
+    public void onServiceConnected() {
+        super.onServiceConnected();
+        if (getBTService() != null)
+            getBTService().socketConnect();
+    }
+
+    @Override
     public void onFragmentResume() {
         super.onFragmentResume();
         requestCall();

@@ -18,7 +18,9 @@ import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
+import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
+import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.KeyboardHelper;
@@ -68,6 +70,12 @@ public class ClickerStartFragment extends BTFragment {
 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        KeyboardHelper.show(getActivity(), mMessage);
     }
 
     @Override
@@ -139,33 +147,34 @@ public class ClickerStartFragment extends BTFragment {
         if (mForProfile) {
             loadQuestionBt.setVisibility(View.GONE);
             view.findViewById(R.id.clicker_start_guide).setVisibility(View.GONE);
+        } else {
+            loadQuestionBt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    KeyboardHelper.hide(getActivity(), mMessage);
+
+                    final ClickerQuestionListFragment fragment = new ClickerQuestionListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, false);
+                    fragment.setArguments(bundle);
+                    fragment.setOnQuestionChosenListener(new ClickerQuestionListFragment.QuestionChosenListener() {
+                        @Override
+                        public void OnQuestionChosen(QuestionJson question) {
+                            mMessage.setText(question.message);
+                            mChoice = question.choice_count;
+                            refreshChoiceView();
+                        }
+                    });
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+                        }
+                    }, 500);
+                }
+            });
         }
-        loadQuestionBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                KeyboardHelper.hide(getActivity(), mMessage);
-
-                final ClickerQuestionListFragment fragment = new ClickerQuestionListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, false);
-                fragment.setArguments(bundle);
-                fragment.setOnQuestionChosenListener(new ClickerQuestionListFragment.QuestionChosenListener() {
-                    @Override
-                    public void OnQuestionChosen(QuestionJson question) {
-                        mMessage.setText(question.message);
-                        mChoice = question.choice_count;
-                        refreshChoiceView();
-                    }
-                });
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
-                    }
-                }, 500);
-            }
-        });
 
         if (mQuestion == null && mPost == null && !mForProfile) {
             mMessage.setHint(String.format(getString(R.string.clicker_hint), DateHelper.getCurrentTimeString()));
@@ -175,6 +184,41 @@ public class ClickerStartFragment extends BTFragment {
             mMessage.setText(mQuestion.message);
             mChoice = mQuestion.choice_count;
             refreshChoiceView();
+            loadQuestionBt.setVisibility(View.VISIBLE);
+            loadQuestionBt.setText(getString(R.string.delete));
+            loadQuestionBt.setBackgroundResource(R.drawable.load_btn_bg_red);
+            loadQuestionBt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (getBTService() == null)
+                        return;
+
+                    String title = getString(R.string.delete_question);
+                    String message = getString(R.string.delete_question_message);
+                    BTEventBus.getInstance().post(new ShowAlertDialogEvent(BTDialogFragment.DialogType.CONFIRM, title, message, new BTDialogFragment.OnDialogListener() {
+                        @Override
+                        public void onConfirmed(String edit) {
+                            BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.deleting_question)));
+                            getBTService().removeQuestion(mQuestion.id, new Callback<QuestionJson>() {
+                                @Override
+                                public void success(QuestionJson questionJson, Response response) {
+                                    BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                                    getActivity().onBackPressed();
+                                }
+
+                                @Override
+                                public void failure(RetrofitError retrofitError) {
+                                    BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCanceled() {
+                        }
+                    }));
+                }
+            });
         }
 
         if (mPost != null) {

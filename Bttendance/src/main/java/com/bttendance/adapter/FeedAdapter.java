@@ -26,18 +26,19 @@ import com.bttendance.fragment.attendance.AttendanceDetailFragment;
 import com.bttendance.fragment.clicker.ClickerDetailFragment;
 import com.bttendance.fragment.notice.NoticeDetailFragment;
 import com.bttendance.helper.DateHelper;
-import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.PackagesHelper;
 import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.BTUrl;
+import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.Bttendance;
 import com.bttendance.view.Clicker;
+import com.bttendance.view.TimeredTextView;
 import com.squareup.otto.BTEventBus;
 
 import org.achartengine.ChartFactory;
@@ -300,7 +301,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         clicker.addView(ring, params);
 
         // Title, Message, Time
-        TextView title = (TextView) view.findViewById(R.id.title);
+        TimeredTextView title = (TimeredTextView) view.findViewById(R.id.timered_title);
         TextView message = (TextView) view.findViewById(R.id.message);
         TextView time = (TextView) view.findViewById(R.id.time);
 
@@ -312,6 +313,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         title.setText(context.getString(R.string.clicker));
         message.setText(post.message + "\n" + post.clicker.getDetail());
         time.setText(DateHelper.getPostFormatString(post.createdAt));
+
+        title.setTimeredTextView(TimeredTextView.Type.Clicker, post.id, mUser.id, mAuth);
 
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);
@@ -330,36 +333,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         bttendance.setVisibility(View.VISIBLE);
         notice.setVisibility(View.GONE);
 
-        long currentTime = DateHelper.getCurrentGMTTimeMillis();
-
-        boolean mTime = currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION;
-        boolean included = IntArrayHelper.contains(post.attendance.checked_students, user.id);
-
-        if (IntArrayHelper.contains(user.supervising_courses, post.course.id)) {
-            if (mTime) {
-                long time = currentTime - DateHelper.getTime(post.createdAt);
-                int progress = (int) (100.0f * (float) (Bttendance.PROGRESS_DURATION - time) / (float) Bttendance.PROGRESS_DURATION);
-                bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
-            } else {
-                int grade = 0;
-//                if (post.grade != null)
-//                    grade = Integer.parseInt(post.grade);
-                bttendance.setBttendance(Bttendance.STATE.GRADE, grade);
-            }
-        } else {
-            if (mTime && !included) {
-                long time = currentTime - DateHelper.getTime(post.createdAt);
-                int progress = (int) (100.0f * (float) (Bttendance.PROGRESS_DURATION - time) / (float) Bttendance.PROGRESS_DURATION);
-                bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
-            } else if (mTime || included) {
-                bttendance.setBttendance(Bttendance.STATE.PRESENT, 0);
-            } else {
-                bttendance.setBttendance(Bttendance.STATE.ABSENT, 0);
-            }
-        }
-
         // Title, Message, Time
-        TextView title = (TextView) view.findViewById(R.id.title);
+        TimeredTextView title = (TimeredTextView) view.findViewById(R.id.timered_title);
         TextView message = (TextView) view.findViewById(R.id.message);
         TextView time = (TextView) view.findViewById(R.id.time);
 
@@ -368,9 +343,48 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         time.setVisibility(View.VISIBLE);
 
         title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
-        title.setText(post.course.name);
-        message.setText(post.message);
+        title.setText(context.getString(R.string.attendance));
         time.setText(DateHelper.getPostFormatString(post.createdAt));
+
+        title.setTimeredTextView(TimeredTextView.Type.Attendance, post.id, mUser.id, mAuth);
+
+        long currentTime = DateHelper.getCurrentGMTTimeMillis();
+
+        String message1 = context.getString(R.string.attendance_message_present);
+        String message2 = context.getString(R.string.attendance_message_absent);
+        String message3 = context.getString(R.string.attendance_message_tardy);
+        String message4 = context.getString(R.string.attendance_message_ongoing);
+
+        if (mAuth) {
+            int totalStudents = 0;
+            if (mCourse != null)
+                totalStudents = mCourse.students_count;
+            int rate = 0;
+            if (totalStudents != 0)
+                rate = Math.round((float) post.attendance.getAttendedCount() / (float) totalStudents * 100.0f);
+            bttendance.setBttendance(Bttendance.STATE.GRADE, rate);
+            String message0 = context.getString(R.string.attendance_message_post_prof);
+            message.setText(String.format(message0, post.attendance.getAttendedCount(), totalStudents, rate));
+        } else {
+            if (post.attendance.getStateInt(mUser.id) == 0) {
+                if (AttendanceJson.TYPE_AUTO.equals(post.attendance.type)
+                        && Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(post.createdAt) > 0) {
+                    long timeLeft = currentTime - DateHelper.getTime(post.createdAt);
+                    int progress = (int) (100.0f * (float) (Bttendance.PROGRESS_DURATION - timeLeft) / (float) Bttendance.PROGRESS_DURATION);
+                    bttendance.setBttendance(Bttendance.STATE.CHECKING, progress);
+                    message.setText(message4);
+                } else {
+                    bttendance.setBttendance(Bttendance.STATE.ABSENT, 0);
+                    message.setText(message2);
+                }
+            } else if (post.attendance.getStateInt(mUser.id) == 1) {
+                bttendance.setBttendance(Bttendance.STATE.PRESENT, 0);
+                message.setText(message1);
+            } else {
+                bttendance.setBttendance(Bttendance.STATE.TARDY, 0);
+                message.setText(message3);
+            }
+        }
 
         // Attendance Icon Param
         Rect bounds = new Rect();
@@ -408,7 +422,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         notice.setVisibility(View.VISIBLE);
 
         // Title, Message, Time
-        TextView title = (TextView) view.findViewById(R.id.title);
+        TextView title = (TextView) view.findViewById(R.id.timered_title);
         TextView message = (TextView) view.findViewById(R.id.message);
         TextView time = (TextView) view.findViewById(R.id.time);
 

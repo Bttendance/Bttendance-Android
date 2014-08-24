@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.model.json.CourseJsonArray;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.PostJsonArray;
@@ -78,7 +78,7 @@ public class BTPreference {
         edit.putString("users", jsonStr);
         edit.commit();
 
-        BTEventBus.getInstance().post(new UpdateUserEvent());
+        BTEventBus.getInstance().post(new UserUpdatedEvent());
     }
 
     public static SchoolJsonArray getAllSchools(Context ctx) {

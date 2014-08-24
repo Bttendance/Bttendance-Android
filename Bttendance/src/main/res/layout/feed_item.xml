@@ -54,8 +54,8 @@
             android:background="@drawable/ic_notice_big"
             android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/title"
+        <com.bttendance.view.TimeredTextView
+            android:id="@+id/timered_title"
             style="@style/itemTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

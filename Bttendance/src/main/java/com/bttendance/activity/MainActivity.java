@@ -22,7 +22,7 @@ import com.bttendance.activity.guide.GuideActivity;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.update.UpdateCourseListEvent;
-import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.course.CourseDetailFragment;
 import com.bttendance.fragment.course.NoCourseFragment;
@@ -82,6 +82,8 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 super.onDrawerClosed(view);
                 invalidateOptionsMenu();
                 replacePendingFragment();
+                if (getBTService() != null)
+                    getBTService().socketConnect();
             }
 
             @Override
@@ -122,7 +124,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     }
 
     @Subscribe
-    public void onUpdate(UpdateUserEvent event) {
+    public void onUpdate(UserUpdatedEvent event) {
         mSideAdapter.refreshAdapter();
     }
 

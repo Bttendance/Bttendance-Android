@@ -16,7 +16,7 @@ import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.SettingAdapter;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.update.UpdateUserEvent;
+import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.helper.PackagesHelper;
@@ -77,7 +77,7 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
     }
 
     @Subscribe
-    public void onUpdate(UpdateUserEvent event) {
+    public void onUpdate(UserUpdatedEvent event) {
         refreshAdapter();
     }
 

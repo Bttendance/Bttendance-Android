@@ -17,6 +17,7 @@ import com.bttendance.adapter.QuestionAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
@@ -127,6 +128,7 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
     public void onFragmentResume() {
         super.onFragmentResume();
         getQuestion();
+        swapCursor();
     }
 
     public void getQuestion() {
@@ -150,7 +152,7 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (BTTable.MyQuestionTable.size() == 0) {
+                    if (BTTable.MyQuestionTable.size() == 0 && mUser.questions_count != 0) {
                         QuestionJsonArray questionJsonArray = BTPreference.getMyQuestions(getActivity());
                         if (questionJsonArray != null)
                             for (QuestionJson question : questionJsonArray.questions)

@@ -39,6 +39,7 @@ import retrofit.client.Response;
  */
 public class NoticeDetailFragment extends BTFragment {
 
+    private int mPostID;
     private UserJson mUser;
     private CourseJson mCourse;
     private PostJson mPost;
@@ -49,8 +50,8 @@ public class NoticeDetailFragment extends BTFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        int postID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
-        mPost = BTTable.PostTable.get(postID);
+        mPostID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
+        mPost = BTTable.PostTable.get(mPostID);
         mUser = BTPreference.getUser(getActivity());
         mCourse = BTTable.MyCourseTable.get(mPost.course.id);
         mAuth = mUser.supervising(mCourse.id);
@@ -93,6 +94,13 @@ public class NoticeDetailFragment extends BTFragment {
     }
 
     @Override
+    public void onServiceConnected() {
+        super.onServiceConnected();
+        if (getBTService() != null)
+            getBTService().socketConnect();
+    }
+
+    @Override
     public void onFragmentResume() {
         super.onFragmentResume();
         if (getBTService() != null && mPost != null && !mAuth)
@@ -109,7 +117,7 @@ public class NoticeDetailFragment extends BTFragment {
             @Override
             public void run() {
 
-                mPost = BTTable.PostTable.get(mPost.id);
+                mPost = BTTable.PostTable.get(mPostID);
                 if (mPost == null)
                     return;
 
@@ -176,7 +184,6 @@ public class NoticeDetailFragment extends BTFragment {
                                 getBTService().removePost(mPost.id, new Callback<PostJson>() {
                                     @Override
                                     public void success(PostJson postJson, Response response) {
-                                        BTTable.PostTable.delete(postJson.id);
                                         BTEventBus.getInstance().post(new HideProgressDialogEvent());
                                         getActivity().onBackPressed();
                                     }
