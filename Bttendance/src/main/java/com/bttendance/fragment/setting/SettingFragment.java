@@ -136,7 +136,7 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
      */
     private void showTerms() {
         String url;
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if ("ko".equals(locale))
             url = "http://www.bttendance.com/terms";
         else
@@ -151,7 +151,7 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
 
     private void showPrivacy() {
         String url;
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if ("ko".equals(locale))
             url = "http://www.bttendance.com/privacy";
         else
@@ -166,7 +166,7 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
 
     private void showBlog() {
         String url;
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if ("ko".equals(locale))
             url = "http://bttendance.tistory.com";
         else
@@ -181,7 +181,7 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
 
     private void showFacebook() {
         String url;
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         String facebookScheme;
         if ("ko".equals(locale)) {
             facebookScheme = "fb://profile/226844200832003";

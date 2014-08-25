@@ -240,7 +240,9 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                 CourseJson course = BTTable.MyCourseTable.get(mCourse.id);
 
                 TextView courseCode = (TextView) header.findViewById(R.id.code_text);
-                String code = course.code;
+                String code = null;
+                if (course != null)
+                    code = course.code;
                 if (code != null)
                     code = code.toUpperCase();
                 courseCode.setText(code);

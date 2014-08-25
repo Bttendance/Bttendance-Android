@@ -318,6 +318,39 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resetMainFragment();
+    }
+
+    private int mResetCourseID = 0;
+
+    public void setResetCourseID(int courseID) {
+        mResetCourseID = courseID;
+    }
+
+    private void resetMainFragment() {
+        if (mResetCourseID == 0)
+            return;
+
+        CourseDetailFragment fragment = new CourseDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mResetCourseID);
+        fragment.setArguments(bundle);
+
+        FragmentManager fm = getSupportFragmentManager();
+        while (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+        }
+
+        fm.beginTransaction().replace(R.id.content, fragment).commit();
+        fragment.onPendingFragmentResume();
+
+        mDrawerLayout.closeDrawer(mListMenu);
+        mResetCourseID = 0;
+    }
+
     // onDrawerClosed
     private void replacePendingFragment() {
         FragmentManager fm = getSupportFragmentManager();

@@ -20,6 +20,7 @@ import com.bttendance.activity.guide.GuideCourseCreateActivity;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
+import com.bttendance.event.main.ResetMainFragmentEvent;
 import com.bttendance.fragment.school.SchoolChooseFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
@@ -249,10 +250,13 @@ public class CreateCourseActivity extends BTActivity {
                         newCourseID = new_course.id;
                 }
 
+                final int finalNewCourseID = newCourseID;
                 getBTService().searchCourse(newCourseID, "", new Callback<CourseJson>() {
                     @Override
                     public void success(CourseJson courseJson, Response response) {
                         BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                        BTEventBus.getInstance().post(new ResetMainFragmentEvent(finalNewCourseID));
+
                         onBackPressed();
                         Intent intent = new Intent(CreateCourseActivity.this, GuideCourseCreateActivity.class);
                         intent.putExtra(GuideCourseCreateActivity.EXTRA_CLASS_CODE, courseJson.code);

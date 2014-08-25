@@ -34,7 +34,7 @@
     <string name="ok">"OK"</string>
     <string name="attendance_check_has_been_canceled">"Attendance check has been canceled"</string>
     <string name="attendance_check">"Attendance check"</string>
-    <string name="turn_on_your_bluetooth_settings">"Attendance Checking is in progress. Turn on your bluetooth to enhance your accuracy in attendance checking."</string>
+    <string name="turn_on_your_bluetooth_settings">"Attendance Checking is ongoing. Turn on your bluetooth to enhance your accuracy in attendance checking."</string>
 
     <!--Bluetooth Dialog-->
     <string name="turn_on_bt_title">"Turn on Bluetooth"</string>
@@ -59,22 +59,22 @@
     <string name="password_recovery_has_been_succeeded">Password recovery has been succeeded.\nPlease check your email.\n%s</string>
     <string name="oopps">Ooooppss!</string>
     <string name="too_many_users_are_connecting">Too many users are connecting at the same time, please try again later.</string>
-    <string name="unjoin_course">Unjoin Course</string>
-    <string name="export_grades">Export Grades</string>
+    <string name="unjoin_course">Leave Course</string>
+    <string name="export_grades">Export Results</string>
     <string name="start">Start</string>
     <string name="setting">Setting</string>
     <string name="write_an_announcement">Write an announcement.</string>
     <string name="start_clicker">Start Clicker</string>
-    <string name="exporting_grades">Exporting Grades</string>
-    <string name="exporting_grade_has_been_finished">Exporting Grades has been finished.\nPlease check your email.\n%s</string>
-    <string name="unjoining_course">Unjoining Course</string>
+    <string name="exporting_grades">Exporting Results</string>
+    <string name="exporting_grade_has_been_finished">Exporting Results has been finished.\nPlease check your email.\n%s</string>
+    <string name="unjoining_course">Leaving Course</string>
     <string name="recovering_password">Recovering Password...</string>
     <string name="loging_in_bttendance">Loging In Bttendance</string>
     <string name="signing_up_bttendance">Signing Up Bttendance</string>
     <string name="updating_profile">Updating Profile</string>
     <string name="no_course">No Course Yet :(</string>
     <string name="press_plus_button">Press \'+\' button\nto create or attend a course.</string>
-    <string name="do_you_really_wish_to_unjoin">Do you really wish to unjoin from course %s?</string>
+    <string name="do_you_really_wish_to_unjoin">Do you really wish to leave course %s?</string>
     <string name="do_you_really_wish_to_open">Do you really wish to open course %s?</string>
     <string name="attending_course">Attending Course</string>
     <string name="would_you_like_to" formatted="false">Would you like to attend %s by %s?</string>
@@ -113,7 +113,7 @@
     <string name="switch_off"> </string>
     <string name="next">Next</string>
     <string name="guide_first_welcome">Welcome!</string>
-    <string name="guide_first_message">Let me introduce\nhow to user\nBTTENDANCE.</string>
+    <string name="guide_first_message">Let me introduce\nhow to use\nBTTENDANCE.</string>
     <string name="see_more">See More</string>
     <string name="guide_poll_message">Check the response of your students\nduring the class by using BTTENDANCE</string>
     <string name="guide_attendance_message">Check your students\' attendance\naccurately and effortlessly\nby using elaborate algorithm.</string>
@@ -143,7 +143,7 @@
     <string name="etc">Etc.</string>
     <string name="institute">Institute</string>
     <string name="university">University</string>
-    <string name="creating_school">Creating School</string>
+    <string name="creating_school">Creating Institution</string>
     <string name="student_number_univ">Student Number</string>
     <string name="student_number_school">Student Number</string>
     <string name="before_you_join_univ">Before you join course %s, you need to enter your student number</string>

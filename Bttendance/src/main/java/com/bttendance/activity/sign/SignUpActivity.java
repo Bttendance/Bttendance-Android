@@ -202,7 +202,7 @@ public class SignUpActivity extends BTActivity {
         String term_and_condition_html = "<a href=\"" + BTUrl.TERMS_EN + "\">"
                 + term_and_condition + "</a>";
 
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if ("kr".equals(locale))
             term_and_condition_html = "<a href=\"" + BTUrl.TERMS_KR + "\">"
                     + term_and_condition + "</a>";

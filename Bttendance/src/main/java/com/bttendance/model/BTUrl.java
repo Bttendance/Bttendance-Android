@@ -15,7 +15,7 @@ public class BTUrl {
     public final static String PARTNERSHIP = "http://www.bttendance.com/contact";
 
     public static String getTutorialClicker(Context context) {
-        String locale = context.getResources().getConfiguration().locale.getCountry();
+        String locale = context.getResources().getConfiguration().locale.getLanguage();
         String url = "http://www.bttd.co/tutorial/clicker?" +
                 "device_type=android" +
                 "&locale=" + locale +
@@ -24,7 +24,7 @@ public class BTUrl {
     }
 
     public static String getTutorialAttendance(Context context) {
-        String locale = context.getResources().getConfiguration().locale.getCountry();
+        String locale = context.getResources().getConfiguration().locale.getLanguage();
         String url = "http://www.bttd.co/tutorial/attendance?" +
                 "device_type=android" +
                 "&locale=" + locale +
@@ -33,7 +33,7 @@ public class BTUrl {
     }
 
     public static String getTutorialNotice(Context context) {
-        String locale = context.getResources().getConfiguration().locale.getCountry();
+        String locale = context.getResources().getConfiguration().locale.getLanguage();
         String url = "http://www.bttd.co/tutorial/notice?" +
                 "device_type=android" +
                 "&locale=" + locale +

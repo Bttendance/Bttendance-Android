@@ -114,6 +114,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
             public void failure(RetrofitError retrofitError) {
             }
         });
+        swapItems();
     }
 
     private void swapItems() {

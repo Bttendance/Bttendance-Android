@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.bttendance.event.update.UserUpdatedEvent;
+import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.model.json.CourseJsonArray;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.PostJsonArray;
@@ -198,8 +199,8 @@ public class BTPreference {
 
     public static int getLastSeenCourse(Context ctx) {
         int lastCourse = getInstance(ctx).getInt("last_course", 0);
-        if (lastCourse == 0) {
-            UserJson user = getUser(ctx);
+        UserJson user = getUser(ctx);
+        if (lastCourse == 0 || !IntArrayHelper.contains(user.getOpenedCourses(), lastCourse)) {
             for (CourseJsonSimple course : user.supervising_courses)
                 if (course.opened) {
                     setLastSeenCourse(ctx, course.id);

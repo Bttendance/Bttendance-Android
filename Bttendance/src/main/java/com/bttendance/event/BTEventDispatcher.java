@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
+import com.bttendance.activity.MainActivity;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
@@ -13,6 +14,7 @@ import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
+import com.bttendance.event.main.ResetMainFragmentEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
@@ -142,6 +144,15 @@ public class BTEventDispatcher {
             public void failure(RetrofitError retrofitError) {
             }
         });
+    }
+
+    @Subscribe
+    public void onResetMainFragment(ResetMainFragmentEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null || act.findViewById(R.id.content) == null || !(act instanceof MainActivity))
+            return;
+
+        ((MainActivity)act).setResetCourseID(event.getCourseID());
     }
 
     @Subscribe

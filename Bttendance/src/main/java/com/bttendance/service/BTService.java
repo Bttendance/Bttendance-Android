@@ -246,7 +246,7 @@ public class BTService extends Service {
 
         try {
             UserJson user = BTPreference.getUser(getApplicationContext());
-            String locale = getResources().getConfiguration().locale.getCountry();
+            String locale = getResources().getConfiguration().locale.getLanguage();
             JSONArray arr = new JSONArray();
             JSONObject obj = new JSONObject();
             obj.put("url", String.format("/api/sockets/connect?email=%s&password=%s&locale=%s", user.email, user.password, locale));
@@ -370,7 +370,7 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         mBTAPI.signup(
                 user.full_name,
                 user.email,
@@ -398,7 +398,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         String version = getString(R.string.app_version);
         if (user == null)
             return;
@@ -429,7 +429,7 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         mBTAPI.signin(
                 email,
                 password,
@@ -455,7 +455,7 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         mBTAPI.forgotPassword(
                 email,
                 locale,
@@ -478,7 +478,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -508,7 +508,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -537,7 +537,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -566,7 +566,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -594,7 +594,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -631,7 +631,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -664,7 +664,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -693,7 +693,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -722,7 +722,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -754,7 +754,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -787,7 +787,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -816,7 +816,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -847,7 +847,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -879,7 +879,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -912,7 +912,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -941,7 +941,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -974,7 +974,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1007,7 +1007,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1039,7 +1039,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1052,6 +1052,7 @@ public class BTService extends Service {
                 new Callback<CourseJson>() {
                     @Override
                     public void success(CourseJson course, Response response) {
+                        BTTable.MyCourseTable.append(course.id, course);
                         if (cb != null)
                             cb.success(course, response);
                     }
@@ -1068,7 +1069,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1098,7 +1099,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1127,7 +1128,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1175,7 +1176,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1204,7 +1205,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1233,7 +1234,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1262,7 +1263,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1295,7 +1296,7 @@ public class BTService extends Service {
             return;
 
         final UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1328,7 +1329,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1361,7 +1362,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1392,7 +1393,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1422,7 +1423,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1453,7 +1454,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1483,7 +1484,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1513,7 +1514,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1545,7 +1546,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1573,7 +1574,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1603,7 +1604,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1636,7 +1637,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
@@ -1669,7 +1670,7 @@ public class BTService extends Service {
             return;
 
         UserJson user = BTPreference.getUser(getApplicationContext());
-        String locale = getResources().getConfiguration().locale.getCountry();
+        String locale = getResources().getConfiguration().locale.getLanguage();
         if (user == null)
             return;
 
