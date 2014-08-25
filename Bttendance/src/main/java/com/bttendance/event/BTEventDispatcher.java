@@ -4,7 +4,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.event.attendance.AttdStartEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
@@ -46,44 +45,6 @@ public class BTEventDispatcher {
             return null;
 
         return mBTActRef.get();
-    }
-
-    @Subscribe
-    public void onAttendanceStart(final AttdStartEvent event) {
-        final BTActivity act = getBTActivity();
-        if (act == null)
-            return;
-
-        BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
-        String title = act.getString(R.string.attendance_check);
-        String message = act.getString(R.string.do_you_want_to_start_attendance_check);
-        BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
-            @Override
-            public void onConfirmed(String edit) {
-                BTTable.ATTENDANCE_STARTING_COURSE = event.getCourseId();
-                if (!BluetoothHelper.isDiscoverable()) {
-                    BluetoothHelper.enableWithUI();
-                    BluetoothHelper.enableDiscoverability(act);
-                } else {
-                    act.getBTService().postStartAttendance(BTTable.ATTENDANCE_STARTING_COURSE, "auto", new Callback<PostJson>() {
-                        @Override
-                        public void success(PostJson postJson, Response response) {
-                            act.getBTService().attendanceStart();
-                        }
-
-                        @Override
-                        public void failure(RetrofitError retrofitError) {
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCanceled() {
-                BeautiToast.show(act, act.getString(R.string.attendance_check_has_been_canceled));
-            }
-        };
-        BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
     }
 
     @Subscribe

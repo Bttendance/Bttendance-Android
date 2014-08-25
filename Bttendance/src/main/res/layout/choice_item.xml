@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.bttendance.view.TimeredTextView
             android:id="@+id/choice_title"
             style="@style/itemTextView"
             android:layout_width="match_parent"

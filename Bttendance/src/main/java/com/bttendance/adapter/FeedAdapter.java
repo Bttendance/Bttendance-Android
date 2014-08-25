@@ -265,7 +265,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         }
 
         // Title, Message, Time
-        TextView title = (TextView) view.findViewById(R.id.choice_title);
+        TimeredTextView title = (TimeredTextView) view.findViewById(R.id.choice_title);
         TextView message = (TextView) view.findViewById(R.id.choice_message);
         TextView time = (TextView) view.findViewById(R.id.time);
 
@@ -277,6 +277,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         title.setText(context.getString(R.string.clicker));
         message.setText(post.message);
         time.setText(DateHelper.getPostFormatString(post.createdAt));
+
+        title.setTimeredTextView(TimeredTextView.Type.Clicker, post.id, mUser.id, mAuth);
     }
 
     private void drawClicker(View view, Context context, PostJson post) {
