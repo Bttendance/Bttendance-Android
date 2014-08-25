@@ -15,10 +15,9 @@ import android.support.v4.app.NotificationCompat;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
-import com.bttendance.activity.sign.CatchPointActivity;
 import com.bttendance.event.notification.NotificationReceived;
-import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
@@ -57,14 +56,12 @@ public class GcmIntentService extends IntentService {
                 String message = extras.getString("message");
                 String courseID = extras.getString("course_id");
 
-                sendNotification(title, message, true);
+                sendNotification(type, title, message, courseID, true);
                 BTEventBus.getInstance().post(new NotificationReceived(type, title, message, courseID));
 
                 if ("attendance_started".equals(type)) {
-                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
                     BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("attendance_on_going".equals(type)) {
-                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
                     BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("attendance_checked".equals(type)) {
                     BTEventBus.getInstance().post(new RefreshFeedEvent());
@@ -75,7 +72,6 @@ public class GcmIntentService extends IntentService {
                 } else if ("notice".equals(type)) {
                     BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } else if ("added_as_manager".equals(type)) {
-                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
                     BTEventBus.getInstance().post(new RefreshFeedEvent());
                 }
             }
@@ -83,7 +79,13 @@ public class GcmIntentService extends IntentService {
         GcmBroadcastReceiver.completeWakefulIntent(intent);
     }
 
-    private void sendNotification(String title, String message, boolean alert) {
+    private void sendNotification(String type, String title, String message, String courseID, boolean alert) {
+
+        UserJson user = BTPreference.getUser(this);
+        if (user == null || user.email == null || user.password == null) {
+            BTPreference.clearUser(this);
+            return;
+        }
 
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
@@ -103,14 +105,14 @@ public class GcmIntentService extends IntentService {
             builder.setSmallIcon(R.drawable.ic_status_bar_icon);
         }
 
-        UserJson user = BTPreference.getUser(this);
-        PendingIntent pending;
-        if (user == null || user.email == null || user.password == null) {
-            BTPreference.clearUser(this);
-            pending = PendingIntent.getActivity(this, 0, new Intent(this, CatchPointActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-        } else {
-            pending = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-        }
+        Intent intent = new Intent(BTKey.IntentKey.ACTION_SHOW_COURSE);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.putExtra(BTKey.EXTRA_TYPE, type);
+        intent.putExtra(BTKey.EXTRA_TITLE, title);
+        intent.putExtra(BTKey.EXTRA_MESSAGE, message);
+        intent.putExtra(BTKey.EXTRA_COURSE_ID, courseID);
+        PendingIntent pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(pending);
 

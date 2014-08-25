@@ -17,4 +17,11 @@ public class BTKey {
     public final static String EXTRA_MESSAGE = "message";
 
     public final static String EXTRA_FOR_PROFILE = "for_profile";
+
+
+    public static class IntentKey {
+        private static final String ACTION_PREFIX = "com.bttendance.intent.action.";
+        public static final String ACTION_SHOW_COURSE = ACTION_PREFIX + "SHOW_COURSE";
+
+    }
 }

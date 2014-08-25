@@ -15,6 +15,7 @@ import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.main.ResetMainFragmentEvent;
+import com.bttendance.event.notification.NotificationReceived;
 import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
@@ -153,7 +154,7 @@ public class BTEventDispatcher {
         if (act == null || act.findViewById(R.id.content) == null || !(act instanceof MainActivity))
             return;
 
-        ((MainActivity)act).setResetCourseID(event.getCourseID());
+        ((MainActivity) act).setResetCourseID(event.getCourseID());
     }
 
     @Subscribe
@@ -162,7 +163,41 @@ public class BTEventDispatcher {
         if (act == null || act.findViewById(R.id.content) == null || !(act instanceof MainActivity))
             return;
 
-        ((MainActivity)act).refreshSideList();
+        ((MainActivity) act).refreshSideList();
+    }
+
+    @Subscribe
+    public void onNotificationReceived(final NotificationReceived event) {
+        final BTActivity act = getBTActivity();
+        if (act == null || act.findViewById(R.id.content) == null || !act.isVisible())
+            return;
+
+        if ("attendance_started".equals(event.getType())
+                || "attendance_checked".equals(event.getType())
+                || "clicker_started".equals(event.getType())
+                || "notice".equals(event.getType())
+                || "added_as_manager".equals(event.getType())) {
+            BTEventBus.getInstance().post(new ShowAlertDialogEvent(BTDialogFragment.DialogType.OK, event.getTitle(), event.getMessage(), new BTDialogFragment.OnDialogListener() {
+                @Override
+                public void onConfirmed(String edit) {
+                    if (!(act instanceof MainActivity))
+                        act.finish();
+
+                    BTEventBus.getInstance().post(new ResetMainFragmentEvent(Integer.parseInt(event.getCourseID())));
+                }
+
+                @Override
+                public void onCanceled() {
+                }
+            }));
+        }
+
+        if ("added_as_manager".equals(event.getType())) {
+            if (act.getBTService() != null) {
+                act.getBTService().socketConnectToServer();
+                act.getBTService().autoSignin(null);
+            }
+        }
     }
 
     @Subscribe

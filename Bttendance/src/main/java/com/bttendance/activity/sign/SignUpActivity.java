@@ -203,7 +203,7 @@ public class SignUpActivity extends BTActivity {
                 + term_and_condition + "</a>";
 
         String locale = getResources().getConfiguration().locale.getLanguage();
-        if ("kr".equals(locale))
+        if ("ko".equals(locale))
             term_and_condition_html = "<a href=\"" + BTUrl.TERMS_KR + "\">"
                     + term_and_condition + "</a>";
 
@@ -217,7 +217,7 @@ public class SignUpActivity extends BTActivity {
         String privacy_policy = getString(R.string.privacy_policy);
         String privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY_EN + "\">"
                 + privacy_policy + "</a>";
-        if ("kr".equals(locale))
+        if ("ko".equals(locale))
             privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY_KR + "\">"
                     + privacy_policy + "</a>";
 

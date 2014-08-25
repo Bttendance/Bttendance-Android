@@ -16,6 +16,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.course.AddCourseActivity;
 import com.bttendance.activity.guide.GuideActivity;
@@ -154,6 +155,21 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             public void failure(RetrofitError retrofitError) {
             }
         });
+
+        BTDebug.LogError("ACTION_SHOW_COURSE #1");
+        Intent intent = getIntent();
+        if (intent == null)
+            return;
+
+        BTDebug.LogError("ACTION_SHOW_COURSE #2 : " + intent.toString());
+        String action = intent.getAction();
+        if (action == null)
+            return;
+
+        BTDebug.LogError("ACTION_SHOW_COURSE #3");
+        if (action.equals(BTKey.IntentKey.ACTION_SHOW_COURSE)) {
+            BTDebug.LogError("ACTION_SHOW_COURSE #4");
+        }
     }
 
     @Override
@@ -319,6 +335,9 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
     public void setResetCourseID(int courseID) {
         mResetCourseID = courseID;
+
+        if (isVisible())
+            resetMainFragment();
     }
 
     private void resetMainFragment() {

@@ -14,7 +14,6 @@ import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
-import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.helper.BluetoothHelper;
@@ -293,7 +292,6 @@ public class BTService extends Service {
                     long timeout = mRefreshTimeTo - System.currentTimeMillis();
                     if (timeout > 0)
                         Thread.sleep(timeout);
-                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
                     BTEventBus.getInstance().post(new RefreshFeedEvent());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
