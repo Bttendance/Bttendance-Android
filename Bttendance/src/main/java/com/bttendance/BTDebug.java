@@ -12,7 +12,7 @@ public class BTDebug {
     public static final String TAG_API = "API";
 
     private BTDebug() {
-    }gi
+    }
 
     public static void LogError(String log) {
         if (DEBUG) {
