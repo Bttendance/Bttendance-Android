@@ -14,9 +14,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.feature.FeatureDetailListFragment;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.json.AttendanceJson;
 import com.bttendance.model.json.PostJson;
@@ -113,6 +115,24 @@ public class AttendanceStartFragment extends BTFragment {
                             BTEventBus.getInstance().post(new HideProgressDialogEvent());
                             if (AttendanceStartFragment.this.getActivity() != null)
                                 AttendanceStartFragment.this.getActivity().onBackPressed();
+
+                            if (AttendanceJson.TYPE_AUTO.equals(postJson.attendance.type)) {
+                                AttendanceDetailFragment frag = new AttendanceDetailFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putInt(BTKey.EXTRA_POST_ID, postJson.id);
+                                frag.setArguments(bundle);
+                                BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+                            }
+
+                            if (AttendanceJson.TYPE_MANUAL.equals(postJson.attendance.type)) {
+                                FeatureDetailListFragment fragment = new FeatureDetailListFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putInt(BTKey.EXTRA_POST_ID, postJson.id);
+                                bundle.putSerializable(BTKey.EXTRA_TYPE, FeatureDetailListFragment.Type.Attendance);
+                                bundle.putSerializable(BTKey.EXTRA_SORT, FeatureDetailListFragment.Sort.Number);
+                                fragment.setArguments(bundle);
+                                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+                            }
                         }
 
                         @Override

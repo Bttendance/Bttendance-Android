@@ -341,6 +341,12 @@ public class ClickerStartFragment extends BTFragment {
                             BTEventBus.getInstance().post(new HideProgressDialogEvent());
                             if (ClickerStartFragment.this.getActivity() != null)
                                 ClickerStartFragment.this.getActivity().onBackPressed();
+
+                            ClickerDetailFragment frag = new ClickerDetailFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(BTKey.EXTRA_POST_ID, postJson.id);
+                            frag.setArguments(bundle);
+                            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                         }
 
                         @Override

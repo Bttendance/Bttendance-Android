@@ -12,6 +12,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
@@ -94,6 +95,12 @@ public class NoticePostFragment extends BTFragment {
                             BTEventBus.getInstance().post(new HideProgressDialogEvent());
                             if (NoticePostFragment.this.getActivity() != null)
                                 NoticePostFragment.this.getActivity().onBackPressed();
+
+                            NoticeDetailFragment frag = new NoticeDetailFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(BTKey.EXTRA_POST_ID, postJson.id);
+                            frag.setArguments(bundle);
+                            BTEventBus.getInstance().post(new AddFragmentEvent(frag));
                         }
 
                         @Override

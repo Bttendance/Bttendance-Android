@@ -22,9 +22,6 @@ import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
-import com.bttendance.model.json.AttendanceJsonSimple;
-import com.bttendance.model.json.ClickerJsonSimple;
-import com.bttendance.model.json.NoticeJsonSimple;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJsonSimple;
 import com.squareup.otto.Subscribe;
@@ -69,44 +66,44 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
         if (mPost != null)
             mUsers = BTPreference.getStudentsOfCourse(getActivity(), mPost.course.id).users;
 
-        UserJsonSimple user1 = new UserJsonSimple();
-        user1.id = 1;
-        user1.full_name = "Victoria";
-        user1.student_id = "12345678";
-
-        UserJsonSimple user2 = new UserJsonSimple();
-        user2.id = 2;
-        user2.full_name = "Henry";
-        user2.student_id = "00000000";
-
-        UserJsonSimple user3 = new UserJsonSimple();
-        user3.id = 3;
-        user3.full_name = "Justin";
-        user3.student_id = "49562983";
-
-        UserJsonSimple user4 = new UserJsonSimple();
-        user4.id = 4;
-        user4.full_name = "Leonardo";
-        user4.student_id = "dicafrio";
-
-        mUsers = new UserJsonSimple[]{user1, user2, user3, user4};
-
-        ClickerJsonSimple clicker = new ClickerJsonSimple();
-        clicker.a_students = new int[]{1};
-        clicker.b_students = new int[]{};
-        clicker.c_students = new int[]{3};
-        clicker.d_students = new int[]{};
-        clicker.e_students = new int[]{};
-        mPost.clicker = clicker;
-
-        NoticeJsonSimple notice = new NoticeJsonSimple();
-        notice.seen_students = new int[]{4};
-        mPost.notice = notice;
-
-        AttendanceJsonSimple attendance = new AttendanceJsonSimple();
-        attendance.checked_students = new int[]{4};
-        attendance.late_students = new int[]{1};
-        mPost.attendance = attendance;
+//        UserJsonSimple user1 = new UserJsonSimple();
+//        user1.id = 1;
+//        user1.full_name = "Victoria";
+//        user1.student_id = "12345678";
+//
+//        UserJsonSimple user2 = new UserJsonSimple();
+//        user2.id = 2;
+//        user2.full_name = "Henry";
+//        user2.student_id = "00000000";
+//
+//        UserJsonSimple user3 = new UserJsonSimple();
+//        user3.id = 3;
+//        user3.full_name = "Justin";
+//        user3.student_id = "49562983";
+//
+//        UserJsonSimple user4 = new UserJsonSimple();
+//        user4.id = 4;
+//        user4.full_name = "Leonardo";
+//        user4.student_id = "dicafrio";
+//
+//        mUsers = new UserJsonSimple[]{user1, user2, user3, user4};
+//
+//        ClickerJsonSimple clicker = new ClickerJsonSimple();
+//        clicker.a_students = new int[]{1};
+//        clicker.b_students = new int[]{};
+//        clicker.c_students = new int[]{3};
+//        clicker.d_students = new int[]{};
+//        clicker.e_students = new int[]{};
+//        mPost.clicker = clicker;
+//
+//        NoticeJsonSimple notice = new NoticeJsonSimple();
+//        notice.seen_students = new int[]{4};
+//        mPost.notice = notice;
+//
+//        AttendanceJsonSimple attendance = new AttendanceJsonSimple();
+//        attendance.checked_students = new int[]{4};
+//        attendance.late_students = new int[]{1};
+//        mPost.attendance = attendance;
 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -148,6 +145,8 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
             case Attendance:
                 mSortStatus.setText(getString(R.string.sort_by_status));
                 View header = inflater.inflate(R.layout.attendance_detail_list_header, null, false);
+                header.setClickable(true);
+                header.setFocusable(true);
                 mListView.addHeaderView(header);
                 mListView.setDividerHeight(0);
                 break;
@@ -370,7 +369,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (getBTService() == null || mPost == null)
+        if (getBTService() == null || mPost == null || l <= 0)
             return;
 
         getBTService().attendanceToggleManually(mPost.attendance.id, (int) l, null);
