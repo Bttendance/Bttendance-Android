@@ -7,7 +7,10 @@ android.support.v4.app.ActionBarDrawerToggle:
     private static final int ID_HOME
 android.support.v4.app.ActionBarDrawerToggleHoneycomb:
     private static final java.lang.String TAG
-    39:92:ActionBarDrawerToggleHoneycomb()
+    40:98:ActionBarDrawerToggleHoneycomb()
+android.support.v4.app.ActionBarDrawerToggleJellybeanMR2:
+    private static final java.lang.String TAG
+    27:27:ActionBarDrawerToggleJellybeanMR2()
 android.support.v4.app.ActivityCompatHoneycomb:
     27:27:ActivityCompatHoneycomb()
     34:35:static void dump(android.app.Activity,java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[])
@@ -25,6 +28,8 @@ android.support.v4.app.BackStackRecord:
     static final int OP_ATTACH
     779:779:public int getTransition()
     783:783:public int getTransitionStyle()
+android.support.v4.app.BundleUtil:
+    11:11:BundleUtil()
 android.support.v4.app.DialogFragment:
     private static final java.lang.String SAVED_DIALOG_STATE_TAG
     private static final java.lang.String SAVED_STYLE
@@ -32,6 +37,7 @@ android.support.v4.app.DialogFragment:
     private static final java.lang.String SAVED_CANCELABLE
     private static final java.lang.String SAVED_SHOWS_DIALOG
     private static final java.lang.String SAVED_BACK_STACK_ID
+android.support.v4.app.DialogFragment$DialogStyle
 android.support.v4.app.Fragment:
     static final int INITIALIZING
     static final int CREATED
@@ -39,7 +45,7 @@ android.support.v4.app.Fragment:
     static final int STOPPED
     static final int STARTED
     static final int RESUMED
-    1450:1456:android.support.v4.app.Fragment findFragmentByWho(java.lang.String)
+    1454:1460:android.support.v4.app.Fragment findFragmentByWho(java.lang.String)
 android.support.v4.app.FragmentActivity:
     private static final java.lang.String TAG
     static final java.lang.String FRAGMENTS_TAG
@@ -50,7 +56,7 @@ android.support.v4.app.FragmentActivity$FragmentTag:
     public static final int Fragment_id
     public static final int Fragment_name
     public static final int Fragment_tag
-    134:134:FragmentActivity$FragmentTag()
+    135:135:FragmentActivity$FragmentTag()
 android.support.v4.app.FragmentManagerImpl:
     static final java.lang.String TAG
     static final java.lang.String TARGET_REQUEST_CODE_STATE_TAG
@@ -64,13 +70,21 @@ android.support.v4.app.FragmentManagerImpl:
     public static final int ANIM_STYLE_CLOSE_EXIT
     public static final int ANIM_STYLE_FADE_ENTER
     public static final int ANIM_STYLE_FADE_EXIT
-    1330:1338:public android.support.v4.app.Fragment findFragmentByWho(java.lang.String)
+    1347:1355:public android.support.v4.app.Fragment findFragmentByWho(java.lang.String)
 android.support.v4.app.FragmentPagerAdapter:
     private static final java.lang.String TAG
     private static final boolean DEBUG
 android.support.v4.app.FragmentStatePagerAdapter:
     private static final java.lang.String TAG
     private static final boolean DEBUG
+android.support.v4.app.FragmentTransaction$Transit
+android.support.v4.app.INotificationSideChannel$Stub:
+    private static final java.lang.String DESCRIPTOR
+    static final int TRANSACTION_notify
+    static final int TRANSACTION_cancel
+    static final int TRANSACTION_cancelAll
+android.support.v4.app.INotificationSideChannel$Stub$Proxy:
+    106:106:public java.lang.String getInterfaceDescriptor()
 android.support.v4.app.ListFragment:
     static final int INTERNAL_EMPTY_ID
     static final int INTERNAL_PROGRESS_CONTAINER_ID
@@ -82,10 +96,89 @@ android.support.v4.app.NavUtils:
     private static final java.lang.String TAG
 android.support.v4.app.NavUtilsJB:
     23:23:NavUtilsJB()
+android.support.v4.app.NotificationCompat$Action$WearableExtender:
+    private static final java.lang.String EXTRA_WEARABLE_EXTENSIONS
+    private static final java.lang.String KEY_FLAGS
+    private static final int FLAG_AVAILABLE_OFFLINE
+    private static final int DEFAULT_FLAGS
+android.support.v4.app.NotificationCompat$WearableExtender:
+    private static final java.lang.String EXTRA_WEARABLE_EXTENSIONS
+    private static final java.lang.String KEY_ACTIONS
+    private static final java.lang.String KEY_FLAGS
+    private static final java.lang.String KEY_DISPLAY_INTENT
+    private static final java.lang.String KEY_PAGES
+    private static final java.lang.String KEY_BACKGROUND
+    private static final java.lang.String KEY_CONTENT_ICON
+    private static final java.lang.String KEY_CONTENT_ICON_GRAVITY
+    private static final java.lang.String KEY_CONTENT_ACTION_INDEX
+    private static final java.lang.String KEY_CUSTOM_SIZE_PRESET
+    private static final java.lang.String KEY_CUSTOM_CONTENT_HEIGHT
+    private static final java.lang.String KEY_GRAVITY
+    private static final int FLAG_CONTENT_INTENT_AVAILABLE_OFFLINE
+    private static final int FLAG_HINT_HIDE_ICON
+    private static final int FLAG_HINT_SHOW_BACKGROUND_ONLY
+    private static final int FLAG_START_SCROLL_BOTTOM
+    private static final int DEFAULT_FLAGS
+    private static final int DEFAULT_CONTENT_ICON_GRAVITY
+    private static final int DEFAULT_GRAVITY
+android.support.v4.app.NotificationCompatApi20:
+    30:31:NotificationCompatApi20()
+android.support.v4.app.NotificationCompatBase:
+    22:24:NotificationCompatBase()
+android.support.v4.app.NotificationCompatGingerbread:
+    23:23:NotificationCompatGingerbread()
 android.support.v4.app.NotificationCompatHoneycomb:
     25:25:NotificationCompatHoneycomb()
 android.support.v4.app.NotificationCompatIceCreamSandwich:
     25:25:NotificationCompatIceCreamSandwich()
+android.support.v4.app.NotificationCompatJellybean:
+    public static final java.lang.String TAG
+    static final java.lang.String EXTRA_LOCAL_ONLY
+    static final java.lang.String EXTRA_ACTION_EXTRAS
+    static final java.lang.String EXTRA_REMOTE_INPUTS
+    static final java.lang.String EXTRA_GROUP_KEY
+    static final java.lang.String EXTRA_GROUP_SUMMARY
+    static final java.lang.String EXTRA_SORT_KEY
+    static final java.lang.String EXTRA_USE_SIDE_CHANNEL
+    private static final java.lang.String KEY_ICON
+    private static final java.lang.String KEY_TITLE
+    private static final java.lang.String KEY_ACTION_INTENT
+    private static final java.lang.String KEY_EXTRAS
+    private static final java.lang.String KEY_REMOTE_INPUTS
+    33:64:NotificationCompatJellybean()
+android.support.v4.app.NotificationCompatKitKat:
+    30:31:NotificationCompatKitKat()
+android.support.v4.app.NotificationCompatSideChannelService:
+    private static final int BUILD_VERSION_CODE_KITKAT_WATCH
+android.support.v4.app.NotificationManagerCompat:
+    private static final java.lang.String TAG
+    private static final int SIDE_CHANNEL_RETRY_BASE_INTERVAL_MS
+    private static final int SIDE_CHANNEL_RETRY_MAX_COUNT
+    private static final java.lang.String SETTING_ENABLED_NOTIFICATION_LISTENERS
+android.support.v4.app.NotificationManagerCompat$SideChannelManager:
+    private static final int MSG_QUEUE_TASK
+    private static final int MSG_SERVICE_CONNECTED
+    private static final int MSG_SERVICE_DISCONNECTED
+    private static final int MSG_RETRY_LISTENER_QUEUE
+    private static final java.lang.String KEY_BINDER
+android.support.v4.app.NotificationManagerCompatEclair:
+    22:22:NotificationManagerCompatEclair()
+android.support.v4.app.NotificationManagerCompatIceCreamSandwich
+android.support.v4.app.RemoteInput:
+    private static final java.lang.String TAG
+android.support.v4.app.RemoteInputCompatApi20:
+    23:23:RemoteInputCompatApi20()
+android.support.v4.app.RemoteInputCompatBase:
+    21:23:RemoteInputCompatBase()
+android.support.v4.app.RemoteInputCompatJellybean:
+    public static final java.lang.String RESULTS_CLIP_LABEL
+    public static final java.lang.String EXTRA_RESULTS_DATA
+    private static final java.lang.String KEY_RESULT_KEY
+    private static final java.lang.String KEY_LABEL
+    private static final java.lang.String KEY_CHOICES
+    private static final java.lang.String KEY_ALLOW_FREE_FORM_INPUT
+    private static final java.lang.String KEY_EXTRAS
+    24:24:RemoteInputCompatJellybean()
 android.support.v4.app.ShareCompat$IntentReader:
     private static final java.lang.String TAG
 android.support.v4.app.ShareCompatICS:
@@ -270,13 +363,27 @@ android.support.v4.view.ScaleGestureDetectorCompatKitKat:
 android.support.v4.view.VelocityTrackerCompatHoneycomb:
     24:24:VelocityTrackerCompatHoneycomb()
 android.support.v4.view.ViewCompat:
+    private static final java.lang.String TAG
     private static final long FAKE_FRAME_TIME
+android.support.v4.view.ViewCompat$AccessibilityLiveRegion
+android.support.v4.view.ViewCompat$BaseViewCompatImpl:
+    638:638:public void setPivotY(android.view.View,float)
+android.support.v4.view.ViewCompat$HCViewCompatImpl:
+    764:765:public void setPivotY(android.view.View,float)
+android.support.v4.view.ViewCompat$ImportantForAccessibility
+android.support.v4.view.ViewCompat$LayerType
+android.support.v4.view.ViewCompat$LayoutDirectionMode
+android.support.v4.view.ViewCompat$OverScroll
+android.support.v4.view.ViewCompat$ResolvedLayoutDirectionMode
+android.support.v4.view.ViewCompat$ViewCompatImpl:
+    public abstract void setPivotY(android.view.View,float)
 android.support.v4.view.ViewCompatEclairMr1:
     22:22:ViewCompatEclairMr1()
 android.support.v4.view.ViewCompatGingerbread:
     21:21:ViewCompatGingerbread()
 android.support.v4.view.ViewCompatHC:
     23:23:ViewCompatHC()
+    137:138:public static void setPivotY(android.view.View,float)
 android.support.v4.view.ViewCompatICS:
     27:27:ViewCompatICS()
 android.support.v4.view.ViewCompatJB:
@@ -306,7 +413,15 @@ android.support.v4.view.ViewPager:
     private static final int DRAW_ORDER_DEFAULT
     private static final int DRAW_ORDER_FORWARD
     private static final int DRAW_ORDER_REVERSE
-    778:779:void smoothScrollTo(int,int)
+    783:784:void smoothScrollTo(int,int)
+android.support.v4.view.ViewPropertyAnimatorCompat:
+    private static final java.lang.String TAG
+android.support.v4.view.ViewPropertyAnimatorCompatICS:
+    26:26:ViewPropertyAnimatorCompatICS()
+android.support.v4.view.ViewPropertyAnimatorCompatJB:
+    20:20:ViewPropertyAnimatorCompatJB()
+android.support.v4.view.ViewPropertyAnimatorCompatJellybeanMr2:
+    21:21:ViewPropertyAnimatorCompatJellybeanMr2()
 android.support.v4.view.accessibility.AccessibilityEventCompatIcs:
     25:25:AccessibilityEventCompatIcs()
 android.support.v4.view.accessibility.AccessibilityManagerCompatIcs:
@@ -352,13 +467,19 @@ android.support.v4.widget.DrawerLayout:
     private static final boolean ALLOW_EDGE_LOCK
     private static final boolean CHILDREN_DISALLOW_INTERCEPT
     private static final float TOUCH_SLOP_SENSITIVITY
-    540:549:void moveDrawerToOffset(android.view.View,float)
+    651:660:void moveDrawerToOffset(android.view.View,float)
+android.support.v4.widget.DrawerLayout$EdgeGravity
+android.support.v4.widget.DrawerLayout$LockMode
+android.support.v4.widget.DrawerLayout$State
 android.support.v4.widget.EdgeEffectCompatIcs:
     28:28:EdgeEffectCompatIcs()
 android.support.v4.widget.ListPopupWindowCompatKitKat:
     26:26:ListPopupWindowCompatKitKat()
 android.support.v4.widget.PopupMenuCompatKitKat:
     25:25:PopupMenuCompatKitKat()
+android.support.v4.widget.ScrollerCompat:
+    private static final java.lang.String TAG
+    static final int CHASE_FRAME_TIME
 android.support.v4.widget.ScrollerCompatGingerbread:
     24:24:ScrollerCompatGingerbread()
 android.support.v4.widget.ScrollerCompatIcs:
@@ -374,6 +495,22 @@ android.support.v4.widget.SlidingPaneLayout:
     private static final int DEFAULT_OVERHANG_SIZE
     private static final int DEFAULT_FADE_COLOR
     private static final int MIN_FLING_VELOCITY
+android.support.v4.widget.SwipeProgressBar:
+    private static final int COLOR1
+    private static final int COLOR2
+    private static final int COLOR3
+    private static final int COLOR4
+    private static final int ANIMATION_DURATION_MS
+    private static final int FINISH_ANIMATION_DURATION_MS
+    133:133:boolean isRunning()
+android.support.v4.widget.SwipeRefreshLayout:
+    private static final long RETURN_TO_ORIGINAL_POSITION_TIMEOUT
+    private static final float ACCELERATE_INTERPOLATION_FACTOR
+    private static final float DECELERATE_INTERPOLATION_FACTOR
+    private static final float PROGRESS_BAR_HEIGHT
+    private static final float MAX_SWIPE_DISTANCE_FACTOR
+    private static final int REFRESH_TRIGGER_DISTANCE
+    private static final int INVALID_POINTER
 android.support.v4.widget.ViewDragHelper:
     private static final java.lang.String TAG
     private static final int EDGE_SIZE
@@ -583,6 +720,8 @@ com.bttendance.model.BTExternal:
     private static final java.lang.String FILE_NAME
     95:96:private static boolean deleteFile(android.content.Context)
     100:101:private static boolean hasFile(android.content.Context)
+com.bttendance.model.BTKey$IntentKey:
+    private static final java.lang.String ACTION_PREFIX
 com.bttendance.model.BTNotification:
     private static final java.lang.String PROPERTY_REG_ID
     private static final java.lang.String PROPERTY_APP_VERSION
@@ -595,7 +734,7 @@ com.bttendance.view.Bttendance:
     private static final int BLINK_DURATION
     private static final int BIG_SIZE
     private static final int SMALL_SIZE
-    private static final int BIG_WHEEL_RADIUS
+    private static final float BIG_WHEEL_RADIUS
     private static final float SMALL_WHEEL_RADIUS
     private static final int BIG
     private static final int SMALL
@@ -729,6 +868,108 @@ com.google.android.gms.analytics.internal.IAnalyticsService$Stub:
     static final int TRANSACTION_clearHits
 com.google.android.gms.analytics.internal.IAnalyticsService$Stub$Proxy:
     87:87:public java.lang.String getInterfaceDescriptor()
+com.google.android.gms.games.internal.IGamesSignInService$Stub$Proxy
+com.google.android.gms.games.internal.IRoomService$Stub$Proxy
+com.google.android.gms.games.internal.api.AchievementsImpl$10
+com.google.android.gms.games.internal.api.AclsImpl:
+    private static com.google.android.gms.games.internal.game.Acls$LoadAclResult x(com.google.android.gms.common.api.Status)
+    static synthetic com.google.android.gms.games.internal.game.Acls$LoadAclResult y(com.google.android.gms.common.api.Status)
+com.google.android.gms.games.internal.api.AclsImpl$1
+com.google.android.gms.games.internal.api.AclsImpl$2
+com.google.android.gms.games.internal.api.AclsImpl$3
+com.google.android.gms.games.internal.api.AclsImpl$LoadNotifyAclImpl
+com.google.android.gms.games.internal.api.AclsImpl$UpdateNotifyAclImpl
+com.google.android.gms.games.internal.api.GamesMetadataImpl$10
+com.google.android.gms.games.internal.api.GamesMetadataImpl$11
+com.google.android.gms.games.internal.api.GamesMetadataImpl$12
+com.google.android.gms.games.internal.api.GamesMetadataImpl$13
+com.google.android.gms.games.internal.api.GamesMetadataImpl$14
+com.google.android.gms.games.internal.api.GamesMetadataImpl$15
+com.google.android.gms.games.internal.api.GamesMetadataImpl$16
+com.google.android.gms.games.internal.api.GamesMetadataImpl$17
+com.google.android.gms.games.internal.api.GamesMetadataImpl$18
+com.google.android.gms.games.internal.api.GamesMetadataImpl$19
+com.google.android.gms.games.internal.api.GamesMetadataImpl$2
+com.google.android.gms.games.internal.api.GamesMetadataImpl$3
+com.google.android.gms.games.internal.api.GamesMetadataImpl$4
+com.google.android.gms.games.internal.api.GamesMetadataImpl$5
+com.google.android.gms.games.internal.api.GamesMetadataImpl$6
+com.google.android.gms.games.internal.api.GamesMetadataImpl$7
+com.google.android.gms.games.internal.api.GamesMetadataImpl$8
+com.google.android.gms.games.internal.api.GamesMetadataImpl$9
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadExtendedGamesImpl
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadExtendedGamesImpl$1
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameInstancesImpl
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameInstancesImpl$1
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameSearchSuggestionsImpl
+com.google.android.gms.games.internal.api.GamesMetadataImpl$LoadGameSearchSuggestionsImpl$1
+com.google.android.gms.games.internal.api.InvitationsImpl$2
+com.google.android.gms.games.internal.api.InvitationsImpl$3
+com.google.android.gms.games.internal.api.LeaderboardsImpl$10
+com.google.android.gms.games.internal.api.LeaderboardsImpl$11
+com.google.android.gms.games.internal.api.LeaderboardsImpl$8
+com.google.android.gms.games.internal.api.LeaderboardsImpl$9
+com.google.android.gms.games.internal.api.NotificationsImpl$1
+com.google.android.gms.games.internal.api.NotificationsImpl$1$1
+com.google.android.gms.games.internal.api.NotificationsImpl$2
+com.google.android.gms.games.internal.api.NotificationsImpl$2$1
+com.google.android.gms.games.internal.api.NotificationsImpl$3
+com.google.android.gms.games.internal.api.NotificationsImpl$3$1
+com.google.android.gms.games.internal.api.NotificationsImpl$4
+com.google.android.gms.games.internal.api.NotificationsImpl$5
+com.google.android.gms.games.internal.api.NotificationsImpl$6
+com.google.android.gms.games.internal.api.NotificationsImpl$7
+com.google.android.gms.games.internal.api.NotificationsImpl$ContactSettingLoadImpl
+com.google.android.gms.games.internal.api.NotificationsImpl$ContactSettingLoadImpl$1
+com.google.android.gms.games.internal.api.NotificationsImpl$ContactSettingUpdateImpl
+com.google.android.gms.games.internal.api.NotificationsImpl$InboxCountImpl
+com.google.android.gms.games.internal.api.NotificationsImpl$InboxCountImpl$1
+com.google.android.gms.games.internal.api.PlayersImpl$10
+com.google.android.gms.games.internal.api.PlayersImpl$11
+com.google.android.gms.games.internal.api.PlayersImpl$12
+com.google.android.gms.games.internal.api.PlayersImpl$13
+com.google.android.gms.games.internal.api.PlayersImpl$14
+com.google.android.gms.games.internal.api.PlayersImpl$15
+com.google.android.gms.games.internal.api.PlayersImpl$16
+com.google.android.gms.games.internal.api.PlayersImpl$17
+com.google.android.gms.games.internal.api.PlayersImpl$18
+com.google.android.gms.games.internal.api.PlayersImpl$19
+com.google.android.gms.games.internal.api.PlayersImpl$2
+com.google.android.gms.games.internal.api.PlayersImpl$20
+com.google.android.gms.games.internal.api.PlayersImpl$21
+com.google.android.gms.games.internal.api.PlayersImpl$22
+com.google.android.gms.games.internal.api.PlayersImpl$23
+com.google.android.gms.games.internal.api.PlayersImpl$24
+com.google.android.gms.games.internal.api.PlayersImpl$25
+com.google.android.gms.games.internal.api.PlayersImpl$26
+com.google.android.gms.games.internal.api.PlayersImpl$7
+com.google.android.gms.games.internal.api.PlayersImpl$8
+com.google.android.gms.games.internal.api.PlayersImpl$LoadOwnerCoverPhotoUrisImpl
+com.google.android.gms.games.internal.api.PlayersImpl$LoadOwnerCoverPhotoUrisImpl$1
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpForGameCategoriesResultImpl
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpForGameCategoriesResultImpl$1
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpForGameResultImpl
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpForGameResultImpl$1
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpStreamResultImpl
+com.google.android.gms.games.internal.api.PlayersImpl$LoadXpStreamResultImpl$1
+com.google.android.gms.games.internal.api.QuestsImpl$5
+com.google.android.gms.games.internal.api.QuestsImpl$6
+com.google.android.gms.games.internal.api.RequestsImpl$4
+com.google.android.gms.games.internal.api.RequestsImpl$5
+com.google.android.gms.games.internal.api.RequestsImpl$6
+com.google.android.gms.games.internal.api.RequestsImpl$7
+com.google.android.gms.games.internal.api.RequestsImpl$8
+com.google.android.gms.games.internal.api.RequestsImpl$LoadRequestSummariesImpl
+com.google.android.gms.games.internal.api.RequestsImpl$LoadRequestSummariesImpl$1
+com.google.android.gms.games.internal.api.RequestsImpl$SendRequestImpl
+com.google.android.gms.games.internal.api.RequestsImpl$SendRequestImpl$1
+com.google.android.gms.games.internal.api.SnapshotsImpl$6
+com.google.android.gms.games.internal.api.TurnBasedMultiplayerImpl$11
+com.google.android.gms.games.internal.api.TurnBasedMultiplayerImpl$12
+com.google.android.gms.games.internal.api.TurnBasedMultiplayerImpl$13
+com.google.android.gms.games.leaderboard.LeaderboardScoreBufferHeader$1
+com.google.gdata.util.common.base.UnicodeEscaper:
+    private static final int DEST_PAD
 com.google.gson.DefaultDateTypeAdapter:
     53:54:DefaultDateTypeAdapter(int)
 com.google.gson.FieldAttributes:
@@ -829,13 +1070,11 @@ com.koushikdutta.async.http.HybiParser:
     private static final long _2_TO_40_
     private static final long _2_TO_48_
     private static final long _2_TO_56_
-    383:383:public void ping(java.lang.String)
     386:389:public void close(int,java.lang.String)
 com.koushikdutta.async.http.ResponseCacheMiddleware:
-    private static final int VERSION
     private static final java.lang.String LOGTAG
 com.koushikdutta.async.http.ResponseCacheMiddleware$Entry:
-    878:893:private java.security.cert.Certificate[] readCertArray(com.koushikdutta.async.http.libcore.StrictLineReader)
+    613:628:private java.security.cert.Certificate[] readCertArray(com.koushikdutta.async.http.libcore.StrictLineReader)
 com.koushikdutta.async.http.WebSocketImpl:
     static final java.lang.String MAGIC
 com.koushikdutta.async.http.filter.GZIPInputFilter:
@@ -843,175 +1082,31 @@ com.koushikdutta.async.http.filter.GZIPInputFilter:
     private static final int FEXTRA
     private static final int FHCRC
     private static final int FNAME
-com.koushikdutta.async.http.libcore.Arrays
-com.koushikdutta.async.http.libcore.DiskLruCache:
-    static final java.lang.String JOURNAL_FILE
-    static final java.lang.String JOURNAL_FILE_TEMP
-    static final java.lang.String JOURNAL_FILE_BACKUP
-    static final java.lang.String MAGIC
-    static final java.lang.String VERSION_1
-    static final long ANY_SEQUENCE_NUMBER
-    private static final java.lang.String CLEAN
-    private static final java.lang.String DIRTY
-    private static final java.lang.String REMOVE
-    private static final java.lang.String READ
 com.koushikdutta.async.http.libcore.HeaderParser:
     19:21:HeaderParser()
 com.koushikdutta.async.http.libcore.ResponseHeaders:
     private static final java.lang.String SENT_MILLIS
     private static final java.lang.String RECEIVED_MILLIS
-com.koushikdutta.async.http.libcore.Streams:
-    10:10:Streams()
 com.koushikdutta.async.http.libcore.StrictLineReader:
     private static final byte CR
     private static final byte LF
-com.koushikdutta.async.http.socketio.SocketIOClient:
-    20:33:private static void reportError(com.koushikdutta.async.future.SimpleFuture,android.os.Handler,com.koushikdutta.async.http.socketio.ConnectCallback,java.lang.Exception)
-com.koushikdutta.async.http.socketio.SocketIOClient$1
 com.koushikdutta.async.http.socketio.transport.XHRPollingTransport:
     private static final java.lang.String SEPARATOR
-com.koushikdutta.async.stream.OutputStreamDataSink:
-    int totalWritten
-    40:56:private boolean doPending()
-com.squareup.okhttp.ConnectionPool:
-    private static final int MAX_CONNECTIONS_TO_CLEANUP
-    private static final long DEFAULT_KEEP_ALIVE_DURATION_MS
-    130:133:java.util.List getConnections()
-    142:149:private void waitForCleanupCallableToRun()
-com.squareup.okhttp.ConnectionPool$2
-com.squareup.okhttp.Dispatcher:
-    37:45:public synchronized void enqueue(java.net.HttpURLConnection,com.squareup.okhttp.Request,com.squareup.okhttp.Response$Receiver)
-com.squareup.okhttp.Failure:
-    34:34:public com.squareup.okhttp.Request request()
-    38:38:public java.lang.Throwable exception()
-com.squareup.okhttp.HttpResponseCache:
-    private static final int VERSION
-    private static final int ENTRY_METADATA
-    private static final int ENTRY_BODY
-    private static final int ENTRY_COUNT
-com.squareup.okhttp.Job:
-    28:33:public Job(com.squareup.okhttp.Dispatcher,java.net.HttpURLConnection,com.squareup.okhttp.Request,com.squareup.okhttp.Response$Receiver)
-com.squareup.okhttp.MediaType:
-    private static final java.lang.String TOKEN
-    private static final java.lang.String QUOTED
-com.squareup.okhttp.OkHttpClient:
-    327:328:void enqueue(com.squareup.okhttp.Request,com.squareup.okhttp.Response$Receiver)
-com.squareup.okhttp.Request:
-    54:54:public java.net.URL url()
-    58:58:public java.lang.String urlString()
-    62:62:public java.lang.String method()
-    66:66:public java.lang.String header(java.lang.String)
-    70:70:public java.util.List headers(java.lang.String)
-    74:74:public java.util.Set headerNames()
-com.squareup.okhttp.Response:
-    64:64:public com.squareup.okhttp.Request request()
-    68:68:public int code()
-    72:72:public java.lang.String header(java.lang.String)
-    76:77:public java.lang.String header(java.lang.String,java.lang.String)
-    81:81:public java.util.List headers(java.lang.String)
-    85:85:public java.util.Set headerNames()
-    89:89:public int headerCount()
-    93:93:public java.lang.String headerName(int)
-    97:97:public java.lang.String headerValue(int)
-    101:101:public com.squareup.okhttp.Response$Body body()
-    111:111:public com.squareup.okhttp.Response redirectedBy()
-com.squareup.okhttp.internal.DiskLruCache:
-    static final java.lang.String JOURNAL_FILE
-    static final java.lang.String JOURNAL_FILE_TEMP
-    static final java.lang.String JOURNAL_FILE_BACKUP
-    static final java.lang.String MAGIC
-    static final java.lang.String VERSION_1
-    static final long ANY_SEQUENCE_NUMBER
-    private static final java.lang.String CLEAN
-    private static final java.lang.String DIRTY
-    private static final java.lang.String REMOVE
-    private static final java.lang.String READ
-com.squareup.okhttp.internal.StrictLineReader:
-    private static final byte CR
-    private static final byte LF
-com.squareup.okhttp.internal.http.HeaderParser:
-    110:111:private HeaderParser()
-com.squareup.okhttp.internal.http.HttpDate:
-    86:87:private HttpDate()
-com.squareup.okhttp.internal.http.HttpTransport:
-    private static final int DISCARD_STREAM_TIMEOUT_MILLIS
-com.squareup.okhttp.internal.http.HttpTransport$ChunkedInputStream:
-    private static final int NO_CHUNK_YET
-com.squareup.okhttp.internal.http.HttpURLConnectionImpl:
-    static final int HTTP_TEMP_REDIRECT
-    private static final int MAX_REDIRECTS
-com.squareup.okhttp.internal.http.RouteSelector:
-    private static final int TLS_MODE_MODERN
-    private static final int TLS_MODE_COMPATIBLE
-    private static final int TLS_MODE_NULL
-com.squareup.okhttp.internal.spdy.Http20Draft04:
-    static final int TYPE_DATA
-    static final int TYPE_HEADERS
-    static final int TYPE_PRIORITY
-    static final int TYPE_RST_STREAM
-    static final int TYPE_SETTINGS
-    static final int TYPE_PUSH_PROMISE
-    static final int TYPE_PING
-    static final int TYPE_GOAWAY
-    static final int TYPE_WINDOW_UPDATE
-    static final int FLAG_END_STREAM
-    static final int FLAG_END_HEADERS
-    static final int FLAG_PRIORITY
-    static final int FLAG_PONG
-    static final int FLAG_END_FLOW_CONTROL
-com.squareup.okhttp.internal.spdy.Settings:
-    static final int DEFAULT_INITIAL_WINDOW_SIZE
-    static final int FLAG_CLEAR_PREVIOUSLY_PERSISTED_SETTINGS
-    static final int PERSIST_VALUE
-    static final int PERSISTED
-    static final int UPLOAD_BANDWIDTH
-    static final int DOWNLOAD_BANDWIDTH
-    static final int ROUND_TRIP_TIME
-    static final int MAX_CONCURRENT_STREAMS
-    static final int CURRENT_CWND
-    static final int DOWNLOAD_RETRANS_RATE
-    static final int INITIAL_WINDOW_SIZE
-    static final int CLIENT_CERTIFICATE_VECTOR_SIZE
-    static final int FLOW_CONTROL_OPTIONS
-    static final int COUNT
-    static final int FLOW_CONTROL_OPTIONS_DISABLED
-    116:117:int getUploadBandwidth(int)
-    121:122:int getDownloadBandwidth(int)
-    126:127:int getRoundTripTime(int)
-    131:132:int getMaxConcurrentStreams(int)
-    136:137:int getCurrentCwnd(int)
-    141:142:int getDownloadRetransRate(int)
-    151:152:int getClientCertificateVectorSize(int)
-    157:159:boolean isFlowControlDisabled()
-com.squareup.okhttp.internal.spdy.Spdy3:
-    static final int TYPE_DATA
-    static final int TYPE_SYN_STREAM
-    static final int TYPE_SYN_REPLY
-    static final int TYPE_RST_STREAM
-    static final int TYPE_SETTINGS
-    static final int TYPE_NOOP
-    static final int TYPE_PING
-    static final int TYPE_GOAWAY
-    static final int TYPE_HEADERS
-    static final int TYPE_WINDOW_UPDATE
-    static final int TYPE_CREDENTIAL
-    static final int FLAG_FIN
-    static final int FLAG_UNIDIRECTIONAL
-    static final int VERSION
-com.squareup.okhttp.internal.spdy.SpdyStream:
-    327:327:int getPriority()
-    331:331:int getSlot()
-com.squareup.okhttp.internal.tls.OkHostnameVerifier:
-    private static final int ALT_DNS_NAME
-    private static final int ALT_IPA_NAME
+com.koushikdutta.async.util.FileCache$Snapshot:
+    32:35:FileCache$Snapshot(java.io.FileInputStream[],long[])
 com.squareup.otto.AnnotatedHandlerFinder:
-    154:156:private AnnotatedHandlerFinder()
+    161:163:private AnnotatedHandlerFinder()
+com.squareup.picasso.AssetBitmapHunter:
+    protected static final java.lang.String ANDROID_ASSET
 com.squareup.picasso.BTPicasso:
     private static com.squareup.picasso.Picasso mSingleton
-com.squareup.picasso.BitmapHunter:
-    private static final java.lang.String ANDROID_ASSET
+com.squareup.picasso.ContactsPhotoBitmapHunter:
+    private static final int ID_LOOKUP
+    private static final int ID_THUMBNAIL
+    private static final int ID_CONTACT
+    private static final int ID_DISPLAY_PHOTO
 com.squareup.picasso.ContactsPhotoBitmapHunter$ContactPhotoStreamIcs:
-    92:92:private ContactsPhotoBitmapHunter$ContactPhotoStreamIcs()
+    123:123:private ContactsPhotoBitmapHunter$ContactPhotoStreamIcs()
 com.squareup.picasso.DeferredRequestCreator:
     30:31:DeferredRequestCreator(com.squareup.picasso.RequestCreator,android.widget.ImageView)
 com.squareup.picasso.Dispatcher:
@@ -1031,30 +1126,32 @@ com.squareup.picasso.Dispatcher:
     private static final java.lang.String DISPATCHER_THREAD_NAME
     private static final int BATCH_DELAY
 com.squareup.picasso.Dispatcher$NetworkBroadcastReceiver:
-    private static final java.lang.String EXTRA_AIRPLANE_STATE
+    static final java.lang.String EXTRA_AIRPLANE_STATE
+com.squareup.picasso.MarkableInputStream:
+    private static final int DEFAULT_BUFFER_SIZE
 com.squareup.picasso.NetworkBitmapHunter:
     static final int DEFAULT_RETRY_COUNT
     private static final int MARKER
 com.squareup.picasso.OkHttpDownloader:
     static final java.lang.String RESPONSE_SOURCE_ANDROID
     static final java.lang.String RESPONSE_SOURCE_OKHTTP
+com.squareup.picasso.Picasso:
+    static final java.lang.String TAG
 com.squareup.picasso.PicassoDrawable:
     private static final float FADE_DURATION
 com.squareup.picasso.PicassoExecutorService:
     private static final int DEFAULT_THREAD_COUNT
 com.squareup.picasso.Stats:
-    private static final int REQUESTED_COMPLETED
     private static final int CACHE_HIT
     private static final int CACHE_MISS
     private static final int BITMAP_DECODE_FINISHED
     private static final int BITMAP_TRANSFORMED_FINISHED
+    private static final int DOWNLOAD_FINISHED
     private static final java.lang.String STATS_THREAD_NAME
-com.squareup.picasso.StatsSnapshot:
-    private static final java.lang.String TAG
 com.squareup.picasso.UrlConnectionDownloader:
     static final java.lang.String RESPONSE_SOURCE
 com.squareup.picasso.UrlConnectionDownloader$ResponseCacheIcs:
-    89:89:private UrlConnectionDownloader$ResponseCacheIcs()
+    90:90:private UrlConnectionDownloader$ResponseCacheIcs()
 com.squareup.picasso.Utils:
     static final java.lang.String THREAD_PREFIX
     static final java.lang.String THREAD_IDLE_NAME
@@ -1064,14 +1161,73 @@ com.squareup.picasso.Utils:
     private static final int KEY_PADDING
     private static final int MIN_DISK_CACHE_SIZE
     private static final int MAX_DISK_CACHE_SIZE
-    private static final int MAX_MEM_CACHE_SIZE
-    52:54:private Utils()
+    static final java.lang.String OWNER_MAIN
+    static final java.lang.String OWNER_DISPATCHER
+    static final java.lang.String OWNER_HUNTER
+    static final java.lang.String VERB_CREATED
+    static final java.lang.String VERB_CHANGED
+    static final java.lang.String VERB_IGNORED
+    static final java.lang.String VERB_ENQUEUED
+    static final java.lang.String VERB_CANCELED
+    static final java.lang.String VERB_BATCHED
+    static final java.lang.String VERB_RETRYING
+    static final java.lang.String VERB_EXECUTING
+    static final java.lang.String VERB_DECODED
+    static final java.lang.String VERB_TRANSFORMED
+    static final java.lang.String VERB_JOINED
+    static final java.lang.String VERB_REMOVED
+    static final java.lang.String VERB_DELIVERED
+    static final java.lang.String VERB_REPLAYING
+    static final java.lang.String VERB_COMPLETED
+    static final java.lang.String VERB_ERRORED
+    private static final int WEBP_FILE_HEADER_SIZE
+    private static final java.lang.String WEBP_FILE_HEADER_RIFF
+    private static final java.lang.String WEBP_FILE_HEADER_WEBP
+    97:99:private Utils()
 com.squareup.picasso.Utils$ActivityManagerHoneycomb:
-    198:198:private Utils$ActivityManagerHoneycomb()
+    374:374:private Utils$ActivityManagerHoneycomb()
 com.squareup.picasso.Utils$BitmapHoneycombMR1:
-    223:223:private Utils$BitmapHoneycombMR1()
+    399:399:private Utils$BitmapHoneycombMR1()
 com.squareup.picasso.Utils$OkHttpLoaderCreator:
-    229:229:private Utils$OkHttpLoaderCreator()
+    405:405:private Utils$OkHttpLoaderCreator()
+com.uservoice.uservoicesdk.babayaga.Babayaga$Track
+com.uservoice.uservoicesdk.ui.DefaultCallback:
+    private static final java.lang.String TAG
+com.viewpagerindicator.CirclePageIndicator:
+    private static final int INVALID_POINTER
+com.viewpagerindicator.IcsLinearLayout:
+    private static final int LL_DIVIDER
+    private static final int LL_SHOW_DIVIDER
+    private static final int LL_DIVIDER_PADDING
+com.viewpagerindicator.LinePageIndicator:
+    private static final int INVALID_POINTER
+com.viewpagerindicator.TitlePageIndicator:
+    private static final float SELECTION_FADE_PERCENTAGE
+    private static final float BOLD_FADE_PERCENTAGE
+    private static final java.lang.String EMPTY_TITLE
+    private static final int INVALID_POINTER
+com.viewpagerindicator.UnderlinePageIndicator:
+    private static final int INVALID_POINTER
+    private static final int FADE_FRAME_MS
+okio.Base64:
+    26:27:private Base64()
+okio.Buffer:
+    821:827:java.util.List segmentSizes()
+okio.GzipSource:
+    private static final byte FHCRC
+    private static final byte FEXTRA
+    private static final byte FNAME
+    private static final byte FCOMMENT
+    private static final byte SECTION_HEADER
+    private static final byte SECTION_BODY
+    private static final byte SECTION_TRAILER
+    private static final byte SECTION_DONE
+okio.Segment:
+    static final int SIZE
+okio.SegmentPool:
+    static final long MAX_SIZE
+okio.Util:
+    24:25:private Util()
 org.achartengine.chart.BarChart:
     private static final int SHAPE_WIDTH
 org.achartengine.chart.BubbleChart:
@@ -1085,19 +1241,10 @@ org.achartengine.chart.LineChart:
 org.achartengine.chart.ScatterChart:
     private static final float SIZE
     private static final int SHAPE_WIDTH
-retrofit.Platform$OkClientInstantiator:
-    168:168:private Platform$OkClientInstantiator()
-retrofit.RestAdapter:
-    private static final int LOG_CHUNK_SIZE
-    static final java.lang.String THREAD_PREFIX
-    static final java.lang.String IDLE_THREAD_NAME
-retrofit.RestMethodInfo:
-    private static final java.lang.String PARAM
-retrofit.Types:
-    37:39:private Types()
-retrofit.Utils:
-    private static final int BUFFER_SIZE
-    105:107:private Utils()
-retrofit.client.Defaults
-retrofit.mime.TypedFile:
-    private static final int BUFFER_SIZE
+org.jraf.android.backport.switchwidget.Switch:
+    private static final int TOUCH_MODE_IDLE
+    private static final int TOUCH_MODE_DOWN
+    private static final int TOUCH_MODE_DRAGGING
+    private static final int SANS
+    private static final int SERIF
+    private static final int MONOSPACE

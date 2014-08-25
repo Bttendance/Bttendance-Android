@@ -351,7 +351,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
         FragmentManager fm = getSupportFragmentManager();
         while (fm.getBackStackEntryCount() > 0) {
-            fm.popBackStack();
+            onBackPressed();
         }
 
         fm.beginTransaction().replace(R.id.content, fragment).commit();

@@ -2,6 +2,7 @@ package com.bttendance.event;
 
 import android.support.v4.app.FragmentTransaction;
 
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.activity.MainActivity;
@@ -20,6 +21,7 @@ import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.ClickerJson;
 import com.bttendance.model.json.PostJson;
@@ -172,11 +174,14 @@ public class BTEventDispatcher {
         if (act == null || act.findViewById(R.id.content) == null || !act.isVisible())
             return;
 
-        if ("attendance_started".equals(event.getType())
+        if (BTPreference.getUser(act) != null
+                && event.getCourseID() != null
+                && !BTPreference.getUser(act).supervising(Integer.parseInt(event.getCourseID()))
+                && ("attendance_started".equals(event.getType())
                 || "attendance_checked".equals(event.getType())
                 || "clicker_started".equals(event.getType())
                 || "notice".equals(event.getType())
-                || "added_as_manager".equals(event.getType())) {
+                || "added_as_manager".equals(event.getType()))) {
             BTEventBus.getInstance().post(new ShowAlertDialogEvent(BTDialogFragment.DialogType.OK, event.getTitle(), event.getMessage(), new BTDialogFragment.OnDialogListener() {
                 @Override
                 public void onConfirmed(String edit) {

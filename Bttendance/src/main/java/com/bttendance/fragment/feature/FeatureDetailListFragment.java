@@ -63,7 +63,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
             mSort = Sort.Status;
         int postID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
         mPost = BTTable.PostTable.get(postID);
-        if (mPost != null)
+        if (mPost != null && BTPreference.getStudentsOfCourse(getActivity(), mPost.course.id) != null)
             mUsers = BTPreference.getStudentsOfCourse(getActivity(), mPost.course.id).users;
 
 //        UserJsonSimple user1 = new UserJsonSimple();
