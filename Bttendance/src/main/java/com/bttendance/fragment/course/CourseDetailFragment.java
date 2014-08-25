@@ -26,7 +26,6 @@ import com.bttendance.event.socket.AttendanceUpdatedEvent;
 import com.bttendance.event.socket.ClickerUpdatedEvent;
 import com.bttendance.event.socket.NoticeUpdatedEvent;
 import com.bttendance.event.socket.PostUpdatedEvent;
-import com.bttendance.event.update.UpdateCourseListEvent;
 import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
@@ -99,7 +98,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         } else {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setHomeButtonEnabled(false);
+            actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(mCourse.name);
         }
@@ -367,7 +366,6 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                     @Override
                     public void success(UserJson user, Response response) {
                         BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                        BTEventBus.getInstance().post(new UpdateCourseListEvent());
                         BTEventBus.getInstance().post(new UpdateFeedEvent());
                     }
 
@@ -398,7 +396,6 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
                     @Override
                     public void success(UserJson user, Response response) {
                         BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                        BTEventBus.getInstance().post(new UpdateCourseListEvent());
                     }
 
                     @Override

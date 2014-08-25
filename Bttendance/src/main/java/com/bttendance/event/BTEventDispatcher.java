@@ -15,6 +15,7 @@ import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.main.ResetMainFragmentEvent;
+import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
@@ -153,6 +154,15 @@ public class BTEventDispatcher {
             return;
 
         ((MainActivity)act).setResetCourseID(event.getCourseID());
+    }
+
+    @Subscribe
+    public void onUpdate(UserUpdatedEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null || act.findViewById(R.id.content) == null || !(act instanceof MainActivity))
+            return;
+
+        ((MainActivity)act).refreshSideList();
     }
 
     @Subscribe

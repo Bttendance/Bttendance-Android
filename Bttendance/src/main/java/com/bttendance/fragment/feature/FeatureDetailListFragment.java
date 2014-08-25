@@ -369,7 +369,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (getBTService() == null || mPost == null || l <= 0)
+        if (getBTService() == null || mPost == null || l <= 1)
             return;
 
         getBTService().attendanceToggleManually(mPost.attendance.id, (int) l, null);
@@ -386,7 +386,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setHomeButtonEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         switch (mType) {
             case Clicker:

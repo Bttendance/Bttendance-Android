@@ -16,6 +16,7 @@ import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
 import com.bttendance.activity.sign.CatchPointActivity;
+import com.bttendance.event.notification.NotificationReceived;
 import com.bttendance.event.refresh.RefreshCourseListEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.model.BTPreference;
@@ -54,10 +55,10 @@ public class GcmIntentService extends IntentService {
                 String type = extras.getString("type");
                 String title = extras.getString("title");
                 String message = extras.getString("message");
-//                int course_id = Integer.getInteger(extras.getString("course_id"));
-                sendNotification(title, message, true);
+                String courseID = extras.getString("course_id");
 
-                BTDebug.LogError("GCM onHandleIntent TYPE : " + type);
+                sendNotification(title, message, true);
+                BTEventBus.getInstance().post(new NotificationReceived(type, title, message, courseID));
 
                 if ("attendance_started".equals(type)) {
                     BTEventBus.getInstance().post(new RefreshCourseListEvent());
@@ -76,8 +77,6 @@ public class GcmIntentService extends IntentService {
                 } else if ("added_as_manager".equals(type)) {
                     BTEventBus.getInstance().post(new RefreshCourseListEvent());
                     BTEventBus.getInstance().post(new RefreshFeedEvent());
-                } else if ("course_created".equals(type)) {
-                    BTEventBus.getInstance().post(new RefreshCourseListEvent());
                 }
             }
         }

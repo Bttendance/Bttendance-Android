@@ -24,7 +24,7 @@
     <string name="student_capital">"학생"</string>
     <string name="cancel">"취소"</string>
     <string name="enter">"입력"</string>
-    <string name="please_press_back_button_again_to_exit_">"뒤로 버튼을 한번 더 누르시면 앱이 종료됩니다."</string>
+    <string name="please_press_back_button_again_to_exit_">"뒤로가기 버튼을 한번 더 누르시면 앱이 종료됩니다."</string>
     <string name="profile">"프로필"</string>
     <string name="school">"기관"</string>
     <string name="create_course">"강의 개설하기"</string>

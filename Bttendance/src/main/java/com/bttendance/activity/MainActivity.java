@@ -21,8 +21,6 @@ import com.bttendance.activity.course.AddCourseActivity;
 import com.bttendance.activity.guide.GuideActivity;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.attendance.AttdStartedEvent;
-import com.bttendance.event.update.UpdateCourseListEvent;
-import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.course.CourseDetailFragment;
 import com.bttendance.fragment.course.NoCourseFragment;
@@ -36,7 +34,6 @@ import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
-import com.squareup.otto.Subscribe;
 import com.uservoice.uservoicesdk.Config;
 import com.uservoice.uservoicesdk.UserVoice;
 
@@ -123,11 +120,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         }
     }
 
-    @Subscribe
-    public void onUpdate(UserUpdatedEvent event) {
-        mSideAdapter.refreshAdapter();
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -156,7 +148,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         getBTService().autoSignin(new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
-                BTEventBus.getInstance().post(new UpdateCourseListEvent());
             }
 
             @Override
@@ -349,6 +340,10 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
         mDrawerLayout.closeDrawer(mListMenu);
         mResetCourseID = 0;
+    }
+
+    public void refreshSideList() {
+        mSideAdapter.refreshAdapter();
     }
 
     // onDrawerClosed

@@ -261,6 +261,7 @@ public class BTTable {
             PostJson post = BTTable.PostTable.get(key);
             if (post.createdAt != null
                     && "attendance".equals(post.type)
+                    && AttendanceJson.TYPE_AUTO.equals(post.attendance.type)
                     && currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION
                     && timeTo > DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION) {
                 timeTo = DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION;
@@ -289,6 +290,7 @@ public class BTTable {
             PostJson post = BTTable.PostTable.get(key);
             if (post.createdAt != null
                     && "attendance".equals(post.type)
+                    && AttendanceJson.TYPE_AUTO.equals(post.attendance.type)
                     && currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION
                     && timeTo < DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION) {
                 timeTo = DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION;
@@ -306,6 +308,7 @@ public class BTTable {
             PostJson post = BTTable.PostTable.get(key);
             if (post.createdAt != null
                     && "attendance".equals(post.type)
+                    && AttendanceJson.TYPE_AUTO.equals(post.attendance.type)
                     && DateHelper.getCurrentGMTTimeMillis() - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION) {
                 checking.add(post.attendance.id);
             }

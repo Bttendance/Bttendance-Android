@@ -12,6 +12,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.activity.MainActivity;
+import com.bttendance.activity.course.AttendCourseActivity;
+import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.service.BTService;
 import com.squareup.otto.BTEventBus;
 
@@ -42,7 +44,10 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
         ActionBar actionBar = getSherlockActivity().getSupportActionBar();
         int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
         TextView abTitle = (TextView) getActivity().findViewById(titleId);
-        if (this instanceof BTDialogFragment && getActivity() instanceof MainActivity) {
+        if (this instanceof BTDialogFragment
+                && (getActivity() instanceof MainActivity
+                || getActivity() instanceof AttendCourseActivity
+                || getActivity() instanceof CreateCourseActivity)) {
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setHomeButtonEnabled(false);
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy_darken)));
