@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.MatrixCursor;
 import android.util.SparseArray;
 
+import com.bttendance.BTDebug;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.SparseArrayHelper;
 import com.bttendance.model.BTPreference;
@@ -36,6 +37,9 @@ public class AllSchoolCursor extends MatrixCursor {
                 return rhs.courses_count - lhs.courses_count;
             }
         });
+
+        if (filter == null)
+            filter = "";
 
         for (SchoolJson school : schoolJsonArrayList) {
             if (school.name.toLowerCase().contains(filter.toLowerCase())) {

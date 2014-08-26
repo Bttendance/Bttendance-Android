@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_version">1.0.0</string>
-    <string name="app_name">Bttendance</string>
-    <string name="app_name_capital">BTTENDANCE</string>
-
     <!-- Navi Drawer -->
     <string name="drawer_open">Menu Open</string>
     <string name="drawer_close">Menu Close</string>
