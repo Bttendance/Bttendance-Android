@@ -287,6 +287,9 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
         View notice = view.findViewById(R.id.notice);
 
+        if (clicker == null)
+            return;
+
         clicker.setVisibility(View.VISIBLE);
         bttendance.setVisibility(View.GONE);
         notice.setVisibility(View.GONE);
@@ -325,7 +328,6 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
     }
 
     private void drawAttendance(View view, Context context, PostJson post) {
-        UserJson user = BTPreference.getUser(context);
 
         RelativeLayout clicker = (RelativeLayout) view.findViewById(R.id.clicker);
         Bttendance bttendance = ((Bttendance) view.findViewById(R.id.bttendance));
@@ -424,7 +426,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         notice.setVisibility(View.VISIBLE);
 
         // Title, Message, Time
-        TextView title = (TextView) view.findViewById(R.id.timered_title);
+        TimeredTextView title = (TimeredTextView) view.findViewById(R.id.timered_title);
         TextView message = (TextView) view.findViewById(R.id.message);
         TextView time = (TextView) view.findViewById(R.id.time);
 
@@ -432,6 +434,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         message.setVisibility(View.VISIBLE);
         time.setVisibility(View.VISIBLE);
 
+        title.setTimeredTextView(TimeredTextView.Type.Notice, post.id, mUser.id, mAuth);
         if (mAuth) {
             int studentCount = 0;
             int seenStudent = 0;

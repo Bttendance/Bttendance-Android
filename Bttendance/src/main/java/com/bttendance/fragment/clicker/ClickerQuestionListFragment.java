@@ -17,7 +17,6 @@ import com.bttendance.adapter.QuestionAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
@@ -167,7 +166,11 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-        QuestionJson question = BTTable.MyQuestionTable.get((Integer) view.getTag(R.id.question_id));
+        if (view == null || view.getTag(R.id.question_id) == null)
+            return;
+
+        int tag = (Integer) view.getTag(R.id.question_id);
+        QuestionJson question = BTTable.MyQuestionTable.get(tag);
         if (question == null)
             return;
 

@@ -223,13 +223,15 @@ public class BTService extends Service {
                     @Override
                     public void onDisconnect(Exception e) {
                         if (!client.isConnected()) {
-                            new Timer().schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    client.reconnect();
-                                    mReconnectTry++;
-                                }
-                            }, 5000 * mReconnectTry);
+                            try {
+                                new Timer().schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        client.reconnect();
+                                        mReconnectTry++;
+                                    }
+                                }, 5000 * mReconnectTry);
+                            } catch (Exception error) {};
                         }
                     }
                 });

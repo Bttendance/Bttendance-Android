@@ -51,10 +51,14 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setHomeButtonEnabled(false);
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy_darken)));
-            abTitle.setTextColor(getResources().getColor(R.color.bttendance_white_darken));
+
+            if (abTitle != null)
+                abTitle.setTextColor(getResources().getColor(R.color.bttendance_white_darken));
         } else {
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy)));
-            abTitle.setTextColor(getResources().getColor(R.color.bttendance_white));
+
+            if (abTitle != null)
+                abTitle.setTextColor(getResources().getColor(R.color.bttendance_white));
         }
     }
 

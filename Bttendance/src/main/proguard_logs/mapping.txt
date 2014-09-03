@@ -14761,8 +14761,8 @@ com.bttendance.model.cursor.AllSchoolCursor -> com.bttendance.model.cursor.AllSc
     java.lang.String[] COLUMNS -> a
 com.bttendance.model.cursor.AllSchoolCursor$1 -> zd:
     com.bttendance.model.cursor.AllSchoolCursor this$0 -> a
-    36:36:int compare(com.bttendance.model.json.SchoolJson,com.bttendance.model.json.SchoolJson) -> a
-    33:33:int compare(java.lang.Object,java.lang.Object) -> compare
+    37:37:int compare(com.bttendance.model.json.SchoolJson,com.bttendance.model.json.SchoolJson) -> a
+    34:34:int compare(java.lang.Object,java.lang.Object) -> compare
 com.bttendance.model.cursor.MyCourseCursor -> com.bttendance.model.cursor.MyCourseCursor:
     java.lang.String[] COLUMNS -> a
 com.bttendance.model.cursor.MySchoolCursor -> com.bttendance.model.cursor.MySchoolCursor:

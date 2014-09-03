@@ -54,7 +54,7 @@ public class NoticeDetailFragment extends BTFragment {
         mPost = BTTable.PostTable.get(mPostID);
         mUser = BTPreference.getUser(getActivity());
         mCourse = BTTable.MyCourseTable.get(mPost.course.id);
-        mAuth = mUser.supervising(mCourse.id);
+        mAuth = mUser.supervising(mPost.course.id);
 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);

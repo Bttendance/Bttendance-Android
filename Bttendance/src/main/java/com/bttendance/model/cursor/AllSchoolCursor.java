@@ -31,6 +31,9 @@ public class AllSchoolCursor extends MatrixCursor {
         SparseArray<SchoolJson> schoolJsonSparseArray = BTTable.AllSchoolTable;
 
         ArrayList<SchoolJson> schoolJsonArrayList = SparseArrayHelper.asArrayList(schoolJsonSparseArray);
+        if (schoolJsonArrayList == null)
+            return;
+
         Collections.sort(schoolJsonArrayList, new Comparator<SchoolJson>() {
             @Override
             public int compare(SchoolJson lhs, SchoolJson rhs) {

@@ -18,7 +18,7 @@ import com.squareup.otto.BTEventBus;
  */
 public class TimeredTextView extends TextView {
 
-    public enum Type {Clicker, Attendance}
+    public enum Type {Clicker, Attendance, Notice}
 
     private Type mType = null;
     private PostJson mPost = null;
@@ -81,6 +81,8 @@ public class TimeredTextView extends TextView {
                         && (auth || mPost.attendance.getStateInt(userID) == 0)
                         && Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0)
                     timerHandler.postDelayed(timerRunnable, 0);
+                break;
+            case Notice:
                 break;
         }
     }

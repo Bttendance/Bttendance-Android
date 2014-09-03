@@ -25,7 +25,7 @@
     <string name="school">"기관"</string>
     <string name="create_course">"강의 개설하기"</string>
     <string name="forgot_password">"비밀번호 분실"</string>
-    <string name="attend_course">"수강하기"</string>
+    <string name="attend_course">"강의 수강하기"</string>
     <string name="confrim">"확인"</string>
     <string name="ok">"OK"</string>
     <string name="attendance_check_has_been_canceled">"출석 체크가 취소되었습니다."</string>
