@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:paddingBottom="7dp"
+    android:paddingLeft="11dp"
+    android:paddingRight="11dp"
+    android:paddingTop="7dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/time"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bt_list_item_background"
+        android:minHeight="88dp" />
+
+    <RelativeLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.bttendance.view.TimeredTextView
+            android:id="@+id/choice_title"
+            style="@style/itemTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Architecture"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/choice_message"
+            style="@style/itemTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="33dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="center"
+            android:lineSpacingExtra="1dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="PPT#2 Slide#17 Problem" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:paddingBottom="20dp">
+
+            <View
+                android:id="@+id/margin_a"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.bttendance.view.Clicker
+                android:id="@+id/choice_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:alphabet="A" />
+
+            <View
+                android:id="@+id/margin_b"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.bttendance.view.Clicker
+                android:id="@+id/choice_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:alphabet="B" />
+
+            <View
+                android:id="@+id/margin_c"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.bttendance.view.Clicker
+                android:id="@+id/choice_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:alphabet="C" />
+
+            <View
+                android:id="@+id/margin_d"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.bttendance.view.Clicker
+                android:id="@+id/choice_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:alphabet="D" />
+
+            <View
+                android:id="@+id/margin_e"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.bttendance.view.Clicker
+                android:id="@+id/choice_e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:alphabet="E" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@id/time"
+        style="@style/itemTimeView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/body"
+        android:clickable="false"
+        android:focusable="false"
+        android:lineSpacingExtra="1dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="12dp"
+        android:text="14/05/10 21:03" />
+
+</RelativeLayout>

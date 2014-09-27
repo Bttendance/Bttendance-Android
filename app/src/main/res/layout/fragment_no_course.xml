@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bttendance_grey"
+    android:orientation="vertical"
+    android:weightSum="9"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_course_guide_title"
+            android:paddingBottom="15dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/bttendance_silver"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="7dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_course_add_info"
+            android:paddingBottom="10dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/bttendance_silver"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="7dp"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bt_cyan_background"
+            android:textColor="@color/bttendance_white"
+            android:text="@string/add_course"
+            android:textSize="18sp"
+            android:layout_marginBottom="14dp"
+            android:id="@+id/add_course" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginRight="47dp"
+        android:background="@color/bttendance_silver" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_course_guide_info"
+            android:paddingBottom="10dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/bttendance_silver"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="7dp"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bt_silver_background"
+            android:textColor="@color/bttendance_white"
+            android:text="@string/show_guide"
+            android:textSize="18sp"
+            android:id="@+id/show_guide" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="47dp"
+    android:minHeight="47dp"
+    android:background="@color/bttendance_white">
+
+    <Button
+        android:id="@+id/selector"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:background="@drawable/bt_selector" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bttendance_silver"
+        android:text="Exports Records"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="14dp"
+        android:paddingBottom="2dp"
+        android:textSize="14sp"
+        android:id="@+id/setting_text" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:src="@drawable/arrow"
+        android:id="@+id/setting_arrow" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="46dp"
+        android:background="@color/bttendance_grey" />
+
+</RelativeLayout>

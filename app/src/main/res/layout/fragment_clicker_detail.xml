@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bttendance_white"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="35dp"
+            android:paddingBottom="35dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:paddingBottom="3dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center"
+                android:text="Can machine think?"
+                android:textSize="14sp"
+                android:textColor="@color/bttendance_navy"
+                android:textStyle="bold"
+                android:includeFontPadding="false" />
+
+            <RelativeLayout
+                android:id="@+id/clicker"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_below="@+id/message"
+                android:layout_marginTop="-5dp"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center"
+                android:text="0 out of 2 participated, 2014/08/18 13:54"
+                android:textSize="12sp"
+                android:textColor="@color/bttendance_silver"
+                android:includeFontPadding="false" />
+
+            <RelativeLayout
+                android:id="@+id/ring"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/message"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/chart_round" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ring"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:id="@+id/detail">
+
+                <LinearLayout
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:id="@+id/a_layout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/r_a" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="3"
+                            android:id="@+id/a_percent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="%" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/bttendance_navy"
+                        android:id="@+id/a_line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/bttendance_silver"
+                        android:includeFontPadding="false"
+                        android:text="1"
+                        android:id="@+id/a_student" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:id="@+id/b_layout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/r_b" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="3"
+                            android:id="@+id/b_percent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="%" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:background="@color/bttendance_navy"
+                        android:id="@+id/b_line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/bttendance_silver"
+                        android:includeFontPadding="false"
+                        android:text="1"
+                        android:id="@+id/b_student" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:id="@+id/c_layout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/r_c" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="3"
+                            android:id="@+id/c_percent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="%" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:background="@color/bttendance_navy"
+                        android:id="@+id/c_line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/bttendance_silver"
+                        android:includeFontPadding="false"
+                        android:text="1"
+                        android:id="@+id/c_student" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:id="@+id/d_layout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/r_d" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="3"
+                            android:id="@+id/d_percent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="%" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:background="@color/bttendance_navy"
+                        android:id="@+id/d_line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/bttendance_silver"
+                        android:includeFontPadding="false"
+                        android:text="1"
+                        android:id="@+id/d_student" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:id="@+id/e_layout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/r_e" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="3"
+                            android:id="@+id/e_percent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bttendance_navy"
+                            android:includeFontPadding="false"
+                            android:text="%" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:background="@color/bttendance_navy"
+                        android:id="@+id/e_line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/bttendance_silver"
+                        android:includeFontPadding="false"
+                        android:text="1"
+                        android:id="@+id/e_student" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail"
+                android:paddingTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/bttendance_navy"
+                android:includeFontPadding="false"
+                android:text="You have chosen A."
+                android:id="@+id/student_choice" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:id="@+id/show_details_layout">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:id="@+id/show_details"
+            android:background="@drawable/bt_selector_cyan" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:drawablePadding="6dp"
+            android:drawableLeft="@drawable/more"
+            android:text="@string/show_details"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/bttendance_white" />
+    </RelativeLayout>
+
+</LinearLayout>

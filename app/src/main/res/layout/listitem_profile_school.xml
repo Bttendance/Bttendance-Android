@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/bttendance_grey"
+    android:paddingBottom="4dp"
+    android:paddingLeft="23dp"
+    android:paddingRight="23dp"
+    android:paddingTop="4dp">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical|left"
+        android:singleLine="true"
+        android:text="Bttendance"
+        android:textColor="@color/bttendance_silver"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/key"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/name"
+        android:gravity="top|left"
+        android:text="@string/no_identity"
+        android:singleLine="true"
+        android:textColor="@color/bttendance_silver"
+        android:textSize="12sp" />
+
+</RelativeLayout>

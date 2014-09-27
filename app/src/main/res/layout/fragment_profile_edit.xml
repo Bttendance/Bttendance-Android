@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bttendance_grey"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="25dp">
+
+    <TextView
+        android:id="@+id/text"
+        style="@style/userInfoText"
+        android:layout_alignParentTop="true"
+        android:singleLine="true" />
+
+    <EditText
+        android:id="@+id/edit"
+        style="@style/userInfoEditText"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/text"
+        android:layout_marginLeft="8dp"
+        android:inputType="text|textEmailAddress"
+        android:singleLine="true" />
+
+    <View
+        android:id="@+id/edit_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/edit"
+        android:background="@color/bttendance_silver_30" />
+
+    <Button
+        android:id="@+id/save"
+        style="@style/signInUpButton"
+        android:layout_below="@id/edit_divider"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:enabled="false"
+        android:text="@string/save" />
+
+</RelativeLayout>

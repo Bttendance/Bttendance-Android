@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:paddingBottom="7dp"
+    android:paddingLeft="11dp"
+    android:paddingRight="11dp"
+    android:paddingTop="7dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/message"
+        android:background="@drawable/bt_list_item_background"
+        android:minHeight="88dp" />
+
+    <View
+        android:id="@+id/choice"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:background="@drawable/ql_2"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="9dp" />
+
+    <TextView
+        android:id="@id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="81dp"
+        android:layout_marginTop="13dp"
+        android:paddingBottom="13dp"
+        android:background="@null"
+        android:clickable="false"
+        android:focusable="false"
+        android:textSize="13sp"
+        android:textColor="@color/bttendance_silver"
+        android:gravity="left|top"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="1dp" />
+
+    <View
+        android:id="@+id/item_selector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@id/message"
+        android:background="@drawable/bt_list_item_selector"
+        android:minHeight="88dp" />
+
+</RelativeLayout>

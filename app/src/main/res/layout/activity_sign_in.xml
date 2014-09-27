@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bttendance_grey">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="25dp">
+
+        <RelativeLayout
+            android:id="@+id/text_box"
+            android:layout_marginRight="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/username_text"
+                style="@style/userInfoText"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="11dp"
+                android:singleLine="true"
+                android:text="@string/email" />
+
+            <TextView
+                android:id="@+id/password_text"
+                style="@style/userInfoText"
+                android:layout_below="@id/username_text"
+                android:singleLine="true"
+                android:text="@string/password" />
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/username"
+            style="@style/userInfoEditText"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/text_box"
+            android:hint="@string/john_at_bttendance_dot_com"
+            android:textColorHint="@color/grey_hex_aa"
+            android:inputType="text|textEmailAddress"
+            android:singleLine="true" />
+
+        <View
+            android:id="@+id/username_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/username"
+            android:layout_marginBottom="10dp"
+            android:background="@color/bttendance_silver_30" />
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/userInfoEditText"
+            android:layout_below="@id/username_divider"
+            android:layout_toRightOf="@id/text_box"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+
+        <View
+            android:id="@+id/password_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/password"
+            android:background="@color/bttendance_silver_30" />
+
+        <Button
+            android:id="@+id/signin"
+            style="@style/signInUpButton"
+            android:layout_below="@id/password_divider"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="20dp"
+            android:enabled="false"
+            android:text="@string/log_in" />
+
+        <Button
+            android:id="@+id/forget_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_below="@id/signin"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:linksClickable="true"
+            android:maxLines="3"
+            android:singleLine="false"
+            android:text="@string/forgot_password_underline"
+            android:textColor="@color/bttendance_navy"
+            android:textSize="13sp"
+            android:textStyle="normal" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

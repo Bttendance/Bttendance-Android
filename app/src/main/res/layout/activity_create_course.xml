@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bttendance_grey">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="15dp">
+
+        <RelativeLayout
+            android:id="@+id/text_box"
+            android:layout_marginRight="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name_text"
+                style="@style/userInfoText"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="11dp"
+                android:singleLine="true"
+                android:text="@string/name" />
+
+            <TextView
+                android:id="@+id/professor_text"
+                style="@style/userInfoText"
+                android:layout_below="@id/name_text"
+                android:layout_marginBottom="11dp"
+                android:singleLine="true"
+                android:text="@string/professor" />
+
+            <TextView
+                android:id="@+id/institution_text"
+                style="@style/userInfoText"
+                android:layout_below="@id/professor_text"
+                android:singleLine="true"
+                android:text="@string/institution" />
+
+        </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/name_edit"
+            style="@style/userInfoEditText"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/text_box"
+            android:textColorHint="@color/grey_hex_aa"
+            android:inputType="text|textPersonName" />
+
+        <View
+            android:id="@+id/name_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/name_edit"
+            android:layout_marginBottom="10dp"
+            android:background="@color/bttendance_silver_30" />
+
+        <EditText
+            android:id="@+id/professor"
+            style="@style/userInfoEditText"
+            android:layout_below="@id/name_divider"
+            android:layout_toRightOf="@id/text_box"
+            android:textColorHint="@color/grey_hex_aa"
+            android:inputType="text|textEmailAddress" />
+
+        <View
+            android:id="@+id/professor_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/professor"
+            android:background="@color/bttendance_silver_30" />
+
+        <EditText
+            android:id="@+id/institution"
+            style="@style/userInfoEditText"
+            android:layout_below="@id/professor_divider"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/text_box"
+            android:clickable="false"
+            android:focusable="false"
+            android:hint="@string/please_choose_a_institution"
+            android:textColorHint="@color/grey_hex_aa"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/institution_button"
+            android:layout_width="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_height="33dp"
+            android:layout_below="@id/professor_divider"
+            android:background="@drawable/bt_selector" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/professor_divider"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/arrow" />
+
+        <View
+            android:id="@+id/institution_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/institution"
+            android:layout_marginBottom="15dp"
+            android:background="@color/bttendance_silver_30" />
+
+        <Button
+            android:id="@+id/create_course"
+            style="@style/signInUpButton"
+            android:layout_below="@id/institution_divider"
+            android:layout_marginBottom="10dp"
+            android:enabled="false"
+            android:text="@string/create_course" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

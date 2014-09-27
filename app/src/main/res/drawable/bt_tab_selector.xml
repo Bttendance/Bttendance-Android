@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_selected="true" android:state_pressed="true" android:drawable="@drawable/bt_tab_selector_selected_focused" />
+    <item android:state_selected="false" android:state_pressed="true" android:drawable="@drawable/bt_tab_selector_just_focused" />
+    <item android:state_selected="true" android:state_pressed="false" android:drawable="@drawable/bt_tab_selector_selected" />
+    <item android:drawable="@drawable/bt_tab_selector_normal" />
+
+</selector>
