@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.helper.ScreenHelper;
+import com.bttendance.model.BTKey;
+import com.bttendance.model.BTTable;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 20..
@@ -32,25 +34,17 @@ public class BTDialogFragment extends BTFragment implements View.OnClickListener
     boolean mDying = false;
     int mScreenHeight;
 
-    /**
-     * Constructor
-     */
-    public BTDialogFragment(String message) {
-        mType = DialogType.PROGRESS;
-        mMessage = message;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        mType = getArguments() != null ? (DialogType) getArguments().getSerializable(BTKey.EXTRA_TYPE) : null;
+        mTitle = getArguments() != null ? getArguments().getString(BTKey.EXTRA_TITLE) : null;
+        mMessage = getArguments() != null ? getArguments().getString(BTKey.EXTRA_MESSAGE) : null;
+        mPlaceholder = getArguments() != null ? getArguments().getString(BTKey.EXTRA_PLACEHOLDER) : null;
+        mOptions = getArguments() != null ? getArguments().getStringArray(BTKey.EXTRA_OPTIONS) : null;
+        super.onCreate(savedInstanceState);
     }
 
-    public BTDialogFragment(String[] options, OnDialogListener listener) {
-        mType = DialogType.CONTEXT;
-        mOptions = options;
-        mListener = listener;
-    }
-
-    public BTDialogFragment(DialogType type, String title, String message, String placeholder, OnDialogListener listener) {
-        mType = type;
-        mTitle = title;
-        mMessage = message;
-        mPlaceholder = placeholder;
+    public void setOnDialogListener(OnDialogListener listener) {
         mListener = listener;
     }
 

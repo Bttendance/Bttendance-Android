@@ -46,27 +46,4 @@ public class CatchPointActivity extends BTActivity implements Button.OnClickList
                 break;
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        tryToFinish();
-    }
-
-    private boolean mFinishApplication = false;
-    private static Handler mUIHandler = new Handler();
-
-    private void tryToFinish() {
-        if (mFinishApplication) {
-            finish();
-        } else {
-            BeautiToast.show(this, getString(R.string.please_press_back_button_again_to_exit_));
-            mFinishApplication = true;
-            mUIHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mFinishApplication = false;
-                }
-            }, 3000);
-        }
-    }
 }

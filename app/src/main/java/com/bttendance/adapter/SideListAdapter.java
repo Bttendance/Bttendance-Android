@@ -1,6 +1,7 @@
 package com.bttendance.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,11 +109,11 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
 
                 CourseJson mCourse = BTTable.MyCourseTable.get(course.id);
                 if (mCourse != null) {
-                    detail1.setText(String.format(getContext().getString(R.string.clicker_rate_attendance_rate), mCourse.clicker_rate, mCourse.attendance_rate));
+                    detail1.setText(Html.fromHtml(String.format(getContext().getString(R.string.clicker_rate_attendance_rate), mCourse.clicker_rate, mCourse.attendance_rate)));
                     if (mUser.supervising(course.id))
-                        detail2.setText(String.format(getContext().getString(R.string.students_read_recent_notice), mCourse.students_count - mCourse.notice_unseen, mCourse.students_count));
+                        detail2.setText(Html.fromHtml(String.format(getContext().getString(R.string.students_read_recent_notice), mCourse.students_count - mCourse.notice_unseen, mCourse.students_count)));
                     else
-                        detail2.setText(String.format(getContext().getString(R.string.unread_notices), mCourse.notice_unseen));
+                        detail2.setText(Html.fromHtml(String.format(getContext().getString(R.string.unread_notices), mCourse.notice_unseen)));
                 } else {
                     detail1.setText(getContext().getString(R.string.clicker_rate_attendance_rate_none));
                     if (mUser.supervising(course.id))

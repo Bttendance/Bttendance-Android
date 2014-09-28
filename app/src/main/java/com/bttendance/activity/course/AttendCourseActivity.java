@@ -3,6 +3,7 @@ package com.bttendance.activity.course;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -110,7 +111,6 @@ public class AttendCourseActivity extends BTActivity {
     }
 
     public void isEnableAttendCourse() {
-
         if (mCodeCount > 0) {
             mAttendCourse.setEnabled(true);
             mAttendCourse.setTextColor(getResources().getColor(R.color.bttendance_cyan));
@@ -153,15 +153,21 @@ public class AttendCourseActivity extends BTActivity {
                     BTEventBus.getInstance().post(new ShowAlertDialogEvent(BTDialogFragment.DialogType.EDIT, title, message, new BTDialogFragment.OnDialogListener() {
                         @Override
                         public void onConfirmed(String edit) {
-                            BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.attending_course)));
                             if (BTPreference.getUser(getApplicationContext()).enrolled(courseJson.school.id)) {
+                                BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.attending_course)));
                                 attendCourse(courseJson.id);
                             } else {
                                 if (edit == null || edit.length() == 0) {
                                     Vibrator vibrator = (Vibrator) AttendCourseActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
                                     vibrator.vibrate(200);
-                                    BTEventBus.getInstance().post(new ShowAlertDialogEvent(BTDialogFragment.DialogType.CONFIRM, title, message, null));
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            BTEventBus.getInstance().post(new ShowAlertDialogEvent(BTDialogFragment.DialogType.CONFIRM, title, message, null));
+                                        }
+                                    }, 1000);
                                 } else {
+                                    BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.attending_course)));
                                     getBTService().enrollSchool(courseJson.school.id, edit, new Callback<UserJson>() {
                                         @Override
                                         public void success(UserJson userJson, Response response) {

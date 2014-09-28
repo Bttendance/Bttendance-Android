@@ -15,6 +15,8 @@ public class BTKey {
 
     public final static String EXTRA_TITLE = "title";
     public final static String EXTRA_MESSAGE = "message";
+    public final static String EXTRA_PLACEHOLDER = "placeholder";
+    public final static String EXTRA_OPTIONS = "options";
 
     public final static String EXTRA_FOR_PROFILE = "for_profile";
 

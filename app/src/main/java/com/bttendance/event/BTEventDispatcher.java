@@ -1,8 +1,8 @@
 package com.bttendance.event;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.activity.MainActivity;
@@ -21,6 +21,7 @@ import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.ClickerJson;
@@ -255,12 +256,15 @@ public class BTEventDispatcher {
                     R.anim.fade_out_fast,
                     R.anim.fade_in_fast,
                     R.anim.fade_out_fast);
-            ft.add(R.id.content, new BTDialogFragment(
-                    event.getType(),
-                    event.getTitle(),
-                    event.getMessage(),
-                    event.getPlaceholder(),
-                    event.getListener()));
+            BTDialogFragment dialog = new BTDialogFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(BTKey.EXTRA_TYPE, event.getType());
+            bundle.putString(BTKey.EXTRA_TITLE, event.getTitle());
+            bundle.putString(BTKey.EXTRA_MESSAGE, event.getMessage());
+            bundle.putString(BTKey.EXTRA_PLACEHOLDER, event.getPlaceholder());
+            dialog.setArguments(bundle);
+            dialog.setOnDialogListener(event.getListener());
+            ft.add(R.id.content, dialog);
             ft.addToBackStack(null);
             ft.commitAllowingStateLoss();
         }
@@ -283,7 +287,13 @@ public class BTEventDispatcher {
                     R.anim.fade_out_fast,
                     R.anim.fade_in_fast,
                     R.anim.fade_out_fast);
-            ft.add(R.id.content, new BTDialogFragment(event.getOptions(), event.getListener()));
+            BTDialogFragment dialog = new BTDialogFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(BTKey.EXTRA_TYPE, BTDialogFragment.DialogType.CONTEXT);
+            bundle.putStringArray(BTKey.EXTRA_OPTIONS, event.getOptions());
+            dialog.setArguments(bundle);
+            dialog.setOnDialogListener(event.getListener());
+            ft.add(R.id.content, dialog);
             ft.addToBackStack(null);
             ft.commitAllowingStateLoss();
         }
@@ -305,7 +315,12 @@ public class BTEventDispatcher {
                     R.anim.fade_out_fast,
                     R.anim.fade_in_fast,
                     R.anim.fade_out_fast);
-            ft.add(R.id.content, new BTDialogFragment(event.getMessage()));
+            BTDialogFragment dialog = new BTDialogFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(BTKey.EXTRA_TYPE, BTDialogFragment.DialogType.PROGRESS);
+            bundle.putString(BTKey.EXTRA_MESSAGE, event.getMessage());
+            dialog.setArguments(bundle);
+            ft.add(R.id.content, dialog);
             ft.addToBackStack(null);
             ft.commitAllowingStateLoss();
         }

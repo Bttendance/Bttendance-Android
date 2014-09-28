@@ -3,7 +3,6 @@ package com.bttendance.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -33,7 +32,6 @@ import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.view.BeautiToast;
 import com.squareup.otto.BTEventBus;
 import com.uservoice.uservoicesdk.Config;
 import com.uservoice.uservoicesdk.UserVoice;
@@ -47,13 +45,10 @@ import retrofit.client.Response;
  */
 public class MainActivity extends BTActivity implements AdapterView.OnItemClickListener {
 
-    private static Handler mUIHandler = new Handler();
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private SideListAdapter mSideAdapter;
     private ListView mListMenu;
-
-    private boolean mFinishApplication = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,28 +236,10 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
      */
     @Override
     public void onBackPressed() {
-        FragmentManager fm = getSupportFragmentManager();
         if (mDrawerLayout.isDrawerOpen(mListMenu))
             mDrawerLayout.closeDrawer(mListMenu);
-        else if (fm.getBackStackEntryCount() > 0) {
+        else
             super.onBackPressed();
-        } else
-            tryToFinish();
-    }
-
-    private void tryToFinish() {
-        if (mFinishApplication) {
-            finish();
-        } else {
-            BeautiToast.show(this, getString(R.string.please_press_back_button_again_to_exit_));
-            mFinishApplication = true;
-            mUIHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mFinishApplication = false;
-                }
-            }, 3000);
-        }
     }
 
     /**
