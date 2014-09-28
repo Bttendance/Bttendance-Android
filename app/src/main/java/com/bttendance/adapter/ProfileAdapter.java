@@ -36,6 +36,7 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
 
         add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.clicker_capital)));
         add(new ProfileItem(ProfileItemType.SavedClicker, null));
+        add(new ProfileItem(ProfileItemType.DefaultClickerOption, null));
 
         if (mUser.getClosedCourses().length > 0) {
             add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.closed_lectures)));
@@ -83,6 +84,13 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.profile_text);
                 text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), mUser.questions_count));
+                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
+                break;
+            }
+            case DefaultClickerOption: {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_list, null);
+                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
+                text.setText(getContext().getString(R.string.clicker_default_option));
                 text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
                 break;
             }
@@ -176,6 +184,6 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
     }
 
     public enum ProfileItemType {
-        Name, Email, SavedClicker, Course, Employed, Enrolled, Password, Section, Margin
+        Name, Email, SavedClicker, DefaultClickerOption, Course, Employed, Enrolled, Password, Section, Margin
     }
 }

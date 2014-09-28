@@ -255,12 +255,12 @@ public class AttendanceDetailFragment extends BTFragment {
                     mAttended.setText("" + mPost.attendance.getAttendedCount());
                     mTotal.setText("" + totalStudents);
                     mRate.setText(String.format(getString(R.string.rate_), rate));
-                    mMoreMargin.setVisibility(View.VISIBLE);
+                    mMoreMargin.setVisibility(View.GONE);
                     mRate.setVisibility(View.VISIBLE);
                     mStatusLayout.setVisibility(View.VISIBLE);
                     mShowDetail.setVisibility(View.VISIBLE);
                 } else {
-                    mMoreMargin.setVisibility(View.GONE);
+                    mMoreMargin.setVisibility(View.VISIBLE);
                     mStatusLayout.setVisibility(View.GONE);
                     mRate.setVisibility(View.GONE);
                     mShowDetail.setVisibility(View.GONE);

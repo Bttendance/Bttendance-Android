@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bttendance_grey"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="48dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bttendance_grey"
+            android:paddingTop="11dp"
+            android:paddingBottom="11dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:includeFontPadding="false"
+            android:textSize="12sp"
+            android:textColor="@color/bttendance_silver"
+            android:id="@+id/clicker_start_guide" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/message_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/clicker"
+                android:background="@color/bttendance_white"
+                android:gravity="top|left"
+                android:textColorHint="@color/bttendance_silver_50"
+                android:paddingBottom="10dp"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="10dp"
+                android:textColor="@color/bttendance_silver"
+                android:textSize="14sp" />
+
+            <View
+                android:id="@+id/message_edit_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/message_edit"
+                android:layout_alignBottom="@id/message_edit"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/bttendance_grey"
+            android:paddingTop="24dp"
+            android:paddingLeft="16dp"
+            android:gravity="left|top"
+            android:includeFontPadding="false"
+            android:text="@string/clicker_start_info"
+            android:textSize="12sp"
+            android:textColor="@color/bttendance_silver"
+            android:id="@+id/clicker_start_info" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/bttendance_white"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp">
+
+            <ImageView
+                android:id="@+id/choice_2_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/choices_bg"
+                android:src="@drawable/choices_bg_2" />
+
+            <ImageView
+                android:id="@+id/choice_3_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/choices_bg"
+                android:src="@drawable/choices_bg_3" />
+
+            <ImageView
+                android:id="@+id/choice_4_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/choices_bg"
+                android:src="@drawable/choices_bg_4" />
+
+            <ImageView
+                android:id="@+id/choice_5_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/choices_bg"
+                android:src="@drawable/choices_bg_5" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:text="@string/choices"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/bttendance_silver" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bttendance_grey" />
+
+        <RelativeLayout
+            android:id="@+id/clicker_option_layout"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:text="@string/clicker_option"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/arrow" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/more_option_padding"
+            android:layout_width="match_parent"
+            android:layout_height="33dp" />
+
+        <RelativeLayout
+            android:id="@+id/more_option_layout"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/more_option_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:textSize="14sp"
+                android:id="@+id/more_option_text" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/arrow" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

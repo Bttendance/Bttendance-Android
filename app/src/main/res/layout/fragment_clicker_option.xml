@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bttendance_grey"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="33dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/bttendance_grey"
+            android:paddingTop="24dp"
+            android:paddingLeft="14dp"
+            android:gravity="left|top"
+            android:includeFontPadding="false"
+            android:text="@string/clicker_option_detail_privacy_title"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_detail_privacy_option_1_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:includeFontPadding="false"
+                android:text="@string/clicker_option_detail_privacy_option_1"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/clicker_option_detail_privacy_option_1_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/poll_option_check" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_detail_privacy_option_2_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:includeFontPadding="false"
+                android:text="@string/clicker_option_detail_privacy_option_2"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/clicker_option_detail_privacy_option_2_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/poll_option_check" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_detail_privacy_option_3_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:includeFontPadding="false"
+                android:text="@string/clicker_option_detail_privacy_option_3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/clicker_option_detail_privacy_option_3_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/poll_option_check" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/bttendance_grey"
+            android:paddingTop="24dp"
+            android:paddingLeft="14dp"
+            android:gravity="left|top"
+            android:includeFontPadding="false"
+            android:text="@string/clicker_option_show_info_on_select_title"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_show_info_on_select_option_1_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:includeFontPadding="false"
+                android:text="@string/clicker_option_show_info_on_select_option_1"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/clicker_option_show_info_on_select_option_1_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/poll_option_check" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_show_info_on_select_option_2_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:includeFontPadding="false"
+                android:text="@string/clicker_option_show_info_on_select_option_2"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/clicker_option_show_info_on_select_option_2_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/poll_option_check" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/bttendance_grey"
+            android:paddingTop="24dp"
+            android:paddingLeft="14dp"
+            android:gravity="left|top"
+            android:includeFontPadding="false"
+            android:text="@string/clicker_option_progress_time_title"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_progress_time_option_1_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:includeFontPadding="false"
+                android:text="@string/clicker_option_progress_time_option_1"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/clicker_option_progress_time_option_1_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/poll_option_check" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_progress_time_option_2_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:includeFontPadding="false"
+                android:text="@string/clicker_option_progress_time_option_2"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/clicker_option_progress_time_option_2_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/poll_option_check" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_progress_time_option_3_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:includeFontPadding="false"
+                android:text="@string/clicker_option_progress_time_option_3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/clicker_option_progress_time_option_3_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/poll_option_check" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/bttendance_white">
+
+            <Button
+                android:id="@+id/clicker_option_progress_time_option_4_selector"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bt_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bttendance_silver"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="14dp"
+                android:paddingBottom="2dp"
+                android:includeFontPadding="false"
+                android:text="@string/clicker_option_progress_time_option_4"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/clicker_option_progress_time_option_4_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/poll_option_check" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@color/bttendance_grey" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

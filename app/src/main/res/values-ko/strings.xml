@@ -15,8 +15,8 @@
     <string name="forgot_password_underline">"<u>비밀번호를 잊어버리셨나요?</u>"</string>
     <string name="log_in">"로그인"</string>
     <string name="sign_up">"가입하기"</string>
-    <string name="professor">"교수명"</string>
-    <string name="professor_capital">"교수"</string>
+    <string name="professor">"강의자명"</string>
+    <string name="professor_capital">"강의자"</string>
     <string name="student_capital">"학생"</string>
     <string name="cancel">"취소"</string>
     <string name="enter">"입력"</string>
@@ -174,7 +174,6 @@
     <string name="would_you_like_to_close_course">%s 강의를 비활성화 하시겠습니까??</string>
     <string name="closing_course">강의 비활성화 중</string>
     <string name="student_list">학생 리스트</string>
-    <string name="clicker_start_guide">* 설문이 시작되면 60초간 답변을 수집합니다.</string>
     <string name="choices">중 고르기</string>
     <string name="clicker_start_info">선택지 개수를 선택해주세요</string>
     <string name="load_saved_question">저장된 질문 불러오기</string>
@@ -255,5 +254,29 @@
     <string name="delete_question_message">정말 이 질문을 삭제하길 원하시나요?</string>
     <string name="deleting_question">질문을 삭제하는 중</string>
     <string name="refresh">새로고침</string>
+    <string name="clicker_option">설문 옵션</string>
+    <string name="clicker_default_option">설문 기본 옵션</string>
+
+    <string name="clicker_guide_detail_privacy_professor"><![CDATA[* <b>강의자만</b> 상세 결과를 볼 수 있습니다.]]></string>
+    <string name="clicker_guide_detail_privacy_all"><![CDATA[* <b>모두</b> 상세 결과를 볼 수 있습니다.]]></string>
+    <string name="clicker_guide_detail_privacy_none"><![CDATA[* <b>아무도</b> 상세 결과를 볼 수 없습니다.]]></string>
+    <string name="clicker_guide_show_info_on_select_true"><![CDATA[* 설문이 <b>진행되는 동안</b> 학생들이 결과를 볼 수 있습니다.]]></string>
+    <string name="clicker_guide_show_info_on_select_false"><![CDATA[* 설문이 <b>끝난 후에야</b> 학생들이 결과를 볼 수 있습니다.]]></string>
+    <string name="clicker_guide_progress_time"><![CDATA[* 설문이 시작되면 <b>%d분간</b> 답변을 수집합니다.]]></string>
+
+    <string name="clicker_option_detail_privacy_title">"누가 어떤 답변을 선택했는지"</string>
+    <string name="clicker_option_detail_privacy_option_1">"모두 보기"</string>
+    <string name="clicker_option_detail_privacy_option_2">"강의자만 보기"</string>
+    <string name="clicker_option_detail_privacy_option_3">"아무도 못보게 하기"</string>
+
+    <string name="clicker_option_show_info_on_select_title">"설문이 진행중일 때 실시간 결과를 학생들에게"</string>
+    <string name="clicker_option_show_info_on_select_option_1">"보여주기"</string>
+    <string name="clicker_option_show_info_on_select_option_2">"보여주지 않기"</string>
+
+    <string name="clicker_option_progress_time_title">"설문 수집 시간"</string>
+    <string name="clicker_option_progress_time_option_1">"1분"</string>
+    <string name="clicker_option_progress_time_option_2">"2분"</string>
+    <string name="clicker_option_progress_time_option_3">"3분"</string>
+    <string name="clicker_option_progress_time_option_4">"5분"</string>
 
 </resources>

@@ -31,7 +31,7 @@ import com.bttendance.event.update.UpdateFeedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.attendance.AttendanceStartFragment;
-import com.bttendance.fragment.clicker.ClickerStartFragment;
+import com.bttendance.fragment.clicker.ClickerCRUDFragment;
 import com.bttendance.fragment.notice.NoticePostFragment;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.helper.ScreenHelper;
@@ -341,9 +341,9 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
      * Private Methods
      */
     private void showClicker() {
-        ClickerStartFragment frag = new ClickerStartFragment();
+        ClickerCRUDFragment frag = new ClickerCRUDFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerStartFragment.ClickerType.CLICKER_CREATE);
+        bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerCRUDFragment.ClickerType.CLICKER_CREATE);
         bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourseID);
         frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));

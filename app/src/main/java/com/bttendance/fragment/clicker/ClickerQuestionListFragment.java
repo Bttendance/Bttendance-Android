@@ -111,9 +111,9 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
         addQuestionBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClickerStartFragment fragment = new ClickerStartFragment();
+                ClickerCRUDFragment fragment = new ClickerCRUDFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerStartFragment.ClickerType.QUESTION_CREATE);
+                bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerCRUDFragment.ClickerType.QUESTION_CREATE);
                 fragment.setArguments(bundle);
                 BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
             }
@@ -175,9 +175,9 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
             return;
 
         if (mForProfile) {
-            ClickerStartFragment fragment = new ClickerStartFragment();
+            ClickerCRUDFragment fragment = new ClickerCRUDFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerStartFragment.ClickerType.QUESTION_EDIT);
+            bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerCRUDFragment.ClickerType.QUESTION_EDIT);
             bundle.putInt(BTKey.EXTRA_QUESTION_ID, question.id);
             fragment.setArguments(bundle);
             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));

@@ -83,8 +83,6 @@ public class CourseSettingFragment extends BTFragment implements AdapterView.OnI
     public void onFragmentResume() {
         super.onFragmentResume();
         refreshAdapter();
-        if (getBTService() != null)
-            getBTService().autoSignin(null);
     }
 
     private void refreshAdapter() {

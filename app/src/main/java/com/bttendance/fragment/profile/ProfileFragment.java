@@ -17,10 +17,12 @@ import com.bttendance.adapter.ProfileAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.clicker.ClickerOptionFragment;
 import com.bttendance.fragment.clicker.ClickerQuestionListFragment;
 import com.bttendance.fragment.course.CourseDetailFragment;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
@@ -73,8 +75,6 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     public void onFragmentResume() {
         super.onFragmentResume();
         refreshAdapter();
-        if (getBTService() != null)
-            getBTService().autoSignin(null);
     }
 
     @Subscribe
@@ -109,6 +109,9 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
                 break;
             case SavedClicker:
                 showSavedClicker();
+                break;
+            case DefaultClickerOption:
+                showClickerOption();
                 break;
             case Course:
                 showCourse((Integer) mAdapter.getItem(position).getObject());
@@ -156,6 +159,27 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
         Bundle bundle = new Bundle();
         bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, true);
         fragment.setArguments(bundle);
+        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+    }
+
+    private void showClickerOption() {
+        UserJson user = BTPreference.getUser(getActivity());
+        ClickerOptionFragment fragment = new ClickerOptionFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerOptionFragment.OptionType.DEFAULT);
+        bundle.putInt(BTKey.EXTRA_PROGRESS_TIME, user.setting.progress_time);
+        bundle.putBoolean(BTKey.EXTRA_SHOW_INFO_ON_SELECT, user.setting.show_info_on_select);
+        bundle.putString(BTKey.EXTRA_DETAIL_PRIVACY, user.setting.detail_privacy);
+        fragment.setArguments(bundle);
+        fragment.setOnOptionChosenListener(new ClickerOptionFragment.OptionChosenListener() {
+            @Override
+            public void OnOptionChosen(int progressTime, boolean showInfoOnSelect, String detailPrivacy) {
+                if (getBTService() == null)
+                    return;
+
+                getBTService().updateClickerDefaults(progressTime, showInfoOnSelect, detailPrivacy, null);
+            }
+        });
         BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
     }
 

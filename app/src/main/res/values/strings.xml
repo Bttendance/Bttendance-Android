@@ -19,8 +19,8 @@
     <string name="forgot_password_underline">"<u>Forgot password?</u>"</string>
     <string name="log_in">"Log In"</string>
     <string name="sign_up">"Sign Up"</string>
-    <string name="professor">"Professor"</string>
-    <string name="professor_capital">"PROFESSOR"</string>
+    <string name="professor">"Instructor"</string>
+    <string name="professor_capital">"INSTRUCTOR"</string>
     <string name="student_capital">"STUDENT"</string>
     <string name="cancel">"Cancel"</string>
     <string name="enter">"Enter"</string>
@@ -98,7 +98,7 @@
     <string name="student__">Student - %s</string>
     <string name="closed_lectures">CLOSED LECTURES</string>
     <string name="edit_">Edit %s</string>
-    <string name="if_you_turn_off_the_notification">If you turn off the notification, you won\'t be able to receive professor\'s action.</string>
+    <string name="if_you_turn_off_the_notification">If you turn off the notification, you won\'t be able to receive instructor\'s action.</string>
     <string name="attendance">Attendance</string>
     <string name="clicker">Clicker</string>
     <string name="attendance_notification">Attendance Notification</string>
@@ -178,7 +178,6 @@
     <string name="would_you_like_to_close_course">Would you like to close %s?</string>
     <string name="closing_course">Closing Course</string>
     <string name="student_list">Student List</string>
-    <string name="clicker_start_guide">* Responses will be collected for 60 seconds.</string>
     <string name="choices">Choices</string>
     <string name="clicker_start_info">Choose number of choices</string>
     <string name="load_saved_question">Load saved question</string>
@@ -210,7 +209,7 @@
     <string name="edit_question">Edit Question</string>
     <string name="show_guide">Show Guide</string>
     <string name="no_course_guide_info">If you want to know\nmore about BTTENDANCE</string>
-    <string name="no_course_add_info">You should create a course (professor)\nor attend a course (student)\nbefore using BTTENDANCE.</string>
+    <string name="no_course_add_info">You should create a course (instructor)\nor attend a course (student)\nbefore using BTTENDANCE.</string>
     <string name="no_course_guide_title">You have no course yet!</string>
     <string name="updating_question">Updating Question</string>
     <string name="show_details">Show Details</string>
@@ -250,7 +249,7 @@
     <string name="tardy">Tardy</string>
     <string name="present">Present</string>
     <string name="attendance_detail_list_header_guide">Click on the student’s name to toggle the student’s attendance status in the order of Absent ➜ Present ➜ Tardy ➜ Absent.</string>
-    <string name="clicker_hint">This clicker has been created at %s</string>
+    <string name="clicker_hint">This clicker was created at %s</string>
     <string name="attendance_timered_message">Attendance Ongoing (%d sec left)</string>
     <string name="clicker_timered_message">Clicker Ongoing (%d sec left)</string>
     <string name="attendance_message_post_prof">%1$d/%2$d (%3$d%%) students has been attended.</string>
@@ -259,5 +258,29 @@
     <string name="delete_question_message">Do you want to delete current question?</string>
     <string name="deleting_question">Deleting Question</string>
     <string name="refresh">Refresh</string>
+    <string name="clicker_option">Clicker Option</string>
+    <string name="clicker_default_option">Default Clicker Option</string>
+
+    <string name="clicker_guide_detail_privacy_professor"><![CDATA[* <b>Only instructor</b> can see the result in detail.]]></string>
+    <string name="clicker_guide_detail_privacy_all"><![CDATA[* <b>Everyone</b> can see the result in detail.]]></string>
+    <string name="clicker_guide_detail_privacy_none"><![CDATA[* <b>No-one</b> can see the result in detail.]]></string>
+    <string name="clicker_guide_show_info_on_select_true"><![CDATA[* Students can see the result <b>while survey is on process</b>.]]></string>
+    <string name="clicker_guide_show_info_on_select_false"><![CDATA[* Students can see the result <b>after the survey is over</b>.]]></string>
+    <string name="clicker_guide_progress_time"><![CDATA[* Responses will be collected for <b>%d minute(s)</b>.]]></string>
+
+    <string name="clicker_option_detail_privacy_title">"Who is allowed to see the result in detail?"</string>
+    <string name="clicker_option_detail_privacy_option_1">"Everyone"</string>
+    <string name="clicker_option_detail_privacy_option_2">"Only Instructor"</string>
+    <string name="clicker_option_detail_privacy_option_3">"No-one"</string>
+
+    <string name="clicker_option_show_info_on_select_title">"Can students see the result while survey is on process?"</string>
+    <string name="clicker_option_show_info_on_select_option_1">"While survey is on process"</string>
+    <string name="clicker_option_show_info_on_select_option_2">"After the survey is over"</string>
+
+    <string name="clicker_option_progress_time_title">"Survey Time"</string>
+    <string name="clicker_option_progress_time_option_1">"1 minute"</string>
+    <string name="clicker_option_progress_time_option_2">"2 minutes"</string>
+    <string name="clicker_option_progress_time_option_3">"3 minutes"</string>
+    <string name="clicker_option_progress_time_option_4">"5 minutes"</string>
 
 </resources>

@@ -328,9 +328,9 @@ public class ClickerDetailFragment extends BTFragment {
                         }
 
                         if (getString(R.string.edit_message).equals(edit)) {
-                            ClickerStartFragment fragment = new ClickerStartFragment();
+                            ClickerCRUDFragment fragment = new ClickerCRUDFragment();
                             Bundle bundle = new Bundle();
-                            bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerStartFragment.ClickerType.CLICKER_EDIT);
+                            bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerCRUDFragment.ClickerType.CLICKER_EDIT);
                             bundle.putInt(BTKey.EXTRA_POST_ID, mPost.id);
                             fragment.setArguments(bundle);
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));

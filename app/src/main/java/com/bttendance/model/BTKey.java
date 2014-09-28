@@ -19,7 +19,9 @@ public class BTKey {
     public final static String EXTRA_OPTIONS = "options";
 
     public final static String EXTRA_FOR_PROFILE = "for_profile";
-
+    public final static String EXTRA_PROGRESS_TIME = "progress_time";
+    public final static String EXTRA_SHOW_INFO_ON_SELECT = "show_info_on_select";
+    public final static String EXTRA_DETAIL_PRIVACY = "detail_privacy";
 
     public static class IntentKey {
         private static final String ACTION_PREFIX = "com.bttendance.intent.action.";
