@@ -174,7 +174,7 @@
             android:gravity="center"
             android:drawablePadding="6dp"
             android:drawableLeft="@drawable/more"
-            android:text="@string/show_details"
+            android:text="@string/update_attendance_record"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/bttendance_white" />

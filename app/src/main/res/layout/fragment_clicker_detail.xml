@@ -16,8 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="35dp"
-            android:paddingBottom="35dp">
+            android:paddingTop="35dp">
 
             <TextView
                 android:id="@+id/title"
@@ -370,6 +369,21 @@
                 android:includeFontPadding="false"
                 android:text="You have chosen A."
                 android:id="@+id/student_choice" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/student_choice"
+                android:background="@color/bttendance_grey"
+                android:paddingTop="11dp"
+                android:paddingBottom="11dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:includeFontPadding="false"
+                android:textSize="12sp"
+                android:textColor="@color/bttendance_silver"
+                android:id="@+id/clicker_option_guide" />
         </RelativeLayout>
     </ScrollView>
 

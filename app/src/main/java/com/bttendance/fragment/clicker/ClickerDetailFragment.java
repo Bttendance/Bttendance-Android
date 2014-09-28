@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +42,8 @@ import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.renderer.DefaultRenderer;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -56,38 +59,68 @@ public class ClickerDetailFragment extends BTFragment {
     private PostJson mPost;
     private boolean mAuth;
 
-    private RelativeLayout mClicker;
+    @InjectView(R.id.clicker)
+    RelativeLayout mClicker;
 
-    private TextView mTitle;
-    private TextView mMessage;
+    @InjectView(R.id.title)
+    TextView mTitle;
+    @InjectView(R.id.message)
+    TextView mMessage;
 
-    private View mALayout;
-    private TextView mAPercentTv;
-    private View mALine;
-    private TextView mAStudentTv;
+    @InjectView(R.id.a_layout)
+    View mALayout;
+    @InjectView(R.id.a_percent)
+    TextView mAPercentTv;
+    @InjectView(R.id.a_line)
+    View mALine;
+    @InjectView(R.id.a_student)
+    TextView mAStudentTv;
 
-    private View mBLayout;
-    private TextView mBPercentTv;
-    private View mBLine;
-    private TextView mBStudentTv;
+    @InjectView(R.id.b_layout)
+    View mBLayout;
+    @InjectView(R.id.b_percent)
+    TextView mBPercentTv;
+    @InjectView(R.id.b_line)
+    View mBLine;
+    @InjectView(R.id.b_student)
+    TextView mBStudentTv;
 
-    private View mCLayout;
-    private TextView mCPercentTv;
-    private View mCLine;
-    private TextView mCStudentTv;
+    @InjectView(R.id.c_layout)
+    View mCLayout;
+    @InjectView(R.id.c_percent)
+    TextView mCPercentTv;
+    @InjectView(R.id.c_line)
+    View mCLine;
+    @InjectView(R.id.c_student)
+    TextView mCStudentTv;
 
-    private View mDLayout;
-    private TextView mDPercentTv;
-    private View mDLine;
-    private TextView mDStudentTv;
+    @InjectView(R.id.d_layout)
+    View mDLayout;
+    @InjectView(R.id.d_percent)
+    TextView mDPercentTv;
+    @InjectView(R.id.d_line)
+    View mDLine;
+    @InjectView(R.id.d_student)
+    TextView mDStudentTv;
 
-    private View mELayout;
-    private TextView mEPercentTv;
-    private View mELine;
-    private TextView mEStudentTv;
+    @InjectView(R.id.e_layout)
+    View mELayout;
+    @InjectView(R.id.e_percent)
+    TextView mEPercentTv;
+    @InjectView(R.id.e_line)
+    View mELine;
+    @InjectView(R.id.e_student)
+    TextView mEStudentTv;
 
-    private TextView mStudentChoice;
-    private View mShowDetail;
+    @InjectView(R.id.student_choice)
+    TextView mStudentChoice;
+    @InjectView(R.id.show_details_layout)
+    View mShowDetail;
+    @InjectView(R.id.show_details)
+    View mShowDetailBt;
+
+    @InjectView(R.id.clicker_option_guide)
+    TextView mClickerOptionGuide;
 
     String message = null;
     Handler timerHandler = new Handler();
@@ -124,41 +157,9 @@ public class ClickerDetailFragment extends BTFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_clicker_detail, container, false);
+        ButterKnife.inject(this, view);
 
-        mTitle = (TextView) view.findViewById(R.id.title);
-        mMessage = (TextView) view.findViewById(R.id.message);
-
-        mClicker = (RelativeLayout) view.findViewById(R.id.clicker);
-
-        mALayout = view.findViewById(R.id.a_layout);
-        mAPercentTv = (TextView) view.findViewById(R.id.a_percent);
-        mALine = view.findViewById(R.id.a_line);
-        mAStudentTv = (TextView) view.findViewById(R.id.a_student);
-
-        mBLayout = view.findViewById(R.id.b_layout);
-        mBPercentTv = (TextView) view.findViewById(R.id.b_percent);
-        mBLine = view.findViewById(R.id.b_line);
-        mBStudentTv = (TextView) view.findViewById(R.id.b_student);
-
-        mCLayout = view.findViewById(R.id.c_layout);
-        mCPercentTv = (TextView) view.findViewById(R.id.c_percent);
-        mCLine = view.findViewById(R.id.c_line);
-        mCStudentTv = (TextView) view.findViewById(R.id.c_student);
-
-        mDLayout = view.findViewById(R.id.d_layout);
-        mDPercentTv = (TextView) view.findViewById(R.id.d_percent);
-        mDLine = view.findViewById(R.id.d_line);
-        mDStudentTv = (TextView) view.findViewById(R.id.d_student);
-
-        mELayout = view.findViewById(R.id.e_layout);
-        mEPercentTv = (TextView) view.findViewById(R.id.e_percent);
-        mELine = view.findViewById(R.id.e_line);
-        mEStudentTv = (TextView) view.findViewById(R.id.e_student);
-
-        mStudentChoice = (TextView) view.findViewById(R.id.student_choice);
-
-        mShowDetail = view.findViewById(R.id.show_details_layout);
-        view.findViewById(R.id.show_details).setOnClickListener(new View.OnClickListener() {
+        mShowDetailBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FeatureDetailListFragment fragment = new FeatureDetailListFragment();
@@ -169,6 +170,22 @@ public class ClickerDetailFragment extends BTFragment {
                 BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
             }
         });
+
+        String guideText;
+        if ("all".equals(mPost.clicker.detail_privacy))
+            guideText = getString(R.string.clicker_guide_detail_privacy_all);
+        else if ("none".equals(mPost.clicker.detail_privacy))
+            guideText = getString(R.string.clicker_guide_detail_privacy_none);
+        else
+            guideText = getString(R.string.clicker_guide_detail_privacy_professor);
+
+        if (mPost.clicker.show_info_on_select)
+            guideText = guideText + "<br>" + getString(R.string.clicker_guide_show_info_on_select_true);
+        else
+            guideText = guideText + "<br>" + getString(R.string.clicker_guide_show_info_on_select_false);
+
+        guideText = guideText + "<br>" + String.format(getString(R.string.clicker_guide_progress_time), mPost.clicker.progress_time / 60);
+        mClickerOptionGuide.setText(Html.fromHtml(guideText));
 
         return view;
     }
