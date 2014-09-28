@@ -74,6 +74,8 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
+        if (getBTService() != null)
+            getBTService().autoSignin(null);
         refreshAdapter();
     }
 

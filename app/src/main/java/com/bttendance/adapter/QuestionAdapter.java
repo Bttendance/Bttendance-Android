@@ -3,6 +3,7 @@ package com.bttendance.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,24 @@ public class QuestionAdapter extends CursorAdapter implements View.OnClickListen
             }
             ((TextView) view.findViewById(R.id.message)).setText(question.message);
         }
+
+        String guideText;
+        if ("all".equals(question.detail_privacy))
+            guideText = mContext.getString(R.string.clicker_guide_detail_privacy_all);
+        else if ("none".equals(question.detail_privacy))
+            guideText = mContext.getString(R.string.clicker_guide_detail_privacy_none);
+        else
+            guideText = mContext.getString(R.string.clicker_guide_detail_privacy_professor);
+
+        if (question.show_info_on_select)
+            guideText = guideText + "<br>" + mContext.getString(R.string.clicker_guide_show_info_on_select_true);
+        else
+            guideText = guideText + "<br>" + mContext.getString(R.string.clicker_guide_show_info_on_select_false);
+
+        guideText = guideText + "<br>" + String.format(mContext.getString(R.string.clicker_guide_progress_time), question.progress_time / 60);
+
+        TextView guide = (TextView) view.findViewById(R.id.question_option_guide);
+        guide.setText(Html.fromHtml(guideText));
 
         // Selector Events
         View selector = view.findViewById(R.id.item_selector);
