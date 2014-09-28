@@ -143,6 +143,10 @@ public class StudentRecordFragment extends BTFragment {
             Collections.sort(items, new Comparator<BTListAdapter.Item>() {
                 @Override
                 public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+                    if (lhs.getMessage() == null)
+                        lhs.setMessage("");
+                    if (rhs.getMessage() == null)
+                        rhs.setMessage("");
                     return lhs.getMessage().compareToIgnoreCase(rhs.getMessage());
                 }
             });
@@ -159,6 +163,10 @@ public class StudentRecordFragment extends BTFragment {
             Collections.sort(items, new Comparator<BTListAdapter.Item>() {
                 @Override
                 public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+                    if (lhs.getMessage() == null)
+                        lhs.setMessage("");
+                    if (rhs.getMessage() == null)
+                        rhs.setMessage("");
                     return lhs.getMessage().compareToIgnoreCase(rhs.getMessage());
                 }
             });

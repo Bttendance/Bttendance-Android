@@ -264,6 +264,10 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
                     Collections.sort(mItems, new Comparator<BTListAdapter.Item>() {
                         @Override
                         public int compare(BTListAdapter.Item lhs, BTListAdapter.Item rhs) {
+                            if (lhs.getMessage() == null)
+                                lhs.setMessage("");
+                            if (rhs.getMessage() == null)
+                                rhs.setMessage("");
                             return lhs.getMessage().compareToIgnoreCase(rhs.getMessage());
                         }
                     });
