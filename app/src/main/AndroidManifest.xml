@@ -44,7 +44,7 @@
             android:label="@string/app_name"
             android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -59,19 +59,19 @@
             android:name=".activity.guide.GuideActivity"
             android:label="@string/guide"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name=".activity.guide.GuideCourseCreateActivity"
             android:label="@string/guide"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name=".activity.guide.GuideCourseAttendActivity"
             android:label="@string/guide"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name=".activity.guide.TutorialActivity"
@@ -83,7 +83,7 @@
             android:name=".activity.course.AddCourseActivity"
             android:label="@string/add_course"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Transparent" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.Translucent" />
 
         <activity
             android:name="com.bttendance.activity.course.CreateCourseActivity"
@@ -103,7 +103,7 @@
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name="com.bttendance.activity.sign.SignInActivity"

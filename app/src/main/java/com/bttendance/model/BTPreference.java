@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 
 import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.helper.IntArrayHelper;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.CourseJsonArray;
 import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.PostJsonArray;
@@ -15,6 +16,10 @@ import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimpleArray;
 import com.google.gson.Gson;
 import com.squareup.otto.BTEventBus;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Preference Helper
@@ -118,6 +123,29 @@ public class BTPreference {
         }
     }
 
+    public static void updateCourse(Context ctx, CourseJson course) {
+        CourseJsonArray courseJsonArray = getCourses(ctx);
+        if (courseJsonArray == null || courseJsonArray.courses == null)
+            courseJsonArray = new CourseJsonArray(new CourseJson[]{course});
+        else {
+            boolean found = false;
+            for (int i = 0; i < courseJsonArray.courses.length; i++) {
+                if (courseJsonArray.courses[i].id == course.id) {
+                    courseJsonArray.courses[i] = course;
+                    found = true;
+                }
+            }
+            if (!found) {
+                List<CourseJson> courses = new ArrayList<CourseJson>(Arrays.asList(courseJsonArray.courses));
+                courses.add(course);
+                courseJsonArray.courses = new CourseJson[courses.size()];
+                courseJsonArray.courses = courses.toArray(courseJsonArray.courses);
+            }
+        }
+
+        setCourses(ctx, courseJsonArray);
+    }
+
     public static void setCourses(Context ctx, CourseJsonArray courseJsonArray) {
         Gson gson = new Gson();
         String jsonStr = gson.toJson(courseJsonArray);
@@ -211,6 +239,9 @@ public class BTPreference {
                     setLastSeenCourse(ctx, course.id);
                     return course.id;
                 }
+
+            setLastSeenCourse(ctx, 0);
+            return 0;
         }
         return lastCourse;
     }

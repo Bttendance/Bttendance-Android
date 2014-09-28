@@ -19,7 +19,7 @@
 
 <resources>
 
-    <style name="Theme.Bttendance" parent="@style/Theme.Sherlock.Light">
+    <style name="Theme.Bttendance" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_bttendance</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Bttendance</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Bttendance</item>
@@ -32,10 +32,14 @@
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bttendance</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/bttendance_grey</item>
-        <item name="android:homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_dark</item>
+        <item name="android:homeAsUpIndicator">@drawable/nav_back</item>
         <item name="android:actionMenuTextColor">@color/bttendance_white</item>
         <item name="switchStyle">@style/Widget.Holo.CompoundButton.Switch.Bttendance</item>
         <item name="switchPreferenceStyle">@style/Preference.SwitchPreference</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="android:actionBarWidgetTheme">@style/Theme.Bttendance.Widget</item>
+
     </style>
 
     <style name="Theme.Bttendance.Sign" parent="@style/Theme.Bttendance">
@@ -43,7 +47,7 @@
         <item name="android:windowBackground">@color/bttendance_white</item>
     </style>
 
-    <style name="ActionBar.Solid.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
+    <style name="ActionBar.Solid.Bttendance" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/bttendance_navy</item>
         <item name="android:titleTextStyle">@style/ActionBar.TitleTextStyle</item>
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_bttendance</item>
@@ -52,7 +56,7 @@
         <item name="android:displayOptions">disableHome|showTitle</item>
     </style>
 
-    <style name="ActionBarButton.Solid.Bttendance" parent="Widget.Sherlock.Light.ActionButton">
+    <style name="ActionBarButton.Solid.Bttendance" parent="Widget.AppCompat.Light.ActionButton">
         <item name="android:minWidth">46dip</item>
         <item name="android:paddingRight">0dip</item>
         <item name="android:paddingLeft">0dip</item>
@@ -62,13 +66,13 @@
         <item name="android:displayOptions">homeAsUp|showTitle</item>
     </style>
 
-    <style name="ActionBar.Transparent.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar">
+    <style name="ActionBar.Transparent.Bttendance" parent="@style/Widget.AppCompat.ActionBar">
         <item name="android:background">@drawable/ab_transparent_bttendance</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Bttendance</item>
     </style>
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.Bttendance.Widget" parent="@style/Theme.Sherlock">
+    <style name="Theme.Bttendance.Widget" parent="@style/Theme.AppCompat">
         <item name="android:popupMenuStyle">@style/PopupMenu.Bttendance</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Bttendance</item>
     </style>

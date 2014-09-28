@@ -7,15 +7,15 @@ import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.course.AddCourseActivity;
@@ -189,7 +189,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
         FragmentManager fm = getSupportFragmentManager();
         switch (item.getItemId()) {
-            case R.id.abs__home:
             case android.R.id.home:
                 if (mDrawerLayout.isDrawerOpen(mListMenu))
                     mDrawerLayout.closeDrawer(mListMenu);
@@ -224,7 +223,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
         if (isDrawerOpen()) {
             actionBar.setTitle(getString(R.string.menu));
-            MenuInflater inflater = getSupportMenuInflater();
+            MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.no_menu, menu);
         }
 

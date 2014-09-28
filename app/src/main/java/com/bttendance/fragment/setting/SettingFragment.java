@@ -3,15 +3,16 @@ package com.bttendance.fragment.setting;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.SettingAdapter;
@@ -45,10 +46,10 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getActivity() == null)
             return;
 
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setHomeButtonEnabled(true);

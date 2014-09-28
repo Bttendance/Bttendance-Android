@@ -4,17 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
@@ -25,9 +26,11 @@ import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.DateHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.QuestionJson;
+import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
@@ -39,17 +42,24 @@ import retrofit.client.Response;
  */
 public class ClickerStartFragment extends BTFragment {
 
+    public enum ClickerType {CLICKER_CREATE, CLICKER_EDIT, QUESTION_CREATE, QUESTION_EDIT}
+
+    private ClickerType mType;
     private int mCourseID;
     private QuestionJson mQuestion;
     private PostJson mPost;
+    private UserJson mUser;
+
     private EditText mMessage;
-    boolean mForProfile;
+    int mChoiceCount;
+    private int mProgressTime;
+    private boolean mShowInfoOnSelect;
+    private String mDetailPrivacy;
 
     private View mChoiceView1;
     private View mChoiceView2;
     private TextView mInfoView;
 
-    int mChoice;
     View mChoice2Img;
     View mChoice3Img;
     View mChoice4Img;
@@ -61,21 +71,40 @@ public class ClickerStartFragment extends BTFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mType = getArguments() != null ? (ClickerType) getArguments().getSerializable(BTKey.EXTRA_TYPE) : null;
+
         mCourseID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_COURSE_ID) : 0;
-        mForProfile = getArguments() != null ? getArguments().getBoolean(BTKey.EXTRA_FOR_PROFILE) : false;
         int questionID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_QUESTION_ID) : 0;
-        mQuestion = BTTable.MyQuestionTable.get(questionID);
         int postID = getArguments() != null ? getArguments().getInt(BTKey.EXTRA_POST_ID) : 0;
+
+        mQuestion = BTTable.MyQuestionTable.get(questionID);
         mPost = BTTable.PostTable.get(postID);
+
+        switch (mType) {
+            case CLICKER_CREATE:
+            case QUESTION_CREATE:
+                mUser = BTPreference.getUser(getActivity());
+                mChoiceCount = 0;
+                mProgressTime = mUser.setting.progress_time;
+                mShowInfoOnSelect = mUser.setting.show_info_on_select;
+                mDetailPrivacy = mUser.setting.detail_privacy;
+                break;
+            case CLICKER_EDIT:
+                mChoiceCount = mPost.clicker.choice_count;
+                mProgressTime = mPost.clicker.progress_time;
+                mShowInfoOnSelect = mPost.clicker.show_info_on_select;
+                mDetailPrivacy = mPost.clicker.detail_privacy;
+                break;
+            case QUESTION_EDIT:
+                mChoiceCount = mQuestion.choice_count;
+                mProgressTime = mQuestion.progress_time;
+                mShowInfoOnSelect = mQuestion.show_info_on_select;
+                mDetailPrivacy = mQuestion.detail_privacy;
+                break;
+        }
 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        KeyboardHelper.show(getActivity(), mMessage);
     }
 
     @Override
@@ -95,7 +124,9 @@ public class ClickerStartFragment extends BTFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_clicker_start, container, false);
         mMessage = (EditText) view.findViewById(R.id.message_edit);
-        KeyboardHelper.show(getActivity(), mMessage);
+
+        if (mType != ClickerType.CLICKER_EDIT)
+            KeyboardHelper.show(getActivity(), mMessage);
 
         mChoiceView1 = view.findViewById(R.id.clicker_start_choice_1);
         mChoiceView2 = view.findViewById(R.id.clicker_start_choice_2);
@@ -114,7 +145,7 @@ public class ClickerStartFragment extends BTFragment {
         view.findViewById(R.id.choice_2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mChoice = 2;
+                mChoiceCount = 2;
                 refreshChoiceView();
             }
         });
@@ -122,7 +153,7 @@ public class ClickerStartFragment extends BTFragment {
         view.findViewById(R.id.choice_3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mChoice = 3;
+                mChoiceCount = 3;
                 refreshChoiceView();
             }
         });
@@ -130,7 +161,7 @@ public class ClickerStartFragment extends BTFragment {
         view.findViewById(R.id.choice_4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mChoice = 4;
+                mChoiceCount = 4;
                 refreshChoiceView();
             }
         });
@@ -138,13 +169,14 @@ public class ClickerStartFragment extends BTFragment {
         view.findViewById(R.id.choice_5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mChoice = 5;
+                mChoiceCount = 5;
                 refreshChoiceView();
             }
         });
 
         Button loadQuestionBt = (Button) view.findViewById(R.id.load_question);
-        if (mForProfile) {
+
+        if (mType != ClickerType.CLICKER_CREATE) {
             loadQuestionBt.setVisibility(View.GONE);
             view.findViewById(R.id.clicker_start_guide).setVisibility(View.GONE);
         } else {
@@ -161,7 +193,7 @@ public class ClickerStartFragment extends BTFragment {
                         @Override
                         public void OnQuestionChosen(QuestionJson question) {
                             mMessage.setText(question.message);
-                            mChoice = question.choice_count;
+                            mChoiceCount = question.choice_count;
                             refreshChoiceView();
                         }
                     });
@@ -176,13 +208,12 @@ public class ClickerStartFragment extends BTFragment {
             });
         }
 
-        if (mQuestion == null && mPost == null && !mForProfile) {
+        if (mType == ClickerType.CLICKER_CREATE)
             mMessage.setHint(String.format(getString(R.string.clicker_hint), DateHelper.getCurrentTimeString()));
-        }
 
         if (mQuestion != null) {
             mMessage.setText(mQuestion.message);
-            mChoice = mQuestion.choice_count;
+            mChoiceCount = mQuestion.choice_count;
             refreshChoiceView();
             loadQuestionBt.setVisibility(View.VISIBLE);
             loadQuestionBt.setText(getString(R.string.delete));
@@ -226,7 +257,7 @@ public class ClickerStartFragment extends BTFragment {
             view.findViewById(R.id.clicker_start_guide).setVisibility(View.GONE);
             mInfoView.setVisibility(View.GONE);
             mMessage.setText(mPost.message);
-            mChoice = mPost.clicker.choice_count;
+            mChoiceCount = mPost.clicker.choice_count;
             refreshChoiceView();
             view.findViewById(R.id.choice_2).setOnClickListener(null);
             view.findViewById(R.id.choice_3).setOnClickListener(null);
@@ -249,7 +280,7 @@ public class ClickerStartFragment extends BTFragment {
         mChoice4Text.setTextColor(getResources().getColor(R.color.bttendance_silver));
         mChoice5Text.setTextColor(getResources().getColor(R.color.bttendance_silver));
 
-        switch (mChoice) {
+        switch (mChoiceCount) {
             case 2:
                 mChoice2Img.setSelected(true);
                 mChoice2Text.setTextColor(getResources().getColor(R.color.bttendance_navy));
@@ -272,33 +303,38 @@ public class ClickerStartFragment extends BTFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getActivity() == null)
             return;
 
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        if (mPost != null) {
-            actionBar.setTitle(getString(R.string.edit_message));
-            inflater.inflate(R.menu.clicker_edit_menu, menu);
-        } else if (!mForProfile) {
-            actionBar.setTitle(getString(R.string.start_clicker));
-            inflater.inflate(R.menu.clicker_start_menu, menu);
-        } else if (mQuestion == null) {
-            actionBar.setTitle(getString(R.string.add_question));
-            inflater.inflate(R.menu.add_question_menu, menu);
-        } else {
-            actionBar.setTitle(getString(R.string.edit_question));
-            inflater.inflate(R.menu.edit_question_menu, menu);
+
+        switch (mType) {
+            case CLICKER_CREATE:
+                actionBar.setTitle(getString(R.string.start_clicker));
+                inflater.inflate(R.menu.clicker_start_menu, menu);
+                break;
+            case CLICKER_EDIT:
+                actionBar.setTitle(getString(R.string.edit_message));
+                inflater.inflate(R.menu.clicker_edit_menu, menu);
+                break;
+            case QUESTION_CREATE:
+                actionBar.setTitle(getString(R.string.add_question));
+                inflater.inflate(R.menu.add_question_menu, menu);
+                break;
+            case QUESTION_EDIT:
+                actionBar.setTitle(getString(R.string.edit_question));
+                inflater.inflate(R.menu.edit_question_menu, menu);
+                break;
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.abs__home:
             case android.R.id.home:
                 getActivity().onBackPressed();
                 return true;
@@ -328,13 +364,13 @@ public class ClickerStartFragment extends BTFragment {
                 }
                 return true;
             case R.id.action_start:
-                if (mMessage != null && mChoice >= 2 && mChoice <= 5) {
+                if (mMessage != null && mChoiceCount >= 2 && mChoiceCount <= 5) {
                     item.setEnabled(false);
                     String message = mMessage.getText().toString();
                     if (message == null || message.length() == 0)
                         message = mMessage.getHint().toString();
                     BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.starting_clicker)));
-                    getBTService().postStartClicker(mCourseID, message, mChoice, new Callback<PostJson>() {
+                    getBTService().postStartClicker(mCourseID, message, mChoiceCount, mProgressTime, mShowInfoOnSelect, mDetailPrivacy, new Callback<PostJson>() {
                         @Override
                         public void success(PostJson postJson, Response response) {
                             item.setEnabled(true);
@@ -364,10 +400,10 @@ public class ClickerStartFragment extends BTFragment {
                 }
                 return true;
             case R.id.action_save:
-                if (mMessage != null && mMessage.getText().toString().length() > 0 && mChoice >= 2 && mChoice <= 5) {
+                if (mMessage != null && mMessage.getText().toString().length() > 0 && mChoiceCount >= 2 && mChoiceCount <= 5) {
                     item.setEnabled(false);
                     BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.saving_question)));
-                    getBTService().createQuestion(mMessage.getText().toString(), mChoice, new Callback<QuestionJson>() {
+                    getBTService().createQuestion(mMessage.getText().toString(), mChoiceCount, mProgressTime, mShowInfoOnSelect, mDetailPrivacy, new Callback<QuestionJson>() {
                         @Override
                         public void success(QuestionJson questionJson, Response response) {
                             item.setEnabled(true);
@@ -388,7 +424,7 @@ public class ClickerStartFragment extends BTFragment {
                     mChoiceView1.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
                     mChoiceView2.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
                     mInfoView.setTextColor(getResources().getColor(R.color.bttendance_red));
-                } else if (mChoice >= 2 && mChoice <= 5) {
+                } else if (mChoiceCount >= 2 && mChoiceCount <= 5) {
                     Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                     vibrator.vibrate(200);
                     mMessage.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
@@ -402,10 +438,10 @@ public class ClickerStartFragment extends BTFragment {
                 }
                 return true;
             case R.id.action_edit:
-                if (mMessage != null && mMessage.getText().toString().length() > 0 && mChoice >= 2 && mChoice <= 5) {
+                if (mMessage != null && mMessage.getText().toString().length() > 0 && mChoiceCount >= 2 && mChoiceCount <= 5) {
                     item.setEnabled(false);
                     BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.updating_question)));
-                    getBTService().editQuestion(mQuestion.id, mMessage.getText().toString(), mChoice, new Callback<QuestionJson>() {
+                    getBTService().editQuestion(mQuestion.id, mMessage.getText().toString(), mChoiceCount, mProgressTime, mShowInfoOnSelect, mDetailPrivacy, new Callback<QuestionJson>() {
                         @Override
                         public void success(QuestionJson questionJson, Response response) {
                             item.setEnabled(true);
@@ -426,7 +462,7 @@ public class ClickerStartFragment extends BTFragment {
                     mChoiceView1.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
                     mChoiceView2.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));
                     mInfoView.setTextColor(getResources().getColor(R.color.bttendance_red));
-                } else if (mChoice >= 2 && mChoice <= 5) {
+                } else if (mChoiceCount >= 2 && mChoiceCount <= 5) {
                     Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                     vibrator.vibrate(200);
                     mMessage.setBackgroundColor(getResources().getColor(R.color.bttendance_red_10));

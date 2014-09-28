@@ -1,7 +1,9 @@
 package com.bttendance.activity.course;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
@@ -9,9 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
@@ -131,8 +133,8 @@ public class AttendCourseActivity extends BTActivity {
                 if (BTPreference.getUser(AttendCourseActivity.this).enrolled(courseJson.school.id)) {
                     attendCourse(courseJson.id);
                 } else {
-                    String title;
-                    String message;
+                    final String title;
+                    final String message;
 
                     if ("university".equals(courseJson.school.type)) {
                         title = getString(R.string.student_number_univ);
@@ -155,17 +157,23 @@ public class AttendCourseActivity extends BTActivity {
                             if (BTPreference.getUser(getApplicationContext()).enrolled(courseJson.school.id)) {
                                 attendCourse(courseJson.id);
                             } else {
-                                getBTService().enrollSchool(courseJson.school.id, edit, new Callback<UserJson>() {
-                                    @Override
-                                    public void success(UserJson userJson, Response response) {
-                                        attendCourse(courseJson.id);
-                                    }
+                                if (edit == null || edit.length() == 0) {
+                                    Vibrator vibrator = (Vibrator) AttendCourseActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+                                    vibrator.vibrate(200);
+                                    BTEventBus.getInstance().post(new ShowAlertDialogEvent(BTDialogFragment.DialogType.CONFIRM, title, message, null));
+                                } else {
+                                    getBTService().enrollSchool(courseJson.school.id, edit, new Callback<UserJson>() {
+                                        @Override
+                                        public void success(UserJson userJson, Response response) {
+                                            attendCourse(courseJson.id);
+                                        }
 
-                                    @Override
-                                    public void failure(RetrofitError retrofitError) {
-                                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                                    }
-                                });
+                                        @Override
+                                        public void failure(RetrofitError retrofitError) {
+                                            BTEventBus.getInstance().post(new HideProgressDialogEvent());
+                                        }
+                                    });
+                                }
                             }
                         }
 
@@ -242,7 +250,6 @@ public class AttendCourseActivity extends BTActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.abs__home:
             case android.R.id.home:
                 onBackPressed();
         }

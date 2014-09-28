@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.actionbarsherlock.view.MenuItem;
+import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.fragment.SimpleWebViewFragment;
@@ -49,7 +49,6 @@ public class TutorialActivity extends BTActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         switch (item.getItemId()) {
-            case R.id.abs__home:
             case android.R.id.home:
                 onBackPressed();
                 return true;

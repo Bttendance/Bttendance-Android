@@ -20,6 +20,9 @@ public class ClickerJsonSimple extends BTJsonSimple {
     public int[] c_students;
     public int[] d_students;
     public int[] e_students;
+    public int progress_time;
+    public boolean show_info_on_select;
+    public String detail_privacy;
     public int post;
 
     public String getChoice(int userID) {

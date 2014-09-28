@@ -1,17 +1,18 @@
 package com.bttendance.fragment.clicker;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.QuestionAdapter;
 import com.bttendance.event.AddFragmentEvent;
@@ -65,10 +66,10 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getActivity() == null)
             return;
 
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(true);
@@ -79,7 +80,6 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.abs__home:
             case android.R.id.home:
                 getActivity().onBackPressed();
                 return true;
@@ -113,7 +113,7 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
             public void onClick(View view) {
                 ClickerStartFragment fragment = new ClickerStartFragment();
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, true);
+                bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerStartFragment.ClickerType.QUESTION_CREATE);
                 fragment.setArguments(bundle);
                 BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
             }
@@ -177,8 +177,8 @@ public class ClickerQuestionListFragment extends BTFragment implements AdapterVi
         if (mForProfile) {
             ClickerStartFragment fragment = new ClickerStartFragment();
             Bundle bundle = new Bundle();
+            bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerStartFragment.ClickerType.QUESTION_EDIT);
             bundle.putInt(BTKey.EXTRA_QUESTION_ID, question.id);
-            bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, true);
             fragment.setArguments(bundle);
             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
         } else if (mListener != null) {

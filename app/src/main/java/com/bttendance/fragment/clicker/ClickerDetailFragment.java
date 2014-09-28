@@ -2,17 +2,18 @@ package com.bttendance.fragment.clicker;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
@@ -284,10 +285,10 @@ public class ClickerDetailFragment extends BTFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null || mPost == null)
+        if (getActivity() == null || mPost == null)
             return;
 
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(true);
@@ -300,7 +301,6 @@ public class ClickerDetailFragment extends BTFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.abs__home:
             case android.R.id.home:
                 getActivity().onBackPressed();
                 return true;
@@ -330,8 +330,8 @@ public class ClickerDetailFragment extends BTFragment {
                         if (getString(R.string.edit_message).equals(edit)) {
                             ClickerStartFragment fragment = new ClickerStartFragment();
                             Bundle bundle = new Bundle();
+                            bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerStartFragment.ClickerType.CLICKER_EDIT);
                             bundle.putInt(BTKey.EXTRA_POST_ID, mPost.id);
-                            bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, false);
                             fragment.setArguments(bundle);
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                         }

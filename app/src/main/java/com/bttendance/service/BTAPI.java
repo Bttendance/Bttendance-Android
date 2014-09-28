@@ -129,6 +129,15 @@ public interface BTAPI {
                              @Query("notice") boolean notice,
                              Callback<UserJson> cb);
 
+    @PUT("/settings/update/clicker/defaults")
+    void updateClickerDefaults(@Query("email") String email,
+                               @Query("password") String password,
+                               @Query("locale") String locale,
+                               @Query("progress_time") int progressTime,
+                               @Query("show_info_on_select") boolean showInfoOnSelect,
+                               @Query("detail_privacy") String detailPrivacy,
+                               Callback<UserJson> cb);
+
     /**
      * Question APIs
      */
@@ -144,6 +153,9 @@ public interface BTAPI {
                         @Query("locale") String locale,
                         @Query("message") String message,
                         @Query("choice_count") int choiceCount,
+                        @Query("progress_time") int progressTime,
+                        @Query("show_info_on_select") boolean showInfoOnSelect,
+                        @Query("detail_privacy") String detailPrivacy,
                         Callback<QuestionJson> cb);
 
     @PUT("/questions/edit")
@@ -153,6 +165,9 @@ public interface BTAPI {
                         @Query("question_id") int questionID,
                         @Query("message") String message,
                         @Query("choice_count") int choiceCount,
+                        @Query("progress_time") int progressTime,
+                        @Query("show_info_on_select") boolean showInfoOnSelect,
+                        @Query("detail_privacy") String detailPrivacy,
                         Callback<QuestionJson> cb);
 
     @DELETE("/questions/remove")
@@ -201,6 +216,13 @@ public interface BTAPI {
     /**
      * Course APIs
      */
+    @GET("/courses/info")
+    void courseInfo(@Query("email") String email,
+                    @Query("password") String password,
+                    @Query("locale") String locale,
+                    @Query("course_id") int courseID,
+                    Callback<CourseJson> cb);
+
     @POST("/courses/create/instant")
     void courseCreate(@Query("email") String email,
                       @Query("password") String password,
@@ -315,6 +337,9 @@ public interface BTAPI {
                           @Query("course_id") int courseID,
                           @Query("message") String message,
                           @Query("choice_count") int choiceCount,
+                          @Query("progress_time") int progressTime,
+                          @Query("show_info_on_select") boolean showInfoOnSelect,
+                          @Query("detail_privacy") String detailPrivacy,
                           Callback<PostJson> cb);
 
     @POST("/posts/create/notice")

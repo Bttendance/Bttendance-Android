@@ -46,9 +46,9 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
         if (mUser.employed_schools.length + mUser.enrolled_schools.length > 0) {
             add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.institution_capital)));
             for (SchoolJsonSimple school : mUser.employed_schools)
-                add(new ProfileItem(ProfileItemType.Institution, school));
+                add(new ProfileItem(ProfileItemType.Employed, school));
             for (SchoolJsonSimple school : mUser.enrolled_schools)
-                add(new ProfileItem(ProfileItemType.Institution, school));
+                add(new ProfileItem(ProfileItemType.Enrolled, school));
         }
 
         add(new ProfileItem(ProfileItemType.Margin, 55));
@@ -99,7 +99,8 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 message.setText(schoolName);
                 break;
             }
-            case Institution: {
+            case Employed:
+            case Enrolled: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_detail, null);
                 SchoolJsonSimple school = (SchoolJsonSimple) profileItem.getObject();
                 convertView.setTag(R.id.school_id, school.id);
@@ -107,7 +108,7 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 TextView message = (TextView) convertView.findViewById(R.id.profile_message);
                 text.setText(school.name);
                 text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
-                if (mUser.employed(school.id)) {
+                if (profileItem.type == ProfileItemType.Employed) {
                     message.setText(getContext().getString(R.string.professor));
                     convertView.findViewById(R.id.selector).setVisibility(View.GONE);
                     convertView.findViewById(R.id.profile_arrow).setVisibility(View.GONE);
@@ -137,6 +138,11 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 break;
             }
         }
+
+        if (profileItem.type == ProfileItemType.Employed
+                || profileItem.type == ProfileItemType.Section
+                || profileItem.type == ProfileItemType.Margin)
+            convertView.setClickable(true);
 
         if (convertView != null && convertView.findViewById(R.id.selector) != null) {
             final View finalConvertView = convertView;
@@ -170,6 +176,6 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
     }
 
     public enum ProfileItemType {
-        Name, Email, SavedClicker, Course, Institution, Password, Section, Margin
+        Name, Email, SavedClicker, Course, Employed, Enrolled, Password, Section, Margin
     }
 }

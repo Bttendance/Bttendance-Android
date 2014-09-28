@@ -11,8 +11,8 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.sign.CatchPointActivity;
@@ -26,7 +26,6 @@ import com.bttendance.model.BTNotification;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTService;
-import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.otto.BTEventBus;
@@ -37,7 +36,7 @@ import java.util.Stack;
 /**
  * Created by TheFinestArtist on 2013. 11. 20..
  */
-public class BTActivity extends SherlockFragmentActivity {
+public class BTActivity extends ActionBarActivity {
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static BTActivity mActivity;
@@ -132,6 +131,7 @@ public class BTActivity extends SherlockFragmentActivity {
     }
 
     private boolean mCurrentlyVisible = false;
+
     public boolean isVisible() {
         return mCurrentlyVisible;
     }
@@ -151,13 +151,11 @@ public class BTActivity extends SherlockFragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this);
     }
 
     public Intent getNextIntent() {
@@ -219,17 +217,17 @@ public class BTActivity extends SherlockFragmentActivity {
 
     public static class ActivityStack extends Application {
 
-        private static Stack<SherlockFragmentActivity> classes = new Stack<SherlockFragmentActivity>();
+        private static Stack<ActionBarActivity> classes = new Stack<ActionBarActivity>();
 
-        public static void clear(SherlockFragmentActivity activity) {
-            for (final SherlockFragmentActivity act : classes) {
+        public static void clear(ActionBarActivity activity) {
+            for (final ActionBarActivity act : classes) {
                 if (act != null && act != activity) {
                     act.finish();
                 }
             }
         }
 
-        public static void add(SherlockFragmentActivity activity) {
+        public static void add(ActionBarActivity activity) {
             classes.push(activity);
         }
     }

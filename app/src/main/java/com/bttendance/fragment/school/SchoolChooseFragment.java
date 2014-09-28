@@ -2,6 +2,8 @@ package com.bttendance.fragment.school;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,10 +13,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.adapter.ChooseSchoolAdapter;
@@ -135,20 +137,20 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getActivity() == null)
             return;
 
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle(getString(R.string.choose_institution));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         inflater.inflate(R.menu.school_choose_menu, menu);
 
-        mEditSearch = (EditText) menu.findItem(R.id.action_search).getActionView().findViewById(R.id.search_edit);
+        mEditSearch = (EditText) MenuItemCompat.getActionView(menu.findItem(R.id.action_search)).findViewById(R.id.search_edit);
         mEditSearch.addTextChangedListener(mTextWatcher);
 
         MenuItem menuSearch = menu.findItem(R.id.action_search);
-        menuSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+        MenuItemCompat.setOnActionExpandListener(menuSearch, new MenuItemCompat.OnActionExpandListener() {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {

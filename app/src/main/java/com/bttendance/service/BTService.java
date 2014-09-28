@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 
 import com.bttendance.BTDebug;
@@ -56,8 +57,6 @@ import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 import retrofit.Callback;
@@ -222,9 +221,9 @@ public class BTService extends Service {
                 client.setDisconnectCallback(new DisconnectCallback() {
                     @Override
                     public void onDisconnect(Exception e) {
-                        if (!client.isConnected()) {
+                        if (!client.isConnected() && mReconnectTry < 5) {
                             try {
-                                new Timer().schedule(new TimerTask() {
+                                new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         client.reconnect();
@@ -746,6 +745,37 @@ public class BTService extends Service {
                 });
     }
 
+    public void updateClickerDefaults(int progressTime, boolean showInfoOnSelect, String detailPrivacy, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getLanguage();
+        if (user == null)
+            return;
+
+        mBTAPI.updateClickerDefaults(
+                user.email,
+                user.password,
+                locale,
+                progressTime,
+                showInfoOnSelect,
+                detailPrivacy,
+                new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson user, Response response) {
+                        BTPreference.setUser(getApplicationContext(), user);
+                        if (cb != null)
+                            cb.success(user, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
     /**
      * Question APIs
      */
@@ -782,7 +812,7 @@ public class BTService extends Service {
                 });
     }
 
-    public void createQuestion(String message, int choiceCount, final Callback<QuestionJson> cb) {
+    public void createQuestion(String message, int choiceCount, int progressTime, boolean showInfoOnSelect, String detailPrivacy, final Callback<QuestionJson> cb) {
         if (!isConnected())
             return;
 
@@ -797,6 +827,9 @@ public class BTService extends Service {
                 locale,
                 message,
                 choiceCount,
+                progressTime,
+                showInfoOnSelect,
+                detailPrivacy,
                 new Callback<QuestionJson>() {
                     @Override
                     public void success(QuestionJson question, Response response) {
@@ -811,7 +844,7 @@ public class BTService extends Service {
                 });
     }
 
-    public void editQuestion(int questionID, String message, int choiceCount, final Callback<QuestionJson> cb) {
+    public void editQuestion(int questionID, String message, int choiceCount, int progressTime, boolean showInfoOnSelect, String detailPrivacy, final Callback<QuestionJson> cb) {
         if (!isConnected())
             return;
 
@@ -827,6 +860,9 @@ public class BTService extends Service {
                 questionID,
                 message,
                 choiceCount,
+                progressTime,
+                showInfoOnSelect,
+                detailPrivacy,
                 new Callback<QuestionJson>() {
                     @Override
                     public void success(QuestionJson question, Response response) {
@@ -1002,6 +1038,36 @@ public class BTService extends Service {
     /**
      * Course APIs
      */
+    public void courseInfo(int courseID, final Callback<CourseJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        String locale = getResources().getConfiguration().locale.getLanguage();
+        if (user == null)
+            return;
+
+        mBTAPI.courseInfo(
+                user.email,
+                user.password,
+                locale,
+                courseID,
+                new Callback<CourseJson>() {
+                    @Override
+                    public void success(CourseJson course, Response response) {
+                        BTPreference.updateCourse(getApplicationContext(), course);
+                        BTTable.MyCourseTable.append(course.id, course);
+                        if (cb != null)
+                            cb.success(course, response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        failureHandle(cb, retrofitError);
+                    }
+                });
+    }
+
     public void courseCreate(String name, int schoolID, String profName, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
@@ -1418,7 +1484,7 @@ public class BTService extends Service {
                 });
     }
 
-    public void postStartClicker(int courseID, String message, int choiceCount, final Callback<PostJson> cb) {
+    public void postStartClicker(int courseID, String message, int choiceCount, int progressTime, boolean showInfoOnSelect, String detailPrivacy, final Callback<PostJson> cb) {
         if (!isConnected())
             return;
 
@@ -1434,6 +1500,9 @@ public class BTService extends Service {
                 courseID,
                 message,
                 choiceCount,
+                progressTime,
+                showInfoOnSelect,
+                detailPrivacy,
                 new Callback<PostJson>() {
                     @Override
                     public void success(PostJson post, Response response) {

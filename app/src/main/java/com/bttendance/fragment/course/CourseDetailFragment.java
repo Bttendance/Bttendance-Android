@@ -3,16 +3,17 @@ package com.bttendance.fragment.course;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.FeedAdapter;
@@ -83,10 +84,10 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null || mCourse == null)
+        if (getActivity() == null || mCourse == null)
             return;
 
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         if (mCourse.opened) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
@@ -110,7 +111,6 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.abs__home:
             case android.R.id.home:
                 getActivity().onBackPressed();
                 return true;
@@ -210,6 +210,16 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     public void onFragmentResume() {
         super.onFragmentResume();
         getFeed();
+        getBTService().courseInfo(mCourseID, new Callback<CourseJson>() {
+            @Override
+            public void success(CourseJson courseJson, Response response) {
+                refreshHeader();
+                swapCursor();
+            }
+            @Override
+            public void failure(RetrofitError error) {
+            }
+        });
         swapCursor();
     }
 
@@ -222,7 +232,6 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             public void success(PostJson[] posts, Response response) {
                 swapCursor();
             }
-
             @Override
             public void failure(RetrofitError retrofitError) {
             }
@@ -334,8 +343,8 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     private void showClicker() {
         ClickerStartFragment frag = new ClickerStartFragment();
         Bundle bundle = new Bundle();
+        bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerStartFragment.ClickerType.CLICKER_CREATE);
         bundle.putInt(BTKey.EXTRA_COURSE_ID, mCourseID);
-        bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, false);
         frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }

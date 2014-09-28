@@ -79,18 +79,10 @@ public class ScreenHelper {
 
         int actionBarHeight = 0;
         TypedValue tva = new TypedValue();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tva, true))
-                actionBarHeight = TypedValue.complexToDimensionPixelSize(tva.data, context
-                        .getResources()
-                        .getDisplayMetrics());
-        } else if (context.getTheme().resolveAttribute(com.actionbarsherlock.R.attr.actionBarSize,
-                tva,
-                true)) {
+        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tva, true))
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tva.data, context
                     .getResources()
                     .getDisplayMetrics());
-        }
         return actionBarHeight;
     }
 

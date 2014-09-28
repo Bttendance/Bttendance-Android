@@ -18,7 +18,7 @@
 
 <resources>
 
-    <style name="Theme.Bttendance" parent="@style/Theme.Sherlock.Light">
+    <style name="Theme.Bttendance" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="actionBarItemBackground">@drawable/selectable_background_bttendance</item>
         <item name="popupMenuStyle">@style/PopupMenu.Bttendance</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Bttendance</item>
@@ -29,12 +29,15 @@
         <item name="actionModeBackground">@drawable/cab_background_top_bttendance</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_bttendance</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Bttendance</item>
-        <item name="windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/bttendance_grey</item>
-        <item name="homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_dark</item>
+        <item name="homeAsUpIndicator">@drawable/nav_back</item>
         <item name="actionMenuTextColor">@color/bttendance_white</item>
         <item name="switchStyle">@style/Widget.Holo.CompoundButton.Switch.Bttendance</item>
         <item name="switchPreferenceStyle">@style/Preference.SwitchPreference</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.Bttendance.Widget</item>
+
     </style>
 
     <style name="Theme.Bttendance.Sign" parent="@style/Theme.Bttendance">
@@ -42,7 +45,7 @@
         <item name="android:windowBackground">@color/bttendance_white</item>
     </style>
 
-    <style name="Theme.Transparent" parent="Theme.Sherlock.NoActionBar">
+    <style name="Theme.Transparent" parent="@android:style/Theme.NoTitleBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -66,7 +69,7 @@
         <item name="android:textColor">@color/bttendance_white</item>
     </style>
 
-    <style name="ActionBar.Solid.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
+    <style name="ActionBar.Solid.Bttendance" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="background">@color/bttendance_navy</item>
         <item name="titleTextStyle">@style/ActionBar.TitleTextStyle</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_bttendance</item>
@@ -75,7 +78,7 @@
         <item name="displayOptions">disableHome|showTitle</item>
     </style>
 
-    <style name="ActionBarButton.Solid.Bttendance" parent="Widget.Sherlock.Light.ActionButton">
+    <style name="ActionBarButton.Solid.Bttendance" parent="Widget.AppCompat.Light.ActionButton">
         <item name="android:minWidth">46dip</item>
         <item name="android:paddingRight">0dip</item>
         <item name="android:paddingLeft">0dip</item>
@@ -85,44 +88,44 @@
         <item name="displayOptions">homeAsUp|showTitle</item>
     </style>
 
-    <style name="ActionBar.TitleTextStyle" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Title">
+    <style name="ActionBar.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/bttendance_white</item>
     </style>
 
-    <style name="ActionBar.Transparent.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar">
+    <style name="ActionBar.Transparent.Bttendance" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">@drawable/ab_transparent_bttendance</item>
         <item name="progressBarStyle">@style/ProgressBar.Bttendance</item>
     </style>
 
-    <style name="PopupMenu.Bttendance" parent="@style/Widget.Sherlock.Light.ListPopupWindow">
+    <style name="PopupMenu.Bttendance" parent="@style/Widget.AppCompat.PopupMenu">
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_bttendance</item>
     </style>
 
-    <style name="DropDownListView.Bttendance" parent="@style/Widget.Sherlock.Light.ListView.DropDown">
+    <style name="DropDownListView.Bttendance" parent="@style/Widget.AppCompat.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_bttendance</item>
     </style>
 
-    <style name="ActionBarTabStyle.Bttendance" parent="@style/Widget.Sherlock.Light.ActionBar.TabView">
+    <style name="ActionBarTabStyle.Bttendance" parent="@style/Widget.AppCompat.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_bttendance</item>
     </style>
 
-    <style name="DropDownNav.Bttendance" parent="@style/Widget.Sherlock.Light.Spinner.DropDown.ActionBar">
+    <style name="DropDownNav.Bttendance" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
         <item name="android:background">@drawable/spinner_background_ab_bttendance</item>
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_bttendance</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_bttendance</item>
     </style>
 
-    <style name="ProgressBar.Bttendance" parent="@style/Widget.Sherlock.Light.ProgressBar.Horizontal">
+    <style name="ProgressBar.Bttendance" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_bttendance</item>
     </style>
 
-    <style name="ActionButton.CloseMode.Bttendance" parent="@style/Widget.Sherlock.Light.ActionButton.CloseMode">
+    <style name="ActionButton.CloseMode.Bttendance" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_bttendance</item>
     </style>
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.Bttendance.Widget" parent="@style/Theme.Sherlock">
+    <style name="Theme.Bttendance.Widget" parent="@style/Theme.AppCompat">
         <item name="popupMenuStyle">@style/PopupMenu.Bttendance</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Bttendance</item>
     </style>

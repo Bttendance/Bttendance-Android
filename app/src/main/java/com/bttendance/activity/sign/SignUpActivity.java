@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.MenuItem;
+import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.dialog.HideProgressDialogEvent;

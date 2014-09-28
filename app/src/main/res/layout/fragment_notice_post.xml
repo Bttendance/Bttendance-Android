@@ -19,6 +19,12 @@
         android:textSize="12sp"
         android:textColor="@color/bttendance_silver" />
 
+    <View
+        android:id="@+id/notice_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/notice_guide" />
+
     <ImageView
         android:id="@+id/notice"
         android:layout_width="wrap_content"

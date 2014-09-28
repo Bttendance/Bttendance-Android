@@ -3,16 +3,17 @@ package com.bttendance.fragment.attendance;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
@@ -76,6 +77,10 @@ public class AttendanceStartFragment extends BTFragment {
             }
         });
 
+        mAttdBtButton.setSelected(true);
+        mAttdNoBtButton.setSelected(false);
+        mType = AttendanceJson.TYPE_AUTO;
+
         mAlertBg = view.findViewById(R.id.alert_bg);
         mAttendanceGuide = (TextView) view.findViewById(R.id.attendance_guide);
 
@@ -85,10 +90,10 @@ public class AttendanceStartFragment extends BTFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getActivity() == null)
             return;
 
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(true);
@@ -100,7 +105,6 @@ public class AttendanceStartFragment extends BTFragment {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.abs__home:
             case android.R.id.home:
                 getActivity().onBackPressed();
                 return true;

@@ -3,12 +3,13 @@ package com.bttendance.fragment;
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.activity.MainActivity;
@@ -20,7 +21,7 @@ import com.squareup.otto.BTEventBus;
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class BTFragment extends SherlockFragment implements BTActivity.OnServiceConnectListener {
+public class BTFragment extends Fragment implements BTActivity.OnServiceConnectListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,10 @@ public class BTFragment extends SherlockFragment implements BTActivity.OnService
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        if (getSherlockActivity() == null)
+        if (getActivity() == null)
             return;
 
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
         TextView abTitle = (TextView) getActivity().findViewById(titleId);
         if (this instanceof BTDialogFragment

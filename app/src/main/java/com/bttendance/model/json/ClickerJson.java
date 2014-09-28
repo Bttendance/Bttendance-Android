@@ -12,5 +12,8 @@ public class ClickerJson extends BTJson {
     public int[] c_students;
     public int[] d_students;
     public int[] e_students;
+    public int progress_time;
+    public boolean show_info_on_select;
+    public String detail_privacy;
     public PostJsonSimple post;
 }

@@ -22,7 +22,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -37,10 +43,6 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.bttendance.R;
 
 public class SimpleWebViewFragment extends BTFragment {
@@ -109,10 +111,10 @@ public class SimpleWebViewFragment extends BTFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (getSherlockActivity() == null)
+        if (getActivity() == null)
             return;
 
-        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(true);
@@ -121,7 +123,7 @@ public class SimpleWebViewFragment extends BTFragment {
 
         inflater.inflate(R.menu.webview_menu, menu);
         mRefresh = menu.findItem(R.id.refresh_option_item);
-        mRefresh.setActionView(R.layout.loading_menu);
+        MenuItemCompat.setActionView(mRefresh, R.layout.loading_menu);
     }
 
     public class MyWebChromeClient extends WebChromeClient {
@@ -134,7 +136,7 @@ public class SimpleWebViewFragment extends BTFragment {
 
             if (progress == 100) {
                 mPbar.setVisibility(ProgressBar.GONE);
-                mRefresh.setActionView(null);
+                MenuItemCompat.setActionView(mRefresh, null);
             }
         }
     }
@@ -153,8 +155,8 @@ public class SimpleWebViewFragment extends BTFragment {
             view.startAnimation(fade);
             view.setVisibility(View.VISIBLE);
 
-            if (getSherlockActivity() != null) {
-                ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+            if (((ActionBarActivity) getActivity()) != null) {
+                ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
                 if (view.getTitle() != null && view.getTitle().length() != 0)
                     actionBar.setTitle(view.getTitle());
             }

@@ -101,6 +101,12 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
     }
 
     @Override
+    public Cursor swapCursor(Cursor newCursor) {
+        mCourse = BTTable.MyCourseTable.get(mCourseID);
+        return super.swapCursor(newCursor);
+    }
+
+    @Override
     public long getItemId(int position) {
         Cursor cursor = (Cursor) getItem(position);
         if (cursor == null)

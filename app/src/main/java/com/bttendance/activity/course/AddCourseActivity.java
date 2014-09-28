@@ -3,9 +3,9 @@ package com.bttendance.activity.course;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.dialog.ShowContextDialogEvent;
@@ -64,7 +64,6 @@ public class AddCourseActivity extends BTActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.abs__home:
             case android.R.id.home:
                 onBackPressed();
         }
