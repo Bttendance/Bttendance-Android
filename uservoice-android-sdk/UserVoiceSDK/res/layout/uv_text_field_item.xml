@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/uv_header_item" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp">
+
+        <EditText
+            android:id="@+id/uv_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="32dp"
+            android:inputType="text"
+            android:ems="10"
+            android:textColor="@color/bttendance_silver"
+            android:textColorHint="@color/bttendance_silver_50"
+            android:textSize="16sp"
+            android:background="@drawable/uv_list_separator"
+            android:layout_marginBottom="10dp">
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+</LinearLayout>

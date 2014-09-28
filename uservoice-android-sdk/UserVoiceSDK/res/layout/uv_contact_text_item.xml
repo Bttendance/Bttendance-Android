@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp"
+    android:paddingTop="8dp">
+
+    <EditText
+        android:id="@+id/uv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:ems="10"
+        android:hint="@string/uv_contact_hint"
+        android:inputType="textMultiLine"
+        android:textColor="@color/bttendance_silver"
+        android:textColorHint="@color/bttendance_silver_50"
+        android:textSize="16sp"
+        android:paddingBottom="3dp"
+        android:background="@android:color/transparent">
+
+        <requestFocus />
+    </EditText>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bttendance_silver_80" />
+
+</LinearLayout>

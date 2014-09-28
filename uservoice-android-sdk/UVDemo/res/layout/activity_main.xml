@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".PortalActivity" >
+
+    <TextView
+        android:id="@+id/suggestion_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="This is a demo of UserVoice for Android. To see it in action, select the Help item from the option menu, or tap the button below."
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/launchButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:onClick="launchFeedback"
+        android:text="Help" />
+
+    <Button
+        android:id="@+id/forumButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="launchForum"
+        android:text="Forum" />
+
+    <Button
+        android:id="@+id/contactButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="launchContactUs"
+        android:text="Contact us" />
+    
+    <Button
+        android:id="@+id/ideaButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="launchPostIdea"
+        android:text="Post idea" />
+</LinearLayout>

@@ -64,7 +64,7 @@ build/
 
 
 ###IntelliJ###
- 
+
 *.iml
 *.ipr
 *.iws
@@ -72,7 +72,7 @@ build/
 
 
 ###Actionscript###
- 
+
 # Build and Release Folders
 bin/
 bin-debug/
@@ -85,7 +85,7 @@ bin-release/
 .project
 
 ###OSX###
- 
+
 .DS_Store
 
 # Thumbnails

@@ -1,0 +1,33 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <color name="bttendance_navy">#0072B0</color>
+    <color name="bttendance_cyan">#33B5E5</color>
+    <color name="bttendance_white">#F1F1FF</color>
+    <color name="bttendance_grey">#E9E9F7</color>
+    <color name="bttendance_silver">#6D6D7B</color>
+    <color name="bttendance_black">#191927</color>
+
+    <color name="bttendance_silver_30">#4D6D6D7B</color>
+    <color name="bttendance_silver_50">#806D6D7B</color>
+    <color name="bttendance_silver_80">#CC6D6D7B</color>
+
+    <style name="uv_ListSeparator">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/bttendance_silver_80</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">4dip</item>
+        <item name="android:layout_marginRight">4dip</item>
+        <item name="android:paddingTop">12dip</item>
+        <item name="android:paddingBottom">5dip</item>
+        <item name="android:background">@drawable/uv_list_separator_light</item>
+    </style>
+    
+    <style name="uv_ListSeparatorLight" parent="uv_ListSeparator">
+        <item name="android:textColor">#999999</item>
+        <item name="android:background">@drawable/uv_list_separator_light</item>
+    </style>
+
+</resources>
