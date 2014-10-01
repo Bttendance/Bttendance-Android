@@ -23,7 +23,6 @@ public class Clicker extends View {
     /**
      * Duration
      */
-    public static final int PROGRESS_DURATION = 65000;
     private static final int BLINK_DURATION = 1000;
     /**
      * Dimension
@@ -193,13 +192,13 @@ public class Clicker extends View {
         setMeasuredDimension((int) mSize, (int) mSize);
     }
 
-    public void startClicker(int progress) {
+    public void startClicker(int progress, int progressTime) {
         mProgress = progress;
         mFadeOut.start();
         mFadeOut.getTransformation(System.currentTimeMillis(), mAlphaTransformation);
         mScale = new AlphaAnimation(1f * (float) progress / 100f, 0f);
 
-        int duration = PROGRESS_DURATION * progress / 100;
+        int duration = progressTime * progress / 100;
         if (duration >= 0)
             mScale.setDuration(duration);
         else

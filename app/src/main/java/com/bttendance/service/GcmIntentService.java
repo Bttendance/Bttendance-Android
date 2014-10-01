@@ -112,8 +112,8 @@ public class GcmIntentService extends IntentService {
         intent.putExtra(BTKey.EXTRA_TITLE, title);
         intent.putExtra(BTKey.EXTRA_MESSAGE, message);
         intent.putExtra(BTKey.EXTRA_COURSE_ID, courseID);
-        PendingIntent pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        PendingIntent pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pending);
 
         Notification noti = builder.build();

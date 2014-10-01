@@ -25,7 +25,7 @@ public class GuideLastFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_guid_last, container, false);
+        View view = inflater.inflate(R.layout.fragment_guide_last, container, false);
         if (Build.VERSION.SDK_INT < 11)
             view.findViewById(R.id.guide_last).setBackgroundColor(getResources().getColor(R.color.bttendance_white));
 

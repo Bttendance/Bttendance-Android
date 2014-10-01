@@ -128,12 +128,25 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/clicker_option_guide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/body"
+        android:gravity="center"
+        android:paddingBottom="11dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:includeFontPadding="false"
+        android:textSize="12sp"
+        android:textColor="@color/bttendance_silver" />
+
+    <TextView
         android:id="@id/time"
         style="@style/itemTimeView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/body"
+        android:layout_below="@id/clicker_option_guide"
         android:clickable="false"
         android:focusable="false"
         android:lineSpacingExtra="1dp"

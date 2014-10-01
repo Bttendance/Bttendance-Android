@@ -57,8 +57,7 @@ public class SignInActivity extends BTActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    mUsernameDiv.setBackgroundColor(getResources().getColor(
-                            R.color.bttendance_cyan));
+                    mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
                     mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }

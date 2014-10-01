@@ -24,7 +24,7 @@ public class GuideAttendanceFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_guid_attendance, container, false);
+        View view = inflater.inflate(R.layout.fragment_guide_attendance, container, false);
         if (Build.VERSION.SDK_INT < 11)
             ((ImageView) view.findViewById(R.id.guide_attendance)).setImageResource(R.drawable.attendance_bg);
 

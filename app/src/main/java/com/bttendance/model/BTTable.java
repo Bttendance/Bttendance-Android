@@ -16,7 +16,6 @@ import com.bttendance.model.json.QuestionJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.view.Bttendance;
-import com.bttendance.view.Clicker;
 import com.squareup.otto.BTEventBus;
 
 import java.util.HashMap;
@@ -253,8 +252,9 @@ public class BTTable {
     }
 
     public static synchronized long getRefreshTimeTo() {
+
         long currentTime = DateHelper.getCurrentGMTTimeMillis();
-        long timeTo = currentTime + Bttendance.PROGRESS_DURATION;
+        long timeTo = currentTime;
 
         for (int i = 0; i < BTTable.PostTable.size(); i++) {
             int key = BTTable.PostTable.keyAt(i);
@@ -262,23 +262,27 @@ public class BTTable {
             if (post.createdAt != null
                     && "attendance".equals(post.type)
                     && AttendanceJson.TYPE_AUTO.equals(post.attendance.type)
-                    && currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION
-                    && timeTo > DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION) {
-                timeTo = DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION;
+                    && currentTime - DateHelper.getTime(post.createdAt) < Bttendance.PROGRESS_DURATION) {
+                if (timeTo > currentTime)
+                    timeTo = Math.min(timeTo, DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION);
+                else
+                    timeTo = DateHelper.getTime(post.createdAt) + Bttendance.PROGRESS_DURATION;
             }
 
             if (post.createdAt != null
                     && "clicker".equals(post.type)
-                    && currentTime - DateHelper.getTime(post.createdAt) < Clicker.PROGRESS_DURATION
-                    && timeTo > DateHelper.getTime(post.createdAt) + Clicker.PROGRESS_DURATION) {
-                timeTo = DateHelper.getTime(post.createdAt) + Clicker.PROGRESS_DURATION;
+                    && currentTime - DateHelper.getTime(post.createdAt) < (post.clicker.progress_time + 5) * 1000) {
+                if (timeTo > currentTime)
+                    timeTo = Math.min(timeTo, DateHelper.getTime(post.createdAt) + (post.clicker.progress_time + 5) * 1000);
+                else
+                    timeTo = DateHelper.getTime(post.createdAt) + (post.clicker.progress_time + 5) * 1000;
             }
         }
 
-        if (timeTo == currentTime + Bttendance.PROGRESS_DURATION)
-            timeTo = -1;
+        if (timeTo > currentTime)
+            return timeTo;
 
-        return timeTo;
+        return -1;
     }
 
     public static synchronized long getAttdChekTimeTo() {

@@ -17,7 +17,7 @@ public class GuideFirstFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_guid_first, container, false);
+        View view = inflater.inflate(R.layout.fragment_guide_first, container, false);
         if (Build.VERSION.SDK_INT < 11)
             ((ImageView) view.findViewById(R.id.guide_first)).setImageResource(R.drawable.welcome_bg);
         return view;

@@ -49,10 +49,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="com.bttendance.intent.action.SHOW_COURSE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -125,7 +121,12 @@
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance" />
+            android:theme="@style/Theme.Bttendance">
+            <intent-filter>
+                <action android:name="com.bttendance.intent.action.SHOW_COURSE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity android:name="com.uservoice.uservoicesdk.activity.PortalActivity" />
         <activity android:name="com.uservoice.uservoicesdk.activity.ForumActivity" />

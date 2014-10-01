@@ -423,4 +423,11 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
         };
         BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
     }
+
+    /**
+     * Public Methods
+     */
+    public int getCourseID() {
+        return mCourseID;
+    }
 }

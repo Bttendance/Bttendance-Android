@@ -1,18 +1,18 @@
 package com.bttendance.fragment.feature;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import android.support.v7.app.ActionBar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
 import com.bttendance.event.socket.AttendanceUpdatedEvent;
@@ -374,7 +374,7 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (getBTService() == null || mPost == null || l <= 1)
+        if (getBTService() == null || mPost == null || mPost.attendance == null || l <= 1)
             return;
 
         getBTService().attendanceToggleManually(mPost.attendance.id, (int) l, null);

@@ -24,7 +24,7 @@ public class GuideClickerFragment extends BTFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_guid_clicker, container, false);
+        View view = inflater.inflate(R.layout.fragment_guide_clicker, container, false);
         if (Build.VERSION.SDK_INT < 11)
             ((ImageView) view.findViewById(R.id.guide_clicker)).setImageResource(R.drawable.clicker_bg);
 

@@ -165,6 +165,19 @@ public class ClickerJsonSimple extends BTJsonSimple {
         return series;
     }
 
+    public CategorySeries getEmptySeries() {
+        CategorySeries series = new CategorySeries("");
+        series.add("A", 1);
+        series.add("B", 1);
+        if (choice_count > 2)
+        series.add("C", 1);
+        if (choice_count > 3)
+        series.add("D", 1);
+        if (choice_count > 4)
+            series.add("E", 1);
+        return series;
+    }
+
     public DefaultRenderer getRenderer(Context context) {
         DefaultRenderer renderer = new DefaultRenderer();
         renderer.setApplyBackgroundColor(true);

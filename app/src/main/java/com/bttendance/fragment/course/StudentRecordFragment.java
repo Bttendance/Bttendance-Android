@@ -61,9 +61,14 @@ public class StudentRecordFragment extends BTFragment {
     }
 
     @Override
+    public void onServiceConnected() {
+        super.onServiceConnected();
+        requestCall();
+    }
+
+    @Override
     public void onFragmentResume() {
         super.onFragmentResume();
-        requestCall();
         swapItems();
     }
 

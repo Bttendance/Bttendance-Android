@@ -33,13 +33,11 @@ import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PostJson;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.view.Clicker;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
-import org.achartengine.model.CategorySeries;
 import org.achartengine.renderer.DefaultRenderer;
 
 import butterknife.ButterKnife;
@@ -128,13 +126,14 @@ public class ClickerDetailFragment extends BTFragment {
 
         @Override
         public void run() {
-            long leftTime = Clicker.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt);
-            if (leftTime > 60000)
-                leftTime = 60000;
+            int progressDuration = (mPost.clicker.progress_time + 5) * 1000;
+            long leftTime = progressDuration - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt);
+            if (leftTime > progressDuration - 5000)
+                leftTime = progressDuration - 5000;
 
             if (leftTime < 0) {
                 timerHandler.removeCallbacks(timerRunnable);
-                mMessage.setText(message);
+                reDrawView();
             } else {
                 mMessage.setText(String.format(getString(R.string.clicker_message_left_time), message, (int) leftTime / 1000));
                 timerHandler.postDelayed(this, 200);
@@ -231,7 +230,7 @@ public class ClickerDetailFragment extends BTFragment {
                     studentCount = mCourse.students_count;
                 message = String.format(getString(R.string.clicker_message_normal), mPost.clicker.getParticipatedCount(), studentCount, DateHelper.getPostFormatString(mPost.createdAt));
 
-                if (Clicker.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0) {
+                if ((mPost.clicker.progress_time + 5) * 1000 - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0) {
                     timerHandler.removeCallbacks(timerRunnable);
                     timerHandler.postDelayed(timerRunnable, 0);
                 } else {
@@ -242,8 +241,11 @@ public class ClickerDetailFragment extends BTFragment {
                 mClicker.removeAllViews();
                 int pix_280 = (int) DipPixelHelper.getPixel(getActivity(), 280);
                 DefaultRenderer renderer = mPost.clicker.getRenderer(getActivity());
-                CategorySeries series = mPost.clicker.getSeries();
-                GraphicalView chartView = ChartFactory.getPieChartView(getActivity(), series, renderer);
+                GraphicalView chartView;
+                if (!mAuth && !mPost.clicker.show_info_on_select && (mPost.clicker.progress_time + 5) * 1000 - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0)
+                    chartView = ChartFactory.getPieChartView(getActivity(), mPost.clicker.getEmptySeries(), renderer);
+                else
+                    chartView = ChartFactory.getPieChartView(getActivity(), mPost.clicker.getSeries(), renderer);
                 RelativeLayout.LayoutParams params_chart = new RelativeLayout.LayoutParams(pix_280, pix_280);
                 params_chart.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
                 mClicker.addView(chartView, params_chart);
@@ -265,29 +267,47 @@ public class ClickerDetailFragment extends BTFragment {
                         mDLine.setLayoutParams(params);
                 }
 
-                mAPercentTv.setText("" + mPost.clicker.getPercent(1));
-                mBPercentTv.setText("" + mPost.clicker.getPercent(2));
-                mCPercentTv.setText("" + mPost.clicker.getPercent(3));
-                mDPercentTv.setText("" + mPost.clicker.getPercent(4));
-                mEPercentTv.setText("" + mPost.clicker.getPercent(5));
+                if (!mAuth && !mPost.clicker.show_info_on_select && (mPost.clicker.progress_time + 5) * 1000 - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0) {
+                    mAPercentTv.setText("" + 0);
+                    mBPercentTv.setText("" + 0);
+                    mCPercentTv.setText("" + 0);
+                    mDPercentTv.setText("" + 0);
+                    mEPercentTv.setText("" + 0);
 
-                mAStudentTv.setText("" + mPost.clicker.a_students.length);
-                mBStudentTv.setText("" + mPost.clicker.b_students.length);
-                mCStudentTv.setText("" + mPost.clicker.c_students.length);
-                mDStudentTv.setText("" + mPost.clicker.d_students.length);
-                mEStudentTv.setText("" + mPost.clicker.e_students.length);
+                    mAStudentTv.setText("" + 0);
+                    mBStudentTv.setText("" + 0);
+                    mCStudentTv.setText("" + 0);
+                    mDStudentTv.setText("" + 0);
+                    mEStudentTv.setText("" + 0);
+                } else {
+                    mAPercentTv.setText("" + mPost.clicker.getPercent(1));
+                    mBPercentTv.setText("" + mPost.clicker.getPercent(2));
+                    mCPercentTv.setText("" + mPost.clicker.getPercent(3));
+                    mDPercentTv.setText("" + mPost.clicker.getPercent(4));
+                    mEPercentTv.setText("" + mPost.clicker.getPercent(5));
+
+                    mAStudentTv.setText("" + mPost.clicker.a_students.length);
+                    mBStudentTv.setText("" + mPost.clicker.b_students.length);
+                    mCStudentTv.setText("" + mPost.clicker.c_students.length);
+                    mDStudentTv.setText("" + mPost.clicker.d_students.length);
+                    mEStudentTv.setText("" + mPost.clicker.e_students.length);
+                }
 
                 if (mAuth) {
                     mStudentChoice.setVisibility(View.GONE);
-                    mShowDetail.setVisibility(View.VISIBLE);
                 } else {
                     if (mPost.clicker.getChoice(mUser.id) == null)
                         mStudentChoice.setText(getString(R.string.clicker_student_no_choice));
                     else
                         mStudentChoice.setText(String.format(getString(R.string.clicker_student_choice), mPost.clicker.getChoice(mUser.id)));
-
-                    mShowDetail.setVisibility(View.GONE);
                     mStudentChoice.setVisibility(View.VISIBLE);
+                }
+
+                if ("all".equals(mPost.clicker.detail_privacy)
+                        || ("professor".equals(mPost.clicker.detail_privacy) && mAuth)) {
+                    mShowDetail.setVisibility(View.VISIBLE);
+                } else {
+                    mShowDetail.setVisibility(View.GONE);
                 }
             }
         });

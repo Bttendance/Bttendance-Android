@@ -94,6 +94,17 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
         BTEventBus.getInstance().register(mEventDispatcher);
 
+        // Back Button Show for added Fragment
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (getSupportFragmentManager().getBackStackEntryCount() == 0)
+                    mDrawerToggle.setDrawerIndicatorEnabled(true);
+                else
+                    mDrawerToggle.setDrawerIndicatorEnabled(false);
+            }
+        });
+
         setFirstFragment();
     }
 
@@ -151,19 +162,9 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             }
         });
 
-        BTDebug.LogError("ACTION_SHOW_COURSE #1");
-        Intent intent = getIntent();
-        if (intent == null)
-            return;
-
-        BTDebug.LogError("ACTION_SHOW_COURSE #2 : " + intent.toString());
-        String action = intent.getAction();
-        if (action == null)
-            return;
-
-        BTDebug.LogError("ACTION_SHOW_COURSE #3");
-        if (action.equals(BTKey.IntentKey.ACTION_SHOW_COURSE)) {
-            BTDebug.LogError("ACTION_SHOW_COURSE #4");
+        if (getIntent() != null && BTKey.IntentKey.ACTION_SHOW_COURSE.equals(getIntent().getAction())) {
+            String courseID = getIntent().getStringExtra(BTKey.EXTRA_COURSE_ID);
+            setResetCourseID(Integer.parseInt(courseID));
         }
     }
 
@@ -318,6 +319,10 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
     private void resetMainFragment() {
         if (mResetCourseID == 0)
+            return;
+
+        BTFragment frag = (BTFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (frag instanceof CourseDetailFragment && ((CourseDetailFragment)frag).getCourseID() == mResetCourseID)
             return;
 
         CourseDetailFragment fragment = new CourseDetailFragment();

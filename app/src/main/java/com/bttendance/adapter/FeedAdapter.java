@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         } else {
             PostJson post = BTTable.PostTable.get(id);
             if ("clicker".equals(post.type)) {
-                if (!mAuth && post.clicker.getChoiceInt(mUser.id) == 6 && Clicker.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(post.createdAt) > 0)
+                if (!mAuth && post.clicker.getChoiceInt(mUser.id) == 6 && (post.clicker.progress_time + 5) * 1000 - System.currentTimeMillis() + DateHelper.getTime(post.createdAt) > 0)
                     return Type.CHOICE;
                 return Type.CLICKER;
             }
@@ -249,12 +250,13 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         choice_e.setClickable(true);
 
         long currentTime = System.currentTimeMillis();
-        int progress = (int) (100.0f * (float) (Clicker.PROGRESS_DURATION - currentTime + DateHelper.getTime(post.createdAt)) / (float) Clicker.PROGRESS_DURATION);
-        choice_a.startClicker(progress);
-        choice_b.startClicker(progress);
-        choice_c.startClicker(progress);
-        choice_d.startClicker(progress);
-        choice_e.startClicker(progress);
+        int progressTime = (post.clicker.progress_time + 5) * 1000;
+        int progress = (int) (100.0f * (float) (progressTime - currentTime + DateHelper.getTime(post.createdAt)) / (float) progressTime);
+        choice_a.startClicker(progress, progressTime);
+        choice_b.startClicker(progress, progressTime);
+        choice_c.startClicker(progress, progressTime);
+        choice_d.startClicker(progress, progressTime);
+        choice_e.startClicker(progress, progressTime);
 
         switch (post.clicker.choice_count) {
             case 2:
@@ -273,6 +275,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         // Title, Message, Time
         TimeredTextView title = (TimeredTextView) view.findViewById(R.id.choice_title);
         TextView message = (TextView) view.findViewById(R.id.choice_message);
+        TextView guide = (TextView) view.findViewById(R.id.clicker_option_guide);
         TextView time = (TextView) view.findViewById(R.id.time);
 
         title.setVisibility(View.VISIBLE);
@@ -282,8 +285,17 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
         title.setText(context.getString(R.string.clicker));
         message.setText(post.message);
-        time.setText(DateHelper.getPostFormatString(post.createdAt));
 
+        String guideText;
+        if ("all".equals(post.clicker.detail_privacy))
+            guideText = mContext.getString(R.string.clicker_guide_detail_privacy_all);
+        else if ("none".equals(post.clicker.detail_privacy))
+            guideText = mContext.getString(R.string.clicker_guide_detail_privacy_none);
+        else
+            guideText = mContext.getString(R.string.clicker_guide_detail_privacy_professor);
+
+        guide.setText(Html.fromHtml(guideText));
+        time.setText(DateHelper.getPostFormatString(post.createdAt));
         title.setTimeredTextView(TimeredTextView.Type.Clicker, post.id, mUser.id, mAuth);
     }
 
@@ -301,8 +313,11 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         notice.setVisibility(View.GONE);
 
         DefaultRenderer renderer = post.clicker.getRenderer(context);
-        CategorySeries series = post.clicker.getSeries();
-        GraphicalView chartView = ChartFactory.getPieChartView(context, series, renderer);
+        GraphicalView chartView;
+        if (!mAuth && !post.clicker.show_info_on_select && (post.clicker.progress_time + 5) * 1000 - System.currentTimeMillis() + DateHelper.getTime(post.createdAt) > 0)
+            chartView = ChartFactory.getPieChartView(context, post.clicker.getEmptySeries(), renderer);
+        else
+            chartView = ChartFactory.getPieChartView(context, post.clicker.getSeries(), renderer);
         clicker.addView(chartView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         View ring = new View(context);
@@ -322,7 +337,10 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
 
         title.setTextColor(context.getResources().getColor(R.color.bttendance_silver));
         title.setText(context.getString(R.string.clicker));
-        message.setText(post.message + "\n" + post.clicker.getDetail());
+        if (!mAuth && !post.clicker.show_info_on_select && (post.clicker.progress_time + 5) * 1000 - System.currentTimeMillis() + DateHelper.getTime(post.createdAt) > 0)
+            message.setText(post.message + "\n" + context.getString(R.string.clicker_show_info_on_selelct_guide));
+        else
+            message.setText(post.message + "\n" + post.clicker.getDetail());
         time.setText(DateHelper.getPostFormatString(post.createdAt));
 
         title.setTimeredTextView(TimeredTextView.Type.Clicker, post.id, mUser.id, mAuth);

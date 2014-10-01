@@ -31,9 +31,13 @@ public class TimeredTextView extends TextView {
             if (mPost == null || mType == null)
                 return;
 
-            long leftTime = Bttendance.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt);
-            if (leftTime > 60000)
-                leftTime = 60000;
+            int progressDuration = Bttendance.PROGRESS_DURATION;
+            if (mType == Type.Clicker)
+                progressDuration = (mPost.clicker.progress_time + 5) * 1000;
+
+            long leftTime = progressDuration - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt);
+            if (leftTime > progressDuration - 5000)
+                leftTime = progressDuration - 5000;
 
             if (leftTime < 0) {
                 timerHandler.removeCallbacks(timerRunnable);
@@ -73,7 +77,7 @@ public class TimeredTextView extends TextView {
         timerHandler.removeCallbacks(timerRunnable);
         switch (mType) {
             case Clicker:
-                if (Clicker.PROGRESS_DURATION - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0)
+                if ((mPost.clicker.progress_time + 5) * 1000 - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt) > 0)
                     timerHandler.postDelayed(timerRunnable, 0);
                 break;
             case Attendance:

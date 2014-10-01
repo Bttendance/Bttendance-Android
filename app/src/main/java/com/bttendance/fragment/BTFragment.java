@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.TextView;
 
+import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.activity.MainActivity;
@@ -106,6 +107,7 @@ public class BTFragment extends Fragment implements BTActivity.OnServiceConnectL
     }
 
     public void onFragmentResume() {
+        BTDebug.LogError("onFragmentResume : " + ((Object)this).getClass().getSimpleName());
     }
 
     public void onFragmentPause() {
@@ -113,8 +115,10 @@ public class BTFragment extends Fragment implements BTActivity.OnServiceConnectL
 
     @Override
     public void onServiceConnected() {
-        if (mPendingResume)
+        if (mPendingResume) {
             onFragmentResume();
+            mPendingResume = false;
+        }
     }
 
     @Override

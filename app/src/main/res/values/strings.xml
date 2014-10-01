@@ -60,7 +60,7 @@
     <string name="oopps">Ooooppss!</string>
     <string name="too_many_users_are_connecting">Too many users are connecting at the same time, please try again later.</string>
     <string name="unjoin_course">Leave Course</string>
-    <string name="export_grades">Export Results</string>
+    <string name="export_grades">Export Results (send as email)</string>
     <string name="start">Start</string>
     <string name="setting">Setting</string>
     <string name="write_an_announcement">Write an announcement.</string>
@@ -165,7 +165,7 @@
     <string name="guide_attend_course_forth_info">Please refrain from using the smartphone for functions other than BTTENDANCE during class!</string>
     <string name="open_course">Open Course</string>
     <string name="opening_course">Opening Course</string>
-    <string name="s_students">%s Students</string>
+    <string name="s_students">%s Students Enrolled</string>
     <string name="course_setting">Course Setting</string>
     <string name="records_capital">RECORDS</string>
     <string name="students_capital">STUDENTS</string>
@@ -184,7 +184,7 @@
     <string name="starting_clicker">Starting Clicker</string>
     <string name="posting_notice">Posting Notice</string>
     <string name="notice_post_guide">* %d student(s) will receive this notice.\n* You may check how many students read it so far.</string>
-    <string name="attendance_start_guide">Choose how to check the attendance and click \nthe Start button.</string>
+    <string name="attendance_start_guide">Choose you will check the attendance\nand click the Start button.</string>
     <string name="attendance_start_info">You may edit the attendance record anytime\nafter the attendance check is complete.</string>
     <string name="start_attendance">Start Attendance</string>
     <string name="starting_attendance">Starting Attendance</string>
@@ -284,5 +284,6 @@
     <string name="clicker_option_progress_time_option_4">"5 minutes"</string>
 
     <string name="update_attendance_record">Update Attendance Record</string>
+    <string name="clicker_show_info_on_selelct_guide">You are not allowed to see the result while survey in on process.</string>
 
 </resources>

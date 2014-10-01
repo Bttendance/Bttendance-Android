@@ -56,7 +56,7 @@
     <string name="oopps">웁스!</string>
     <string name="too_many_users_are_connecting">너무 많은 사용자가 동시에 접속 중입니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="unjoin_course">강의 탈퇴하기</string>
-    <string name="export_grades">결과 내보내기</string>
+    <string name="export_grades">결과 내보내기 (이메일로 전송됨)</string>
     <string name="start">시작</string>
     <string name="setting">설정</string>
     <string name="write_an_announcement">공지할 내용을 적어 주세요.</string>
@@ -280,5 +280,6 @@
     <string name="clicker_option_progress_time_option_4">"5분"</string>
 
     <string name="update_attendance_record">출석결과 수정하기</string>
+    <string name="clicker_show_info_on_selelct_guide">설문이 끝날 때까지 설문 결과를 볼 수 없습니다.</string>
 
 </resources>
