@@ -130,6 +130,17 @@
 -dontwarn org.apache.commons.codec.binary.Base64
 
 -dontwarn okio.**
-
-
 ##---------------End: proguard configuration for Gson  ----------
+
+
+##---------------ButterKnife ----------
+-dontwarn butterknife.internal.**
+-keep class **$$ViewInjector { *; }
+-keepnames class * { @butterknife.InjectView *;}
+
+
+##---------------Don't Warn ----------
+-dontwarn org.apache.http.**
+-dontwarn android.net.http.**
+-dontwarn org.joda.time.**
+-dontwarn butterknife.internal.**

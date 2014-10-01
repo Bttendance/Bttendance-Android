@@ -126,6 +126,9 @@ public class ClickerDetailFragment extends BTFragment {
 
         @Override
         public void run() {
+            if (mPost == null || mPost.clicker == null)
+                return;
+
             int progressDuration = (mPost.clicker.progress_time + 5) * 1000;
             long leftTime = progressDuration - System.currentTimeMillis() + DateHelper.getTime(mPost.createdAt);
             if (leftTime > progressDuration - 5000)

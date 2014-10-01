@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--suppress MissingTranslation -->
     <string name="google_api_key">AIzaSyCqQqKxotV4depXXZ1yi2BJZPnu9dwBT_Q</string>
+    <!--suppress MissingTranslation -->
     <string name="google_api_key_dev">AIzaSyB1OFcNKhmFZ5vtXPfqXM2V1UJMqjmAeQk</string>
 </resources>
