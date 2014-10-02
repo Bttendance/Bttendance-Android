@@ -73,7 +73,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             @Override
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
                 replacePendingFragment();
                 if (getBTService() != null)
                     getBTService().socketConnect();
@@ -82,7 +82,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
+                supportInvalidateOptionsMenu();
                 refreshSideMenu();
             }
         };
