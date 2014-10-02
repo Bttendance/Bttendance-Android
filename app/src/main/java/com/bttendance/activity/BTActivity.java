@@ -12,9 +12,14 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 
 import com.bttendance.BTDebug;
 import com.bttendance.R;
+import com.bttendance.activity.course.AddCourseActivity;
+import com.bttendance.activity.guide.GuideActivity;
+import com.bttendance.activity.guide.GuideCourseAttendActivity;
+import com.bttendance.activity.guide.GuideCourseCreateActivity;
 import com.bttendance.activity.sign.CatchPointActivity;
 import com.bttendance.event.BTEventDispatcher;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
@@ -230,5 +235,21 @@ public class BTActivity extends ActionBarActivity {
         public static void add(ActionBarActivity activity) {
             classes.push(activity);
         }
+    }
+
+    //No-Title-Bar Null-Point-Exception
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU
+                && (this instanceof SplashActivity
+                || this instanceof GuideActivity
+                || this instanceof GuideCourseCreateActivity
+                || this instanceof GuideCourseAttendActivity
+                || this instanceof AddCourseActivity
+                || this instanceof CatchPointActivity)) {
+            // do nothing
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

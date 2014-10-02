@@ -13478,16 +13478,16 @@ com.bttendance.fragment.clicker.ClickerDetailFragment -> com.bttendance.fragment
     java.lang.String message -> a
     android.os.Handler timerHandler -> b
     java.lang.Runnable timerRunnable -> c
-    146:154:void onCreate(android.os.Bundle) -> onCreate
-    158:189:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    194:195:void onClickerUpdated(com.bttendance.event.socket.ClickerUpdatedEvent) -> onClickerUpdated
-    199:200:void onPostUpdated(com.bttendance.event.socket.PostUpdatedEvent) -> onPostUpdated
-    204:207:void onServiceConnected() -> onServiceConnected
-    211:213:void onFragmentResume() -> onFragmentResume
-    216:314:void reDrawView() -> l
-    318:320:void onDestroy() -> onDestroy
-    324:336:void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> onCreateOptionsMenu
-    340:383:boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    149:157:void onCreate(android.os.Bundle) -> onCreate
+    161:192:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
+    197:198:void onClickerUpdated(com.bttendance.event.socket.ClickerUpdatedEvent) -> onClickerUpdated
+    202:203:void onPostUpdated(com.bttendance.event.socket.PostUpdatedEvent) -> onPostUpdated
+    207:210:void onServiceConnected() -> onServiceConnected
+    214:216:void onFragmentResume() -> onFragmentResume
+    219:317:void reDrawView() -> l
+    321:323:void onDestroy() -> onDestroy
+    327:339:void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> onCreateOptionsMenu
+    343:386:boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     52:52:com.bttendance.model.json.PostJson access$000(com.bttendance.fragment.clicker.ClickerDetailFragment) -> a
     52:52:void access$100(com.bttendance.fragment.clicker.ClickerDetailFragment) -> b
     52:52:com.bttendance.model.json.PostJson access$002(com.bttendance.fragment.clicker.ClickerDetailFragment,com.bttendance.model.json.PostJson) -> a
@@ -13500,22 +13500,22 @@ com.bttendance.fragment.clicker.ClickerDetailFragment$$ViewInjector -> com.btten
     67:94:void reset(com.bttendance.fragment.clicker.ClickerDetailFragment) -> reset
 com.bttendance.fragment.clicker.ClickerDetailFragment$1 -> com.bttendance.fragment.clicker.ClickerDetailFragment$1:
     com.bttendance.fragment.clicker.ClickerDetailFragment this$0 -> a
-    129:141:void run() -> run
+    129:144:void run() -> run
 com.bttendance.fragment.clicker.ClickerDetailFragment$2 -> com.bttendance.fragment.clicker.ClickerDetailFragment$2:
     com.bttendance.fragment.clicker.ClickerDetailFragment this$0 -> a
-    164:170:void onClick(android.view.View) -> onClick
+    167:173:void onClick(android.view.View) -> onClick
 com.bttendance.fragment.clicker.ClickerDetailFragment$3 -> com.bttendance.fragment.clicker.ClickerDetailFragment$3:
     com.bttendance.fragment.clicker.ClickerDetailFragment this$0 -> a
-    223:312:void run() -> run
+    226:315:void run() -> run
 com.bttendance.fragment.clicker.ClickerDetailFragment$4 -> com.bttendance.fragment.clicker.ClickerDetailFragment$4:
     com.bttendance.fragment.clicker.ClickerDetailFragment this$0 -> a
-    349:375:void onConfirmed(java.lang.String) -> onConfirmed
-    379:379:void onCanceled() -> onCanceled
+    352:378:void onConfirmed(java.lang.String) -> onConfirmed
+    382:382:void onCanceled() -> onCanceled
 com.bttendance.fragment.clicker.ClickerDetailFragment$4$1 -> com.bttendance.fragment.clicker.ClickerDetailFragment$4$1:
     com.bttendance.fragment.clicker.ClickerDetailFragment$4 this$1 -> a
-    355:357:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
-    361:362:void failure(retrofit.RetrofitError) -> failure
-    352:352:void success(java.lang.Object,retrofit.client.Response) -> success
+    358:360:void success(com.bttendance.model.json.PostJson,retrofit.client.Response) -> a
+    364:365:void failure(retrofit.RetrofitError) -> failure
+    355:355:void success(java.lang.Object,retrofit.client.Response) -> success
 com.bttendance.fragment.clicker.ClickerOptionFragment -> com.bttendance.fragment.clicker.ClickerOptionFragment:
     com.bttendance.fragment.clicker.ClickerOptionFragment$OptionType mType -> b
     int mProgressTime -> c
