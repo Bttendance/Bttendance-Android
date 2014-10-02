@@ -98,6 +98,8 @@ bin-release/
 ###MORE###
 app/class_files.txt
 app/mapping.txt
+app/seeds.txt
+app/unused.txt
 app/src/main/assets/crashlytics-build.properties
 app/src/main/res/values/com_crashlytics_export_strings.xml
 
