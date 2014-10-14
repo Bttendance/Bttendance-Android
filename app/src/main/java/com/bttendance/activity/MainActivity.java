@@ -15,11 +15,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.course.AddCourseActivity;
 import com.bttendance.activity.guide.GuideActivity;
 import com.bttendance.adapter.SideListAdapter;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.course.CourseDetailFragment;
@@ -322,7 +322,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             return;
 
         BTFragment frag = (BTFragment) getSupportFragmentManager().findFragmentById(R.id.content);
-        if (frag instanceof CourseDetailFragment && ((CourseDetailFragment)frag).getCourseID() == mResetCourseID)
+        if (frag instanceof CourseDetailFragment && ((CourseDetailFragment) frag).getCourseID() == mResetCourseID)
             return;
 
         CourseDetailFragment fragment = new CourseDetailFragment();
@@ -350,7 +350,10 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     private void replacePendingFragment() {
         FragmentManager fm = getSupportFragmentManager();
         if (pendingFragment != null && fm.getBackStackEntryCount() == 0) {
-            fm.beginTransaction().replace(R.id.content, pendingFragment).commit();
+            if (pendingFragment instanceof SettingFragment || pendingFragment instanceof ProfileFragment)
+                BTEventBus.getInstance().post(new AddFragmentEvent(pendingFragment));
+            else
+                fm.beginTransaction().replace(R.id.content, pendingFragment).commit();
             pendingFragment.onPendingFragmentResume();
         }
         pendingFragment = null;

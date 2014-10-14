@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bttendance.R;
-import com.bttendance.activity.MainActivity;
 import com.bttendance.adapter.SettingAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UserUpdatedEvent;
@@ -51,11 +50,10 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
 
         ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        if (!((MainActivity) getActivity()).isDrawerOpen())
-            actionBar.setTitle(getString(R.string.setting));
+        actionBar.setTitle(getString(R.string.setting));
     }
 
     /**
