@@ -154,7 +154,10 @@ public class BTTable {
 
         boolean isChanged = false;
         for (int i = 0; i < PostTable.size(); i++) {
-            if (PostTable.valueAt(i).id == clicker.post.id) {
+            if (PostTable.valueAt(i).id == clicker.post.id
+                    && PostTable.valueAt(i).clicker != null
+                    && (PostTable.valueAt(i).clicker.updatedAt == null
+                    || DateHelper.getTime(PostTable.valueAt(i).clicker.updatedAt) < DateHelper.getTime(clicker.updatedAt))) {
                 PostTable.valueAt(i).clicker.choice_count = clicker.choice_count;
                 PostTable.valueAt(i).clicker.a_students = clicker.a_students;
                 PostTable.valueAt(i).clicker.b_students = clicker.b_students;
@@ -176,7 +179,10 @@ public class BTTable {
 
         boolean isChanged = false;
         for (int i = 0; i < PostTable.size(); i++) {
-            if (PostTable.valueAt(i).id == attendance.post.id) {
+            if (PostTable.valueAt(i).id == attendance.post.id
+                    && PostTable.valueAt(i).attendance != null
+                    && (PostTable.valueAt(i).attendance.updatedAt == null
+                    || DateHelper.getTime(PostTable.valueAt(i).attendance.updatedAt) < DateHelper.getTime(attendance.updatedAt))) {
                 PostTable.valueAt(i).attendance.checked_students = attendance.checked_students;
                 PostTable.valueAt(i).attendance.late_students = attendance.late_students;
                 isChanged = true;
@@ -193,7 +199,10 @@ public class BTTable {
 
         boolean isChanged = false;
         for (int i = 0; i < PostTable.size(); i++) {
-            if (PostTable.valueAt(i).id == notice.post.id) {
+            if (PostTable.valueAt(i).id == notice.post.id
+                    && PostTable.valueAt(i).notice != null
+                    && (PostTable.valueAt(i).notice.updatedAt == null
+                    || DateHelper.getTime(PostTable.valueAt(i).notice.updatedAt) < DateHelper.getTime(notice.updatedAt))) {
                 PostTable.valueAt(i).notice.seen_students = notice.seen_students;
                 isChanged = true;
             }

@@ -1,6 +1,8 @@
 package com.bttendance.fragment.feature;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -9,12 +11,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.bttendance.R;
 import com.bttendance.adapter.BTListAdapter;
+import com.bttendance.event.attendance.AttdToggleEvent;
 import com.bttendance.event.socket.AttendanceUpdatedEvent;
 import com.bttendance.event.socket.ClickerUpdatedEvent;
 import com.bttendance.event.socket.NoticeUpdatedEvent;
@@ -38,7 +40,7 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2014. 8. 22..
  */
-public class FeatureDetailListFragment extends BTFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class FeatureDetailListFragment extends BTFragment implements View.OnClickListener {
 
     BTListAdapter mAdapter;
     private ListView mListView;
@@ -158,7 +160,6 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
 
         mAdapter = new BTListAdapter(getActivity());
         mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(this);
 
         return view;
     }
@@ -373,16 +374,6 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (getBTService() == null || mPost == null || mPost.attendance == null || l <= 1)
-            return;
-
-        getBTService().attendanceToggleManually(mPost.attendance.id, (int) l, null);
-        mPost.attendance.toggleStatus((int) l);
-        swapItems(false);
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         if (getActivity() == null)
@@ -415,5 +406,19 @@ public class FeatureDetailListFragment extends BTFragment implements View.OnClic
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Subscribe
+    public void onToogleAttendance(AttdToggleEvent event) {
+
+        if (getBTService() == null || mPost == null || mPost.attendance == null)
+            return;
+
+        Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(20);
+
+        getBTService().attendanceToggleManually(mPost.attendance.id, event.getStudentID(), null);
+        mPost.attendance.toggleStatus(event.getStudentID());
+        swapItems(false);
     }
 }

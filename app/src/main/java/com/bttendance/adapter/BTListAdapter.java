@@ -10,8 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bttendance.R;
+import com.bttendance.event.attendance.AttdToggleEvent;
 import com.bttendance.model.json.BTJsonSimple;
 import com.bttendance.model.json.UserJsonSimple;
+import com.squareup.otto.BTEventBus;
 
 import java.util.ArrayList;
 
@@ -128,7 +130,7 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
                 selector.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ((ListView) parent).performItemClick(finalConvertView, position, item.getJson().id);
+                        BTEventBus.getInstance().post(new AttdToggleEvent(item.getJson().id));
                     }
                 });
 

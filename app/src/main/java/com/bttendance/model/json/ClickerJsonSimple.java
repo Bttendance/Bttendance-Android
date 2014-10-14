@@ -3,16 +3,30 @@ package com.bttendance.model.json;
 import android.content.Context;
 
 import com.bttendance.R;
+import com.bttendance.helper.DateHelper;
 
 import org.achartengine.model.CategorySeries;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
+
+import java.util.Date;
 
 /**
  * Created by TheFinestArtist on 2014. 5. 11..
  */
 
 public class ClickerJsonSimple extends BTJsonSimple {
+
+    public String createdAt;
+    public String updatedAt;
+
+    public Date getCreatedDate() {
+        return DateHelper.getDate(createdAt);
+    }
+
+    public Date getUpdatedDate() {
+        return DateHelper.getDate(updatedAt);
+    }
 
     public int choice_count;
     public int[] a_students;
