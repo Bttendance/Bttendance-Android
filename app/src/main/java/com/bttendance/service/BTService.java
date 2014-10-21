@@ -230,7 +230,9 @@ public class BTService extends Service {
                                         mReconnectTry++;
                                     }
                                 }, 5000 * mReconnectTry);
-                            } catch (Exception error) {};
+                            } catch (Exception error) {
+                            }
+                            ;
                         }
                     }
                 });

@@ -1,2 +1,2 @@
 include ':app'
-include ":uservoice-android-sdk:UserVoiceSDK"
+include ':uservoice-android-sdk:UserVoiceSDK'
