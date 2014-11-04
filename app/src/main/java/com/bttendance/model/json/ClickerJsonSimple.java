@@ -15,18 +15,7 @@ import java.util.Date;
  * Created by TheFinestArtist on 2014. 5. 11..
  */
 
-public class ClickerJsonSimple extends BTJsonSimple {
-
-    public String createdAt;
-    public String updatedAt;
-
-    public Date getCreatedDate() {
-        return DateHelper.getDate(createdAt);
-    }
-
-    public Date getUpdatedDate() {
-        return DateHelper.getDate(updatedAt);
-    }
+public class ClickerJsonSimple extends BTJson {
 
     public int choice_count;
     public int[] a_students;

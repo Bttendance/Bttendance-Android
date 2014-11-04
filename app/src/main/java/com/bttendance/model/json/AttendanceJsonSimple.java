@@ -9,18 +9,7 @@ import java.util.Date;
  * Created by TheFinestArtist on 2014. 5. 11..
  */
 
-public class AttendanceJsonSimple extends BTJsonSimple {
-
-    public String createdAt;
-    public String updatedAt;
-
-    public Date getCreatedDate() {
-        return DateHelper.getDate(createdAt);
-    }
-
-    public Date getUpdatedDate() {
-        return DateHelper.getDate(updatedAt);
-    }
+public class AttendanceJsonSimple extends BTJson {
 
     public String type;
     public int[] checked_students;

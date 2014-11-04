@@ -85,6 +85,7 @@ public class BTService extends Service {
             })
             .setLogLevel(RestAdapter.LogLevel.FULL)
             .setEndpoint(getServerDomain() + "/api")
+            .setConverter(new RealmConverter())
             .build();
     private BTAPI mBTAPI;
     private ConnectivityManager mConnectivityManager;
