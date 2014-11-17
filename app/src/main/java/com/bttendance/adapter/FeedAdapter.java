@@ -59,6 +59,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
     UserJson mUser;
     boolean mAuth;
     CourseJson mCourse;
+    long mCurrentTime;
 
     public enum Type {UPDATE, TIPS, GUIDE_CLICKER, GUIDE_ATTENDANCE, GUIDE_NOTICE, CLICKER, ATTENDANCE, NOTICE, CHOICE}
 
@@ -78,7 +79,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         } else {
             PostJson post = BTTable.PostTable.get(id);
             if ("clicker".equals(post.type)) {
-                if (!mAuth && post.clicker.getChoiceInt(mUser.id) == 6 && (post.clicker.progress_time + 5) * 1000 - System.currentTimeMillis() + DateHelper.getTime(post.createdAt) > 0)
+                if (!mAuth && post.clicker.getChoiceInt(mUser.id) == 6 && (post.clicker.progress_time + 5) * 1000 - mCurrentTime + DateHelper.getTime(post.createdAt) > 0)
                     return Type.CHOICE;
                 return Type.CLICKER;
             }
@@ -99,11 +100,13 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         mUser = BTPreference.getUser(context);
         mAuth = mUser.supervising(mCourseID);
         mCourse = BTTable.MyCourseTable.get(mCourseID);
+        mCurrentTime = System.currentTimeMillis();
     }
 
     @Override
     public Cursor swapCursor(Cursor newCursor) {
         mCourse = BTTable.MyCourseTable.get(mCourseID);
+        mCurrentTime = System.currentTimeMillis();
         return super.swapCursor(newCursor);
     }
 
@@ -113,8 +116,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
         if (cursor == null)
             return -1;
 
-        int id = cursor.getInt(0);
-        return id;
+        return cursor.getInt(0);
     }
 
     @Override
@@ -188,6 +190,11 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                 drawClicker(view, context, post);
                 break;
             }
+            case CHOICE: {
+                PostJson post = BTTable.PostTable.get(cursor.getInt(0));
+                drawChoice(view, context, post);
+                break;
+            }
             case ATTENDANCE: {
                 PostJson post = BTTable.PostTable.get(cursor.getInt(0));
                 drawAttendance(view, context, post);
@@ -196,11 +203,6 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
             case NOTICE: {
                 PostJson post = BTTable.PostTable.get(cursor.getInt(0));
                 drawNotice(view, context, post);
-                break;
-            }
-            case CHOICE: {
-                PostJson post = BTTable.PostTable.get(cursor.getInt(0));
-                drawChoice(view, context, post);
                 break;
             }
         }
