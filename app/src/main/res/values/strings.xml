@@ -2,7 +2,7 @@
 <resources>
 
     <!--suppress MissingTranslation -->
-    <string name="app_version">1.2</string>
+    <string name="app_version">1.2.0</string>
     <!--suppress MissingTranslation -->
     <string name="app_name">Bttendance</string>
     <!--suppress MissingTranslation -->

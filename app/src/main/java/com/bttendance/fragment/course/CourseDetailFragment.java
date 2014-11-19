@@ -3,6 +3,7 @@ package com.bttendance.fragment.course;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -168,6 +169,12 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             public void onRefresh() {
                 getFeed();
                 getCourseInfo();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeRefresh.setRefreshing(false);
+                    }
+                }, 7000);
             }
         });
 
@@ -243,6 +250,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
 
             @Override
             public void failure(RetrofitError error) {
+                mSwipeRefresh.setRefreshing(false);
             }
         });
     }
@@ -260,6 +268,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
 
             @Override
             public void failure(RetrofitError retrofitError) {
+                mSwipeRefresh.setRefreshing(false);
             }
         });
     }

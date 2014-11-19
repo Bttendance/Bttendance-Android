@@ -26,8 +26,8 @@ android {
         applicationId "com.bttendance"
         minSdkVersion 9
         targetSdkVersion 20
-        versionCode 18
-        versionName "1.2"
+        versionCode 19
+        versionName "1.2.0"
     }
     buildTypes {
         release {
