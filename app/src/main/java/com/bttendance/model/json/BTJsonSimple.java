@@ -2,13 +2,11 @@ package com.bttendance.model.json;
 
 import com.google.gson.Gson;
 
-import io.realm.RealmObject;
-
 /**
  * Created by TheFinestArtist on 2014. 5. 11..
  */
 
-public class BTJsonSimple extends RealmObject {
+public class BTJsonSimple {
 
     public int id;
 
