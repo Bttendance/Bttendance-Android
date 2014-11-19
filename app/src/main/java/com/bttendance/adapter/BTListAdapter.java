@@ -259,6 +259,6 @@ public class BTListAdapter extends ArrayAdapter<BTListAdapter.Item> {
 
         public enum Type {GRADE, EMPTY, CLICKER, ATTENDANCE, NOTICE}
 
-        public enum Status {ABSENT, TARDY, PRESENT, CHOICE_A, CHOICE_B, CHOICE_C, CHOICE_D, CHOICE_E, CHOICE_NONE, UNREAD, READ}
+        public enum Status {ABSENT, TARDY, PRESENT, CHOICE_NONE, CHOICE_A, CHOICE_B, CHOICE_C, CHOICE_D, CHOICE_E, UNREAD, READ}
     }
 }

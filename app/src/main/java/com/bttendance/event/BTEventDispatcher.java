@@ -17,6 +17,7 @@ import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.main.ResetMainFragmentEvent;
 import com.bttendance.event.notification.NotificationReceived;
+import com.bttendance.event.socket.ClickerUpdatedEvent;
 import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
@@ -143,6 +144,7 @@ public class BTEventDispatcher {
         act.getBTService().clickerClick(post.clicker.id, event.getChoice(), new Callback<ClickerJson>() {
             @Override
             public void success(ClickerJson clickerJson, Response response) {
+                BTTable.updateClicker(clickerJson);
             }
 
             @Override

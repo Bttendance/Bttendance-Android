@@ -3,6 +3,7 @@ package com.bttendance.fragment.course;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ import retrofit.client.Response;
  */
 public class CourseDetailFragment extends BTFragment implements View.OnClickListener {
 
+    SwipeRefreshLayout mSwipeRefresh;
     ListView mListView;
     FeedAdapter mAdapter;
     View header;
@@ -160,6 +162,17 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        mSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getFeed();
+                getCourseInfo();
+            }
+        });
+
+        mSwipeRefresh.setColorSchemeResources(R.color.bttendance_c, R.color.bttendance_b, R.color.bttendance_d, R.color.bttendance_a);
+
         mListView = (ListView) view.findViewById(android.R.id.list);
         header = inflater.inflate(R.layout.course_header, null, false);
         refreshHeader();
@@ -209,18 +222,29 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
+        if (mSwipeRefresh != null)
+            mSwipeRefresh.setRefreshing(true);
         getFeed();
+        getCourseInfo();
+        swapCursor();
+    }
+
+    public void getCourseInfo() {
+        if (getBTService() == null || mCourse == null)
+            return;
+
         getBTService().courseInfo(mCourseID, new Callback<CourseJson>() {
             @Override
             public void success(CourseJson courseJson, Response response) {
                 refreshHeader();
                 swapCursor();
+                mSwipeRefresh.setRefreshing(false);
             }
+
             @Override
             public void failure(RetrofitError error) {
             }
         });
-        swapCursor();
     }
 
     public void getFeed() {
@@ -231,7 +255,9 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             @Override
             public void success(PostJson[] posts, Response response) {
                 swapCursor();
+                mSwipeRefresh.setRefreshing(false);
             }
+
             @Override
             public void failure(RetrofitError retrofitError) {
             }
