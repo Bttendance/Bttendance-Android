@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
 import com.bttendance.activity.course.AddCourseActivity;
-import com.bttendance.activity.guide.GuideActivity;
+import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.fragment.BTFragment;
 
 /**
@@ -43,7 +43,7 @@ public class NoCourseFragment extends BTFragment {
         view.findViewById(R.id.show_guide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), GuideActivity.class);
+                Intent intent = new Intent(getActivity(), IntroductionActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:id="@+id/guide_last" />
+        android:id="@+id/introduction_last" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
             android:text="@string/create_course"
             android:textSize="18sp"
             android:layout_marginBottom="14dp"
-            android:id="@+id/guide_last_bt1" />
+            android:id="@+id/introduction_last_bt1" />
 
         <Button
             android:layout_width="140dp"
@@ -62,7 +62,7 @@
             android:textColor="@color/bttendance_black"
             android:text="@string/attend_course"
             android:textSize="18sp"
-            android:id="@+id/guide_last_bt2" />
+            android:id="@+id/introduction_last_bt2" />
 
     </LinearLayout>
 

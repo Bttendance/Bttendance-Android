@@ -2,10 +2,8 @@
 <resources>
 
     <!--suppress MissingTranslation -->
-    <string name="app_version">1.2.0</string>
-    <!--suppress MissingTranslation -->
+    <string name="app_version">2.0.0</string>
     <string name="app_name">Bttendance</string>
-    <!--suppress MissingTranslation -->
     <string name="app_name_capital">BTTENDANCE</string>
 
     <!-- Navi Drawer -->
@@ -288,5 +286,7 @@
 
     <string name="update_attendance_record">Update Attendance Record</string>
     <string name="clicker_show_info_on_selelct_guide">You are not allowed to see the result while survey in on process.</string>
+    <string name="close">Close</string>
+    <string name="skip">Skip</string>
 
 </resources>

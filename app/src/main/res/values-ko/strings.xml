@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">비텐던스</string>
+    <string name="app_name_capital">비텐던스</string>
+
     <!-- Navi Drawer -->
     <string name="drawer_open">Menu Open</string>
     <string name="drawer_close">Menu Close</string>
@@ -281,5 +284,7 @@
 
     <string name="update_attendance_record">출석결과 수정하기</string>
     <string name="clicker_show_info_on_selelct_guide">설문이 끝날 때까지 설문 결과를 볼 수 없습니다.</string>
+    <string name="close">닫기</string>
+    <string name="skip">건너뛰기</string>
 
 </resources>

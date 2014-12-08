@@ -17,10 +17,9 @@ import android.view.KeyEvent;
 import com.bttendance.BTDebug;
 import com.bttendance.R;
 import com.bttendance.activity.course.AddCourseActivity;
-import com.bttendance.activity.guide.GuideActivity;
 import com.bttendance.activity.guide.GuideCourseAttendActivity;
 import com.bttendance.activity.guide.GuideCourseCreateActivity;
-import com.bttendance.activity.sign.CatchPointActivity;
+import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.event.BTEventDispatcher;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
@@ -168,7 +167,7 @@ public class BTActivity extends ActionBarActivity {
         Intent intent;
         if (user == null) {
             BTPreference.clearUser(this);
-            intent = new Intent(this, CatchPointActivity.class);
+            intent = new Intent(this, IntroductionActivity.class);
         } else {
             intent = new Intent(this, MainActivity.class);
         }
@@ -242,11 +241,10 @@ public class BTActivity extends ActionBarActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU
                 && (this instanceof SplashActivity
-                || this instanceof GuideActivity
+                || this instanceof IntroductionActivity
                 || this instanceof GuideCourseCreateActivity
                 || this instanceof GuideCourseAttendActivity
-                || this instanceof AddCourseActivity
-                || this instanceof CatchPointActivity)) {
+                || this instanceof AddCourseActivity)) {
             // do nothing
             return true;
         }

@@ -7,7 +7,7 @@ import android.widget.Toast;
 public class BTDebug {
 
     public static final boolean DEBUG = false;
-    public static final String TAG = "Bttendance";
+    public static final String TAG_BTTENDANCE = "BTTENDANCE";
     public static final String TAG_API = "API";
 
     private BTDebug() {
@@ -16,18 +16,18 @@ public class BTDebug {
     public static void LogError(String log) {
         if (DEBUG) {
             if (log != null)
-                Log.e(TAG, log);
+                Log.e(TAG_BTTENDANCE, log);
             else
-                Log.e(TAG, "Log is null");
+                Log.e(TAG_BTTENDANCE, "Log is null");
         }
     }
 
     public static void LogDebug(String log) {
         if (DEBUG)
             if (log != null)
-                Log.d(TAG, log);
+                Log.d(TAG_BTTENDANCE, log);
             else
-                Log.d(TAG, "Log is null");
+                Log.d(TAG_BTTENDANCE, "Log is null");
     }
 
     public static void LogDebug(String tag, String log) {
@@ -41,17 +41,17 @@ public class BTDebug {
     public static void LogInfo(String log) {
         if (DEBUG)
             if (log != null)
-                Log.i(TAG, log);
+                Log.i(TAG_BTTENDANCE, log);
             else
-                Log.i(TAG, "Log is null");
+                Log.i(TAG_BTTENDANCE, "Log is null");
     }
 
     public static void LogVerbose(String log) {
         if (DEBUG)
             if (log != null)
-                Log.v(TAG, log);
+                Log.v(TAG_BTTENDANCE, log);
             else
-                Log.v(TAG, "Log is null");
+                Log.v(TAG_BTTENDANCE, "Log is null");
     }
 
     public static void LogQueryAPI(String log) {

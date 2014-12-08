@@ -10,32 +10,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:id="@+id/guide_first" />
+        android:id="@+id/introduction_first" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:id="@+id/guide_clicker" />
+        android:id="@+id/introduction_clicker" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:id="@+id/guide_attendance" />
+        android:id="@+id/introduction_attendance" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:id="@+id/guide_notice" />
+        android:id="@+id/introduction_notice" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:background="@color/bttendance_white"
-        android:id="@+id/guide_last" />
+        android:id="@+id/introduction_last" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
@@ -59,12 +59,18 @@
         android:layout_marginBottom="27dp" />
 
     <Button
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="55dp"
+        android:layout_height="35dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="4dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/x"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:text="@string/close"
+        android:textColor="@color/bttendance_white"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:id="@+id/close" />
 
     <Button

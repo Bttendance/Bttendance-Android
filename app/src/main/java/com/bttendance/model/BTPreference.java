@@ -53,6 +53,14 @@ public class BTPreference {
         edit.commit();
     }
 
+    public static boolean hasAuth(Context ctx) {
+        String jsonStr = getInstance(ctx).getString("users", null);
+        if (jsonStr == null)
+            return false;
+
+        return true;
+    }
+
     public static UserJson getUser(Context ctx) {
         String jsonStr = getInstance(ctx).getString("users", null);
         if (jsonStr == null)
@@ -250,18 +258,6 @@ public class BTPreference {
         Editor edit = getInstance(ctx).edit();
         edit.putInt("last_course", lastCourse);
         edit.commit();
-    }
-
-    public static boolean seenGuide(Context ctx) {
-        Boolean seen = getInstance(ctx).getBoolean("seen_guide", false);
-
-        if (!seen) {
-            Editor edit = getInstance(ctx).edit();
-            edit.putBoolean("seen_guide", true);
-            edit.commit();
-        }
-
-        return seen;
     }
 
     public static String getUUID(Context ctx) {

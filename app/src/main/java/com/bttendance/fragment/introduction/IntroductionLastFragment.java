@@ -1,4 +1,4 @@
-package com.bttendance.fragment.guide;
+package com.bttendance.fragment.introduction;
 
 import android.content.Intent;
 import android.os.Build;
@@ -17,28 +17,28 @@ import com.bttendance.model.BTPreference;
 /**
  * Created by TheFinestArtist on 2014. 8. 13..
  */
-public class GuideLastFragment extends BTFragment {
+public class IntroductionLastFragment extends BTFragment {
 
-    Button mGuideBt1;
-    Button mGuideBt2;
+    Button mIntroductionBt1;
+    Button mIntroductionBt2;
     Boolean mHasOpenedCourse;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_guide_last, container, false);
+        View view = inflater.inflate(R.layout.fragment_introduction_last, container, false);
         if (Build.VERSION.SDK_INT < 11)
-            view.findViewById(R.id.guide_last).setBackgroundColor(getResources().getColor(R.color.bttendance_white));
+            view.findViewById(R.id.introduction_last).setBackgroundColor(getResources().getColor(R.color.bttendance_white));
 
-        mGuideBt1 = (Button) view.findViewById(R.id.guide_last_bt1);
-        mGuideBt2 = (Button) view.findViewById(R.id.guide_last_bt2);
+        mIntroductionBt1 = (Button) view.findViewById(R.id.introduction_last_bt1);
+        mIntroductionBt2 = (Button) view.findViewById(R.id.introduction_last_bt2);
 
         mHasOpenedCourse = BTPreference.getUser(getActivity()).getOpenedCourses().length > 0;
         if (mHasOpenedCourse) {
-            mGuideBt1.setText(getString(R.string.continue_));
-            mGuideBt2.setVisibility(View.GONE);
+            mIntroductionBt1.setText(getString(R.string.continue_));
+            mIntroductionBt2.setVisibility(View.GONE);
         }
 
-        mGuideBt1.setOnClickListener(new View.OnClickListener() {
+        mIntroductionBt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();
@@ -50,7 +50,7 @@ public class GuideLastFragment extends BTFragment {
             }
         });
 
-        mGuideBt2.setOnClickListener(new View.OnClickListener() {
+        mIntroductionBt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();

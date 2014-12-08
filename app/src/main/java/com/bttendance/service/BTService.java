@@ -12,7 +12,7 @@ import android.os.IBinder;
 
 import com.bttendance.BTDebug;
 import com.bttendance.R;
-import com.bttendance.activity.sign.CatchPointActivity;
+import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
@@ -1820,7 +1820,7 @@ public class BTService extends Service {
                                 @Override
                                 public void onConfirmed(String edit) {
                                     BTPreference.clearUser(getApplicationContext());
-                                    Intent intent = new Intent(getApplicationContext(), CatchPointActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), IntroductionActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }
@@ -1828,7 +1828,7 @@ public class BTService extends Service {
                                 @Override
                                 public void onCanceled() {
                                     BTPreference.clearUser(getApplicationContext());
-                                    Intent intent = new Intent(getApplicationContext(), CatchPointActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), IntroductionActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                 }

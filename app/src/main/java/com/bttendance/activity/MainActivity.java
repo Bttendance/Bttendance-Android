@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import com.bttendance.R;
 import com.bttendance.activity.course.AddCourseActivity;
-import com.bttendance.activity.guide.GuideActivity;
+import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
@@ -139,12 +139,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
         if (BTTable.getAttdCheckingIds().size() > 0)
             BTEventBus.getInstance().post(new AttdStartedEvent(true));
-
-        if (!BTPreference.seenGuide(this)) {
-            Intent intent = new Intent(this, GuideActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }
     }
 
     @Override
@@ -268,7 +262,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 break;
             }
             case Guide:
-                Intent intent = new Intent(this, GuideActivity.class);
+                Intent intent = new Intent(this, IntroductionActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;

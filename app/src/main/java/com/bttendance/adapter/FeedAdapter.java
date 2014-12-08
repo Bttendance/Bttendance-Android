@@ -44,7 +44,6 @@ import com.squareup.otto.BTEventBus;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
-import org.achartengine.model.CategorySeries;
 import org.achartengine.renderer.DefaultRenderer;
 
 import static com.bttendance.helper.DipPixelHelper.getPixel;
