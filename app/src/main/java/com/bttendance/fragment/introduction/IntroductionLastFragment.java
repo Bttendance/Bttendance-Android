@@ -13,6 +13,7 @@ import com.bttendance.activity.course.AttendCourseActivity;
 import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.json.UserJson;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -26,7 +27,7 @@ public class IntroductionLastFragment extends BTFragment {
     Button mIntroductionBt1;
     @InjectView(R.id.introduction_last_bt2)
     Button mIntroductionBt2;
-    Boolean mHasOpenedCourse;
+    Boolean mHasOpenedCourse = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +37,10 @@ public class IntroductionLastFragment extends BTFragment {
         if (Build.VERSION.SDK_INT < 11)
             view.findViewById(R.id.introduction_last).setBackgroundColor(getResources().getColor(R.color.bttendance_white));
 
-        mHasOpenedCourse = BTPreference.getUser(getActivity()).getOpenedCourses().length > 0;
+        UserJson user = BTPreference.getUser(getActivity());
+        if (user != null)
+            mHasOpenedCourse = user.getOpenedCourses().length > 0;
+
         if (mHasOpenedCourse) {
             mIntroductionBt1.setText(getString(R.string.continue_));
             mIntroductionBt2.setVisibility(View.GONE);

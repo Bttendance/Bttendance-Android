@@ -286,4 +286,9 @@
     <string name="close">Close</string>
     <string name="skip">Skip</string>
 
+    <string name="start_with_facebook">"Start with Facebook"</string>
+    <string name="start_with_google">"Start with Google+"</string>
+    <string name="sign_up_with_email">"Sign Up"</string>
+    <string name="log_in_with_email">"Log In"</string>
+
 </resources>

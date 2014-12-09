@@ -36,7 +36,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
     @InjectView(R.id.introduction_attendance)
     ImageView mIntroductionAttendance;
     @InjectView(R.id.introduction_curious)
-    ImageView mIntrodcutionCurious;
+    ImageView mIntroductionCurious;
     @InjectView(R.id.introduction_notice)
     ImageView mIntroductionNotice;
     @InjectView(R.id.introduction_last)
@@ -54,7 +54,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
         setContentView(R.layout.activity_introduction);
         ButterKnife.inject(this);
 
-        mPagerAdapter = new GuidePagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new GuidePagerAdapter(getSupportFragmentManager(), mAuth);
         mPagerView.setAdapter(mPagerAdapter);
 
         mCircleIndicator.setViewPager(mPagerView);
@@ -74,7 +74,10 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
         mCloseBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                if (mAuth)
+                    onBackPressed();
+                else
+                    mPagerView.setCurrentItem(mPagerAdapter.getCount() - 1);
             }
         });
 
@@ -91,7 +94,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
             mIntroductionFirst.setImageResource(R.drawable.welcome_bg);
             mIntroductionClicker.setImageResource(R.drawable.clicker_bg);
             mIntroductionAttendance.setImageResource(R.drawable.attendance_bg);
-            mIntrodcutionCurious.setImageResource(R.drawable.clicker_bg);
+            mIntroductionCurious.setImageResource(R.drawable.clicker_bg);
             mIntroductionNotice.setImageResource(R.drawable.notice_bg);
         }
     }
@@ -113,7 +116,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionFirst.setAlpha(1.0f);
                 mIntroductionClicker.setAlpha(0.0f);
                 mIntroductionAttendance.setAlpha(0.0f);
-                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionCurious.setAlpha(0.0f);
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
@@ -123,7 +126,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionFirst.setAlpha(1.0f - scrollOffset);
                 mIntroductionClicker.setAlpha(scrollOffset);
                 mIntroductionAttendance.setAlpha(0.0f);
-                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionCurious.setAlpha(0.0f);
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
@@ -133,7 +136,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionFirst.setAlpha(0.0f);
                 mIntroductionClicker.setAlpha(2.0f - scrollOffset);
                 mIntroductionAttendance.setAlpha(scrollOffset - 1.0f);
-                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionCurious.setAlpha(0.0f);
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
@@ -143,7 +146,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionFirst.setAlpha(0.0f);
                 mIntroductionClicker.setAlpha(0.0f);
                 mIntroductionAttendance.setAlpha(3.0f - scrollOffset);
-                mIntrodcutionCurious.setAlpha(scrollOffset - 2.0f);
+                mIntroductionCurious.setAlpha(scrollOffset - 2.0f);
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
@@ -153,7 +156,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionFirst.setAlpha(0.0f);
                 mIntroductionClicker.setAlpha(0.0f);
                 mIntroductionAttendance.setAlpha(0.0f);
-                mIntrodcutionCurious.setAlpha(4.0f - scrollOffset);
+                mIntroductionCurious.setAlpha(4.0f - scrollOffset);
                 mIntroductionNotice.setAlpha(scrollOffset - 3.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
@@ -163,7 +166,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionFirst.setAlpha(0.0f);
                 mIntroductionClicker.setAlpha(0.0f);
                 mIntroductionAttendance.setAlpha(0.0f);
-                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionCurious.setAlpha(0.0f);
                 mIntroductionNotice.setAlpha(5.0f - scrollOffset);
                 mIntroductionLast.setAlpha(scrollOffset - 4.0f);
                 mNextBt.setAlpha(4.0f - scrollOffset);
@@ -173,7 +176,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionFirst.setAlpha(0.0f);
                 mIntroductionClicker.setAlpha(0.0f);
                 mIntroductionAttendance.setAlpha(0.0f);
-                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionCurious.setAlpha(0.0f);
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(1.0f);
                 mNextBt.setAlpha(0.0f);
@@ -184,7 +187,10 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mCircleIndicator.setPageColor(getResources().getColor(R.color.bttendance_white_50));
                 mCircleIndicator.setFillColor(getResources().getColor(R.color.bttendance_white_80));
             } else {
-                mCloseBt.setTextColor(getResources().getColor(R.color.bttendance_black));
+                if (mAuth)
+                    mCloseBt.setTextColor(getResources().getColor(R.color.bttendance_black));
+                else
+                    mCloseBt.setTextColor(getResources().getColor(R.color.bttendance_white));
                 mCircleIndicator.setPageColor(getResources().getColor(R.color.bttendance_silver_50));
                 mCircleIndicator.setFillColor(getResources().getColor(R.color.bttendance_silver_80));
             }
