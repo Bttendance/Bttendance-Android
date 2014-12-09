@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bttendance"
-    android:versionCode="20"
-    android:versionName="@string/app_version">
+    package="com.bttendance">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -23,10 +21,6 @@
         android:name="com.bttendance.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="com.bttendance.permission.C2D_MESSAGE" />
-
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="20" />
 
     <application
         android:name="com.bttendance.BTApplication"
@@ -94,14 +88,6 @@
             android:theme="@style/Theme.Bttendance.Sign" />
 
         <activity
-            android:name="com.bttendance.activity.sign.CatchPointActivity"
-            android:label="@string/app_name_capital"
-            android:clearTaskOnLaunch="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-        <activity
             android:name="com.bttendance.activity.sign.SignInActivity"
             android:label="@string/log_in"
             android:screenOrientation="portrait"
@@ -117,8 +103,8 @@
 
         <activity
             android:name="com.bttendance.activity.MainActivity"
-            android:label="@string/app_name_capital"
             android:clearTaskOnLaunch="true"
+            android:label="@string/app_name_capital"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance">

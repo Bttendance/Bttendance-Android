@@ -401,7 +401,7 @@ public class BTService extends Service {
 
         UserJson user = BTPreference.getUser(getApplicationContext());
         String locale = getResources().getConfiguration().locale.getLanguage();
-        String version = getString(R.string.app_version);
+        String version = BuildConfig.VERSION_NAME;
         if (user == null)
             return;
 

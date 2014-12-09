@@ -100,6 +100,7 @@
     <string name="if_you_turn_off_the_notification">알람 설정을 끄면 강의자가 진행하는 액션에 대한 알림을 받지 못합니다.</string>
     <string name="attendance">출석체크</string>
     <string name="clicker">설문하기</string>
+    <string name="curious">질문하기</string>
     <string name="attendance_notification">출석체크 알림</string>
     <string name="clicker_notification">설문조사 알림</string>
     <string name="notice_notification">공지 알림</string>
@@ -107,13 +108,14 @@
     <string name="facebook">비텐던스 페이스북 페이지</string>
 
     <string name="next">다음</string>
-    <string name="guide_first_welcome">환영합니다!</string>
-    <string name="guide_first_message">지금부터 BTTENDANCE를\n어떻게 사용하실 수 있는지\n소개할게요.</string>
+    <string name="introduction_first_welcome">환영합니다!</string>
+    <string name="introduction_first_message">지금부터 BTTENDANCE를\n어떻게 사용하실 수 있는지\n소개할게요.</string>
     <string name="see_more">더 알아보기</string>
-    <string name="guide_poll_message">찬반 의견부터 간단한 객관식 답변까지\n학생들의 반응을 쉽게 파악하세요!</string>
-    <string name="guide_attendance_message">학생수가 많아 일일이 이름 부르기\n힘들다면, BTTENDANCE 로 빠르고\n정확하게 체크해보시면 어떨까요?</string>
-    <string name="guide_notice_message">학생들에게 BTTENDANCE로\n중요한 사항을 알리시고,\n누가 읽지 않았는지도 확인하세요!</string>
-    <string name="guide_last_start">지금부터\nBTTENDANCE를\n시작해보세요.</string>
+    <string name="introduction_clicker_message">찬반 의견부터 간단한 객관식 답변까지\n학생들의 반응을 쉽게 파악하세요!</string>
+    <string name="introduction_curious_message">찬반 의견부터 간단한 객관식 답변까지\n학생들의 반응을 쉽게 파악하세요!</string>
+    <string name="introduction_attendance_message">학생수가 많아 일일이 이름 부르기\n힘들다면, BTTENDANCE 로 빠르고\n정확하게 체크해보시면 어떨까요?</string>
+    <string name="introduction_notice_message">학생들에게 BTTENDANCE로\n중요한 사항을 알리시고,\n누가 읽지 않았는지도 확인하세요!</string>
+    <string name="introduction_last_start">지금부터\nBTTENDANCE를\n시작해보세요.</string>
     <string name="identity">식별 번호</string>
     <string name="updating_password">비밀번호를 수정하는 중</string>
     <string name="current_password">현재 비밀번호</string>

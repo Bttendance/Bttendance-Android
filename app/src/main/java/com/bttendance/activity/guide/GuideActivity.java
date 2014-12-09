@@ -1,10 +1,9 @@
 package com.bttendance.activity.guide;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-
 import android.view.MenuItem;
+
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.fragment.SimpleWebViewFragment;
@@ -21,7 +20,7 @@ public class GuideActivity extends BTActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 
-        mUrl =  getIntent().getStringExtra(SimpleWebViewFragment.EXTRA_URL);
+        mUrl = getIntent().getStringExtra(SimpleWebViewFragment.EXTRA_URL);
 
         SimpleWebViewFragment frag = new SimpleWebViewFragment();
         Bundle bundle = new Bundle();
@@ -41,13 +40,11 @@ public class GuideActivity extends BTActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.no_anim, R.anim.slide_out_down);
+        overridePendingTransition(R.anim.modal_activity_close_enter, R.anim.modal_activity_close_exit);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        FragmentManager fm = getSupportFragmentManager();
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();

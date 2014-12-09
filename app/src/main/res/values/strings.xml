@@ -2,7 +2,6 @@
 <resources>
 
     <!--suppress MissingTranslation -->
-    <string name="app_version">2.0.0</string>
     <string name="app_name">Bttendance</string>
     <string name="app_name_capital">BTTENDANCE</string>
 
@@ -102,6 +101,7 @@
     <string name="if_you_turn_off_the_notification">If you turn off the notification, you won\'t be able to receive instructor\'s action.</string>
     <string name="attendance">Attendance</string>
     <string name="clicker">Clicker</string>
+    <string name="curious">Curious</string>
     <string name="attendance_notification">Attendance Notification</string>
     <string name="clicker_notification">Clicker Notification</string>
     <string name="notice_notification">Notice Notification</string>
@@ -109,13 +109,14 @@
     <string name="facebook">Facebook Page</string>
 
     <string name="next">Next</string>
-    <string name="guide_first_welcome">Welcome!</string>
-    <string name="guide_first_message">Let me introduce\nhow to use\nBTTENDANCE.</string>
+    <string name="introduction_first_welcome">Welcome!</string>
+    <string name="introduction_first_message">Let me introduce\nhow to use\nBTTENDANCE.</string>
     <string name="see_more">See More</string>
-    <string name="guide_poll_message">Check the response of your students\nduring the class by using BTTENDANCE</string>
-    <string name="guide_attendance_message">Check your students\' attendance\naccurately and effortlessly\nby using elaborate algorithm.</string>
-    <string name="guide_notice_message">Notify important information\nto your students as easy as\nsending a text message.</string>
-    <string name="guide_last_start">Let\'s start\nBTTENDANCE</string>
+    <string name="introduction_clicker_message">Check the response of your students\nduring the class by using BTTENDANCE</string>
+    <string name="introduction_curious_message">Check the response of your students\nduring the class by using BTTENDANCE</string>
+    <string name="introduction_attendance_message">Check your students\' attendance\naccurately and effortlessly\nby using elaborate algorithm.</string>
+    <string name="introduction_notice_message">Notify important information\nto your students as easy as\nsending a text message.</string>
+    <string name="introduction_last_start">Let\'s start\nBTTENDANCE</string>
     <string name="identity">Identity</string>
     <string name="updating_password">Updating Password</string>
     <string name="current_password">Current Password</string>

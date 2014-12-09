@@ -35,7 +35,7 @@ public class IntroductionClickerFragment extends BTFragment {
                 Intent intent = new Intent(getActivity(), GuideActivity.class);
                 intent.putExtra(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialClicker(getActivity()));
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
+                getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
             }
         });
         return view;

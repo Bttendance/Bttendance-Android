@@ -3,39 +3,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bttendance_white"
     android:clickable="true"
     android:focusable="true">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:id="@+id/introduction_first" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/splash" />
 
     <ImageView
+        android:id="@+id/introduction_first"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:id="@+id/introduction_clicker" />
+        android:scaleType="centerCrop" />
 
     <ImageView
+        android:id="@+id/introduction_clicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:id="@+id/introduction_attendance" />
+        android:scaleType="centerCrop" />
 
     <ImageView
+        android:id="@+id/introduction_attendance"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:id="@+id/introduction_notice" />
+        android:scaleType="centerCrop" />
 
     <ImageView
+        android:id="@+id/introduction_curious"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/introduction_notice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/introduction_last"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/bttendance_white"
-        android:id="@+id/introduction_last" />
+        android:scaleType="centerCrop" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
@@ -45,48 +58,48 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="55dp"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
-        android:background="@color/bttendance_white_50"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="55dp" />
+        android:background="@color/bttendance_white_50" />
 
     <com.viewpagerindicator.CirclePageIndicator
         android:id="@+id/page_indicator"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="27dp" />
 
     <Button
-        android:layout_width="55dp"
+        android:id="@+id/close"
+        android:layout_width="80dp"
         android:layout_height="35dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="4dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
         android:background="@android:color/transparent"
-        android:text="@string/close"
+        android:gravity="end|center_vertical"
+        android:text="@string/skip"
         android:textColor="@color/bttendance_white"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:id="@+id/close" />
+        android:textSize="13sp"
+        android:textStyle="bold" />
 
     <Button
-        android:layout_width="55dp"
+        android:id="@+id/next"
+        android:layout_width="80dp"
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="14dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
+        android:layout_marginBottom="14dp"
+        android:layout_marginRight="16dp"
         android:background="@android:color/transparent"
+        android:gravity="end|center_vertical"
         android:text="@string/next"
         android:textColor="@color/bttendance_white"
         android:textSize="15sp"
-        android:textStyle="bold"
-        android:id="@+id/next" />
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:id="@+id/content"

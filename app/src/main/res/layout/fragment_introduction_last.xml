@@ -33,7 +33,7 @@
             android:gravity="center"
             android:textSize="28sp"
             android:lineSpacingExtra="8dp"
-            android:text="@string/guide_last_start" />
+            android:text="@string/introduction_last_start" />
 
     </RelativeLayout>
 

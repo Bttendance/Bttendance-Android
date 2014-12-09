@@ -30,15 +30,17 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
     @InjectView(R.id.page_indicator)
     CirclePageIndicator mCircleIndicator;
     @InjectView(R.id.introduction_first)
-    ImageView mGuideFirst;
+    ImageView mIntroductionFirst;
     @InjectView(R.id.introduction_clicker)
-    ImageView mGuideClicker;
+    ImageView mIntroductionClicker;
     @InjectView(R.id.introduction_attendance)
-    ImageView mGuideAttendance;
+    ImageView mIntroductionAttendance;
+    @InjectView(R.id.introduction_curious)
+    ImageView mIntrodcutionCurious;
     @InjectView(R.id.introduction_notice)
-    ImageView mGuideNotice;
+    ImageView mIntroductionNotice;
     @InjectView(R.id.introduction_last)
-    ImageView mGuideLast;
+    ImageView mIntroductionLast;
     @InjectView(R.id.next)
     Button mNextBt;
     @InjectView(R.id.close)
@@ -76,7 +78,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
             }
         });
 
-        if(mAuth)
+        if (mAuth)
             mCloseBt.setText(getText(R.string.close));
         else
             mCloseBt.setText(getText(R.string.skip));
@@ -86,10 +88,11 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
     protected void onResume() {
         super.onResume();
         if (Build.VERSION.SDK_INT >= 11) {
-            mGuideFirst.setImageResource(R.drawable.welcome_bg);
-            mGuideClicker.setImageResource(R.drawable.clicker_bg);
-            mGuideAttendance.setImageResource(R.drawable.attendance_bg);
-            mGuideNotice.setImageResource(R.drawable.notice_bg);
+            mIntroductionFirst.setImageResource(R.drawable.welcome_bg);
+            mIntroductionClicker.setImageResource(R.drawable.clicker_bg);
+            mIntroductionAttendance.setImageResource(R.drawable.attendance_bg);
+            mIntrodcutionCurious.setImageResource(R.drawable.clicker_bg);
+            mIntroductionNotice.setImageResource(R.drawable.notice_bg);
         }
     }
 
@@ -107,60 +110,76 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
             float scrollOffset = position + positionOffset;
 
             if (scrollOffset < 0) {
-                mGuideFirst.setAlpha(1.0f);
-                mGuideClicker.setAlpha(0.0f);
-                mGuideAttendance.setAlpha(0.0f);
-                mGuideNotice.setAlpha(0.0f);
-                mGuideLast.setAlpha(0.0f);
+                mIntroductionFirst.setAlpha(1.0f);
+                mIntroductionClicker.setAlpha(0.0f);
+                mIntroductionAttendance.setAlpha(0.0f);
+                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionNotice.setAlpha(0.0f);
+                mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
             }
 
             if (0 <= scrollOffset && scrollOffset < 1) {
-                mGuideFirst.setAlpha(1.0f - scrollOffset);
-                mGuideClicker.setAlpha(scrollOffset);
-                mGuideAttendance.setAlpha(0.0f);
-                mGuideNotice.setAlpha(0.0f);
-                mGuideLast.setAlpha(0.0f);
+                mIntroductionFirst.setAlpha(1.0f - scrollOffset);
+                mIntroductionClicker.setAlpha(scrollOffset);
+                mIntroductionAttendance.setAlpha(0.0f);
+                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionNotice.setAlpha(0.0f);
+                mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
             }
 
             if (1 <= scrollOffset && scrollOffset < 2) {
-                mGuideFirst.setAlpha(0.0f);
-                mGuideClicker.setAlpha(2.0f - scrollOffset);
-                mGuideAttendance.setAlpha(scrollOffset - 1.0f);
-                mGuideNotice.setAlpha(0.0f);
-                mGuideLast.setAlpha(0.0f);
+                mIntroductionFirst.setAlpha(0.0f);
+                mIntroductionClicker.setAlpha(2.0f - scrollOffset);
+                mIntroductionAttendance.setAlpha(scrollOffset - 1.0f);
+                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionNotice.setAlpha(0.0f);
+                mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
             }
 
             if (2 <= scrollOffset && scrollOffset < 3) {
-                mGuideFirst.setAlpha(0.0f);
-                mGuideClicker.setAlpha(0.0f);
-                mGuideAttendance.setAlpha(3.0f - scrollOffset);
-                mGuideNotice.setAlpha(scrollOffset - 2.0f);
-                mGuideLast.setAlpha(0.0f);
+                mIntroductionFirst.setAlpha(0.0f);
+                mIntroductionClicker.setAlpha(0.0f);
+                mIntroductionAttendance.setAlpha(3.0f - scrollOffset);
+                mIntrodcutionCurious.setAlpha(scrollOffset - 2.0f);
+                mIntroductionNotice.setAlpha(0.0f);
+                mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
             }
 
             if (3 <= scrollOffset && scrollOffset < 4) {
-                mGuideFirst.setAlpha(0.0f);
-                mGuideClicker.setAlpha(0.0f);
-                mGuideAttendance.setAlpha(0.0f);
-                mGuideNotice.setAlpha(4.0f - scrollOffset);
-                mGuideLast.setAlpha(scrollOffset - 3.0f);
+                mIntroductionFirst.setAlpha(0.0f);
+                mIntroductionClicker.setAlpha(0.0f);
+                mIntroductionAttendance.setAlpha(0.0f);
+                mIntrodcutionCurious.setAlpha(4.0f - scrollOffset);
+                mIntroductionNotice.setAlpha(scrollOffset - 3.0f);
+                mIntroductionLast.setAlpha(0.0f);
+                mNextBt.setAlpha(1.0f);
+            }
+
+            if (4 <= scrollOffset && scrollOffset < 5) {
+                mIntroductionFirst.setAlpha(0.0f);
+                mIntroductionClicker.setAlpha(0.0f);
+                mIntroductionAttendance.setAlpha(0.0f);
+                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionNotice.setAlpha(5.0f - scrollOffset);
+                mIntroductionLast.setAlpha(scrollOffset - 4.0f);
                 mNextBt.setAlpha(4.0f - scrollOffset);
             }
 
-            if (4 <= scrollOffset) {
-                mGuideFirst.setAlpha(0.0f);
-                mGuideClicker.setAlpha(0.0f);
-                mGuideAttendance.setAlpha(0.0f);
-                mGuideNotice.setAlpha(0.0f);
-                mGuideLast.setAlpha(1.0f);
+            if (5 <= scrollOffset) {
+                mIntroductionFirst.setAlpha(0.0f);
+                mIntroductionClicker.setAlpha(0.0f);
+                mIntroductionAttendance.setAlpha(0.0f);
+                mIntrodcutionCurious.setAlpha(0.0f);
+                mIntroductionNotice.setAlpha(0.0f);
+                mIntroductionLast.setAlpha(1.0f);
                 mNextBt.setAlpha(0.0f);
             }
 
-            if (scrollOffset < 3.5) {
+            if (scrollOffset < 4.5) {
                 mCloseBt.setTextColor(getResources().getColor(R.color.bttendance_white));
                 mCircleIndicator.setPageColor(getResources().getColor(R.color.bttendance_white_50));
                 mCircleIndicator.setFillColor(getResources().getColor(R.color.bttendance_white_80));
@@ -175,11 +194,9 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
 
     @Override
     public void onPageSelected(int position) {
-
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 }

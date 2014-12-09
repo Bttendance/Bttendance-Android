@@ -2,7 +2,7 @@ package com.bttendance.model;
 
 import android.content.Context;
 
-import com.bttendance.R;
+import com.bttendance.BuildConfig;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 27..
@@ -19,7 +19,7 @@ public class BTUrl {
         String url = "http://www.bttd.co/tutorial/clicker?" +
                 "device_type=android" +
                 "&locale=" + locale +
-                "&app_version=" + context.getString(R.string.app_version);
+                "&app_version=" + BuildConfig.VERSION_NAME;
         return url;
     }
 
@@ -28,7 +28,7 @@ public class BTUrl {
         String url = "http://www.bttd.co/tutorial/attendance?" +
                 "device_type=android" +
                 "&locale=" + locale +
-                "&app_version=" + context.getString(R.string.app_version);
+                "&app_version=" + BuildConfig.VERSION_NAME;
         return url;
     }
 
@@ -37,7 +37,7 @@ public class BTUrl {
         String url = "http://www.bttd.co/tutorial/notice?" +
                 "device_type=android" +
                 "&locale=" + locale +
-                "&app_version=" + context.getString(R.string.app_version);
+                "&app_version=" + BuildConfig.VERSION_NAME;
         return url;
     }
 }

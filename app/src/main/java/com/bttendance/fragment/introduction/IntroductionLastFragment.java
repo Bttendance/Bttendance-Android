@@ -14,23 +14,27 @@ import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTPreference;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * Created by TheFinestArtist on 2014. 8. 13..
  */
 public class IntroductionLastFragment extends BTFragment {
 
+    @InjectView(R.id.introduction_last_bt1)
     Button mIntroductionBt1;
+    @InjectView(R.id.introduction_last_bt2)
     Button mIntroductionBt2;
     Boolean mHasOpenedCourse;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_introduction_last, container, false);
+        ButterKnife.inject(this, view);
+
         if (Build.VERSION.SDK_INT < 11)
             view.findViewById(R.id.introduction_last).setBackgroundColor(getResources().getColor(R.color.bttendance_white));
-
-        mIntroductionBt1 = (Button) view.findViewById(R.id.introduction_last_bt1);
-        mIntroductionBt2 = (Button) view.findViewById(R.id.introduction_last_bt2);
 
         mHasOpenedCourse = BTPreference.getUser(getActivity()).getOpenedCourses().length > 0;
         if (mHasOpenedCourse) {
@@ -45,7 +49,7 @@ public class IntroductionLastFragment extends BTFragment {
                 if (!mHasOpenedCourse) {
                     Intent intent = new Intent(getActivity(), CreateCourseActivity.class);
                     startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
+                    getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
                 }
             }
         });
@@ -56,7 +60,7 @@ public class IntroductionLastFragment extends BTFragment {
                 getActivity().onBackPressed();
                 Intent intent = new Intent(getActivity(), AttendCourseActivity.class);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
+                getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
             }
         });
 

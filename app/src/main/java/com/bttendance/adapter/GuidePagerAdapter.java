@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.introduction.IntroductionAttendanceFragment;
 import com.bttendance.fragment.introduction.IntroductionClickerFragment;
+import com.bttendance.fragment.introduction.IntroductionCuriousFragment;
 import com.bttendance.fragment.introduction.IntroductionFirstFragment;
 import com.bttendance.fragment.introduction.IntroductionLastFragment;
 import com.bttendance.fragment.introduction.IntroductionNoticeFragment;
@@ -20,12 +21,13 @@ public class GuidePagerAdapter extends FragmentPagerAdapter {
 
     public GuidePagerAdapter(FragmentManager fm) {
         super(fm);
-        mFragments = new BTFragment[5];
+        mFragments = new BTFragment[6];
         mFragments[0] = new IntroductionFirstFragment();
         mFragments[1] = new IntroductionClickerFragment();
         mFragments[2] = new IntroductionAttendanceFragment();
-        mFragments[3] = new IntroductionNoticeFragment();
-        mFragments[4] = new IntroductionLastFragment();
+        mFragments[3] = new IntroductionCuriousFragment();
+        mFragments[4] = new IntroductionNoticeFragment();
+        mFragments[5] = new IntroductionLastFragment();
     }
 
     @Override
