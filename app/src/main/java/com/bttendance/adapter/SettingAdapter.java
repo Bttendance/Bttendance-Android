@@ -1,6 +1,7 @@
 package com.bttendance.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,6 @@ import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.UserJson;
-
-import org.jraf.android.backport.switchwidget.Switch;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
@@ -54,7 +53,7 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
                 TextView text = (TextView) convertView.findViewById(R.id.setting_text);
                 text.setText(getContext().getString(R.string.attendance_notification));
-                Switch noti = (Switch) convertView.findViewById(R.id.setting_noti);
+                SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
                 if (user.setting != null)
                     noti.setChecked(user.setting.attendance);
                 break;
@@ -63,7 +62,7 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
                 TextView text = (TextView) convertView.findViewById(R.id.setting_text);
                 text.setText(getContext().getString(R.string.clicker_notification));
-                Switch noti = (Switch) convertView.findViewById(R.id.setting_noti);
+                SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
                 if (user.setting != null)
                     noti.setChecked(user.setting.clicker);
                 break;
@@ -72,7 +71,7 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
                 TextView text = (TextView) convertView.findViewById(R.id.setting_text);
                 text.setText(getContext().getString(R.string.notice_notification));
-                Switch noti = (Switch) convertView.findViewById(R.id.setting_noti);
+                SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
                 if (user.setting != null)
                     noti.setChecked(user.setting.notice);
                 break;
@@ -127,7 +126,7 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
 
         if (convertView != null && convertView.findViewById(R.id.setting_noti) != null) {
             final View finalConvertView = convertView;
-            ((Switch) convertView.findViewById(R.id.setting_noti)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            ((SwitchCompat) convertView.findViewById(R.id.setting_noti)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     ((ListView) parent).performItemClick(finalConvertView, position, 0);

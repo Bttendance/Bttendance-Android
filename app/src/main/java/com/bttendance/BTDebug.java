@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 public class BTDebug {
 
-    public static final boolean DEBUG = false;
     public static final String TAG_BTTENDANCE = "BTTENDANCE";
     public static final String TAG_API = "API";
 
@@ -14,7 +13,7 @@ public class BTDebug {
     }
 
     public static void LogError(String log) {
-        if (DEBUG) {
+        if (BuildConfig.DEBUG) {
             if (log != null)
                 Log.e(TAG_BTTENDANCE, log);
             else
@@ -23,7 +22,7 @@ public class BTDebug {
     }
 
     public static void LogDebug(String log) {
-        if (DEBUG)
+        if (BuildConfig.DEBUG)
             if (log != null)
                 Log.d(TAG_BTTENDANCE, log);
             else
@@ -31,7 +30,7 @@ public class BTDebug {
     }
 
     public static void LogDebug(String tag, String log) {
-        if (DEBUG)
+        if (BuildConfig.DEBUG)
             if (log != null)
                 Log.d(tag, log);
             else
@@ -39,7 +38,7 @@ public class BTDebug {
     }
 
     public static void LogInfo(String log) {
-        if (DEBUG)
+        if (BuildConfig.DEBUG)
             if (log != null)
                 Log.i(TAG_BTTENDANCE, log);
             else
@@ -47,7 +46,7 @@ public class BTDebug {
     }
 
     public static void LogVerbose(String log) {
-        if (DEBUG)
+        if (BuildConfig.DEBUG)
             if (log != null)
                 Log.v(TAG_BTTENDANCE, log);
             else
@@ -55,7 +54,7 @@ public class BTDebug {
     }
 
     public static void LogQueryAPI(String log) {
-        if (DEBUG)
+        if (BuildConfig.DEBUG)
             if (log != null)
                 Log.i(TAG_API, log);
             else
@@ -63,7 +62,7 @@ public class BTDebug {
     }
 
     public static void LogResponseAPI(String log) {
-        if (DEBUG)
+        if (BuildConfig.DEBUG)
             if (log != null)
                 Log.v(TAG_API, log);
             else
@@ -71,7 +70,7 @@ public class BTDebug {
     }
 
     public static void Toast(Context context, String log) {
-        if (DEBUG)
+        if (BuildConfig.DEBUG)
             if (log != null)
                 Toast.makeText(context, log, Toast.LENGTH_SHORT).show();
             else

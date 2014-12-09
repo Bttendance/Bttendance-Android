@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="47dp"
-    android:minHeight="47dp"
-    android:background="@color/bttendance_white">
+    android:background="@color/bttendance_white"
+    android:minHeight="47dp">
 
     <TextView
+        android:id="@+id/setting_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/bttendance_silver"
-        android:text="Attendance Notification"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="14dp"
         android:paddingBottom="2dp"
-        android:textSize="14sp"
-        android:id="@+id/setting_text" />
+        android:text="Attendance Notification"
+        android:textColor="@color/bttendance_silver"
+        android:textSize="14sp" />
 
-    <org.jraf.android.backport.switchwidget.Switch
+    <SwitchCompat
+        android:id="@+id/setting_noti"
         android:layout_width="60dp"
         android:layout_height="28dp"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="14dp"
-        android:id="@+id/setting_noti"/>
+        android:layout_centerVertical="true"
+        android:layout_marginRight="14dp" />
 
     <View
         android:layout_width="match_parent"

@@ -106,10 +106,6 @@
     <string name="blog">비텐던스 공식 블로그</string>
     <string name="facebook">비텐던스 페이스북 페이지</string>
 
-    <string name="summary_on">The preference is on</string>
-    <string name="summary_off">The preference is off</string>
-    <string name="switch_on">ON</string>
-    <string name="switch_off"> </string>
     <string name="next">다음</string>
     <string name="guide_first_welcome">환영합니다!</string>
     <string name="guide_first_message">지금부터 BTTENDANCE를\n어떻게 사용하실 수 있는지\n소개할게요.</string>

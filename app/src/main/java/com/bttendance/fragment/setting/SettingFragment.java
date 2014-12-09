@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,8 +23,6 @@ import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.helper.PackagesHelper;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
-
-import org.jraf.android.backport.switchwidget.Switch;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -101,15 +100,15 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
         switch (mAdapter.getItem(position).getType()) {
             case Attendance:
                 if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
-                    getBTService().updateSettingAttendance(((Switch) view.findViewById(R.id.setting_noti)).isChecked(), null);
+                    getBTService().updateSettingAttendance(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
                 break;
             case Clicker:
                 if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
-                    getBTService().updateSettingClicker(((Switch) view.findViewById(R.id.setting_noti)).isChecked(), null);
+                    getBTService().updateSettingClicker(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
                 break;
             case Notice:
                 if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
-                    getBTService().updateSettingNotice(((Switch) view.findViewById(R.id.setting_noti)).isChecked(), null);
+                    getBTService().updateSettingNotice(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
                 break;
             case PushInfo:
                 break;

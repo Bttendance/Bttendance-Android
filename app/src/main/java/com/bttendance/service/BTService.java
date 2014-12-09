@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.IBinder;
 
 import com.bttendance.BTDebug;
+import com.bttendance.BuildConfig;
 import com.bttendance.R;
 import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.event.attendance.AttdStartedEvent;
@@ -96,7 +97,7 @@ public class BTService extends Service {
     private int mReconnectTry = 0;
 
     public static String getServerDomain() {
-        if (!BTDebug.DEBUG)
+        if (!BuildConfig.DEBUG)
             return SERVER_DOMAIN_PRODUCTION;
         else
             return SERVER_DOMAIN_DEVELOPMENT;
