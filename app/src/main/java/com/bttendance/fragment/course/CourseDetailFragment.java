@@ -178,6 +178,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             }
         });
 
+        mSwipeRefresh.setProgressBackgroundColor(R.color.bttendance_grey);
         mSwipeRefresh.setColorSchemeResources(R.color.bttendance_c, R.color.bttendance_b, R.color.bttendance_d, R.color.bttendance_a);
 
         mListView = (ListView) view.findViewById(android.R.id.list);

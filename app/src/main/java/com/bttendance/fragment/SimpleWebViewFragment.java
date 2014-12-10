@@ -16,19 +16,17 @@
 
 package com.bttendance.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -40,22 +38,23 @@ import android.webkit.WebSettings.ZoomDensity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.bttendance.R;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class SimpleWebViewFragment extends BTFragment {
 
     public static final String EXTRA_URL = "url";
-
     private String mUrl = null;
 
-    private FrameLayout mView = null;
-    private WebView mWebview = null;
-    private ProgressBar mPbar = null;
-
-    private MenuItem mRefresh;
+    @InjectView(R.id.swipe_container)
+    SwipeRefreshLayout mSwipeRefresh;
+    @InjectView(R.id.web_view)
+    FrameLayout mView;
+    WebView mWebview;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,24 +66,21 @@ public class SimpleWebViewFragment extends BTFragment {
             mUrl = "http://" + mUrl;
     }
 
-    @SuppressLint({
-            "SetJavaScriptEnabled", "NewApi"
-    })
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.web_view, container, false);
+        ButterKnife.inject(this, view);
 
-        mPbar = (ProgressBar) view.findViewById(R.id.web_view_progress);
+        mSwipeRefresh.setProgressBackgroundColor(R.color.bttendance_grey);
+        mSwipeRefresh.setColorSchemeResources(R.color.bttendance_c, R.color.bttendance_b, R.color.bttendance_d, R.color.bttendance_a);
+        mSwipeRefresh.requestDisallowInterceptTouchEvent(true);
 
-        mView = (FrameLayout) view.findViewById(R.id.web_view);
-        mView.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT));
+        mView.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         mWebview = new WebView(getActivity());
+        mWebview.requestDisallowInterceptTouchEvent(true);
         mWebview.setVisibility(View.GONE);
-        mWebview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT));
+        mWebview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         if (mUrl != null) {
             mWebview.setWebViewClient(new MyWebViewClient());
             mWebview.setWebChromeClient(new MyWebChromeClient());
@@ -120,23 +116,20 @@ public class SimpleWebViewFragment extends BTFragment {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(getString(R.string.app_name_capital));
-
-        inflater.inflate(R.menu.webview_menu, menu);
-        mRefresh = menu.findItem(R.id.refresh_option_item);
-        MenuItemCompat.setActionView(mRefresh, R.layout.loading_menu);
     }
 
     public class MyWebChromeClient extends WebChromeClient {
 
         @Override
         public void onProgressChanged(WebView view, int progress) {
-            if (progress < 100 && mPbar.getVisibility() == ProgressBar.GONE)
-                mPbar.setVisibility(ProgressBar.VISIBLE);
-            mPbar.setProgress(progress);
+            if (progress < 100) {
+                mSwipeRefresh.setRefreshing(true);
+                mSwipeRefresh.setVisibility(View.VISIBLE);
+            }
 
             if (progress == 100) {
-                mPbar.setVisibility(ProgressBar.GONE);
-                MenuItemCompat.setActionView(mRefresh, null);
+                mSwipeRefresh.setRefreshing(false);
+                mSwipeRefresh.setVisibility(View.GONE);
             }
         }
     }

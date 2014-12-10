@@ -255,7 +255,6 @@
     <string name="delete_question">질문 삭제하기</string>
     <string name="delete_question_message">정말 이 질문을 삭제하길 원하시나요?</string>
     <string name="deleting_question">질문을 삭제하는 중</string>
-    <string name="refresh">새로고침</string>
     <string name="clicker_option">설문 옵션</string>
     <string name="clicker_default_option">설문 기본 옵션</string>
 

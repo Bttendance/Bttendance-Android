@@ -256,7 +256,6 @@
     <string name="delete_question">Delete Question</string>
     <string name="delete_question_message">Do you want to delete current question?</string>
     <string name="deleting_question">Deleting Question</string>
-    <string name="refresh">Refresh</string>
     <string name="clicker_option">Clicker Option</string>
     <string name="clicker_default_option">Default Clicker Option</string>
 
