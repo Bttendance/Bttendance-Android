@@ -10,20 +10,21 @@
 
     <string name="full_name">이름</string>
     <string name="email">이메일</string>
-    <string name="password">"비밀번호"</string>
-    <string name="password_at_least">"비밀번호 (6자 이상이어야 합니다.)"</string>
-    <string name="by_tapping_i_agree_to_the">"\"가입하기\" 버튼을 누르는 것과 동시에 동의하신 것으로 간주됩니다."</string>
-    <string name="terms_of_service">"이용 약관"</string>
-    <string name="privacy_policy">"개인정보 처리방침"</string>
-    <string name="forgot_password_underline">"<u>비밀번호를 잊어버리셨나요?</u>"</string>
-    <string name="log_in">"로그인"</string>
-    <string name="sign_up">"가입하기"</string>
-    <string name="professor">"강의자명"</string>
-    <string name="professor_capital">"강의자"</string>
-    <string name="student_capital">"학생"</string>
-    <string name="cancel">"취소"</string>
-    <string name="enter">"입력"</string>
-    <string name="please_press_back_button_again_to_exit_">"뒤로가기 버튼을 한번 더 누르시면 앱이 종료됩니다."</string>
+    <string name="password">비밀번호</string>
+    <string name="password_at_least">비밀번호 (6자 이상이어야 합니다.)</string>
+    <string name="by_tapping_i_agree_to_the_start">"\"가입하기\" 버튼을 누르는 것과 동시에 "</string>
+    <string name="terms_of_service">이용 약관</string>
+    <string name="_and_">"과 "</string>
+    <string name="privacy_policy">개인정보 처리방침</string>
+    <string name="by_tapping_i_agree_to_the_end">"에 동의하신 것으로 간주됩니다."</string>
+    <string name="forgot_password_underline"><u>비밀번호를 잊어버리셨나요?</u></string>
+    <string name="log_in">로그인</string>
+    <string name="sign_up">가입하기</string>
+    <string name="professor">강의자명</string>
+    <string name="professor_capital">강의자</string>
+    <string name="student_capital">학생</string>
+    <string name="cancel">취소</string>
+    <string name="enter">입력</string>
     <string name="profile">"프로필"</string>
     <string name="school">"기관"</string>
     <string name="create_course">"강의 개설하기"</string>
@@ -254,7 +255,7 @@
     <string name="delete_question">질문 삭제하기</string>
     <string name="delete_question_message">정말 이 질문을 삭제하길 원하시나요?</string>
     <string name="deleting_question">질문을 삭제하는 중</string>
-    <string name="refresh"></string>
+    <string name="refresh">새로고침</string>
     <string name="clicker_option">설문 옵션</string>
     <string name="clicker_default_option">설문 기본 옵션</string>
 

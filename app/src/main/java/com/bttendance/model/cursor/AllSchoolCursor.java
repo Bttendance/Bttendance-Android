@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.MatrixCursor;
 import android.util.SparseArray;
 
-import com.bttendance.BTDebug;
 import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.SparseArrayHelper;
 import com.bttendance.model.BTPreference;

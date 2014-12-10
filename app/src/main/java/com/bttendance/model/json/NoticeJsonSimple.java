@@ -1,9 +1,5 @@
 package com.bttendance.model.json;
 
-import com.bttendance.helper.DateHelper;
-
-import java.util.Date;
-
 /**
  * Created by TheFinestArtist on 2014. 5. 11..
  */

@@ -1,4 +1,3 @@
-
 package com.squareup.otto;
 
 import android.os.Handler;
@@ -14,7 +13,7 @@ public class BTEventBus extends Bus {
         super(enforcer);
     }
 
-    public static final BTEventBus getInstance() {
+    public static BTEventBus getInstance() {
         return mBus;
     }
 

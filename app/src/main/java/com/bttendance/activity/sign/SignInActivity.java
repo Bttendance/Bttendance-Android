@@ -1,17 +1,17 @@
 package com.bttendance.activity.sign;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import android.support.v7.app.ActionBar;
-import android.view.Menu;
-import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.AddFragmentEvent;
@@ -23,6 +23,8 @@ import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -33,12 +35,21 @@ import retrofit.client.Response;
 
 public class SignInActivity extends BTActivity {
 
-    private EditText mUsername = null;
-    private EditText mPassword = null;
-    private View mUsernameDiv = null;
-    private View mPasswordDiv = null;
-    private Button mSignIn = null;
-    private Button mForgetPwd = null;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.username)
+    EditText mUsername;
+    @InjectView(R.id.password)
+    EditText mPassword;
+    @InjectView(R.id.username_divider)
+    View mUsernameDiv;
+    @InjectView(R.id.password_divider)
+    View mPasswordDiv;
+    @InjectView(R.id.signin)
+    Button mSignIn;
+    @InjectView(R.id.forget_pwd)
+    Button mForgetPwd;
+
     private int mUsernameCount = 0;
     private int mPasswordCount = 0;
     private String mUsernameString = null;
@@ -48,14 +59,8 @@ public class SignInActivity extends BTActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        ButterKnife.inject(this);
         setSupportActionBar(toolbar);
-
-        mUsername = (EditText) findViewById(R.id.username);
-        mPassword = (EditText) findViewById(R.id.password);
-        mUsernameDiv = findViewById(R.id.username_divider);
-        mPasswordDiv = findViewById(R.id.password_divider);
 
         mUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -112,7 +117,6 @@ public class SignInActivity extends BTActivity {
             }
         });
 
-        mSignIn = (Button) findViewById(R.id.signin);
         mSignIn.setEnabled(false);
         mSignIn.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSignIn.setOnTouchListener(new View.OnTouchListener() {
@@ -138,7 +142,6 @@ public class SignInActivity extends BTActivity {
             }
         });
 
-        mForgetPwd = (Button) findViewById(R.id.forget_pwd);
         mForgetPwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

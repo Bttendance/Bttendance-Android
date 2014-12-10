@@ -2,6 +2,7 @@ package com.bttendance.activity.sign;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
 import android.text.SpannableString;
@@ -32,23 +33,36 @@ import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTAPI;
 import com.squareup.otto.BTEventBus;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class SignUpActivity extends BTActivity {
 
-    private EditText mFullName = null;
-    private EditText mEmail = null;
-    private EditText mPassword = null;
-    private View mFullNameDiv = null;
-    private View mEmailDiv = null;
-    private View mPasswordDiv = null;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.full_name)
+    EditText mFullName;
+    @InjectView(R.id.email)
+    EditText mEmail;
+    @InjectView(R.id.password)
+    EditText mPassword;
+    @InjectView(R.id.full_name_divider)
+    View mFullNameDiv;
+    @InjectView(R.id.email_divider)
+    View mEmailDiv;
+    @InjectView(R.id.password_divider)
+    View mPasswordDiv;
+    @InjectView(R.id.signup)
+    Button mSignUp;
+    @InjectView(R.id.term_of_use)
+    TextView mTermOfUse;
+
     private int mFullNameCount = 0;
     private int mEmailCount = 0;
     private int mPasswordCount = 0;
-    private Button mSignUp = null;
-    private TextView mTermOfUse = null;
     private String mFullNameString = null;
     private String mEmailString = null;
     private String mPasswordString = null;
@@ -57,14 +71,8 @@ public class SignUpActivity extends BTActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        getSupportActionBar().setTitle(getString(R.string.sign_up));
-
-        mFullName = (EditText) findViewById(R.id.full_name);
-        mEmail = (EditText) findViewById(R.id.email);
-        mPassword = (EditText) findViewById(R.id.password);
-        mFullNameDiv = findViewById(R.id.full_name_divider);
-        mEmailDiv = findViewById(R.id.email_divider);
-        mPasswordDiv = findViewById(R.id.password_divider);
+        ButterKnife.inject(this);
+        setSupportActionBar(toolbar);
 
         mFullName.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
@@ -151,7 +159,6 @@ public class SignUpActivity extends BTActivity {
             }
         });
 
-        mSignUp = (Button) findViewById(R.id.signup);
         mSignUp.setEnabled(false);
         mSignUp.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSignUp.setOnTouchListener(new View.OnTouchListener() {
@@ -197,7 +204,7 @@ public class SignUpActivity extends BTActivity {
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
 
-        String string_format = getString(R.string.by_tapping_i_agree_to_the);
+        String string_format = getString(R.string.by_tapping_i_agree_to_the_start);
         SpannableString SpannableFormat = new SpannableString(string_format);
         builder.append(SpannableFormat);
 
@@ -207,31 +214,27 @@ public class SignUpActivity extends BTActivity {
 
         String locale = getResources().getConfiguration().locale.getLanguage();
         if ("ko".equals(locale))
-            term_and_condition_html = "<a href=\"" + BTUrl.TERMS_KR + "\">"
-                    + term_and_condition + "</a>";
+            term_and_condition_html = "<a href=\"" + BTUrl.TERMS_KR + "\">" + term_and_condition + "</a>";
 
         SpannableString SpannableTermHTML = new SpannableString(Html.fromHtml(term_and_condition_html));
         SpannableTermHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, term_and_condition.length(), 0);
         builder.append(SpannableTermHTML);
 
-        SpannableString SpannableAnd = new SpannableString(" and ");
+        SpannableString SpannableAnd = new SpannableString(getString(R.string._and_));
         builder.append(SpannableAnd);
 
         String privacy_policy = getString(R.string.privacy_policy);
-        String privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY_EN + "\">"
-                + privacy_policy + "</a>";
+        String privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY_EN + "\">" + privacy_policy + "</a>";
         if ("ko".equals(locale))
-            privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY_KR + "\">"
-                    + privacy_policy + "</a>";
+            privacy_policy_html = "<a href=\"" + BTUrl.PRIVACY_KR + "\">" + privacy_policy + "</a>";
 
         SpannableString SpannablePrivacyHTML = new SpannableString(Html.fromHtml(privacy_policy_html));
         SpannablePrivacyHTML.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bttendance_navy)), 0, privacy_policy.length(), 0);
         builder.append(SpannablePrivacyHTML);
 
-        SpannableString SpannableComma = new SpannableString(".");
+        SpannableString SpannableComma = new SpannableString(getString(R.string.by_tapping_i_agree_to_the_end));
         builder.append(SpannableComma);
 
-        mTermOfUse = (TextView) findViewById(R.id.term_of_use);
         mTermOfUse.setText(builder, TextView.BufferType.SPANNABLE);
         mTermOfUse.setMovementMethod(LinkMovementMethod.getInstance());
     }

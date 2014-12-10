@@ -14,13 +14,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.bttendance.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
         android:name="com.bttendance.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.bttendance.permission.C2D_MESSAGE" />
 
     <application
         android:name="com.bttendance.BTApplication"
@@ -67,7 +67,7 @@
             android:name=".activity.guide.GuideActivity"
             android:label="@string/tutorial"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign" />
+            android:theme="@style/Theme.Bttendance.Whiten" />
 
         <activity
             android:name=".activity.course.AddCourseActivity"
@@ -79,26 +79,26 @@
             android:name="com.bttendance.activity.course.CreateCourseActivity"
             android:label="@string/create_course"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign" />
+            android:theme="@style/Theme.Bttendance.Whiten" />
 
         <activity
             android:name="com.bttendance.activity.course.AttendCourseActivity"
             android:label="@string/attend_course"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign" />
+            android:theme="@style/Theme.Bttendance.Whiten" />
 
         <activity
             android:name="com.bttendance.activity.sign.SignInActivity"
             android:label="@string/log_in"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign"
+            android:theme="@style/Theme.Bttendance.Whiten"
             android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity
             android:name="com.bttendance.activity.sign.SignUpActivity"
             android:label="@string/sign_up"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.Sign"
+            android:theme="@style/Theme.Bttendance.Whiten"
             android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity

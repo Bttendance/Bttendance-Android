@@ -276,7 +276,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 config.identifyUser(user.email, user.full_name, user.email);
                 UserVoice.init(config, this);
                 UserVoice.launchPostIdea(this);
-                overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
+                overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.fade_out_slow);
                 break;
             case Course:
                 fragment = new CourseDetailFragment();

@@ -14,7 +14,6 @@ import android.support.v4.app.NotificationCompat;
 
 import com.bttendance.BTDebug;
 import com.bttendance.R;
-import com.bttendance.activity.MainActivity;
 import com.bttendance.event.notification.NotificationReceived;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.model.BTKey;

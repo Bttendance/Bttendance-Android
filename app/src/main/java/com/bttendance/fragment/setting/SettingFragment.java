@@ -2,6 +2,7 @@ package com.bttendance.fragment.setting;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -191,7 +192,10 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
 
         if (PackagesHelper.isInstalled(getActivity(), PackagesHelper.FACEBOOK)) {
             Intent facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookScheme));
-            facebookIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                facebookIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+            else
+                facebookIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
             startActivity(facebookIntent);
         } else {
             SimpleWebViewFragment frag = new SimpleWebViewFragment();

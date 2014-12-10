@@ -311,7 +311,7 @@ public class CreateCourseActivity extends BTActivity {
             KeyboardHelper.show(this, mName);
         } else {
             super.onBackPressed();
-            overridePendingTransition(R.anim.no_anim, R.anim.slide_out_down);
+            overridePendingTransition(R.anim.no_anim, R.anim.modal_activity_close_exit);
         }
     }
 

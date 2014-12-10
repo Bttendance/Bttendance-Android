@@ -17,7 +17,6 @@ import com.bttendance.event.dialog.ShowContextDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.event.main.ResetMainFragmentEvent;
 import com.bttendance.event.notification.NotificationReceived;
-import com.bttendance.event.socket.ClickerUpdatedEvent;
 import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
@@ -225,10 +224,10 @@ public class BTEventDispatcher {
                 BTFragment frag = event.getFragment();
                 FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
                 ft.setCustomAnimations(
-                        R.anim.slide_in_right,
-                        R.anim.slide_out_left,
-                        R.anim.slide_in_left,
-                        R.anim.slide_out_right);
+                        R.anim.activity_open_enter,
+                        R.anim.activity_open_exit,
+                        R.anim.activity_close_enter,
+                        R.anim.activity_close_exit);
                 ft.add(R.id.content, frag, ((Object) frag).getClass().getSimpleName());
                 ft.addToBackStack(((Object) frag).getClass().getSimpleName());
                 ft.commitAllowingStateLoss();

@@ -3,20 +3,19 @@ package com.bttendance.fragment.notice;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import android.support.v7.app.ActionBar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
@@ -26,7 +25,6 @@ import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.PostJson;
-import com.bttendance.view.IndexableListView;
 import com.squareup.otto.BTEventBus;
 
 import butterknife.ButterKnife;
@@ -42,7 +40,8 @@ public class NoticePostFragment extends BTFragment {
 
     private int mCourseID;
     private EditText mMessage;
-    @InjectView(R.id.notice_error) View mError;
+    @InjectView(R.id.notice_error)
+    View mError;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

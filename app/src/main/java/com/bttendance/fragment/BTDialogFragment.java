@@ -14,7 +14,6 @@ import com.bttendance.R;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTKey;
-import com.bttendance.model.BTTable;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 20..

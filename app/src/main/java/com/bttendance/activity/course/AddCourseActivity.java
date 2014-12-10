@@ -37,14 +37,14 @@ public class AddCourseActivity extends BTActivity {
                     onBackPressed();
                     Intent intent = new Intent(AddCourseActivity.this, CreateCourseActivity.class);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
+                    overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.fade_out_slow);
                 }
 
                 if (getString(R.string.attend_course).equals(edit)) {
                     onBackPressed();
                     Intent intent = new Intent(AddCourseActivity.this, AttendCourseActivity.class);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_up, R.anim.fade_out_slow);
+                    overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.fade_out_slow);
                 }
             }
 

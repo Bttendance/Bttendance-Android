@@ -3,13 +3,10 @@ package com.bttendance.model.json;
 import android.content.Context;
 
 import com.bttendance.R;
-import com.bttendance.helper.DateHelper;
 
 import org.achartengine.model.CategorySeries;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
-
-import java.util.Date;
 
 /**
  * Created by TheFinestArtist on 2014. 5. 11..
@@ -173,9 +170,9 @@ public class ClickerJsonSimple extends BTJson {
         series.add("A", 1);
         series.add("B", 1);
         if (choice_count > 2)
-        series.add("C", 1);
+            series.add("C", 1);
         if (choice_count > 3)
-        series.add("D", 1);
+            series.add("D", 1);
         if (choice_count > 4)
             series.add("E", 1);
         return series;

@@ -2,23 +2,31 @@ package com.bttendance.activity.guide;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.fragment.SimpleWebViewFragment;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * Created by TheFinestArtist on 2014. 08. 14..
  */
 public class GuideActivity extends BTActivity {
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
     String mUrl = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tutorial);
+        setContentView(R.layout.activity_guide);
+        ButterKnife.inject(this);
+        setSupportActionBar(toolbar);
 
         mUrl = getIntent().getStringExtra(SimpleWebViewFragment.EXTRA_URL);
 
