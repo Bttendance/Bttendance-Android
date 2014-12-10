@@ -1,13 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.AppCompat.Light.NoActionBar.Translucent" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
+
     <style name="Theme.AppCompat.Light.NoActionBar" parent="@style/Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="Theme.Bttendance" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarStyle">@style/ActionBar.Solid.Bttendance</item>
+        <item name="actionButtonStyle">@style/ActionBarButton.Solid.Bttendance</item>
+        <item name="android:windowBackground">@color/bttendance_grey</item>
+        <item name="homeAsUpIndicator">@drawable/nav_back</item>
+        <item name="actionMenuTextColor">@color/bttendance_white</item>
+
+        <item name="colorPrimary">@color/bttendance_navy</item>
+        <item name="colorPrimaryDark">@color/bttendance_navy_darken</item>
+        <item name="colorAccent">@color/bttendance_cyan</item>
+        <item name="android:textColorPrimary">@color/bttendance_white</item>
+    </style>
+
+    <style name="Theme.Bttendance.Sign" parent="@style/Theme.Bttendance">
+        <item name="actionBarStyle">@style/ActionBar.Solid.Bttendance.Sign</item>
+        <item name="android:windowBackground">@color/bttendance_white</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="ActionBar.Solid.Bttendance" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@color/bttendance_navy</item>
+        <item name="titleTextStyle">@style/ActionBar.TitleTextStyle</item>
+        <item name="displayOptions">disableHome|showTitle</item>
+    </style>
+
+    <style name="ActionBarButton.Solid.Bttendance" parent="Widget.AppCompat.Light.ActionButton">
+        <item name="android:minWidth">46dip</item>
+        <item name="android:paddingRight">0dip</item>
+        <item name="android:paddingLeft">0dip</item>
+    </style>
+
+    <style name="ActionBar.Solid.Bttendance.Sign" parent="@style/ActionBar.Solid.Bttendance">
+        <item name="displayOptions">homeAsUp|showTitle</item>
+    </style>
+
+    <style name="ActionBar.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/bttendance_white</item>
+    </style>
+
 </resources>

@@ -155,7 +155,7 @@ public class SimpleWebViewFragment extends BTFragment {
             view.startAnimation(fade);
             view.setVisibility(View.VISIBLE);
 
-            if (((ActionBarActivity) getActivity()) != null) {
+            if (getActivity() != null) {
                 ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
                 if (view.getTitle() != null && view.getTitle().length() != 0)
                     actionBar.setTitle(view.getTitle());

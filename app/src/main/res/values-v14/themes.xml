@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Bttendance" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Bttendance</item>
+        <item name="android:actionButtonStyle">@style/ActionBarButton.Solid.Bttendance</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/bttendance_grey</item>
+        <item name="android:homeAsUpIndicator">@drawable/nav_back</item>
+        <item name="android:actionMenuTextColor">@color/bttendance_white</item>
+    </style>
+
+    <style name="Theme.Bttendance.Sign" parent="@style/Theme.Bttendance">
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Bttendance.Sign</item>
+        <item name="android:windowBackground">@color/bttendance_white</item>
+    </style>
+
+    <style name="ActionBar.Solid.Bttendance" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/bttendance_navy</item>
+        <item name="android:titleTextStyle">@style/ActionBar.TitleTextStyle</item>
+        <item name="android:displayOptions">disableHome|showTitle</item>
+    </style>
+
+    <style name="ActionBarButton.Solid.Bttendance" parent="Widget.AppCompat.Light.ActionButton">
+        <item name="android:minWidth">46dip</item>
+        <item name="android:paddingRight">0dip</item>
+        <item name="android:paddingLeft">0dip</item>
+    </style>
+
+    <style name="ActionBar.Solid.Bttendance.Sign" parent="@style/ActionBar.Solid.Bttendance">
+        <item name="android:displayOptions">homeAsUp|showTitle</item>
+    </style>
+
+</resources>

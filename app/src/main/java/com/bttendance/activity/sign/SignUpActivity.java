@@ -1,6 +1,7 @@
 package com.bttendance.activity.sign;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.Html;
 import android.text.SpannableString;
@@ -8,6 +9,8 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -15,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.dialog.HideProgressDialogEvent;
@@ -23,10 +25,11 @@ import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.helper.KeyboardHelper;
+import com.bttendance.model.BTUrl;
 import com.bttendance.model.json.DeviceJsonSimple;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.BTAPI;
-import com.bttendance.model.BTUrl;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
@@ -319,9 +322,18 @@ public class SignUpActivity extends BTActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getString(R.string.sign_up));
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        KeyboardHelper.show(this, mFullName);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_right);
+        overridePendingTransition(R.anim.modal_activity_close_enter, R.anim.modal_activity_close_exit);
     }
 
 }// end of class

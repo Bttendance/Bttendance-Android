@@ -1,6 +1,7 @@
 package com.bttendance.activity.sign;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
@@ -47,6 +48,9 @@ public class SignInActivity extends BTActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        setSupportActionBar(toolbar);
 
         mUsername = (EditText) findViewById(R.id.username);
         mPassword = (EditText) findViewById(R.id.password);
@@ -229,6 +233,6 @@ public class SignInActivity extends BTActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_right);
+        overridePendingTransition(R.anim.modal_activity_close_enter, R.anim.modal_activity_close_exit);
     }
 }// end of class

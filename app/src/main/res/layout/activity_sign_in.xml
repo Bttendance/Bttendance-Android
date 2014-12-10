@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:background="@color/bttendance_grey">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,11 +20,11 @@
 
         <RelativeLayout
             android:id="@+id/text_box"
-            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_marginRight="8dp">
 
             <TextView
                 android:id="@+id/username_text"
@@ -42,9 +49,9 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/text_box"
             android:hint="@string/john_at_bttendance_dot_com"
-            android:textColorHint="@color/grey_hex_aa"
             android:inputType="text|textEmailAddress"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textColorHint="@color/grey_hex_aa" />
 
         <View
             android:id="@+id/username_divider"

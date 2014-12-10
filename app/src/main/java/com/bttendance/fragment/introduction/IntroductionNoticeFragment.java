@@ -15,25 +15,32 @@ import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.model.BTUrl;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * Created by TheFinestArtist on 2014. 8. 13..
  */
 public class IntroductionNoticeFragment extends BTFragment {
 
+    @InjectView(R.id.see_more)
     Button mSeeMore;
+    @InjectView(R.id.introduction_notice)
+    ImageView mImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_introduction_notice, container, false);
-        if (Build.VERSION.SDK_INT < 11)
-            ((ImageView) view.findViewById(R.id.introduction_notice)).setImageResource(R.drawable.notice_bg);
+        ButterKnife.inject(this, view);
 
-        mSeeMore = (Button) view.findViewById(R.id.see_more);
+        if (Build.VERSION.SDK_INT < 11)
+            mImage.setImageResource(R.drawable.notice_bg);
+
         mSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), GuideActivity.class);
-                intent.putExtra(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialNotice(getActivity()));
+                intent.putExtra(SimpleWebViewFragment.EXTRA_URL, BTUrl.getGuideNotice(getActivity()));
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
             }

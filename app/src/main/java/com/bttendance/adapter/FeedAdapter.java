@@ -580,7 +580,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                         case GUIDE_CLICKER: {
                             SimpleWebViewFragment fragment = new SimpleWebViewFragment();
                             Bundle bundle = new Bundle();
-                            bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialClicker(mContext));
+                            bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getGuideClicker(mContext));
                             fragment.setArguments(bundle);
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                             break;
@@ -588,7 +588,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                         case GUIDE_ATTENDANCE: {
                             SimpleWebViewFragment fragment = new SimpleWebViewFragment();
                             Bundle bundle = new Bundle();
-                            bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialAttendance(mContext));
+                            bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getGuideAttendance(mContext));
                             fragment.setArguments(bundle);
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                             break;
@@ -596,7 +596,7 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                         case GUIDE_NOTICE: {
                             SimpleWebViewFragment fragment = new SimpleWebViewFragment();
                             Bundle bundle = new Bundle();
-                            bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getTutorialNotice(mContext));
+                            bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getGuideNotice(mContext));
                             fragment.setArguments(bundle);
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                             break;
