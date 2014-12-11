@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:id="@+id/introduction_last" />
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,23 +11,23 @@
         android:paddingBottom="200dp">
 
         <ImageView
+            android:id="@+id/start_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="center"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/start_icon"
-            android:id="@+id/start_icon" />
+            android:scaleType="center"
+            android:src="@drawable/start_icon" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/start_icon"
             android:layout_marginTop="30dp"
-            android:textColor="@color/bttendance_black"
             android:gravity="center"
-            android:textSize="28sp"
             android:lineSpacingExtra="8dp"
-            android:text="@string/introduction_last_start" />
+            android:text="@string/introduction_last_start"
+            android:textColor="@color/bttendance_black"
+            android:textSize="28sp" />
 
     </RelativeLayout>
 
@@ -42,27 +36,27 @@
         android:layout_height="110dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="75dp"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <Button
+            android:id="@+id/introduction_last_bt1"
             android:layout_width="140dp"
             android:layout_height="48dp"
-            android:background="@drawable/bt_cyan_background"
-            android:textColor="@color/bttendance_white"
-            android:text="@string/create_course"
-            android:textSize="18sp"
             android:layout_marginBottom="14dp"
-            android:id="@+id/introduction_last_bt1" />
+            android:background="@drawable/bt_cyan_background"
+            android:text="@string/create_course"
+            android:textColor="@color/bttendance_white"
+            android:textSize="18sp" />
 
         <Button
+            android:id="@+id/introduction_last_bt2"
             android:layout_width="140dp"
             android:layout_height="48dp"
             android:background="@drawable/bt_silver_10_background"
-            android:textColor="@color/bttendance_black"
             android:text="@string/attend_course"
-            android:textSize="18sp"
-            android:id="@+id/introduction_last_bt2" />
+            android:textColor="@color/bttendance_black"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

@@ -1,13 +1,11 @@
 package com.bttendance.fragment.introduction;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.bttendance.R;
 import com.bttendance.activity.guide.GuideActivity;
@@ -25,16 +23,11 @@ public class IntroductionCuriousFragment extends BTFragment {
 
     @InjectView(R.id.see_more)
     Button mSeeMore;
-    @InjectView(R.id.introduction_curious)
-    ImageView mImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_introduction_curious, container, false);
         ButterKnife.inject(this, view);
-
-        if (Build.VERSION.SDK_INT < 11)
-            mImage.setImageResource(R.drawable.clicker_bg);
 
         mSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override

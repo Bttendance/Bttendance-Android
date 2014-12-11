@@ -1,7 +1,6 @@
 package com.bttendance.fragment.introduction;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,9 +32,6 @@ public class IntroductionLastFragment extends BTFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_introduction_last, container, false);
         ButterKnife.inject(this, view);
-
-        if (Build.VERSION.SDK_INT < 11)
-            view.findViewById(R.id.introduction_last).setBackgroundColor(getResources().getColor(R.color.bttendance_white));
 
         UserJson user = BTPreference.getUser(getActivity());
         if (user != null)

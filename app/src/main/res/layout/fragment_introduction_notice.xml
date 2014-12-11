@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:id="@+id/introduction_notice" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,27 +19,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/bttendance_white"
             android:gravity="center"
+            android:text="@string/notice"
+            android:textColor="@color/bttendance_white"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:text="@string/notice" />
+            android:textStyle="bold" />
 
         <View
             android:layout_width="34dp"
             android:layout_height="4dp"
-            android:background="@color/bttendance_white"
-            android:layout_marginTop="13dp" />
+            android:layout_marginTop="13dp"
+            android:background="@color/bttendance_white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="23dp"
-            android:textColor="@color/bttendance_white"
             android:gravity="center"
-            android:textSize="15sp"
             android:lineSpacingExtra="5dp"
-            android:text="@string/introduction_notice_message" />
+            android:text="@string/introduction_notice_message"
+            android:textColor="@color/bttendance_white"
+            android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"
@@ -66,16 +60,16 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/see_more"
         android:layout_width="80dp"
         android:layout_height="35dp"
-        android:background="@drawable/see_more_btn_bg"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="75dp"
+        android:background="@drawable/see_more_btn_bg"
         android:text="@string/see_more"
         android:textColor="@color/bttendance_white"
-        android:textStyle="bold"
         android:textSize="12sp"
-        android:id="@+id/see_more" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

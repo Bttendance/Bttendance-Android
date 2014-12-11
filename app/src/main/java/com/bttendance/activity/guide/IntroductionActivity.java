@@ -12,6 +12,7 @@ import com.bttendance.activity.BTActivity;
 import com.bttendance.adapter.GuidePagerAdapter;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
+import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.ButterKnife;
@@ -40,7 +41,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
     @InjectView(R.id.introduction_notice)
     ImageView mIntroductionNotice;
     @InjectView(R.id.introduction_last)
-    ImageView mIntroductionLast;
+    View mIntroductionLast;
     @InjectView(R.id.next)
     Button mNextBt;
     @InjectView(R.id.close)
@@ -85,18 +86,12 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
             mCloseBt.setText(getText(R.string.close));
         else
             mCloseBt.setText(getText(R.string.skip));
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (Build.VERSION.SDK_INT >= 11) {
-            mIntroductionFirst.setImageResource(R.drawable.welcome_bg);
-            mIntroductionClicker.setImageResource(R.drawable.clicker_bg);
-            mIntroductionAttendance.setImageResource(R.drawable.attendance_bg);
-            mIntroductionCurious.setImageResource(R.drawable.clicker_bg);
-            mIntroductionNotice.setImageResource(R.drawable.notice_bg);
-        }
+        Picasso.with(this).load(R.drawable.welcome_bg).centerCrop().into(mIntroductionFirst);
+        Picasso.with(this).load(R.drawable.clicker_bg).centerCrop().into(mIntroductionClicker);
+        Picasso.with(this).load(R.drawable.attendance_bg).centerCrop().into(mIntroductionAttendance);
+        Picasso.with(this).load(R.drawable.clicker_bg).centerCrop().into(mIntroductionCurious);
+        Picasso.with(this).load(R.drawable.notice_bg).centerCrop().into(mIntroductionNotice);
     }
 
     @Override
@@ -169,7 +164,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionCurious.setAlpha(0.0f);
                 mIntroductionNotice.setAlpha(5.0f - scrollOffset);
                 mIntroductionLast.setAlpha(scrollOffset - 4.0f);
-                mNextBt.setAlpha(4.0f - scrollOffset);
+                mNextBt.setAlpha(5.0f - scrollOffset);
             }
 
             if (5 <= scrollOffset) {

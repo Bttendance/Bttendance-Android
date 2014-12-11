@@ -1,7 +1,6 @@
 package com.bttendance.fragment.introduction;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,9 +33,6 @@ public class IntroductionStartFragment extends BTFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_introduction_start, container, false);
         ButterKnife.inject(this, view);
-
-        if (Build.VERSION.SDK_INT < 11)
-            view.findViewById(R.id.introduction_start).setBackgroundColor(getResources().getColor(R.color.bttendance_white));
 
         mIntroductionFacebook.setOnClickListener(this);
         mIntroductionGoogle.setOnClickListener(this);
