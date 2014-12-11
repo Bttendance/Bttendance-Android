@@ -40,6 +40,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.bttendance.R;
+import com.bttendance.model.BTKey;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -47,8 +48,8 @@ import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 public class SimpleWebViewFragment extends BTFragment {
 
-    public static final String EXTRA_URL = "url";
     private String mUrl = null;
+    private String mTitle = null;
 
     @InjectView(R.id.progress)
     SmoothProgressBar mProgressBar;
@@ -61,9 +62,13 @@ public class SimpleWebViewFragment extends BTFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        mUrl = getArguments().getString(EXTRA_URL);
+        mUrl = getArguments().getString(BTKey.EXTRA_URL);
         if (!mUrl.startsWith("http"))
             mUrl = "http://" + mUrl;
+
+        mTitle = getArguments().getString(BTKey.EXTRA_TITLE);
+        if (mTitle == null)
+            mTitle = getString(R.string.app_name_capital);
     }
 
     @Override
@@ -110,7 +115,7 @@ public class SimpleWebViewFragment extends BTFragment {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getString(R.string.app_name_capital));
+        actionBar.setTitle(mTitle);
     }
 
     public class MyWebChromeClient extends WebChromeClient {

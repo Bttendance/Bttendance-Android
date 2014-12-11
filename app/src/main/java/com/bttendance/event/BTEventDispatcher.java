@@ -337,4 +337,13 @@ public class BTEventDispatcher {
         if (frag != null && frag instanceof BTDialogFragment && ((BTDialogFragment) frag).getType() == BTDialogFragment.DialogType.PROGRESS)
             act.getSupportFragmentManager().popBackStackImmediate();
     }
+
+    @Subscribe
+    public void onShowToast(ShowToastEvent event) {
+        final BTActivity act = getBTActivity();
+        if (act == null || !act.isVisible())
+            return;
+
+        BeautiToast.show(act, event.getMessage());
+    }
 }

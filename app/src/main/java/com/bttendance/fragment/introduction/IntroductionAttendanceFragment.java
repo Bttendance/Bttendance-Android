@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.bttendance.R;
 import com.bttendance.activity.guide.GuideActivity;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.fragment.SimpleWebViewFragment;
+import com.bttendance.model.BTKey;
 import com.bttendance.model.BTUrl;
 
 import butterknife.ButterKnife;
@@ -33,7 +33,8 @@ public class IntroductionAttendanceFragment extends BTFragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), GuideActivity.class);
-                intent.putExtra(SimpleWebViewFragment.EXTRA_URL, BTUrl.getGuideAttendance(getActivity()));
+                intent.putExtra(BTKey.EXTRA_URL, BTUrl.getGuideAttendance(getActivity()));
+                intent.putExtra(BTKey.EXTRA_TITLE, getString(R.string.guide));
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
             }

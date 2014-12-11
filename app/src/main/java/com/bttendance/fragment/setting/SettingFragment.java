@@ -22,6 +22,7 @@ import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.helper.PackagesHelper;
+import com.bttendance.model.BTKey;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
@@ -143,7 +144,8 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
 
         SimpleWebViewFragment frag = new SimpleWebViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(SimpleWebViewFragment.EXTRA_URL, url);
+        bundle.putString(BTKey.EXTRA_URL, url);
+        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.terms_of_service));
         frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
@@ -158,7 +160,8 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
 
         SimpleWebViewFragment frag = new SimpleWebViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(SimpleWebViewFragment.EXTRA_URL, url);
+        bundle.putString(BTKey.EXTRA_URL, url);
+        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.privacy_policy));
         frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
@@ -173,7 +176,8 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
 
         SimpleWebViewFragment frag = new SimpleWebViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(SimpleWebViewFragment.EXTRA_URL, url);
+        bundle.putString(BTKey.EXTRA_URL, url);
+        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.blog));
         frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
@@ -200,7 +204,8 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
         } else {
             SimpleWebViewFragment frag = new SimpleWebViewFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(SimpleWebViewFragment.EXTRA_URL, url);
+            bundle.putString(BTKey.EXTRA_URL, url);
+            bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.facebook));
             frag.setArguments(bundle);
             BTEventBus.getInstance().post(new AddFragmentEvent(frag));
         }

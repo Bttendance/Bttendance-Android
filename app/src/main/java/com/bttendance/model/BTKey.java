@@ -5,6 +5,7 @@ package com.bttendance.model;
  */
 public class BTKey {
 
+    public static final String EXTRA_URL = "url";
     public final static String EXTRA_TYPE = "type";
     public final static String EXTRA_SORT = "sort";
     public final static String EXTRA_COURSE_ID = "course_id";

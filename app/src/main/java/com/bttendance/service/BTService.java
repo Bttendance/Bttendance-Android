@@ -14,6 +14,7 @@ import com.bttendance.BTDebug;
 import com.bttendance.BuildConfig;
 import com.bttendance.R;
 import com.bttendance.activity.guide.IntroductionActivity;
+import com.bttendance.event.ShowToastEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.event.dialog.ShowAlertDialogEvent;
 import com.bttendance.event.refresh.RefreshFeedEvent;
@@ -39,7 +40,6 @@ import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.model.json.UserJsonSimple;
 import com.bttendance.model.json.UserJsonSimpleArray;
-import com.bttendance.view.BeautiToast;
 import com.google.gson.Gson;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.socketio.Acknowledge;
@@ -1793,7 +1793,7 @@ public class BTService extends Service {
                     if ("log".equals(errors.type))
                         BTDebug.LogError(retrofitError.getResponse().getStatus() + " : " + errors.message);
                     if ("toast".equals(errors.type))
-                        BeautiToast.show(getApplicationContext(), errors.message);
+                        BTEventBus.getInstance().post(new ShowToastEvent(errors.message));
                     if ("alert".equals(errors.type)) {
 
                         BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;

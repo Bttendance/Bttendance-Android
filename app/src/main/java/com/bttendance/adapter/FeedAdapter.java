@@ -580,7 +580,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                         case GUIDE_CLICKER: {
                             SimpleWebViewFragment fragment = new SimpleWebViewFragment();
                             Bundle bundle = new Bundle();
-                            bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getGuideClicker(mContext));
+                            bundle.putString(BTKey.EXTRA_URL, BTUrl.getGuideClicker(mContext));
+                            bundle.putString(BTKey.EXTRA_TITLE, mContext.getString(R.string.guide));
                             fragment.setArguments(bundle);
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                             break;
@@ -588,7 +589,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                         case GUIDE_ATTENDANCE: {
                             SimpleWebViewFragment fragment = new SimpleWebViewFragment();
                             Bundle bundle = new Bundle();
-                            bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getGuideAttendance(mContext));
+                            bundle.putString(BTKey.EXTRA_URL, BTUrl.getGuideAttendance(mContext));
+                            bundle.putString(BTKey.EXTRA_TITLE, mContext.getString(R.string.guide));
                             fragment.setArguments(bundle);
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                             break;
@@ -596,7 +598,8 @@ public class FeedAdapter extends CursorAdapter implements View.OnClickListener {
                         case GUIDE_NOTICE: {
                             SimpleWebViewFragment fragment = new SimpleWebViewFragment();
                             Bundle bundle = new Bundle();
-                            bundle.putString(SimpleWebViewFragment.EXTRA_URL, BTUrl.getGuideNotice(mContext));
+                            bundle.putString(BTKey.EXTRA_URL, BTUrl.getGuideNotice(mContext));
+                            bundle.putString(BTKey.EXTRA_TITLE, mContext.getString(R.string.guide));
                             fragment.setArguments(bundle);
                             BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
                             break;

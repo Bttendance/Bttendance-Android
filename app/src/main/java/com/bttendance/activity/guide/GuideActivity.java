@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.fragment.SimpleWebViewFragment;
+import com.bttendance.model.BTKey;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -19,7 +20,6 @@ public class GuideActivity extends BTActivity {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
-    String mUrl = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +28,13 @@ public class GuideActivity extends BTActivity {
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);
 
-        mUrl = getIntent().getStringExtra(SimpleWebViewFragment.EXTRA_URL);
+        String url = getIntent().getStringExtra(BTKey.EXTRA_URL);
+        String title = getIntent().getStringExtra(BTKey.EXTRA_TITLE);
 
         SimpleWebViewFragment frag = new SimpleWebViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(SimpleWebViewFragment.EXTRA_URL, mUrl);
+        bundle.putString(BTKey.EXTRA_URL, url);
+        bundle.putString(BTKey.EXTRA_TITLE, title);
         frag.setArguments(bundle);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
