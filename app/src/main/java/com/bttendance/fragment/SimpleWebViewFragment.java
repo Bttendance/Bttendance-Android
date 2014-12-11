@@ -21,7 +21,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -44,14 +43,15 @@ import com.bttendance.R;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 public class SimpleWebViewFragment extends BTFragment {
 
     public static final String EXTRA_URL = "url";
     private String mUrl = null;
 
-    @InjectView(R.id.swipe_container)
-    SwipeRefreshLayout mSwipeRefresh;
+    @InjectView(R.id.progress)
+    SmoothProgressBar mProgressBar;
     @InjectView(R.id.web_view)
     FrameLayout mView;
     WebView mWebview;
@@ -71,14 +71,9 @@ public class SimpleWebViewFragment extends BTFragment {
         View view = inflater.inflate(R.layout.web_view, container, false);
         ButterKnife.inject(this, view);
 
-        mSwipeRefresh.setProgressBackgroundColor(R.color.bttendance_grey);
-        mSwipeRefresh.setColorSchemeResources(R.color.bttendance_c, R.color.bttendance_b, R.color.bttendance_d, R.color.bttendance_a);
-        mSwipeRefresh.requestDisallowInterceptTouchEvent(true);
-
         mView.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         mWebview = new WebView(getActivity());
-        mWebview.requestDisallowInterceptTouchEvent(true);
         mWebview.setVisibility(View.GONE);
         mWebview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         if (mUrl != null) {
@@ -122,15 +117,11 @@ public class SimpleWebViewFragment extends BTFragment {
 
         @Override
         public void onProgressChanged(WebView view, int progress) {
-            if (progress < 100) {
-                mSwipeRefresh.setRefreshing(true);
-                mSwipeRefresh.setVisibility(View.VISIBLE);
-            }
+            if (progress < 100)
+                mProgressBar.setVisibility(View.VISIBLE);
 
-            if (progress == 100) {
-                mSwipeRefresh.setRefreshing(false);
-                mSwipeRefresh.setVisibility(View.GONE);
-            }
+            if (progress == 100)
+                mProgressBar.setVisibility(View.GONE);
         }
     }
 

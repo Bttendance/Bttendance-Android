@@ -17,8 +17,12 @@ public class SplashActivity extends BTActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
-
         setContentView(R.layout.activity_splash);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

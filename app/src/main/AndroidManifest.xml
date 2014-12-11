@@ -65,7 +65,7 @@
 
         <activity
             android:name=".activity.guide.GuideActivity"
-            android:label="@string/tutorial"
+            android:label="@string/guide"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance.Whiten" />
 

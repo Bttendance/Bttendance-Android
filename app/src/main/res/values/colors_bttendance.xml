@@ -83,4 +83,11 @@
     <color name="bttendance_red_25">#40C1272D</color>
     <color name="bttendance_red_75">#BFC1272D</color>
     <color name="bttendance_red_80">#CCC1272D</color>
+
+    <integer-array name="spb_colors">
+        <item>@color/bttendance_c</item>
+        <item>@color/bttendance_b</item>
+        <item>@color/bttendance_d</item>
+        <item>@color/bttendance_e</item>
+    </integer-array>
 </resources>
