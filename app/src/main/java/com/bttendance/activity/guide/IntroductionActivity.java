@@ -87,11 +87,11 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
         else
             mCloseBt.setText(getText(R.string.skip));
 
-        Picasso.with(this).load(R.drawable.welcome_bg).centerCrop().into(mIntroductionFirst);
-        Picasso.with(this).load(R.drawable.clicker_bg).centerCrop().into(mIntroductionClicker);
-        Picasso.with(this).load(R.drawable.attendance_bg).centerCrop().into(mIntroductionAttendance);
-        Picasso.with(this).load(R.drawable.clicker_bg).centerCrop().into(mIntroductionCurious);
-        Picasso.with(this).load(R.drawable.notice_bg).centerCrop().into(mIntroductionNotice);
+        Picasso.with(this).load(R.drawable.welcome_bg).into(mIntroductionFirst);
+        Picasso.with(this).load(R.drawable.clicker_bg).into(mIntroductionClicker);
+        Picasso.with(this).load(R.drawable.attendance_bg).into(mIntroductionAttendance);
+        Picasso.with(this).load(R.drawable.clicker_bg).into(mIntroductionCurious);
+        Picasso.with(this).load(R.drawable.notice_bg).into(mIntroductionNotice);
     }
 
     @Override
