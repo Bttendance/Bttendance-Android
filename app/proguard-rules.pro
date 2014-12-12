@@ -139,6 +139,9 @@
 -keepnames class * { @butterknife.InjectView *;}
 
 
+##---------------Google Progressbar ----------
+-keep class com.jpardogo.android.googleprogressbar.** { *; }
+
 ##---------------Don't Warn ----------
 -dontwarn org.apache.http.**
 -dontwarn android.net.http.**

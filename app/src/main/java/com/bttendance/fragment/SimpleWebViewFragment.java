@@ -122,6 +122,8 @@ public class SimpleWebViewFragment extends BTFragment {
 
         @Override
         public void onProgressChanged(WebView view, int progress) {
+            mProgressBar.setProgress(progress);
+
             if (progress < 100)
                 mProgressBar.setVisibility(View.VISIBLE);
 

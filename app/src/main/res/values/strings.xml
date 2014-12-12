@@ -41,11 +41,6 @@
     <string name="turn_on_bt_title">"Turn on Bluetooth"</string>
     <string name="turn_on_bt_message">"Turn on Bluetooth to enhance your \"Bttendance\" experience."</string>
 
-    <!--GPS Dialog-->
-    <string name="turn_on_gps_title">"Improve location accuracy"</string>
-    <string name="turn_on_gps_message">"Turn on GPS and mobile network location to enhance your \"Bttendance\" experience."</string>
-
-
     <string name="name">Name</string>
     <string name="save">Save</string>
     <string name="notice">Notice</string>
@@ -69,10 +64,10 @@
     <string name="exporting_grades">Exporting Results</string>
     <string name="exporting_grade_has_been_finished">Exporting Results has been finished.\nPlease check your email.\n%s</string>
     <string name="unjoining_course">Leaving Course</string>
-    <string name="recovering_password">Recovering Password...</string>
-    <string name="loging_in_bttendance">Loging In Bttendance</string>
-    <string name="signing_up_bttendance">Signing Up Bttendance</string>
-    <string name="updating_profile">Updating Profile</string>
+    <string name="recovering_password">Recovering Password&#8230;</string>
+    <string name="loging_in_bttendance">Loging In Bttendance&#8230;</string>
+    <string name="signing_up_bttendance">Signing Up Bttendance&#8230;</string>
+    <string name="updating_profile">Updating Profile&#8230;</string>
     <string name="no_course">No Course Yet :(</string>
     <string name="press_plus_button">Press \'+\' button\nto create or attend a course.</string>
     <string name="do_you_really_wish_to_unjoin">Do you really wish to leave course %s?</string>
@@ -289,5 +284,6 @@
     <string name="start_with_google">"Start with Google+"</string>
     <string name="sign_up_with_email">"Sign Up"</string>
     <string name="log_in_with_email">"Log In"</string>
+    <string name="loading_">Loading..</string>
 
 </resources>

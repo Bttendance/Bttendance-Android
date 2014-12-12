@@ -38,12 +38,7 @@
 
     <!--Bluetooth Dialog-->
     <string name="turn_on_bt_title">"블루투스를 켜 주세요."</string>
-    <string name="turn_on_bt_message">"더 나은 \"BTTENDANCE\" 사용자 경험을 위해 블루투스를 켜 주세요."</string>
-
-    <!--GPS Dialog-->
-    <string name="turn_on_gps_title">"Improve location accuracy"</string>
-    <string name="turn_on_gps_message">"Turn on GPS and mobile network location to enhance your \"Bttendance\" experience."</string>
-
+    <string name="turn_on_bt_message">"더 나은 \"비텐던스\" 사용을 위해 블루투스를 켜 주세요."</string>
 
     <string name="name">이름</string>
     <string name="save">저장하기</string>
@@ -65,13 +60,13 @@
     <string name="setting">설정</string>
     <string name="write_an_announcement">공지할 내용을 적어 주세요.</string>
     <string name="start_clicker">설문 시작하기</string>
-    <string name="exporting_grades">결과를 내보내는 중</string>
+    <string name="exporting_grades">결과를 내보내는 중&#8230;</string>
     <string name="exporting_grade_has_been_finished">결과 내보내기가 끝났습니다.\nEmail을 확인해주세요.\n%s</string>
-    <string name="unjoining_course">강의를 탈퇴하는 중</string>
-    <string name="recovering_password">비밀번호를 복구하는 중...</string>
-    <string name="loging_in_bttendance">BTTENDANCE에 로그인하는 중</string>
-    <string name="signing_up_bttendance">BTTENDANCE에 가입하는 중</string>
-    <string name="updating_profile">프로필을 수정하는 중</string>
+    <string name="unjoining_course">강의를 탈퇴하는 중&#8230;</string>
+    <string name="recovering_password">비밀번호를 복구하는 중&#8230;</string>
+    <string name="loging_in_bttendance">비텐던스에 로그인하는 중&#8230;</string>
+    <string name="signing_up_bttendance">비텐던스에 가입하는 중&#8230;</string>
+    <string name="updating_profile">프로필을 수정하는 중&#8230;</string>
     <string name="no_course">강의가 없습니다</string>
     <string name="press_plus_button">Press \'+\' button\nto create or attend a course.</string> <!-- Old version-->
     <string name="do_you_really_wish_to_unjoin">정말 %s 강의에서 탈퇴하길 원하시나요?</string>
@@ -288,5 +283,6 @@
     <string name="start_with_google">"Google+로 시작하기"</string>
     <string name="sign_up_with_email">"E-mail로 회원가입"</string>
     <string name="log_in_with_email">"E-mail로 로그인"</string>
+    <string name="loading_">로딩중..</string>
 
 </resources>
