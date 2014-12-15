@@ -27,7 +27,7 @@
             android:lineSpacingExtra="8dp"
             android:text="@string/introduction_last_start"
             android:textColor="@color/bttendance_black"
-            android:textSize="28sp" />
+            android:textSize="27sp" />
 
     </RelativeLayout>
 
@@ -35,55 +35,68 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="55dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/introduction_start_facebook"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="4dp"
+            android:layout_height="44dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/btn_facebook"
             android:maxWidth="320dp"
             android:text="@string/start_with_facebook"
-            android:textColor="@color/bttendance_white"
+            android:textColor="@android:color/white"
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/introduction_start_google"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="44dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/btn_google"
             android:maxWidth="320dp"
             android:text="@string/start_with_google"
-            android:textColor="@color/bttendance_white"
+            android:textColor="@android:color/white"
             android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:maxWidth="320dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/introduction_start_sign_up"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="20dp"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:text="@string/sign_up_with_email"
-                android:textColor="@color/bttendance_white"
-                android:textSize="18sp" />
+                android:textColor="@color/bttendance_black"
+                android:textSize="14sp" />
 
             <View
-                android:layout_width="3dp"
-                android:layout_height="match_parent" />
+                android:layout_width="1.5dp"
+                android:layout_height="20dp"
+                android:background="@color/bttendance_black" />
 
             <Button
                 android:id="@+id/introduction_start_log_in"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="20dp"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:text="@string/log_in_with_email"
-                android:textColor="@color/bttendance_white"
-                android:textSize="18sp" />
+                android:textColor="@color/bttendance_black"
+                android:textSize="14sp" />
 
         </LinearLayout>
 

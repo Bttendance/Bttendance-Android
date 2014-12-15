@@ -281,8 +281,8 @@
 
     <string name="start_with_facebook">"Facebook으로 시작하기"</string>
     <string name="start_with_google">"Google+로 시작하기"</string>
-    <string name="sign_up_with_email">"E-mail로 회원가입"</string>
-    <string name="log_in_with_email">"E-mail로 로그인"</string>
+    <string name="sign_up_with_email">"Email로 회원가입"</string>
+    <string name="log_in_with_email">"Email로 로그인"</string>
     <string name="loading_">로딩중..</string>
 
 </resources>

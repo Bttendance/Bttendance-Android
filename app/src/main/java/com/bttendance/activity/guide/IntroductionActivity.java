@@ -46,6 +46,8 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
     Button mNextBt;
     @InjectView(R.id.close)
     Button mCloseBt;
+    @InjectView(R.id.skip)
+    Button mSkipBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,17 +77,21 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
         mCloseBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mAuth)
-                    onBackPressed();
-                else
-                    mPagerView.setCurrentItem(mPagerAdapter.getCount() - 1);
+                onBackPressed();
+            }
+        });
+
+        mSkipBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPagerView.setCurrentItem(mPagerAdapter.getCount() - 1);
             }
         });
 
         if (mAuth)
-            mCloseBt.setText(getText(R.string.close));
+            mSkipBt.setVisibility(View.GONE);
         else
-            mCloseBt.setText(getText(R.string.skip));
+            mCloseBt.setVisibility(View.GONE);
 
         Picasso.with(this).load(R.drawable.welcome_bg).into(mIntroductionFirst);
         Picasso.with(this).load(R.drawable.clicker_bg).into(mIntroductionClicker);
@@ -178,14 +184,11 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
             }
 
             if (scrollOffset < 4.5) {
-                mCloseBt.setTextColor(getResources().getColor(R.color.bttendance_white));
+                mCloseBt.setBackgroundResource(R.drawable.x);
                 mCircleIndicator.setPageColor(getResources().getColor(R.color.bttendance_white_50));
                 mCircleIndicator.setFillColor(getResources().getColor(R.color.bttendance_white_80));
             } else {
-                if (mAuth)
-                    mCloseBt.setTextColor(getResources().getColor(R.color.bttendance_black));
-                else
-                    mCloseBt.setTextColor(getResources().getColor(R.color.bttendance_white));
+                mCloseBt.setBackgroundResource(R.drawable.x_black);
                 mCircleIndicator.setPageColor(getResources().getColor(R.color.bttendance_silver_50));
                 mCircleIndicator.setFillColor(getResources().getColor(R.color.bttendance_silver_80));
             }
