@@ -10,15 +10,15 @@
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:cursorVisible="true"
-        android:hint="@string/search"
-        android:paddingLeft="6dp"
-        android:textColorHint="@color/bttendance_white_50"
-        android:imeOptions="actionDone"
         android:drawableLeft="@drawable/ic_action_search"
         android:drawablePadding="6dp"
-        android:textCursorDrawable="@null"
+        android:hint="@string/search"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:paddingLeft="6dp"
         android:textColor="@color/bttendance_white"
-        android:inputType="text" />
+        android:textColorHint="@color/bttendance_white_50"
+        android:textCursorDrawable="@null" />
 
     <View
         android:layout_width="match_parent"

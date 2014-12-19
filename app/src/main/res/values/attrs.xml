@@ -1,37 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="PagerSlidingTabStrip">
-        <attr name="indicatorColor" format="color" />
-        <attr name="underlineColor" format="color" />
-        <attr name="dividerColor" format="color" />
-        <attr name="indicatorHeight" format="dimension" />
-        <attr name="underlineHeight" format="dimension" />
-        <attr name="dividerPadding2" format="dimension" />
-        <attr name="tabPaddingLeftRight" format="dimension" />
-        <attr name="scrollOffset" format="dimension" />
-        <attr name="tabBackground" format="reference" />
-        <attr name="shouldExpand" format="boolean" />
-        <attr name="textAllCaps2" format="boolean" />
-    </declare-styleable>
-
-    <declare-styleable name="ProgressWheel">
-        <attr name="textProgress" format="string" />
-        <attr name="textColorProgress" format="color" />
-        <attr name="textSizeProgress" format="dimension" />
-        <attr name="barColorProgress" format="color" />
-        <attr name="rimColorProgress" format="color" />
-        <attr name="rimWidthProgress" format="dimension" />
-        <attr name="spinSpeedProgress" format="integer" />
-        <attr name="circleColorProgress" format="color" />
-        <attr name="radiusProgress" format="dimension" />
-        <attr name="barWidthProgress" format="dimension" />
-        <attr name="barLengthProgress" format="dimension" />
-        <attr name="delayMillisProgress" format="dimension"/>
-        <attr name="contourColorProgress" format="color"/>
-        <attr name="contourSizeProgress" format="float"/>
-    </declare-styleable>
-
     <declare-styleable name="Bttendance">
         <attr name="type" format="enum">
             <enum name="Big" value="0" />

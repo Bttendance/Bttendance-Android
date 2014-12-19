@@ -1,4 +1,3 @@
-
 package com.bttendance.helper;
 
 import android.content.Context;
@@ -14,13 +13,11 @@ public class DipPixelHelper {
 
     public static float getPixel(Context context, int dip) {
         Resources r = context.getResources();
-        float pix = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
-        return pix;
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
     }
 
     public static float getPixel(Context context, float dip) {
         Resources r = context.getResources();
-        float pix = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
-        return pix;
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
     }
 }

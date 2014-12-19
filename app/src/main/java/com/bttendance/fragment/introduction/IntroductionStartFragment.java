@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.bttendance.R;
+import com.bttendance.activity.sign.SignInActivity;
 import com.bttendance.activity.sign.SignUpActivity;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.view.BTDialog;
-import com.bttendance.view.BTToast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -62,11 +61,9 @@ public class IntroductionStartFragment extends BTFragment implements View.OnClic
     }
 
     private void startWithFacebook() {
-        BTToast.show(getActivity(), getString(R.string.start_with_facebook));
     }
 
     private void startWithGoogle() {
-        BTDialog.progress(getActivity(), getString(R.string.loging_in_bttendance));
     }
 
     private void signUp() {
@@ -76,9 +73,8 @@ public class IntroductionStartFragment extends BTFragment implements View.OnClic
     }
 
     private void logIn() {
-        BTDialog.alert(getActivity(), getString(R.string.attendance_start_bluetooth_title), getString(R.string.attendance_start_bluetooth_message), null);
-//        Intent intent = new Intent(getActivity(), SignInActivity.class);
-//        startActivity(intent);
-//        getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
+        Intent intent = new Intent(getActivity(), SignInActivity.class);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
     }
 }

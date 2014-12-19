@@ -6,9 +6,9 @@ import java.util.TimeZone;
 /**
  * Created by TheFinestArtist on 2013. 11. 22..
  */
-public class LanguageHelper {
+public class LocaleHelper {
 
-    public static String getDefaultLanguageCode() {
+    public static String getLanguageCode() {
         String code = Locale.getDefault().getLanguage();
         // Note that Java uses several deprecated two-letter codes.
         // The Hebrew ("he") language code is rewritten as "iw",
@@ -18,17 +18,17 @@ public class LanguageHelper {
         // methods.
 
         // replace depreciated two-letter codes.
-        code = code.replace("iw", "iw");
+        code = code.replace("iw", "he");
         code = code.replace("in", "id");
         code = code.replace("ji", "vi");
         return code;
     }
 
-    public static String getDefaultLanguageName() {
+    public static String getLanguageName() {
         return Locale.getDefault().getDisplayLanguage();
     }
 
-    public static String getDefaultTimeZone() {
+    public static String getTimeZone() {
         TimeZone tz = TimeZone.getDefault();
         return String.valueOf(tz.getID());
     }

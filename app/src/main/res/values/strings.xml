@@ -12,7 +12,6 @@
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
     <string name="password">"Password"</string>
-    <string name="password_at_least">"Password (at least 6 characters)"</string>
     <string name="by_tapping_i_agree_to_the_start">"By tapping \"Sign up\" above, you are agreeing to the "</string>
     <string name="terms_of_service">Terms of Service</string>
     <string name="_and_">" and "</string>
@@ -246,7 +245,6 @@
     <string name="attendance_timered_message">Attendance Ongoing (%d sec left)</string>
     <string name="clicker_timered_message">Clicker Ongoing (%d sec left)</string>
     <string name="attendance_message_post_prof">%1$d/%2$d (%3$d%%) students has been attended.</string>
-    <string name="delete">Delete</string>
     <string name="delete_question">Delete Question</string>
     <string name="delete_question_message">Do you want to delete current question?</string>
     <string name="deleting_question">Deleting Question</string>
@@ -277,7 +275,6 @@
 
     <string name="update_attendance_record">Update Attendance Record</string>
     <string name="clicker_show_info_on_selelct_guide">You are not allowed to see the result while survey in on process.</string>
-    <string name="close">Close</string>
     <string name="skip">Skip</string>
 
     <string name="start_with_facebook">"Start with Facebook"</string>

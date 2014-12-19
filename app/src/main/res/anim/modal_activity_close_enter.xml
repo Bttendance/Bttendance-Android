@@ -7,12 +7,12 @@
     android:shareInterpolator="false"
     android:zAdjustment="top">
     <alpha
-        android:duration="@integer/activity_anim_duration"
+        android:duration="250"
         android:fromAlpha="0.2"
         android:interpolator="@anim/accelerate_cubic"
         android:toAlpha="1.0" />
     <scale
-        android:duration="@integer/activity_anim_duration"
+        android:duration="250"
         android:fromXScale="0.9"
         android:fromYScale="0.9"
         android:interpolator="@anim/accelerate_cubic"

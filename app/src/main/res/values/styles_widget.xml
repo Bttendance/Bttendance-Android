@@ -28,20 +28,6 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="catchPointButton" parent="android:Widget.Button">
-        <item name="android:textColor">@color/bttendance_white</item>
-        <item name="android:textSize">21sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="studentConfirmButton" parent="android:Widget.Button">
-        <item name="android:textColor">@color/bttendance_white</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:gravity">left|center_vertical</item>
-        <item name="android:paddingLeft">15dp</item>
-    </style>
-
     <style name="signInUpButton" parent="android:Widget.Button">
         <item name="android:background">@drawable/sign_btn_bg</item>
         <item name="android:layout_height">36dp</item>
@@ -49,15 +35,6 @@
         <item name="android:textColor">@color/bttendance_navy</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="centerTextView" parent="android:Widget.Button">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@color/bttendance_silver</item>
-        <item name="android:includeFontPadding">false</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@null</item>
     </style>
 
     <style name="itemTextView" parent="android:Widget.Button">
