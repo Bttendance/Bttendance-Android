@@ -1,6 +1,7 @@
 package com.bttendance.view;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,9 +23,14 @@ public class BTDialog {
         void onCanceled();
     }
 
-    public static void alert(Context context, String title, String message, final OnDialogListener listener) {
+    public static void hide(MaterialDialog dialog) {
+        if (dialog != null)
+            dialog.hide();
+    }
+
+    public static MaterialDialog alert(Context context, String title, String message, final OnDialogListener listener) {
         if (context == null)
-            return;
+            return null;
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_black)
@@ -47,15 +53,22 @@ public class BTDialog {
                         if (listener != null)
                             listener.onConfirmed(null);
                     }
+                }).dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (listener != null)
+                            listener.onCanceled();
+                    }
                 }).build();
 
         themeDialog(context, dialog);
         dialog.show();
+        return dialog;
     }
 
-    public static void ok(Context context, String title, String message, final OnDialogListener listener) {
+    public static MaterialDialog ok(Context context, String title, String message, final OnDialogListener listener) {
         if (context == null)
-            return;
+            return null;
 
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
@@ -71,15 +84,22 @@ public class BTDialog {
                         if (listener != null)
                             listener.onCanceled();
                     }
+                }).dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (listener != null)
+                            listener.onCanceled();
+                    }
                 }).build();
 
         themeDialog(context, dialog);
         dialog.show();
+        return dialog;
     }
 
-    public static void edit(Context context, String title, String message, final OnDialogListener listener) {
+    public static MaterialDialog edit(Context context, String title, String message, final OnDialogListener listener) {
         if (context == null)
-            return;
+            return null;
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_black)
@@ -94,11 +114,12 @@ public class BTDialog {
 
         themeDialog(context, dialog);
         dialog.show();
+        return dialog;
     }
 
-    public static void context(Context context, String title, String[] options, final OnDialogListener listener) {
+    public static MaterialDialog context(Context context, String title, String[] options, final OnDialogListener listener) {
         if (context == null)
-            return;
+            return null;
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_black)
@@ -116,11 +137,12 @@ public class BTDialog {
 
         themeDialog(context, dialog);
         dialog.show();
+        return dialog;
     }
 
-    public static void progress(Context context, String message) {
+    public static MaterialDialog progress(Context context, String message) {
         if (context == null)
-            return;
+            return null;
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_silver)
@@ -130,6 +152,7 @@ public class BTDialog {
 
         themeDialog(context, dialog);
         dialog.show();
+        return dialog;
     }
 
     private static void themeDialog(Context context, MaterialDialog dialog) {

@@ -18,6 +18,7 @@ import com.bttendance.helper.PackagesHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.ErrorJson;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.service.request.PasswordResetRequest;
 import com.bttendance.view.BTDialog;
 import com.squareup.otto.BTEventBus;
 
@@ -25,6 +26,7 @@ import retrofit.Callback;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 9..
@@ -36,9 +38,9 @@ public class BTService extends Service {
     private RequestInterceptor requestInterceptor = new RequestInterceptor() {
         @Override
         public void intercept(RequestFacade request) {
-//            request.addHeader("Content-Type", "application/json; charset=UTF-8");
-//            request.addHeader("Platform", "Android");
-//            request.addHeader("Accept-Language", getResources().getConfiguration().locale.getLanguage());
+            request.addHeader("Content-Type", "application/json; charset=UTF-8");
+            request.addHeader("Platform", "Android");
+            request.addHeader("Accept-Language", getResources().getConfiguration().locale.getLanguage());
 //            request.addHeader("Authorization:", "");
 //            OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog",
 //                    oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg",
@@ -105,6 +107,25 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
+    }
+
+    public void forgotPassword(String email, final Callback<Object> cb) {
+        if (!isConnected())
+            return;
+
+        PasswordResetRequest request = new PasswordResetRequest(email);
+        mBTAPI.forgotPassword(request, new Callback<Object>() {
+            @Override
+            public void success(Object o, Response response) {
+                if (response.getStatus() == 204 && cb != null)
+                    cb.success(o, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
     }
 
     private void autoSignOut() {

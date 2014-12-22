@@ -15,10 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.view.BTDialog;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -149,24 +154,23 @@ public class ForgotPasswordFragment extends BTFragment {
         if (getBTService() == null)
             return;
 
-        String email = mEmail.getText().toString();
+        final String email = mEmail.getText().toString();
 
-        BTDialog.progress(getActivity(), getString(R.string.recovering_password));
-//        getBTService().forgotPassword(email, new Callback<EmailJson>() {
-//            @Override
-//            public void success(EmailJson email, Response response) {
-//                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
-//                String title = getString(R.string.password_recovery_success);
-//                String message = String.format(getString(R.string.password_recovery_has_been_succeeded), email.email);
-//                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message));
-//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//            }
-//        });
+        final MaterialDialog dialog = BTDialog.progress(getActivity(), getString(R.string.recovering_password));
+        getBTService().forgotPassword(email, new Callback<Object>() {
+            @Override
+            public void success(Object o, Response response) {
+                BTDialog.hide(dialog);
+                String title = getString(R.string.password_recovery_success);
+                String message = String.format(getString(R.string.password_recovery_has_been_succeeded), email);
+                BTDialog.ok(getActivity(), title, message, null);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                BTDialog.hide(dialog);
+            }
+        });
     }
 
     @Override
