@@ -4,22 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.bttendance.event.update.UserUpdatedEvent;
-import com.bttendance.helper.IntArrayHelper;
-import com.bttendance.model.json.CourseJson;
-import com.bttendance.model.json.CourseJsonArray;
-import com.bttendance.model.json.CourseJsonSimple;
-import com.bttendance.model.json.PostJsonArray;
-import com.bttendance.model.json.QuestionJsonArray;
-import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.model.json.UserJsonSimpleArray;
 import com.google.gson.Gson;
-import com.squareup.otto.BTEventBus;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Preference Helper
@@ -27,6 +13,10 @@ import java.util.List;
  * @author The Finest Artist
  */
 public class BTPreference {
+
+    private static String USER = "user";
+    private static String LAST_COURSE = "lastCourse";
+    private static final String APP_VERSION = "appVersion";
 
     private static SharedPreferences mPref = null;
     private static Object mSingletonLock = new Object();
@@ -49,12 +39,12 @@ public class BTPreference {
     // on Log out
     public static void clearUser(Context ctx) {
         Editor edit = getInstance(ctx).edit();
-        edit.remove("users");
-        edit.commit();
+        edit.remove(USER);
+        edit.apply();
     }
 
     public static boolean hasAuth(Context ctx) {
-        String jsonStr = getInstance(ctx).getString("users", null);
+        String jsonStr = getInstance(ctx).getString(USER, null);
         if (jsonStr == null)
             return false;
 
@@ -62,7 +52,7 @@ public class BTPreference {
     }
 
     public static UserJson getUser(Context ctx) {
-        String jsonStr = getInstance(ctx).getString("users", null);
+        String jsonStr = getInstance(ctx).getString(USER, null);
         if (jsonStr == null)
             return null;
 
@@ -76,198 +66,24 @@ public class BTPreference {
         }
     }
 
-    public static int getUserId(Context ctx) {
-        UserJson user = getUser(ctx);
-        if (user == null)
-            return -1;
-        return user.id;
-    }
-
     public static void setUser(Context ctx, UserJson user) {
         Gson gson = new Gson();
         String jsonStr = gson.toJson(user);
 
         Editor edit = getInstance(ctx).edit();
-        edit.putString("users", jsonStr);
-        edit.commit();
-
-        BTEventBus.getInstance().post(new UserUpdatedEvent());
+        edit.putString(USER, jsonStr);
+        edit.apply();
     }
 
-    public static SchoolJsonArray getAllSchools(Context ctx) {
-        String jsonStr = getInstance(ctx).getString("all_schools", null);
-        if (jsonStr == null)
-            return null;
-
-        Gson gson = new Gson();
-        try {
-            SchoolJsonArray schoolJsonArray = gson.fromJson(jsonStr, SchoolJsonArray.class);
-            return schoolJsonArray;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static void setAllSchools(Context ctx, SchoolJsonArray schoolJsonArray) {
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(schoolJsonArray);
-
-        Editor edit = getInstance(ctx).edit();
-        edit.putString("all_schools", jsonStr);
-        edit.commit();
-    }
-
-    public static CourseJsonArray getCourses(Context ctx) {
-        String jsonStr = getInstance(ctx).getString("courses", null);
-        if (jsonStr == null)
-            return null;
-
-        Gson gson = new Gson();
-        try {
-            CourseJsonArray courseJsonArray = gson.fromJson(jsonStr, CourseJsonArray.class);
-            return courseJsonArray;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static void updateCourse(Context ctx, CourseJson course) {
-        CourseJsonArray courseJsonArray = getCourses(ctx);
-        if (courseJsonArray == null || courseJsonArray.courses == null)
-            courseJsonArray = new CourseJsonArray(new CourseJson[]{course});
-        else {
-            boolean found = false;
-            for (int i = 0; i < courseJsonArray.courses.length; i++) {
-                if (courseJsonArray.courses[i].id == course.id) {
-                    courseJsonArray.courses[i] = course;
-                    found = true;
-                }
-            }
-            if (!found) {
-                List<CourseJson> courses = new ArrayList<CourseJson>(Arrays.asList(courseJsonArray.courses));
-                courses.add(course);
-                courseJsonArray.courses = new CourseJson[courses.size()];
-                courseJsonArray.courses = courses.toArray(courseJsonArray.courses);
-            }
-        }
-
-        setCourses(ctx, courseJsonArray);
-    }
-
-    public static void setCourses(Context ctx, CourseJsonArray courseJsonArray) {
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(courseJsonArray);
-
-        Editor edit = getInstance(ctx).edit();
-        edit.putString("courses", jsonStr);
-        edit.commit();
-    }
-
-    public static PostJsonArray getPostsOfCourse(Context ctx, int courseID) {
-        String jsonStr = getInstance(ctx).getString("posts_" + courseID, null);
-        if (jsonStr == null)
-            return null;
-
-        Gson gson = new Gson();
-        try {
-            PostJsonArray postJsonArray = gson.fromJson(jsonStr, PostJsonArray.class);
-            return postJsonArray;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static void setPostsOfCourse(Context ctx, PostJsonArray postJsonArray, int courseID) {
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(postJsonArray);
-
-        Editor edit = getInstance(ctx).edit();
-        edit.putString("posts_" + courseID, jsonStr);
-        edit.commit();
-    }
-
-    public static UserJsonSimpleArray getStudentsOfCourse(Context ctx, int courseID) {
-        String jsonStr = getInstance(ctx).getString("students_" + courseID, null);
-        if (jsonStr == null)
-            return null;
-
-        Gson gson = new Gson();
-        try {
-            UserJsonSimpleArray userJsonSimpleArray = gson.fromJson(jsonStr, UserJsonSimpleArray.class);
-            return userJsonSimpleArray;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static void setStudentsOfCourse(Context ctx, UserJsonSimpleArray userJsonSimpleArray, int courseID) {
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(userJsonSimpleArray);
-
-        Editor edit = getInstance(ctx).edit();
-        edit.putString("students_" + courseID, jsonStr);
-        edit.commit();
-    }
-
-    public static QuestionJsonArray getMyQuestions(Context ctx) {
-        String jsonStr = getInstance(ctx).getString("my_questions", null);
-        if (jsonStr == null)
-            return null;
-
-        Gson gson = new Gson();
-        try {
-            QuestionJsonArray questionJsonArray = gson.fromJson(jsonStr, QuestionJsonArray.class);
-            return questionJsonArray;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static void setMyQuestions(Context ctx, QuestionJsonArray questionJsonArray) {
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(questionJsonArray);
-
-        Editor edit = getInstance(ctx).edit();
-        edit.putString("my_questions", jsonStr);
-        edit.commit();
-    }
-
+    // First Main View
     public static int getLastSeenCourse(Context ctx) {
-        int lastCourse = getInstance(ctx).getInt("last_course", 0);
-        UserJson user = getUser(ctx);
-        if (lastCourse == 0 || !IntArrayHelper.contains(user.getOpenedCourses(), lastCourse)) {
-            for (CourseJsonSimple course : user.supervising_courses)
-                if (course.opened) {
-                    setLastSeenCourse(ctx, course.id);
-                    return course.id;
-                }
-
-            for (CourseJsonSimple course : user.attending_courses)
-                if (course.opened) {
-                    setLastSeenCourse(ctx, course.id);
-                    return course.id;
-                }
-
-            setLastSeenCourse(ctx, 0);
-            return 0;
-        }
-        return lastCourse;
+        return getInstance(ctx).getInt(LAST_COURSE, Integer.MIN_VALUE);
     }
 
     public static void setLastSeenCourse(Context ctx, int lastCourse) {
         Editor edit = getInstance(ctx).edit();
-        edit.putInt("last_course", lastCourse);
-        edit.commit();
+        edit.putInt(LAST_COURSE, lastCourse);
+        edit.apply();
     }
 
-    public static String getUUID(Context ctx) {
-        return getInstance(ctx).getString("uuid", null);
-    }
-
-    public static void setUUID(Context ctx, String uuid) {
-        Editor edit = getInstance(ctx).edit();
-        edit.putString("uuid", uuid);
-        edit.commit();
-    }
-
-}// end of class
+}

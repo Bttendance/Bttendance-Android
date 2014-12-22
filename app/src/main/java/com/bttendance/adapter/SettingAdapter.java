@@ -54,8 +54,8 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
                 TextView text = (TextView) convertView.findViewById(R.id.setting_text);
                 text.setText(getContext().getString(R.string.attendance_notification));
                 SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
-                if (user.setting != null)
-                    noti.setChecked(user.setting.attendance);
+//                if (user.setting != null)
+//                    noti.setChecked(user.setting.attendance);
                 break;
             }
             case Clicker: {
@@ -63,8 +63,8 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
                 TextView text = (TextView) convertView.findViewById(R.id.setting_text);
                 text.setText(getContext().getString(R.string.clicker_notification));
                 SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
-                if (user.setting != null)
-                    noti.setChecked(user.setting.clicker);
+//                if (user.setting != null)
+//                    noti.setChecked(user.setting.clicker);
                 break;
             }
             case Notice: {
@@ -72,8 +72,8 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
                 TextView text = (TextView) convertView.findViewById(R.id.setting_text);
                 text.setText(getContext().getString(R.string.notice_notification));
                 SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
-                if (user.setting != null)
-                    noti.setChecked(user.setting.notice);
+//                if (user.setting != null)
+//                    noti.setChecked(user.setting.notice);
                 break;
             }
             case PushInfo: {

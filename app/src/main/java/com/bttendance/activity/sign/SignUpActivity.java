@@ -21,23 +21,14 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.event.dialog.HideProgressDialogEvent;
-import com.bttendance.event.dialog.ShowAlertDialogEvent;
-import com.bttendance.event.dialog.ShowProgressDialogEvent;
-import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTUrl;
-import com.bttendance.model.json.DeviceJsonSimple;
-import com.bttendance.model.json.UserJson;
-import com.bttendance.service.BTAPI;
+import com.bttendance.view.BTDialog;
 import com.squareup.otto.BTEventBus;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class SignUpActivity extends BTActivity {
 
@@ -172,10 +163,9 @@ public class SignUpActivity extends BTActivity {
                     ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_cyan));
                     v.setPressed(false);
                     if (BluetoothHelper.getMacAddress() == null) {
-                        BTDialogFragment.DialogType type = BTDialogFragment.DialogType.CONFIRM;
                         String title = getString(R.string.turn_on_bt_title);
                         String message = getString(R.string.turn_on_bt_message);
-                        BTDialogFragment.OnDialogListener listener = new BTDialogFragment.OnDialogListener() {
+                        BTDialog.alert(SignUpActivity.this, title, message, new BTDialog.OnDialogListener() {
                             @Override
                             public void onConfirmed(String edit) {
                                 BluetoothHelper.enable(SignUpActivity.this);
@@ -184,8 +174,7 @@ public class SignUpActivity extends BTActivity {
                             @Override
                             public void onCanceled() {
                             }
-                        };
-                        BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message, listener));
+                        });
                     } else {
                         trySignUp();
                     }
@@ -286,33 +275,33 @@ public class SignUpActivity extends BTActivity {
         String email = mEmail.getText().toString();
         String password = mPassword.getText().toString();
 
-        UserJson user = new UserJson();
-        user.full_name = fullName;
-        user.email = email;
-        user.password = password;
-        user.device = new DeviceJsonSimple();
-        user.device.type = BTAPI.ANDROID;
-        user.device.uuid = BluetoothHelper.getMacAddress();
+//        UserJson user = new UserJson();
+//        user.full_name = fullName;
+//        user.email = email;
+//        user.password = password;
+//        user.device = new DeviceJsonSimple();
+//        user.device.type = BTAPI.ANDROID;
+//        user.device.uuid = BluetoothHelper.getMacAddress();
 
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.signing_up_bttendance)));
-        getBTService().signup(user, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                SignUpActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(getNextIntent());
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    }
-                });
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-            }
-        });
+        BTDialog.progress(this, getString(R.string.signing_up_bttendance));
+//        getBTService().signup(user, new Callback<UserJson>() {
+//            @Override
+//            public void success(UserJson user, Response response) {
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//                SignUpActivity.this.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        startActivity(getNextIntent());
+//                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//            }
+//        });
     }
 
     @Override

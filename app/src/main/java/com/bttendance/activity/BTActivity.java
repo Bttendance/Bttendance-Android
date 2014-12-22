@@ -16,7 +16,6 @@ import android.view.KeyEvent;
 
 import com.bttendance.BTDebug;
 import com.bttendance.R;
-import com.bttendance.activity.course.AddCourseActivity;
 import com.bttendance.activity.guide.GuideCourseAttendActivity;
 import com.bttendance.activity.guide.GuideCourseCreateActivity;
 import com.bttendance.activity.guide.IntroductionActivity;
@@ -190,13 +189,11 @@ public class BTActivity extends ActionBarActivity {
             }
         } else {
             String regId = BTNotification.getRegistrationId(this);
-            UserJson user = BTPreference.getUser(this);
-            if (user == null)
-                return;
 
             if (regId == null)
                 BTNotification.registerInBackground(this);
-            else if (!regId.equals(user.device.notification_key))
+            else
+//            else if (!regId.equals(user.device.notification_key))
                 BTNotification.sendRegistrationIdToBackend(this, regId);
         }
     }
@@ -243,8 +240,7 @@ public class BTActivity extends ActionBarActivity {
                 && (this instanceof SplashActivity
                 || this instanceof IntroductionActivity
                 || this instanceof GuideCourseCreateActivity
-                || this instanceof GuideCourseAttendActivity
-                || this instanceof AddCourseActivity)) {
+                || this instanceof GuideCourseAttendActivity)) {
             // do nothing
             return true;
         }

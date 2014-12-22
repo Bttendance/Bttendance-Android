@@ -15,12 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bttendance.R;
-import com.bttendance.event.dialog.HideProgressDialogEvent;
-import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
-import com.squareup.otto.BTEventBus;
+import com.bttendance.view.BTDialog;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -142,8 +140,8 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
     }
 
     private void save() {
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.updating_password)));
-        getBTService().updatePassword(mOld.getText().toString(), mNew.getText().toString(), this);
+        BTDialog.progress(getActivity(), getString(R.string.updating_password));
+//        getBTService().updatePassword(mOld.getText().toString(), mNew.getText().toString(), this);
     }
 
     private void isEnableSave() {
@@ -211,12 +209,12 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
      */
     @Override
     public void success(UserJson userJson, Response response) {
-        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//        BTEventBus.getInstance().post(new HideProgressDialogEvent());
         getActivity().onBackPressed();
     }
 
     @Override
     public void failure(RetrofitError retrofitError) {
-        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//        BTEventBus.getInstance().post(new HideProgressDialogEvent());
     }
 }

@@ -18,7 +18,6 @@ import com.bttendance.event.notification.NotificationReceived;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.squareup.otto.BTEventBus;
@@ -47,8 +46,8 @@ public class GcmIntentService extends IntentService {
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 BTDebug.LogInfo("Notification Received: " + extras.toString());
 
-                BTTable.UUIDLIST_refresh();
-                BTTable.UUIDLISTSENDED_refresh();
+//                BTTable.UUIDLIST_refresh();
+//                BTTable.UUIDLISTSENDED_refresh();
 
                 String type = extras.getString("type");
                 String title = extras.getString("title");

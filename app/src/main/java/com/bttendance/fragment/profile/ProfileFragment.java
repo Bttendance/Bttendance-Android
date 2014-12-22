@@ -16,12 +16,8 @@ import com.bttendance.adapter.ProfileAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.fragment.clicker.ClickerOptionFragment;
-import com.bttendance.fragment.clicker.ClickerQuestionListFragment;
-import com.bttendance.fragment.course.CourseDetailFragment;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
@@ -72,8 +68,6 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     @Override
     public void onFragmentResume() {
         super.onFragmentResume();
-        if (getBTService() != null)
-            getBTService().autoSignin(null);
         refreshAdapter();
     }
 
@@ -138,7 +132,7 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
         ProfileEditFragment frag = new ProfileEditFragment();
         Bundle bundle = new Bundle();
         bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.name));
-        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).full_name);
+        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).name);
         bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.NAME);
         frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
@@ -155,51 +149,51 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     }
 
     private void showSavedClicker() {
-        ClickerQuestionListFragment fragment = new ClickerQuestionListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, true);
-        fragment.setArguments(bundle);
-        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+//        ClickerQuestionListFragment fragment = new ClickerQuestionListFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, true);
+//        fragment.setArguments(bundle);
+//        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
     }
 
     private void showClickerOption() {
-        UserJson user = BTPreference.getUser(getActivity());
-        ClickerOptionFragment fragment = new ClickerOptionFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerOptionFragment.OptionType.DEFAULT);
-        bundle.putInt(BTKey.EXTRA_PROGRESS_TIME, user.setting.progress_time);
-        bundle.putBoolean(BTKey.EXTRA_SHOW_INFO_ON_SELECT, user.setting.show_info_on_select);
-        bundle.putString(BTKey.EXTRA_DETAIL_PRIVACY, user.setting.detail_privacy);
-        fragment.setArguments(bundle);
-        fragment.setOnOptionChosenListener(new ClickerOptionFragment.OptionChosenListener() {
-            @Override
-            public void OnOptionChosen(int progressTime, boolean showInfoOnSelect, String detailPrivacy) {
-                if (getBTService() == null)
-                    return;
-
-                getBTService().updateClickerDefaults(progressTime, showInfoOnSelect, detailPrivacy, null);
-            }
-        });
-        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+//        UserJson user = BTPreference.getUser(getActivity());
+//        ClickerOptionFragment fragment = new ClickerOptionFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerOptionFragment.OptionType.DEFAULT);
+//        bundle.putInt(BTKey.EXTRA_PROGRESS_TIME, user.setting.progress_time);
+//        bundle.putBoolean(BTKey.EXTRA_SHOW_INFO_ON_SELECT, user.setting.show_info_on_select);
+//        bundle.putString(BTKey.EXTRA_DETAIL_PRIVACY, user.setting.detail_privacy);
+//        fragment.setArguments(bundle);
+//        fragment.setOnOptionChosenListener(new ClickerOptionFragment.OptionChosenListener() {
+//            @Override
+//            public void OnOptionChosen(int progressTime, boolean showInfoOnSelect, String detailPrivacy) {
+//                if (getBTService() == null)
+//                    return;
+//
+//                getBTService().updateClickerDefaults(progressTime, showInfoOnSelect, detailPrivacy, null);
+//            }
+//        });
+//        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
     }
 
     private void showCourse(int courseID) {
-        CourseDetailFragment fragment = new CourseDetailFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(BTKey.EXTRA_COURSE_ID, courseID);
-        fragment.setArguments(bundle);
-        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+//        CourseDetailFragment fragment = new CourseDetailFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putInt(BTKey.EXTRA_COURSE_ID, courseID);
+//        fragment.setArguments(bundle);
+//        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
     }
 
     private void showEditIdentity(int schoolID) {
-        ProfileEditFragment frag = new ProfileEditFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.identity));
-        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).getIdentity(schoolID));
-        bundle.putSerializable(BTKey.EXTRA_SCHOOL_ID, schoolID);
-        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.IDENTITY);
-        frag.setArguments(bundle);
-        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+//        ProfileEditFragment frag = new ProfileEditFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.identity));
+//        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).getIdentity(schoolID));
+//        bundle.putSerializable(BTKey.EXTRA_SCHOOL_ID, schoolID);
+//        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.IDENTITY);
+//        frag.setArguments(bundle);
+//        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
     private void showChangePassword() {

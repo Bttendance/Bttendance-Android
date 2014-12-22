@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.CourseJsonSimple;
-import com.bttendance.model.json.SchoolJsonSimple;
 import com.bttendance.model.json.UserJson;
 
 /**
@@ -38,19 +36,19 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
         add(new ProfileItem(ProfileItemType.SavedClicker, null));
         add(new ProfileItem(ProfileItemType.DefaultClickerOption, null));
 
-        if (mUser.getClosedCourses().length > 0) {
-            add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.closed_lectures)));
-            for (CourseJsonSimple course : mUser.getClosedCourses())
-                add(new ProfileItem(ProfileItemType.Course, course.id));
-        }
-
-        if (mUser.employed_schools.length + mUser.enrolled_schools.length > 0) {
-            add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.institution_capital)));
-            for (SchoolJsonSimple school : mUser.employed_schools)
-                add(new ProfileItem(ProfileItemType.Employed, school));
-            for (SchoolJsonSimple school : mUser.enrolled_schools)
-                add(new ProfileItem(ProfileItemType.Enrolled, school));
-        }
+//        if (mUser.getClosedCourses().length > 0) {
+//            add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.closed_lectures)));
+//            for (CourseJsonSimple course : mUser.getClosedCourses())
+//                add(new ProfileItem(ProfileItemType.Course, course.id));
+//        }
+//
+//        if (mUser.employed_schools.length + mUser.enrolled_schools.length > 0) {
+//            add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.institution_capital)));
+//            for (SchoolJsonSimple school : mUser.employed_schools)
+//                add(new ProfileItem(ProfileItemType.Employed, school));
+//            for (SchoolJsonSimple school : mUser.enrolled_schools)
+//                add(new ProfileItem(ProfileItemType.Enrolled, school));
+//        }
 
         add(new ProfileItem(ProfileItemType.Margin, 55));
         add(new ProfileItem(ProfileItemType.Password, null));
@@ -69,7 +67,7 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 TextView type = (TextView) convertView.findViewById(R.id.profile_type);
                 TextView info = (TextView) convertView.findViewById(R.id.profile_info);
                 type.setText(getContext().getString(R.string.name));
-                info.setText(mUser.full_name);
+                info.setText(mUser.name);
                 break;
             }
             case Email: {
@@ -83,7 +81,7 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
             case SavedClicker: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.profile_text);
-                text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), mUser.questions_count));
+//                text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), mUser.questions_count));
                 text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
                 break;
             }
@@ -96,32 +94,32 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
             }
             case Course: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_detail, null);
-                CourseJsonSimple course = mUser.getCourse((Integer) profileItem.getObject());
-                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
-                TextView message = (TextView) convertView.findViewById(R.id.profile_message);
-                text.setText(course.name);
-                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_cyan));
-                String schoolName = getContext().getString(R.string.empty_school_name);
-                if (mUser.getSchool(course.school) != null)
-                    schoolName = mUser.getSchool(course.school).name;
-                message.setText(schoolName);
+//                CourseJsonSimple course = mUser.getCourse((Integer) profileItem.getObject());
+//                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
+//                TextView message = (TextView) convertView.findViewById(R.id.profile_message);
+//                text.setText(course.name);
+//                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_cyan));
+//                String schoolName = getContext().getString(R.string.empty_school_name);
+//                if (mUser.getSchool(course.school) != null)
+//                    schoolName = mUser.getSchool(course.school).name;
+//                message.setText(schoolName);
                 break;
             }
             case Employed:
             case Enrolled: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_detail, null);
-                SchoolJsonSimple school = (SchoolJsonSimple) profileItem.getObject();
-                convertView.setTag(R.id.school_id, school.id);
-                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
-                TextView message = (TextView) convertView.findViewById(R.id.profile_message);
-                text.setText(school.name);
-                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
-                if (profileItem.type == ProfileItemType.Employed) {
-                    message.setText(getContext().getString(R.string.professor));
-                    convertView.findViewById(R.id.selector).setVisibility(View.GONE);
-                    convertView.findViewById(R.id.profile_arrow).setVisibility(View.GONE);
-                } else
-                    message.setText(String.format(getContext().getString(R.string.student__), mUser.getIdentity(school.id)));
+//                SchoolJsonSimple school = (SchoolJsonSimple) profileItem.getObject();
+//                convertView.setTag(R.id.school_id, school.id);
+//                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
+//                TextView message = (TextView) convertView.findViewById(R.id.profile_message);
+//                text.setText(school.name);
+//                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
+//                if (profileItem.type == ProfileItemType.Employed) {
+//                    message.setText(getContext().getString(R.string.professor));
+//                    convertView.findViewById(R.id.selector).setVisibility(View.GONE);
+//                    convertView.findViewById(R.id.profile_arrow).setVisibility(View.GONE);
+//                } else
+//                    message.setText(String.format(getContext().getString(R.string.student__), mUser.getIdentity(school.id)));
                 break;
             }
             case Password: {

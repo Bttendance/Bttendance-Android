@@ -22,6 +22,7 @@ import com.bttendance.view.BTDialog;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
@@ -32,26 +33,44 @@ public class BTService extends Service {
 
     private static final String SERVER_DOMAIN_PRODUCTION = "http://www.bttendance.com";
     private static final String SERVER_DOMAIN_DEVELOPMENT = "http://bttendance-staging.herokuapp.com";
-    private static RestAdapter mRestAdapter = new RestAdapter.Builder()
+    private RequestInterceptor requestInterceptor = new RequestInterceptor() {
+        @Override
+        public void intercept(RequestFacade request) {
+//            request.addHeader("Content-Type", "application/json; charset=UTF-8");
+//            request.addHeader("Platform", "Android");
+//            request.addHeader("Accept-Language", getResources().getConfiguration().locale.getLanguage());
+//            request.addHeader("Authorization:", "");
+//            OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog",
+//                    oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg",
+//                    oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D",
+//                    oauth_signature_method="HMAC-SHA1",
+//                    oauth_timestamp="1318622958",
+//                    oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb",
+//                    oauth_version="1.0"
+//            https://dev.twitter.com/oauth/overview/authorizing-requests
+        }
+    };
+    private RestAdapter mRestAdapter = new RestAdapter.Builder()
             .setLog(new RestAdapter.Log() {
                 @Override
                 public void log(String log) {
                     if (log != null) {
                         if (log.contains("<--- HTTP") || log.contains("---> HTTP"))
                             BTDebug.LogQueryAPI(log);
-                        else if (log.contains("created_at"))
+                        else
                             BTDebug.LogResponseAPI(log);
                     }
                 }
             })
             .setLogLevel(RestAdapter.LogLevel.FULL)
             .setEndpoint(getServerDomain() + "/api/v1")
+            .setRequestInterceptor(requestInterceptor)
             .build();
     private BTAPI mBTAPI;
     private ConnectivityManager mConnectivityManager;
     private LocalBinder mBinder = new LocalBinder();
 
-    public static String getServerDomain() {
+    public String getServerDomain() {
         if (!BuildConfig.DEBUG)
             return SERVER_DOMAIN_PRODUCTION;
         else
@@ -82,11 +101,17 @@ public class BTService extends Service {
     /**
      * Users APIs
      */
-    void signup(String email, String password, String name, Callback<UserJson> cb) {
+    public void signup(String email, String password, String name, Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
+    }
 
+    private void autoSignOut() {
+        BTPreference.clearUser(getApplicationContext());
+        Intent intent = new Intent(getApplicationContext(), IntroductionActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private boolean isConnected() {
@@ -94,10 +119,7 @@ public class BTService extends Service {
             return false;
 
         final NetworkInfo networkInfo = mConnectivityManager.getActiveNetworkInfo();
-        if (networkInfo == null || !networkInfo.isConnectedOrConnecting())
-            return false;
-
-        return true;
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 
     private void failureHandle(Callback cb, RetrofitError retrofitError) {
@@ -161,13 +183,6 @@ public class BTService extends Service {
         }
         if (cb != null)
             cb.failure(retrofitError);
-    }
-
-    private void autoSignOut() {
-        BTPreference.clearUser(getApplicationContext());
-        Intent intent = new Intent(getApplicationContext(), IntroductionActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     /**

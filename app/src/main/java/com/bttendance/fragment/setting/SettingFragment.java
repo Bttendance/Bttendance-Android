@@ -101,16 +101,16 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         switch (mAdapter.getItem(position).getType()) {
             case Attendance:
-                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
-                    getBTService().updateSettingAttendance(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
+//                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
+//                    getBTService().updateSettingAttendance(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
                 break;
             case Clicker:
-                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
-                    getBTService().updateSettingClicker(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
+//                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
+//                    getBTService().updateSettingClicker(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
                 break;
             case Notice:
-                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
-                    getBTService().updateSettingNotice(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
+//                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
+//                    getBTService().updateSettingNotice(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
                 break;
             case PushInfo:
                 break;

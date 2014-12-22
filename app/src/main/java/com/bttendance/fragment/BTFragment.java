@@ -1,21 +1,13 @@
 package com.bttendance.fragment;
 
 import android.app.Activity;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.TextView;
 
 import com.bttendance.BTDebug;
-import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.activity.MainActivity;
-import com.bttendance.activity.course.AttendCourseActivity;
-import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.service.BTService;
 import com.squareup.otto.BTEventBus;
 
@@ -40,28 +32,6 @@ public class BTFragment extends Fragment implements BTActivity.OnServiceConnectL
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        if (getActivity() == null)
-            return;
-
-        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
-        int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
-        TextView abTitle = (TextView) getActivity().findViewById(titleId);
-        if (this instanceof BTDialogFragment
-                && (getActivity() instanceof MainActivity
-                || getActivity() instanceof AttendCourseActivity
-                || getActivity() instanceof CreateCourseActivity)) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setHomeButtonEnabled(false);
-            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy_darken)));
-
-            if (abTitle != null)
-                abTitle.setTextColor(getResources().getColor(R.color.bttendance_white_darken));
-        } else {
-            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.bttendance_navy)));
-
-            if (abTitle != null)
-                abTitle.setTextColor(getResources().getColor(R.color.bttendance_white));
-        }
     }
 
     @Override
@@ -107,7 +77,7 @@ public class BTFragment extends Fragment implements BTActivity.OnServiceConnectL
     }
 
     public void onFragmentResume() {
-        BTDebug.LogError("onFragmentResume : " + ((Object)this).getClass().getSimpleName());
+        BTDebug.LogError("onFragmentResume : " + ((Object) this).getClass().getSimpleName());
     }
 
     public void onFragmentPause() {

@@ -16,29 +16,21 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bttendance.R;
-import com.bttendance.activity.course.AddCourseActivity;
 import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.fragment.course.CourseDetailFragment;
-import com.bttendance.fragment.course.NoCourseFragment;
 import com.bttendance.fragment.profile.ProfileFragment;
 import com.bttendance.fragment.setting.SettingFragment;
 import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
-import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 import com.uservoice.uservoicesdk.Config;
 import com.uservoice.uservoicesdk.UserVoice;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 20..
@@ -75,8 +67,8 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 super.onDrawerClosed(view);
                 supportInvalidateOptionsMenu();
                 replacePendingFragment();
-                if (getBTService() != null)
-                    getBTService().socketConnect();
+//                if (getBTService() != null)
+//                    getBTService().socketConnect();
             }
 
             @Override
@@ -111,20 +103,20 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     private void setFirstFragment() {
         BTFragment fragment;
         int lastCourse = BTPreference.getLastSeenCourse(this);
-        if (lastCourse == 0)
-            fragment = new NoCourseFragment();
-        else {
-            fragment = new CourseDetailFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt(BTKey.EXTRA_COURSE_ID, lastCourse);
-            fragment.setArguments(bundle);
-        }
+//        if (lastCourse == Integer.MIN_VALUE)
+//            fragment = new NoCourseFragment();
+//        else {
+//            fragment = new CourseDetailFragment();
+//            Bundle bundle = new Bundle();
+//            bundle.putInt(BTKey.EXTRA_COURSE_ID, lastCourse);
+//            fragment.setArguments(bundle);
+//        }
 
-        FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() == 0) {
-            fm.beginTransaction().replace(R.id.content, fragment).commit();
-            fragment.onPendingFragmentResume();
-        }
+//        FragmentManager fm = getSupportFragmentManager();
+//        if (fm.getBackStackEntryCount() == 0) {
+//            fm.beginTransaction().replace(R.id.content, fragment).commit();
+//            fragment.onPendingFragmentResume();
+//        }
     }
 
     @Override
@@ -137,8 +129,8 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     protected void onStart() {
         super.onStart();
 
-        if (BTTable.getAttdCheckingIds().size() > 0)
-            BTEventBus.getInstance().post(new AttdStartedEvent(true));
+//        if (BTTable.getAttdCheckingIds().size() > 0)
+//            BTEventBus.getInstance().post(new AttdStartedEvent(true));
     }
 
     @Override
@@ -146,15 +138,15 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         super.onServieConnected();
 
         //Check whether on going Attendance exists
-        getBTService().autoSignin(new Callback<UserJson>() {
-            @Override
-            public void success(UserJson userJson, Response response) {
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-            }
-        });
+//        getBTService().autoSignin(new Callback<UserJson>() {
+//            @Override
+//            public void success(UserJson userJson, Response response) {
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//            }
+//        });
 
         if (getIntent() != null && BTKey.IntentKey.ACTION_SHOW_COURSE.equals(getIntent().getAction())) {
             String courseID = getIntent().getStringExtra(BTKey.EXTRA_COURSE_ID);
@@ -256,9 +248,9 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 fragment = new ProfileFragment();
                 break;
             case AddCourse: {
-                Intent intent = new Intent(this, AddCourseActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                Intent intent = new Intent(this, AddCourseActivity.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
             }
             case Guide:
@@ -273,16 +265,16 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 UserJson user = BTPreference.getUser(this);
                 Config config = new Config("bttendance.uservoice.com");
                 config.setForumId(259759);
-                config.identifyUser(user.email, user.full_name, user.email);
+                config.identifyUser(user.email, user.name, user.email);
                 UserVoice.init(config, this);
                 UserVoice.launchPostIdea(this);
                 overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.fade_out_slow);
                 break;
             case Course:
-                fragment = new CourseDetailFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt(BTKey.EXTRA_COURSE_ID, (Integer) item.getObject());
-                fragment.setArguments(bundle);
+//                fragment = new CourseDetailFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putInt(BTKey.EXTRA_COURSE_ID, (Integer) item.getObject());
+//                fragment.setArguments(bundle);
                 break;
             case Section: //nothing happens
             case Margin:
@@ -315,22 +307,22 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         if (mResetCourseID == 0)
             return;
 
-        BTFragment frag = (BTFragment) getSupportFragmentManager().findFragmentById(R.id.content);
-        if (frag instanceof CourseDetailFragment && ((CourseDetailFragment) frag).getCourseID() == mResetCourseID)
-            return;
-
-        CourseDetailFragment fragment = new CourseDetailFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(BTKey.EXTRA_COURSE_ID, mResetCourseID);
-        fragment.setArguments(bundle);
-
-        FragmentManager fm = getSupportFragmentManager();
-        while (fm.getBackStackEntryCount() > 0) {
-            onBackPressed();
-        }
-
-        fm.beginTransaction().replace(R.id.content, fragment).commit();
-        fragment.onPendingFragmentResume();
+//        BTFragment frag = (BTFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+//        if (frag instanceof CourseDetailFragment && ((CourseDetailFragment) frag).getCourseID() == mResetCourseID)
+//            return;
+//
+//        CourseDetailFragment fragment = new CourseDetailFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putInt(BTKey.EXTRA_COURSE_ID, mResetCourseID);
+//        fragment.setArguments(bundle);
+//
+//        FragmentManager fm = getSupportFragmentManager();
+//        while (fm.getBackStackEntryCount() > 0) {
+//            onBackPressed();
+//        }
+//
+//        fm.beginTransaction().replace(R.id.content, fragment).commit();
+//        fragment.onPendingFragmentResume();
 
         mDrawerLayout.closeDrawer(mListMenu);
         mResetCourseID = 0;
@@ -358,16 +350,16 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         if (getBTService() == null)
             return;
 
-        getBTService().courses(new Callback<CourseJson[]>() {
-            @Override
-            public void success(CourseJson[] courseJsons, Response response) {
-                if (mSideAdapter != null)
-                    mSideAdapter.refreshAdapter();
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-            }
-        });
+//        getBTService().courses(new Callback<CourseJson[]>() {
+//            @Override
+//            public void success(CourseJson[] courseJsons, Response response) {
+//                if (mSideAdapter != null)
+//                    mSideAdapter.refreshAdapter();
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//            }
+//        });
     }
 }

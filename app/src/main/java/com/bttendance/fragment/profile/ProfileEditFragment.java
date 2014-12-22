@@ -1,10 +1,13 @@
 package com.bttendance.fragment.profile;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import android.support.v7.app.ActionBar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import com.bttendance.R;
-import com.bttendance.event.dialog.HideProgressDialogEvent;
-import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.json.UserJson;
-import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -127,21 +124,21 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
     }
 
     private void save() {
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.updating_profile)));
-        switch (mType) {
-            case NAME:
-                getBTService().updateFullName(mEdit.getText().toString(), this);
-                break;
-            case MAIL:
-                getBTService().updateEmail(mEdit.getText().toString(), this);
-                break;
-            case IDENTITY:
-                getBTService().updateIdentity(getArguments().getInt(BTKey.EXTRA_SCHOOL_ID), mEdit.getText().toString(), this);
-                break;
-            default:
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                break;
-        }
+//        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.updating_profile)));
+//        switch (mType) {
+//            case NAME:
+//                getBTService().updateFullName(mEdit.getText().toString(), this);
+//                break;
+//            case MAIL:
+//                getBTService().updateEmail(mEdit.getText().toString(), this);
+//                break;
+//            case IDENTITY:
+//                getBTService().updateIdentity(getArguments().getInt(BTKey.EXTRA_SCHOOL_ID), mEdit.getText().toString(), this);
+//                break;
+//            default:
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//                break;
+//        }
     }
 
     private void isEnableSave() {
@@ -200,13 +197,13 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
      */
     @Override
     public void success(UserJson userJson, Response response) {
-        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//        BTEventBus.getInstance().post(new HideProgressDialogEvent());
         getActivity().onBackPressed();
     }
 
     @Override
     public void failure(RetrofitError retrofitError) {
-        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//        BTEventBus.getInstance().post(new HideProgressDialogEvent());
     }
 
     public enum Type {IMAGE, NAME, MAIL, IDENTITY}

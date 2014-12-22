@@ -77,17 +77,17 @@ public class BTNotification {
         if (activity == null || activity.getBTService() == null)
             return;
 
-        activity.getBTService().updateNotificationKey(regid, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson userJson, Response response) {
-                BTDebug.LogInfo("Update NotificationKey Success : " + userJson);
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-
-            }
-        });
+//        activity.getBTService().updateNotificationKey(regid, new Callback<UserJson>() {
+//            @Override
+//            public void success(UserJson userJson, Response response) {
+//                BTDebug.LogInfo("Update NotificationKey Success : " + userJson);
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//
+//            }
+//        });
     }
 
     /**

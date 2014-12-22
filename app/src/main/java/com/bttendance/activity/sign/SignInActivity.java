@@ -15,12 +15,11 @@ import android.widget.EditText;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.dialog.HideProgressDialogEvent;
-import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.sign.ForgotPasswordFragment;
 import com.bttendance.helper.BluetoothHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.view.BTDialog;
 import com.squareup.otto.BTEventBus;
 
 import butterknife.ButterKnife;
@@ -170,25 +169,25 @@ public class SignInActivity extends BTActivity {
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
         String uuid = BluetoothHelper.getMacAddress();
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.loging_in_bttendance)));
-        getBTService().signin(username, password, uuid, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson user, Response response) {
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                SignInActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(getNextIntent());
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    }
-                });
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-            }
-        });
+        BTDialog.progress(this, getString(R.string.loging_in_bttendance));
+//        getBTService().signin(username, password, uuid, new Callback<UserJson>() {
+//            @Override
+//            public void success(UserJson user, Response response) {
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//                SignInActivity.this.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        startActivity(getNextIntent());
+//                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//            }
+//        });
     }
 
     @Override

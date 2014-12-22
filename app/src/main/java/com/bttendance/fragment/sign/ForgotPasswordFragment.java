@@ -1,33 +1,24 @@
 package com.bttendance.fragment.sign;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import android.support.v7.app.ActionBar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import com.bttendance.R;
-import com.bttendance.event.dialog.HideProgressDialogEvent;
-import com.bttendance.event.dialog.ShowAlertDialogEvent;
-import com.bttendance.event.dialog.ShowProgressDialogEvent;
-import com.bttendance.fragment.BTDialogFragment;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.json.EmailJson;
-import com.squareup.otto.BTEventBus;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import com.bttendance.view.BTDialog;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
@@ -160,22 +151,22 @@ public class ForgotPasswordFragment extends BTFragment {
 
         String email = mEmail.getText().toString();
 
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.recovering_password)));
-        getBTService().forgotPassword(email, new Callback<EmailJson>() {
-            @Override
-            public void success(EmailJson email, Response response) {
-                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
-                String title = getString(R.string.password_recovery_success);
-                String message = String.format(getString(R.string.password_recovery_has_been_succeeded), email.email);
-                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message));
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-            }
-        });
+        BTDialog.progress(getActivity(), getString(R.string.recovering_password));
+//        getBTService().forgotPassword(email, new Callback<EmailJson>() {
+//            @Override
+//            public void success(EmailJson email, Response response) {
+//                BTDialogFragment.DialogType type = BTDialogFragment.DialogType.OK;
+//                String title = getString(R.string.password_recovery_success);
+//                String message = String.format(getString(R.string.password_recovery_has_been_succeeded), email.email);
+//                BTEventBus.getInstance().post(new ShowAlertDialogEvent(type, title, message));
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//            }
+//        });
     }
 
     @Override
