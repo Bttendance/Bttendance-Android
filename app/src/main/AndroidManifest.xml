@@ -88,7 +88,7 @@
             android:theme="@style/Theme.Bttendance.White.Background" />
 
         <activity
-            android:name="com.bttendance.activity.sign.SignInActivity"
+            android:name=".activity.sign.LogInActivity"
             android:label="@string/log_in"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bttendance.White.Background"

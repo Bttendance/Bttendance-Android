@@ -18,7 +18,9 @@ import com.bttendance.helper.PackagesHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.ErrorJson;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.service.request.LogInRequest;
 import com.bttendance.service.request.PasswordResetRequest;
+import com.bttendance.service.request.UserPostRequest;
 import com.bttendance.view.BTDialog;
 import com.squareup.otto.BTEventBus;
 
@@ -40,8 +42,9 @@ public class BTService extends Service {
         public void intercept(RequestFacade request) {
             request.addHeader("Content-Type", "application/json; charset=UTF-8");
             request.addHeader("Platform", "Android");
+            request.addHeader("Version", "" + BuildConfig.VERSION_CODE);
             request.addHeader("Accept-Language", getResources().getConfiguration().locale.getLanguage());
-//            request.addHeader("Authorization:", "");
+//            request.addHeader("Authorization", "");
 //            OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog",
 //                    oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg",
 //                    oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D",
@@ -103,10 +106,43 @@ public class BTService extends Service {
     /**
      * Users APIs
      */
-    public void signup(String email, String password, String name, Callback<UserJson> cb) {
+    public void signup(String email, String password, String name, String mac_address, final Callback<UserJson> cb) {
         if (!isConnected())
             return;
 
+        UserPostRequest request = new UserPostRequest(email, password, name, mac_address);
+        mBTAPI.signUp(request, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson userJson, Response response) {
+                if (cb != null)
+                    cb.success(userJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+
+    }
+
+    public void login(String email, String password, String mac_address, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        LogInRequest request = new LogInRequest(email, password, mac_address);
+        mBTAPI.logIn(request, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson userJson, Response response) {
+                if (cb != null)
+                    cb.success(userJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
     }
 
     public void forgotPassword(String email, final Callback<Object> cb) {
@@ -128,13 +164,16 @@ public class BTService extends Service {
         });
     }
 
-    private void autoSignOut() {
+    public void autoSignOut() {
         BTPreference.clearUser(getApplicationContext());
         Intent intent = new Intent(getApplicationContext(), IntroductionActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Private Methods
+     */
     private boolean isConnected() {
         if (mConnectivityManager == null || mBTAPI == null)
             return false;

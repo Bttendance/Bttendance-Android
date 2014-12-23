@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.bttendance.R;
-import com.bttendance.activity.sign.SignInActivity;
+import com.bttendance.activity.sign.LogInActivity;
 import com.bttendance.activity.sign.SignUpActivity;
 import com.bttendance.fragment.BTFragment;
 
@@ -73,7 +73,7 @@ public class IntroductionStartFragment extends BTFragment implements View.OnClic
     }
 
     private void logIn() {
-        Intent intent = new Intent(getActivity(), SignInActivity.class);
+        Intent intent = new Intent(getActivity(), LogInActivity.class);
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
     }

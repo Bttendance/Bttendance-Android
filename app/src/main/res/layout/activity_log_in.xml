@@ -52,7 +52,7 @@
             </RelativeLayout>
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/email"
                 style="@style/userInfoEditText"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@id/text_box"
@@ -62,17 +62,17 @@
                 android:textColorHint="@color/grey_hex_aa" />
 
             <View
-                android:id="@+id/username_divider"
+                android:id="@+id/email_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/username"
+                android:layout_below="@id/email"
                 android:layout_marginBottom="10dp"
                 android:background="@color/bttendance_silver_30" />
 
             <EditText
                 android:id="@+id/password"
                 style="@style/userInfoEditText"
-                android:layout_below="@id/username_divider"
+                android:layout_below="@id/email_divider"
                 android:layout_toRightOf="@id/text_box"
                 android:inputType="textPassword"
                 android:singleLine="true" />

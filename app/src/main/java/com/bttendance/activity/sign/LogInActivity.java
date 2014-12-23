@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.AddFragmentEvent;
@@ -32,16 +33,16 @@ import retrofit.client.Response;
  * Created by TheFinestArtist on 2013. 11. 19..
  */
 
-public class SignInActivity extends BTActivity {
+public class LogInActivity extends BTActivity {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.username)
-    EditText mUsername;
+    @InjectView(R.id.email)
+    EditText mEmail;
     @InjectView(R.id.password)
     EditText mPassword;
-    @InjectView(R.id.username_divider)
-    View mUsernameDiv;
+    @InjectView(R.id.email_divider)
+    View mEmailDiv;
     @InjectView(R.id.password_divider)
     View mPasswordDiv;
     @InjectView(R.id.signin)
@@ -57,25 +58,25 @@ public class SignInActivity extends BTActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_log_in);
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);
 
-        mUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
+                    mEmailDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_cyan));
                 } else {
-                    mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
+                    mEmailDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
                 }
             }
         });
 
-        mUsername.addTextChangedListener(new TextWatcher() {
+        mEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mUsernameCount = mUsername.getText().toString().length();
+                mUsernameCount = mEmail.getText().toString().length();
                 isEnableSignIn();
             }
 
@@ -128,7 +129,23 @@ public class SignInActivity extends BTActivity {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     ((Button) v).setTextColor(getResources().getColor(R.color.bttendance_cyan));
                     v.setPressed(false);
-                    trySignIn();
+
+                    if (BluetoothHelper.getMacAddress() == null) {
+                        String title = getString(R.string.turn_on_bt_title);
+                        String message = getString(R.string.turn_on_bt_message);
+                        BTDialog.alert(LogInActivity.this, title, message, new BTDialog.OnDialogListener() {
+                            @Override
+                            public void onConfirmed(String edit) {
+                                BluetoothHelper.enable(LogInActivity.this);
+                            }
+
+                            @Override
+                            public void onCanceled() {
+                            }
+                        });
+                    } else {
+                        trySignIn();
+                    }
                 }
                 if (event.getX() < 0
                         || event.getX() > v.getWidth()
@@ -144,7 +161,7 @@ public class SignInActivity extends BTActivity {
         mForgetPwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                KeyboardHelper.hide(SignInActivity.this, mUsername);
+                KeyboardHelper.hide(LogInActivity.this, mEmail);
                 ForgotPasswordFragment frag = new ForgotPasswordFragment();
                 BTEventBus.getInstance().post(new AddFragmentEvent(frag));
             }
@@ -166,28 +183,28 @@ public class SignInActivity extends BTActivity {
         if (getBTService() == null)
             return;
 
-        String username = mUsername.getText().toString();
+        String username = mEmail.getText().toString();
         String password = mPassword.getText().toString();
         String uuid = BluetoothHelper.getMacAddress();
-        BTDialog.progress(this, getString(R.string.loging_in_bttendance));
-//        getBTService().signin(username, password, uuid, new Callback<UserJson>() {
-//            @Override
-//            public void success(UserJson user, Response response) {
-//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//                SignInActivity.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        startActivity(getNextIntent());
-//                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//            }
-//        });
+        final MaterialDialog dialog = BTDialog.progress(this, getString(R.string.loging_in_bttendance));
+        getBTService().login(username, password, uuid, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson user, Response response) {
+                BTDialog.hide(dialog);
+                LogInActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(getNextIntent());
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                });
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                BTDialog.hide(dialog);
+            }
+        });
     }
 
     @Override
@@ -195,11 +212,11 @@ public class SignInActivity extends BTActivity {
         super.onResume();
 
         if (mUsernameString != null)
-            mUsername.setText(mUsernameString);
+            mEmail.setText(mUsernameString);
         if (mPasswordString != null)
             mPassword.setText(mPasswordString);
 
-        mUsernameDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
+        mEmailDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
         mPasswordDiv.setBackgroundColor(getResources().getColor(R.color.bttendance_silver_30));
 
         isEnableSignIn();
@@ -209,7 +226,7 @@ public class SignInActivity extends BTActivity {
     @Override
     public void onPause() {
         super.onPause();
-        mUsernameString = mUsername.getText().toString();
+        mUsernameString = mEmail.getText().toString();
         mPasswordString = mPassword.getText().toString();
         BTEventBus.getInstance().unregister(mEventDispatcher);
     }
@@ -228,7 +245,7 @@ public class SignInActivity extends BTActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getString(R.string.log_in));
         actionBar.setDisplayHomeAsUpEnabled(true);
-        KeyboardHelper.show(this, mUsername);
+        KeyboardHelper.show(this, mEmail);
         return super.onCreateOptionsMenu(menu);
     }
 
