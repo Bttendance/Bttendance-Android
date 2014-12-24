@@ -7,22 +7,17 @@ import com.bttendance.service.BTAPI;
  */
 public class LogInRequest {
 
-    public User user;
+    public String email;
+    public String password;
+    public String locale;
+    public Device devices_attributes;
 
     public LogInRequest(String email, String password, String mac_address) {
-        this.user = new User();
-        this.user.email = email;
-        this.user.password = password;
-        this.user.devices_attributes = new Device();
-        this.user.devices_attributes.platform = BTAPI.ANDROID;
-        this.user.devices_attributes.mac_address = mac_address;
-    }
-
-    public class User {
-        public String email;
-        public String password;
-        public String locale;
-        public Device devices_attributes;
+        this.email = email;
+        this.password = password;
+        this.devices_attributes = new Device();
+        this.devices_attributes.platform = BTAPI.ANDROID;
+        this.devices_attributes.mac_address = mac_address;
     }
 
     public class Device {

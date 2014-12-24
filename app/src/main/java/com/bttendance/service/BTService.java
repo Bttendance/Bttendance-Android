@@ -114,6 +114,7 @@ public class BTService extends Service {
         mBTAPI.signUp(request, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
+                BTPreference.setUser(getApplicationContext(), userJson);
                 if (cb != null)
                     cb.success(userJson, response);
             }
@@ -134,6 +135,7 @@ public class BTService extends Service {
         mBTAPI.logIn(request, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
+                BTPreference.setUser(getApplicationContext(), userJson);
                 if (cb != null)
                     cb.success(userJson, response);
             }

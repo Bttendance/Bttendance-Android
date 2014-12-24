@@ -55,15 +55,15 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
         SideItem sideItem = getItem(position);
         switch (sideItem.type) {
             case Header: {
-//                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_header, null);
-//                TextView name = (TextView) convertView.findViewById(R.id.header_name);
-//                TextView type = (TextView) convertView.findViewById(R.id.header_type);
-//                name.setText(mUser.full_name);
-//                if (mUser.supervising_courses.length > 0)
-//                    type.setText(getContext().getString(R.string.professor_capital));
-//                else
-//                    type.setText(getContext().getString(R.string.student_capital));
-//                break;
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_header, null);
+                TextView name = (TextView) convertView.findViewById(R.id.header_name);
+                TextView type = (TextView) convertView.findViewById(R.id.header_type);
+                name.setText(mUser.name);
+                if (mUser.isProfessor())
+                    type.setText(getContext().getString(R.string.professor_capital));
+                else
+                    type.setText(getContext().getString(R.string.student_capital));
+                break;
             }
             case AddCourse: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_list, null);

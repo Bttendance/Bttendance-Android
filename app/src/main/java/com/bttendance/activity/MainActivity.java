@@ -3,10 +3,11 @@ package com.bttendance.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,46 +20,52 @@ import com.bttendance.R;
 import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.attendance.AttdStartedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.profile.ProfileFragment;
 import com.bttendance.fragment.setting.SettingFragment;
 import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 import com.uservoice.uservoicesdk.Config;
 import com.uservoice.uservoicesdk.UserVoice;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 20..
  */
 public class MainActivity extends BTActivity implements AdapterView.OnItemClickListener {
 
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private SideListAdapter mSideAdapter;
-    private ListView mListMenu;
+
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.left_drawer)
+    ListView mListMenu;
+    @InjectView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityStack.clear(this);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
+        setSupportActionBar(toolbar);
 
         mSideAdapter = new SideListAdapter(getApplicationContext());
         mSideAdapter.setNotifyOnChange(true);
-        mListMenu = (ListView) findViewById(R.id.left_drawer);
         mListMenu.setAdapter(mSideAdapter);
         mListMenu.setOnItemClickListener(this);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_navigation_drawer,  /* nav drawer icon to replace 'Up' caret */
+                toolbar,               /* Toolbar object */
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.drawer_close  /* "close drawer" description */
         ) {
@@ -79,6 +86,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
 
         ViewGroup.LayoutParams params = mListMenu.getLayoutParams();
         params.width = ScreenHelper.getNaviDrawerWidth(this);
