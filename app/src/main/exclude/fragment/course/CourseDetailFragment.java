@@ -96,7 +96,7 @@ public class CourseDetailFragment extends BTFragment implements View.OnClickList
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
-            if (!((MainActivity) getActivity()).isDrawerOpen()) {
+            if (!((MainActivity) getActivity()).isDrawerVisible()) {
                 actionBar.setTitle(mCourse.name);
                 inflater.inflate(R.menu.course_detail_menu, menu);
             }

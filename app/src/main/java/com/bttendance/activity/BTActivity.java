@@ -42,7 +42,6 @@ import java.util.Stack;
 public class BTActivity extends ActionBarActivity {
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private static BTActivity mActivity;
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -100,8 +99,7 @@ public class BTActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity = this;
-        ActivityStack.add(mActivity);
+        ActivityStack.add(this);
         mEventDispatcher = new BTEventDispatcher(this);
         BTService.bind(this, mBTConnect);
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
@@ -149,16 +147,6 @@ public class BTActivity extends ActionBarActivity {
     protected void onPause() {
         super.onPause();
         mCurrentlyVisible = false;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
     public Intent getNextIntent() {

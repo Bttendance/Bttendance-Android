@@ -166,6 +166,27 @@ public class BTService extends Service {
         });
     }
 
+    public void autoSignIn(final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.autoSignIn(user.id, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson userJson, Response response) {
+                BTPreference.setUser(getApplicationContext(), userJson);
+                if (cb != null)
+                    cb.success(userJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+                autoSignOut();
+            }
+        });
+    }
+
     public void autoSignOut() {
         BTPreference.clearUser(getApplicationContext());
         Intent intent = new Intent(getApplicationContext(), IntroductionActivity.class);

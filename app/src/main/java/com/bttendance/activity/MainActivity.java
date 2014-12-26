@@ -86,7 +86,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
 
         ViewGroup.LayoutParams params = mListMenu.getLayoutParams();
         params.width = ScreenHelper.getNaviDrawerWidth(this);
@@ -144,18 +143,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     @Override
     protected void onServieConnected() {
         super.onServieConnected();
-
-        //Check whether on going Attendance exists
-//        getBTService().autoSignin(new Callback<UserJson>() {
-//            @Override
-//            public void success(UserJson userJson, Response response) {
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//            }
-//        });
-
+        getBTService().autoSignIn(null);
         if (getIntent() != null && BTKey.IntentKey.ACTION_SHOW_COURSE.equals(getIntent().getAction())) {
             String courseID = getIntent().getStringExtra(BTKey.EXTRA_COURSE_ID);
             setResetCourseID(Integer.parseInt(courseID));
@@ -211,17 +199,22 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
 
-        if (isDrawerOpen()) {
+        if (isDrawerVisible()) {
             actionBar.setTitle(getString(R.string.menu));
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.no_menu, menu);
         }
 
+//        syncToggleState();
         return super.onCreateOptionsMenu(menu);
     }
 
-    public boolean isDrawerOpen() {
-        return mDrawerLayout.isDrawerOpen(mListMenu);
+    public boolean isDrawerVisible() {
+        return mDrawerLayout.isDrawerVisible(mListMenu);
+    }
+
+    public void syncToggleState() {
+        mDrawerToggle.syncState();
     }
 
     /**

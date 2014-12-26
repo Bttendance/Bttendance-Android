@@ -14,7 +14,6 @@ import com.bttendance.event.main.ResetMainFragmentEvent;
 import com.bttendance.event.notification.NotificationReceived;
 import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.model.BTTable;
 import com.bttendance.view.BTToast;
 import com.squareup.otto.Subscribe;
 
@@ -202,11 +201,12 @@ public class BTEventDispatcher {
             public void run() {
                 BTFragment frag = event.getFragment();
                 FragmentTransaction ft = act.getSupportFragmentManager().beginTransaction();
-                ft.setCustomAnimations(
-                        R.anim.activity_open_enter,
-                        R.anim.activity_open_exit,
-                        R.anim.activity_close_enter,
-                        R.anim.activity_close_exit);
+                if (event.hasAnim())
+                    ft.setCustomAnimations(
+                            R.anim.activity_open_enter,
+                            R.anim.activity_open_exit,
+                            R.anim.activity_close_enter,
+                            R.anim.activity_close_exit);
                 ft.add(R.id.content, frag, ((Object) frag).getClass().getSimpleName());
                 ft.addToBackStack(((Object) frag).getClass().getSimpleName());
                 ft.commitAllowingStateLoss();

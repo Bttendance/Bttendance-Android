@@ -21,6 +21,8 @@ import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.view.BTDialog;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -30,11 +32,15 @@ import retrofit.client.Response;
  */
 public class ForgotPasswordFragment extends BTFragment {
 
-    private EditText mEmail = null;
-    private View mEmailDiv = null;
+    @InjectView(R.id.email)
+    EditText mEmail;
+    @InjectView(R.id.email_divider)
+    View mEmailDiv;
+    @InjectView(R.id.signup)
+    Button mSignUp;
+
     private int mEmailCount = 0;
-    private Button mSignUp = null;
-    private String mEmailString = null;
+    private String mEmailString;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,10 +51,7 @@ public class ForgotPasswordFragment extends BTFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_forgot_password, container, false);
-
-        mEmail = (EditText) view.findViewById(R.id.email);
-        mEmailDiv = view.findViewById(R.id.email_divider);
-        mSignUp = (Button) view.findViewById(R.id.signup);
+        ButterKnife.inject(this, view);
 
         mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -65,6 +68,7 @@ public class ForgotPasswordFragment extends BTFragment {
         mEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mEmailString = mEmail.getText().toString();
                 mEmailCount = mEmail.getText().toString().length();
                 isEnableSignUp();
             }

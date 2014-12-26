@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 
 import com.bttendance.BTDebug;
 import com.bttendance.activity.BTActivity;
+import com.bttendance.activity.MainActivity;
 import com.bttendance.service.BTService;
 import com.squareup.otto.BTEventBus;
 
@@ -93,5 +94,11 @@ public class BTFragment extends Fragment implements BTActivity.OnServiceConnectL
 
     @Override
     public void onServiceDisconnected() {
+    }
+
+    protected void syncToogleState() {
+        Activity activity = getActivity();
+        if (activity != null && activity instanceof MainActivity)
+            ((MainActivity) activity).syncToggleState();
     }
 }

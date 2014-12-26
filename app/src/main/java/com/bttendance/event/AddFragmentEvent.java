@@ -8,12 +8,23 @@ import com.bttendance.fragment.BTFragment;
 public class AddFragmentEvent {
 
     private BTFragment mFragment;
+    private boolean mHasAnim;
 
     public AddFragmentEvent(BTFragment fragment) {
         mFragment = fragment;
+        mHasAnim = true;
+    }
+
+    public AddFragmentEvent(BTFragment fragment, boolean hasAnim) {
+        mFragment = fragment;
+        mHasAnim = hasAnim;
     }
 
     public BTFragment getFragment() {
         return mFragment;
+    }
+
+    public boolean hasAnim() {
+        return mHasAnim;
     }
 }

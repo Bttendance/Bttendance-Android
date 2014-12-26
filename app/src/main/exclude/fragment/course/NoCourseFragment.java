@@ -67,7 +67,7 @@ public class NoCourseFragment extends BTFragment {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        if (!((MainActivity) getActivity()).isDrawerOpen()) {
+        if (!((MainActivity) getActivity()).isDrawerVisible()) {
             actionBar.setTitle(getString(R.string.no_course));
         }
     }

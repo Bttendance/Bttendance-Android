@@ -156,6 +156,6 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
     }
 
     public enum SettingItemType {
-        Attendance, Clicker, Notice, PushInfo, Terms, Privacy, Blog, Facebook, Margin
+        Attendance, Clicker, Notice, Curious, PushInfo, Terms, Privacy, Blog, Facebook, Margin
     }
 }
