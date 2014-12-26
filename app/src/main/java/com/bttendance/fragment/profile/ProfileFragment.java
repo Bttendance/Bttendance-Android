@@ -101,15 +101,6 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
             case Email:
                 showEditEmail();
                 break;
-            case SavedClicker:
-                showSavedClicker();
-                break;
-            case DefaultClickerOption:
-                showClickerOption();
-                break;
-            case Course:
-                showCourse((Integer) mAdapter.getItem(position).getObject());
-                break;
             case Employed:
                 break;
             case Enrolled:
@@ -117,6 +108,9 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
                 break;
             case Password:
                 showChangePassword();
+                break;
+            case SignOut:
+                signOut();
                 break;
             case Section:
                 break;
@@ -148,43 +142,6 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
-    private void showSavedClicker() {
-//        ClickerQuestionListFragment fragment = new ClickerQuestionListFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putBoolean(BTKey.EXTRA_FOR_PROFILE, true);
-//        fragment.setArguments(bundle);
-//        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
-    }
-
-    private void showClickerOption() {
-//        UserJson user = BTPreference.getUser(getActivity());
-//        ClickerOptionFragment fragment = new ClickerOptionFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable(BTKey.EXTRA_TYPE, ClickerOptionFragment.OptionType.DEFAULT);
-//        bundle.putInt(BTKey.EXTRA_PROGRESS_TIME, user.setting.progress_time);
-//        bundle.putBoolean(BTKey.EXTRA_SHOW_INFO_ON_SELECT, user.setting.show_info_on_select);
-//        bundle.putString(BTKey.EXTRA_DETAIL_PRIVACY, user.setting.detail_privacy);
-//        fragment.setArguments(bundle);
-//        fragment.setOnOptionChosenListener(new ClickerOptionFragment.OptionChosenListener() {
-//            @Override
-//            public void OnOptionChosen(int progressTime, boolean showInfoOnSelect, String detailPrivacy) {
-//                if (getBTService() == null)
-//                    return;
-//
-//                getBTService().updateClickerDefaults(progressTime, showInfoOnSelect, detailPrivacy, null);
-//            }
-//        });
-//        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
-    }
-
-    private void showCourse(int courseID) {
-//        CourseDetailFragment fragment = new CourseDetailFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putInt(BTKey.EXTRA_COURSE_ID, courseID);
-//        fragment.setArguments(bundle);
-//        BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
-    }
-
     private void showEditIdentity(int schoolID) {
 //        ProfileEditFragment frag = new ProfileEditFragment();
 //        Bundle bundle = new Bundle();
@@ -199,5 +156,10 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     private void showChangePassword() {
         UpdatePasswordFragment frag = new UpdatePasswordFragment();
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+    }
+
+    private void signOut() {
+        if (getBTService() != null)
+            getBTService().signOut();
     }
 }

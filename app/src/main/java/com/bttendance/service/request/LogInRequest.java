@@ -16,7 +16,7 @@ public class LogInRequest {
         this.email = email;
         this.password = password;
         this.devices_attributes = new Device();
-        this.devices_attributes.platform = BTAPI.ANDROID;
+        this.devices_attributes.platform = BTAPI.DevicePlatform.android.name();
         this.devices_attributes.mac_address = mac_address;
     }
 

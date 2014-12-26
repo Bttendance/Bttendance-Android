@@ -15,11 +15,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.service.request.UserPutRequest;
+import com.bttendance.view.BTDialog;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -38,6 +41,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
     private int mEditCount = 0;
     private String mEditString = null;
     private Type mType;
+    private MaterialDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,21 +128,22 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
     }
 
     private void save() {
-//        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.updating_profile)));
-//        switch (mType) {
-//            case NAME:
-//                getBTService().updateFullName(mEdit.getText().toString(), this);
-//                break;
-//            case MAIL:
-//                getBTService().updateEmail(mEdit.getText().toString(), this);
-//                break;
-//            case IDENTITY:
-//                getBTService().updateIdentity(getArguments().getInt(BTKey.EXTRA_SCHOOL_ID), mEdit.getText().toString(), this);
-//                break;
-//            default:
-//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//                break;
-//        }
+        dialog = BTDialog.progress(getActivity(), getString(R.string.updating_profile));
+        String editString = mEdit.getText().toString();
+        switch (mType) {
+            case NAME:
+                getBTService().updateUser(new UserPutRequest().updateName(editString), this);
+                break;
+            case MAIL:
+                getBTService().updateUser(new UserPutRequest().updateEmail(editString), this);
+                break;
+            case IDENTITY:
+                getBTService().updateUser(new UserPutRequest().updateIdentity(getArguments().getInt(BTKey.EXTRA_SCHOOL_ID), editString), this);
+                break;
+            default:
+                BTDialog.hide(dialog);
+                break;
+        }
     }
 
     private void isEnableSave() {
@@ -197,13 +202,13 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
      */
     @Override
     public void success(UserJson userJson, Response response) {
-//        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+        BTDialog.hide(dialog);
         getActivity().onBackPressed();
     }
 
     @Override
     public void failure(RetrofitError retrofitError) {
-//        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+        BTDialog.hide(dialog);
     }
 
     public enum Type {IMAGE, NAME, MAIL, IDENTITY}

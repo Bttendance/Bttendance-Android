@@ -1,5 +1,7 @@
 package com.bttendance.model.json;
 
+import com.bttendance.service.BTAPI;
+
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
  */
@@ -15,7 +17,6 @@ public class UserJson extends BTJson {
 
     public class SchoolUserJson extends BTJson {
         public String identity;
-        // 'supervisor', 'student', 'administrator'
         public String state;
         public SimpleSchoolJson school;
     }
@@ -30,7 +31,7 @@ public class UserJson extends BTJson {
             return false;
 
         for (SchoolUserJson schoolUserJson : school_users)
-            if (!"student".equals(schoolUserJson.state))
+            if (BTAPI.SchoolUserState.student.name().equals(schoolUserJson.state))
                 return true;
 
         return false;

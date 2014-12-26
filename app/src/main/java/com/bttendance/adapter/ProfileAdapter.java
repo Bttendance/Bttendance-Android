@@ -32,16 +32,6 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
         add(new ProfileItem(ProfileItemType.Name, null));
         add(new ProfileItem(ProfileItemType.Email, null));
 
-        add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.clicker_capital)));
-        add(new ProfileItem(ProfileItemType.SavedClicker, null));
-        add(new ProfileItem(ProfileItemType.DefaultClickerOption, null));
-
-//        if (mUser.getClosedCourses().length > 0) {
-//            add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.closed_lectures)));
-//            for (CourseJsonSimple course : mUser.getClosedCourses())
-//                add(new ProfileItem(ProfileItemType.Course, course.id));
-//        }
-//
 //        if (mUser.employed_schools.length + mUser.enrolled_schools.length > 0) {
 //            add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.institution_capital)));
 //            for (SchoolJsonSimple school : mUser.employed_schools)
@@ -78,33 +68,6 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 info.setText(mUser.email);
                 break;
             }
-            case SavedClicker: {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_list, null);
-                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
-//                text.setText(String.format(getContext().getString(R.string.saved_clicker_questions), mUser.questions_count));
-                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
-                break;
-            }
-            case DefaultClickerOption: {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_list, null);
-                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
-                text.setText(getContext().getString(R.string.clicker_default_option));
-                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
-                break;
-            }
-            case Course: {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_detail, null);
-//                CourseJsonSimple course = mUser.getCourse((Integer) profileItem.getObject());
-//                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
-//                TextView message = (TextView) convertView.findViewById(R.id.profile_message);
-//                text.setText(course.name);
-//                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_cyan));
-//                String schoolName = getContext().getString(R.string.empty_school_name);
-//                if (mUser.getSchool(course.school) != null)
-//                    schoolName = mUser.getSchool(course.school).name;
-//                message.setText(schoolName);
-                break;
-            }
             case Employed:
             case Enrolled: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_detail, null);
@@ -126,6 +89,13 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_list, null);
                 TextView text = (TextView) convertView.findViewById(R.id.profile_text);
                 text.setText(getContext().getString(R.string.update_password));
+                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_red));
+                break;
+            }
+            case SignOut: {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_list, null);
+                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
+                text.setText(getContext().getString(R.string.sign_out));
                 text.setTextColor(getContext().getResources().getColor(R.color.bttendance_red));
                 break;
             }
@@ -182,6 +152,6 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
     }
 
     public enum ProfileItemType {
-        Name, Email, SavedClicker, DefaultClickerOption, Course, Employed, Enrolled, Password, Section, Margin
+        Name, Email, Employed, Enrolled, Password, SignOut, Section, Margin
     }
 }

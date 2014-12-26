@@ -293,5 +293,6 @@
     <string name="clicker_show_info_on_selelct_guide">You are not allowed to see the result while survey in on process.</string>
 
     <string name="loading_">Loading..</string>
+    <string name="sign_out">Sign Out</string>
 
 </resources>

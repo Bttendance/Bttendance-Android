@@ -15,7 +15,7 @@ public class UserPostRequest {
         this.user.password = password;
         this.user.name = name;
         this.user.devices_attributes = new Device[]{new Device()};
-        this.user.devices_attributes[0].platform = BTAPI.ANDROID;
+        this.user.devices_attributes[0].platform = BTAPI.DevicePlatform.android.name();
         this.user.devices_attributes[0].mac_address = mac_address;
     }
 

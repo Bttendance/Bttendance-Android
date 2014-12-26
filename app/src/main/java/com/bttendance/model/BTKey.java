@@ -27,6 +27,5 @@ public class BTKey {
     public static class IntentKey {
         private static final String ACTION_PREFIX = "com.bttendance.intent.action.";
         public static final String ACTION_SHOW_COURSE = ACTION_PREFIX + "SHOW_COURSE";
-
     }
 }

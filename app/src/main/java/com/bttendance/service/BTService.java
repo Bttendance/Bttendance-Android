@@ -21,6 +21,7 @@ import com.bttendance.model.json.UserJson;
 import com.bttendance.service.request.LogInRequest;
 import com.bttendance.service.request.PasswordResetRequest;
 import com.bttendance.service.request.UserPostRequest;
+import com.bttendance.service.request.UserPutRequest;
 import com.bttendance.view.BTDialog;
 import com.squareup.otto.BTEventBus;
 
@@ -110,6 +111,7 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
+        BTPreference.setMacAddress(getApplicationContext(), mac_address);
         UserPostRequest request = new UserPostRequest(email, password, name, mac_address);
         mBTAPI.signUp(request, new Callback<UserJson>() {
             @Override
@@ -131,6 +133,7 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
+        BTPreference.setMacAddress(getApplicationContext(), mac_address);
         LogInRequest request = new LogInRequest(email, password, mac_address);
         mBTAPI.logIn(request, new Callback<UserJson>() {
             @Override
@@ -182,12 +185,32 @@ public class BTService extends Service {
             @Override
             public void failure(RetrofitError error) {
                 failureHandle(cb, error);
-                autoSignOut();
+                signOut();
             }
         });
     }
 
-    public void autoSignOut() {
+    public void updateUser(UserPutRequest body, final Callback<UserJson> cb) {
+        if (!isConnected())
+            return;
+
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.updateUser(user.id, body, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson userJson, Response response) {
+                BTPreference.setUser(getApplicationContext(), userJson);
+                if (cb != null)
+                    cb.success(userJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+    public void signOut() {
         BTPreference.clearUser(getApplicationContext());
         Intent intent = new Intent(getApplicationContext(), IntroductionActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -244,12 +267,12 @@ public class BTService extends Service {
                                     BTDialog.ok(getApplicationContext(), title, message, new BTDialog.OnDialogListener() {
                                         @Override
                                         public void onConfirmed(String edit) {
-                                            autoSignOut();
+                                            signOut();
                                         }
 
                                         @Override
                                         public void onCanceled() {
-                                            autoSignOut();
+                                            signOut();
                                         }
                                     });
                                     break;

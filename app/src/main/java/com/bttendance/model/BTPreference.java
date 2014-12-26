@@ -14,9 +14,10 @@ import com.google.gson.Gson;
  */
 public class BTPreference {
 
-    private static String USER = "user";
-    private static String LAST_COURSE = "lastCourse";
+    private static final String USER = "user";
+    private static final String LAST_COURSE = "lastCourse";
     private static final String APP_VERSION = "appVersion";
+    private static final String MAC_ADDRESS = "macAddress";
 
     private static SharedPreferences mPref = null;
     private static Object mSingletonLock = new Object();
@@ -44,13 +45,10 @@ public class BTPreference {
     }
 
     public static boolean hasAuth(Context ctx) {
-        String jsonStr = getInstance(ctx).getString(USER, null);
-        if (jsonStr == null)
-            return false;
-
-        return true;
+        return getInstance(ctx).getString(USER, null) != null;
     }
 
+    // User
     public static UserJson getUser(Context ctx) {
         String jsonStr = getInstance(ctx).getString(USER, null);
         if (jsonStr == null)
@@ -58,8 +56,7 @@ public class BTPreference {
 
         Gson gson = new Gson();
         try {
-            UserJson user = gson.fromJson(jsonStr, UserJson.class);
-            return user;
+            return gson.fromJson(jsonStr, UserJson.class);
         } catch (Exception e) {
             clearUser(ctx);
             return null;
@@ -72,6 +69,20 @@ public class BTPreference {
 
         Editor edit = getInstance(ctx).edit();
         edit.putString(USER, jsonStr);
+        edit.apply();
+    }
+
+    // Mac Address
+    public static String getMacAddress(Context ctx) {
+        return getInstance(ctx).getString(MAC_ADDRESS, null);
+    }
+
+    public static void setMacAddress(Context ctx, String macAddress) {
+        if (macAddress == null)
+            return;
+
+        Editor edit = getInstance(ctx).edit();
+        edit.putString(MAC_ADDRESS, macAddress);
         edit.apply();
     }
 
