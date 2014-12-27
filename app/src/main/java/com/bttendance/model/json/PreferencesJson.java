@@ -5,8 +5,10 @@ package com.bttendance.model.json;
  */
 public class PreferencesJson extends BTJson {
 
+    public int id;
     public boolean clicker;
     public boolean attendance;
     public boolean curious;
+    public boolean following;
     public boolean notice;
 }

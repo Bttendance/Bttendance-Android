@@ -13,14 +13,14 @@ import android.widget.TextView;
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.UserJson;
+import com.bttendance.model.json.PreferencesJson;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
  */
 public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
 
-    private UserJson user;
+    private PreferencesJson preferencesJson;
 
     public SettingAdapter(Context context) {
         super(context, R.layout.empty_layout);
@@ -28,13 +28,16 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
     }
 
     public void refreshAdapter() {
-        user = BTPreference.getUser(getContext());
+        preferencesJson = BTPreference.getPreference(getContext());
         clear();
 
         add(new SettingItem(SettingItemType.Attendance, null));
         add(new SettingItem(SettingItemType.Clicker, null));
         add(new SettingItem(SettingItemType.Notice, null));
         add(new SettingItem(SettingItemType.PushInfo, null));
+        add(new SettingItem(SettingItemType.Curious, null));
+        add(new SettingItem(SettingItemType.Following, null));
+        add(new SettingItem(SettingItemType.Margin, 33));
         add(new SettingItem(SettingItemType.Terms, null));
         add(new SettingItem(SettingItemType.Privacy, null));
         add(new SettingItem(SettingItemType.Blog, null));
@@ -49,35 +52,68 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
 
         SettingItem settingItem = getItem(position);
         switch (settingItem.type) {
-            case Attendance: {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
-                TextView text = (TextView) convertView.findViewById(R.id.setting_text);
-                text.setText(getContext().getString(R.string.attendance_notification));
-                SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
-//                if (user.setting != null)
-//                    noti.setChecked(user.setting.attendance);
-                break;
-            }
             case Clicker: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
                 TextView text = (TextView) convertView.findViewById(R.id.setting_text);
                 text.setText(getContext().getString(R.string.clicker_notification));
+
                 SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
-//                if (user.setting != null)
-//                    noti.setChecked(user.setting.clicker);
+                if (preferencesJson == null)
+                    noti.setVisibility(View.GONE);
+                else
+                    noti.setChecked(preferencesJson.clicker);
+                break;
+            }
+            case Attendance: {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
+                TextView text = (TextView) convertView.findViewById(R.id.setting_text);
+                text.setText(getContext().getString(R.string.attendance_notification));
+
+                SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
+                if (preferencesJson == null)
+                    noti.setVisibility(View.GONE);
+                else
+                    noti.setChecked(preferencesJson.attendance);
                 break;
             }
             case Notice: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
                 TextView text = (TextView) convertView.findViewById(R.id.setting_text);
                 text.setText(getContext().getString(R.string.notice_notification));
+
                 SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
-//                if (user.setting != null)
-//                    noti.setChecked(user.setting.notice);
+                if (preferencesJson == null)
+                    noti.setVisibility(View.GONE);
+                else
+                    noti.setChecked(preferencesJson.notice);
                 break;
             }
             case PushInfo: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_info, null);
+                break;
+            }
+            case Curious: {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
+                TextView text = (TextView) convertView.findViewById(R.id.setting_text);
+                text.setText(getContext().getString(R.string.curious_notification));
+
+                SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
+                if (preferencesJson == null)
+                    noti.setVisibility(View.GONE);
+                else
+                    noti.setChecked(preferencesJson.curious);
+                break;
+            }
+            case Following: {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
+                TextView text = (TextView) convertView.findViewById(R.id.setting_text);
+                text.setText(getContext().getString(R.string.following_notification));
+
+                SwitchCompat noti = (SwitchCompat) convertView.findViewById(R.id.setting_noti);
+                if (preferencesJson == null)
+                    noti.setVisibility(View.GONE);
+                else
+                    noti.setChecked(preferencesJson.following);
                 break;
             }
             case Terms: {
@@ -156,6 +192,6 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
     }
 
     public enum SettingItemType {
-        Attendance, Clicker, Notice, Curious, PushInfo, Terms, Privacy, Blog, Facebook, Margin
+        Clicker, Attendance, Notice, Curious, Following, PushInfo, Terms, Privacy, Blog, Facebook, Margin
     }
 }

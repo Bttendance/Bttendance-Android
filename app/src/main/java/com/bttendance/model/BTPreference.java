@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.bttendance.model.json.PreferencesJson;
 import com.bttendance.model.json.UserJson;
 import com.google.gson.Gson;
 
@@ -15,6 +16,7 @@ import com.google.gson.Gson;
 public class BTPreference {
 
     private static final String USER = "user";
+    private static final String PREFERENCES = "preferences";
     private static final String LAST_COURSE = "lastCourse";
     private static final String APP_VERSION = "appVersion";
     private static final String MAC_ADDRESS = "macAddress";
@@ -83,6 +85,29 @@ public class BTPreference {
 
         Editor edit = getInstance(ctx).edit();
         edit.putString(MAC_ADDRESS, macAddress);
+        edit.apply();
+    }
+
+    // Preferences
+    public static PreferencesJson getPreference(Context ctx) {
+        String jsonStr = getInstance(ctx).getString(PREFERENCES, null);
+        if (jsonStr == null)
+            return null;
+
+        Gson gson = new Gson();
+        try {
+            return gson.fromJson(jsonStr, PreferencesJson.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void setPreference(Context ctx, PreferencesJson preferences) {
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(preferences);
+
+        Editor edit = getInstance(ctx).edit();
+        edit.putString(PREFERENCES, jsonStr);
         edit.apply();
     }
 

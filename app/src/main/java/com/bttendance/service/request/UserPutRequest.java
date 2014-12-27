@@ -1,5 +1,6 @@
 package com.bttendance.service.request;
 
+import com.bttendance.model.json.PreferencesJson;
 import com.bttendance.service.BTAPI;
 
 /**
@@ -19,17 +20,9 @@ public class UserPutRequest {
         public String new_password;
         public String name;
         public String locale;
-        public Preferences preferences_attributes;
         public Device[] devices_attributes;
         public School[] schools_users_attributes;
         public Course[] courses_users_attributes;
-    }
-
-    public class Preferences {
-        public boolean clicker;
-        public boolean attendance;
-        public boolean notice;
-        public boolean curious;
     }
 
     public class Device {

@@ -17,9 +17,11 @@ import com.bttendance.event.ShowToastEvent;
 import com.bttendance.helper.PackagesHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.ErrorJson;
+import com.bttendance.model.json.PreferencesJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.request.LogInRequest;
 import com.bttendance.service.request.PasswordResetRequest;
+import com.bttendance.service.request.PreferencesPutRequest;
 import com.bttendance.service.request.UserPostRequest;
 import com.bttendance.service.request.UserPutRequest;
 import com.bttendance.view.BTDialog;
@@ -117,8 +119,7 @@ public class BTService extends Service {
             @Override
             public void success(UserJson userJson, Response response) {
                 BTPreference.setUser(getApplicationContext(), userJson);
-                if (cb != null)
-                    cb.success(userJson, response);
+                successHandle(cb, userJson, response);
             }
 
             @Override
@@ -139,8 +140,7 @@ public class BTService extends Service {
             @Override
             public void success(UserJson userJson, Response response) {
                 BTPreference.setUser(getApplicationContext(), userJson);
-                if (cb != null)
-                    cb.success(userJson, response);
+                successHandle(cb, userJson, response);
             }
 
             @Override
@@ -159,7 +159,7 @@ public class BTService extends Service {
             @Override
             public void success(Object o, Response response) {
                 if (response.getStatus() == 204 && cb != null)
-                    cb.success(o, response);
+                    successHandle(cb, o, response);
             }
 
             @Override
@@ -178,14 +178,12 @@ public class BTService extends Service {
             @Override
             public void success(UserJson userJson, Response response) {
                 BTPreference.setUser(getApplicationContext(), userJson);
-                if (cb != null)
-                    cb.success(userJson, response);
+                successHandle(cb, userJson, response);
             }
 
             @Override
             public void failure(RetrofitError error) {
                 failureHandle(cb, error);
-                signOut();
             }
         });
     }
@@ -199,8 +197,7 @@ public class BTService extends Service {
             @Override
             public void success(UserJson userJson, Response response) {
                 BTPreference.setUser(getApplicationContext(), userJson);
-                if (cb != null)
-                    cb.success(userJson, response);
+                successHandle(cb, userJson, response);
             }
 
             @Override
@@ -218,6 +215,42 @@ public class BTService extends Service {
     }
 
     /**
+     * Preferences APIs
+     */
+    public void getPreferences(final Callback<PreferencesJson> cb) {
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.getPreferences(user.id, new Callback<PreferencesJson>() {
+            @Override
+            public void success(PreferencesJson preferencesJson, Response response) {
+                BTPreference.setPreference(getApplicationContext(), preferencesJson);
+                successHandle(cb, preferencesJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+
+    public void updatePreferences(PreferencesPutRequest preferencesPutRequest, final Callback<PreferencesJson> cb) {
+        UserJson user = BTPreference.getUser(getApplicationContext());
+        mBTAPI.updatePreferences(user.id, preferencesPutRequest, new Callback<PreferencesJson>() {
+            @Override
+            public void success(PreferencesJson preferencesJson, Response response) {
+                BTPreference.setPreference(getApplicationContext(), preferencesJson);
+                successHandle(cb, preferencesJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+    /**
      * Private Methods
      */
     private boolean isConnected() {
@@ -226,6 +259,11 @@ public class BTService extends Service {
 
         final NetworkInfo networkInfo = mConnectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnectedOrConnecting();
+    }
+
+    private void successHandle(Callback cb, Object object, Response response) {
+        if (cb != null)
+            cb.success(object, response);
     }
 
     private void failureHandle(Callback cb, RetrofitError retrofitError) {

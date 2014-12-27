@@ -1,8 +1,10 @@
 package com.bttendance.service;
 
+import com.bttendance.model.json.PreferencesJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.request.LogInRequest;
 import com.bttendance.service.request.PasswordResetRequest;
+import com.bttendance.service.request.PreferencesPutRequest;
 import com.bttendance.service.request.UserPostRequest;
 import com.bttendance.service.request.UserPutRequest;
 
@@ -56,4 +58,13 @@ public interface BTAPI {
 
     @PUT("/users/{id}")
     void updateUser(@Path("id") int userId, @Body UserPutRequest body, Callback<UserJson> cb);
+
+    /**
+     * Preferences APIs
+     */
+    @GET("/users/{id}/preferences")
+    void getPreferences(@Path("id") int userId, Callback<PreferencesJson> cb);
+
+    @PUT("/users/{id}/preferences")
+    void updatePreferences(@Path("id") int userId, @Body PreferencesPutRequest body, Callback<PreferencesJson> cb);
 }

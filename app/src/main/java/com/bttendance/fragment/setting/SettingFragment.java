@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,24 +14,32 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.adapter.SettingAdapter;
 import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.helper.PackagesHelper;
 import com.bttendance.model.BTKey;
+import com.bttendance.model.BTPreference;
+import com.bttendance.model.json.PreferencesJson;
+import com.bttendance.service.request.PreferencesPutRequest;
+import com.bttendance.view.BTDialog;
 import com.squareup.otto.BTEventBus;
-import com.squareup.otto.Subscribe;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class SettingFragment extends BTFragment implements AdapterView.OnItemClickListener {
+public class SettingFragment extends BTFragment implements AdapterView.OnItemClickListener, Callback<PreferencesJson> {
 
     ListView mListView;
     SettingAdapter mAdapter;
+    MaterialDialog dialog;
 
     /**
      * Action Bar Menu
@@ -45,7 +52,7 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater);
         if (getActivity() == null)
             return;
 
@@ -55,7 +62,6 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(getString(R.string.setting));
-//        syncToogleState();
     }
 
     /**
@@ -77,11 +83,6 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
         refreshAdapter();
     }
 
-    @Subscribe
-    public void onUpdate(UserUpdatedEvent event) {
-        refreshAdapter();
-    }
-
     private void refreshAdapter() {
         if (this.isAdded() && mAdapter != null) {
             getActivity().runOnUiThread(new Runnable() {
@@ -94,6 +95,15 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
     }
 
     /**
+     * Get Preferences
+     */
+    @Override
+    public void onServiceConnected() {
+        super.onServiceConnected();
+        getBTService().getPreferences(this);
+    }
+
+    /**
      * ************************
      * onItemClick
      * *************************
@@ -101,17 +111,12 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         switch (mAdapter.getItem(position).getType()) {
-            case Attendance:
-//                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
-//                    getBTService().updateSettingAttendance(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
-                break;
             case Clicker:
-//                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
-//                    getBTService().updateSettingClicker(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
-                break;
+            case Attendance:
+            case Curious:
+            case Following:
             case Notice:
-//                if (getBTService() != null && view.findViewById(R.id.setting_noti) != null)
-//                    getBTService().updateSettingNotice(((SwitchCompat) view.findViewById(R.id.setting_noti)).isChecked(), null);
+                updateNotification(mAdapter.getItem(position).getType());
                 break;
             case PushInfo:
                 break;
@@ -135,6 +140,31 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
     /**
      * Private Methods
      */
+    private void updateNotification(SettingAdapter.SettingItemType type) {
+        PreferencesJson preferencesJson = BTPreference.getPreference(getActivity());
+        switch (type) {
+            case Clicker:
+                preferencesJson.clicker = !preferencesJson.clicker;
+                break;
+            case Attendance:
+                preferencesJson.attendance = !preferencesJson.attendance;
+                break;
+            case Notice:
+                preferencesJson.notice = !preferencesJson.notice;
+                break;
+            case Curious:
+                preferencesJson.curious = !preferencesJson.curious;
+                break;
+            case Following:
+                preferencesJson.following = !preferencesJson.following;
+                break;
+        }
+
+        dialog = BTDialog.progress(getActivity(), getString(R.string.updating_preferences));
+        if (getBTService() != null)
+            getBTService().updatePreferences(new PreferencesPutRequest(preferencesJson), this);
+    }
+
     private void showTerms() {
         String url;
         String locale = getResources().getConfiguration().locale.getLanguage();
@@ -210,5 +240,16 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
             frag.setArguments(bundle);
             BTEventBus.getInstance().post(new AddFragmentEvent(frag));
         }
+    }
+
+    @Override
+    public void success(PreferencesJson preferencesJson, Response response) {
+        refreshAdapter();
+        BTDialog.hide(dialog);
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        BTDialog.hide(dialog);
     }
 }

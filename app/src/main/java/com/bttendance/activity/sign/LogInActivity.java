@@ -52,8 +52,8 @@ public class LogInActivity extends BTActivity {
 
     private int mUsernameCount = 0;
     private int mPasswordCount = 0;
-    private String mUsernameString = null;
-    private String mPasswordString = null;
+    private String mUsernameString;
+    private String mPasswordString;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

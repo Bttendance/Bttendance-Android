@@ -294,5 +294,8 @@
 
     <string name="loading_">Loading..</string>
     <string name="sign_out">Sign Out</string>
+    <string name="curious_notification">Created Curious Notification</string>
+    <string name="following_notification">Followed Curious Notification</string>
+    <string name="updating_preferences">Updating Preferences</string>
 
 </resources>

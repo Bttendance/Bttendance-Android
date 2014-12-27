@@ -283,5 +283,8 @@
     <string name="log_in_with_email">"Email로 로그인"</string>
     <string name="loading_">로딩중..</string>
     <string name="sign_out">로그 아웃</string>
+    <string name="curious_notification">질문 생성시 알림</string>
+    <string name="following_notification">팔로우 하는 질문 알림</string>
+    <string name="updating_preferences">바뀐 설정을 저장하는 중&#8230;</string>
 
 </resources>
