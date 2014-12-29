@@ -2,6 +2,7 @@ package com.bttendance.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,20 +17,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.bttendance.BuildConfig;
 import com.bttendance.R;
+import com.bttendance.activity.course.AttendCourseActivity;
+import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.BTFragment;
+import com.bttendance.fragment.course.CourseDetailFragment;
+import com.bttendance.fragment.course.NoCourseFragment;
 import com.bttendance.fragment.profile.ProfileFragment;
 import com.bttendance.fragment.setting.SettingFragment;
 import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.view.BTDialog;
+import com.bttendance.view.BTToast;
 import com.squareup.otto.BTEventBus;
-import com.uservoice.uservoicesdk.Config;
-import com.uservoice.uservoicesdk.UserVoice;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -110,20 +116,20 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     private void setFirstFragment() {
         BTFragment fragment;
         int lastCourse = BTPreference.getLastSeenCourse(this);
-//        if (lastCourse == Integer.MIN_VALUE)
-//            fragment = new NoCourseFragment();
-//        else {
-//            fragment = new CourseDetailFragment();
-//            Bundle bundle = new Bundle();
-//            bundle.putInt(BTKey.EXTRA_COURSE_ID, lastCourse);
-//            fragment.setArguments(bundle);
-//        }
+        if (lastCourse == Integer.MIN_VALUE)
+            fragment = new NoCourseFragment();
+        else {
+            fragment = new CourseDetailFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(BTKey.EXTRA_COURSE_ID, lastCourse);
+            fragment.setArguments(bundle);
+        }
 
-//        FragmentManager fm = getSupportFragmentManager();
-//        if (fm.getBackStackEntryCount() == 0) {
-//            fm.beginTransaction().replace(R.id.content, fragment).commit();
-//            fragment.onPendingFragmentResume();
-//        }
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() == 0) {
+            fm.beginTransaction().replace(R.id.content, fragment).commit();
+            fragment.onPendingFragmentResume();
+        }
     }
 
     @Override
@@ -249,27 +255,27 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 fragment = new ProfileFragment();
                 break;
             case AddCourse: {
-//                Intent intent = new Intent(this, AddCourseActivity.class);
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                showAddCourse();
                 break;
             }
             case Guide:
-                Intent intent = new Intent(this, IntroductionActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                showIntroduction();
                 break;
             case Setting:
                 fragment = new SettingFragment();
                 break;
             case Feedback:
                 UserJson user = BTPreference.getUser(this);
-                Config config = new Config("bttendance.uservoice.com");
-                config.setForumId(259759);
-                config.identifyUser(user.email, user.name, user.email);
-                UserVoice.init(config, this);
-                UserVoice.launchPostIdea(this);
-                overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.fade_out_slow);
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"contact@bttendance.com"});
+                i.putExtra(Intent.EXTRA_SUBJECT, String.format(getString(R.string.feedback_subject), user.name));
+                i.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.feedback_body), user.email, user.name, Build.DEVICE, BuildConfig.VERSION_NAME, user.name));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.feedback)));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    BTToast.show(this, "비텐던스 관련 피드백은 contact@bttendance.com으로 메일 주시기 바랍니다.");
+                }
                 break;
             case Course:
 //                fragment = new CourseDetailFragment();
@@ -308,22 +314,22 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         if (mResetCourseID == 0)
             return;
 
-//        BTFragment frag = (BTFragment) getSupportFragmentManager().findFragmentById(R.id.content);
-//        if (frag instanceof CourseDetailFragment && ((CourseDetailFragment) frag).getCourseID() == mResetCourseID)
-//            return;
-//
-//        CourseDetailFragment fragment = new CourseDetailFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putInt(BTKey.EXTRA_COURSE_ID, mResetCourseID);
-//        fragment.setArguments(bundle);
-//
-//        FragmentManager fm = getSupportFragmentManager();
-//        while (fm.getBackStackEntryCount() > 0) {
-//            onBackPressed();
-//        }
-//
-//        fm.beginTransaction().replace(R.id.content, fragment).commit();
-//        fragment.onPendingFragmentResume();
+        BTFragment frag = (BTFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        if (frag instanceof CourseDetailFragment && ((CourseDetailFragment) frag).getCourseID() == mResetCourseID)
+            return;
+
+        CourseDetailFragment fragment = new CourseDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mResetCourseID);
+        fragment.setArguments(bundle);
+
+        FragmentManager fm = getSupportFragmentManager();
+        while (fm.getBackStackEntryCount() > 0) {
+            onBackPressed();
+        }
+
+        fm.beginTransaction().replace(R.id.content, fragment).commit();
+        fragment.onPendingFragmentResume();
 
         mDrawerLayout.closeDrawer(mListMenu);
         mResetCourseID = 0;
@@ -331,6 +337,38 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
     public void refreshSideList() {
         mSideAdapter.refreshAdapter();
+    }
+
+    public void showAddCourse() {
+        BTDialog.context(this,
+                getString(R.string.add_course),
+                new String[]{getString(R.string.create_course_instructor), getString(R.string.attend_course_student)},
+                new BTDialog.OnDialogListener() {
+                    @Override
+                    public void onConfirmed(String edit) {
+                        if (getString(R.string.create_course_instructor).equals(edit)) {
+                            Intent intent = new Intent(MainActivity.this, CreateCourseActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
+                        }
+
+                        if (getString(R.string.attend_course_student).equals(edit)) {
+                            Intent intent = new Intent(MainActivity.this, AttendCourseActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
+                        }
+                    }
+
+                    @Override
+                    public void onCanceled() {
+                    }
+                });
+    }
+
+    public void showIntroduction() {
+        Intent intent = new Intent(this, IntroductionActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     // onDrawerClosed

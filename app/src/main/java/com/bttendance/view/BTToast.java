@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.bttendance.R;
 import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.enums.SnackbarType;
 
 /**
  * Bttendance Toast
@@ -17,9 +18,11 @@ public class BTToast {
             return;
 
         Snackbar.with(activity)
+                .type(SnackbarType.MULTI_LINE)
                 .text(message)
                 .textColor(activity.getResources().getColor(R.color.bttendance_white))
                 .color(activity.getResources().getColor(R.color.bttendance_silver))
+                .duration(Snackbar.SnackbarDuration.LENGTH_LONG)
                 .show(activity);
     }
 
@@ -28,9 +31,11 @@ public class BTToast {
             return;
 
         Snackbar.with(activity)
+                .type(SnackbarType.MULTI_LINE)
                 .text(message)
                 .textColor(activity.getResources().getColor(R.color.bttendance_white))
                 .color(activity.getResources().getColor(R.color.bttendance_red))
+                .duration(Snackbar.SnackbarDuration.LENGTH_LONG)
                 .show(activity);
     }
 

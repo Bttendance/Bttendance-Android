@@ -30,6 +30,8 @@
     <string name="create_course">"강의 개설하기"</string>
     <string name="forgot_password">"비밀번호 분실"</string>
     <string name="attend_course">"강의 수강하기"</string>
+    <string name="create_course_instructor">"개설하기 (강의자)"</string>
+    <string name="attend_course_student">"수강하기 (학생)"</string>
     <string name="confrim">"확인"</string>
     <string name="ok">"OK"</string>
     <string name="attendance_check_has_been_canceled">"출석 체크가 취소되었습니다."</string>
@@ -285,6 +287,10 @@
     <string name="sign_out">로그 아웃</string>
     <string name="curious_notification">질문 생성시 알림</string>
     <string name="following_notification">팔로우 하는 질문 알림</string>
-    <string name="updating_preferences">바뀐 설정을 저장하는 중&#8230;</string>
+    <string name="updating_preferences">설정 업데이트 중&#8230;</string>
+
+    <string name="feedback_subject">"[피드백/%s] 비텐던스 안드로이드 앱에서 보낸 피드백입니다."</string>
+    <string name="feedback_body">"사용자 정보\n이메일 : %1$s\n이름 : %2$s\nOS : 안드로이드\n기기 : %3$s\n앱 버젼 : %4$s\n\n안녕하세요, %5$s입니다.\n"</string>
+    <string name="course_name">강의명</string>
 
 </resources>

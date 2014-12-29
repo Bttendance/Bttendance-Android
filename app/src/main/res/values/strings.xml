@@ -66,6 +66,8 @@
     <!--Side List-->
     <string name="create_course">"Create Course"</string>
     <string name="attend_course">"Attend Course"</string>
+    <string name="create_course_instructor">"Create Course (Instructor)"</string>
+    <string name="attend_course_student">"Attend Course (Student)"</string>
     <string name="attendance_check_has_been_canceled">"Attendance check has been canceled"</string>
     <string name="attendance_check">"Attendance check"</string>
     <string name="turn_on_your_bluetooth_settings">"Attendance Checking is ongoing. Turn on your bluetooth to enhance your accuracy in attendance checking."</string>
@@ -296,6 +298,7 @@
     <string name="sign_out">Sign Out</string>
     <string name="curious_notification">Created Curious Notification</string>
     <string name="following_notification">Followed Curious Notification</string>
-    <string name="updating_preferences">Updating Preferences</string>
+    <string name="updating_preferences">Updating Preferences&#8230;</string>
+    <string name="course_name">Course Name</string>
 
 </resources>

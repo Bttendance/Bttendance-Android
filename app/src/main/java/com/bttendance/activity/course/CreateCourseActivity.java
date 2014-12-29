@@ -1,46 +1,45 @@
 package com.bttendance.activity.course;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import android.support.v7.app.ActionBar;
-import android.view.Menu;
-import android.view.MenuItem;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.activity.guide.GuideCourseCreateActivity;
-import com.bttendance.event.AddFragmentEvent;
-import com.bttendance.event.dialog.HideProgressDialogEvent;
-import com.bttendance.event.dialog.ShowProgressDialogEvent;
-import com.bttendance.event.main.ResetMainFragmentEvent;
-import com.bttendance.fragment.school.SchoolChooseFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.CourseJson;
-import com.bttendance.model.json.CourseJsonSimple;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class CreateCourseActivity extends BTActivity {
 
-    private EditText mName = null;
-    private EditText mProfessor = null;
-    private EditText mInstitution = null;
-    private View mNameDiv = null;
-    private View mProfessorDiv = null;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.name_edit)
+    EditText mName;
+    @InjectView(R.id.professor)
+    EditText mProfessor;
+    @InjectView(R.id.institution)
+    EditText mInstitution;
+    @InjectView(R.id.name_divider)
+    View mNameDiv;
+    @InjectView(R.id.professor_divider)
+    View mProfessorDiv;
+
     private int mNameCount = 0;
     private int mProfessorCount = 0;
     private int mInstitutionCount = 0;
@@ -57,14 +56,10 @@ public class CreateCourseActivity extends BTActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_course);
+        ButterKnife.inject(this);
+        setSupportActionBar(toolbar);
 
-        mName = (EditText) findViewById(R.id.name_edit);
-        mProfessor = (EditText) findViewById(R.id.professor);
-        mInstitution = (EditText) findViewById(R.id.institution);
-        mNameDiv = findViewById(R.id.name_divider);
-        mProfessorDiv = findViewById(R.id.professor_divider);
-
-        mProfessor.setText(BTPreference.getUser(this).full_name);
+        mProfessor.setText(BTPreference.getUser(this).name);
         mProfessorCount = mProfessor.getText().toString().length();
 
         mName.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -141,9 +136,9 @@ public class CreateCourseActivity extends BTActivity {
         mInstitutionBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SchoolChooseFragment fragment = new SchoolChooseFragment();
-                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
-                KeyboardHelper.hide(CreateCourseActivity.this, mName);
+//                SchoolChooseFragment fragment = new SchoolChooseFragment();
+//                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+//                KeyboardHelper.hide(CreateCourseActivity.this, mName);
             }
         });
 
@@ -233,49 +228,49 @@ public class CreateCourseActivity extends BTActivity {
         int schoolID = mSchool.id;
 
         final UserJson user = BTPreference.getUser(this);
-
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.creating_course)));
-        getBTService().courseCreate(name, schoolID, professor, new Callback<UserJson>() {
-            @Override
-            public void success(UserJson userJson, Response response) {
-
-                int newCourseID = 0;
-                for (CourseJsonSimple new_course : userJson.getOpenedCourses()) {
-                    boolean hasCourse = false;
-                    for (CourseJsonSimple old_course : user.getOpenedCourses()) {
-                        if (new_course.id == old_course.id)
-                            hasCourse = true;
-                    }
-                    if (!hasCourse)
-                        newCourseID = new_course.id;
-                }
-
-                final int finalNewCourseID = newCourseID;
-                getBTService().searchCourse(newCourseID, "", new Callback<CourseJson>() {
-                    @Override
-                    public void success(CourseJson courseJson, Response response) {
-                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                        BTEventBus.getInstance().post(new ResetMainFragmentEvent(finalNewCourseID));
-
-                        onBackPressed();
-                        Intent intent = new Intent(CreateCourseActivity.this, GuideCourseCreateActivity.class);
-                        intent.putExtra(GuideCourseCreateActivity.EXTRA_CLASS_CODE, courseJson.code);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError retrofitError) {
-                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
-                    }
-                });
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-            }
-        });
+//
+//        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.creating_course)));
+//        getBTService().courseCreate(name, schoolID, professor, new Callback<UserJson>() {
+//            @Override
+//            public void success(UserJson userJson, Response response) {
+//
+//                int newCourseID = 0;
+//                for (CourseJsonSimple new_course : userJson.getOpenedCourses()) {
+//                    boolean hasCourse = false;
+//                    for (CourseJsonSimple old_course : user.getOpenedCourses()) {
+//                        if (new_course.id == old_course.id)
+//                            hasCourse = true;
+//                    }
+//                    if (!hasCourse)
+//                        newCourseID = new_course.id;
+//                }
+//
+//                final int finalNewCourseID = newCourseID;
+//                getBTService().searchCourse(newCourseID, "", new Callback<CourseJson>() {
+//                    @Override
+//                    public void success(CourseJson courseJson, Response response) {
+//                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//                        BTEventBus.getInstance().post(new ResetMainFragmentEvent(finalNewCourseID));
+//
+//                        onBackPressed();
+//                        Intent intent = new Intent(CreateCourseActivity.this, GuideCourseCreateActivity.class);
+//                        intent.putExtra(GuideCourseCreateActivity.EXTRA_CLASS_CODE, courseJson.code);
+//                        startActivity(intent);
+//                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//                    }
+//
+//                    @Override
+//                    public void failure(RetrofitError retrofitError) {
+//                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
+//            }
+//        });
     }
 
     @Override
@@ -311,7 +306,7 @@ public class CreateCourseActivity extends BTActivity {
             KeyboardHelper.show(this, mName);
         } else {
             super.onBackPressed();
-            overridePendingTransition(R.anim.no_anim, R.anim.modal_activity_close_exit);
+            overridePendingTransition(R.anim.modal_activity_close_enter, R.anim.modal_activity_close_exit);
         }
     }
 

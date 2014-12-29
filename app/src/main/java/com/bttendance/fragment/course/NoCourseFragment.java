@@ -1,20 +1,17 @@
 package com.bttendance.fragment.course;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.bttendance.R;
 import com.bttendance.activity.MainActivity;
-import com.bttendance.activity.course.AddCourseActivity;
-import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.fragment.BTFragment;
 
 /**
@@ -34,18 +31,14 @@ public class NoCourseFragment extends BTFragment {
         view.findViewById(R.id.add_course).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddCourseActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                ((MainActivity) getActivity()).showAddCourse();
             }
         });
 
         view.findViewById(R.id.show_guide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), IntroductionActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                ((MainActivity) getActivity()).showIntroduction();
             }
         });
         return view;

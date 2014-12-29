@@ -132,6 +132,12 @@ public class BTDialog {
                         if (listener != null)
                             listener.onConfirmed(text.toString());
                     }
+                }).dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (listener != null)
+                            listener.onCanceled();
+                    }
                 })
                 .build();
 
