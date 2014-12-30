@@ -9,6 +9,9 @@ import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.model.BTKey;
+import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -20,6 +23,8 @@ public class GuideActivity extends BTActivity {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
+    @InjectView(R.id.adView)
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,12 @@ public class GuideActivity extends BTActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        loadAd();
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.modal_activity_close_enter, R.anim.modal_activity_close_exit);
@@ -61,6 +72,18 @@ public class GuideActivity extends BTActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    protected void loadAd() {
+        try {
+            mAdView.loadAd(new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("BE5D7D1E701EF21AB93369A353CAA3ED")
+                    .addTestDevice("A642C45F5DD4C0E09AA896DDABD36789")
+                    .build());
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
     }
 }

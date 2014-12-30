@@ -125,6 +125,19 @@
             android:name="com.crashlytics.ApiKey"
             android:value="933280081941175a775ecfe701fefa562b7f8a01" />
 
+
+        <!--************************************************************************************
+        *     Google AD MOB
+        *************************************************************************************-->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

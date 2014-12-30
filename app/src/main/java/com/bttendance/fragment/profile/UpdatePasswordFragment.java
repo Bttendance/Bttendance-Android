@@ -22,6 +22,7 @@ import com.bttendance.model.json.UserJson;
 import com.bttendance.service.request.UserPutRequest;
 import com.bttendance.view.BTDialog;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -58,7 +59,7 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_update_password, container, false);
-
+        ButterKnife.inject(this, view);
         KeyboardHelper.show(getActivity(), mOld);
 
         mOld.setOnFocusChangeListener(new View.OnFocusChangeListener() {

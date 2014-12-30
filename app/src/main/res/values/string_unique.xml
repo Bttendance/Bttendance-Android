@@ -4,4 +4,6 @@
     <string name="google_api_key">AIzaSyCqQqKxotV4depXXZ1yi2BJZPnu9dwBT_Q</string>
     <!--suppress MissingTranslation -->
     <string name="google_api_key_dev">AIzaSyB1OFcNKhmFZ5vtXPfqXM2V1UJMqjmAeQk</string>
+    <!--suppress MissingTranslation -->
+    <string name="banner_ad_unit_id">ca-app-pub-3076307603758601/2218813171</string>
 </resources>

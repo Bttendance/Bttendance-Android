@@ -51,7 +51,8 @@
     <string name="add_manager">관리자 추가하기</string>
     <string name="would_you_like_to_add">\"%1$s\"를 %2$s 강의 관리자로 추가하시겠습니까?</string>
     <string name="is_now_manager_of_course">\"%1$s\"는 이제 %2$s의 강의 관리자입니다.</string>
-    <string name="plus">Plus</string> <!-- What?? -->
+    <string name="plus">Plus</string>
+    <!-- What?? -->
     <string name="password_recovery_success">비밀번호 복구 성공</string>
     <string name="password_recovery_has_been_succeeded">비밀번호 복구가 성공적으로 끝났습니다.\nEmail을 확인해 주세요.\n%s</string>
     <string name="oopps">웁스!</string>
@@ -70,13 +71,17 @@
     <string name="signing_up_bttendance">비텐던스에 가입하는 중&#8230;</string>
     <string name="updating_profile">프로필을 수정하는 중&#8230;</string>
     <string name="no_course">강의가 없습니다 :(</string>
-    <string name="press_plus_button">Press \'+\' button\nto create or attend a course.</string> <!-- Old version-->
+    <string name="press_plus_button">Press \'+\' button\nto create or attend a course.</string>
+    <!-- Old version-->
     <string name="do_you_really_wish_to_unjoin">정말 %s 강의에서 탈퇴하길 원하시나요?</string>
-    <string name="do_you_really_wish_to_open">Do you really wish to open course %s?</string> <!-- Old version-->
+    <string name="do_you_really_wish_to_open">Do you really wish to open course %s?</string>
+    <!-- Old version-->
     <string name="attending_course">수업에 등록하는 중</string>
-    <string name="would_you_like_to" formatted="false">Would you like to attend %s by %s?</string> <!-- What??? -->
+    <string name="would_you_like_to" formatted="false">Would you like to attend %s by %s?</string>
+    <!-- What??? -->
     <string name="creating_course">강의를 개설하는 중</string>
-    <string name="no_identity">학번 없음</string> <!-- What??? -->
+    <string name="no_identity">학번 없음</string>
+    <!-- What??? -->
     <string name="lectures">강의 목록</string>
     <string name="add_course">강의 추가하기</string>
     <string name="guide">가이드</string>
@@ -92,7 +97,8 @@
     <string name="institution_capital">기관</string>
     <string name="saved_clicker_questions">%d 개의 설문 질문이 있습니다.</string>
     <string name="update_password">비밀번호 수정하기</string>
-    <string name="student__">학생 - %s</string> <!-- Where? -->
+    <string name="student__">학생 - %s</string>
+    <!-- Where? -->
     <string name="closed_lectures">비활성화된 강의</string>
     <string name="edit_">%s 수정하기</string>
     <string name="if_you_turn_off_the_notification">알람 설정을 끄면 강의자가 진행하는 액션에 대한 알림을 받지 못합니다.</string>
@@ -118,7 +124,7 @@
     <string name="updating_password">비밀번호를 수정하는 중</string>
     <string name="current_password">현재 비밀번호</string>
     <string name="new_password">새 비밀번호</string>
-    <string name="more_than_six_letters_">6자 이상으로 입력해주세요.</string>
+    <string name="more_than_six_letters_">6자 이상&#8230;</string>
     <string name="make_your_lecture_interactive">학생들의 활발한 참여를 돕는 새로운 방법</string>
     <string name="john_smith">홍길동</string>
     <string name="john_at_bttendance_dot_com">callyoudaddy@hwalbin.dang</string>

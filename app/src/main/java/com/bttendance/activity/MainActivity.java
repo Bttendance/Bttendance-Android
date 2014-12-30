@@ -35,6 +35,9 @@ import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BTDialog;
 import com.bttendance.view.BTToast;
+import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.otto.BTEventBus;
 
 import butterknife.ButterKnife;
@@ -54,6 +57,8 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     ListView mListMenu;
     @InjectView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+    @InjectView(R.id.adView)
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 super.onDrawerClosed(view);
                 supportInvalidateOptionsMenu();
                 replacePendingFragment();
+                loadAd();
 //                if (getBTService() != null)
 //                    getBTService().socketConnect();
             }
@@ -143,6 +149,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     @Override
     protected void onStart() {
         super.onStart();
+        loadAd();
 
 //        if (BTTable.getAttdCheckingIds().size() > 0)
 //            BTEventBus.getInstance().post(new AttdStartedEvent(true));
@@ -403,5 +410,17 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 //            public void failure(RetrofitError retrofitError) {
 //            }
 //        });
+    }
+
+    protected void loadAd() {
+        try {
+            mAdView.loadAd(new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("BE5D7D1E701EF21AB93369A353CAA3ED")
+                    .addTestDevice("A642C45F5DD4C0E09AA896DDABD36789")
+                    .build());
+        } catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 }
