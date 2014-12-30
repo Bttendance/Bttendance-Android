@@ -61,7 +61,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         ActivityStack.clear(this);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
-        setSupportActionBar(toolbar);
 
         mSideAdapter = new SideListAdapter(getApplicationContext());
         mSideAdapter.setNotifyOnChange(true);
@@ -92,6 +91,8 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.setHomeAsUpIndicator(getV7DrawerToggleDelegate().getThemeUpIndicator());
+        setSupportActionBar(toolbar);
 
         ViewGroup.LayoutParams params = mListMenu.getLayoutParams();
         params.width = ScreenHelper.getNaviDrawerWidth(this);
@@ -103,10 +104,11 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                if (getSupportFragmentManager().getBackStackEntryCount() == 0)
+                if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                     mDrawerToggle.setDrawerIndicatorEnabled(true);
-                else
+                } else {
                     mDrawerToggle.setDrawerIndicatorEnabled(false);
+                }
             }
         });
 
@@ -211,7 +213,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
             inflater.inflate(R.menu.no_menu, menu);
         }
 
-//        syncToggleState();
+        syncToggleState();
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -263,6 +265,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 break;
             case Setting:
                 fragment = new SettingFragment();
+                mDrawerToggle.setDrawerIndicatorEnabled(false);
                 break;
             case Feedback:
                 UserJson user = BTPreference.getUser(this);
@@ -274,7 +277,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.feedback)));
                 } catch (android.content.ActivityNotFoundException ex) {
-                    BTToast.show(this, "비텐던스 관련 피드백은 contact@bttendance.com으로 메일 주시기 바랍니다.");
+                    BTToast.show(this, getString(R.string.feedback_error_toast_message));
                 }
                 break;
             case Course:
