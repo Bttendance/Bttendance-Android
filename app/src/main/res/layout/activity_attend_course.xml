@@ -1,56 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bttendance_grey"
-    android:clickable="true"
-    android:focusable="true">
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="25dp">
+        android:clickable="true"
+        android:focusable="true">
 
-        <TextView
-            android:id="@+id/code_text"
-            style="@style/userInfoText"
-            android:layout_alignParentTop="true"
-            android:singleLine="true"
-            android:text="@string/code" />
-
-        <EditText
-            android:id="@+id/code"
-            style="@style/userInfoEditText"
-            android:layout_alignParentTop="true"
-            android:hint="@string/enter_your_class_code"
-            android:textColorHint="@color/bttendance_silver_30"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/code_text"
-            android:inputType="text|textEmailAddress" />
-
-        <View
-            android:id="@+id/code_divider"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/code"
-            android:layout_marginBottom="15dp"
-            android:background="@color/bttendance_silver_30" />
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="25dp">
 
-        <Button
-            android:id="@+id/attend_course"
-            style="@style/signInUpButton"
-            android:layout_below="@id/code_divider"
-            android:layout_marginBottom="10dp"
-            android:enabled="false"
-            android:text="@string/attend_course" />
+            <TextView
+                android:id="@+id/code_text"
+                style="@style/userInfoText"
+                android:layout_alignParentTop="true"
+                android:singleLine="true"
+                android:text="@string/code" />
+
+            <EditText
+                android:id="@+id/code"
+                style="@style/userInfoEditText"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/code_text"
+                android:hint="@string/enter_your_class_code"
+                android:inputType="text|textEmailAddress"
+                android:textColorHint="@color/bttendance_silver_30" />
+
+            <View
+                android:id="@+id/code_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/code"
+                android:layout_marginBottom="15dp"
+                android:background="@color/bttendance_silver_30" />
+
+            <Button
+                android:id="@+id/attend_course"
+                style="@style/signInUpButton"
+                android:layout_below="@id/code_divider"
+                android:layout_marginBottom="10dp"
+                android:enabled="false"
+                android:text="@string/attend_course" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</RelativeLayout>
+</LinearLayout>

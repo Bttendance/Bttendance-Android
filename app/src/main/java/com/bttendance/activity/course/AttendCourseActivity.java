@@ -2,6 +2,7 @@ package com.bttendance.activity.course;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -18,15 +19,24 @@ import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.UserJson;
 import com.squareup.otto.BTEventBus;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * Created by TheFinestArtist on 2013. 11. 19..
  */
 
 public class AttendCourseActivity extends BTActivity {
 
-    private EditText mCode = null;
-    private View mCodeDiv = null;
-    private Button mAttendCourse = null;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.code)
+    EditText mCode;
+    @InjectView(R.id.code_divider)
+    View mCodeDiv;
+    @InjectView(R.id.attend_course)
+    Button mAttendCourse;
+
     private int mCodeCount = 0;
     private String mCodeString = null;
 
@@ -34,9 +44,8 @@ public class AttendCourseActivity extends BTActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attend_course);
-
-        mCode = (EditText) findViewById(R.id.code);
-        mCodeDiv = findViewById(R.id.code_divider);
+        ButterKnife.inject(this);
+        setSupportActionBar(toolbar);
 
         mCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -66,7 +75,6 @@ public class AttendCourseActivity extends BTActivity {
             }
         });
 
-        mAttendCourse = (Button) findViewById(R.id.attend_course);
         mAttendCourse.setEnabled(false);
         mAttendCourse.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mAttendCourse.setOnTouchListener(new View.OnTouchListener() {
