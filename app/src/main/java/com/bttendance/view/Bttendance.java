@@ -106,11 +106,11 @@ public class Bttendance extends View {
 
         switch (mType) {
             case BIG:
-                mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_large);
+                mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                 break;
             case SMALL:
             default:
-                mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_small);
+                mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                 break;
         }
 
@@ -209,7 +209,7 @@ public class Bttendance extends View {
                 switch (mState) {
                     case GRADE:
                         if (mCyanCheck == null)
-                            return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_large);
+                            return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mCyanCheck;
                     case CHECKING:
@@ -224,7 +224,7 @@ public class Bttendance extends View {
                 switch (mState) {
                     case GRADE:
                         if (mCyanCheck == null)
-                            return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_check_cyan_small);
+                            return mCyanCheck = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mCyanCheck;
                     case CHECKING:
@@ -244,23 +244,23 @@ public class Bttendance extends View {
                 switch (mState) {
                     case ABSENT:
                         if (mAbsentBackground == null)
-                            return mAbsentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_grey_large);
+                            return mAbsentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mAbsentBackground;
                     case PRESENT:
                         if (mPresendBackground == null)
-                            return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_present_navy_large);
+                            return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mPresendBackground;
                     case TARDY:
                         if (mTardyBackground == null)
-                            return mTardyBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_tardy_cyan_large);
+                            return mTardyBackground = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mTardyBackground;
                     case CHECKING:
                     case GRADE:
                         if (mCircleBackground == null)
-                            return mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_circle_cyan_large);
+                            return mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mCircleBackground;
                     default:
@@ -271,23 +271,23 @@ public class Bttendance extends View {
                 switch (mState) {
                     case ABSENT:
                         if (mAbsentBackground == null)
-                            return mAbsentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_fail_gray_small);
+                            return mAbsentBackground = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mAbsentBackground;
                     case PRESENT:
                         if (mPresendBackground == null)
-                            return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_present_navy_small);
+                            return mPresendBackground = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mPresendBackground;
                     case TARDY:
                         if (mTardyBackground == null)
-                            return mTardyBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_tardy_cyan_small);
+                            return mTardyBackground = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mTardyBackground;
                     case CHECKING:
                     case GRADE:
                         if (mCircleBackground == null)
-                            return mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_circle_cyan_small);
+                            return mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                         else
                             return mCircleBackground;
                     default:

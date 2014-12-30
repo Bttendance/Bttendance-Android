@@ -20,12 +20,12 @@
         android:id="@+id/edit"
         style="@style/userInfoEditText"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/text"
         android:layout_marginLeft="8dp"
-        android:inputType="textEmailAddress"
+        android:layout_toRightOf="@id/text"
         android:hint="Institution name (in English)."
-        android:textColorHint="@color/bttendance_silver_30"
-        android:singleLine="true" />
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        android:textColorHint="@color/bttendance_silver_30" />
 
     <View
         android:id="@+id/edit_divider"
@@ -38,10 +38,10 @@
         android:id="@+id/type_choose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
+        android:layout_below="@id/edit_divider"
         android:orientation="horizontal"
-        android:layout_below="@id/edit_divider">
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp">
 
         <LinearLayout
             android:id="@+id/university_bg"
@@ -52,15 +52,15 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_horizontal"
-            android:paddingTop="11dp"
+            android:orientation="vertical"
             android:paddingBottom="13dp"
-            android:orientation="vertical">
+            android:paddingTop="11dp">
 
             <ImageView
                 android:id="@+id/university_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/attendance_silver" />
+                android:src="@drawable/check_default" />
 
             <TextView
                 android:id="@+id/university_text"
@@ -82,15 +82,15 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_horizontal"
-            android:paddingTop="11dp"
+            android:orientation="vertical"
             android:paddingBottom="13dp"
-            android:orientation="vertical">
+            android:paddingTop="11dp">
 
             <ImageView
                 android:id="@+id/school_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/attendance_silver" />
+                android:src="@drawable/check_default" />
 
             <TextView
                 android:id="@+id/school_text"
@@ -112,15 +112,15 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_horizontal"
-            android:paddingTop="11dp"
+            android:orientation="vertical"
             android:paddingBottom="13dp"
-            android:orientation="vertical">
+            android:paddingTop="11dp">
 
             <ImageView
                 android:id="@+id/institute_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/attendance_silver" />
+                android:src="@drawable/check_default" />
 
             <TextView
                 android:id="@+id/institute_text"
@@ -142,15 +142,15 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center_horizontal"
-            android:paddingTop="11dp"
+            android:orientation="vertical"
             android:paddingBottom="13dp"
-            android:orientation="vertical">
+            android:paddingTop="11dp">
 
             <ImageView
                 android:id="@+id/etc_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/attendance_silver" />
+                android:src="@drawable/check_default" />
 
             <TextView
                 android:id="@+id/etc_text"
@@ -170,17 +170,17 @@
         android:layout_width="match_parent"
         android:layout_height="26dp"
         android:layout_below="@id/type_choose"
-        android:text="@string/choose_the_type_of_institution"
         android:gravity="top|center_horizontal"
-        android:textSize="12sp"
-        android:textColor="@color/bttendance_silver" />
+        android:text="@string/choose_the_type_of_institution"
+        android:textColor="@color/bttendance_silver"
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/create_school"
         style="@style/signInUpButton"
         android:layout_below="@id/type_info"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
         android:enabled="false"
         android:text="@string/create_institution" />
 

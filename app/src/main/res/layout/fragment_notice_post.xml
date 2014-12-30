@@ -33,7 +33,7 @@
         android:layout_below="@id/notice_guide"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="18dp"
-        android:background="@drawable/ic_notice_big" />
+        android:background="@drawable/notice_noticeicon" />
 
     <EditText
         android:id="@+id/message_edit"

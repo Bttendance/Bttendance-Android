@@ -96,7 +96,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
         Picasso.with(this).load(R.drawable.welcome_bg).into(mIntroductionFirst);
         Picasso.with(this).load(R.drawable.clicker_bg).into(mIntroductionClicker);
         Picasso.with(this).load(R.drawable.attendance_bg).into(mIntroductionAttendance);
-        Picasso.with(this).load(R.drawable.clicker_bg).into(mIntroductionCurious);
+        Picasso.with(this).load(R.drawable.curious_bg).into(mIntroductionCurious);
         Picasso.with(this).load(R.drawable.notice_bg).into(mIntroductionNotice);
     }
 
@@ -184,7 +184,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
             }
 
             if (scrollOffset < 4.5) {
-                mCloseBt.setBackgroundResource(R.drawable.x);
+                mCloseBt.setBackgroundResource(R.drawable.x_white);
                 mCircleIndicator.setPageColor(getResources().getColor(R.color.bttendance_white_50));
                 mCircleIndicator.setFillColor(getResources().getColor(R.color.bttendance_white_80));
             } else {

@@ -22,7 +22,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="18dp"
-        android:background="@drawable/ic_bttendance_big" />
+        android:background="@drawable/icon" />
 
     <TextView
         android:id="@+id/guide_message"

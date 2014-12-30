@@ -5,7 +5,7 @@
         android:id="@+id/action_course_setting"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/ic_action_setting"
+        android:icon="@drawable/setting"
         android:title="@string/setting"/>
 
 </menu> 

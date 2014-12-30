@@ -78,7 +78,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="4dp"
-        android:background="@drawable/x" />
+        android:background="@drawable/x_white" />
 
     <Button
         android:id="@+id/skip"

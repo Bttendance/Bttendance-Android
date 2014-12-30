@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_selected="true" android:drawable="@drawable/chice_5_c" />
-    <item android:drawable="@drawable/chice_5_g" />
+    <item android:drawable="@drawable/clicker_start_multiple_option5_selected" android:state_selected="true" />
+    <item android:drawable="@drawable/clicker_start_multiple_option5" />
 
 </selector>

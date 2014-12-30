@@ -23,36 +23,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:includeFontPadding="false"
                 android:paddingBottom="3dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:gravity="center"
                 android:text="Can machine think?"
-                android:textSize="14sp"
                 android:textColor="@color/bttendance_navy"
-                android:textStyle="bold"
-                android:includeFontPadding="false" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:id="@+id/clicker"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:layout_below="@+id/message"
-                android:layout_marginTop="-5dp"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-5dp" />
 
             <TextView
                 android:id="@id/message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
+                android:gravity="center"
+                android:includeFontPadding="false"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:gravity="center"
                 android:text="0 out of 2 participated, 2014/08/18 13:54"
-                android:textSize="12sp"
                 android:textColor="@color/bttendance_silver"
-                android:includeFontPadding="false" />
+                android:textSize="12sp" />
 
             <RelativeLayout
                 android:id="@+id/ring"
@@ -60,355 +60,355 @@
                 android:layout_height="200dp"
                 android:layout_below="@id/message"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="35dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="35dp"
                 android:background="@drawable/chart_round" />
 
             <LinearLayout
+                android:id="@+id/detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ring"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:id="@+id/detail">
+                android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/a_layout"
                     android:layout_width="51dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:id="@+id/a_layout">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/r_a" />
+                        android:src="@drawable/clicker_detail_mult_small_a" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp">
 
                         <TextView
+                            android:id="@+id/a_percent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
                             android:text="3"
-                            android:id="@+id/a_percent" />
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
-                            android:text="%" />
+                            android:text="%"
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/a_line"
                         android:layout_width="match_parent"
                         android:layout_height="0.7dp"
                         android:layout_marginLeft="5dp"
-                        android:background="@color/bttendance_navy"
-                        android:id="@+id/a_line" />
+                        android:background="@color/bttendance_navy" />
 
                     <TextView
+                        android:id="@+id/a_student"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textSize="12sp"
-                        android:textColor="@color/bttendance_silver"
                         android:includeFontPadding="false"
                         android:text="1"
-                        android:id="@+id/a_student" />
+                        android:textColor="@color/bttendance_silver"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/b_layout"
                     android:layout_width="51dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:id="@+id/b_layout">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/r_b" />
+                        android:src="@drawable/clicker_detail_mult_small_b" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp">
 
                         <TextView
+                            android:id="@+id/b_percent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
                             android:text="3"
-                            android:id="@+id/b_percent" />
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
-                            android:text="%" />
+                            android:text="%"
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/b_line"
                         android:layout_width="match_parent"
                         android:layout_height="0.7dp"
-                        android:background="@color/bttendance_navy"
-                        android:id="@+id/b_line" />
+                        android:background="@color/bttendance_navy" />
 
                     <TextView
+                        android:id="@+id/b_student"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textSize="12sp"
-                        android:textColor="@color/bttendance_silver"
                         android:includeFontPadding="false"
                         android:text="1"
-                        android:id="@+id/b_student" />
+                        android:textColor="@color/bttendance_silver"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/c_layout"
                     android:layout_width="51dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:id="@+id/c_layout">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/r_c" />
+                        android:src="@drawable/clicker_detail_mult_small_c" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp">
 
                         <TextView
+                            android:id="@+id/c_percent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
                             android:text="3"
-                            android:id="@+id/c_percent" />
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
-                            android:text="%" />
+                            android:text="%"
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/c_line"
                         android:layout_width="match_parent"
                         android:layout_height="0.7dp"
-                        android:background="@color/bttendance_navy"
-                        android:id="@+id/c_line" />
+                        android:background="@color/bttendance_navy" />
 
                     <TextView
+                        android:id="@+id/c_student"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textSize="12sp"
-                        android:textColor="@color/bttendance_silver"
                         android:includeFontPadding="false"
                         android:text="1"
-                        android:id="@+id/c_student" />
+                        android:textColor="@color/bttendance_silver"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/d_layout"
                     android:layout_width="51dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:id="@+id/d_layout">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/r_d" />
+                        android:src="@drawable/clicker_detail_mult_small_d" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp">
 
                         <TextView
+                            android:id="@+id/d_percent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
                             android:text="3"
-                            android:id="@+id/d_percent" />
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
-                            android:text="%" />
+                            android:text="%"
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/d_line"
                         android:layout_width="match_parent"
                         android:layout_height="0.7dp"
-                        android:background="@color/bttendance_navy"
-                        android:id="@+id/d_line" />
+                        android:background="@color/bttendance_navy" />
 
                     <TextView
+                        android:id="@+id/d_student"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textSize="12sp"
-                        android:textColor="@color/bttendance_silver"
                         android:includeFontPadding="false"
                         android:text="1"
-                        android:id="@+id/d_student" />
+                        android:textColor="@color/bttendance_silver"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/e_layout"
                     android:layout_width="51dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:id="@+id/e_layout">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/r_e" />
+                        android:src="@drawable/clicker_detail_mult_small_e" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp">
 
                         <TextView
+                            android:id="@+id/e_percent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
                             android:text="3"
-                            android:id="@+id/e_percent" />
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/bttendance_navy"
                             android:includeFontPadding="false"
-                            android:text="%" />
+                            android:text="%"
+                            android:textColor="@color/bttendance_navy"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/e_line"
                         android:layout_width="match_parent"
                         android:layout_height="0.7dp"
-                        android:background="@color/bttendance_navy"
-                        android:id="@+id/e_line" />
+                        android:background="@color/bttendance_navy" />
 
                     <TextView
+                        android:id="@+id/e_student"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textSize="12sp"
-                        android:textColor="@color/bttendance_silver"
                         android:includeFontPadding="false"
                         android:text="1"
-                        android:id="@+id/e_student" />
+                        android:textColor="@color/bttendance_silver"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/student_choice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/detail"
-                android:paddingTop="20dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/bttendance_navy"
-                android:includeFontPadding="false"
+                android:paddingTop="20dp"
                 android:text="You have chosen A."
-                android:id="@+id/student_choice" />
+                android:textColor="@color/bttendance_navy"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/clicker_option_guide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_below="@id/student_choice"
+                android:layout_marginTop="20dp"
                 android:background="@color/bttendance_grey"
-                android:paddingTop="11dp"
+                android:includeFontPadding="false"
                 android:paddingBottom="11dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:includeFontPadding="false"
-                android:textSize="12sp"
+                android:paddingTop="11dp"
                 android:textColor="@color/bttendance_silver"
-                android:id="@+id/clicker_option_guide" />
+                android:textSize="12sp" />
         </RelativeLayout>
     </ScrollView>
 
     <RelativeLayout
+        android:id="@+id/show_details_layout"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:id="@+id/show_details_layout">
+        android:layout_height="46dp">
 
         <Button
+            android:id="@+id/show_details"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:id="@+id/show_details"
             android:background="@drawable/bt_selector_cyan" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="46dp"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:drawablePadding="6dp"
             android:drawableLeft="@drawable/more"
+            android:drawablePadding="6dp"
+            android:gravity="center"
             android:text="@string/show_details"
+            android:textColor="@color/bttendance_white"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/bttendance_white" />
+            android:textStyle="bold" />
     </RelativeLayout>
 
 </LinearLayout>

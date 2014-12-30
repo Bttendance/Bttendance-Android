@@ -92,29 +92,29 @@ public class Clicker extends View {
 
         switch (mType) {
             case A:
-                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_a);
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                 mProgressPaint.setColor(getResources().getColor(R.color.bttendance_a));
                 break;
             case B:
-                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_b);
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                 mProgressPaint.setColor(getResources().getColor(R.color.bttendance_b));
                 break;
             case C:
-                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_c);
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                 mProgressPaint.setColor(getResources().getColor(R.color.bttendance_c));
                 break;
             case D:
-                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_d);
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                 mProgressPaint.setColor(getResources().getColor(R.color.bttendance_d));
                 break;
             case E:
             default:
-                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.ic_e);
+                mAlphabet = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
                 mProgressPaint.setColor(getResources().getColor(R.color.bttendance_e));
                 break;
         }
 
-        mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_bttendance_circle_cyan_small);
+        mCircleBackground = BitmapFactory.decodeResource(getResources(), R.drawable.clicker_choice_a_default);
 
         mAlphaPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mAlphaTransformation = new Transformation();

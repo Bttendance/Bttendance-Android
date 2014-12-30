@@ -58,7 +58,7 @@
         android:layout_marginRight="10dp"
         android:clickable="false"
         android:focusable="false"
-        android:src="@drawable/ic_grade" />
+        android:src="@drawable/grade_bg" />
 
     <TextView
         android:id="@+id/status"

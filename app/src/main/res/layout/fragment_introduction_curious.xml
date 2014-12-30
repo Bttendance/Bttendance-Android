@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="center"
-            android:src="@drawable/pollicon" />
+            android:src="@drawable/curiousicon" />
 
         <View
             android:layout_width="match_parent"
