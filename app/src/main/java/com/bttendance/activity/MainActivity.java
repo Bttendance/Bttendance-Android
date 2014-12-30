@@ -208,7 +208,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         actionBar.setDisplayShowTitleEnabled(true);
 
         if (isDrawerVisible()) {
-            actionBar.setTitle(getString(R.string.menu));
+            actionBar.setTitle(getString(R.string.app_name_capital));
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.no_menu, menu);
         }

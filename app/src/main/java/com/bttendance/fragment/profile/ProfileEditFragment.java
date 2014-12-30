@@ -24,6 +24,8 @@ import com.bttendance.model.json.UserJson;
 import com.bttendance.service.request.UserPutRequest;
 import com.bttendance.view.BTDialog;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -33,11 +35,16 @@ import retrofit.client.Response;
  */
 public class ProfileEditFragment extends BTFragment implements Callback<UserJson> {
 
-    private String mTitle = null;
-    private TextView mText = null;
-    private EditText mEdit = null;
-    private View mEditDiv = null;
-    private Button mSave = null;
+    @InjectView(R.id.text)
+    TextView mText;
+    @InjectView(R.id.edit)
+    EditText mEdit;
+    @InjectView(R.id.edit_divider)
+    View mEditDiv;
+    @InjectView(R.id.save)
+    Button mSave;
+
+    private String mTitle;
     private int mEditCount = 0;
     private String mEditString = null;
     private Type mType;
@@ -50,22 +57,13 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
         mType = getArguments() != null ? (Type) getArguments().getSerializable(BTKey.EXTRA_TYPE) : Type.IMAGE;
 
         super.onCreate(savedInstanceState);
-
-        if (getActivity() != null) {
-            ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
-            actionBar.setTitle(String.format(getString(R.string.edit_), mTitle));
-        }
-
         setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
-
-        mText = (TextView) view.findViewById(R.id.text);
-        mEdit = (EditText) view.findViewById(R.id.edit);
-        mEditDiv = view.findViewById(R.id.edit_divider);
+        ButterKnife.inject(this, view);
 
         mText.setText(mTitle);
         mEdit.setText(mEditString);
@@ -98,7 +96,6 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
             }
         });
 
-        mSave = (Button) view.findViewById(R.id.save);
         mSave.setEnabled(false);
         mSave.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSave.setOnTouchListener(new View.OnTouchListener() {
@@ -192,6 +189,7 @@ public class ProfileEditFragment extends BTFragment implements Callback<UserJson
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(String.format(getString(R.string.edit_), mTitle));
     }
 
     /**

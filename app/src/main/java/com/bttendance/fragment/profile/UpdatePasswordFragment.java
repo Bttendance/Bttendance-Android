@@ -14,12 +14,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.service.request.UserPutRequest;
 import com.bttendance.view.BTDialog;
 
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -29,15 +32,22 @@ import retrofit.client.Response;
  */
 public class UpdatePasswordFragment extends BTFragment implements Callback<UserJson> {
 
-    private EditText mOld = null;
-    private EditText mNew = null;
-    private View mOldDiv = null;
-    private View mNewDiv = null;
-    private Button mSave = null;
+    @InjectView(R.id.edit_old)
+    EditText mOld;
+    @InjectView(R.id.edit_new)
+    EditText mNew;
+    @InjectView(R.id.divider_old)
+    View mOldDiv;
+    @InjectView(R.id.divider_new)
+    View mNewDiv;
+    @InjectView(R.id.save)
+    Button mSave;
+
     private int mOldCount = 0;
     private int mNewCount = 0;
     private String mOldString = null;
     private String mNewString = null;
+    private MaterialDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,11 +58,6 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_update_password, container, false);
-
-        mOld = (EditText) view.findViewById(R.id.edit_old);
-        mOldDiv = view.findViewById(R.id.divider_old);
-        mNew = (EditText) view.findViewById(R.id.edit_new);
-        mNewDiv = view.findViewById(R.id.divider_new);
 
         KeyboardHelper.show(getActivity(), mOld);
 
@@ -110,7 +115,6 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
             }
         });
 
-        mSave = (Button) view.findViewById(R.id.save);
         mSave.setEnabled(false);
         mSave.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mSave.setOnTouchListener(new View.OnTouchListener() {
@@ -140,8 +144,8 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
     }
 
     private void save() {
-        BTDialog.progress(getActivity(), getString(R.string.updating_password));
-//        getBTService().updatePassword(mOld.getText().toString(), mNew.getText().toString(), this);
+        dialog = BTDialog.progress(getActivity(), getString(R.string.updating_password));
+        getBTService().updateUser(new UserPutRequest().updatePassword(mOld.getText().toString(), mNew.getText().toString()), this);
     }
 
     private void isEnableSave() {
@@ -209,12 +213,12 @@ public class UpdatePasswordFragment extends BTFragment implements Callback<UserJ
      */
     @Override
     public void success(UserJson userJson, Response response) {
-//        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+        BTDialog.hide(dialog);
         getActivity().onBackPressed();
     }
 
     @Override
     public void failure(RetrofitError retrofitError) {
-//        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+        BTDialog.hide(dialog);
     }
 }
