@@ -55,6 +55,7 @@
 
     <color name="bttendance_navy_darken">#004468</color>
 
+    <color name="bttendance_white_30">#4DF1F1FF</color>
     <color name="bttendance_white_50">#80F1F1FF</color>
     <color name="bttendance_white_80">#CCF1F1FF</color>
 

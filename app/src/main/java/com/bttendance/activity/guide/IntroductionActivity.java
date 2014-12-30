@@ -48,6 +48,8 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
     Button mCloseBt;
     @InjectView(R.id.skip)
     Button mSkipBt;
+    @InjectView(R.id.prev)
+    Button mPrevBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +90,19 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
             }
         });
 
-        if (mAuth)
+        mPrevBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPagerView.setCurrentItem(mPagerView.getCurrentItem() - 1, true);
+            }
+        });
+
+        if (mAuth) {
             mSkipBt.setVisibility(View.GONE);
-        else
+        } else {
             mCloseBt.setVisibility(View.GONE);
+            mPrevBt.setVisibility(View.GONE);
+        }
 
         Picasso.with(this).load(R.drawable.welcome_bg).into(mIntroductionFirst);
         Picasso.with(this).load(R.drawable.clicker_bg).into(mIntroductionClicker);
@@ -121,6 +132,8 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
+                mSkipBt.setAlpha(1.0f);
+                mPrevBt.setAlpha(0.0f);
             }
 
             if (0 <= scrollOffset && scrollOffset < 1) {
@@ -131,6 +144,8 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
+                mSkipBt.setAlpha(1.0f);
+                mPrevBt.setAlpha(scrollOffset);
             }
 
             if (1 <= scrollOffset && scrollOffset < 2) {
@@ -141,6 +156,8 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
+                mSkipBt.setAlpha(1.0f);
+                mPrevBt.setAlpha(1.0f);
             }
 
             if (2 <= scrollOffset && scrollOffset < 3) {
@@ -151,6 +168,8 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
+                mSkipBt.setAlpha(1.0f);
+                mPrevBt.setAlpha(1.0f);
             }
 
             if (3 <= scrollOffset && scrollOffset < 4) {
@@ -161,6 +180,8 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionNotice.setAlpha(scrollOffset - 3.0f);
                 mIntroductionLast.setAlpha(0.0f);
                 mNextBt.setAlpha(1.0f);
+                mSkipBt.setAlpha(1.0f);
+                mPrevBt.setAlpha(1.0f);
             }
 
             if (4 <= scrollOffset && scrollOffset < 5) {
@@ -171,6 +192,8 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionNotice.setAlpha(5.0f - scrollOffset);
                 mIntroductionLast.setAlpha(scrollOffset - 4.0f);
                 mNextBt.setAlpha(5.0f - scrollOffset);
+                mSkipBt.setAlpha(5.0f - scrollOffset);
+                mPrevBt.setAlpha(5.0f - scrollOffset);
             }
 
             if (5 <= scrollOffset) {
@@ -181,6 +204,8 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
                 mIntroductionNotice.setAlpha(0.0f);
                 mIntroductionLast.setAlpha(1.0f);
                 mNextBt.setAlpha(0.0f);
+                mSkipBt.setAlpha(0.0f);
+                mPrevBt.setAlpha(0.0f);
             }
 
             if (scrollOffset < 4.5) {

@@ -67,32 +67,32 @@
             android:name=".activity.guide.GuideActivity"
             android:label="@string/guide"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.White.Background" />
+            android:theme="@style/Theme.Bttendance" />
 
         <activity
             android:name="com.bttendance.activity.course.CreateCourseActivity"
             android:label="@string/create_course"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.White.Background" />
+            android:theme="@style/Theme.Bttendance" />
 
         <activity
             android:name="com.bttendance.activity.course.AttendCourseActivity"
             android:label="@string/attend_course"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.White.Background" />
+            android:theme="@style/Theme.Bttendance" />
 
         <activity
             android:name=".activity.sign.LogInActivity"
             android:label="@string/log_in"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.White.Background"
+            android:theme="@style/Theme.Bttendance"
             android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity
             android:name="com.bttendance.activity.sign.SignUpActivity"
             android:label="@string/sign_up"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bttendance.White.Background"
+            android:theme="@style/Theme.Bttendance"
             android:windowSoftInputMode="stateAlwaysVisible" />
 
         <activity

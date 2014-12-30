@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.Bttendance" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowBackground">@color/bttendance_grey</item>
+        <item name="android:windowBackground">@color/bttendance_black</item>
         <item name="colorPrimary">@color/bttendance_navy</item>
         <item name="colorPrimaryDark">@color/bttendance_navy_darken</item>
         <item name="colorAccent">@color/bttendance_cyan</item>
@@ -11,19 +11,8 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
-    <style name="Theme.Bttendance.White.Background" parent="@style/Theme.Bttendance">
-        <item name="android:windowBackground">@color/bttendance_white</item>
-    </style>
-
     <style name="Theme.Bttendance.NoActionBar" parent="@style/Theme.Bttendance">
         <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.Bttendance.NoActionBar.Translucent" parent="Theme.Bttendance.NoActionBar">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">

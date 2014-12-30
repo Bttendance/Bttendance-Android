@@ -1,5 +1,6 @@
 package com.bttendance.fragment.introduction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.bttendance.R;
+import com.bttendance.activity.course.AttendCourseActivity;
+import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.UserJson;
@@ -44,9 +47,9 @@ public class IntroductionLastFragment extends BTFragment {
             public void onClick(View view) {
                 getActivity().onBackPressed();
                 if (!mHasOpenedCourse) {
-//                    Intent intent = new Intent(getActivity(), CreateCourseActivity.class);
-//                    startActivity(intent);
-//                    getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
+                    Intent intent = new Intent(getActivity(), CreateCourseActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
                 }
             }
         });
@@ -55,9 +58,9 @@ public class IntroductionLastFragment extends BTFragment {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();
-//                Intent intent = new Intent(getActivity(), AttendCourseActivity.class);
-//                startActivity(intent);
-//                getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
+                Intent intent = new Intent(getActivity(), AttendCourseActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.modal_activity_open_enter, R.anim.modal_activity_open_exit);
             }
         });
 

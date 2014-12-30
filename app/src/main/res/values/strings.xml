@@ -44,7 +44,8 @@
     <string name="introduction_first_message">Let me introduce\nhow to use\nBTTENDANCE.</string>
     <string name="introduction_clicker_message">Check the response of your students\nduring the class by using BTTENDANCE</string>
     <string name="introduction_attendance_message">Check your students\' attendance\naccurately and effortlessly\nby using elaborate algorithm.</string>
-    <!--Missing--><string name="introduction_curious_message">Check the response of your students\nduring the class by using BTTENDANCE</string>
+    <!--Missing-->
+    <string name="introduction_curious_message">학생들과 자유롭게 묻고 답해보세요!</string>
     <string name="introduction_notice_message">Notify important information\nto your students as easy as\nsending a text message.</string>
     <string name="introduction_last_start">Let\'s start\nBTTENDANCE</string>
     <string name="start_with_facebook">"Start with Facebook"</string>
@@ -300,5 +301,6 @@
     <string name="following_notification">Followed Curious Notification</string>
     <string name="updating_preferences">Updating Preferences&#8230;</string>
     <string name="course_name">Course Name</string>
+    <string name="previous">Previous</string>
 
 </resources>

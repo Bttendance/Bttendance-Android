@@ -96,6 +96,21 @@
         android:textStyle="bold" />
 
     <Button
+        android:id="@+id/prev"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="16dp"
+        android:background="@android:color/transparent"
+        android:gravity="start|center_vertical"
+        android:text="@string/previous"
+        android:textColor="@color/bttendance_white"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <Button
         android:id="@+id/next"
         android:layout_width="80dp"
         android:layout_height="35dp"

@@ -69,7 +69,7 @@
     <string name="loging_in_bttendance">비텐던스에 로그인하는 중&#8230;</string>
     <string name="signing_up_bttendance">비텐던스에 가입하는 중&#8230;</string>
     <string name="updating_profile">프로필을 수정하는 중&#8230;</string>
-    <string name="no_course">강의가 없습니다</string>
+    <string name="no_course">강의가 없습니다 :(</string>
     <string name="press_plus_button">Press \'+\' button\nto create or attend a course.</string> <!-- Old version-->
     <string name="do_you_really_wish_to_unjoin">정말 %s 강의에서 탈퇴하길 원하시나요?</string>
     <string name="do_you_really_wish_to_open">Do you really wish to open course %s?</string> <!-- Old version-->
@@ -107,13 +107,13 @@
 
     <string name="next">다음</string>
     <string name="introduction_first_welcome">환영합니다!</string>
-    <string name="introduction_first_message">지금부터 BTTENDANCE를\n어떻게 사용하실 수 있는지\n소개할게요.</string>
+    <string name="introduction_first_message">지금부터 비텐던스를\n어떻게 사용하실 수 있는지\n소개할게요.</string>
     <string name="see_more">더 알아보기</string>
     <string name="introduction_clicker_message">찬반 의견부터 간단한 객관식 답변까지\n학생들의 반응을 쉽게 파악하세요!</string>
-    <string name="introduction_curious_message">찬반 의견부터 간단한 객관식 답변까지\n학생들의 반응을 쉽게 파악하세요!</string>
-    <string name="introduction_attendance_message">학생수가 많아 일일이 이름 부르기\n힘들다면, BTTENDANCE 로 빠르고\n정확하게 체크해보시면 어떨까요?</string>
-    <string name="introduction_notice_message">학생들에게 BTTENDANCE로\n중요한 사항을 알리시고,\n누가 읽지 않았는지도 확인하세요!</string>
-    <string name="introduction_last_start">지금부터\nBTTENDANCE를\n시작해보세요.</string>
+    <string name="introduction_curious_message">학생들이 비텐던스로 손쉽게 묻고 답하며\n스스로 답을 찾아가도록 해보세요.</string>
+    <string name="introduction_attendance_message">학생수가 많아 일일이 이름 부르기\n힘들다면, 비텐던스 로 빠르고\n정확하게 체크해보시면 어떨까요?</string>
+    <string name="introduction_notice_message">학생들에게 비텐던스로\n중요한 사항을 알리시고,\n누가 읽지 않았는지도 확인하세요!</string>
+    <string name="introduction_last_start">지금부터\n비텐던스를\n시작해보세요.</string>
     <string name="identity">식별 번호</string>
     <string name="updating_password">비밀번호를 수정하는 중</string>
     <string name="current_password">현재 비밀번호</string>
@@ -149,14 +149,14 @@
     <string name="tips_for_bttendance">BTTENDANCE를 잘 사용하는 법</string>
     <string name="guide_create_course_class_code_info">학생들에게 좌측의 클래스코드를 알려주세요. 학생들은 클래스코드를 입력해서 개설된 강의에 쉽게 등록할 수 있습니다.</string>
     <string name="class_code">클래스 코드</string>
-    <string name="guide_create_course_first_info">BTTENDANCE를 사용하는 이유를 학생들에게 자세히 설명해 주세요.</string>
-    <string name="guide_create_course_second_info">BTTENDANCE 외에는 수업시간에 스마트폰을 사용할 수 없다고 학생들에게 분명히 말씀하시는게 중요합니다.</string>
+    <string name="guide_create_course_first_info">비텐던스를 사용하는 이유를 학생들에게 자세히 설명해 주세요.</string>
+    <string name="guide_create_course_second_info">비텐던스 외에는 수업시간에 스마트폰을 사용할 수 없다고 학생들에게 분명히 말씀하시는게 중요합니다.</string>
     <string name="guide_create_course_third_info">기능 사용에 어려움을 느끼신다면 언제든지 가이드를 확인해주세요!</string>
     <string name="you_are_successfully_registered">강의에 성공적으로\n등록되었습니다!</string>
-    <string name="guide_attend_course_first_info">강의자가 BTTENDANCE의 기능을 사용하면 강의정보 밑의 피드를 확인 해서 참여하세요.</string>
+    <string name="guide_attend_course_first_info">강의자가 비텐던스의 기능을 사용하면 강의정보 밑의 피드를 확인 해서 참여하세요.</string>
     <string name="guide_attend_course_second_info">각 포스트를 누르면 세부 정보를 볼 수 있습니다.</string>
-    <string name="guide_attend_course_third_info">BTTENDANCE의 출석체크 기능은 Bluetooth를 사용하므로, 출석할 때는 꼭 Bluetooth를 켜주세요.</string>
-    <string name="guide_attend_course_forth_info">수업시간 중에는 BTTENDANCE 외에 다른 용도로 스마트폰을 쓰는 걸 자제해주세요 ㅜㅜ</string>
+    <string name="guide_attend_course_third_info">비텐던스의 출석체크 기능은 Bluetooth를 사용하므로, 출석할 때는 꼭 Bluetooth를 켜주세요.</string>
+    <string name="guide_attend_course_forth_info">수업시간 중에는 비텐던스 외에 다른 용도로 스마트폰을 쓰는 걸 자제해주세요 ㅜㅜ</string>
     <string name="open_course">강의 활성화</string>
     <string name="opening_course">강의 활성화 중</string>
     <string name="s_students">학생수 %s</string>
@@ -187,12 +187,12 @@
     <string name="attendance_start_no_bluetooth_title">이름 부르면서\n출석체크하기</string>
     <string name="attendance_start_no_bluetooth_message">(예상시간: 3~5분)</string>
     <string name="post_guide_update">이 게시물은 현재 버전의 앱에서 읽을 수 없습니다. 앱을 업데이트 해주세요.</string>
-    <string name="post_guide_tips">BTTENDANCE를 잘 사용하는 법을 다시 보려면 여기를 누르세요!</string>
+    <string name="post_guide_tips">비텐던스를 잘 사용하는 법을 다시 보려면 여기를 누르세요!</string>
     <string name="post_guide_clicker">설문하기 기능을 어떻게 사용하는지 자세히 알아보려면 여기를 누르세요.</string>
     <string name="post_guide_attendance">출석체크 기능을 어떻게 사용하는지 자세히 알아보려면 여기를 누르세요.</string>
     <string name="post_guide_notice">공지하기 기능을 어떻게 사용하는지 자세히 알아보려면 여기를 누르세요.</string>
-    <string name="update_app_title">새로운 BTTENDANCE가 준비되었습니다.</string>
-    <string name="update_app_message">BTTENDANCE의 새로운 버전이 업데이트되었습니다. 새로운 기능 사용을 위해 업데이트해주세요.</string>
+    <string name="update_app_title">새로운 비텐던스가 준비되었습니다.</string>
+    <string name="update_app_message">비텐던스의 새로운 버전이 업데이트되었습니다. 새로운 기능 사용을 위해 업데이트해주세요.</string>
     <string name="empty_school_name">기관명</string>
     <string name="notice_d_d_read">Notice (%1$d/%2$d 읽음)</string>
     <string name="unread_notice">읽지 않은 공지</string>
@@ -202,8 +202,8 @@
     <string name="saving_question">질문을 저장하는 중</string>
     <string name="edit_question">질문 수정하기</string>
     <string name="show_guide">가이드 보기</string>
-    <string name="no_course_guide_info">BTTENDANCE에 대해\n더 알고 싶으시다면</string>
-    <string name="no_course_add_info">BTTENDANCE를 사용하기 위해서는\n과목을 개설하시거나(강의자)\n수강하셔야(학생) 합니다.</string>
+    <string name="no_course_guide_info">비텐던스에 대해\n더 알고 싶으시다면</string>
+    <string name="no_course_add_info">비텐던스를 사용하기 위해서는\n과목을 개설하시거나(강의자)\n수강하셔야(학생) 합니다.</string>
     <string name="no_course_guide_title">아직 과목을 추가하지 않으셨군요!</string>
     <string name="updating_question">질문 수정 중</string>
     <string name="show_details">상세보기</string>
@@ -293,5 +293,6 @@
     <string name="feedback_body">"사용자 정보\n이메일 : %1$s\n이름 : %2$s\nOS : 안드로이드\n기기 : %3$s\n앱 버젼 : %4$s\n\n안녕하세요, %5$s입니다.\n"</string>
     <string name="course_name">강의명</string>
     <string name="feedback_error_toast_message">비텐던스 관련 피드백은 contact@bttendance.com으로 메일 주시기 바랍니다.</string>
+    <string name="previous">이전</string>
 
 </resources>
