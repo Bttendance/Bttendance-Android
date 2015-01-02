@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.bttendance.model.json.PreferencesJson;
-import com.bttendance.model.json.UserJson;
-import com.google.gson.Gson;
+import com.bttendance.BuildConfig;
 
 /**
  * Preference Helper
@@ -15,14 +13,13 @@ import com.google.gson.Gson;
  */
 public class BTPreference {
 
-    private static final String USER = "user";
-    private static final String PREFERENCES = "preferences";
+    private static final String PREF_NAME = "BTRef";
     private static final String LAST_COURSE = "lastCourse";
     private static final String APP_VERSION = "appVersion";
     private static final String MAC_ADDRESS = "macAddress";
 
     private static SharedPreferences mPref = null;
-    private static Object mSingletonLock = new Object();
+    private static final Object mSingletonLock = new Object();
 
     private BTPreference() {
     }
@@ -33,45 +30,32 @@ public class BTPreference {
                 return mPref;
 
             if (ctx != null) {
-                mPref = ctx.getSharedPreferences("BTRef", Context.MODE_PRIVATE);
+                mPref = ctx.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
             }
             return mPref;
         }
     }
 
-    // on Log out
-    public static void clearUser(Context ctx) {
-        Editor edit = getInstance(ctx).edit();
-        edit.remove(USER);
+    // Log Out
+    public static void clearPref(Context ctx) {
+        SharedPreferences.Editor edit = getInstance(ctx).edit();
+        edit.remove(APP_VERSION);
         edit.apply();
     }
 
-    public static boolean hasAuth(Context ctx) {
-        return getInstance(ctx).getString(USER, null) != null;
-    }
+    // App Version
+    public static boolean needAppVersionUpdate(Context ctx) {
+        int oldVersionCode = getInstance(ctx).getInt(APP_VERSION, 0);
+        int newVersionCode = BuildConfig.VERSION_CODE;
 
-    // User
-    public static UserJson getUser(Context ctx) {
-        String jsonStr = getInstance(ctx).getString(USER, null);
-        if (jsonStr == null)
-            return null;
-
-        Gson gson = new Gson();
-        try {
-            return gson.fromJson(jsonStr, UserJson.class);
-        } catch (Exception e) {
-            clearUser(ctx);
-            return null;
+        if (oldVersionCode != newVersionCode) {
+            Editor edit = getInstance(ctx).edit();
+            edit.putInt(APP_VERSION, newVersionCode);
+            edit.apply();
+            return true;
         }
-    }
 
-    public static void setUser(Context ctx, UserJson user) {
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(user);
-
-        Editor edit = getInstance(ctx).edit();
-        edit.putString(USER, jsonStr);
-        edit.apply();
+        return false;
     }
 
     // Mac Address
@@ -85,29 +69,6 @@ public class BTPreference {
 
         Editor edit = getInstance(ctx).edit();
         edit.putString(MAC_ADDRESS, macAddress);
-        edit.apply();
-    }
-
-    // Preferences
-    public static PreferencesJson getPreference(Context ctx) {
-        String jsonStr = getInstance(ctx).getString(PREFERENCES, null);
-        if (jsonStr == null)
-            return null;
-
-        Gson gson = new Gson();
-        try {
-            return gson.fromJson(jsonStr, PreferencesJson.class);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static void setPreference(Context ctx, PreferencesJson preferences) {
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(preferences);
-
-        Editor edit = getInstance(ctx).edit();
-        edit.putString(PREFERENCES, jsonStr);
         edit.apply();
     }
 

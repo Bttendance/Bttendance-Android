@@ -4,9 +4,7 @@ import android.content.Context;
 import android.database.MatrixCursor;
 import android.util.SparseArray;
 
-import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.SparseArrayHelper;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
@@ -26,8 +24,8 @@ public class AllSchoolCursor extends MatrixCursor {
 
     public AllSchoolCursor(Context context, String filter) {
         super(COLUMNS);
-        UserJson user = BTPreference.getUser(context);
-        SparseArray<SchoolJson> schoolJsonSparseArray = BTTable.AllSchoolTable;
+        UserJson user = BTTable.getMe();
+        SparseArray<SchoolJson> schoolJsonSparseArray = BTTable.SchoolTable;
 
         ArrayList<SchoolJson> schoolJsonArrayList = SparseArrayHelper.asArrayList(schoolJsonSparseArray);
         if (schoolJsonArrayList == null)
@@ -40,23 +38,12 @@ public class AllSchoolCursor extends MatrixCursor {
             }
         });
 
-        if (filter == null)
-            filter = "";
+        for (SchoolJson school : schoolJsonArrayList)
+            if (user.hasSchool(school.id))
+                addRow(new Object[]{school.id});
 
-        for (SchoolJson school : schoolJsonArrayList) {
-            if (school.name.toLowerCase().contains(filter.toLowerCase())) {
-                if (IntArrayHelper.contains(user.employed_schools, school.id)
-                        || IntArrayHelper.contains(user.enrolled_schools, school.id))
-                    addRow(new Object[]{school.id});
-            }
-        }
-
-        for (SchoolJson school : schoolJsonArrayList) {
-            if (school.name.toLowerCase().contains(filter.toLowerCase())) {
-                if (!IntArrayHelper.contains(user.employed_schools, school.id)
-                        && !IntArrayHelper.contains(user.enrolled_schools, school.id))
-                    addRow(new Object[]{school.id});
-            }
-        }
+        for (SchoolJson school : schoolJsonArrayList)
+            if (!user.hasSchool(school.id))
+                addRow(new Object[]{school.id});
     }
 }

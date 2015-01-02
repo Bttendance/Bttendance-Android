@@ -15,13 +15,21 @@ import com.bttendance.R;
 import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.event.ShowToastEvent;
 import com.bttendance.helper.PackagesHelper;
+import com.bttendance.model.BTDatabase;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.ErrorJson;
 import com.bttendance.model.json.PreferencesJson;
+import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.service.request.CourseFindRequest;
+import com.bttendance.service.request.CoursePostRequest;
 import com.bttendance.service.request.LogInRequest;
 import com.bttendance.service.request.PasswordResetRequest;
 import com.bttendance.service.request.PreferencesPutRequest;
+import com.bttendance.service.request.SchoolPostRequest;
+import com.bttendance.service.request.UserFindRequest;
 import com.bttendance.service.request.UserPostRequest;
 import com.bttendance.service.request.UserPutRequest;
 import com.bttendance.view.BTDialog;
@@ -118,7 +126,8 @@ public class BTService extends Service {
         mBTAPI.signUp(request, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
-                BTPreference.setUser(getApplicationContext(), userJson);
+                BTDatabase.setUser(getApplicationContext(), userJson);
+                BTTable.setMe(userJson);
                 successHandle(cb, userJson, response);
             }
 
@@ -139,7 +148,8 @@ public class BTService extends Service {
         mBTAPI.logIn(request, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
-                BTPreference.setUser(getApplicationContext(), userJson);
+                BTDatabase.setUser(getApplicationContext(), userJson);
+                BTTable.setMe(userJson);
                 successHandle(cb, userJson, response);
             }
 
@@ -173,11 +183,12 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        UserJson user = BTPreference.getUser(getApplicationContext());
+        UserJson user = BTTable.getMe();
         mBTAPI.autoSignIn(user.id, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
-                BTPreference.setUser(getApplicationContext(), userJson);
+                BTDatabase.setUser(getApplicationContext(), userJson);
+                BTTable.setMe(userJson);
                 successHandle(cb, userJson, response);
             }
 
@@ -192,11 +203,27 @@ public class BTService extends Service {
         if (!isConnected())
             return;
 
-        UserJson user = BTPreference.getUser(getApplicationContext());
+        UserJson user = BTTable.getMe();
         mBTAPI.updateUser(user.id, body, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
-                BTPreference.setUser(getApplicationContext(), userJson);
+                BTDatabase.setUser(getApplicationContext(), userJson);
+                BTTable.setMe(userJson);
+                successHandle(cb, userJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+    public void findUser(String email, final Callback<UserJson> cb) {
+        UserFindRequest request = new UserFindRequest(email);
+        mBTAPI.findUser(request, new Callback<UserJson>() {
+            @Override
+            public void success(UserJson userJson, Response response) {
                 successHandle(cb, userJson, response);
             }
 
@@ -208,7 +235,7 @@ public class BTService extends Service {
     }
 
     public void signOut() {
-        BTPreference.clearUser(getApplicationContext());
+        BTDatabase.clearUser(getApplicationContext());
         Intent intent = new Intent(getApplicationContext(), IntroductionActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -218,11 +245,11 @@ public class BTService extends Service {
      * Preferences APIs
      */
     public void getPreferences(final Callback<PreferencesJson> cb) {
-        UserJson user = BTPreference.getUser(getApplicationContext());
+        UserJson user = BTTable.getMe();
         mBTAPI.getPreferences(user.id, new Callback<PreferencesJson>() {
             @Override
             public void success(PreferencesJson preferencesJson, Response response) {
-                BTPreference.setPreference(getApplicationContext(), preferencesJson);
+                BTDatabase.setPreference(getApplicationContext(), preferencesJson);
                 successHandle(cb, preferencesJson, response);
             }
 
@@ -235,12 +262,105 @@ public class BTService extends Service {
 
 
     public void updatePreferences(PreferencesPutRequest preferencesPutRequest, final Callback<PreferencesJson> cb) {
-        UserJson user = BTPreference.getUser(getApplicationContext());
+        UserJson user = BTTable.getMe();
         mBTAPI.updatePreferences(user.id, preferencesPutRequest, new Callback<PreferencesJson>() {
             @Override
             public void success(PreferencesJson preferencesJson, Response response) {
-                BTPreference.setPreference(getApplicationContext(), preferencesJson);
+                BTDatabase.setPreference(getApplicationContext(), preferencesJson);
                 successHandle(cb, preferencesJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+    /**
+     * Courses APIs
+     */
+    public void findCourse(String code, final Callback<CourseJson> cb) {
+        CourseFindRequest request = new CourseFindRequest(code);
+        mBTAPI.findCourse(request, new Callback<CourseJson>() {
+            @Override
+            public void success(CourseJson courseJson, Response response) {
+                successHandle(cb, courseJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+    public void createCourse(int schoolId, String name, String instructor, final Callback<CourseJson> cb) {
+        CoursePostRequest request = new CoursePostRequest(schoolId, name, instructor);
+        mBTAPI.createCourse(request, new Callback<CourseJson>() {
+            @Override
+            public void success(CourseJson courseJson, Response response) {
+                successHandle(cb, courseJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+    public void getMyCourses(int userId, final Callback<CourseJson[]> cb) {
+        mBTAPI.getMyCourses(userId, new Callback<CourseJson[]>() {
+            @Override
+            public void success(CourseJson[] courseJsons, Response response) {
+                successHandle(cb, courseJsons, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+    /**
+     * Schools APIs
+     */
+    public void schools(int page, final Callback<SchoolJson> cb) {
+        mBTAPI.schools(page, new Callback<SchoolJson>() {
+            @Override
+            public void success(SchoolJson schoolJson, Response response) {
+                successHandle(cb, schoolJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+    public void createSchool(String name, String classification, final Callback<SchoolJson> cb) {
+        SchoolPostRequest request = new SchoolPostRequest(name, classification);
+        mBTAPI.createSchool(request, new Callback<SchoolJson>() {
+            @Override
+            public void success(SchoolJson schoolJson, Response response) {
+                successHandle(cb, schoolJson, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+    }
+
+    public void getMySchools(int userId, final Callback<SchoolJson[]> cb) {
+        mBTAPI.getMySchools(userId, new Callback<SchoolJson[]>() {
+            @Override
+            public void success(SchoolJson[] schoolJsons, Response response) {
+                successHandle(cb, schoolJsons, response);
             }
 
             @Override

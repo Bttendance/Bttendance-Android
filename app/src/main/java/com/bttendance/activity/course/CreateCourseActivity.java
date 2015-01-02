@@ -1,5 +1,6 @@
 package com.bttendance.activity.course;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
@@ -14,16 +15,25 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
+import com.bttendance.activity.guide.GuideCourseCreateActivity;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.service.request.UserPutRequest;
+import com.bttendance.view.BTDialog;
 import com.squareup.otto.BTEventBus;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class CreateCourseActivity extends BTActivity {
 
@@ -42,7 +52,6 @@ public class CreateCourseActivity extends BTActivity {
 
     private int mNameCount = 0;
     private int mProfessorCount = 0;
-    private int mInstitutionCount = 0;
     private Button mCreateCourse = null;
     private String mNameString = null;
     private String mProfessorString = null;
@@ -59,7 +68,7 @@ public class CreateCourseActivity extends BTActivity {
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);
 
-        mProfessor.setText(BTPreference.getUser(this).name);
+        mProfessor.setText(BTTable.getMe().name);
         mProfessorCount = mProfessor.getText().toString().length();
 
         mName.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -119,7 +128,6 @@ public class CreateCourseActivity extends BTActivity {
         mInstitution.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mInstitutionCount = mInstitution.getText().toString().length();
                 isEnableCreateCourse();
             }
 
@@ -217,60 +225,40 @@ public class CreateCourseActivity extends BTActivity {
     }
 
     private void tryCreateCourse() {
-        if (getBTService() == null)
+        if (getBTService() == null || mSchool == null)
             return;
 
-        if (mSchool == null)
-            return;
-
+        int schoolId = mSchool.id;
         String name = mName.getText().toString();
         String professor = mProfessor.getText().toString();
-        int schoolID = mSchool.id;
 
-        final UserJson user = BTPreference.getUser(this);
-//
-//        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.creating_course)));
-//        getBTService().courseCreate(name, schoolID, professor, new Callback<UserJson>() {
-//            @Override
-//            public void success(UserJson userJson, Response response) {
-//
-//                int newCourseID = 0;
-//                for (CourseJsonSimple new_course : userJson.getOpenedCourses()) {
-//                    boolean hasCourse = false;
-//                    for (CourseJsonSimple old_course : user.getOpenedCourses()) {
-//                        if (new_course.id == old_course.id)
-//                            hasCourse = true;
-//                    }
-//                    if (!hasCourse)
-//                        newCourseID = new_course.id;
-//                }
-//
-//                final int finalNewCourseID = newCourseID;
-//                getBTService().searchCourse(newCourseID, "", new Callback<CourseJson>() {
-//                    @Override
-//                    public void success(CourseJson courseJson, Response response) {
-//                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//                        BTEventBus.getInstance().post(new ResetMainFragmentEvent(finalNewCourseID));
-//
-//                        onBackPressed();
-//                        Intent intent = new Intent(CreateCourseActivity.this, GuideCourseCreateActivity.class);
-//                        intent.putExtra(GuideCourseCreateActivity.EXTRA_CLASS_CODE, courseJson.code);
-//                        startActivity(intent);
-//                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//                    }
-//
-//                    @Override
-//                    public void failure(RetrofitError retrofitError) {
-//                        BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//                BTEventBus.getInstance().post(new HideProgressDialogEvent());
-//            }
-//        });
+        final MaterialDialog dialog = BTDialog.progress(this, getString(R.string.creating_course));
+        getBTService().createCourse(schoolId, name, professor, new Callback<CourseJson>() {
+            @Override
+            public void success(final CourseJson courseJson, Response response) {
+                getBTService().updateUser(new UserPutRequest().updateNewlyCreatedCourse(courseJson), new Callback<UserJson>() {
+                    @Override
+                    public void success(UserJson userJson, Response response) {
+                        BTDialog.hide(dialog);
+                        onBackPressed();
+                        Intent intent = new Intent(CreateCourseActivity.this, GuideCourseCreateActivity.class);
+                        intent.putExtra(GuideCourseCreateActivity.EXTRA_CLASS_CODE, courseJson.code);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        BTDialog.hide(dialog);
+                    }
+                });
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                BTDialog.hide(dialog);
+            }
+        });
     }
 
     @Override

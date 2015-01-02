@@ -17,7 +17,7 @@ import com.bttendance.R;
 import com.bttendance.event.notification.NotificationReceived;
 import com.bttendance.event.refresh.RefreshFeedEvent;
 import com.bttendance.model.BTKey;
-import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.squareup.otto.BTEventBus;
@@ -79,11 +79,9 @@ public class GcmIntentService extends IntentService {
 
     private void sendNotification(String type, String title, String message, String courseID, boolean alert) {
 
-        UserJson user = BTPreference.getUser(this);
-        if (user == null || user.email == null || user.password == null) {
-            BTPreference.clearUser(this);
+        UserJson user = BTTable.getMe();
+        if (user == null || user.email == null || user.password == null)
             return;
-        }
 
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);

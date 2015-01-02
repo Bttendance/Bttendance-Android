@@ -17,7 +17,7 @@ import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.sign.ForgotPasswordFragment;
-import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.agent.BluetoothHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BTDialog;

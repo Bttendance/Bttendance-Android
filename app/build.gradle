@@ -78,5 +78,4 @@ dependencies {
     compile 'com.afollestad:material-dialogs:0.4.6'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'com.jakewharton:butterknife:5.1.2'
-    compile 'com.mobsandgeeks:adapter-kit:0.5.3'
 }

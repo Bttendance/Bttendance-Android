@@ -19,15 +19,15 @@ import com.bttendance.R;
 import com.bttendance.activity.guide.GuideCourseAttendActivity;
 import com.bttendance.activity.guide.GuideCourseCreateActivity;
 import com.bttendance.activity.guide.IntroductionActivity;
+import com.bttendance.agent.BluetoothHelper;
 import com.bttendance.event.BTEventDispatcher;
 import com.bttendance.event.bluetooth.BTCanceledEvent;
 import com.bttendance.event.bluetooth.BTDiscoveredEvent;
 import com.bttendance.event.bluetooth.BTEnabledEvent;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.model.BTDatabase;
 import com.bttendance.model.BTNotification;
-import com.bttendance.model.BTPreference;
-import com.bttendance.model.json.UserJson;
+import com.bttendance.model.BTTable;
 import com.bttendance.service.BTService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -150,10 +150,9 @@ public class BTActivity extends ActionBarActivity {
     }
 
     public Intent getNextIntent() {
-        UserJson user = BTPreference.getUser(this);
         Intent intent;
-        if (user == null) {
-            BTPreference.clearUser(this);
+        if (BTTable.getMe() == null) {
+            BTDatabase.clearUser(this);
             intent = new Intent(this, IntroductionActivity.class);
         } else {
             intent = new Intent(this, MainActivity.class);

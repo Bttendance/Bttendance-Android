@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
-import com.bttendance.helper.BluetoothHelper;
+import com.bttendance.agent.BluetoothHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTUrl;
 import com.bttendance.model.json.UserJson;

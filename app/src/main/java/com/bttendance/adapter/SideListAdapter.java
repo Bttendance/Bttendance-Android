@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 
 public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
@@ -23,7 +23,7 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
     }
 
     public void refreshAdapter() {
-        mUser = BTPreference.getUser(getContext());
+        mUser = BTTable.getMe();
 
 //        CourseJsonArray courseJsonArray = BTPreference.getCourses(getContext());
 //        if (courseJsonArray != null && courseJsonArray.courses != null)

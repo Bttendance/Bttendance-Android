@@ -12,6 +12,7 @@ import com.bttendance.activity.BTActivity;
 import com.bttendance.adapter.GuidePagerAdapter;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -54,7 +55,7 @@ public class IntroductionActivity extends BTActivity implements ViewPager.OnPage
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = BTPreference.hasAuth(this);
+        mAuth = BTTable.getMe() != null;
 
         setContentView(R.layout.activity_introduction);
         ButterKnife.inject(this);

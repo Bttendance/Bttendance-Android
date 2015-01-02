@@ -8,4 +8,6 @@ public class SchoolJson extends BTJson {
     public int id;
     public String name;
     public String classification;
+    public int users_count;
+    public int courses_count;
 }

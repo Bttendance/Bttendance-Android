@@ -1,6 +1,6 @@
 package com.bttendance.service.request;
 
-import com.bttendance.model.json.PreferencesJson;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.service.BTAPI;
 
 /**
@@ -78,6 +78,33 @@ public class UserPutRequest {
         this.user.schools_users_attributes = new School[]{new School()};
         this.user.schools_users_attributes[0].school_id = schoolId;
         this.user.schools_users_attributes[0].identity = identity;
+        return this;
+    }
+
+    public UserPutRequest updateNewlyCreatedCourse(CourseJson course) {
+        if (course.school != null) {
+            this.user.schools_users_attributes = new School[]{new School()};
+            this.user.schools_users_attributes[0].school_id = course.school.id;
+            this.user.schools_users_attributes[0].state = BTAPI.SchoolUserState.supervisor.name();
+        }
+
+        this.user.courses_users_attributes = new Course[]{new Course()};
+        this.user.courses_users_attributes[0].course_id = course.id;
+        this.user.courses_users_attributes[0].state = BTAPI.CourseUserState.supervising.name();
+        return this;
+    }
+
+    public UserPutRequest updateAttendingCourse(CourseJson course, String identity) {
+        if (course.school != null && identity != null) {
+            this.user.schools_users_attributes = new School[]{new School()};
+            this.user.schools_users_attributes[0].school_id = course.school.id;
+            this.user.schools_users_attributes[0].state = BTAPI.SchoolUserState.student.name();
+            this.user.schools_users_attributes[0].identity = identity;
+        }
+
+        this.user.courses_users_attributes = new Course[]{new Course()};
+        this.user.courses_users_attributes[0].course_id = course.id;
+        this.user.courses_users_attributes[0].state = BTAPI.CourseUserState.attending.name();
         return this;
     }
 

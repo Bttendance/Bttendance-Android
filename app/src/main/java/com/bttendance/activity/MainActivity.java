@@ -32,6 +32,7 @@ import com.bttendance.fragment.setting.SettingFragment;
 import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BTDialog;
 import com.bttendance.view.BTToast;
@@ -275,7 +276,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 mDrawerToggle.setDrawerIndicatorEnabled(false);
                 break;
             case Feedback:
-                UserJson user = BTPreference.getUser(this);
+                UserJson user = BTTable.getMe();
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
                 i.putExtra(Intent.EXTRA_EMAIL, new String[]{"contact@bttendance.com"});

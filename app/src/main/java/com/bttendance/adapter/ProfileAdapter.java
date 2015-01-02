@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
 
 /**
@@ -26,7 +27,7 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
     }
 
     public void refreshAdapter() {
-        mUser = BTPreference.getUser(getContext());
+        mUser = BTTable.getMe();
         clear();
 
         add(new ProfileItem(ProfileItemType.Name, null));

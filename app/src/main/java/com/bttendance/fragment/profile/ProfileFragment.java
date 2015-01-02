@@ -17,7 +17,7 @@ import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTKey;
-import com.bttendance.model.BTPreference;
+import com.bttendance.model.BTTable;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
@@ -126,7 +126,7 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
         ProfileEditFragment frag = new ProfileEditFragment();
         Bundle bundle = new Bundle();
         bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.name));
-        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).name);
+        bundle.putString(BTKey.EXTRA_MESSAGE, BTTable.getMe().name);
         bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.NAME);
         frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));
@@ -136,7 +136,7 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
         ProfileEditFragment frag = new ProfileEditFragment();
         Bundle bundle = new Bundle();
         bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.email));
-        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).email);
+        bundle.putString(BTKey.EXTRA_MESSAGE, BTTable.getMe().email);
         bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.MAIL);
         frag.setArguments(bundle);
         BTEventBus.getInstance().post(new AddFragmentEvent(frag));

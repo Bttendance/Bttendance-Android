@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
+import com.bttendance.model.BTDatabase;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.PreferencesJson;
 
@@ -28,7 +29,7 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
     }
 
     public void refreshAdapter() {
-        preferencesJson = BTPreference.getPreference(getContext());
+        preferencesJson = BTDatabase.getPreference(getContext());
         clear();
 
         add(new SettingItem(SettingItemType.Attendance, null));

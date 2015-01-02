@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,8 +21,8 @@ import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.fragment.SimpleWebViewFragment;
 import com.bttendance.helper.PackagesHelper;
+import com.bttendance.model.BTDatabase;
 import com.bttendance.model.BTKey;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.PreferencesJson;
 import com.bttendance.service.request.PreferencesPutRequest;
 import com.bttendance.view.BTDialog;
@@ -142,7 +141,7 @@ public class SettingFragment extends BTFragment implements AdapterView.OnItemCli
      * Private Methods
      */
     private void updateNotification(SettingAdapter.SettingItemType type) {
-        PreferencesJson preferencesJson = BTPreference.getPreference(getActivity());
+        PreferencesJson preferencesJson = BTDatabase.getPreference(getActivity());
         switch (type) {
             case Clicker:
                 preferencesJson.clicker = !preferencesJson.clicker;

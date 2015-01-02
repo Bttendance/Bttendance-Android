@@ -3,37 +3,34 @@ package com.bttendance.fragment.school;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ListView;
-
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+
 import com.bttendance.R;
 import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.adapter.ChooseSchoolAdapter;
-import com.bttendance.adapter.kit.Sectionizer;
-import com.bttendance.adapter.kit.SimpleSectionAdapter;
-import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.helper.IntArrayHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.AllSchoolCursor;
 import com.bttendance.model.json.SchoolJson;
-import com.bttendance.model.json.SchoolJsonArray;
 import com.bttendance.model.json.UserJson;
-import com.squareup.otto.BTEventBus;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -43,9 +40,14 @@ import retrofit.client.Response;
  */
 public class SchoolChooseFragment extends BTFragment implements AdapterView.OnItemClickListener {
 
+    @InjectView(android.R.id.list)
+    public ListView mListView;
+    @InjectView(R.id.create_school)
+    public Button mCreateSchoolBt;
+
     ChooseSchoolAdapter mAdapter;
     SimpleSectionAdapter<Cursor> mSectionAdapter;
-    private ListView mListView;
+
     EditText mEditSearch;
     String mFilter;
     private UserJson mUser;
@@ -57,16 +59,16 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
         mUser = BTPreference.getUser(getActivity());
 
-        SchoolJsonArray schoolJsonArray = BTPreference.getAllSchools(getActivity());
-        if (schoolJsonArray != null && schoolJsonArray.schools != null)
-            for (SchoolJson school : schoolJsonArray.schools)
-                BTTable.AllSchoolTable.append(school.id, school);
+//        SchoolJsonArray schoolJsonArray = BTPreference.getAllSchools(getActivity());
+//        if (schoolJsonArray != null && schoolJsonArray.schools != null)
+//            for (SchoolJson school : schoolJsonArray.schools)
+//                BTTable.AllSchoolTable.append(school.id, school);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_school_choose, container, false);
-        mListView = (ListView) view.findViewById(android.R.id.list);
+        ButterKnife.inject(this, view);
 
         mAdapter = new ChooseSchoolAdapter(
                 getActivity(),
@@ -80,8 +82,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
             @Override
             public String getSectionTitleForItem(Cursor cursor) {
-                if (IntArrayHelper.contains(mUser.employed_schools, cursor.getInt(0))
-                        || IntArrayHelper.contains(mUser.enrolled_schools, cursor.getInt(0)))
+                if (mUser.hasSchool(cursor.getInt(0)))
                     return getString(R.string.my_institutions);
                 else
                     return getString(R.string.other_institutions);
@@ -91,11 +92,11 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         mListView.setAdapter(mSectionAdapter);
         mListView.setOnItemClickListener(this);
 
-        view.findViewById(R.id.create_school).setOnClickListener(new View.OnClickListener() {
+        mCreateSchoolBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SchoolCreateFragment fragment = new SchoolCreateFragment();
-                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+//                SchoolCreateFragment fragment = new SchoolCreateFragment();
+//                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
             }
         });
 
@@ -106,14 +107,14 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     public void onFragmentResume() {
         super.onFragmentResume();
         KeyboardHelper.hide(getActivity(), mEditSearch);
-        getBTService().allSchools(new Callback<SchoolJson[]>() {
+        getBTService().schools(0, new Callback<SchoolJson>() {
             @Override
-            public void success(SchoolJson[] schoolJsons, Response response) {
+            public void success(SchoolJson schoolJson, Response response) {
                 swapItems();
             }
 
             @Override
-            public void failure(RetrofitError retrofitError) {
+            public void failure(RetrofitError error) {
             }
         });
         swapItems();
