@@ -22,7 +22,6 @@ import com.bttendance.activity.guide.GuideCourseCreateActivity;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.school.SchoolChooseFragment;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.SchoolJson;
@@ -51,16 +50,16 @@ public class CreateCourseActivity extends BTActivity {
     View mNameDiv;
     @InjectView(R.id.professor_divider)
     View mProfessorDiv;
+    @InjectView(R.id.create_course)
+    Button mCreateCourse;
+    @InjectView(R.id.institution)
+    Button mInstitutionBt;
 
     private int mNameCount = 0;
     private int mProfessorCount = 0;
-    private Button mCreateCourse = null;
     private String mNameString = null;
     private String mProfessorString = null;
     private String mInstitutionString = null;
-
-    private Button mInstitutionBt = null;
-
     private SchoolJson mSchool = null;
 
     @Override
@@ -142,7 +141,6 @@ public class CreateCourseActivity extends BTActivity {
             }
         });
 
-        mInstitutionBt = (Button) findViewById(R.id.institution_button);
         mInstitutionBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,7 +150,6 @@ public class CreateCourseActivity extends BTActivity {
             }
         });
 
-        mCreateCourse = (Button) findViewById(R.id.create_course);
         mCreateCourse.setEnabled(false);
         mCreateCourse.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mCreateCourse.setOnTouchListener(new View.OnTouchListener() {
