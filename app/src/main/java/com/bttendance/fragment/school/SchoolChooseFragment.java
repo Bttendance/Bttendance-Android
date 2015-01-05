@@ -20,14 +20,17 @@ import android.widget.ListView;
 
 import com.bttendance.R;
 import com.bttendance.activity.course.CreateCourseActivity;
-import com.bttendance.adapter.ChooseSchoolAdapter;
+import com.bttendance.adapter.SchoolAdapter;
+import com.bttendance.adapter.kit.Sectionizer;
+import com.bttendance.adapter.kit.SimpleSectionAdapter;
+import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.cursor.AllSchoolCursor;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
+import com.squareup.otto.BTEventBus;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,7 +48,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     @InjectView(R.id.create_school)
     public Button mCreateSchoolBt;
 
-    ChooseSchoolAdapter mAdapter;
+    SchoolAdapter mAdapter;
     SimpleSectionAdapter<Cursor> mSectionAdapter;
 
     EditText mEditSearch;
@@ -57,12 +60,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        mUser = BTPreference.getUser(getActivity());
-
-//        SchoolJsonArray schoolJsonArray = BTPreference.getAllSchools(getActivity());
-//        if (schoolJsonArray != null && schoolJsonArray.schools != null)
-//            for (SchoolJson school : schoolJsonArray.schools)
-//                BTTable.AllSchoolTable.append(school.id, school);
+        mUser = BTTable.getMe();
     }
 
     @Override
@@ -70,7 +68,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         View view = inflater.inflate(R.layout.fragment_school_choose, container, false);
         ButterKnife.inject(this, view);
 
-        mAdapter = new ChooseSchoolAdapter(
+        mAdapter = new SchoolAdapter(
                 getActivity(),
                 R.layout.school_choose_item,
                 SchoolJson.class,
@@ -95,8 +93,8 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         mCreateSchoolBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                SchoolCreateFragment fragment = new SchoolCreateFragment();
-//                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+                SchoolCreateFragment fragment = new SchoolCreateFragment();
+                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
             }
         });
 
@@ -107,22 +105,22 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     public void onFragmentResume() {
         super.onFragmentResume();
         KeyboardHelper.hide(getActivity(), mEditSearch);
-        getBTService().schools(0, new Callback<SchoolJson>() {
-            @Override
-            public void success(SchoolJson schoolJson, Response response) {
-                swapItems();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-            }
-        });
+//        getBTService().schools(0, new Callback<SchoolJson>() {
+//            @Override
+//            public void success(SchoolJson schoolJson, Response response) {
+//                swapItems();
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//            }
+//        });
         swapItems();
     }
 
     private void swapItems() {
         if (this.isAdded() && mAdapter != null) {
-            mUser = BTPreference.getUser(getActivity());
+            mUser = BTTable.getMe();
             if (mEditSearch != null)
                 mFilter = mEditSearch.getText().toString();
             getActivity().runOnUiThread(new Runnable() {
@@ -191,7 +189,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
         int schoolID = mAdapter.getCursor().getInt(0);
-        ((CreateCourseActivity) getActivity()).setSchool(BTTable.AllSchoolTable.get(schoolID));
+        ((CreateCourseActivity) getActivity()).setSchool(BTTable.SchoolTable.get(schoolID));
         getActivity().onBackPressed();
     }
 }

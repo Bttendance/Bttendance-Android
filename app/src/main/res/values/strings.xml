@@ -103,7 +103,7 @@
     <string name="would_you_like_to" formatted="false">Would you like to attend %s by %s?</string>
     <string name="creating_course">Creating Course</string>
     <string name="no_identity">No Identity</string>
-    <string name="lectures">Lectures</string>
+    <string name="lectures">LECTURES</string>
     <string name="add_course">Add Course</string>
     <string name="guide">Guide</string>
     <string name="feedback">Feedback</string>

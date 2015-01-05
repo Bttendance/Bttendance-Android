@@ -3,12 +3,9 @@ package com.bttendance.view;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
-import com.bttendance.helper.ViewHelper;
 
 /**
  * Bttendance Dialog
@@ -35,6 +32,7 @@ public class BTDialog {
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_black)
                 .contentColorRes(R.color.bttendance_silver)
+                .backgroundColorRes(R.color.bttendance_white)
                 .positiveColorRes(R.color.bttendance_navy)
                 .negativeColorRes(R.color.bttendance_silver)
                 .title(title)
@@ -61,7 +59,6 @@ public class BTDialog {
                     }
                 }).build();
 
-        themeDialog(context, dialog);
         dialog.show();
         return dialog;
     }
@@ -70,10 +67,10 @@ public class BTDialog {
         if (context == null)
             return null;
 
-
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_black)
                 .contentColorRes(R.color.bttendance_silver)
+                .backgroundColorRes(R.color.bttendance_white)
                 .positiveColorRes(R.color.bttendance_navy)
                 .title(title)
                 .content(message)
@@ -92,7 +89,6 @@ public class BTDialog {
                     }
                 }).build();
 
-        themeDialog(context, dialog);
         dialog.show();
         return dialog;
     }
@@ -104,6 +100,7 @@ public class BTDialog {
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_black)
                 .contentColorRes(R.color.bttendance_silver)
+                .backgroundColorRes(R.color.bttendance_white)
                 .positiveColorRes(R.color.bttendance_navy)
                 .negativeColorRes(R.color.bttendance_silver)
                 .title(title)
@@ -112,7 +109,6 @@ public class BTDialog {
                 .negativeText(R.string.cancel)
                 .build();
 
-        themeDialog(context, dialog);
         dialog.show();
         return dialog;
     }
@@ -123,7 +119,8 @@ public class BTDialog {
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_black)
-                .contentColorRes(R.color.bttendance_silver)
+                .itemColorRes(R.color.bttendance_silver)
+                .backgroundColorRes(R.color.bttendance_white)
                 .title(title)
                 .items(options)
                 .itemsCallback(new MaterialDialog.ListCallback() {
@@ -141,7 +138,6 @@ public class BTDialog {
                 })
                 .build();
 
-        themeDialog(context, dialog);
         dialog.show();
         return dialog;
     }
@@ -153,51 +149,11 @@ public class BTDialog {
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_silver)
                 .title(message)
-                .customView(R.layout.dialog_progress)
+                .customView(R.layout.dialog_progress, false)
                 .build();
 
-        themeDialog(context, dialog);
         dialog.show();
         return dialog;
-    }
-
-    private static void themeDialog(Context context, MaterialDialog dialog) {
-        if (dialog == null)
-            return;
-
-        if (dialog.getCustomView() == null) {
-            if (dialog.getTitleFrame() != null
-                    && dialog.getTitleFrame().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent() instanceof LinearLayout) {
-                LinearLayout topLayout = (LinearLayout) dialog.getTitleFrame().getParent().getParent();
-                topLayout.setBackgroundResource(R.drawable.bt_white_bg);
-
-                TextView buttonDefaultNegative = (TextView) topLayout.findViewById(R.id.buttonDefaultNegative);
-                TextView buttonDefaultPositive = (TextView) topLayout.findViewById(R.id.buttonDefaultPositive);
-                if (buttonDefaultPositive != null)
-                    ViewHelper.setBackground(context, buttonDefaultPositive, R.drawable.dialog_btn_selector);
-                if (buttonDefaultNegative != null)
-                    ViewHelper.setBackground(context, buttonDefaultNegative, R.drawable.dialog_btn_selector);
-            }
-        } else {
-            if (dialog.getTitleFrame() != null
-                    && dialog.getTitleFrame().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent().getParent().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent().getParent().getParent() instanceof LinearLayout) {
-                LinearLayout topLayout = (LinearLayout) dialog.getTitleFrame().getParent().getParent().getParent().getParent();
-                topLayout.setBackgroundResource(R.drawable.bt_white_bg);
-
-                TextView buttonDefaultNegative = (TextView) topLayout.findViewById(R.id.buttonDefaultNegative);
-                TextView buttonDefaultPositive = (TextView) topLayout.findViewById(R.id.buttonDefaultPositive);
-                if (buttonDefaultPositive != null)
-                    ViewHelper.setBackground(context, buttonDefaultPositive, R.drawable.dialog_btn_selector);
-                if (buttonDefaultNegative != null)
-                    ViewHelper.setBackground(context, buttonDefaultNegative, R.drawable.dialog_btn_selector);
-            }
-        }
     }
 
 }//end of class

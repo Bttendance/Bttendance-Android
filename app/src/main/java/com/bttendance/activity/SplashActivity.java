@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.bttendance.R;
+import com.bttendance.model.BTTable;
 import com.crashlytics.android.Crashlytics;
 
 /**
@@ -11,7 +12,7 @@ import com.crashlytics.android.Crashlytics;
  */
 public class SplashActivity extends BTActivity {
 
-    private static int SPLASH_DURATION = 700;
+    private static final int SPLASH_DURATION = 700;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

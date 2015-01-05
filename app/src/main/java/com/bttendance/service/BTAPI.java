@@ -96,7 +96,7 @@ public interface BTAPI {
      * Schools APIs
      */
     @GET("/schools")
-    void schools(@Query("page") int page, Callback<SchoolJson> cb);
+    void schools(@Query("page") int page, Callback<SchoolJson[]> cb);
 
     @POST("schools")
     void createSchool(@Body SchoolPostRequest body, Callback<SchoolJson> cb);

@@ -11,7 +11,6 @@ import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.adapter.GuidePagerAdapter;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;

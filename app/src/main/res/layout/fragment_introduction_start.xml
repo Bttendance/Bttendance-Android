@@ -56,7 +56,7 @@
             android:id="@+id/introduction_start_google"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:background="@drawable/btn_google"
@@ -70,13 +70,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
+            android:gravity="center_vertical"
             android:maxWidth="320dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/introduction_start_sign_up"
                 android:layout_width="0dp"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:text="@string/sign_up_with_email"
@@ -91,7 +92,7 @@
             <Button
                 android:id="@+id/introduction_start_log_in"
                 android:layout_width="0dp"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:text="@string/log_in_with_email"

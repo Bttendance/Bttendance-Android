@@ -1,5 +1,6 @@
 package com.bttendance.model;
 
+import android.content.Context;
 import android.util.SparseArray;
 
 import com.bttendance.model.json.CourseJson;
@@ -16,16 +17,30 @@ public class BTTable {
     public static SparseArray<SchoolJson> SchoolTable = new SparseArray<SchoolJson>();
     public static SparseArray<CourseJson> CourseTable = new SparseArray<CourseJson>();
 
-    public static void setMe(UserJson me) {
-        Me = me;
+    public static void init(Context context) {
+        Me = BTDatabase.getUser(context);
+
+        SchoolJson[] schools = BTDatabase.getSchools(context);
+        if (schools != null)
+            for (SchoolJson school : schools)
+                SchoolTable.put(school.id, school);
+
+        CourseJson[] courses = BTDatabase.getCourses(context);
+        if (courses != null)
+            for (CourseJson course : courses)
+                CourseTable.put(course.id, course);
+    }
+
+    public static void setMe(UserJson user) {
+        Me = user;
     }
 
     public static UserJson getMe() {
-        String meString = Me.toJson();
-        Gson gson = new Gson();
         try {
+            String meString = Me.toJson();
+            Gson gson = new Gson();
             return gson.fromJson(meString, UserJson.class);
-        }  catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }

@@ -19,17 +19,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.activity.course.CreateCourseActivity;
-import com.bttendance.event.dialog.HideProgressDialogEvent;
-import com.bttendance.event.dialog.ShowProgressDialogEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.SchoolJson;
-import com.squareup.otto.BTEventBus;
+import com.bttendance.view.BTDialog;
 
 import java.util.regex.Pattern;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -39,26 +40,43 @@ import retrofit.client.Response;
  */
 public class SchoolCreateFragment extends BTFragment implements Callback<SchoolJson>, View.OnClickListener {
 
-    private EditText mEdit = null;
-    private View mEditDiv = null;
-    private Button mCreate = null;
-    private int mEditCount = 0;
-    private String mEditString = null;
+    @InjectView(R.id.edit)
+    EditText mEdit;
+    @InjectView(R.id.edit_divider)
+    View mEditDiv;
+    @InjectView(R.id.create_school)
+    Button mCreate;
 
-    private LinearLayout mUniversityBg = null;
-    private ImageView mUniversityImg = null;
-    private TextView mUniversityTv = null;
-    private LinearLayout mSchoolBg = null;
-    private ImageView mSchoolImg = null;
-    private TextView mSchoolTv = null;
-    private LinearLayout mInstituteBg = null;
-    private ImageView mInstituteImg = null;
-    private TextView mInstituteTv = null;
-    private LinearLayout mEtcBg = null;
-    private ImageView mEtcImg = null;
-    private TextView mEtcTv = null;
+    int mEditCount = 0;
+    String mEditString;
 
-    private String mType = null;
+    @InjectView(R.id.university_bg)
+    LinearLayout mUniversityBg;
+    @InjectView(R.id.university_image)
+    ImageView mUniversityImg;
+    @InjectView(R.id.university_text)
+    TextView mUniversityTv;
+    @InjectView(R.id.school_bg)
+    LinearLayout mSchoolBg;
+    @InjectView(R.id.school_image)
+    ImageView mSchoolImg;
+    @InjectView(R.id.school_text)
+    TextView mSchoolTv;
+    @InjectView(R.id.institute_bg)
+    LinearLayout mInstituteBg;
+    @InjectView(R.id.institute_image)
+    ImageView mInstituteImg;
+    @InjectView(R.id.institute_text)
+    TextView mInstituteTv;
+    @InjectView(R.id.etc_bg)
+    LinearLayout mEtcBg;
+    @InjectView(R.id.etc_image)
+    ImageView mEtcImg;
+    @InjectView(R.id.etc_text)
+    TextView mEtcTv;
+
+    String mType;
+    MaterialDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,9 +87,7 @@ public class SchoolCreateFragment extends BTFragment implements Callback<SchoolJ
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_school_create, container, false);
-
-        mEdit = (EditText) view.findViewById(R.id.edit);
-        mEditDiv = view.findViewById(R.id.edit_divider);
+        ButterKnife.inject(this, view);
 
         mEdit.setText(mEditString);
         KeyboardHelper.show(getActivity(), mEdit);
@@ -104,25 +120,11 @@ public class SchoolCreateFragment extends BTFragment implements Callback<SchoolJ
             }
         });
 
-        mUniversityBg = (LinearLayout) view.findViewById(R.id.university_bg);
-        mUniversityImg = (ImageView) view.findViewById(R.id.university_image);
-        mUniversityTv = (TextView) view.findViewById(R.id.university_text);
-        mSchoolBg = (LinearLayout) view.findViewById(R.id.school_bg);
-        mSchoolImg = (ImageView) view.findViewById(R.id.school_image);
-        mSchoolTv = (TextView) view.findViewById(R.id.school_text);
-        mInstituteBg = (LinearLayout) view.findViewById(R.id.institute_bg);
-        mInstituteImg = (ImageView) view.findViewById(R.id.institute_image);
-        mInstituteTv = (TextView) view.findViewById(R.id.institute_text);
-        mEtcBg = (LinearLayout) view.findViewById(R.id.etc_bg);
-        mEtcImg = (ImageView) view.findViewById(R.id.etc_image);
-        mEtcTv = (TextView) view.findViewById(R.id.etc_text);
-
         mUniversityBg.setOnClickListener(this);
         mSchoolBg.setOnClickListener(this);
         mInstituteBg.setOnClickListener(this);
         mEtcBg.setOnClickListener(this);
 
-        mCreate = (Button) view.findViewById(R.id.create_school);
         mCreate.setEnabled(false);
         mCreate.setTextColor(getResources().getColor(R.color.bttendance_silver_30));
         mCreate.setOnTouchListener(new View.OnTouchListener() {
@@ -163,7 +165,7 @@ public class SchoolCreateFragment extends BTFragment implements Callback<SchoolJ
             return;
         }
 
-        BTEventBus.getInstance().post(new ShowProgressDialogEvent(getString(R.string.creating_school)));
+        dialog = BTDialog.progress(getActivity(), getString(R.string.creating_school));
         getBTService().createSchool(mEditString, mType, this);
     }
 
@@ -225,7 +227,7 @@ public class SchoolCreateFragment extends BTFragment implements Callback<SchoolJ
      */
     @Override
     public void success(SchoolJson schoolJson, Response response) {
-        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+        BTDialog.hide(dialog);
         ((CreateCourseActivity) getActivity()).setSchool(schoolJson);
         getActivity().onBackPressed();
         getActivity().onBackPressed();
@@ -233,7 +235,7 @@ public class SchoolCreateFragment extends BTFragment implements Callback<SchoolJ
 
     @Override
     public void failure(RetrofitError retrofitError) {
-        BTEventBus.getInstance().post(new HideProgressDialogEvent());
+        BTDialog.hide(dialog);
     }
 
     /**
@@ -245,40 +247,40 @@ public class SchoolCreateFragment extends BTFragment implements Callback<SchoolJ
     public void onClick(View view) {
 
         mUniversityBg.setBackgroundResource(R.drawable.bt_selector_round);
-        mUniversityImg.setImageResource(R.drawable.attendance_silver);
+        mUniversityImg.setImageResource(R.drawable.check_default);
         mUniversityTv.setTextColor(getResources().getColor(R.color.bttendance_silver));
         mSchoolBg.setBackgroundResource(R.drawable.bt_selector_round);
-        mSchoolImg.setImageResource(R.drawable.attendance_silver);
+        mSchoolImg.setImageResource(R.drawable.check_default);
         mSchoolTv.setTextColor(getResources().getColor(R.color.bttendance_silver));
         mInstituteBg.setBackgroundResource(R.drawable.bt_selector_round);
-        mInstituteImg.setImageResource(R.drawable.attendance_silver);
+        mInstituteImg.setImageResource(R.drawable.check_default);
         mInstituteTv.setTextColor(getResources().getColor(R.color.bttendance_silver));
         mEtcBg.setBackgroundResource(R.drawable.bt_selector_round);
-        mEtcImg.setImageResource(R.drawable.attendance_silver);
+        mEtcImg.setImageResource(R.drawable.check_default);
         mEtcTv.setTextColor(getResources().getColor(R.color.bttendance_silver));
 
         switch (view.getId()) {
             case R.id.university_bg:
                 mUniversityBg.setBackgroundResource(R.drawable.bt_selected_round);
-                mUniversityImg.setImageResource(R.drawable.attendance_navy);
+                mUniversityImg.setImageResource(R.drawable.check_selected);
                 mUniversityTv.setTextColor(getResources().getColor(R.color.bttendance_navy));
                 mType = "university";
                 break;
             case R.id.school_bg:
                 mSchoolBg.setBackgroundResource(R.drawable.bt_selected_round);
-                mSchoolImg.setImageResource(R.drawable.attendance_navy);
+                mSchoolImg.setImageResource(R.drawable.check_selected);
                 mSchoolTv.setTextColor(getResources().getColor(R.color.bttendance_navy));
                 mType = "school";
                 break;
             case R.id.institute_bg:
                 mInstituteBg.setBackgroundResource(R.drawable.bt_selected_round);
-                mInstituteImg.setImageResource(R.drawable.attendance_navy);
+                mInstituteImg.setImageResource(R.drawable.check_selected);
                 mInstituteTv.setTextColor(getResources().getColor(R.color.bttendance_navy));
                 mType = "institute";
                 break;
             case R.id.etc_bg:
                 mEtcBg.setBackgroundResource(R.drawable.bt_selected_round);
-                mEtcImg.setImageResource(R.drawable.attendance_navy);
+                mEtcImg.setImageResource(R.drawable.check_selected);
                 mEtcTv.setTextColor(getResources().getColor(R.color.bttendance_navy));
                 mType = "etc";
                 break;

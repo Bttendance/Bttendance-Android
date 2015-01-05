@@ -7,7 +7,7 @@
     android:focusable="true"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingTop="25dp">
+    android:paddingTop="15dp">
 
     <TextView
         android:id="@+id/text"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_divider"
         android:orientation="horizontal"
-        android:paddingBottom="7dp"
+        android:paddingBottom="5dp"
         android:paddingTop="7dp">
 
         <LinearLayout
@@ -53,7 +53,7 @@
             android:focusable="true"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="13dp"
+            android:paddingBottom="11dp"
             android:paddingTop="11dp">
 
             <ImageView
@@ -83,7 +83,7 @@
             android:focusable="true"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="13dp"
+            android:paddingBottom="11dp"
             android:paddingTop="11dp">
 
             <ImageView
@@ -113,7 +113,7 @@
             android:focusable="true"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="13dp"
+            android:paddingBottom="11dp"
             android:paddingTop="11dp">
 
             <ImageView
@@ -143,7 +143,7 @@
             android:focusable="true"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="13dp"
+            android:paddingBottom="11dp"
             android:paddingTop="11dp">
 
             <ImageView
@@ -180,7 +180,7 @@
         style="@style/signInUpButton"
         android:layout_below="@id/type_info"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:enabled="false"
         android:text="@string/create_institution" />
 

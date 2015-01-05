@@ -19,6 +19,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.activity.BTActivity;
 import com.bttendance.activity.guide.GuideCourseCreateActivity;
+import com.bttendance.event.AddFragmentEvent;
+import com.bttendance.fragment.school.SchoolChooseFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
@@ -144,9 +146,9 @@ public class CreateCourseActivity extends BTActivity {
         mInstitutionBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                SchoolChooseFragment fragment = new SchoolChooseFragment();
-//                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
-//                KeyboardHelper.hide(CreateCourseActivity.this, mName);
+                SchoolChooseFragment fragment = new SchoolChooseFragment();
+                BTEventBus.getInstance().post(new AddFragmentEvent(fragment));
+                KeyboardHelper.hide(CreateCourseActivity.this, mName);
             }
         });
 
