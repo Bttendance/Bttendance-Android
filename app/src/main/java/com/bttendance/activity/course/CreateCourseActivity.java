@@ -52,7 +52,7 @@ public class CreateCourseActivity extends BTActivity {
     View mProfessorDiv;
     @InjectView(R.id.create_course)
     Button mCreateCourse;
-    @InjectView(R.id.institution)
+    @InjectView(R.id.institution_button)
     Button mInstitutionBt;
 
     private int mNameCount = 0;

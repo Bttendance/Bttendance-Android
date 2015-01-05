@@ -295,4 +295,6 @@
     <string name="feedback_error_toast_message">비텐던스 관련 피드백은 contact@bttendance.com으로 메일 주시기 바랍니다.</string>
     <string name="previous">이전</string>
 
+    <string name="sign_out_message">정말 비텐던스에서 로그아웃 하시겠습니까?</string>
+
 </resources>

@@ -18,6 +18,7 @@ import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
+import com.bttendance.view.BTDialog;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 
@@ -143,14 +144,14 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     }
 
     private void showEditIdentity(int schoolID) {
-//        ProfileEditFragment frag = new ProfileEditFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.identity));
-//        bundle.putString(BTKey.EXTRA_MESSAGE, BTPreference.getUser(getActivity()).getIdentity(schoolID));
-//        bundle.putSerializable(BTKey.EXTRA_SCHOOL_ID, schoolID);
-//        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.IDENTITY);
-//        frag.setArguments(bundle);
-//        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
+        ProfileEditFragment frag = new ProfileEditFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(BTKey.EXTRA_TITLE, getString(R.string.identity));
+        bundle.putString(BTKey.EXTRA_MESSAGE, BTTable.getMe().getIdentity(schoolID));
+        bundle.putSerializable(BTKey.EXTRA_SCHOOL_ID, schoolID);
+        bundle.putSerializable(BTKey.EXTRA_TYPE, ProfileEditFragment.Type.IDENTITY);
+        frag.setArguments(bundle);
+        BTEventBus.getInstance().post(new AddFragmentEvent(frag));
     }
 
     private void showChangePassword() {
@@ -159,7 +160,19 @@ public class ProfileFragment extends BTFragment implements AdapterView.OnItemCli
     }
 
     private void signOut() {
-        if (getBTService() != null)
-            getBTService().signOut();
+        BTDialog.alert(getActivity(),
+                getString(R.string.sign_out),
+                getString(R.string.sign_out_message),
+                new BTDialog.OnDialogListener() {
+            @Override
+            public void onConfirmed(String edit) {
+                if (getBTService() != null)
+                    getBTService().signOut();
+            }
+
+            @Override
+            public void onCanceled() {
+            }
+        });
     }
 }

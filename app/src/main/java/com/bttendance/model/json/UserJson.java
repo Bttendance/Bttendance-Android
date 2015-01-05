@@ -39,4 +39,12 @@ public class UserJson extends BTJson {
 
         return false;
     }
+
+    public String getIdentity(int schoolId) {
+        for (SchoolUserJson schoolUserJson : school_users)
+            if (schoolUserJson.school != null && schoolId == schoolUserJson.school.id)
+                return schoolUserJson.identity;
+
+        return null;
+    }
 }

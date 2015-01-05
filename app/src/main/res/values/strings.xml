@@ -303,4 +303,7 @@
     <string name="course_name">Course Name</string>
     <string name="previous">Previous</string>
 
+    <string name="sign_out_message">Are you sure you want to sign out of Bttendance?</string>
+
+
 </resources>

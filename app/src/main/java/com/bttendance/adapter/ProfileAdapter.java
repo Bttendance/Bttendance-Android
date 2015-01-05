@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
+import com.bttendance.service.BTAPI;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
@@ -33,16 +33,25 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
         add(new ProfileItem(ProfileItemType.Name, null));
         add(new ProfileItem(ProfileItemType.Email, null));
 
-//        if (mUser.employed_schools.length + mUser.enrolled_schools.length > 0) {
-//            add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.institution_capital)));
-//            for (SchoolJsonSimple school : mUser.employed_schools)
-//                add(new ProfileItem(ProfileItemType.Employed, school));
-//            for (SchoolJsonSimple school : mUser.enrolled_schools)
-//                add(new ProfileItem(ProfileItemType.Enrolled, school));
-//        }
+        if (mUser.school_users != null && mUser.school_users.length > 0) {
+            add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.institution_capital)));
+
+            for (UserJson.SchoolUserJson schoolUserJson : mUser.school_users)
+                if (schoolUserJson != null
+                        && schoolUserJson.school != null
+                        && BTAPI.SchoolUserState.supervisor.name().equals(schoolUserJson.state))
+                    add(new ProfileItem(ProfileItemType.Employed, schoolUserJson));
+
+            for (UserJson.SchoolUserJson schoolUserJson : mUser.school_users)
+                if (schoolUserJson != null
+                        && schoolUserJson.school != null
+                        && BTAPI.SchoolUserState.student.name().equals(schoolUserJson.state))
+                    add(new ProfileItem(ProfileItemType.Enrolled, schoolUserJson));
+        }
 
         add(new ProfileItem(ProfileItemType.Margin, 55));
         add(new ProfileItem(ProfileItemType.Password, null));
+        add(new ProfileItem(ProfileItemType.SignOut, null));
         add(new ProfileItem(ProfileItemType.Margin, 33));
 
         notifyDataSetChanged();
@@ -72,18 +81,18 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
             case Employed:
             case Enrolled: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.profile_detail, null);
-//                SchoolJsonSimple school = (SchoolJsonSimple) profileItem.getObject();
-//                convertView.setTag(R.id.school_id, school.id);
-//                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
-//                TextView message = (TextView) convertView.findViewById(R.id.profile_message);
-//                text.setText(school.name);
-//                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
-//                if (profileItem.type == ProfileItemType.Employed) {
-//                    message.setText(getContext().getString(R.string.professor));
-//                    convertView.findViewById(R.id.selector).setVisibility(View.GONE);
-//                    convertView.findViewById(R.id.profile_arrow).setVisibility(View.GONE);
-//                } else
-//                    message.setText(String.format(getContext().getString(R.string.student__), mUser.getIdentity(school.id)));
+                UserJson.SchoolUserJson schoolUserJson = (UserJson.SchoolUserJson) profileItem.getObject();
+                convertView.setTag(R.id.school_id, schoolUserJson.school.id);
+                TextView text = (TextView) convertView.findViewById(R.id.profile_text);
+                TextView message = (TextView) convertView.findViewById(R.id.profile_message);
+                text.setText(schoolUserJson.school.name);
+                text.setTextColor(getContext().getResources().getColor(R.color.bttendance_navy));
+                if (profileItem.type == ProfileItemType.Employed) {
+                    message.setText(getContext().getString(R.string.professor));
+                    convertView.findViewById(R.id.selector).setVisibility(View.GONE);
+                    convertView.findViewById(R.id.profile_arrow).setVisibility(View.GONE);
+                } else
+                    message.setText(String.format(getContext().getString(R.string.student__), schoolUserJson.identity));
                 break;
             }
             case Password: {
