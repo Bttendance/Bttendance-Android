@@ -301,7 +301,10 @@ public class BTService extends Service {
         mBTAPI.createCourse(request, new Callback<CourseJson>() {
             @Override
             public void success(CourseJson courseJson, Response response) {
-                BTTable.CourseTable.put(courseJson.id, courseJson);
+                BTDatabase.putCourses(getApplicationContext(), new CourseJson[]{courseJson});
+                BTDatabase.putMyCourses(getApplicationContext(), new CourseJson[]{courseJson});
+                BTTable.putCourse(new CourseJson[]{courseJson});
+                BTTable.putMyCourse(new CourseJson[]{courseJson});
                 successHandle(cb, courseJson, response);
             }
 
@@ -312,11 +315,14 @@ public class BTService extends Service {
         });
     }
 
-    public void getMyCourses(int userId, final Callback<CourseJson[]> cb) {
-        mBTAPI.getMyCourses(userId, new Callback<CourseJson[]>() {
+    public void getMyCourses(final Callback<CourseJson[]> cb) {
+        mBTAPI.getMyCourses(BTTable.getMe().id, new Callback<CourseJson[]>() {
             @Override
             public void success(CourseJson[] courseJsons, Response response) {
+                BTDatabase.putCourses(getApplicationContext(), courseJsons);
+                BTDatabase.putMyCourses(getApplicationContext(), courseJsons);
                 BTTable.putCourse(courseJsons);
+                BTTable.putMyCourse(courseJsons);
                 successHandle(cb, courseJsons, response);
             }
 
@@ -334,6 +340,7 @@ public class BTService extends Service {
         mBTAPI.schools(page, new Callback<SchoolJson[]>() {
             @Override
             public void success(SchoolJson[] schoolJsons, Response response) {
+                BTDatabase.putSchools(getApplicationContext(), schoolJsons);
                 BTTable.putSchool(schoolJsons);
                 successHandle(cb, schoolJsons, response);
             }
@@ -350,7 +357,10 @@ public class BTService extends Service {
         mBTAPI.createSchool(request, new Callback<SchoolJson>() {
             @Override
             public void success(SchoolJson schoolJson, Response response) {
-                BTTable.SchoolTable.put(schoolJson.id, schoolJson);
+                BTDatabase.putSchools(getApplicationContext(), new SchoolJson[]{schoolJson});
+                BTDatabase.putMySchools(getApplicationContext(), new SchoolJson[]{schoolJson});
+                BTTable.putSchool(new SchoolJson[]{schoolJson});
+                BTTable.putMySchool(new SchoolJson[]{schoolJson});
                 successHandle(cb, schoolJson, response);
             }
 
@@ -361,11 +371,14 @@ public class BTService extends Service {
         });
     }
 
-    public void getMySchools(int userId, final Callback<SchoolJson[]> cb) {
-        mBTAPI.getMySchools(userId, new Callback<SchoolJson[]>() {
+    public void getMySchools(final Callback<SchoolJson[]> cb) {
+        mBTAPI.getMySchools(BTTable.getMe().id, new Callback<SchoolJson[]>() {
             @Override
             public void success(SchoolJson[] schoolJsons, Response response) {
+                BTDatabase.putSchools(getApplicationContext(), schoolJsons);
+                BTDatabase.putMySchools(getApplicationContext(), schoolJsons);
                 BTTable.putSchool(schoolJsons);
+                BTTable.putMySchool(schoolJsons);
                 successHandle(cb, schoolJsons, response);
             }
 

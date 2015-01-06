@@ -2,7 +2,9 @@ package com.bttendance.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.SparseArray;
 
+import com.bttendance.helper.SparseArrayHelper;
 import com.bttendance.model.database.CourseJsons;
 import com.bttendance.model.database.SchoolJsons;
 import com.bttendance.model.json.CourseJson;
@@ -11,7 +13,6 @@ import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class BTDatabase {
     private static final String PREFERENCES = "preferences";
     private static final String SCHOOLS = "schools";
     private static final String COURSES = "courses";
+    private static final String MY_SCHOOLS = "my_schools";
+    private static final String MY_COURSES = "my_courses";
 
     private static SharedPreferences mPref = null;
     private static final Object mSingletonLock = new Object();
@@ -129,24 +132,59 @@ public class BTDatabase {
         if (schools == null)
             schools = new SchoolJson[0];
 
-        List<SchoolJson> schoolList = new ArrayList<SchoolJson>(Arrays.asList(schools));
-        for (SchoolJson newSchool : addingSchools) {
-            for (SchoolJson oldSchool : schoolList) {
-                if (newSchool.id == oldSchool.id) {
-                    schoolList.remove(oldSchool);
-                }
-            }
-            schoolList.add(newSchool);
-        }
-        schools = schoolList.toArray(schools);
+        SparseArray<SchoolJson> schoolArray = new SparseArray<>();
+        for (SchoolJson school : schools)
+            schoolArray.put(school.id, school);
+
+        for (SchoolJson school : addingSchools)
+            schoolArray.put(school.id, school);
+
+        schools = SparseArrayHelper.asArrayList(schoolArray).toArray(schools);
 
         SchoolJsons schoolJsons = new SchoolJsons(schools);
-
         Gson gson = new Gson();
         String jsonStr = gson.toJson(schoolJsons);
 
         SharedPreferences.Editor edit = getInstance(ctx).edit();
         edit.putString(SCHOOLS, jsonStr);
+        edit.apply();
+    }
+
+    // My Schools
+    public static SchoolJson[] getMySchools(Context ctx) {
+        String jsonStr = getInstance(ctx).getString(MY_SCHOOLS, null);
+        if (jsonStr == null)
+            return null;
+
+        Gson gson = new Gson();
+        try {
+            SchoolJsons schoolJsons = gson.fromJson(jsonStr, SchoolJsons.class);
+            return schoolJsons == null ? null : schoolJsons.schools;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void putMySchools(Context ctx, SchoolJson[] addingSchools) {
+        SchoolJson[] schools = getMySchools(ctx);
+        if (schools == null)
+            schools = new SchoolJson[0];
+
+        SparseArray<SchoolJson> schoolArray = new SparseArray<>();
+        for (SchoolJson school : schools)
+            schoolArray.put(school.id, school);
+
+        for (SchoolJson school : addingSchools)
+            schoolArray.put(school.id, school);
+
+        schools = SparseArrayHelper.asArrayList(schoolArray).toArray(schools);
+
+        SchoolJsons schoolJsons = new SchoolJsons(schools);
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(schoolJsons);
+
+        SharedPreferences.Editor edit = getInstance(ctx).edit();
+        edit.putString(MY_SCHOOLS, jsonStr);
         edit.apply();
     }
 
@@ -180,24 +218,59 @@ public class BTDatabase {
         if (courses == null)
             courses = new CourseJson[0];
 
-        List<CourseJson> courseList = new ArrayList<CourseJson>(Arrays.asList(courses));
-        for (CourseJson newCourse : addingCourses) {
-            for (CourseJson oldCourse : courseList) {
-                if (newCourse.id == oldCourse.id) {
-                    courseList.remove(oldCourse);
-                }
-            }
-            courseList.add(newCourse);
-        }
-        courses = courseList.toArray(courses);
+        SparseArray<CourseJson> courseArray = new SparseArray<>();
+        for (CourseJson course : courses)
+            courseArray.put(course.id, course);
+
+        for (CourseJson course : addingCourses)
+            courseArray.put(course.id, course);
+
+        courses = SparseArrayHelper.asArrayList(courseArray).toArray(courses);
 
         CourseJsons courseJsons = new CourseJsons(courses);
-
         Gson gson = new Gson();
         String jsonStr = gson.toJson(courseJsons);
 
         SharedPreferences.Editor edit = getInstance(ctx).edit();
         edit.putString(COURSES, jsonStr);
+        edit.apply();
+    }
+
+    // My Courses
+    public static CourseJson[] getMyCourses(Context ctx) {
+        String jsonStr = getInstance(ctx).getString(MY_COURSES, null);
+        if (jsonStr == null)
+            return null;
+
+        Gson gson = new Gson();
+        try {
+            CourseJsons courseJsons = gson.fromJson(jsonStr, CourseJsons.class);
+            return courseJsons == null ? null : courseJsons.courses;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void putMyCourses(Context ctx, CourseJson[] addingCourses) {
+        CourseJson[] courses = getMyCourses(ctx);
+        if (courses == null)
+            courses = new CourseJson[0];
+
+        SparseArray<CourseJson> courseArray = new SparseArray<>();
+        for (CourseJson course : courses)
+            courseArray.put(course.id, course);
+
+        for (CourseJson course : addingCourses)
+            courseArray.put(course.id, course);
+
+        courses = SparseArrayHelper.asArrayList(courseArray).toArray(courses);
+
+        CourseJsons courseJsons = new CourseJsons(courses);
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(courseJsons);
+
+        SharedPreferences.Editor edit = getInstance(ctx).edit();
+        edit.putString(MY_COURSES, jsonStr);
         edit.apply();
     }
 

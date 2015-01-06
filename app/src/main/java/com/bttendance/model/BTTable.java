@@ -14,8 +14,11 @@ import com.google.gson.Gson;
 public class BTTable {
 
     private static UserJson Me;
-    public static SparseArray<SchoolJson> SchoolTable = new SparseArray<SchoolJson>();
-    public static SparseArray<CourseJson> CourseTable = new SparseArray<CourseJson>();
+    public static SparseArray<SchoolJson> SchoolTable = new SparseArray<>();
+    public static SparseArray<CourseJson> CourseTable = new SparseArray<>();
+
+    public static SparseArray<SchoolJson> MySchoolTable = new SparseArray<>();
+    public static SparseArray<CourseJson> MyCourseTable = new SparseArray<>();
 
     public static void init(Context context) {
         Me = BTDatabase.getUser(context);
@@ -29,6 +32,16 @@ public class BTTable {
         if (courses != null)
             for (CourseJson course : courses)
                 CourseTable.put(course.id, course);
+
+        SchoolJson[] mySchools = BTDatabase.getMySchools(context);
+        if (mySchools != null)
+            for (SchoolJson school : mySchools)
+                MySchoolTable.put(school.id, school);
+
+        CourseJson[] myCourses = BTDatabase.getMyCourses(context);
+        if (myCourses != null)
+            for (CourseJson course : myCourses)
+                MyCourseTable.put(course.id, course);
     }
 
     public static void setMe(UserJson user) {
@@ -53,6 +66,16 @@ public class BTTable {
     public static void putCourse(CourseJson[] addingCourses) {
         for (CourseJson courseJson : addingCourses)
             CourseTable.put(courseJson.id, courseJson);
+    }
+
+    public static void putMySchool(SchoolJson[] addingSchools) {
+        for (SchoolJson schoolJson : addingSchools)
+            MySchoolTable.put(schoolJson.id, schoolJson);
+    }
+
+    public static void putMyCourse(CourseJson[] addingCourses) {
+        for (CourseJson courseJson : addingCourses)
+            MyCourseTable.put(courseJson.id, courseJson);
     }
 
 }

@@ -23,16 +23,19 @@ public class UserJson extends BTJson {
 
     public boolean isProfessor() {
         if (school_users == null)
-            return false;
+            return true;
 
         for (SchoolUserJson schoolUserJson : school_users)
             if (BTAPI.SchoolUserState.student.name().equals(schoolUserJson.state))
-                return true;
+                return false;
 
-        return false;
+        return true;
     }
 
     public boolean hasSchool(int schoolId) {
+        if (school_users == null)
+            return false;
+
         for (SchoolUserJson schoolUserJson : school_users)
             if (schoolUserJson.school != null && schoolId == schoolUserJson.school.id)
                 return true;
@@ -41,6 +44,9 @@ public class UserJson extends BTJson {
     }
 
     public String getIdentity(int schoolId) {
+        if (school_users == null)
+            return null;
+
         for (SchoolUserJson schoolUserJson : school_users)
             if (schoolUserJson.school != null && schoolId == schoolUserJson.school.id)
                 return schoolUserJson.identity;

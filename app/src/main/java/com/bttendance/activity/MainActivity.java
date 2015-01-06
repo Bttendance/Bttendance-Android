@@ -283,7 +283,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 i.putExtra(Intent.EXTRA_SUBJECT, String.format(getString(R.string.feedback_subject), user.name));
                 i.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.feedback_body), user.email, user.name, Build.DEVICE, BuildConfig.VERSION_NAME, user.name));
                 try {
-                    startActivity(Intent.createChooser(i, getString(R.string.feedback)));
+                    startActivity(Intent.createChooser(i, getString(R.string.feedback_bttendance)));
                 } catch (android.content.ActivityNotFoundException ex) {
                     BTToast.show(this, getString(R.string.feedback_error_toast_message));
                 }

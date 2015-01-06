@@ -41,7 +41,7 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class SchoolChooseFragment extends BTFragment implements AdapterView.OnItemClickListener {
+public class SchoolChooseFragment extends BTFragment implements AdapterView.OnItemClickListener, Callback<SchoolJson[]> {
 
     @InjectView(android.R.id.list)
     public ListView mListView;
@@ -105,16 +105,10 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     public void onFragmentResume() {
         super.onFragmentResume();
         KeyboardHelper.hide(getActivity(), mEditSearch);
-//        getBTService().schools(0, new Callback<SchoolJson>() {
-//            @Override
-//            public void success(SchoolJson schoolJson, Response response) {
-//                swapItems();
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//            }
-//        });
+        getBTService().getMySchools(this);
+        getBTService().schools(0, this);
+        getBTService().schools(1, this);
+        getBTService().schools(2, this);
         swapItems();
     }
 
@@ -191,5 +185,14 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         int schoolID = mAdapter.getCursor().getInt(0);
         ((CreateCourseActivity) getActivity()).setSchool(BTTable.SchoolTable.get(schoolID));
         getActivity().onBackPressed();
+    }
+
+    @Override
+    public void success(SchoolJson[] schoolJsons, Response response) {
+        swapItems();
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
     }
 }
