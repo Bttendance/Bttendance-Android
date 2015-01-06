@@ -17,6 +17,7 @@ public class BTPreference {
     private static final String LAST_COURSE = "lastCourse";
     private static final String APP_VERSION = "appVersion";
     private static final String MAC_ADDRESS = "macAddress";
+    private static final String NOTIFICATION_KEY = "notificationKey";
 
     private static SharedPreferences mPref = null;
     private static final Object mSingletonLock = new Object();
@@ -69,6 +70,20 @@ public class BTPreference {
 
         Editor edit = getInstance(ctx).edit();
         edit.putString(MAC_ADDRESS, macAddress);
+        edit.apply();
+    }
+
+    // Notification Key
+    public static String getNotificationKey(Context ctx) {
+        return getInstance(ctx).getString(NOTIFICATION_KEY, null);
+    }
+
+    public static void setNotificationKey(Context ctx, String notificationKey) {
+        if (notificationKey == null)
+            return;
+
+        Editor edit = getInstance(ctx).edit();
+        edit.putString(NOTIFICATION_KEY, notificationKey);
         edit.apply();
     }
 

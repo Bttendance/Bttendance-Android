@@ -174,6 +174,16 @@ public class CreateCourseActivity extends BTActivity {
                 return true;
             }
         });
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                FragmentManager fm = getSupportFragmentManager();
+                if (fm.getBackStackEntryCount() == 0)
+                    KeyboardHelper.show(CreateCourseActivity.this, mName);
+            }
+        });
     }
 
     public void isEnableCreateCourse() {
@@ -286,15 +296,11 @@ public class CreateCourseActivity extends BTActivity {
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 1) {
-            super.onBackPressed();
-        } else if (fm.getBackStackEntryCount() > 0) {
-            super.onBackPressed();
-            KeyboardHelper.show(this, mName);
-        } else {
-            super.onBackPressed();
+        int entryCount = fm.getBackStackEntryCount();
+
+        super.onBackPressed();
+        if (entryCount == 0)
             overridePendingTransition(R.anim.modal_activity_close_enter, R.anim.modal_activity_close_exit);
-        }
     }
 
 }// end of class

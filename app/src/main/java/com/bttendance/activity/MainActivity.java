@@ -33,6 +33,7 @@ import com.bttendance.helper.ScreenHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.view.BTDialog;
 import com.bttendance.view.BTToast;
@@ -43,6 +44,9 @@ import com.squareup.otto.BTEventBus;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by TheFinestArtist on 2013. 11. 20..
@@ -400,17 +404,17 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         if (getBTService() == null)
             return;
 
-//        getBTService().courses(new Callback<CourseJson[]>() {
-//            @Override
-//            public void success(CourseJson[] courseJsons, Response response) {
-//                if (mSideAdapter != null)
-//                    mSideAdapter.refreshAdapter();
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//            }
-//        });
+        getBTService().getMyCourses(new Callback<CourseJson[]>() {
+            @Override
+            public void success(CourseJson[] courseJsons, Response response) {
+                if (mSideAdapter != null)
+                    mSideAdapter.refreshAdapter();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+            }
+        });
     }
 
     protected void loadAd() {

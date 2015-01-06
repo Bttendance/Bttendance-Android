@@ -13,12 +13,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.bttendance.R;
+import com.bttendance.activity.MainActivity;
 import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.adapter.SchoolAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
@@ -50,6 +52,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
     SchoolAdapter mAdapter;
     SimpleSectionAdapter<Cursor> mSectionAdapter;
+    EndlessScrollListener endlessScrollListener;
 
     EditText mEditSearch;
     String mFilter;
@@ -90,6 +93,9 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         mListView.setAdapter(mSectionAdapter);
         mListView.setOnItemClickListener(this);
 
+        endlessScrollListener = new EndlessScrollListener();
+        mListView.setOnScrollListener(endlessScrollListener);
+
         mCreateSchoolBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,9 +112,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         super.onFragmentResume();
         KeyboardHelper.hide(getActivity(), mEditSearch);
         getBTService().getMySchools(this);
-        getBTService().schools(0, this);
-        getBTService().schools(1, this);
-        getBTService().schools(2, this);
+        loadSchool(0);
         swapItems();
     }
 
@@ -120,7 +124,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mAdapter.swapCursor(new AllSchoolCursor(getActivity(), mFilter));
+                    mAdapter.swapCursor(new AllSchoolCursor(mFilter));
                     mSectionAdapter.notifyDataSetChanged();
                 }
             });
@@ -167,6 +171,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
         @Override
         public void afterTextChanged(Editable s) {
+            searchSchool(s.toString());
             swapItems();
         }
 
@@ -177,14 +182,24 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
         @Override
         public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
         }
-
     };
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
         int schoolID = mAdapter.getCursor().getInt(0);
         ((CreateCourseActivity) getActivity()).setSchool(BTTable.SchoolTable.get(schoolID));
+        ((CreateCourseActivity) getActivity()).getSupportActionBar().collapseActionView();
         getActivity().onBackPressed();
+    }
+
+    private void loadSchool(int page) {
+        if (getBTService() != null)
+            getBTService().schools(page, this);
+    }
+
+    private void searchSchool(String query) {
+        if (getBTService() != null)
+            getBTService().searchSchool(query, this);
     }
 
     @Override
@@ -194,5 +209,40 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
     @Override
     public void failure(RetrofitError error) {
+    }
+
+
+    public class EndlessScrollListener implements AbsListView.OnScrollListener {
+
+        private int visibleThreshold = 5;
+        private int currentPage = 1;
+        private int previousTotal = 0;
+        private boolean loading = true;
+
+        public EndlessScrollListener() {
+        }
+
+        public void resetPage() {
+            this.currentPage = 1;
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            if (loading) {
+                if (totalItemCount > previousTotal) {
+                    loading = false;
+                    previousTotal = totalItemCount;
+                    currentPage++;
+                }
+            }
+            if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                loadSchool(currentPage + 1);
+                loading = true;
+            }
+        }
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+        }
     }
 }

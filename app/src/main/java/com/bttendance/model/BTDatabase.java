@@ -26,8 +26,8 @@ public class BTDatabase {
     private static final String PREFERENCES = "preferences";
     private static final String SCHOOLS = "schools";
     private static final String COURSES = "courses";
-    private static final String MY_SCHOOLS = "my_schools";
-    private static final String MY_COURSES = "my_courses";
+    private static final String MY_SCHOOLS = "mySchools";
+    private static final String MY_COURSES = "myCourses";
 
     private static SharedPreferences mPref = null;
     private static final Object mSingletonLock = new Object();
@@ -70,6 +70,9 @@ public class BTDatabase {
     }
 
     public static void setUser(Context ctx, UserJson user) {
+        if (user == null)
+            return;
+
         Gson gson = new Gson();
         String jsonStr = gson.toJson(user);
 

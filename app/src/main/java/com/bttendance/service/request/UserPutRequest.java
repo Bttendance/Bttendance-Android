@@ -26,7 +26,7 @@ public class UserPutRequest {
     }
 
     public class Device {
-        public int id;
+//        public int id;
         public String platform;
         public String uuid;
         public String mac_address;

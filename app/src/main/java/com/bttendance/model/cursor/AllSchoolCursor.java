@@ -1,6 +1,5 @@
 package com.bttendance.model.cursor;
 
-import android.content.Context;
 import android.database.MatrixCursor;
 import android.util.SparseArray;
 
@@ -22,10 +21,12 @@ public class AllSchoolCursor extends MatrixCursor {
             "_id"
     };
 
-    public AllSchoolCursor(Context context, String filter) {
+    public AllSchoolCursor(String filter) {
         super(COLUMNS);
         UserJson user = BTTable.getMe();
         SparseArray<SchoolJson> schoolJsonSparseArray = BTTable.SchoolTable;
+        if (filter == null)
+            filter = "";
 
         ArrayList<SchoolJson> schoolJsonArrayList = SparseArrayHelper.asArrayList(schoolJsonSparseArray);
         if (schoolJsonArrayList == null)
@@ -39,11 +40,13 @@ public class AllSchoolCursor extends MatrixCursor {
         });
 
         for (SchoolJson school : schoolJsonArrayList)
-            if (user.hasSchool(school.id))
+            if (school.name.toLowerCase().contains(filter.toLowerCase())
+                    && user.hasSchool(school.id))
                 addRow(new Object[]{school.id});
 
         for (SchoolJson school : schoolJsonArrayList)
-            if (!user.hasSchool(school.id))
+            if (school.name.toLowerCase().contains(filter.toLowerCase())
+                    && !user.hasSchool(school.id))
                 addRow(new Object[]{school.id});
     }
 }

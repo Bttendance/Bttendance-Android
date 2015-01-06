@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 
+import com.bttendance.service.request.UserPutRequest;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.bttendance.BTDebug;
 import com.bttendance.activity.BTActivity;
@@ -73,21 +74,21 @@ public class BTNotification {
         }.execute(null, null, null);
     }
 
-    public static void sendRegistrationIdToBackend(BTActivity activity, String regid) {
+    public static void sendRegistrationIdToBackend(final BTActivity activity, final String regid) {
         if (activity == null || activity.getBTService() == null)
             return;
 
-//        activity.getBTService().updateNotificationKey(regid, new Callback<UserJson>() {
-//            @Override
-//            public void success(UserJson userJson, Response response) {
-//                BTDebug.LogInfo("Update NotificationKey Success : " + userJson);
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//
-//            }
-//        });
+        String macAddress = BTPreference.getMacAddress(activity);
+        activity.getBTService().updateUser(new UserPutRequest().updateNotificationKey(macAddress, regid), new Callback<UserJson>() {
+            @Override
+            public void success(UserJson userJson, Response response) {
+                BTPreference.setNotificationKey(activity, regid);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+            }
+        });
     }
 
     /**

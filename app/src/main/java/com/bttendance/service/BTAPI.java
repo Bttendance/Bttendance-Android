@@ -10,6 +10,7 @@ import com.bttendance.service.request.LogInRequest;
 import com.bttendance.service.request.PasswordResetRequest;
 import com.bttendance.service.request.PreferencesPutRequest;
 import com.bttendance.service.request.SchoolPostRequest;
+import com.bttendance.service.request.SchoolSearchRequest;
 import com.bttendance.service.request.UserFindRequest;
 import com.bttendance.service.request.UserPostRequest;
 import com.bttendance.service.request.UserPutRequest;
@@ -98,7 +99,10 @@ public interface BTAPI {
     @GET("/schools")
     void schools(@Query("page") int page, Callback<SchoolJson[]> cb);
 
-    @POST("schools")
+    @POST("/schools/search")
+    void searchSchool(@Body SchoolSearchRequest body, Callback<SchoolJson[]> cb);
+
+    @POST("/schools")
     void createSchool(@Body SchoolPostRequest body, Callback<SchoolJson> cb);
 
     @GET("/users/{id}/schools")

@@ -27,6 +27,7 @@ import com.bttendance.event.bluetooth.BTEnabledEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTDatabase;
 import com.bttendance.model.BTNotification;
+import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.service.BTService;
 import com.google.android.gms.common.ConnectionResult;
@@ -179,8 +180,7 @@ public class BTActivity extends ActionBarActivity {
 
             if (regId == null)
                 BTNotification.registerInBackground(this);
-            else
-//            else if (!regId.equals(user.device.notification_key))
+            else if (!regId.equals(BTPreference.getNotificationKey(this)))
                 BTNotification.sendRegistrationIdToBackend(this, regId);
         }
     }

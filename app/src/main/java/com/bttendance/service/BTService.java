@@ -29,6 +29,7 @@ import com.bttendance.service.request.LogInRequest;
 import com.bttendance.service.request.PasswordResetRequest;
 import com.bttendance.service.request.PreferencesPutRequest;
 import com.bttendance.service.request.SchoolPostRequest;
+import com.bttendance.service.request.SchoolSearchRequest;
 import com.bttendance.service.request.UserFindRequest;
 import com.bttendance.service.request.UserPostRequest;
 import com.bttendance.service.request.UserPutRequest;
@@ -70,12 +71,13 @@ public class BTService extends Service {
             .setLog(new RestAdapter.Log() {
                 @Override
                 public void log(String log) {
-                    if (log != null) {
-                        if (log.contains("<--- HTTP") || log.contains("---> HTTP"))
-                            BTDebug.LogQueryAPI(log);
-                        else
-                            BTDebug.LogResponseAPI(log);
-                    }
+                    if (log == null)
+                        return;
+
+                    if (log.contains("<--- HTTP") || log.contains("---> HTTP"))
+                        BTDebug.LogQueryAPI(log);
+                    else
+                        BTDebug.LogResponseAPI(log);
                 }
             })
             .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -352,15 +354,31 @@ public class BTService extends Service {
         });
     }
 
+    public void searchSchool(String query, final Callback<SchoolJson[]> cb) {
+        final SchoolSearchRequest request = new SchoolSearchRequest(query);
+        mBTAPI.searchSchool(request, new Callback<SchoolJson[]>() {
+            @Override
+            public void success(SchoolJson[] schoolJsons, Response response) {
+                BTDatabase.putSchools(getApplicationContext(), schoolJsons);
+                BTTable.putSchool(schoolJsons);
+                successHandle(cb, schoolJsons, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                failureHandle(cb, error);
+            }
+        });
+
+    }
+
     public void createSchool(String name, String classification, final Callback<SchoolJson> cb) {
         SchoolPostRequest request = new SchoolPostRequest(name, classification);
         mBTAPI.createSchool(request, new Callback<SchoolJson>() {
             @Override
             public void success(SchoolJson schoolJson, Response response) {
                 BTDatabase.putSchools(getApplicationContext(), new SchoolJson[]{schoolJson});
-                BTDatabase.putMySchools(getApplicationContext(), new SchoolJson[]{schoolJson});
                 BTTable.putSchool(new SchoolJson[]{schoolJson});
-                BTTable.putMySchool(new SchoolJson[]{schoolJson});
                 successHandle(cb, schoolJson, response);
             }
 
