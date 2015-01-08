@@ -2,57 +2,79 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/bttendance_white"
-    android:layout_height="118dp"
-    android:minHeight="118dp">
+    android:layout_height="80dp"
+    android:background="@color/bttendance_grey"
+    android:minHeight="80dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="80dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/course_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="14dp"
+                android:includeFontPadding="false"
+                android:text="Programming Language"
+                android:textColor="@color/bttendance_cyan"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/school_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:includeFontPadding="false"
+                android:text="KAIST"
+                android:textColor="@color/bttendance_cyan"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="74dp"
+            android:layout_height="match_parent"
+            android:minHeight="80dp">
+
+            <TextView
+                android:id="@+id/code"
+                android:layout_width="44dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bt_white_round"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="5DXL"
+                android:textColor="@color/bttendance_navy"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/arrow" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/selector"
         android:layout_width="match_parent"
-        android:layout_height="113dp"
+        android:layout_height="80dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/bt_selector_grey" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/bttendance_cyan"
-        android:text="Programming Language"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="21dp"
-        android:layout_marginLeft="14dp"
-        android:textSize="16sp"
-        android:id="@+id/course_name" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="27dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="14dp"
-        android:src="@drawable/arrow" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/bttendance_silver"
-        android:text="Clicker rate 75%  Attendance 80%"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="55dp"
-        android:layout_marginLeft="14dp"
-        android:textSize="12sp"
-        android:id="@+id/course_detail1" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/bttendance_silver"
-        android:text="2 unread notices"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="75dp"
-        android:layout_marginLeft="14dp"
-        android:textSize="12sp"
-        android:id="@+id/course_detail2" />
+        android:background="@drawable/bt_selector" />
 
 </RelativeLayout>

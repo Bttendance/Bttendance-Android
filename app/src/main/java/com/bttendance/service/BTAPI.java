@@ -4,14 +4,14 @@ import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.PreferencesJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.service.request.CourseFindRequest;
+import com.bttendance.service.request.CourseSearchRequest;
 import com.bttendance.service.request.CoursePostRequest;
 import com.bttendance.service.request.LogInRequest;
 import com.bttendance.service.request.PasswordResetRequest;
 import com.bttendance.service.request.PreferencesPutRequest;
 import com.bttendance.service.request.SchoolPostRequest;
 import com.bttendance.service.request.SchoolSearchRequest;
-import com.bttendance.service.request.UserFindRequest;
+import com.bttendance.service.request.UserSearchRequest;
 import com.bttendance.service.request.UserPostRequest;
 import com.bttendance.service.request.UserPutRequest;
 
@@ -49,8 +49,6 @@ public interface BTAPI {
 
     public enum SchoolClassification {university, school, institute, other}
 
-    public enum SchoolUserState {supervisor, student, administrator}
-
     /**
      * Users APIs
      */
@@ -69,8 +67,8 @@ public interface BTAPI {
     @PUT("/users/{id}")
     void updateUser(@Path("id") int userId, @Body UserPutRequest body, Callback<UserJson> cb);
 
-    @GET("/users/find")
-    void findUser(@Body UserFindRequest body, Callback<UserJson> cb);
+    @POST("/users/search")
+    void searchUser(@Body UserSearchRequest body, Callback<UserJson> cb);
 
     /**
      * Preferences APIs
@@ -84,8 +82,8 @@ public interface BTAPI {
     /**
      * Courses APIs
      */
-    @GET("/courses/find")
-    void findCourse(@Body CourseFindRequest body, Callback<CourseJson> cb);
+    @POST("/courses/search")
+    void searchCourse(@Body CourseSearchRequest body, Callback<CourseJson> cb);
 
     @POST("/courses")
     void createCourse(@Body CoursePostRequest body, Callback<CourseJson> cb);

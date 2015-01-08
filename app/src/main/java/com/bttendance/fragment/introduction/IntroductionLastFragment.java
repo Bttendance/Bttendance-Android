@@ -11,9 +11,7 @@ import com.bttendance.R;
 import com.bttendance.activity.course.AttendCourseActivity;
 import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
-import com.bttendance.model.json.UserJson;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -34,9 +32,8 @@ public class IntroductionLastFragment extends BTFragment {
         View view = inflater.inflate(R.layout.fragment_introduction_last, container, false);
         ButterKnife.inject(this, view);
 
-        UserJson user = BTTable.getMe();
-//        if (user != null)
-//            mHasOpenedCourse = user.getOpenedCourses().length > 0;
+        if (BTTable.MyCourseTable.size() > 0)
+            mHasOpenedCourse = true;
 
         if (mHasOpenedCourse) {
             mIntroductionBt1.setText(getString(R.string.continue_));

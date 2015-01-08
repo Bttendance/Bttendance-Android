@@ -12,7 +12,6 @@ import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.service.BTAPI;
 
 /**
  * Created by TheFinestArtist on 2013. 12. 3..
@@ -33,19 +32,19 @@ public class ProfileAdapter extends ArrayAdapter<ProfileAdapter.ProfileItem> {
         add(new ProfileItem(ProfileItemType.Name, null));
         add(new ProfileItem(ProfileItemType.Email, null));
 
-        if (mUser.school_users != null && mUser.school_users.length > 0) {
+        if (mUser.schools_users != null && mUser.schools_users.length > 0) {
             add(new ProfileItem(ProfileItemType.Section, getContext().getString(R.string.institution_capital)));
 
-            for (UserJson.SchoolUserJson schoolUserJson : mUser.school_users)
+            for (UserJson.SchoolUserJson schoolUserJson : mUser.schools_users)
                 if (schoolUserJson != null
                         && schoolUserJson.school != null
-                        && BTAPI.SchoolUserState.supervisor.name().equals(schoolUserJson.state))
+                        && schoolUserJson.is_supervisor)
                     add(new ProfileItem(ProfileItemType.Employed, schoolUserJson));
 
-            for (UserJson.SchoolUserJson schoolUserJson : mUser.school_users)
+            for (UserJson.SchoolUserJson schoolUserJson : mUser.schools_users)
                 if (schoolUserJson != null
                         && schoolUserJson.school != null
-                        && BTAPI.SchoolUserState.student.name().equals(schoolUserJson.state))
+                        && schoolUserJson.is_student)
                     add(new ProfileItem(ProfileItemType.Enrolled, schoolUserJson));
         }
 

@@ -81,12 +81,6 @@
     <string name="add_course">강의 추가하기</string>
     <string name="guide">가이드</string>
     <string name="feedback">피드백</string>
-    <string name="clicker_rate_attendance_rate"><![CDATA[설문 참여율 <b>%1$d%%</b>  출석률 <b>%2$d%%</b>]]></string>
-    <string name="students_read_recent_notice"><![CDATA[최근 공지를 읽은 학생 수 <b>%1$d/%2$d</b>]]></string>
-    <string name="unread_notices"><![CDATA[읽지 않은 공지 수 <b>%d</b>]]></string>
-    <string name="clicker_rate_attendance_rate_none">설문 참여율 %  출석률 %</string>
-    <string name="students_read_recent_notice_none">최근 공지를 읽은 학생 수 /</string>
-    <string name="unread_notices_none"> 읽지 않은 공지들</string>
     <string name="menu">메뉴</string>
     <string name="clicker_capital">설문하기</string>
     <string name="institution_capital">기관</string>

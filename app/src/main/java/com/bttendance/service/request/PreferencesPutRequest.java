@@ -10,19 +10,19 @@ public class PreferencesPutRequest {
     public Preferences preferences;
 
     public class Preferences {
-        public boolean clicker;
-        public boolean attendance;
-        public boolean curious;
-        public boolean following;
-        public boolean notice;
+        public String clicker;
+        public String attendance;
+        public String curious;
+        public String following;
+        public String notice;
     }
 
     public PreferencesPutRequest(PreferencesJson preferencesJson) {
         this.preferences = new Preferences();
-        this.preferences.clicker = preferencesJson.clicker;
-        this.preferences.attendance = preferencesJson.attendance;
-        this.preferences.curious = preferencesJson.curious;
-        this.preferences.following = preferencesJson.following;
-        this.preferences.notice = preferencesJson.notice;
+        this.preferences.clicker = Boolean.toString(preferencesJson.clicker);
+        this.preferences.attendance = Boolean.toString(preferencesJson.attendance);
+        this.preferences.curious = Boolean.toString(preferencesJson.curious);
+        this.preferences.following = Boolean.toString(preferencesJson.following);
+        this.preferences.notice = Boolean.toString(preferencesJson.notice);
     }
 }

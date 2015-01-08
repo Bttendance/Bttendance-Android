@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.bttendance.R;
-import com.bttendance.activity.MainActivity;
 import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.adapter.SchoolAdapter;
 import com.bttendance.adapter.kit.Sectionizer;
@@ -43,7 +42,7 @@ import retrofit.client.Response;
 /**
  * Created by TheFinestArtist on 2013. 12. 1..
  */
-public class SchoolChooseFragment extends BTFragment implements AdapterView.OnItemClickListener, Callback<SchoolJson[]> {
+public class SchoolChooseFragment extends BTFragment implements AdapterView.OnItemClickListener, Callback<SchoolJson[]>, AbsListView.OnScrollListener {
 
     @InjectView(android.R.id.list)
     public ListView mListView;
@@ -52,7 +51,6 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
     SchoolAdapter mAdapter;
     SimpleSectionAdapter<Cursor> mSectionAdapter;
-    EndlessScrollListener endlessScrollListener;
 
     EditText mEditSearch;
     String mFilter;
@@ -92,9 +90,7 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
 
         mListView.setAdapter(mSectionAdapter);
         mListView.setOnItemClickListener(this);
-
-        endlessScrollListener = new EndlessScrollListener();
-        mListView.setOnScrollListener(endlessScrollListener);
+        mListView.setOnScrollListener(this);
 
         mCreateSchoolBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +107,17 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     public void onFragmentResume() {
         super.onFragmentResume();
         KeyboardHelper.hide(getActivity(), mEditSearch);
-        getBTService().getMySchools(this);
-        loadSchool(0);
+        getBTService().getMySchools(new Callback<SchoolJson[]>() {
+            @Override
+            public void success(SchoolJson[] schoolJsons, Response response) {
+                swapItems();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+            }
+        });
+        loadSchool(page);
         swapItems();
     }
 
@@ -153,12 +158,14 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 mEditSearch.setText("");
                 KeyboardHelper.hide(getActivity(), mEditSearch);
+                showingActionView = false;
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 KeyboardHelper.show(getActivity(), mEditSearch);
+                showingActionView = true;
                 return true;
             }
         });
@@ -193,8 +200,10 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
     }
 
     private void loadSchool(int page) {
-        if (getBTService() != null)
+        if (getBTService() != null && !waitingQuery) {
+            waitingQuery = true;
             getBTService().schools(page, this);
+        }
     }
 
     private void searchSchool(String query) {
@@ -202,47 +211,35 @@ public class SchoolChooseFragment extends BTFragment implements AdapterView.OnIt
             getBTService().searchSchool(query, this);
     }
 
+    // BTAPI
     @Override
     public void success(SchoolJson[] schoolJsons, Response response) {
+        if (schoolJsons.length <= 0)
+            hasMore = false;
+
+        waitingQuery = false;
+        page++;
         swapItems();
     }
 
     @Override
     public void failure(RetrofitError error) {
+        waitingQuery = false;
     }
 
+    // Scroll Listener
+    private boolean waitingQuery = false;
+    private boolean hasMore = true;
+    private int page = 1;
+    private boolean showingActionView = false;
 
-    public class EndlessScrollListener implements AbsListView.OnScrollListener {
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if ((totalItemCount - visibleItemCount) <= (firstVisibleItem + 5) && !showingActionView && hasMore)
+            loadSchool(page);
+    }
 
-        private int visibleThreshold = 5;
-        private int currentPage = 1;
-        private int previousTotal = 0;
-        private boolean loading = true;
-
-        public EndlessScrollListener() {
-        }
-
-        public void resetPage() {
-            this.currentPage = 1;
-        }
-
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            if (loading) {
-                if (totalItemCount > previousTotal) {
-                    loading = false;
-                    previousTotal = totalItemCount;
-                    currentPage++;
-                }
-            }
-            if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                loadSchool(currentPage + 1);
-                loading = true;
-            }
-        }
-
-        @Override
-        public void onScrollStateChanged(AbsListView view, int scrollState) {
-        }
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
     }
 }

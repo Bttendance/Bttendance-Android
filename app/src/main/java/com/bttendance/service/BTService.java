@@ -23,14 +23,14 @@ import com.bttendance.model.json.ErrorJson;
 import com.bttendance.model.json.PreferencesJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.service.request.CourseFindRequest;
+import com.bttendance.service.request.CourseSearchRequest;
 import com.bttendance.service.request.CoursePostRequest;
 import com.bttendance.service.request.LogInRequest;
 import com.bttendance.service.request.PasswordResetRequest;
 import com.bttendance.service.request.PreferencesPutRequest;
 import com.bttendance.service.request.SchoolPostRequest;
 import com.bttendance.service.request.SchoolSearchRequest;
-import com.bttendance.service.request.UserFindRequest;
+import com.bttendance.service.request.UserSearchRequest;
 import com.bttendance.service.request.UserPostRequest;
 import com.bttendance.service.request.UserPutRequest;
 import com.bttendance.view.BTDialog;
@@ -221,9 +221,9 @@ public class BTService extends Service {
         });
     }
 
-    public void findUser(String email, final Callback<UserJson> cb) {
-        UserFindRequest request = new UserFindRequest(email);
-        mBTAPI.findUser(request, new Callback<UserJson>() {
+    public void searchUser(String email, final Callback<UserJson> cb) {
+        UserSearchRequest request = new UserSearchRequest(email);
+        mBTAPI.searchUser(request, new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
                 successHandle(cb, userJson, response);
@@ -282,9 +282,9 @@ public class BTService extends Service {
     /**
      * Courses APIs
      */
-    public void findCourse(String code, final Callback<CourseJson> cb) {
-        CourseFindRequest request = new CourseFindRequest(code);
-        mBTAPI.findCourse(request, new Callback<CourseJson>() {
+    public void searchCourse(String code, final Callback<CourseJson> cb) {
+        CourseSearchRequest request = new CourseSearchRequest(code);
+        mBTAPI.searchCourse(request, new Callback<CourseJson>() {
             @Override
             public void success(CourseJson courseJson, Response response) {
                 BTTable.CourseTable.put(courseJson.id, courseJson);

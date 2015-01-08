@@ -26,25 +26,27 @@ public class UserPutRequest {
     }
 
     public class Device {
-//        public int id;
+        public String id;
         public String platform;
         public String uuid;
         public String mac_address;
         public String notification_key;
-        public boolean _destroy;
+        public String _destroy;
     }
 
     public class School {
-        public int school_id;
+        public String school_id;
         public String identity;
-        public String state;
-        public boolean _destroy;
+        public String is_supervisor;
+        public String is_student;
+        public String is_administrator;
+        public String _destroy;
     }
 
     public class Course {
-        public int course_id;
+        public String course_id;
         public String state;
-        public boolean _destroy;
+        public String _destroy;
     }
 
     /**
@@ -76,7 +78,7 @@ public class UserPutRequest {
 
     public UserPutRequest updateIdentity(int schoolId, String identity) {
         this.user.schools_users_attributes = new School[]{new School()};
-        this.user.schools_users_attributes[0].school_id = schoolId;
+        this.user.schools_users_attributes[0].school_id = "" + schoolId;
         this.user.schools_users_attributes[0].identity = identity;
         return this;
     }
@@ -84,12 +86,12 @@ public class UserPutRequest {
     public UserPutRequest updateNewlyCreatedCourse(CourseJson course) {
         if (course.school != null) {
             this.user.schools_users_attributes = new School[]{new School()};
-            this.user.schools_users_attributes[0].school_id = course.school.id;
-            this.user.schools_users_attributes[0].state = BTAPI.SchoolUserState.supervisor.name();
+            this.user.schools_users_attributes[0].school_id = "" + course.school.id;
+            this.user.schools_users_attributes[0].is_supervisor = Boolean.toString(true);
         }
 
         this.user.courses_users_attributes = new Course[]{new Course()};
-        this.user.courses_users_attributes[0].course_id = course.id;
+        this.user.courses_users_attributes[0].course_id = "" + course.id;
         this.user.courses_users_attributes[0].state = BTAPI.CourseUserState.supervising.name();
         return this;
     }
@@ -97,13 +99,13 @@ public class UserPutRequest {
     public UserPutRequest updateAttendingCourse(CourseJson course, String identity) {
         if (course.school != null && identity != null) {
             this.user.schools_users_attributes = new School[]{new School()};
-            this.user.schools_users_attributes[0].school_id = course.school.id;
-            this.user.schools_users_attributes[0].state = BTAPI.SchoolUserState.student.name();
+            this.user.schools_users_attributes[0].school_id = "" + course.school.id;
+            this.user.schools_users_attributes[0].is_student = Boolean.toString(true);
             this.user.schools_users_attributes[0].identity = identity;
         }
 
         this.user.courses_users_attributes = new Course[]{new Course()};
-        this.user.courses_users_attributes[0].course_id = course.id;
+        this.user.courses_users_attributes[0].course_id = "" + course.id;
         this.user.courses_users_attributes[0].state = BTAPI.CourseUserState.attending.name();
         return this;
     }

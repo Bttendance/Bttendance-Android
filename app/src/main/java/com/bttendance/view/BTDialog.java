@@ -3,7 +3,9 @@ package com.bttendance.view;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
@@ -24,6 +26,11 @@ public class BTDialog {
     public static void hide(MaterialDialog dialog) {
         if (dialog != null)
             dialog.hide();
+    }
+
+    public static void show(MaterialDialog dialog) {
+        if (dialog != null)
+            dialog.show();
     }
 
     public static MaterialDialog alert(Context context, String title, String message, final OnDialogListener listener) {
@@ -102,16 +109,37 @@ public class BTDialog {
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_black)
-                .contentColorRes(R.color.bttendance_silver)
                 .positiveColorRes(R.color.bttendance_navy)
                 .negativeColorRes(R.color.bttendance_silver)
                 .title(title)
-                .content(message)
+                .customView(R.layout.edit_dialog)
                 .positiveText(R.string.confrim)
                 .negativeText(R.string.cancel)
+                .callback(new MaterialDialog.Callback() {
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                    }
+
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        EditText identity = (EditText) dialog.getCustomView().findViewById(R.id.student_identity);
+                        if (listener != null)
+                            listener.onConfirmed(identity != null ? identity.getText().toString() : null);
+                    }
+                })
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (listener != null)
+                            listener.onCanceled();
+                    }
+                })
                 .build();
 
         themeDialog(context, dialog);
+
+        TextView content = (TextView) dialog.getCustomView().findViewById(R.id.content_text);
+        content.setText(message);
 
         dialog.show();
         return dialog;

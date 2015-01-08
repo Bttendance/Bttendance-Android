@@ -131,11 +131,11 @@ public class AttendCourseActivity extends BTActivity {
 
         String code = mCode.getText().toString();
         dialog = BTDialog.progress(this, getString(R.string.attending_course));
-        getBTService().findCourse(code, new Callback<CourseJson>() {
+        getBTService().searchCourse(code, new Callback<CourseJson>() {
             @Override
             public void success(final CourseJson courseJson, Response response) {
-
-                if (courseJson.school != null && BTTable.getMe().hasSchool(courseJson.school.id)) {
+                BTDialog.hide(dialog);
+                if (courseJson.school != null && BTTable.getMe().isStudentOfSchool(courseJson.school.id)) {
                     attendCourse(courseJson, null);
                 } else {
                     final String title;
@@ -174,7 +174,6 @@ public class AttendCourseActivity extends BTActivity {
                                 Vibrator vibrator = (Vibrator) AttendCourseActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
                                 vibrator.vibrate(200);
                             } else {
-                                BTDialog.progress(AttendCourseActivity.this, getString(R.string.attending_course));
                                 attendCourse(courseJson, edit);
                             }
                         }
@@ -195,20 +194,21 @@ public class AttendCourseActivity extends BTActivity {
 
     private void attendCourse(final CourseJson courseJson, String identity) {
 
+        BTDialog.show(dialog);
         getBTService().updateUser(new UserPutRequest().updateAttendingCourse(courseJson, identity), new Callback<UserJson>() {
             @Override
             public void success(UserJson userJson, Response response) {
-                BTDialog.hide(dialog);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
                 BTDialog.hide(dialog);
                 BTEventBus.getInstance().post(new ResetMainFragmentEvent(courseJson.id));
                 onBackPressed();
                 Intent intent = new Intent(AttendCourseActivity.this, GuideCourseAttendActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                BTDialog.hide(dialog);
             }
         });
     }

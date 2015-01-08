@@ -3,8 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="74dp"
-    android:minHeight="74dp"
-    android:background="@color/bttendance_white">
+    android:background="@color/bttendance_white"
+    android:minHeight="74dp">
 
     <Button
         android:id="@+id/selector"
@@ -13,38 +13,40 @@
         android:background="@drawable/bt_selector" />
 
     <TextView
+        android:id="@+id/profile_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/bttendance_navy"
-        android:text="BTTENDANCE"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="18dp"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="14dp"
+        android:layout_marginTop="17dp"
+        android:includeFontPadding="false"
         android:paddingBottom="2dp"
-        android:textSize="14sp"
-        android:id="@+id/profile_text" />
+        android:text="BTTENDANCE"
+        android:textColor="@color/bttendance_navy"
+        android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/profile_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/bttendance_silver"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="42dp"
-        android:text="Student - TheFinestArtist"
         android:layout_marginLeft="14dp"
+        android:layout_marginTop="40dp"
+        android:includeFontPadding="false"
         android:paddingBottom="2dp"
-        android:textSize="14sp"
-        android:id="@+id/profile_message" />
+        android:text="Student - TheFinestArtist"
+        android:textColor="@color/bttendance_silver"
+        android:textSize="14sp" />
 
     <ImageView
+        android:id="@+id/profile_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginRight="14dp"
-        android:src="@drawable/arrow"
-        android:id="@+id/profile_arrow" />
+        android:src="@drawable/arrow" />
 
     <View
         android:layout_width="match_parent"

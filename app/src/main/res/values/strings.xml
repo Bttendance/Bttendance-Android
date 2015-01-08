@@ -107,12 +107,6 @@
     <string name="add_course">Add Course</string>
     <string name="guide">Guide</string>
     <string name="feedback">Feedback</string>
-    <string name="clicker_rate_attendance_rate"><![CDATA[Clicker rate <b>%1$d%%</b>  Attendance <b>%2$d%%</b>]]></string>
-    <string name="students_read_recent_notice"><![CDATA[<b>%1$d/%2$d</b> students have read recent notice]]></string>
-    <string name="unread_notices"><![CDATA[<b>%d</b> unread notices]]></string>
-    <string name="clicker_rate_attendance_rate_none">Clicker rate %  Attendance %</string>
-    <string name="students_read_recent_notice_none">/ students have read recent notice</string>
-    <string name="unread_notices_none"> unread notices</string>
     <string name="menu">Menu</string>
     <string name="clicker_capital">CLICKER</string>
     <string name="institution_capital">INSTITUTION</string>

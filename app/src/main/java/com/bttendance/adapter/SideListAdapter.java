@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTTable;
+import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
 
 public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
@@ -23,21 +24,15 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
     }
 
     public void refreshAdapter() {
-        mUser = BTTable.getMe();
-
-//        CourseJsonArray courseJsonArray = BTPreference.getCourses(getContext());
-//        if (courseJsonArray != null && courseJsonArray.courses != null)
-//            for (CourseJson course : courseJsonArray.courses)
-//                BTTable.MyCourseTable.append(course.id, course);
-
         clear();
+        mUser = BTTable.getMe();
 
         add(new SideItem(SideItemType.Header, null));
         add(new SideItem(SideItemType.Section, getContext().getString(R.string.lectures)));
         add(new SideItem(SideItemType.AddCourse, null));
 
-//        for (CourseJsonSimple course : mUser.getOpenedCourses())
-//            add(new SideItem(SideItemType.Course, course.id));
+        for (int i = 0; i < BTTable.MyCourseTable.size(); i++)
+            add(new SideItem(SideItemType.Course, BTTable.MyCourseTable.valueAt(i)));
 
         add(new SideItem(SideItemType.Margin, 20));
         add(new SideItem(SideItemType.Section, getContext().getString(R.string.app_name_capital)));
@@ -94,28 +89,17 @@ public class SideListAdapter extends ArrayAdapter<SideListAdapter.SideItem> {
                 break;
             }
             case Course: {
-//                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_course, null);
-//                CourseJsonSimple course = mUser.getCourse((Integer) sideItem.getObject());
-//                TextView name = (TextView) convertView.findViewById(R.id.course_name);
-//                name.setText(course.name);
-//
-//                TextView detail1 = (TextView) convertView.findViewById(R.id.course_detail1);
-//                TextView detail2 = (TextView) convertView.findViewById(R.id.course_detail2);
-//
-//                CourseJson mCourse = BTTable.MyCourseTable.get(course.id);
-//                if (mCourse != null) {
-//                    detail1.setText(Html.fromHtml(String.format(getContext().getString(R.string.clicker_rate_attendance_rate), mCourse.clicker_rate, mCourse.attendance_rate)));
-//                    if (mUser.supervising(course.id))
-//                        detail2.setText(Html.fromHtml(String.format(getContext().getString(R.string.students_read_recent_notice), mCourse.students_count - mCourse.notice_unseen, mCourse.students_count)));
-//                    else
-//                        detail2.setText(Html.fromHtml(String.format(getContext().getString(R.string.unread_notices), mCourse.notice_unseen)));
-//                } else {
-//                    detail1.setText(getContext().getString(R.string.clicker_rate_attendance_rate_none));
-//                    if (mUser.supervising(course.id))
-//                        detail2.setText(getContext().getString(R.string.students_read_recent_notice_none));
-//                    else
-//                        detail2.setText(getContext().getString(R.string.unread_notices_none));
-//                }
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.side_course, null);
+                TextView courseName = (TextView) convertView.findViewById(R.id.course_name);
+                TextView schoolName = (TextView) convertView.findViewById(R.id.school_name);
+                TextView courseCode = (TextView) convertView.findViewById(R.id.code);
+                CourseJson courseJson = (CourseJson) sideItem.getObject();
+                if (courseJson != null) {
+                    courseName.setText(courseJson.name);
+                    courseCode.setText(courseJson.code);
+                    if (courseJson.school != null)
+                        schoolName.setText(courseJson.school.name);
+                }
                 break;
             }
             case Section: {

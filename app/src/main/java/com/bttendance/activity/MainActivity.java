@@ -394,7 +394,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 BTEventBus.getInstance().post(new AddFragmentEvent(pendingFragment));
             else
                 fm.beginTransaction().replace(R.id.content, pendingFragment).commit();
-            pendingFragment.onPendingFragmentResume();
         }
         pendingFragment = null;
     }

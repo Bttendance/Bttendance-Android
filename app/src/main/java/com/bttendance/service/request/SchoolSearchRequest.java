@@ -5,9 +5,9 @@ package com.bttendance.service.request;
  */
 public class SchoolSearchRequest {
 
-    public String name;
+    public String query;
 
-    public SchoolSearchRequest(String name) {
-        this.name = name;
+    public SchoolSearchRequest(String query) {
+        this.query = query;
     }
 }

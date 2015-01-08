@@ -114,7 +114,7 @@ public class BTActivity extends ActionBarActivity {
                         mLastFragment.onFragmentPause();
                     mLastFragment = frag;
 
-                    if (frag != null)
+                    if (frag != null && !frag.isRemoving())
                         frag.onPendingFragmentResume();
                 }
             }
