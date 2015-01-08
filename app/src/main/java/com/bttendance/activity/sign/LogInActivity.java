@@ -20,7 +20,7 @@ import com.bttendance.fragment.sign.ForgotPasswordFragment;
 import com.bttendance.agent.BluetoothHelper;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.view.BTDialog;
+import com.bttendance.widget.BTDialog;
 import com.squareup.otto.BTEventBus;
 
 import butterknife.ButterKnife;

@@ -14,7 +14,7 @@ import com.bttendance.event.main.ResetMainFragmentEvent;
 import com.bttendance.event.notification.NotificationReceived;
 import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.view.BTToast;
+import com.bttendance.widget.BTToast;
 import com.squareup.otto.Subscribe;
 
 import java.lang.ref.WeakReference;

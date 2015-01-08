@@ -25,7 +25,7 @@ import com.bttendance.model.BTDatabase;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.json.PreferencesJson;
 import com.bttendance.service.request.PreferencesPutRequest;
-import com.bttendance.view.BTDialog;
+import com.bttendance.widget.BTDialog;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;

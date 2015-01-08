@@ -33,7 +33,7 @@ import com.bttendance.service.request.SchoolSearchRequest;
 import com.bttendance.service.request.UserSearchRequest;
 import com.bttendance.service.request.UserPostRequest;
 import com.bttendance.service.request.UserPutRequest;
-import com.bttendance.view.BTDialog;
+import com.bttendance.widget.BTDialog;
 import com.squareup.otto.BTEventBus;
 
 import retrofit.Callback;

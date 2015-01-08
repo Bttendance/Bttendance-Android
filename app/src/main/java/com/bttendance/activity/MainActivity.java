@@ -25,7 +25,7 @@ import com.bttendance.activity.guide.IntroductionActivity;
 import com.bttendance.adapter.SideListAdapter;
 import com.bttendance.event.AddFragmentEvent;
 import com.bttendance.fragment.BTFragment;
-import com.bttendance.fragment.course.CourseDetailFragment;
+import com.bttendance.fragment.course.CourseFragment;
 import com.bttendance.fragment.course.NoCourseFragment;
 import com.bttendance.fragment.profile.ProfileFragment;
 import com.bttendance.fragment.setting.SettingFragment;
@@ -35,8 +35,8 @@ import com.bttendance.model.BTPreference;
 import com.bttendance.model.BTTable;
 import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.UserJson;
-import com.bttendance.view.BTDialog;
-import com.bttendance.view.BTToast;
+import com.bttendance.widget.BTDialog;
+import com.bttendance.widget.BTToast;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -90,8 +90,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 supportInvalidateOptionsMenu();
                 replacePendingFragment();
                 loadAd();
-//                if (getBTService() != null)
-//                    getBTService().socketConnect();
             }
 
             @Override
@@ -132,7 +130,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         if (lastCourse == Integer.MIN_VALUE)
             fragment = new NoCourseFragment();
         else {
-            fragment = new CourseDetailFragment();
+            fragment = new CourseFragment();
             Bundle bundle = new Bundle();
             bundle.putInt(BTKey.EXTRA_COURSE_ID, lastCourse);
             fragment.setArguments(bundle);
@@ -155,9 +153,6 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
     protected void onStart() {
         super.onStart();
         loadAd();
-
-//        if (BTTable.getAttdCheckingIds().size() > 0)
-//            BTEventBus.getInstance().post(new AttdStartedEvent(true));
     }
 
     @Override
@@ -260,18 +255,16 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
         SideListAdapter.SideItem item = mSideAdapter.getItem(position);
-
         BTFragment fragment = null;
-
         switch (item.getType()) {
             case Header:
                 fragment = new ProfileFragment();
                 break;
-            case AddCourse: {
+            case AddCourse:
                 showAddCourse();
                 break;
-            }
             case Guide:
                 showIntroduction();
                 break;
@@ -293,10 +286,10 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
                 }
                 break;
             case Course:
-//                fragment = new CourseDetailFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt(BTKey.EXTRA_COURSE_ID, (Integer) item.getObject());
-//                fragment.setArguments(bundle);
+                fragment = new CourseFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(BTKey.EXTRA_COURSE_ID, ((CourseJson) item.getObject()).id);
+                fragment.setArguments(bundle);
                 break;
             case Section: //nothing happens
             case Margin:
@@ -316,26 +309,26 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         resetMainFragment();
     }
 
-    private int mResetCourseID = 0;
+    private int mResetCourseId = 0;
 
     public void setResetCourseID(int courseID) {
-        mResetCourseID = courseID;
+        mResetCourseId = courseID;
 
         if (isVisible())
             resetMainFragment();
     }
 
     private void resetMainFragment() {
-        if (mResetCourseID == 0)
+        if (mResetCourseId == 0)
             return;
 
         BTFragment frag = (BTFragment) getSupportFragmentManager().findFragmentById(R.id.content);
-        if (frag instanceof CourseDetailFragment && ((CourseDetailFragment) frag).getCourseID() == mResetCourseID)
+        if (frag instanceof CourseFragment && ((CourseFragment) frag).getCourseId() == mResetCourseId)
             return;
 
-        CourseDetailFragment fragment = new CourseDetailFragment();
+        CourseFragment fragment = new CourseFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(BTKey.EXTRA_COURSE_ID, mResetCourseID);
+        bundle.putInt(BTKey.EXTRA_COURSE_ID, mResetCourseId);
         fragment.setArguments(bundle);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -347,7 +340,7 @@ public class MainActivity extends BTActivity implements AdapterView.OnItemClickL
         fragment.onPendingFragmentResume();
 
         mDrawerLayout.closeDrawer(mListMenu);
-        mResetCourseID = 0;
+        mResetCourseId = 0;
     }
 
     public void refreshSideList() {

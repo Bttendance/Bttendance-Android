@@ -19,7 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bttendance.R;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
-import com.bttendance.view.BTDialog;
+import com.bttendance.widget.BTDialog;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

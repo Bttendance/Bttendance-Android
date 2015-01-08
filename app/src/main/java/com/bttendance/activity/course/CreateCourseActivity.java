@@ -27,7 +27,7 @@ import com.bttendance.model.json.CourseJson;
 import com.bttendance.model.json.SchoolJson;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.request.UserPutRequest;
-import com.bttendance.view.BTDialog;
+import com.bttendance.widget.BTDialog;
 import com.squareup.otto.BTEventBus;
 
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.bttendance.view;
+package com.bttendance.widget;
 
 import android.content.Context;
 import android.content.DialogInterface;

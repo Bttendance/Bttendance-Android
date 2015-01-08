@@ -22,7 +22,7 @@ import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.json.UserJson;
 import com.bttendance.service.request.UserPutRequest;
-import com.bttendance.view.BTDialog;
+import com.bttendance.widget.BTDialog;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

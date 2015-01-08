@@ -18,7 +18,7 @@ import com.bttendance.event.update.UserUpdatedEvent;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.model.BTKey;
 import com.bttendance.model.BTTable;
-import com.bttendance.view.BTDialog;
+import com.bttendance.widget.BTDialog;
 import com.squareup.otto.BTEventBus;
 import com.squareup.otto.Subscribe;
 

@@ -25,7 +25,7 @@ import com.bttendance.activity.course.CreateCourseActivity;
 import com.bttendance.fragment.BTFragment;
 import com.bttendance.helper.KeyboardHelper;
 import com.bttendance.model.json.SchoolJson;
-import com.bttendance.view.BTDialog;
+import com.bttendance.widget.BTDialog;
 
 import java.util.regex.Pattern;
 

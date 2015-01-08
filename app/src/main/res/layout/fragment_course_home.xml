@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/code_bg"
+                android:layout_width="62dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bt_navy_round" />
+
+            <View
+                android:layout_width="62dp"
+                android:layout_height="29dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/bt_white_round" />
+
+            <View
+                android:layout_width="62dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="48dp"
+                android:background="@color/bttendance_white" />
+
+            <TextView
+                android:layout_width="62dp"
+                android:layout_height="18dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="@string/class_code"
+                android:textColor="@color/bttendance_white"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/code"
+                android:layout_width="62dp"
+                android:layout_height="29dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="48dp"
+                android:gravity="center"
+                android:textColor="@color/bttendance_navy"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/course_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/code_bg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="Computing Machinery"
+                android:textColor="@color/bttendance_cyan"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:scaleType="center"
+                    android:src="@drawable/coursehome_schoolname" />
+
+                <TextView
+                    android:id="@+id/school_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="1dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="Imperial College London"
+                    android:textColor="@color/bttendance_silver"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:scaleType="center"
+                    android:src="@drawable/coursehome_profname" />
+
+                <TextView
+                    android:id="@+id/prof_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="1dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="Scott P. Armstrong"
+                    android:textColor="@color/bttendance_silver"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:scaleType="center"
+                    android:src="@drawable/coursehome_students" />
+
+                <TextView
+                    android:id="@+id/students"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="1dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="120"
+                    android:textColor="@color/bttendance_silver"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:scaleType="center"
+                    android:src="@drawable/coursehome_calendar" />
+
+                <TextView
+                    android:id="@+id/calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="1dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="월화수\n목금토"
+                    android:textColor="@color/bttendance_silver"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/course_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/bttendance_white"
+            android:paddingBottom="10dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/bttendance_silver"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</ScrollView>
