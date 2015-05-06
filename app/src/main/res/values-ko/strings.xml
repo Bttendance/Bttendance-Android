@@ -291,5 +291,6 @@
     <string name="previous">이전</string>
 
     <string name="sign_out_message">정말 비텐던스에서 로그아웃 하시겠습니까?</string>
+    <string name="empty_course_info">아직 과목 정보가 등록되지 않았습니다. 여기를 눌러 과목 정보를 입력해주세요.</string>
 
 </resources>

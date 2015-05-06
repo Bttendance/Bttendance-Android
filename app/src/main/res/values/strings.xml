@@ -50,8 +50,8 @@
     <string name="introduction_last_start">Let\'s start\nBTTENDANCE</string>
     <string name="start_with_facebook">"Start with Facebook"</string>
     <string name="start_with_google">"Start with Google+"</string>
-    <string name="sign_up_with_email">"Sign Up"</string>
-    <string name="log_in_with_email">"Log In"</string>
+    <string name="sign_up_with_email">"Sign Up with Email"</string>
+    <string name="log_in_with_email">"Log In with Email"</string>
 
     <!--Sign Up/Log In-->
     <string name="sign_up">Sign Up</string>
@@ -115,7 +115,7 @@
     <string name="student__">Student - %s</string>
     <string name="closed_lectures">CLOSED LECTURES</string>
     <string name="edit_">Edit %s</string>
-    <string name="if_you_turn_off_the_notification">If you turn off the notification, you won\'t be able to receive instructor\'s action.</string>
+    <string name="if_you_turn_off_the_notification">Push Notification Setting</string>
     <string name="attendance">Attendance</string>
     <string name="clicker">Clicker</string>
     <string name="curious">Curious</string>
@@ -303,6 +303,7 @@
     <string name="feedback_error_toast_message">비텐던스 관련 피드백은 contact@bttendance.com으로 메일 주시기 바랍니다.</string>
 
     <string name="sign_out_message">Are you sure you want to sign out of Bttendance?</string>
+    <string name="empty_course_info">No Course Info Yet.</string>
 
 
 </resources>

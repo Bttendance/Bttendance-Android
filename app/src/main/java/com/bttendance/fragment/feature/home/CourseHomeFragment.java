@@ -57,8 +57,8 @@ public class CourseHomeFragment extends BTFragment {
             courseName.setText(course.name);
             schoolName.setText(course.school != null ? course.school.name : null);
             profName.setText(course.instructor_name);
-            students.setText(course.attending_users_count);
-            info.setText(course.information);
+            students.setText("" + course.attending_users_count);
+            info.setText(course.information != null ? course.instructor_name: getString(R.string.empty_course_info));
         }
         return view;
     }

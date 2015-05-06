@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -66,8 +65,6 @@ public class BTDialog {
                     }
                 }).build();
 
-        themeDialog(context, dialog);
-
         dialog.show();
         return dialog;
     }
@@ -97,8 +94,6 @@ public class BTDialog {
                     }
                 }).build();
 
-        themeDialog(context, dialog);
-
         dialog.show();
         return dialog;
     }
@@ -112,7 +107,7 @@ public class BTDialog {
                 .positiveColorRes(R.color.bttendance_navy)
                 .negativeColorRes(R.color.bttendance_silver)
                 .title(title)
-                .customView(R.layout.edit_dialog)
+                .customView(R.layout.edit_dialog, true)
                 .positiveText(R.string.confrim)
                 .negativeText(R.string.cancel)
                 .callback(new MaterialDialog.Callback() {
@@ -136,8 +131,6 @@ public class BTDialog {
                 })
                 .build();
 
-        themeDialog(context, dialog);
-
         TextView content = (TextView) dialog.getCustomView().findViewById(R.id.content_text);
         content.setText(message);
 
@@ -151,7 +144,7 @@ public class BTDialog {
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_black)
-                .contentColorRes(R.color.bttendance_silver)
+                .itemColorRes(R.color.bttendance_silver)
                 .title(title)
                 .items(options)
                 .itemsCallback(new MaterialDialog.ListCallback() {
@@ -169,8 +162,6 @@ public class BTDialog {
                 })
                 .build();
 
-        themeDialog(context, dialog);
-
         dialog.show();
         return dialog;
     }
@@ -182,38 +173,11 @@ public class BTDialog {
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .titleColorRes(R.color.bttendance_silver)
                 .title(message)
-                .customView(R.layout.dialog_progress)
+                .customView(R.layout.dialog_progress, false)
                 .build();
-
-        themeDialog(context, dialog);
 
         dialog.show();
         return dialog;
-    }
-
-    private static void themeDialog(Context context, MaterialDialog dialog) {
-        if (dialog == null)
-            return;
-
-        if (dialog.getCustomView() == null) {
-            if (dialog.getTitleFrame() != null
-                    && dialog.getTitleFrame().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent() instanceof LinearLayout) {
-                LinearLayout topLayout = (LinearLayout) dialog.getTitleFrame().getParent().getParent();
-                topLayout.setBackgroundResource(R.drawable.bt_white_bg);
-            }
-        } else {
-            if (dialog.getTitleFrame() != null
-                    && dialog.getTitleFrame().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent().getParent().getParent() != null
-                    && dialog.getTitleFrame().getParent().getParent().getParent().getParent() instanceof LinearLayout) {
-                LinearLayout topLayout = (LinearLayout) dialog.getTitleFrame().getParent().getParent().getParent().getParent();
-                topLayout.setBackgroundResource(R.drawable.bt_white_bg);
-            }
-        }
     }
 
 }//end of class

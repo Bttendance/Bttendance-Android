@@ -238,6 +238,7 @@ public class BTService extends Service {
 
     public void signOut() {
         BTDatabase.clearUser(getApplicationContext());
+        BTTable.clear();
         Intent intent = new Intent(getApplicationContext(), IntroductionActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

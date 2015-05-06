@@ -40,7 +40,9 @@ public class BTPreference {
     // Log Out
     public static void clearPref(Context ctx) {
         SharedPreferences.Editor edit = getInstance(ctx).edit();
+        edit.remove(LAST_COURSE);
         edit.remove(APP_VERSION);
+        edit.remove(NOTIFICATION_KEY);
         edit.apply();
     }
 

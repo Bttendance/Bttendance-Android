@@ -44,6 +44,14 @@ public class BTTable {
                 MyCourseTable.put(course.id, course);
     }
 
+    public static void clear() {
+        Me = null;
+        SchoolTable.clear();
+        CourseTable.clear();
+        MySchoolTable.clear();
+        MyCourseTable.clear();
+    }
+
     public static void setMe(UserJson user) {
         Me = user;
     }

@@ -9,6 +9,12 @@
         <item name="android:textColorPrimary">@color/bttendance_white</item>
         <item name="windowActionBar">false</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
+        <item name="md_dark_theme">false</item>
+        <item name="md_background_color">@color/bttendance_white</item>
+        <item name="md_divider_color">@color/bttendance_navy</item>
+        <item name="md_selector">@drawable/bt_selector</item>
+        <item name="md_btn_selector">@drawable/bt_selector</item>
     </style>
 
     <style name="Theme.Bttendance.NoActionBar" parent="@style/Theme.Bttendance">

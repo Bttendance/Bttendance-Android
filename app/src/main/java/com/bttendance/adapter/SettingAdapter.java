@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bttendance.R;
 import com.bttendance.helper.DipPixelHelper;
 import com.bttendance.model.BTDatabase;
-import com.bttendance.model.BTPreference;
 import com.bttendance.model.json.PreferencesJson;
 
 /**
@@ -32,6 +31,7 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
         preferencesJson = BTDatabase.getPreference(getContext());
         clear();
 
+        add(new SettingItem(SettingItemType.PushTitle, null));
         add(new SettingItem(SettingItemType.Attendance, null));
         add(new SettingItem(SettingItemType.Clicker, null));
         add(new SettingItem(SettingItemType.Notice, null));
@@ -53,6 +53,10 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
 
         SettingItem settingItem = getItem(position);
         switch (settingItem.type) {
+            case PushTitle: {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_info, null);
+                break;
+            }
             case Clicker: {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.setting_noti, null);
                 TextView text = (TextView) convertView.findViewById(R.id.setting_text);
@@ -193,6 +197,6 @@ public class SettingAdapter extends ArrayAdapter<SettingAdapter.SettingItem> {
     }
 
     public enum SettingItemType {
-        Clicker, Attendance, Notice, Curious, Following, PushInfo, Terms, Privacy, Blog, Facebook, Margin
+        PushTitle, Clicker, Attendance, Notice, Curious, Following, PushInfo, Terms, Privacy, Blog, Facebook, Margin
     }
 }
